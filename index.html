@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <!-- SEO -->
+  <meta name="description" content="Soumojit Chowdhury — Lead Data Scientist with 10+ years in ML, GenAI, Fraud Analytics & Financial Crime at HSBC.">
+  <meta name="keywords" content="Data Scientist, Machine Learning, GenAI, LLM, RAG, Fraud Analytics, Financial Crime, Deep Learning, HSBC">
+  <meta name="author" content="Soumojit Chowdhury">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Soumojit Chowdhury | Lead Data Scientist">
+  <meta property="og:description" content="Lead Data Scientist with 10+ years in ML, GenAI & Fraud Analytics. Currently at HSBC.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_IN">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Soumojit Chowdhury | Lead Data Scientist">
+  <meta name="twitter:description" content="Lead Data Scientist | ML | GenAI | Fraud Analytics">
+  <title>Soumojit Chowdhury | Lead Data Scientist</title>
+  <!-- SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (Free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" aria-label="Go to top">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#home"       class="nav-link" data-section="home">Home</a></li>
+        <li><a href="#about"      class="nav-link" data-section="about">About</a></li>
+        <li><a href="#skills"     class="nav-link" data-section="skills">Skills</a></li>
+        <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+        <li><a href="#projects"   class="nav-link" data-section="projects">Projects</a></li>
+        <li><a href="#contact"    class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="hero" aria-labelledby="hero-name">
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-greeting">Hello, I'm</p>
+      <h1 class="hero-name" id="hero-name">Soumojit Chowdhury</h1>
+      <div class="hero-title-row" aria-live="polite" aria-label="Current role description">
+        <span class="hero-title-prefix">I build </span>
+        <span class="hero-typed" id="typed-text" aria-hidden="true"></span>
+        <span class="typed-cursor" aria-hidden="true">|</span>
+      </div>
+      <p class="hero-tagline">10+ years delivering production-grade AI/ML solutions across BFSI, FinTech, manufacturing &amp; energy.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">
+          <i class="fas fa-diagram-project" aria-hidden="true"></i> View Projects
+        </a>
+        <a href="#contact" class="btn btn-glass">
+          <i class="fas fa-envelope" aria-hidden="true"></i> Contact Me
+        </a>
+        <a href="#" class="btn btn-glass" aria-label="Download Resume PDF">
+          <i class="fas fa-download" aria-hidden="true"></i> Resume
+        </a>
+      </div>
+      <div class="hero-stats" role="list" aria-label="Key statistics">
+        <div class="stat" role="listitem">
+          <span class="stat-number">10+</span>
+          <span class="stat-label">Years Exp.</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Companies</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <span class="stat-number">$50M+</span>
+          <span class="stat-label">Cost Savings</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <span class="stat-number">6+</span>
+          <span class="stat-label">Domains</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="#about" class="hero-scroll" aria-label="Scroll to About section">
+      <span>Scroll</span>
+      <div class="scroll-dot"></div>
+    </a>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="section about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Get to know me</span>
+        <h2 class="section-title" id="about-title">About Me</h2>
+      </div>
+      <div class="about-grid">
+        <!-- Avatar -->
+        <div class="about-avatar-col reveal">
+          <div class="about-avatar glass-card" aria-label="Profile picture placeholder — Soumojit Chowdhury">
+            <div class="avatar-initials" aria-hidden="true">SC</div>
+            <div class="avatar-ring" aria-hidden="true"></div>
+          </div>
+          <div class="about-chips">
+            <span class="chip"><i class="fas fa-location-dot" aria-hidden="true"></i> Kolkata, India</span>
+            <span class="chip"><i class="fas fa-building" aria-hidden="true"></i> HSBC</span>
+            <span class="chip"><i class="fas fa-graduation-cap" aria-hidden="true"></i> B.Tech CSE</span>
+            <span class="chip chip-available"><i class="fas fa-circle" aria-hidden="true"></i> Open to Opportunities</span>
+          </div>
+        </div>
+        <!-- Text -->
+        <div class="about-text-col reveal">
+          <p>
+            Results-driven Lead Data Scientist with <strong>10+ years of experience</strong> delivering
+            production-grade AI/ML solutions across BFSI, FinTech, manufacturing, and energy domains.
+          </p>
+          <p>
+            Deep expertise in <strong>fraud detection, financial crime analytics, real-time transaction
+            risk scoring</strong>, and GenAI-powered anomaly detection. Proven ability to own the full
+            ML lifecycle — from feature engineering and model development to CI/CD deployment and monitoring.
+          </p>
+          <p>
+            Experienced with cloud platforms (GCP, Azure, AWS), MLOps tooling, graph analytics, and
+            cross-functional stakeholder communication in highly regulated environments.
+          </p>
+          <div class="about-highlights">
+            <div class="highlight-item glass-card">
+              <div class="highlight-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
+              <div>
+                <strong>Fraud &amp; Risk</strong>
+                <span>Financial Crime Analytics</span>
+              </div>
+            </div>
+            <div class="highlight-item glass-card">
+              <div class="highlight-icon" aria-hidden="true"><i class="fas fa-brain"></i></div>
+              <div>
+                <strong>GenAI &amp; LLMs</strong>
+                <span>RAG, Transformers, LLM Ops</span>
+              </div>
+            </div>
+            <div class="highlight-item glass-card">
+              <div class="highlight-icon" aria-hidden="true"><i class="fas fa-cloud"></i></div>
+              <div>
+                <strong>MLOps &amp; Cloud</strong>
+                <span>GCP · Azure · CI/CD</span>
+              </div>
+            </div>
+            <div class="highlight-item glass-card">
+              <div class="highlight-icon" aria-hidden="true"><i class="fas fa-share-nodes"></i></div>
+              <div>
+                <strong>Graph Analytics</strong>
+                <span>Network-based Mule Detection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills" class="section skills" aria-labelledby="skills-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">What I work with</span>
+        <h2 class="section-title" id="skills-title">Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+
+        <article class="skill-card glass-card reveal">
+          <div class="skill-card-header">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            <h3>Fraud &amp; Risk ML</h3>
+          </div>
+          <div class="skill-tags" role="list">
+            <span role="listitem">Fraud Detection</span>
+            <span role="listitem">Financial Crime Analytics</span>
+            <span role="listitem">Transaction Risk Scoring</span>
+            <span role="listitem">Anomaly Detection</span>
+            <span role="listitem">Graph Analytics</span>
+            <span role="listitem">Network Analysis</span>
+            <span role="listitem">Mule Detection</span>
+            <span role="listitem">Real-time Monitoring</span>
+          </div>
+        </article>
+
+        <article class="skill-card glass-card reveal">
+          <div class="skill-card-header">
+            <i class="fas fa-robot" aria-hidden="true"></i>
+            <h3>ML / AI</h3>
+          </div>
+          <div class="skill-tags" role="list">
+            <span role="listitem">Supervised Learning</span>
+            <span role="listitem">Unsupervised Learning</span>
+            <span role="listitem">Classification</span>
+            <span role="listitem">Regression</span>
+            <span role="listitem">Clustering</span>
+            <span role="listitem">Time-series Forecasting</span>
+            <span role="listitem">A/B Testing</span>
+            <span role="listitem">Feature Engineering</span>
+          </div>
+        </article>
+
+        <article class="skill-card glass-card reveal">
+          <div class="skill-card-header">
+            <i class="fas fa-brain" aria-hidden="true"></i>
+            <h3>Deep Learning &amp; GenAI</h3>
+          </div>
+          <div class="skill-tags" role="list">
+            <span role="listitem">CNN</span>
+            <span role="listitem">RNN / LSTM</span>
+            <span role="listitem">Transformers</span>
+            <span role="listitem">BERT</span>
+            <span role="listitem">LLMs</span>
+            <span role="listitem">RAG</span>
+            <span role="listitem">GANs</span>
+            <span role="listitem">Prompt Engineering</span>
+          </div>
+        </article>
+
+        <article class="skill-card glass-card reveal">
+          <div class="skill-card-header">
+            <i class="fas fa-gears" aria-hidden="true"></i>
+            <h3>MLOps &amp; Deployment</h3>
+          </div>
+          <div class="skill-tags" role="list">
+            <span role="listitem">CI/CD Pipelines</span>
+            <span role="listitem">Azure ML Studio</span>
+            <span role="listitem">Azure Data Factory</span>
+            <span role="listitem">Vertex AI</span>
+            <span role="listitem">Airflow</span>
+            <span role="listitem">MLflow</span>
+            <span role="listitem">Model Monitoring</span>
+            <span role="listitem">Drift Detection</span>
+          </div>
+        </article>
+
+        <article class="skill-card glass-card reveal">
+          <div class="skill-card-header">
+            <i class="fas fa-database" aria-hidden="true"></i>
+            <h3>Big Data &amp; Processing</h3>
+          </div>
+          <div class="skill-tags" role="list">
+            <span role="listitem">Apache Spark</span>
+            <span role="listitem">Hadoop</span>
+            <span role="listitem">BigQuery</span>
+            <span role="listitem">SQL</span>
+            <span role="listitem">Python</span>
+            <span role="listitem">R</span>
+            <span role="listitem">SAS</span>
+            <span role="listitem">Data Pipelines</span>
+          </div>
+        </article>
+
+        <article class="skill-card glass-card reveal">
+          <div class="skill-card-header">
+            <i class="fas fa-cloud" aria-hidden="true"></i>
+            <h3>Cloud &amp; Frameworks</h3>
+          </div>
+          <div class="skill-tags" role="list">
+            <span role="listitem">GCP</span>
+            <span role="listitem">Azure</span>
+            <span role="listitem">AWS</span>
+            <span role="listitem">TensorFlow</span>
+            <span role="listitem">PyTorch</span>
+            <span role="listitem">XGBoost</span>
+            <span role="listitem">LightGBM</span>
+            <span role="listitem">Scikit-learn</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXPERIENCE ========== -->
+  <section id="experience" class="section experience" aria-labelledby="exp-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">My journey</span>
+        <h2 class="section-title" id="exp-title">Work Experience</h2>
+      </div>
+      <div class="timeline" role="list">
+
+        <!-- HSBC -->
+        <article class="timeline-item reveal" role="listitem">
+          <div class="tl-marker" aria-hidden="true">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card glass-card">
+            <div class="tl-header">
+              <div class="tl-title-group">
+                <h3>Lead Data Scientist</h3>
+                <p class="tl-company"><i class="fas fa-building" aria-hidden="true"></i> HSBC · Assistant Director, Data &amp; Analytics</p>
+              </div>
+              <time class="tl-date" datetime="2022-03">Mar 2022 – Present</time>
+            </div>
+            <ul class="tl-bullets">
+              <li>Architected production-grade financial crime detection system via graph analytics (network-based mule detection) — <strong>&gt;85% precision</strong>, 80% reduction in detection lag; integrated into Azure ML CI/CD.</li>
+              <li>Led GenAI model development (LLM-based anomaly flagging) for insurance claims — <strong>~30% reduction in false positives</strong>, boosting fraud investigation efficiency.</li>
+              <li>Owned end-to-end ML lifecycle: data engineering, feature engineering, A/B testing, model monitoring &amp; drift detection with full Model Risk compliance.</li>
+              <li>Designed A/B experiments &amp; statistical tests; built Looker dashboards for self-serve fraud KPI tracking.</li>
+            </ul>
+            <div class="tl-tags" role="list" aria-label="Technologies used">
+              <span role="listitem">Azure ML</span>
+              <span role="listitem">Graph Analytics</span>
+              <span role="listitem">LLMs</span>
+              <span role="listitem">GenAI</span>
+              <span role="listitem">CI/CD</span>
+              <span role="listitem">Looker</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tiger Analytics -->
+        <article class="timeline-item reveal" role="listitem">
+          <div class="tl-marker" aria-hidden="true">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card glass-card">
+            <div class="tl-header">
+              <div class="tl-title-group">
+                <h3>Data Scientist</h3>
+                <p class="tl-company"><i class="fas fa-building" aria-hidden="true"></i> Tiger Analytics</p>
+              </div>
+              <time class="tl-date" datetime="2021-03">Mar 2021 – Mar 2022</time>
+            </div>
+            <ul class="tl-bullets">
+              <li>Engineered Industrial IoT predictive maintenance system for a Fortune 500 steel manufacturer — <strong>~$50M in cost avoidance</strong> through proactive anomaly detection.</li>
+              <li>Built real-time anomaly detection &amp; time-series forecasting (LSTM, Prophet) on sensor telemetry; deployed at scale on Spark and cloud pipelines.</li>
+              <li>Developed power consumption optimisation engine — <strong>~$5M in annual savings</strong>.</li>
+            </ul>
+            <div class="tl-tags" role="list">
+              <span>LSTM</span><span>Prophet</span><span>Apache Spark</span><span>IoT</span><span>Predictive Maintenance</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Cognizant -->
+        <article class="timeline-item reveal" role="listitem">
+          <div class="tl-marker" aria-hidden="true">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card glass-card">
+            <div class="tl-header">
+              <div class="tl-title-group">
+                <h3>Associate Data Scientist</h3>
+                <p class="tl-company"><i class="fas fa-building" aria-hidden="true"></i> Cognizant</p>
+              </div>
+              <time class="tl-date" datetime="2018-08">Aug 2018 – Mar 2021</time>
+            </div>
+            <ul class="tl-bullets">
+              <li>Built predictive models for insurance marketing optimisation — <strong>+14% lead conversion rate</strong> via propensity scoring.</li>
+              <li>Designed customer segmentation frameworks (K-Means, DBSCAN) for personalised outreach and targeted recommendations.</li>
+              <li>Translated model insights into actionable decisions for non-technical leadership.</li>
+            </ul>
+            <div class="tl-tags" role="list">
+              <span>K-Means</span><span>DBSCAN</span><span>Propensity Scoring</span><span>Feature Engineering</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Infosys -->
+        <article class="timeline-item reveal" role="listitem">
+          <div class="tl-marker" aria-hidden="true">
+            <div class="tl-dot last"></div>
+          </div>
+          <div class="tl-card glass-card">
+            <div class="tl-header">
+              <div class="tl-title-group">
+                <h3>Analyst</h3>
+                <p class="tl-company"><i class="fas fa-building" aria-hidden="true"></i> Infosys</p>
+              </div>
+              <time class="tl-date" datetime="2015-08">Aug 2015 – Aug 2018</time>
+            </div>
+            <ul class="tl-bullets">
+              <li>Designed ML models for energy meter tampering &amp; utility fraud detection — <strong>60% reduction in manual investigation time</strong>.</li>
+              <li>Built demand forecasting pipelines across 1,000+ product-store combinations (ARIMA, gradient boosting), improving supply chain accuracy.</li>
+            </ul>
+            <div class="tl-tags" role="list">
+              <span>ARIMA</span><span>Gradient Boosting</span><span>Fraud Detection</span><span>Demand Forecasting</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Education -->
+        <article class="timeline-item reveal" role="listitem">
+          <div class="tl-marker" aria-hidden="true">
+            <div class="tl-dot education"></div>
+          </div>
+          <div class="tl-card glass-card tl-education">
+            <div class="tl-header">
+              <div class="tl-title-group">
+                <h3><i class="fas fa-graduation-cap" aria-hidden="true"></i> B.Tech — Computer Science &amp; Engineering</h3>
+                <p class="tl-company">West Bengal University of Technology</p>
+              </div>
+              <time class="tl-date" datetime="2015">2011 – 2015</time>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section id="projects" class="section projects" aria-labelledby="projects-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">What I've built</span>
+        <h2 class="section-title" id="projects-title">Featured Projects</h2>
+        <p class="section-subtitle">Advanced ML, Deep Learning &amp; GenAI projects spanning fraud analytics, LLM systems, and production AI.</p>
+      </div>
+      <div class="projects-grid">
+
+        <!-- P1: FinGuard-GNN -->
+        <article class="project-card glass-card reveal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-share-nodes"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-hot">Featured</span>
+              <span class="badge badge-cat">Graph AI</span>
+            </div>
+          </div>
+          <h3>FinGuard-GNN</h3>
+          <p>End-to-end financial crime detection combining Graph Neural Networks for money-flow analysis with LLM-generated risk narratives. Detects mule accounts in real time with explainable outputs per transaction.</p>
+          <div class="project-metrics">
+            <span><i class="fas fa-bullseye" aria-hidden="true"></i> 92% Precision</span>
+            <span><i class="fas fa-bolt" aria-hidden="true"></i> Real-time inference</span>
+          </div>
+          <div class="project-tech" role="list" aria-label="Technologies">
+            <span>PyTorch Geometric</span><span>LangChain</span><span>GPT-4</span><span>NetworkX</span><span>Azure ML</span>
+          </div>
+        </article>
+
+        <!-- P2: RAGDoc Intelligence -->
+        <article class="project-card glass-card reveal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-magnifying-glass"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-hot">Featured</span>
+              <span class="badge badge-cat">RAG / LLM</span>
+            </div>
+          </div>
+          <h3>RAGDoc Intelligence</h3>
+          <p>Retrieval-Augmented Generation system for parsing and semantic querying of 50,000+ financial regulatory documents. Dramatically reduces compliance review time through LLM-powered summarisation and Q&amp;A.</p>
+          <div class="project-metrics">
+            <span><i class="fas fa-gauge-high" aria-hidden="true"></i> 70% Faster Review</span>
+            <span><i class="fas fa-database" aria-hidden="true"></i> 50K+ Docs</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>LangChain</span><span>FAISS</span><span>OpenAI</span><span>ChromaDB</span><span>HuggingFace</span>
+          </div>
+        </article>
+
+        <!-- P3: AnomalyFormer -->
+        <article class="project-card glass-card reveal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-wave-square"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-cat">Deep Learning</span>
+            </div>
+          </div>
+          <h3>AnomalyFormer</h3>
+          <p>Novel Transformer architecture for detecting anomalies in high-dimensional IoT sensor streams. Trained on 500M+ data points across industrial plant zones with sub-second inference and multi-variate correlation tracking.</p>
+          <div class="project-metrics">
+            <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;100ms Inference</span>
+            <span><i class="fas fa-microchip" aria-hidden="true"></i> 500M+ Data Points</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>PyTorch</span><span>Transformers</span><span>Kafka</span><span>Vertex AI</span><span>Spark</span>
+          </div>
+        </article>
+
+        <!-- P4: LLM-KYC Copilot -->
+        <article class="project-card glass-card reveal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-user-shield"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-hot">Featured</span>
+              <span class="badge badge-cat">LLM + RAG</span>
+            </div>
+          </div>
+          <h3>LLM-KYC Copilot</h3>
+          <p>Intelligent KYC automation system using RAG over customer documents combined with LLM-based risk classification and narrative generation. Maintains full regulatory compliance while slashing manual review effort.</p>
+          <div class="project-metrics">
+            <span><i class="fas fa-percent" aria-hidden="true"></i> 65% Effort Reduction</span>
+            <span><i class="fas fa-circle-check" aria-hidden="true"></i> Reg. Compliant</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>LangChain</span><span>GPT-4</span><span>Pinecone</span><span>FastAPI</span><span>Azure OpenAI</span>
+          </div>
+        </article>
+
+        <!-- P5: DeepFraud Sentinel -->
+        <article class="project-card glass-card reveal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-cat">Real-time ML</span>
+            </div>
+          </div>
+          <h3>DeepFraud Sentinel</h3>
+          <p>Production-grade real-time fraud detection engine processing 10K+ transactions per second at under 50ms latency. Combines gradient boosting ensemble with deep learning for sequential behavioural anomaly detection.</p>
+          <div class="project-metrics">
+            <span><i class="fas fa-right-left" aria-hidden="true"></i> 10K+ TPS</span>
+            <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;50ms Latency</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>XGBoost</span><span>TensorFlow</span><span>Kafka</span><span>Apache Flink</span><span>MLflow</span>
+          </div>
+        </article>
+
+        <!-- P6: MultiModal Risk Engine -->
+        <article class="project-card glass-card reveal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-layer-group"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-cat">MultiModal AI</span>
+            </div>
+          </div>
+          <h3>MultiModal Risk Engine</h3>
+          <p>Multi-modal deep learning system fusing document OCR, computer vision, and structured tabular data for insurance fraud detection. Reduces false positives by 45% versus single-modality baseline models.</p>
+          <div class="project-metrics">
+            <span><i class="fas fa-eye" aria-hidden="true"></i> Vision + NLP + Tabular</span>
+            <span><i class="fas fa-arrow-down" aria-hidden="true"></i> 45% Fewer FP</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>BERT</span><span>ResNet-50</span><span>LightGBM</span><span>CLIP</span><span>PyTorch</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="section contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Let's talk</span>
+        <h2 class="section-title" id="contact-title">Contact Me</h2>
+      </div>
+      <div class="contact-grid">
+
+        <!-- Left: Links -->
+        <div class="contact-info reveal">
+          <p class="contact-intro">
+            Open to discussing new opportunities, research collaborations, or simply talking shop about AI/ML.
+            I typically respond within 24 hours.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:soumojit.chowdhury@gmail.com" class="contact-link glass-card">
+              <div class="contact-link-icon email-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+              <div class="contact-link-text">
+                <strong>Email</strong>
+                <span>soumojit.chowdhury@gmail.com</span>
+              </div>
+              <i class="fas fa-arrow-right contact-arrow" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/soumojit-chowdhury" target="_blank" rel="noopener noreferrer" class="contact-link glass-card">
+              <div class="contact-link-icon linkedin-icon"><i class="fab fa-linkedin-in" aria-hidden="true"></i></div>
+              <div class="contact-link-text">
+                <strong>LinkedIn</strong>
+                <span>soumojit-chowdhury</span>
+              </div>
+              <i class="fas fa-arrow-right contact-arrow" aria-hidden="true"></i>
+            </a>
+            <!-- TODO: Replace with your actual Instagram handle -->
+            <a href="https://www.instagram.com/soumojit.chowdhury" target="_blank" rel="noopener noreferrer" class="contact-link glass-card">
+              <div class="contact-link-icon instagram-icon"><i class="fab fa-instagram" aria-hidden="true"></i></div>
+              <div class="contact-link-text">
+                <strong>Instagram</strong>
+                <span>@soumojit.chowdhury</span>
+              </div>
+              <i class="fas fa-arrow-right contact-arrow" aria-hidden="true"></i>
+            </a>
+            <div class="contact-link glass-card no-link">
+              <div class="contact-link-icon location-icon"><i class="fas fa-location-dot" aria-hidden="true"></i></div>
+              <div class="contact-link-text">
+                <strong>Location</strong>
+                <span>Kolkata, West Bengal, India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <!-- To enable real email delivery, sign up at https://formspree.io and replace YOUR_FORM_ID below -->
+        <div class="contact-form-wrapper glass-card reveal">
+          <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cf-name">Name <span aria-hidden="true">*</span></label>
+                <input type="text" id="cf-name" name="name" placeholder="Jane Doe" autocomplete="name" required minlength="2" maxlength="100">
+                <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+                <input type="email" id="cf-email" name="email" placeholder="jane@company.com" autocomplete="email" required maxlength="254">
+                <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cf-subject">Subject <span aria-hidden="true">*</span></label>
+              <input type="text" id="cf-subject" name="subject" placeholder="Collaboration / Opportunity / General" required minlength="3" maxlength="150">
+              <span class="form-error" id="subject-error" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="cf-message">Message <span aria-hidden="true">*</span></label>
+              <textarea id="cf-message" name="message" rows="5" placeholder="Tell me about your project or opportunity…" required minlength="10" maxlength="2000"></textarea>
+              <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+            </div>
+            <!-- Honeypot anti-spam field — hidden from real users -->
+            <input type="text" name="_honeypot" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+              <span id="btn-text">Send Message</span>
+              <i class="fas fa-paper-plane" aria-hidden="true" id="btn-icon"></i>
+            </button>
+            <div id="form-success" class="form-feedback form-success hidden" role="status" aria-live="polite">
+              <i class="fas fa-circle-check" aria-hidden="true"></i>
+              <span>Message sent! I'll get back to you within 24 hours.</span>
+            </div>
+            <div id="form-error-msg" class="form-feedback form-error-banner hidden" role="alert" aria-live="polite">
+              <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+              <span>Something went wrong. Please email me directly at soumojit.chowdhury@gmail.com</span>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#home" class="footer-logo" aria-label="Back to top">SC<span class="accent">.</span></a>
+        <p class="footer-copy">
+          &copy; <span id="footer-year"></span> Soumojit Chowdhury · Lead Data Scientist · Kolkata, India
+        </p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/soumojit-chowdhury" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.instagram.com/soumojit.chowdhury" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="mailto:soumojit.chowdhury@gmail.com" aria-label="Send email">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-top button -->
+  <button id="scroll-top" class="scroll-top-btn" aria-label="Scroll back to top" hidden>
+    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
