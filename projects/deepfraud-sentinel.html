@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DeepFraud Sentinel: Real-time transaction fraud detection combining XGBoost and BiLSTM with attention in a low-latency ensemble.">
+  <title>DeepFraud Sentinel | Soumojit Chowdhury</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" aria-label="Back to portfolio">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="../index.html#about"      class="nav-link">About</a></li>
+        <li><a href="../index.html#skills"     class="nav-link">Skills</a></li>
+        <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="../index.html#projects"   class="nav-link">Projects</a></li>
+        <li><a href="../index.html#contact"    class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="container">
+
+      <a href="../index.html#projects" class="back-btn">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Projects
+      </a>
+
+      <!-- Header -->
+      <div class="proj-page-header glass-card reveal">
+        <div class="proj-page-icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
+        <div class="proj-page-badges">
+          <span class="badge badge-featured">Societe Generale</span>
+          <span class="badge badge-type">Real-Time Fraud · Deep Learning</span>
+        </div>
+        <h1 class="proj-page-title">DeepFraud Sentinel</h1>
+        <p class="proj-page-tagline">
+          A two-stage real-time fraud detection system: XGBoost scores each transaction in
+          &lt;50 ms using engineered velocity features, while a BiLSTM with multi-head attention
+          captures longer behavioural sequences. A calibrated ensemble decides accept / flag / block.
+        </p>
+        <div class="proj-page-meta">
+          <span><i class="fas fa-calendar" aria-hidden="true"></i> 2020 – 2021</span>
+          <span><i class="fas fa-building" aria-hidden="true"></i> Societe Generale</span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> XGBoost · PyTorch BiLSTM · Kafka · Redis</span>
+        </div>
+        <div class="proj-page-kpis">
+          <div class="proj-kpi"><span class="proj-kpi-val">18%</span><span class="proj-kpi-label">Uplift in fraud caught vs. prior model</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">&lt;50ms</span><span class="proj-kpi-label">p99 scoring latency</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">0.94</span><span class="proj-kpi-label">AUC-PR on imbalanced test set</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">1M+</span><span class="proj-kpi-label">Transactions scored daily</span></div>
+        </div>
+      </div>
+
+      <!-- Problem -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-bullseye" aria-hidden="true"></i> Problem Statement</h2>
+        <p>
+          Card payment fraud at Societe Generale required a decision within
+          <strong>100 ms of transaction initiation</strong> — too tight for complex deep learning
+          models to run alone. Meanwhile, the existing gradient-boosted model lacked behavioural
+          memory: it scored each transaction in isolation, missing fraud patterns that only emerge
+          across a sequence of 20–30 transactions.
+        </p>
+        <p>
+          The solution was a <strong>two-stage ensemble</strong>: a fast XGBoost scorer gates
+          all transactions, while a BiLSTM models the sequence of the last 30 transactions for
+          behavioural anomalies. The ensemble combines both scores with learned weights, calibrated
+          on a stratified validation set.
+        </p>
+      </div>
+
+      <!-- Architecture -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-sitemap" aria-hidden="true"></i> System Architecture</h2>
+        <div class="arch-flow">
+          <span class="arch-node">Kafka Transaction Stream</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Redis Feature Cache</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">XGBoost (fast path)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">BiLSTM + Attention</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Calibrated Ensemble</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Accept / Flag / Block</span>
+        </div>
+        <p>
+          Velocity and behaviour features (rolling 1 h / 24 h counts, amount z-score, merchant
+          risk, geo-velocity) are pre-computed and cached in <strong>Redis</strong> with sub-millisecond
+          lookups. The XGBoost model uses these as inputs and runs in ~5 ms.
+        </p>
+        <p>
+          For high-risk transactions (XGBoost score &gt; 0.3), the last 30 transactions are fetched
+          from Redis and scored by the BiLSTM. Multi-head attention lets the model focus on
+          the most suspicious moments in the sequence. The final ensemble score uses
+          <strong>0.45 × XGB + 0.55 × LSTM</strong> weights tuned on a validation holdout.
+        </p>
+      </div>
+
+      <!-- Code -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-code" aria-hidden="true"></i> Key Implementation</h2>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>features.py — Velocity and behavioural feature engineering</span>
+            <span>Python · Pandas · NumPy</span>
+          </div>
+          <pre><code>import pandas as pd
+import numpy as np
+
+def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+    df = df.sort_values(['account_id', 'timestamp'])
+
+    # Rolling velocity (per-account, indexed by timestamp)
+    grp = df.groupby('account_id')
+    df['tx_count_1h']   = grp['amount'].transform(
+        lambda x: x.rolling('1H',  on=df.loc[x.index, 'timestamp']).count())
+    df['tx_count_24h']  = grp['amount'].transform(
+        lambda x: x.rolling('24H', on=df.loc[x.index, 'timestamp']).count())
+    df['amount_sum_1h'] = grp['amount'].transform(
+        lambda x: x.rolling('1H',  on=df.loc[x.index, 'timestamp']).sum())
+
+    # Behavioural deviation: z-score vs account history
+    stats = df.groupby('account_id')['amount'].agg(['mean', 'std'])
+    df    = df.join(stats, on='account_id', rsuffix='_acct')
+    df['amount_zscore'] = (df['amount'] - df['mean']) / (df['std'].clip(lower=1e-8))
+
+    # Temporal signals
+    df['hour']       = df['timestamp'].dt.hour
+    df['is_weekend'] = df['timestamp'].dt.dayofweek.isin([5, 6]).astype(int)
+    df['is_night']   = df['hour'].isin(range(0, 6)).astype(int)
+    return df</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>model.py — BiLSTM with multi-head attention over 30-transaction sequences</span>
+            <span>Python · PyTorch</span>
+          </div>
+          <pre><code>import torch
+import torch.nn as nn
+
+class FraudBiLSTM(nn.Module):
+    def __init__(self, input_size=15, hidden=128, layers=2, dropout=0.3):
+        super().__init__()
+        self.lstm = nn.LSTM(
+            input_size=input_size,
+            hidden_size=hidden,
+            num_layers=layers,
+            batch_first=True,
+            bidirectional=True,
+            dropout=dropout,
+        )
+        # Multi-head attention over the BiLSTM output (hidden*2)
+        self.attn = nn.MultiheadAttention(
+            hidden * 2, num_heads=4, batch_first=True, dropout=0.1
+        )
+        self.head = nn.Sequential(
+            nn.LayerNorm(hidden * 2),
+            nn.Linear(hidden * 2, 64),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(64, 1),
+        )
+
+    def forward(self, x):
+        # x: (B, seq=30, features)
+        out, _    = self.lstm(x)               # (B, 30, 256)
+        ctx, _    = self.attn(out, out, out)   # attended context
+        pooled    = ctx.mean(dim=1)            # global avg pool
+        return self.head(pooled).squeeze(-1)
+
+
+def ensemble_score(xgb_model, lstm_model, feats_df, seq_tensor):
+    xgb_score  = xgb_model.predict_proba(feats_df)[:, 1]
+    lstm_model.eval()
+    with torch.no_grad():
+        lstm_score = torch.sigmoid(lstm_model(seq_tensor)).cpu().numpy()
+    # Weights tuned on validation holdout
+    return 0.45 * xgb_score + 0.55 * lstm_score</code></pre>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Results &amp; Impact</h2>
+        <div class="results-grid">
+          <div class="result-card"><span class="result-val">18%</span><div class="result-label">Relative uplift in fraud caught</div></div>
+          <div class="result-card"><span class="result-val">&lt;50ms</span><div class="result-label">p99 end-to-end latency</div></div>
+          <div class="result-card"><span class="result-val">0.94</span><div class="result-label">AUC-PR (imbalanced test set)</div></div>
+          <div class="result-card"><span class="result-val">1M+</span><div class="result-label">Daily transaction decisions</div></div>
+        </div>
+        <ul>
+          <li>Two-stage architecture allows the slow BiLSTM to run only on ~15% of transactions, keeping p99 latency under 50 ms.</li>
+          <li>Model retrained monthly on a 90-day rolling window to track evolving fraud patterns.</li>
+          <li>A/B tested against the incumbent model for 4 weeks; 18% uplift confirmed before full rollout.</li>
+          <li>Integrated with the bank's existing Kafka event bus and FICO decision layer with no infrastructure changes.</li>
+        </ul>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-layer-group" aria-hidden="true"></i> Tech Stack</h2>
+        <div class="tech-stack-page">
+          <span>Python 3.10</span><span>XGBoost</span><span>PyTorch 2.x</span>
+          <span>Apache Kafka</span><span>Redis</span><span>Scikit-learn</span>
+          <span>Pandas</span><span>MLflow</span><span>Docker</span>
+          <span>Kubernetes</span><span>Azure ML</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="proj-nav" aria-label="Project navigation">
+        <a href="llm-kyc-copilot.html" class="proj-nav-btn glass-card">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> LLM-KYC Copilot
+        </a>
+        <a href="../index.html#projects" class="proj-nav-btn glass-card">
+          <i class="fas fa-grid-2" aria-hidden="true"></i> All Projects
+        </a>
+        <a href="multimodal-risk-engine.html" class="proj-nav-btn glass-card">
+          MultiModal Risk Engine <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

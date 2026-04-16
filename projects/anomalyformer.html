@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AnomalyFormer: Patch-TST Transformer for unsupervised anomaly detection in industrial sensor streams.">
+  <title>AnomalyFormer | Soumojit Chowdhury</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" aria-label="Back to portfolio">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="../index.html#about"      class="nav-link">About</a></li>
+        <li><a href="../index.html#skills"     class="nav-link">Skills</a></li>
+        <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="../index.html#projects"   class="nav-link">Projects</a></li>
+        <li><a href="../index.html#contact"    class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="container">
+
+      <a href="../index.html#projects" class="back-btn">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Projects
+      </a>
+
+      <!-- Header -->
+      <div class="proj-page-header glass-card reveal">
+        <div class="proj-page-icon"><i class="fas fa-wave-square" aria-hidden="true"></i></div>
+        <div class="proj-page-badges">
+          <span class="badge badge-featured">Infosys / Energy Client</span>
+          <span class="badge badge-type">Time-Series · Transformers</span>
+        </div>
+        <h1 class="proj-page-title">AnomalyFormer</h1>
+        <p class="proj-page-tagline">
+          A Patch-TST Transformer trained on normal sensor behaviour from industrial equipment.
+          At inference, reconstruction error pinpoints anomalies in multivariate sensor streams
+          — enabling predictive maintenance before catastrophic failure.
+        </p>
+        <div class="proj-page-meta">
+          <span><i class="fas fa-calendar" aria-hidden="true"></i> 2021 – 2022</span>
+          <span><i class="fas fa-building" aria-hidden="true"></i> Infosys (Energy Client)</span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> PyTorch · Patch-TST · Sliding Window</span>
+        </div>
+        <div class="proj-page-kpis">
+          <div class="proj-kpi"><span class="proj-kpi-val">$2M+</span><span class="proj-kpi-label">Downtime cost avoided / year</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">97%</span><span class="proj-kpi-label">Recall on known failure types</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">32</span><span class="proj-kpi-label">Sensor channels monitored</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">8×</span><span class="proj-kpi-label">Earlier detection vs. threshold alerts</span></div>
+        </div>
+      </div>
+
+      <!-- Problem -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-bullseye" aria-hidden="true"></i> Problem Statement</h2>
+        <p>
+          An energy-sector client operated turbines and compressors instrumented with 32 sensor channels
+          (vibration, temperature, pressure, RPM). Traditional threshold alarms only triggered at the
+          moment of failure — by which point damage was already done. They needed
+          <strong>early-warning detection</strong> from multivariate sensor patterns, but had
+          <strong>no labelled anomaly data</strong> for supervised training.
+        </p>
+        <p>
+          The solution: train a reconstruction-based Transformer on normal operating behaviour. When
+          operating conditions deviate from learned normality, reconstruction error spikes — providing
+          an anomaly signal <strong>hours before physical failure</strong>.
+        </p>
+      </div>
+
+      <!-- Architecture -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-sitemap" aria-hidden="true"></i> System Architecture</h2>
+        <div class="arch-flow">
+          <span class="arch-node">32-channel Sensor Stream</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Standard Scaler</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Sliding Window (64 steps)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Patch Embedding (patch=8)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">4-Layer Transformer Encoder</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Reconstruction Head</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">MSE Anomaly Score</span>
+        </div>
+        <p>
+          The model uses a <strong>Patch-TST</strong> architecture: each 64-step window is split into
+          8-step patches, linearly projected to a 128-dimensional embedding, and fed into a
+          4-layer Transformer Encoder with pre-norm residuals. The decoder reconstructs the original
+          window from the encoded patches.
+        </p>
+        <p>
+          During training (normal data only), the model learns to reconstruct healthy patterns.
+          At inference, <strong>per-timestep MSE</strong> averaged across sensor channels becomes the
+          anomaly score. A threshold at the 99th percentile of training reconstruction errors triggers
+          an alert, providing leads to the maintenance team with average <strong>4-hour advance warning</strong>.
+        </p>
+      </div>
+
+      <!-- Code -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-code" aria-hidden="true"></i> Key Implementation</h2>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>dataset.py — Sliding-window sensor dataset with StandardScaler</span>
+            <span>Python · PyTorch</span>
+          </div>
+          <pre><code>import numpy as np
+import torch
+from torch.utils.data import Dataset
+from sklearn.preprocessing import StandardScaler
+
+class SensorDataset(Dataset):
+    def __init__(self, data: np.ndarray, seq_len: int = 64, stride: int = 8):
+        """
+        data : shape (T, N_sensors)
+        Fit scaler on this split; call .transform() for test data.
+        """
+        self.seq_len = seq_len
+        self.scaler  = StandardScaler()
+        scaled       = self.scaler.fit_transform(data)
+
+        # Sliding window patches
+        windows = []
+        for i in range(0, len(scaled) - seq_len, stride):
+            windows.append(scaled[i : i + seq_len])
+        self.windows = np.array(windows, dtype=np.float32)
+
+    def __len__(self):         return len(self.windows)
+    def __getitem__(self, i):  return torch.tensor(self.windows[i])</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>model.py — Patch-TST Transformer with reconstruction head</span>
+            <span>Python · PyTorch</span>
+          </div>
+          <pre><code>import torch
+import torch.nn as nn
+
+class AnomalyFormer(nn.Module):
+    def __init__(self, n_sensors=32, seq_len=64, patch_len=8,
+                 d_model=128, n_heads=8, n_layers=4, dropout=0.1):
+        super().__init__()
+        self.patch_len = patch_len
+        n_patches      = seq_len // patch_len
+
+        # Patch projection: (B, n_patches, patch_len * N) → (B, n_patches, d_model)
+        self.patch_proj = nn.Linear(patch_len * n_sensors, d_model)
+
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=d_model, nhead=n_heads,
+            dim_feedforward=d_model * 4,
+            dropout=dropout, batch_first=True, norm_first=True,
+        )
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=n_layers)
+
+        # Reconstruction: (B, n_patches, d_model) → (B, seq_len, n_sensors)
+        self.reconstructor = nn.Linear(d_model, patch_len * n_sensors)
+        self.n_patches  = n_patches
+        self.n_sensors  = n_sensors
+
+    def forward(self, x):
+        # x: (B, T, N)
+        B, T, N = x.shape
+        # Patchify
+        p = x.unfold(1, self.patch_len, self.patch_len)   # (B, n_p, N, p)
+        p = p.permute(0, 1, 3, 2).reshape(B, self.n_patches, -1)
+        # Encode
+        emb   = self.patch_proj(p)                         # (B, n_p, d_model)
+        enc   = self.encoder(emb)                          # (B, n_p, d_model)
+        # Reconstruct
+        recon = self.reconstructor(enc)                    # (B, n_p, p*N)
+        recon = recon.view(B, self.n_patches, self.patch_len, N)
+        recon = recon.reshape(B, T, N)
+        return recon</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>detect.py — Threshold-based anomaly scoring from reconstruction error</span>
+            <span>Python · PyTorch · NumPy</span>
+          </div>
+          <pre><code>import torch.nn.functional as F
+import numpy as np
+
+def fit_threshold(model, train_loader, percentile=99):
+    """Compute anomaly threshold from normal training data."""
+    model.eval()
+    errors = []
+    with torch.no_grad():
+        for batch in train_loader:
+            recon = model(batch)
+            mse   = F.mse_loss(recon, batch, reduction='none')
+            errors.append(mse.mean(dim=-1).cpu().numpy())  # (B, T)
+    errors    = np.concatenate(errors)
+    threshold = np.percentile(errors, percentile)
+    print(f"Anomaly threshold (p{percentile}): {threshold:.6f}")
+    return threshold
+
+def score_stream(model, test_loader, threshold):
+    model.eval()
+    scores, flags = [], []
+    with torch.no_grad():
+        for batch in test_loader:
+            recon = model(batch)
+            mse   = F.mse_loss(recon, batch, reduction='none').mean(-1)
+            scores.append(mse.cpu().numpy())
+            flags.append((mse.cpu().numpy() > threshold))
+    return np.concatenate(scores), np.concatenate(flags)</code></pre>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Results &amp; Impact</h2>
+        <div class="results-grid">
+          <div class="result-card"><span class="result-val">$2M+</span><div class="result-label">Annual downtime cost avoided</div></div>
+          <div class="result-card"><span class="result-val">97%</span><div class="result-label">Recall on known failure modes</div></div>
+          <div class="result-card"><span class="result-val">4 hrs</span><div class="result-label">Average advance warning before failure</div></div>
+          <div class="result-card"><span class="result-val">0.94</span><div class="result-label">F1 on labelled evaluation set</div></div>
+        </div>
+        <ul>
+          <li>Deployed to 12 turbine units across 3 facilities; alert feed integrated into the SCADA dashboard.</li>
+          <li>Zero labelled anomaly data required for training — purely self-supervised on normal operations.</li>
+          <li>Model retrained quarterly on rolling 90-day normal windows to track seasonal operating changes.</li>
+          <li>False alarm rate held below 2% through careful threshold calibration on held-out normal windows.</li>
+        </ul>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-layer-group" aria-hidden="true"></i> Tech Stack</h2>
+        <div class="tech-stack-page">
+          <span>Python 3.10</span><span>PyTorch 2.x</span><span>NumPy</span>
+          <span>Pandas</span><span>Scikit-learn</span><span>MLflow</span>
+          <span>Azure ML</span><span>SCADA API</span><span>Docker</span><span>Grafana</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="proj-nav" aria-label="Project navigation">
+        <a href="ragdoc-intelligence.html" class="proj-nav-btn glass-card">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> RAGDoc Intelligence
+        </a>
+        <a href="../index.html#projects" class="proj-nav-btn glass-card">
+          <i class="fas fa-grid-2" aria-hidden="true"></i> All Projects
+        </a>
+        <a href="llm-kyc-copilot.html" class="proj-nav-btn glass-card">
+          LLM-KYC Copilot <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

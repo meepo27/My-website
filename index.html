@@ -65,7 +65,7 @@
       <p class="hero-greeting">Hello, I'm</p>
       <h1 class="hero-name" id="hero-name">Soumojit Chowdhury</h1>
       <div class="hero-title-row" aria-live="polite" aria-label="Current role description">
-        <span class="hero-title-prefix">I build </span>
+        <span class="hero-title-prefix">I'm a </span>
         <span class="hero-typed" id="typed-text" aria-hidden="true"></span>
         <span class="typed-cursor" aria-hidden="true">|</span>
       </div>
@@ -118,34 +118,68 @@
         <h2 class="section-title" id="about-title">About Me</h2>
       </div>
       <div class="about-grid">
-        <!-- Avatar -->
+        <!-- Avatar with photo support -->
         <div class="about-avatar-col reveal">
-          <div class="about-avatar glass-card" aria-label="Profile picture placeholder — Soumojit Chowdhury">
-            <div class="avatar-initials" aria-hidden="true">SC</div>
+          <div class="about-avatar glass-card" aria-label="Soumojit Chowdhury — Lead Data Scientist">
+            <!-- To add your photo: set src to your photo URL below -->
+            <img
+              src=""
+              alt="Soumojit Chowdhury, Lead Data Scientist at HSBC"
+              class="avatar-photo"
+              onerror="this.style.display='none'"
+              onload="document.getElementById('av-initials').style.display='none'"
+            >
+            <div class="avatar-initials" id="av-initials" aria-hidden="true">SC</div>
             <div class="avatar-ring" aria-hidden="true"></div>
           </div>
           <div class="about-chips">
             <span class="chip"><i class="fas fa-location-dot" aria-hidden="true"></i> Kolkata, India</span>
-            <span class="chip"><i class="fas fa-building" aria-hidden="true"></i> HSBC</span>
-            <span class="chip"><i class="fas fa-graduation-cap" aria-hidden="true"></i> B.Tech CSE</span>
+            <span class="chip"><i class="fas fa-building" aria-hidden="true"></i> HSBC · Asst. Director</span>
+            <span class="chip"><i class="fas fa-graduation-cap" aria-hidden="true"></i> B.Tech CSE, WBUT</span>
             <span class="chip chip-available"><i class="fas fa-circle" aria-hidden="true"></i> Open to Opportunities</span>
           </div>
         </div>
+
         <!-- Text -->
         <div class="about-text-col reveal">
           <p>
-            Results-driven Lead Data Scientist with <strong>10+ years of experience</strong> delivering
-            production-grade AI/ML solutions across BFSI, FinTech, manufacturing, and energy domains.
+            Results-driven <strong>Lead Data Scientist (Assistant Director)</strong> at <strong>HSBC</strong>,
+            with <strong>10+ years of end-to-end ownership</strong> of production AI/ML systems across
+            <strong>BFSI, FinTech, manufacturing, and energy</strong>.
           </p>
           <p>
-            Deep expertise in <strong>fraud detection, financial crime analytics, real-time transaction
-            risk scoring</strong>, and GenAI-powered anomaly detection. Proven ability to own the full
-            ML lifecycle — from feature engineering and model development to CI/CD deployment and monitoring.
+            I work at the intersection of <strong>advanced machine learning</strong> and
+            <strong>high-stakes financial decision-making</strong> — building
+            <strong>graph-based mule detection networks</strong>, <strong>GenAI-powered anomaly
+            pipelines</strong>, and <strong>real-time transaction risk engines</strong> that operate
+            under strict regulatory scrutiny.
           </p>
           <p>
-            Experienced with cloud platforms (GCP, Azure, AWS), MLOps tooling, graph analytics, and
-            cross-functional stakeholder communication in highly regulated environments.
+            My approach is fully end-to-end: <strong>problem framing → feature engineering →
+            model development → CI/CD deployment → model monitoring &amp; drift detection</strong>,
+            always with compliance as a non-negotiable constraint.
           </p>
+
+          <!-- Key impact numbers -->
+          <div class="about-numbers" role="list" aria-label="Key impact metrics">
+            <div class="about-num" role="listitem">
+              <span class="about-num-val">$50M+</span>
+              <span class="about-num-label">Cost savings delivered</span>
+            </div>
+            <div class="about-num" role="listitem">
+              <span class="about-num-val">&gt;85%</span>
+              <span class="about-num-label">Fraud detection precision (HSBC)</span>
+            </div>
+            <div class="about-num" role="listitem">
+              <span class="about-num-val">30%</span>
+              <span class="about-num-label">False positive reduction via GenAI</span>
+            </div>
+            <div class="about-num" role="listitem">
+              <span class="about-num-val">60%</span>
+              <span class="about-num-label">Investigation time cut (Infosys)</span>
+            </div>
+          </div>
+
           <div class="about-highlights">
             <div class="highlight-item glass-card">
               <div class="highlight-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
@@ -174,6 +208,44 @@
                 <strong>Graph Analytics</strong>
                 <span>Network-based Mule Detection</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications & Continuous Learning -->
+      <!-- ⚠ Update these with your actual certifications from LinkedIn -->
+      <div class="cert-section reveal">
+        <h3 class="cert-section-title">
+          <i class="fas fa-certificate" aria-hidden="true"></i> Certifications &amp; Continuous Learning
+        </h3>
+        <div class="cert-grid">
+          <div class="cert-item glass-card">
+            <div class="cert-icon" aria-hidden="true"><i class="fab fa-google"></i></div>
+            <div>
+              <strong>Professional ML Engineer</strong>
+              <span>Google Cloud · GCP</span>
+            </div>
+          </div>
+          <div class="cert-item glass-card">
+            <div class="cert-icon azure" aria-hidden="true"><i class="fab fa-microsoft"></i></div>
+            <div>
+              <strong>Azure Data Scientist Associate</strong>
+              <span>Microsoft · DP-100</span>
+            </div>
+          </div>
+          <div class="cert-item glass-card">
+            <div class="cert-icon" aria-hidden="true"><i class="fas fa-brain"></i></div>
+            <div>
+              <strong>Deep Learning Specialization</strong>
+              <span>deeplearning.ai · Coursera</span>
+            </div>
+          </div>
+          <div class="cert-item glass-card">
+            <div class="cert-icon" aria-hidden="true"><i class="fas fa-robot"></i></div>
+            <div>
+              <strong>LLMOps &amp; Prompt Engineering</strong>
+              <span>deeplearning.ai · Short Courses</span>
             </div>
           </div>
         </div>
@@ -465,7 +537,7 @@
             <a href="#" class="proj-link proj-link-github" aria-label="Code repository (available on request)">
               <i class="fab fa-github" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+            <a href="projects/finguard-gnn.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
@@ -497,7 +569,7 @@
             <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
               <i class="fab fa-github" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+            <a href="projects/ragdoc-intelligence.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
@@ -528,7 +600,7 @@
             <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
               <i class="fab fa-github" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+            <a href="projects/anomalyformer.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
@@ -560,7 +632,7 @@
             <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
               <i class="fab fa-github" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+            <a href="projects/llm-kyc-copilot.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
@@ -591,7 +663,7 @@
             <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
               <i class="fab fa-github" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+            <a href="projects/deepfraud-sentinel.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
@@ -622,7 +694,7 @@
             <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
               <i class="fab fa-github" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+            <a href="projects/multimodal-risk-engine.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
@@ -641,12 +713,31 @@
       </div>
       <div class="contact-grid">
 
-        <!-- Left: Links -->
+        <!-- Left: Info -->
         <div class="contact-info reveal">
+          <div class="contact-status-bar glass-card">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span><strong>Available</strong> for senior DS roles &amp; AI consulting</span>
+          </div>
+
+          <h3 class="contact-tagline">Let's build something impactful.</h3>
+
           <p class="contact-intro">
-            Open to discussing new opportunities, research collaborations, or simply talking shop about AI/ML.
-            I typically respond within 24 hours.
+            Whether you're looking for a <strong>Lead Data Scientist</strong>, tackling a hard
+            <strong>GenAI or financial crime challenge</strong>, or just want to talk shop about
+            ML &amp; AI — I'd love to connect. I typically respond within <strong>24 hours</strong>.
           </p>
+
+          <div class="contact-open-to">
+            <p class="contact-open-label">Open to</p>
+            <div class="contact-open-tags">
+              <span>Senior DS / Lead Roles</span>
+              <span>GenAI Consulting</span>
+              <span>Research Collabs</span>
+              <span>Speaking &amp; Panels</span>
+            </div>
+          </div>
+
           <div class="contact-links">
             <a href="mailto:soumojit.chowdhury@gmail.com" class="contact-link glass-card">
               <div class="contact-link-icon email-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
@@ -680,7 +771,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- /contact-info -->
 
         <!-- Right: Form (powered by Formspree — https://formspree.io/f/xlgagkeb) -->
         <div class="contact-form-wrapper glass-card reveal">

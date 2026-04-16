@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FinGuard-GNN: Graph Neural Network for financial mule account detection at HSBC, reducing false positives by 30%.">
+  <title>FinGuard-GNN | Soumojit Chowdhury</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" aria-label="Back to portfolio">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="../index.html#about"      class="nav-link">About</a></li>
+        <li><a href="../index.html#skills"     class="nav-link">Skills</a></li>
+        <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="../index.html#projects"   class="nav-link">Projects</a></li>
+        <li><a href="../index.html#contact"    class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="container">
+
+      <a href="../index.html#projects" class="back-btn">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Projects
+      </a>
+
+      <!-- Header -->
+      <div class="proj-page-header glass-card reveal">
+        <div class="proj-page-icon"><i class="fas fa-share-nodes" aria-hidden="true"></i></div>
+        <div class="proj-page-badges">
+          <span class="badge badge-featured">HSBC Production</span>
+          <span class="badge badge-type">Financial Crime</span>
+        </div>
+        <h1 class="proj-page-title">FinGuard-GNN</h1>
+        <p class="proj-page-tagline">
+          A heterogeneous Graph Neural Network that maps transaction relationships across the entire
+          HSBC account network to surface mule accounts and money-laundering rings — augmented with
+          an LLM narrative engine for fraud analysts.
+        </p>
+        <div class="proj-page-meta">
+          <span><i class="fas fa-calendar" aria-hidden="true"></i> 2023 – 2024</span>
+          <span><i class="fas fa-building" aria-hidden="true"></i> HSBC</span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> PyTorch Geometric · LangChain · Azure OpenAI</span>
+        </div>
+        <div class="proj-page-kpis">
+          <div class="proj-kpi"><span class="proj-kpi-val">30%</span><span class="proj-kpi-label">False positive reduction</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">&gt;85%</span><span class="proj-kpi-label">Detection precision</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">3-layer</span><span class="proj-kpi-label">GraphSAGE depth</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">60%</span><span class="proj-kpi-label">Analyst time saved</span></div>
+        </div>
+      </div>
+
+      <!-- Problem -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-bullseye" aria-hidden="true"></i> Problem Statement</h2>
+        <p>
+          Traditional rule-based AML systems flag individual transactions in isolation. Mule networks exploit
+          this blind spot by distributing illicit flows across dozens of seemingly normal accounts — each
+          individual transaction looks benign, but the <strong>relational structure</strong> betrays the scheme.
+        </p>
+        <p>
+          HSBC needed a system that could reason over <strong>the full transaction graph</strong> to identify
+          coordinated mule rings, generate explainable risk narratives for compliance teams, and integrate
+          seamlessly into the existing case-management workflow — all within strict regulatory constraints (FCA, PRA).
+        </p>
+      </div>
+
+      <!-- Architecture -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-sitemap" aria-hidden="true"></i> System Architecture</h2>
+        <div class="arch-flow">
+          <span class="arch-node">Transaction Ledger</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Graph Builder (PyG HeteroData)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">3-Layer GraphSAGE</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Risk Scorer</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">GPT-4 Narrative</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Case Management</span>
+        </div>
+        <p>
+          The pipeline builds a <strong>heterogeneous graph</strong> where account nodes are connected by directed
+          fund-transfer edges. Node features encode account history; edge features encode transaction amount, timing,
+          and merchant category. Three GraphSAGE convolution layers aggregate neighbourhood information before
+          a binary classifier labels each node as mule / not mule.
+        </p>
+        <p>
+          A <strong>class-imbalanced training regime</strong> (positive-weight BCELoss, ~1% mule prevalence) combined
+          with focal loss prevents the model from collapsing to the majority class. All flagged accounts are passed
+          to a GPT-4 Turbo (Azure OpenAI) chain that generates plain-English risk narratives, cutting analyst
+          write-up time by 60%.
+        </p>
+      </div>
+
+      <!-- Code -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-code" aria-hidden="true"></i> Key Implementation</h2>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>graph_builder.py — Heterogeneous transaction graph construction</span>
+            <span>Python · PyTorch Geometric</span>
+          </div>
+          <pre><code>import torch
+from torch_geometric.data import HeteroData
+
+def build_transaction_graph(transactions_df):
+    """
+    Build a heterogeneous graph from transaction data.
+    Nodes: accounts   Edges: fund transfers (directed)
+    """
+    G = HeteroData()
+
+    # Encode account IDs → integer indices
+    accounts = pd.concat([
+        transactions_df['sender_id'],
+        transactions_df['receiver_id']
+    ]).unique()
+    acc_map = {acc: idx for idx, acc in enumerate(accounts)}
+
+    # Node features: [total_sent, total_received, tx_count,
+    #                  avg_amount, is_new_account]
+    node_feats = torch.tensor(
+        compute_node_features(transactions_df, acc_map),
+        dtype=torch.float
+    )
+
+    # Edge indices + features
+    src = [acc_map[s] for s in transactions_df['sender_id']]
+    dst = [acc_map[r] for r in transactions_df['receiver_id']]
+    edge_index = torch.tensor([src, dst], dtype=torch.long)
+
+    edge_feats = torch.tensor(
+        transactions_df[[
+            'amount', 'hour', 'day_of_week', 'is_round_amount'
+        ]].values,
+        dtype=torch.float
+    )
+
+    G['account'].x = node_feats
+    G['account', 'transfers_to', 'account'].edge_index = edge_index
+    G['account', 'transfers_to', 'account'].edge_attr  = edge_feats
+    return G</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>model.py — 3-layer heterogeneous GraphSAGE classifier</span>
+            <span>Python · PyTorch</span>
+          </div>
+          <pre><code>from torch_geometric.nn import SAGEConv, HeteroConv
+import torch.nn as nn
+import torch.nn.functional as F
+
+class FinGuardGNN(nn.Module):
+    def __init__(self, in_channels, hidden_channels=128, num_layers=3):
+        super().__init__()
+        self.convs = nn.ModuleList()
+        self.bns   = nn.ModuleList()
+
+        for i in range(num_layers):
+            in_ch = in_channels if i == 0 else hidden_channels
+            conv  = HeteroConv({
+                ('account', 'transfers_to', 'account'): SAGEConv(
+                    (in_ch, in_ch), hidden_channels, normalize=True
+                )
+            }, aggr='mean')
+            self.convs.append(conv)
+            self.bns.append(nn.BatchNorm1d(hidden_channels))
+
+        self.classifier = nn.Sequential(
+            nn.Linear(hidden_channels, 64),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(64, 1)   # binary: mule / not mule
+        )
+
+    def forward(self, x_dict, edge_index_dict):
+        for conv, bn in zip(self.convs, self.bns):
+            x_dict = conv(x_dict, edge_index_dict)
+            x_dict = {k: F.relu(bn(v)) for k, v in x_dict.items()}
+        return self.classifier(x_dict['account'])
+
+
+def train(model, graph, labels, epochs=50):
+    optimizer  = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-5)
+    # ~1% mule prevalence → weighted loss
+    criterion  = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([99.0]))
+
+    for epoch in range(epochs):
+        model.train()
+        optimizer.zero_grad()
+        logits = model(graph.x_dict, graph.edge_index_dict).squeeze()
+        loss   = criterion(logits, labels.float())
+        loss.backward()
+        optimizer.step()
+        if (epoch + 1) % 10 == 0:
+            prec = precision_score(labels, logits.sigmoid() > 0.5)
+            print(f"Epoch {epoch+1} | loss={loss:.4f} | precision={prec:.4f}")</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>narrative.py — GPT-4 risk narrative generator for analysts</span>
+            <span>Python · LangChain · Azure OpenAI</span>
+          </div>
+          <pre><code>from langchain_openai import AzureChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+
+PROMPT = ChatPromptTemplate.from_template("""
+You are a financial crime analyst assistant at a major UK bank.
+Based on the graph-based risk signals below, write a concise
+risk narrative (3-4 sentences) for the fraud investigation team.
+
+Account:           {account_id}
+GNN Risk Score:    {risk_score:.1%}
+Connected Accounts:{connected_count}
+Circular Flow:     {has_circular}
+Avg Tx Amount:     £{avg_amount:,.0f}
+Rapid Txs (<1 hr): {rapid_count}
+
+Write a professional summary highlighting the key red flags.
+""")
+
+def generate_risk_narrative(account_id, gnn_score, features):
+    llm    = AzureChatOpenAI(deployment_name="gpt-4-turbo", temperature=0)
+    chain  = PROMPT | llm
+    result = chain.invoke({
+        "account_id":      account_id,
+        "risk_score":      gnn_score,
+        "connected_count": features["connected_count"],
+        "has_circular":    features["has_circular_flow"],
+        "avg_amount":      features["avg_amount"],
+        "rapid_count":     features["rapid_transactions"],
+    })
+    return result.content</code></pre>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Results &amp; Impact</h2>
+        <div class="results-grid">
+          <div class="result-card"><span class="result-val">30%</span><div class="result-label">Reduction in false positives vs. rule-based system</div></div>
+          <div class="result-card"><span class="result-val">&gt;85%</span><div class="result-label">Precision on held-out mule accounts</div></div>
+          <div class="result-card"><span class="result-val">60%</span><div class="result-label">Less analyst time per case via LLM narratives</div></div>
+          <div class="result-card"><span class="result-val">0.91</span><div class="result-label">AUC-PR on imbalanced test set</div></div>
+        </div>
+        <ul>
+          <li>Integrated into HSBC's case management system — flags reviewed daily by the financial crime team.</li>
+          <li>Graph approach surfaced <strong>3× more coordinated ring structures</strong> than the previous isolation-forest baseline.</li>
+          <li>LLM narratives reduced mean analyst write-up time from 45 min to 18 min per case.</li>
+          <li>Model runs nightly on the full transaction graph; incremental updates process intraday activity.</li>
+        </ul>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-layer-group" aria-hidden="true"></i> Tech Stack</h2>
+        <div class="tech-stack-page">
+          <span>Python 3.11</span><span>PyTorch 2.x</span><span>PyTorch Geometric</span>
+          <span>LangChain</span><span>Azure OpenAI (GPT-4 Turbo)</span>
+          <span>NetworkX</span><span>Pandas</span><span>Scikit-learn</span>
+          <span>MLflow</span><span>Azure ML</span><span>Docker</span><span>Kubernetes</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="proj-nav" aria-label="Project navigation">
+        <span></span>
+        <a href="../index.html#projects" class="proj-nav-btn glass-card">
+          <i class="fas fa-grid-2" aria-hidden="true"></i> All Projects
+        </a>
+        <a href="ragdoc-intelligence.html" class="proj-nav-btn glass-card">
+          Next: RAGDoc Intelligence <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

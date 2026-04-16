@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MultiModal Risk Engine: Late-fusion deep learning combining ResNet vision, BERT text, and LightGBM tabular branches for financial fraud.">
+  <title>MultiModal Risk Engine | Soumojit Chowdhury</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" aria-label="Back to portfolio">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="../index.html#about"      class="nav-link">About</a></li>
+        <li><a href="../index.html#skills"     class="nav-link">Skills</a></li>
+        <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="../index.html#projects"   class="nav-link">Projects</a></li>
+        <li><a href="../index.html#contact"    class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="container">
+
+      <a href="../index.html#projects" class="back-btn">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Projects
+      </a>
+
+      <!-- Header -->
+      <div class="proj-page-header glass-card reveal">
+        <div class="proj-page-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></div>
+        <div class="proj-page-badges">
+          <span class="badge badge-featured">Infosys / FinTech Client</span>
+          <span class="badge badge-type">Multi-Modal · Deep Learning</span>
+        </div>
+        <h1 class="proj-page-title">MultiModal Risk Engine</h1>
+        <p class="proj-page-tagline">
+          A late-fusion deep learning system that combines ResNet-50 (cheque / document images),
+          BERT (transaction narratives), and LightGBM leaf embeddings (structured data) via
+          cross-modal attention to score insurance and financial fraud at &gt;0.96 AUC.
+        </p>
+        <div class="proj-page-meta">
+          <span><i class="fas fa-calendar" aria-hidden="true"></i> 2019 – 2020</span>
+          <span><i class="fas fa-building" aria-hidden="true"></i> Infosys (FinTech Client)</span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> PyTorch · Transformers · LightGBM · torchvision</span>
+        </div>
+        <div class="proj-page-kpis">
+          <div class="proj-kpi"><span class="proj-kpi-val">0.96</span><span class="proj-kpi-label">AUC-ROC (multi-modal)</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">+11pp</span><span class="proj-kpi-label">AUC vs. tabular-only baseline</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">3</span><span class="proj-kpi-label">Modalities fused</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">22%</span><span class="proj-kpi-label">More fraud recovered (revenue)</span></div>
+        </div>
+      </div>
+
+      <!-- Problem -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-bullseye" aria-hidden="true"></i> Problem Statement</h2>
+        <p>
+          A FinTech client processing insurance and trade-finance claims had historically relied
+          on structured tabular models. But fraudulent claims often left signals across
+          <strong>multiple data modalities simultaneously</strong>: altered document images,
+          inconsistent text narratives, and anomalous structured features — each weak alone but
+          decisive when combined.
+        </p>
+        <p>
+          No single-modality model achieved acceptable precision at required recall thresholds.
+          The goal was to build a system that could <strong>jointly reason over images, text,
+          and tabular data</strong> in a single forward pass, enabling investigators to act on
+          a single calibrated risk score.
+        </p>
+      </div>
+
+      <!-- Architecture -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-sitemap" aria-hidden="true"></i> System Architecture</h2>
+        <div class="arch-flow">
+          <span class="arch-node">Cheque / Doc Image</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">ResNet-50 (256-d)</span>
+        </div>
+        <div class="arch-flow" style="margin-top:0.4rem">
+          <span class="arch-node">Transaction Text</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">BERT [CLS] (256-d)</span>
+        </div>
+        <div class="arch-flow" style="margin-top:0.4rem">
+          <span class="arch-node">Structured Features</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">LightGBM Leaf Emb (256-d)</span>
+        </div>
+        <div class="arch-flow" style="margin-top:0.75rem">
+          <span class="arch-node">Stack (B, 3, 256)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Cross-Modal Attention (8 heads)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">MLP Classifier</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Risk Score</span>
+        </div>
+        <p>
+          Each modality produces a <strong>256-dimensional embedding</strong>. The three embeddings
+          are stacked into a (B, 3, 256) tensor and passed through an 8-head cross-modal attention
+          layer — letting modalities attend to each other before a final MLP makes the classification
+          decision. This outperformed both concatenation and simple averaging fusion.
+        </p>
+      </div>
+
+      <!-- Code -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-code" aria-hidden="true"></i> Key Implementation</h2>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>branches.py — Vision branch (ResNet-50) and Text branch (BERT)</span>
+            <span>Python · PyTorch · Hugging Face Transformers</span>
+          </div>
+          <pre><code>import torch.nn as nn
+import torchvision.models as models
+from transformers import BertModel
+
+class VisionBranch(nn.Module):
+    def __init__(self, out_dim=256, freeze_backbone=False):
+        super().__init__()
+        backbone     = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V2)
+        self.feats   = nn.Sequential(*list(backbone.children())[:-1])  # drop FC
+        if freeze_backbone:
+            for p in self.feats.parameters(): p.requires_grad = False
+        self.proj = nn.Sequential(
+            nn.Flatten(), nn.Linear(2048, 512), nn.ReLU(),
+            nn.Dropout(0.3), nn.Linear(512, out_dim),
+        )
+    def forward(self, img):
+        return self.proj(self.feats(img))   # (B, out_dim)
+
+
+class TextBranch(nn.Module):
+    def __init__(self, out_dim=256, model_name="bert-base-uncased"):
+        super().__init__()
+        self.bert = BertModel.from_pretrained(model_name)
+        self.proj = nn.Sequential(
+            nn.Linear(768, 512), nn.ReLU(),
+            nn.Dropout(0.2), nn.Linear(512, out_dim),
+        )
+    def forward(self, input_ids, attention_mask):
+        cls = self.bert(input_ids, attention_mask).last_hidden_state[:, 0]
+        return self.proj(cls)               # (B, out_dim)</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>fusion_model.py — Late-fusion with cross-modal attention</span>
+            <span>Python · PyTorch</span>
+          </div>
+          <pre><code>import torch
+import torch.nn as nn
+
+class MultiModalFraudDetector(nn.Module):
+    def __init__(self, tab_dim: int, fusion_dim: int = 256):
+        super().__init__()
+        self.vision = VisionBranch(out_dim=256)
+        self.text   = TextBranch(out_dim=256)
+        self.tab_proj = nn.Sequential(
+            nn.Linear(tab_dim, 256), nn.ReLU(), nn.Dropout(0.3)
+        )
+        # Cross-modal attention: let modalities attend to each other
+        self.cross_attn = nn.MultiheadAttention(
+            256, num_heads=8, batch_first=True, dropout=0.1
+        )
+        self.classifier = nn.Sequential(
+            nn.Linear(256 * 3, fusion_dim),
+            nn.GELU(), nn.Dropout(0.3),
+            nn.Linear(fusion_dim, 1),
+        )
+
+    def forward(self, img, input_ids, attention_mask, tab_feat):
+        v = self.vision(img)                           # (B, 256)
+        t = self.text(input_ids, attention_mask)       # (B, 256)
+        x = self.tab_proj(tab_feat)                    # (B, 256)
+
+        # Stack → cross-attend → flatten
+        modal  = torch.stack([v, t, x], dim=1)         # (B, 3, 256)
+        fused, _ = self.cross_attn(modal, modal, modal)
+        flat   = fused.reshape(fused.shape[0], -1)     # (B, 768)
+        return self.classifier(flat).squeeze(-1)</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>tabular_emb.py — LightGBM leaf-index encoding as tabular embedding</span>
+            <span>Python · LightGBM</span>
+          </div>
+          <pre><code>import lightgbm as lgb
+import numpy as np
+
+def train_lgb_for_embedding(X_tab, y_tab):
+    """Train LightGBM; use leaf indices as a rich embedding."""
+    dtrain = lgb.Dataset(X_tab, label=y_tab)
+    params = {
+        "objective": "binary", "metric": "average_precision",
+        "num_leaves": 127, "learning_rate": 0.05, "verbose": -1,
+        "scale_pos_weight": (y_tab==0).sum() / (y_tab==1).sum(),
+    }
+    model = lgb.train(
+        params, dtrain, num_boost_round=300,
+        valid_sets=[dtrain],
+        callbacks=[lgb.early_stopping(20), lgb.log_evaluation(50)],
+    )
+    return model
+
+def get_leaf_embedding(lgb_model, X_tab) -> np.ndarray:
+    """
+    Each tree assigns a sample to one leaf → one-hot per tree.
+    Concatenated leaf indices form a high-cardinality embedding
+    that captures complex non-linear feature interactions.
+    """
+    return lgb_model.predict(X_tab, pred_leaf=True).astype(np.float32)</code></pre>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Results &amp; Impact</h2>
+        <div class="results-grid">
+          <div class="result-card"><span class="result-val">0.96</span><div class="result-label">AUC-ROC (multi-modal system)</div></div>
+          <div class="result-card"><span class="result-val">+11pp</span><div class="result-label">AUC uplift vs. tabular-only model</div></div>
+          <div class="result-card"><span class="result-val">22%</span><div class="result-label">More fraud recovered (revenue impact)</div></div>
+          <div class="result-card"><span class="result-val">3×</span><div class="result-label">Reduction in manual review workload</div></div>
+        </div>
+        <ul>
+          <li>Cross-modal attention consistently outperformed both concatenation and averaging in ablation studies.</li>
+          <li>LightGBM leaf embeddings proved more informative than raw tabular features for the fusion layer.</li>
+          <li>Vision branch fine-tuned on client's internal document corpus for 5 epochs; backbone partially frozen.</li>
+          <li>Model served via ONNX runtime, reducing inference time by 3× vs. native PyTorch in production.</li>
+        </ul>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-layer-group" aria-hidden="true"></i> Tech Stack</h2>
+        <div class="tech-stack-page">
+          <span>Python 3.10</span><span>PyTorch 2.x</span><span>torchvision</span>
+          <span>Hugging Face Transformers (BERT)</span><span>LightGBM</span>
+          <span>ONNX Runtime</span><span>Scikit-learn</span>
+          <span>MLflow</span><span>Azure ML</span><span>Docker</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="proj-nav" aria-label="Project navigation">
+        <a href="deepfraud-sentinel.html" class="proj-nav-btn glass-card">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> DeepFraud Sentinel
+        </a>
+        <a href="../index.html#projects" class="proj-nav-btn glass-card">
+          <i class="fas fa-grid-2" aria-hidden="true"></i> All Projects
+        </a>
+        <span></span>
+      </nav>
+
+    </div>
+  </main>
+
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

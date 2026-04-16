@@ -112,11 +112,11 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   const phrases = [
     'Lead Data Scientist',
-    'GenAI & LLM Architect',
-    'Fraud Detection Systems',
-    'ML Production Pipelines',
-    'Deep Learning Models',
-    'RAG-powered AI Apps',
+    'GenAI & LLM Systems Architect',
+    'Financial Crime AI Expert',
+    'ML Engineering Specialist',
+    'Production AI Builder',
+    'Deep Learning Practitioner',
   ];
 
   let pIdx = 0, cIdx = 0, deleting = false;
@@ -324,11 +324,8 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
         throw new Error('Server error');
       }
     } catch (_) {
-      // Fallback: open mailto with pre-filled body
-      const body = encodeURIComponent(`From: ${emailInput.value}\n\n${msgInput.value}`);
-      window.location.href =
-        `mailto:soumojit.chowdhury@gmail.com?subject=${encodeURIComponent('Message from portfolio')}&body=${body}`;
       errorEl.classList.remove('hidden');
+      errorEl.textContent = 'Message could not be sent. Please email me directly at soumojit.chowdhury@gmail.com.';
     } finally {
       submitBtn.disabled = false;
       btnText.textContent = 'Send Message';

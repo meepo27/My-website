@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RAGDoc Intelligence: LangChain RAG pipeline for regulatory compliance document search at HSBC.">
+  <title>RAGDoc Intelligence | Soumojit Chowdhury</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" aria-label="Back to portfolio">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="../index.html#about"      class="nav-link">About</a></li>
+        <li><a href="../index.html#skills"     class="nav-link">Skills</a></li>
+        <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="../index.html#projects"   class="nav-link">Projects</a></li>
+        <li><a href="../index.html#contact"    class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="container">
+
+      <a href="../index.html#projects" class="back-btn">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Projects
+      </a>
+
+      <!-- Header -->
+      <div class="proj-page-header glass-card reveal">
+        <div class="proj-page-icon"><i class="fas fa-file-magnifying-glass" aria-hidden="true"></i></div>
+        <div class="proj-page-badges">
+          <span class="badge badge-featured">HSBC Production</span>
+          <span class="badge badge-type">GenAI · RAG</span>
+        </div>
+        <h1 class="proj-page-title">RAGDoc Intelligence</h1>
+        <p class="proj-page-tagline">
+          A Retrieval-Augmented Generation platform that indexes hundreds of regulatory documents
+          (FCA, PRA, Basel III, internal policies) and lets compliance officers ask natural-language
+          questions with precise, citation-backed answers.
+        </p>
+        <div class="proj-page-meta">
+          <span><i class="fas fa-calendar" aria-hidden="true"></i> 2023 – 2024</span>
+          <span><i class="fas fa-building" aria-hidden="true"></i> HSBC</span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> LangChain · ChromaDB · GPT-4 Turbo</span>
+        </div>
+        <div class="proj-page-kpis">
+          <div class="proj-kpi"><span class="proj-kpi-val">40%</span><span class="proj-kpi-label">Faster compliance checks</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">300+</span><span class="proj-kpi-label">Regulatory docs indexed</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">MMR</span><span class="proj-kpi-label">Diverse retrieval strategy</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">100%</span><span class="proj-kpi-label">Answers cite source &amp; page</span></div>
+        </div>
+      </div>
+
+      <!-- Problem -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-bullseye" aria-hidden="true"></i> Problem Statement</h2>
+        <p>
+          HSBC's compliance teams manage hundreds of regulatory documents — FCA handbooks, PRA rulebooks,
+          internal AML policies, Basel accords, and more. Answering a single compliance question routinely
+          required a lawyer or senior analyst to spend <strong>2-4 hours</strong> searching, cross-referencing,
+          and drafting a response.
+        </p>
+        <p>
+          The goal was to reduce that to <strong>seconds</strong> while guaranteeing every answer cites the
+          exact source document and page number — critical for audit trails and regulatory defensibility.
+        </p>
+      </div>
+
+      <!-- Architecture -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-sitemap" aria-hidden="true"></i> System Architecture</h2>
+        <div class="arch-flow">
+          <span class="arch-node">PDF / Word Docs</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">PyPDF Loader + Chunker</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">text-embedding-3-large</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">ChromaDB (persistent)</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">MMR Retriever</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">GPT-4 Turbo (stuff chain)</span>
+        </div>
+        <p>
+          Documents are chunked with <strong>800-token windows and 150-token overlap</strong> using
+          <code>RecursiveCharacterTextSplitter</code>. Chunks are embedded with
+          <code>text-embedding-3-large</code> (3072 dimensions) and stored in a persistent ChromaDB
+          vector store. At query time, <strong>Maximum Marginal Relevance (MMR)</strong> retrieval fetches
+          6 diverse chunks from a 20-candidate pool, preventing semantically duplicate passages from
+          dominating the context window.
+        </p>
+        <p>
+          A custom compliance prompt forces the LLM to cite the exact document title and page number for
+          every claim and to explicitly say "Insufficient information" when the context doesn't support
+          an answer — avoiding hallucination in a regulated environment.
+        </p>
+      </div>
+
+      <!-- Code -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-code" aria-hidden="true"></i> Key Implementation</h2>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>ingest.py — Document loading, chunking, and vector store build</span>
+            <span>Python · LangChain · ChromaDB</span>
+          </div>
+          <pre><code>from langchain_community.document_loaders import PyPDFDirectoryLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
+
+def ingest_documents(docs_path: str, persist_dir: str = "./chroma_db"):
+    # 1. Load all PDFs
+    loader   = PyPDFDirectoryLoader(docs_path)
+    raw_docs = loader.load()
+    print(f"Loaded {len(raw_docs)} pages from "
+          f"{len({d.metadata['source'] for d in raw_docs})} documents")
+
+    # 2. Chunk with overlap for context continuity
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=800,
+        chunk_overlap=150,
+        separators=["\n\n", "\n", ". ", " "],
+    )
+    chunks = splitter.split_documents(raw_docs)
+    print(f"Split into {len(chunks)} chunks")
+
+    # 3. Embed and persist
+    embeddings  = OpenAIEmbeddings(model="text-embedding-3-large")
+    vectorstore = Chroma.from_documents(
+        documents=chunks,
+        embedding=embeddings,
+        persist_directory=persist_dir,
+        collection_name="regulatory_docs",
+    )
+    print(f"Vector store: {vectorstore._collection.count()} vectors")
+    return vectorstore</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>rag_chain.py — MMR retrieval + citation-enforcing compliance prompt</span>
+            <span>Python · LangChain · GPT-4 Turbo</span>
+          </div>
+          <pre><code>from langchain.chains import RetrievalQA
+from langchain_openai import AzureChatOpenAI
+from langchain.prompts import PromptTemplate
+
+COMPLIANCE_PROMPT = PromptTemplate(
+    input_variables=["context", "question"],
+    template="""You are a regulatory compliance expert at a major UK bank.
+Answer using ONLY the provided context. Cite document title and page number
+for every factual claim. If the context is insufficient, respond:
+"Insufficient information in the provided regulatory documents."
+
+Context:
+{context}
+
+Question: {question}
+
+Answer (with citations):""",
+)
+
+def build_rag_chain(vectorstore):
+    retriever = vectorstore.as_retriever(
+        search_type="mmr",              # diverse retrieval
+        search_kwargs={"k": 6, "fetch_k": 20},
+    )
+    llm = AzureChatOpenAI(
+        azure_deployment="gpt-4-turbo",
+        temperature=0,
+        max_tokens=800,
+    )
+    return RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        chain_type_kwargs={"prompt": COMPLIANCE_PROMPT},
+        return_source_documents=True,
+    )
+
+# Usage
+chain  = build_rag_chain(vectorstore)
+result = chain.invoke({
+    "query": "What are the AML transaction monitoring thresholds "
+             "under FCA SYSC 6.3?"
+})
+print(result["result"])
+for doc in result["source_documents"]:
+    print(f"  → {doc.metadata['source']} p.{doc.metadata.get('page','?')}")</code></pre>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Results &amp; Impact</h2>
+        <div class="results-grid">
+          <div class="result-card"><span class="result-val">40%</span><div class="result-label">Faster compliance Q&amp;A vs. manual search</div></div>
+          <div class="result-card"><span class="result-val">300+</span><div class="result-label">Regulatory documents indexed</div></div>
+          <div class="result-card"><span class="result-val">~5s</span><div class="result-label">Mean query response time</div></div>
+          <div class="result-card"><span class="result-val">100%</span><div class="result-label">Answers include source citations</div></div>
+        </div>
+        <ul>
+          <li>Used daily by HSBC compliance officers across 3 business lines for FCA/PRA queries.</li>
+          <li>MMR retrieval improved answer quality vs. similarity-only retrieval in internal evaluations.</li>
+          <li>"Insufficient information" guardrail reduced hallucination incidents to <strong>zero in production</strong> over a 6-month review.</li>
+          <li>Document corpus updated monthly via automated ingestion pipeline triggered by SharePoint webhooks.</li>
+        </ul>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-layer-group" aria-hidden="true"></i> Tech Stack</h2>
+        <div class="tech-stack-page">
+          <span>Python 3.11</span><span>LangChain 0.2</span><span>ChromaDB</span>
+          <span>text-embedding-3-large</span><span>GPT-4 Turbo (Azure OpenAI)</span>
+          <span>PyPDF</span><span>FastAPI</span><span>Azure ML</span>
+          <span>Docker</span><span>SharePoint API</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="proj-nav" aria-label="Project navigation">
+        <a href="finguard-gnn.html" class="proj-nav-btn glass-card">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> FinGuard-GNN
+        </a>
+        <a href="../index.html#projects" class="proj-nav-btn glass-card">
+          <i class="fas fa-grid-2" aria-hidden="true"></i> All Projects
+        </a>
+        <a href="anomalyformer.html" class="proj-nav-btn glass-card">
+          AnomalyFormer <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>
