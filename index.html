@@ -449,13 +449,25 @@
             </div>
           </div>
           <h3>FinGuard-GNN</h3>
-          <p>End-to-end financial crime detection combining Graph Neural Networks for money-flow analysis with LLM-generated risk narratives. Detects mule accounts in real time with explainable outputs per transaction.</p>
+          <p class="project-desc">End-to-end financial crime detection combining Graph Neural Networks for money-flow analysis with LLM-generated risk narratives. Detects mule accounts in real time with full transaction-level explainability.</p>
+          <div class="project-approach">
+            <span class="approach-label">Architecture</span>
+            <p>Transactions are modelled as a heterogeneous graph (accounts = nodes, fund transfers = edges). A GNN learns structural embeddings that expose mule networks; high-risk subgraphs are passed to a GPT-4 chain to produce plain-English risk summaries reviewed by fraud analysts.</p>
+          </div>
           <div class="project-metrics">
             <span><i class="fas fa-bullseye" aria-hidden="true"></i> 92% Precision</span>
             <span><i class="fas fa-bolt" aria-hidden="true"></i> Real-time inference</span>
           </div>
           <div class="project-tech" role="list" aria-label="Technologies">
             <span>PyTorch Geometric</span><span>LangChain</span><span>GPT-4</span><span>NetworkX</span><span>Azure ML</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-link proj-link-github" aria-label="Code repository (available on request)">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
           </div>
         </article>
 
@@ -469,13 +481,25 @@
             </div>
           </div>
           <h3>RAGDoc Intelligence</h3>
-          <p>Retrieval-Augmented Generation system for parsing and semantic querying of 50,000+ financial regulatory documents. Dramatically reduces compliance review time through LLM-powered summarisation and Q&amp;A.</p>
+          <p class="project-desc">Retrieval-Augmented Generation system for semantic querying of 50,000+ financial regulatory documents — cuts compliance review time by 70% via cited LLM-powered summarisation and Q&amp;A.</p>
+          <div class="project-approach">
+            <span class="approach-label">Architecture</span>
+            <p>Regulatory PDFs are chunked, embedded with <code>text-embedding-3-large</code>, and stored in ChromaDB. A LangChain RetrievalQA chain retrieves top-k chunks per query and synthesises accurate, cited answers — with strict prompt guardrails to prevent hallucination on compliance-critical content.</p>
+          </div>
           <div class="project-metrics">
             <span><i class="fas fa-gauge-high" aria-hidden="true"></i> 70% Faster Review</span>
             <span><i class="fas fa-database" aria-hidden="true"></i> 50K+ Docs</span>
           </div>
           <div class="project-tech" role="list">
             <span>LangChain</span><span>FAISS</span><span>OpenAI</span><span>ChromaDB</span><span>HuggingFace</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
           </div>
         </article>
 
@@ -488,13 +512,25 @@
             </div>
           </div>
           <h3>AnomalyFormer</h3>
-          <p>Novel Transformer architecture for detecting anomalies in high-dimensional IoT sensor streams. Trained on 500M+ data points across industrial plant zones with sub-second inference and multi-variate correlation tracking.</p>
+          <p class="project-desc">Novel Transformer architecture for detecting anomalies in high-dimensional IoT sensor streams. Trained on 500M+ data points across industrial plant zones with sub-100ms inference latency.</p>
+          <div class="project-approach">
+            <span class="approach-label">Architecture</span>
+            <p>A Patch-TST-inspired Transformer segments multivariate sensor time series into patches and learns cross-sensor correlations via multi-head self-attention. Anomalies are flagged by reconstruction-error thresholding, deployed on Kafka Streams for exactly-once, sub-100ms processing at plant scale.</p>
+          </div>
           <div class="project-metrics">
             <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;100ms Inference</span>
             <span><i class="fas fa-microchip" aria-hidden="true"></i> 500M+ Data Points</span>
           </div>
           <div class="project-tech" role="list">
             <span>PyTorch</span><span>Transformers</span><span>Kafka</span><span>Vertex AI</span><span>Spark</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
           </div>
         </article>
 
@@ -508,13 +544,25 @@
             </div>
           </div>
           <h3>LLM-KYC Copilot</h3>
-          <p>Intelligent KYC automation system using RAG over customer documents combined with LLM-based risk classification and narrative generation. Maintains full regulatory compliance while slashing manual review effort.</p>
+          <p class="project-desc">Intelligent KYC automation using RAG over customer identity documents and LLM-based risk classification. Cuts manual review effort by 65% while maintaining full regulatory compliance.</p>
+          <div class="project-approach">
+            <span class="approach-label">Architecture</span>
+            <p>Identity documents are OCR-parsed and chunked; Pinecone stores the embeddings. The RAG pipeline surfaces relevant sections for the LLM, which classifies risk tier (Low / Medium / High) and generates a structured KYC report — with a mandatory human-in-the-loop review gate before decisions are finalised.</p>
+          </div>
           <div class="project-metrics">
             <span><i class="fas fa-percent" aria-hidden="true"></i> 65% Effort Reduction</span>
             <span><i class="fas fa-circle-check" aria-hidden="true"></i> Reg. Compliant</span>
           </div>
           <div class="project-tech" role="list">
             <span>LangChain</span><span>GPT-4</span><span>Pinecone</span><span>FastAPI</span><span>Azure OpenAI</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
           </div>
         </article>
 
@@ -527,13 +575,25 @@
             </div>
           </div>
           <h3>DeepFraud Sentinel</h3>
-          <p>Production-grade real-time fraud detection engine processing 10K+ transactions per second at under 50ms latency. Combines gradient boosting ensemble with deep learning for sequential behavioural anomaly detection.</p>
+          <p class="project-desc">Production-grade real-time fraud detection engine handling 10K+ TPS at &lt;50ms latency — combining gradient boosting with deep learning for sequential behavioural anomaly detection.</p>
+          <div class="project-approach">
+            <span class="approach-label">Architecture</span>
+            <p>Two-stage pipeline: XGBoost scores each transaction at ingestion (fast path, &lt;10ms), while a BiLSTM tracks 30-transaction behavioural sequences (deep path). Scores are ensembled and decisions orchestrated on Apache Flink with exactly-once processing guarantees at scale.</p>
+          </div>
           <div class="project-metrics">
             <span><i class="fas fa-right-left" aria-hidden="true"></i> 10K+ TPS</span>
             <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;50ms Latency</span>
           </div>
           <div class="project-tech" role="list">
             <span>XGBoost</span><span>TensorFlow</span><span>Kafka</span><span>Apache Flink</span><span>MLflow</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
           </div>
         </article>
 
@@ -546,13 +606,25 @@
             </div>
           </div>
           <h3>MultiModal Risk Engine</h3>
-          <p>Multi-modal deep learning system fusing document OCR, computer vision, and structured tabular data for insurance fraud detection. Reduces false positives by 45% versus single-modality baseline models.</p>
+          <p class="project-desc">Multi-modal deep learning system fusing document OCR, computer vision, and structured tabular data for insurance fraud detection — 45% fewer false positives vs. single-modality baselines.</p>
+          <div class="project-approach">
+            <span class="approach-label">Architecture</span>
+            <p>ResNet-50 processes claim photos for damage assessment; BERT encodes claim text and form fields; LightGBM handles structured tabular features. A late-fusion attention layer combines all three modality embeddings, trained end-to-end with a custom focal loss to handle severe class imbalance.</p>
+          </div>
           <div class="project-metrics">
             <span><i class="fas fa-eye" aria-hidden="true"></i> Vision + NLP + Tabular</span>
             <span><i class="fas fa-arrow-down" aria-hidden="true"></i> 45% Fewer FP</span>
           </div>
           <div class="project-tech" role="list">
             <span>BERT</span><span>ResNet-50</span><span>LightGBM</span><span>CLIP</span><span>PyTorch</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
+              <i class="fab fa-github" aria-hidden="true"></i> Code
+            </a>
+            <a href="#" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
           </div>
         </article>
 
@@ -592,12 +664,11 @@
               </div>
               <i class="fas fa-arrow-right contact-arrow" aria-hidden="true"></i>
             </a>
-            <!-- TODO: Replace with your actual Instagram handle -->
-            <a href="https://www.instagram.com/soumojit.chowdhury" target="_blank" rel="noopener noreferrer" class="contact-link glass-card">
+            <a href="https://www.instagram.com/soumo27" target="_blank" rel="noopener noreferrer" class="contact-link glass-card">
               <div class="contact-link-icon instagram-icon"><i class="fab fa-instagram" aria-hidden="true"></i></div>
               <div class="contact-link-text">
                 <strong>Instagram</strong>
-                <span>@soumojit.chowdhury</span>
+                <span>@soumo27</span>
               </div>
               <i class="fas fa-arrow-right contact-arrow" aria-hidden="true"></i>
             </a>
@@ -611,30 +682,17 @@
           </div>
         </div>
 
-        <!-- Right: Form -->
-        <!-- To enable real email delivery, sign up at https://formspree.io and replace YOUR_FORM_ID below -->
+        <!-- Right: Form (powered by Formspree — https://formspree.io/f/xlgagkeb) -->
         <div class="contact-form-wrapper glass-card reveal">
-          <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="cf-name">Name <span aria-hidden="true">*</span></label>
-                <input type="text" id="cf-name" name="name" placeholder="Jane Doe" autocomplete="name" required minlength="2" maxlength="100">
-                <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
-              </div>
-              <div class="form-group">
-                <label for="cf-email">Email <span aria-hidden="true">*</span></label>
-                <input type="email" id="cf-email" name="email" placeholder="jane@company.com" autocomplete="email" required maxlength="254">
-                <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
-              </div>
-            </div>
+          <form id="contact-form" action="https://formspree.io/f/xlgagkeb" method="POST" novalidate>
             <div class="form-group">
-              <label for="cf-subject">Subject <span aria-hidden="true">*</span></label>
-              <input type="text" id="cf-subject" name="subject" placeholder="Collaboration / Opportunity / General" required minlength="3" maxlength="150">
-              <span class="form-error" id="subject-error" role="alert" aria-live="polite"></span>
+              <label for="cf-email">Your Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="cf-email" name="email" placeholder="jane@company.com" autocomplete="email" required maxlength="254">
+              <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
             </div>
             <div class="form-group">
               <label for="cf-message">Message <span aria-hidden="true">*</span></label>
-              <textarea id="cf-message" name="message" rows="5" placeholder="Tell me about your project or opportunity…" required minlength="10" maxlength="2000"></textarea>
+              <textarea id="cf-message" name="message" rows="8" placeholder="Tell me about your project, opportunity, or just say hello…" required minlength="10" maxlength="2000"></textarea>
               <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
             </div>
             <!-- Honeypot anti-spam field — hidden from real users -->
@@ -670,7 +728,7 @@
           <a href="https://www.linkedin.com/in/soumojit-chowdhury" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
             <i class="fab fa-linkedin-in" aria-hidden="true"></i>
           </a>
-          <a href="https://www.instagram.com/soumojit.chowdhury" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+          <a href="https://www.instagram.com/soumo27" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
             <i class="fab fa-instagram" aria-hidden="true"></i>
           </a>
           <a href="mailto:soumojit.chowdhury@gmail.com" aria-label="Send email">

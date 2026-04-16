@@ -243,12 +243,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
    CONTACT FORM
    ============================================================ */
 (function initContactForm() {
-  const form       = $('#contact-form');
+  const form      = $('#contact-form');
   if (!form) return;
 
-  const nameInput  = $('#cf-name');
   const emailInput = $('#cf-email');
-  const subjectIn  = $('#cf-subject');
   const msgInput   = $('#cf-message');
   const submitBtn  = $('#submit-btn');
   const btnText    = $('#btn-text');
@@ -257,21 +255,10 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   const errorEl    = $('#form-error-msg');
 
   /* --- Validators --- */
-  function validateName(val) {
-    if (!val.trim())        return 'Name is required.';
-    if (val.trim().length < 2) return 'Name must be at least 2 characters.';
-    return '';
-  }
   function validateEmail(val) {
     if (!val.trim()) return 'Email is required.';
-    // RFC-5322 simplified pattern
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!re.test(val.trim())) return 'Please enter a valid email address.';
-    return '';
-  }
-  function validateSubject(val) {
-    if (!val.trim()) return 'Subject is required.';
-    if (val.trim().length < 3) return 'Subject must be at least 3 characters.';
     return '';
   }
   function validateMessage(val) {
@@ -287,14 +274,12 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     inputEl.classList.toggle('invalid', !!msg);
   }
 
-  /* Live validation */
-  nameInput.addEventListener('blur', () => showError(nameInput, 'name-error', validateName(nameInput.value)));
+  /* Live validation on blur */
   emailInput.addEventListener('blur', () => showError(emailInput, 'email-error', validateEmail(emailInput.value)));
-  subjectIn.addEventListener('blur', () => showError(subjectIn, 'subject-error', validateSubject(subjectIn.value)));
-  msgInput.addEventListener('blur', () => showError(msgInput, 'message-error', validateMessage(msgInput.value)));
+  msgInput.addEventListener('blur',   () => showError(msgInput,   'message-error', validateMessage(msgInput.value)));
 
-  /* Clear error on input */
-  [nameInput, emailInput, subjectIn, msgInput].forEach(el => {
+  /* Clear error styling on input */
+  [emailInput, msgInput].forEach(el => {
     el.addEventListener('input', () => el.classList.remove('invalid'));
   });
 
@@ -302,25 +287,18 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Honeypot check
+    // Honeypot check — discard silently if bot filled it
     const honeypot = form.querySelector('[name="_honeypot"]');
-    if (honeypot && honeypot.value) return; // likely a bot
+    if (honeypot && honeypot.value) return;
 
-    const nameErr    = validateName(nameInput.value);
-    const emailErr   = validateEmail(emailInput.value);
-    const subjectErr = validateSubject(subjectIn.value);
-    const msgErr     = validateMessage(msgInput.value);
+    const emailErr = validateEmail(emailInput.value);
+    const msgErr   = validateMessage(msgInput.value);
 
-    showError(nameInput,  'name-error',    nameErr);
     showError(emailInput, 'email-error',   emailErr);
-    showError(subjectIn,  'subject-error', subjectErr);
     showError(msgInput,   'message-error', msgErr);
 
-    if (nameErr || emailErr || subjectErr || msgErr) {
-      // Focus first invalid field
-      [nameInput, emailInput, subjectIn, msgInput]
-        .find(el => el.classList.contains('invalid'))
-        ?.focus();
+    if (emailErr || msgErr) {
+      [emailInput, msgInput].find(el => el.classList.contains('invalid'))?.focus();
       return;
     }
 
@@ -342,20 +320,16 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       if (res.ok) {
         form.reset();
         successEl.classList.remove('hidden');
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send Message';
-        btnIcon.className = 'fas fa-paper-plane';
       } else {
         throw new Error('Server error');
       }
     } catch (_) {
-      // Fallback: open mailto
-      const subject = encodeURIComponent(subjectIn.value || 'Contact from portfolio');
-      const body    = encodeURIComponent(
-        `Name: ${nameInput.value}\nEmail: ${emailInput.value}\n\n${msgInput.value}`
-      );
-      window.location.href = `mailto:soumojit.chowdhury@gmail.com?subject=${subject}&body=${body}`;
+      // Fallback: open mailto with pre-filled body
+      const body = encodeURIComponent(`From: ${emailInput.value}\n\n${msgInput.value}`);
+      window.location.href =
+        `mailto:soumojit.chowdhury@gmail.com?subject=${encodeURIComponent('Message from portfolio')}&body=${body}`;
       errorEl.classList.remove('hidden');
+    } finally {
       submitBtn.disabled = false;
       btnText.textContent = 'Send Message';
       btnIcon.className = 'fas fa-paper-plane';
