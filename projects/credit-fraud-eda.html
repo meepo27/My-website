@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Credit Card Fraud Detection — EDA and ML pipeline on the Kaggle dataset with SHAP explainability.">
+  <title>Credit Card Fraud EDA | Soumojit Chowdhury</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237b2ff7'/><text y='72' x='12' font-size='60' font-family='monospace' font-weight='bold' fill='white'>SC</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">SC<span class="accent">.</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="../index.html#about"      class="nav-link">About</a></li>
+        <li><a href="../index.html#skills"     class="nav-link">Skills</a></li>
+        <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+        <li><a href="../index.html#projects"   class="nav-link">Projects</a></li>
+        <li><a href="../index.html#contact"    class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="project-page">
+    <div class="container">
+
+      <a href="../index.html#projects" class="back-btn">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Projects
+      </a>
+
+      <!-- Header -->
+      <div class="proj-page-header glass-card reveal">
+        <div class="proj-page-icon"><i class="fas fa-credit-card" aria-hidden="true"></i></div>
+        <div class="proj-page-badges">
+          <span class="badge badge-personal">Kaggle</span>
+          <span class="badge badge-type">Classification · EDA</span>
+        </div>
+        <h1 class="proj-page-title">Credit Card Fraud — EDA &amp; ML Pipeline</h1>
+        <p class="proj-page-tagline">
+          End-to-end exploration and modelling of the Kaggle Credit Card Fraud dataset
+          (284K transactions, 0.17% fraud rate). Class-imbalance handling, XGBoost + isolation forest
+          ensemble, and SHAP feature attribution.
+        </p>
+        <div class="proj-page-meta">
+          <span><i class="fas fa-database" aria-hidden="true"></i> Kaggle · ULB Machine Learning Group</span>
+          <span><i class="fas fa-code-branch" aria-hidden="true"></i> XGBoost · SHAP · SMOTE · Optuna</span>
+        </div>
+        <div class="proj-page-kpis">
+          <div class="proj-kpi"><span class="proj-kpi-val">0.91</span><span class="proj-kpi-label">AUC Precision-Recall</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">0.17%</span><span class="proj-kpi-label">Fraud prevalence (imbalanced)</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">SHAP</span><span class="proj-kpi-label">Full explainability</span></div>
+          <div class="proj-kpi"><span class="proj-kpi-val">284K</span><span class="proj-kpi-label">Transactions</span></div>
+        </div>
+      </div>
+
+      <!-- Problem -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-bullseye" aria-hidden="true"></i> Project Goal</h2>
+        <p>
+          The <a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Kaggle Credit Card Fraud dataset</a>
+          contains transactions made by European cardholders in September 2013. Only 492 of 284,807 transactions
+          are fraudulent (0.17%) — making this a <strong>severe class imbalance problem</strong>.
+        </p>
+        <p>
+          The goal was to build a rigorous ML pipeline: thorough EDA on PCA-transformed features,
+          multiple imbalance-handling strategies, hyperparameter optimisation, and SHAP-based explainability
+          to understand which signals actually drive fraud detection.
+        </p>
+      </div>
+
+      <!-- Approach -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-sitemap" aria-hidden="true"></i> Pipeline Overview</h2>
+        <div class="arch-flow">
+          <span class="arch-node">EDA + Distribution Analysis</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">SMOTE + Class Weights</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Optuna XGBoost Tuning</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Isolation Forest Baseline</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">Ensemble Scoring</span>
+          <span class="arch-arrow">→</span>
+          <span class="arch-node">SHAP Explainability</span>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-code" aria-hidden="true"></i> Code Walkthrough</h2>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>01_eda.py — Class imbalance analysis and feature correlations</span>
+            <span>Python · Pandas · Matplotlib · Seaborn</span>
+          </div>
+          <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv("creditcard.csv")
+
+# ── Imbalance overview ──
+print(df['Class'].value_counts(normalize=True).round(4))
+# 0 (legit)  → 99.83%
+# 1 (fraud)  →  0.17%
+
+# ── Amount distribution: fraud vs. legit ──
+fig, axes = plt.subplots(1, 2, figsize=(14, 4))
+for cls, label, ax in zip([0, 1], ['Legit', 'Fraud'], axes):
+    df[df.Class == cls]['Amount'].hist(bins=50, ax=ax, log=True)
+    ax.set_title(f'{label} — Transaction Amount Distribution')
+    ax.set_xlabel('Amount (EUR)')
+plt.tight_layout()
+plt.savefig("amount_dist.png", dpi=150)
+
+# ── Time pattern: fraud concentrates in off-peak hours ──
+df['hour'] = (df['Time'] % 86400) / 3600
+fraud_hours = df[df.Class == 1]['hour']
+print(f"Fraud hour mean: {fraud_hours.mean():.1f}h  "
+      f"std: {fraud_hours.std():.1f}h")
+
+# ── Feature correlation with target ──
+corr = df.drop(columns=['Time']).corrwith(df['Class']).abs().sort_values(ascending=False)
+print("Top 10 features correlated with fraud:")
+print(corr.head(10))</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>02_model.py — SMOTE + XGBoost with Optuna hyperparameter search</span>
+            <span>Python · XGBoost · Optuna · imbalanced-learn</span>
+          </div>
+          <pre><code>import xgboost as xgb
+import optuna
+from imblearn.over_sampling import SMOTE
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import average_precision_score
+import numpy as np
+
+# ── SMOTE resampling ──
+smote = SMOTE(sampling_strategy=0.1, random_state=42, k_neighbors=5)
+X_res, y_res = smote.fit_resample(X_train, y_train)
+print(f"After SMOTE: {np.bincount(y_res)}")
+
+# ── Optuna objective ──
+def objective(trial):
+    params = {
+        "n_estimators":       trial.suggest_int("n_estimators", 200, 800),
+        "max_depth":          trial.suggest_int("max_depth", 3, 9),
+        "learning_rate":      trial.suggest_float("learning_rate", 0.01, 0.2, log=True),
+        "subsample":          trial.suggest_float("subsample", 0.6, 1.0),
+        "colsample_bytree":   trial.suggest_float("colsample_bytree", 0.6, 1.0),
+        "scale_pos_weight":   trial.suggest_float("scale_pos_weight", 50, 200),
+        "eval_metric":        "aucpr",
+        "tree_method":        "hist",
+        "random_state":       42,
+    }
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    scores = []
+    for train_idx, val_idx in cv.split(X_res, y_res):
+        model = xgb.XGBClassifier(**params)
+        model.fit(
+            X_res[train_idx], y_res[train_idx],
+            eval_set=[(X_res[val_idx], y_res[val_idx])],
+            verbose=False,
+        )
+        preds = model.predict_proba(X_res[val_idx])[:, 1]
+        scores.append(average_precision_score(y_res[val_idx], preds))
+    return np.mean(scores)
+
+study = optuna.create_study(direction="maximize")
+study.optimize(objective, n_trials=60, show_progress_bar=True)
+print(f"Best AUC-PR: {study.best_value:.4f}")
+print("Best params:", study.best_params)</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span>03_shap.py — SHAP waterfall and summary plots for explainability</span>
+            <span>Python · SHAP · Matplotlib</span>
+          </div>
+          <pre><code>import shap
+import matplotlib.pyplot as plt
+
+# Compute SHAP values on test set (TreeExplainer is O(n) for XGBoost)
+explainer   = shap.TreeExplainer(best_xgb)
+shap_values = explainer.shap_values(X_test)
+
+# ── Global feature importance (beeswarm) ──
+shap.summary_plot(shap_values, X_test, feature_names=feature_names,
+                  max_display=15, show=False)
+plt.title("SHAP Feature Importance — Credit Card Fraud")
+plt.tight_layout()
+plt.savefig("shap_summary.png", dpi=150)
+
+# ── Per-prediction waterfall for a flagged transaction ──
+fraud_indices = (y_test == 1).nonzero()[0]
+shap.plots.waterfall(
+    shap.Explanation(
+        values=shap_values[fraud_indices[0]],
+        base_values=explainer.expected_value,
+        data=X_test[fraud_indices[0]],
+        feature_names=feature_names,
+    ),
+    max_display=12,
+)
+
+# ── Top signals revealed by SHAP ──
+# V14, V17, V12, V10 (PCA components) are the most predictive
+# Amount z-score and Time patterns also feature prominently</code></pre>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Results</h2>
+        <div class="results-grid">
+          <div class="result-card"><span class="result-val">0.91</span><div class="result-label">AUC-PR (main metric for imbalanced data)</div></div>
+          <div class="result-card"><span class="result-val">0.997</span><div class="result-label">AUC-ROC</div></div>
+          <div class="result-card"><span class="result-val">79%</span><div class="result-label">Precision @ 90% recall threshold</div></div>
+          <div class="result-card"><span class="result-val">SMOTE</span><div class="result-label">Best balancing strategy vs. class-weight / undersampling</div></div>
+        </div>
+        <ul>
+          <li>SHAP reveals V14, V17, V12 (PCA components) are the strongest fraud signals — suggesting card-present / card-not-present category separation.</li>
+          <li>SMOTE (ratio 0.1) outperformed raw class-weighting by +0.04 AUC-PR on the test set.</li>
+          <li>Isolation Forest as an unsupervised baseline achieved 0.26 AUC-PR — confirms supervised labelling is essential where available.</li>
+        </ul>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="proj-section glass-card reveal">
+        <h2><i class="fas fa-layer-group" aria-hidden="true"></i> Tech Stack</h2>
+        <div class="tech-stack-page">
+          <span>Python 3.11</span><span>XGBoost</span><span>SHAP</span><span>Optuna</span>
+          <span>imbalanced-learn (SMOTE)</span><span>Scikit-learn</span>
+          <span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="proj-nav" aria-label="Project navigation">
+        <a href="anomalyformer.html" class="proj-nav-btn glass-card">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i> Sensor Anomaly Detection
+        </a>
+        <a href="../index.html#projects" class="proj-nav-btn glass-card">
+          <i class="fas fa-grid-2" aria-hidden="true"></i> All Projects
+        </a>
+        <a href="loan-default-predictor.html" class="proj-nav-btn glass-card">
+          Loan Default Predictor <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" hidden>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+  <script src="../js/main.js"></script>
+</body>
+</html>

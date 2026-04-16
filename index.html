@@ -121,21 +121,16 @@
         <!-- Avatar with photo support -->
         <div class="about-avatar-col reveal">
           <div class="about-avatar glass-card" aria-label="Soumojit Chowdhury — Lead Data Scientist">
-            <!-- To add your photo: set src to your photo URL below -->
-            <img
-              src=""
-              alt="Soumojit Chowdhury, Lead Data Scientist at HSBC"
-              class="avatar-photo"
-              onerror="this.style.display='none'"
-              onload="document.getElementById('av-initials').style.display='none'"
-            >
+            <!-- To add your photo: set the src attribute to your photo URL -->
+            <!-- Example: src="https://media.licdn.com/dms/image/..." -->
+            <!-- Leave src empty to keep showing the SC initials -->
             <div class="avatar-initials" id="av-initials" aria-hidden="true">SC</div>
             <div class="avatar-ring" aria-hidden="true"></div>
           </div>
           <div class="about-chips">
             <span class="chip"><i class="fas fa-location-dot" aria-hidden="true"></i> Kolkata, India</span>
             <span class="chip"><i class="fas fa-building" aria-hidden="true"></i> HSBC · Asst. Director</span>
-            <span class="chip"><i class="fas fa-graduation-cap" aria-hidden="true"></i> B.Tech CSE, WBUT</span>
+            <span class="chip"><i class="fas fa-graduation-cap" aria-hidden="true"></i> B.Tech, Computer Science</span>
             <span class="chip chip-available"><i class="fas fa-circle" aria-hidden="true"></i> Open to Opportunities</span>
           </div>
         </div>
@@ -167,7 +162,7 @@
               <span class="about-num-label">Cost savings delivered</span>
             </div>
             <div class="about-num" role="listitem">
-              <span class="about-num-val">&gt;85%</span>
+              <span class="about-num-val">~72%</span>
               <span class="about-num-label">Fraud detection precision (HSBC)</span>
             </div>
             <div class="about-num" role="listitem">
@@ -214,40 +209,20 @@
       </div>
 
       <!-- Certifications & Continuous Learning -->
-      <!-- ⚠ Update these with your actual certifications from LinkedIn -->
+      <!-- ⚠ Add your remaining LinkedIn certifications here — only confirmed ones shown -->
       <div class="cert-section reveal">
         <h3 class="cert-section-title">
           <i class="fas fa-certificate" aria-hidden="true"></i> Certifications &amp; Continuous Learning
         </h3>
         <div class="cert-grid">
           <div class="cert-item glass-card">
-            <div class="cert-icon" aria-hidden="true"><i class="fab fa-google"></i></div>
+            <div class="cert-icon" aria-hidden="true"><i class="fas fa-layer-group"></i></div>
             <div>
-              <strong>Professional ML Engineer</strong>
-              <span>Google Cloud · GCP</span>
+              <strong>Full Stack Deep Learning</strong>
+              <span>FSDL · fullstackdeeplearning.com</span>
             </div>
           </div>
-          <div class="cert-item glass-card">
-            <div class="cert-icon azure" aria-hidden="true"><i class="fab fa-microsoft"></i></div>
-            <div>
-              <strong>Azure Data Scientist Associate</strong>
-              <span>Microsoft · DP-100</span>
-            </div>
-          </div>
-          <div class="cert-item glass-card">
-            <div class="cert-icon" aria-hidden="true"><i class="fas fa-brain"></i></div>
-            <div>
-              <strong>Deep Learning Specialization</strong>
-              <span>deeplearning.ai · Coursera</span>
-            </div>
-          </div>
-          <div class="cert-item glass-card">
-            <div class="cert-icon" aria-hidden="true"><i class="fas fa-robot"></i></div>
-            <div>
-              <strong>LLMOps &amp; Prompt Engineering</strong>
-              <span>deeplearning.ai · Short Courses</span>
-            </div>
-          </div>
+          <!-- Add your other LinkedIn certifications below in the same format -->
         </div>
       </div>
     </div>
@@ -273,6 +248,8 @@
             <span role="listitem">Transaction Risk Scoring</span>
             <span role="listitem">Anomaly Detection</span>
             <span role="listitem">Graph Analytics</span>
+            <span role="listitem">TigerGraph</span>
+            <span role="listitem">GSQL</span>
             <span role="listitem">Network Analysis</span>
             <span role="listitem">Mule Detection</span>
             <span role="listitem">Real-time Monitoring</span>
@@ -392,12 +369,15 @@
               <time class="tl-date" datetime="2022-03">Mar 2022 – Present</time>
             </div>
             <ul class="tl-bullets">
-              <li>Architected production-grade financial crime detection system via graph analytics (network-based mule detection) — <strong>&gt;85% precision</strong>, 80% reduction in detection lag; integrated into Azure ML CI/CD.</li>
+              <li><strong>Leads and manages a team of 5 data scientists</strong>, driving the bank's money mule detection strategy across <strong>Asia-Pacific markets</strong>.</li>
+              <li>Architected production-grade financial crime detection system using graph analytics (GNN + <strong>TigerGraph / GSQL</strong>) for network-based mule detection — <strong>~72% precision</strong>, 80% reduction in detection lag; integrated into Azure ML CI/CD.</li>
               <li>Led GenAI model development (LLM-based anomaly flagging) for insurance claims — <strong>~30% reduction in false positives</strong>, boosting fraud investigation efficiency.</li>
               <li>Owned end-to-end ML lifecycle: data engineering, feature engineering, A/B testing, model monitoring &amp; drift detection with full Model Risk compliance.</li>
               <li>Designed A/B experiments &amp; statistical tests; built Looker dashboards for self-serve fraud KPI tracking.</li>
             </ul>
             <div class="tl-tags" role="list" aria-label="Technologies used">
+              <span role="listitem">TigerGraph</span>
+              <span role="listitem">GSQL</span>
               <span role="listitem">Azure ML</span>
               <span role="listitem">Graph Analytics</span>
               <span role="listitem">LLMs</span>
@@ -507,194 +487,211 @@
       <div class="section-header reveal">
         <span class="section-tag">What I've built</span>
         <h2 class="section-title" id="projects-title">Featured Projects</h2>
-        <p class="section-subtitle">Advanced ML, Deep Learning &amp; GenAI projects spanning fraud analytics, LLM systems, and production AI.</p>
+        <p class="section-subtitle">Production industry work alongside personal research projects on public datasets.</p>
       </div>
+
+      <!-- Category labels -->
+      <div class="projects-category-row reveal">
+        <div class="proj-cat-label">
+          <span class="proj-cat-badge industry">Industry</span>
+          Production systems built at employer — architecture &amp; outcomes shared; code is proprietary.
+        </div>
+        <div class="proj-cat-label">
+          <span class="proj-cat-badge personal">Personal / Open Data</span>
+          Independent projects using Kaggle / public datasets — full code available.
+        </div>
+      </div>
+
       <div class="projects-grid">
 
-        <!-- P1: FinGuard-GNN -->
-        <article class="project-card glass-card reveal">
+        <!-- ── INDUSTRY PROJECTS ── -->
+
+        <!-- I1: Mule Network Detection (HSBC) -->
+        <article class="project-card glass-card reveal proj-industry">
           <div class="project-top">
             <div class="project-icon" aria-hidden="true"><i class="fas fa-share-nodes"></i></div>
             <div class="project-badges">
-              <span class="badge badge-hot">Featured</span>
+              <span class="badge badge-company">HSBC</span>
               <span class="badge badge-cat">Graph AI</span>
             </div>
           </div>
-          <h3>FinGuard-GNN</h3>
-          <p class="project-desc">End-to-end financial crime detection combining Graph Neural Networks for money-flow analysis with LLM-generated risk narratives. Detects mule accounts in real time with full transaction-level explainability.</p>
+          <h3>Mule Account Network Detection</h3>
+          <p class="proj-company-meta"><i class="fas fa-calendar" aria-hidden="true"></i> 2023 – 2024 &nbsp;·&nbsp; <i class="fas fa-building" aria-hidden="true"></i> HSBC, Asia-Pacific</p>
+          <p class="project-desc">Graph Neural Network trained on HSBC's transaction graph to surface coordinated money-mule rings across Asia-Pacific. GNN embeddings + LLM-generated risk narratives cut analyst review time by 60%.</p>
           <div class="project-approach">
-            <span class="approach-label">Architecture</span>
-            <p>Transactions are modelled as a heterogeneous graph (accounts = nodes, fund transfers = edges). A GNN learns structural embeddings that expose mule networks; high-risk subgraphs are passed to a GPT-4 chain to produce plain-English risk summaries reviewed by fraud analysts.</p>
+            <span class="approach-label">Infrastructure</span>
+            <p>Transaction graph stored and queried in <strong>TigerGraph</strong> using <strong>GSQL</strong> pattern-matching queries. Embeddings computed via a 3-layer GraphSAGE (PyTorch Geometric), scored by Azure ML endpoint. Risk narratives generated by GPT-4 Turbo (Azure OpenAI) and pushed to the case-management portal.</p>
           </div>
           <div class="project-metrics">
-            <span><i class="fas fa-bullseye" aria-hidden="true"></i> 92% Precision</span>
-            <span><i class="fas fa-bolt" aria-hidden="true"></i> Real-time inference</span>
+            <span><i class="fas fa-bullseye" aria-hidden="true"></i> ~72% Precision</span>
+            <span><i class="fas fa-percent" aria-hidden="true"></i> 30% Fewer False Alerts</span>
           </div>
-          <div class="project-tech" role="list" aria-label="Technologies">
-            <span>PyTorch Geometric</span><span>LangChain</span><span>GPT-4</span><span>NetworkX</span><span>Azure ML</span>
+          <div class="project-tech" role="list">
+            <span>TigerGraph</span><span>GSQL</span><span>PyTorch Geometric</span><span>Azure ML</span><span>GPT-4 Turbo</span>
           </div>
           <div class="project-links">
-            <a href="#" class="proj-link proj-link-github" aria-label="Code repository (available on request)">
-              <i class="fab fa-github" aria-hidden="true"></i> Code
-            </a>
+            <span class="proj-no-code"><i class="fas fa-lock" aria-hidden="true"></i> Proprietary</span>
             <a href="projects/finguard-gnn.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
         </article>
 
-        <!-- P2: RAGDoc Intelligence -->
-        <article class="project-card glass-card reveal">
-          <div class="project-top">
-            <div class="project-icon" aria-hidden="true"><i class="fas fa-magnifying-glass"></i></div>
-            <div class="project-badges">
-              <span class="badge badge-hot">Featured</span>
-              <span class="badge badge-cat">RAG / LLM</span>
-            </div>
-          </div>
-          <h3>RAGDoc Intelligence</h3>
-          <p class="project-desc">Retrieval-Augmented Generation system for semantic querying of 50,000+ financial regulatory documents — cuts compliance review time by 70% via cited LLM-powered summarisation and Q&amp;A.</p>
-          <div class="project-approach">
-            <span class="approach-label">Architecture</span>
-            <p>Regulatory PDFs are chunked, embedded with <code>text-embedding-3-large</code>, and stored in ChromaDB. A LangChain RetrievalQA chain retrieves top-k chunks per query and synthesises accurate, cited answers — with strict prompt guardrails to prevent hallucination on compliance-critical content.</p>
-          </div>
-          <div class="project-metrics">
-            <span><i class="fas fa-gauge-high" aria-hidden="true"></i> 70% Faster Review</span>
-            <span><i class="fas fa-database" aria-hidden="true"></i> 50K+ Docs</span>
-          </div>
-          <div class="project-tech" role="list">
-            <span>LangChain</span><span>FAISS</span><span>OpenAI</span><span>ChromaDB</span><span>HuggingFace</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
-              <i class="fab fa-github" aria-hidden="true"></i> Code
-            </a>
-            <a href="projects/ragdoc-intelligence.html" class="proj-link proj-link-details" aria-label="Project details">
-              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
-            </a>
-          </div>
-        </article>
-
-        <!-- P3: AnomalyFormer -->
-        <article class="project-card glass-card reveal">
-          <div class="project-top">
-            <div class="project-icon" aria-hidden="true"><i class="fas fa-wave-square"></i></div>
-            <div class="project-badges">
-              <span class="badge badge-cat">Deep Learning</span>
-            </div>
-          </div>
-          <h3>AnomalyFormer</h3>
-          <p class="project-desc">Novel Transformer architecture for detecting anomalies in high-dimensional IoT sensor streams. Trained on 500M+ data points across industrial plant zones with sub-100ms inference latency.</p>
-          <div class="project-approach">
-            <span class="approach-label">Architecture</span>
-            <p>A Patch-TST-inspired Transformer segments multivariate sensor time series into patches and learns cross-sensor correlations via multi-head self-attention. Anomalies are flagged by reconstruction-error thresholding, deployed on Kafka Streams for exactly-once, sub-100ms processing at plant scale.</p>
-          </div>
-          <div class="project-metrics">
-            <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;100ms Inference</span>
-            <span><i class="fas fa-microchip" aria-hidden="true"></i> 500M+ Data Points</span>
-          </div>
-          <div class="project-tech" role="list">
-            <span>PyTorch</span><span>Transformers</span><span>Kafka</span><span>Vertex AI</span><span>Spark</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
-              <i class="fab fa-github" aria-hidden="true"></i> Code
-            </a>
-            <a href="projects/anomalyformer.html" class="proj-link proj-link-details" aria-label="Project details">
-              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
-            </a>
-          </div>
-        </article>
-
-        <!-- P4: LLM-KYC Copilot -->
-        <article class="project-card glass-card reveal">
-          <div class="project-top">
-            <div class="project-icon" aria-hidden="true"><i class="fas fa-user-shield"></i></div>
-            <div class="project-badges">
-              <span class="badge badge-hot">Featured</span>
-              <span class="badge badge-cat">LLM + RAG</span>
-            </div>
-          </div>
-          <h3>LLM-KYC Copilot</h3>
-          <p class="project-desc">Intelligent KYC automation using RAG over customer identity documents and LLM-based risk classification. Cuts manual review effort by 65% while maintaining full regulatory compliance.</p>
-          <div class="project-approach">
-            <span class="approach-label">Architecture</span>
-            <p>Identity documents are OCR-parsed and chunked; Pinecone stores the embeddings. The RAG pipeline surfaces relevant sections for the LLM, which classifies risk tier (Low / Medium / High) and generates a structured KYC report — with a mandatory human-in-the-loop review gate before decisions are finalised.</p>
-          </div>
-          <div class="project-metrics">
-            <span><i class="fas fa-percent" aria-hidden="true"></i> 65% Effort Reduction</span>
-            <span><i class="fas fa-circle-check" aria-hidden="true"></i> Reg. Compliant</span>
-          </div>
-          <div class="project-tech" role="list">
-            <span>LangChain</span><span>GPT-4</span><span>Pinecone</span><span>FastAPI</span><span>Azure OpenAI</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
-              <i class="fab fa-github" aria-hidden="true"></i> Code
-            </a>
-            <a href="projects/llm-kyc-copilot.html" class="proj-link proj-link-details" aria-label="Project details">
-              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
-            </a>
-          </div>
-        </article>
-
-        <!-- P5: DeepFraud Sentinel -->
-        <article class="project-card glass-card reveal">
+        <!-- I2: Real-Time Fraud Engine (Societe Generale) -->
+        <article class="project-card glass-card reveal proj-industry">
           <div class="project-top">
             <div class="project-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
             <div class="project-badges">
+              <span class="badge badge-company">Societe Generale</span>
               <span class="badge badge-cat">Real-time ML</span>
             </div>
           </div>
-          <h3>DeepFraud Sentinel</h3>
-          <p class="project-desc">Production-grade real-time fraud detection engine handling 10K+ TPS at &lt;50ms latency — combining gradient boosting with deep learning for sequential behavioural anomaly detection.</p>
+          <h3>Real-Time Transaction Fraud Engine</h3>
+          <p class="proj-company-meta"><i class="fas fa-calendar" aria-hidden="true"></i> 2020 – 2021 &nbsp;·&nbsp; <i class="fas fa-building" aria-hidden="true"></i> Societe Generale</p>
+          <p class="project-desc">Two-stage fraud scoring pipeline: XGBoost fast path (&lt;10 ms) + BiLSTM behavioural model for sequential anomaly detection. Ensemble decisions served via Kafka with &lt;50 ms p99 latency across 1M+ daily transactions.</p>
           <div class="project-approach">
-            <span class="approach-label">Architecture</span>
-            <p>Two-stage pipeline: XGBoost scores each transaction at ingestion (fast path, &lt;10ms), while a BiLSTM tracks 30-transaction behavioural sequences (deep path). Scores are ensembled and decisions orchestrated on Apache Flink with exactly-once processing guarantees at scale.</p>
+            <span class="approach-label">Infrastructure</span>
+            <p>Feature store in <strong>Redis</strong> for sub-millisecond velocity lookups. XGBoost scores inline on the Kafka consumer; BiLSTM (PyTorch, ONNX) runs only on elevated-risk transactions. Ensemble calibration and model versioning managed in <strong>MLflow</strong>; retraining triggered monthly via <strong>Azure ML pipelines</strong>.</p>
           </div>
           <div class="project-metrics">
-            <span><i class="fas fa-right-left" aria-hidden="true"></i> 10K+ TPS</span>
-            <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;50ms Latency</span>
+            <span><i class="fas fa-stopwatch" aria-hidden="true"></i> &lt;50ms p99 Latency</span>
+            <span><i class="fas fa-arrow-trend-up" aria-hidden="true"></i> 18% More Fraud Caught</span>
           </div>
           <div class="project-tech" role="list">
-            <span>XGBoost</span><span>TensorFlow</span><span>Kafka</span><span>Apache Flink</span><span>MLflow</span>
+            <span>XGBoost</span><span>PyTorch</span><span>Kafka</span><span>Redis</span><span>MLflow</span><span>Azure ML</span>
           </div>
           <div class="project-links">
-            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
-              <i class="fab fa-github" aria-hidden="true"></i> Code
-            </a>
+            <span class="proj-no-code"><i class="fas fa-lock" aria-hidden="true"></i> Proprietary</span>
             <a href="projects/deepfraud-sentinel.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>
         </article>
 
-        <!-- P6: MultiModal Risk Engine -->
-        <article class="project-card glass-card reveal">
+        <!-- I3: Industrial Sensor Anomaly Detection (Tiger Analytics) -->
+        <article class="project-card glass-card reveal proj-industry">
           <div class="project-top">
-            <div class="project-icon" aria-hidden="true"><i class="fas fa-layer-group"></i></div>
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-wave-square"></i></div>
             <div class="project-badges">
-              <span class="badge badge-cat">MultiModal AI</span>
+              <span class="badge badge-company">Tiger Analytics</span>
+              <span class="badge badge-cat">Time-Series AI</span>
             </div>
           </div>
-          <h3>MultiModal Risk Engine</h3>
-          <p class="project-desc">Multi-modal deep learning system fusing document OCR, computer vision, and structured tabular data for insurance fraud detection — 45% fewer false positives vs. single-modality baselines.</p>
+          <h3>Industrial Sensor Anomaly Detection</h3>
+          <p class="proj-company-meta"><i class="fas fa-calendar" aria-hidden="true"></i> 2021 – 2022 &nbsp;·&nbsp; <i class="fas fa-building" aria-hidden="true"></i> Tiger Analytics (Energy Client)</p>
+          <p class="project-desc">Unsupervised Transformer trained on normal operating behaviour of 32 industrial sensor channels. Reconstruction-error anomaly scoring detects equipment faults on average 4 hours before failure — with no labelled anomaly data needed.</p>
           <div class="project-approach">
-            <span class="approach-label">Architecture</span>
-            <p>ResNet-50 processes claim photos for damage assessment; BERT encodes claim text and form fields; LightGBM handles structured tabular features. A late-fusion attention layer combines all three modality embeddings, trained end-to-end with a custom focal loss to handle severe class imbalance.</p>
+            <span class="approach-label">Infrastructure</span>
+            <p>Sliding-window sensor batches ingested via <strong>Apache Kafka</strong>; Patch-TST Transformer (PyTorch) runs on <strong>Vertex AI</strong> serving endpoints. Anomaly alerts stream to a <strong>Grafana</strong> SCADA dashboard. Model retrained quarterly on rolling 90-day normal windows via <strong>Apache Spark</strong> preprocessing.</p>
           </div>
           <div class="project-metrics">
-            <span><i class="fas fa-eye" aria-hidden="true"></i> Vision + NLP + Tabular</span>
-            <span><i class="fas fa-arrow-down" aria-hidden="true"></i> 45% Fewer FP</span>
+            <span><i class="fas fa-clock" aria-hidden="true"></i> 4 hrs Advance Warning</span>
+            <span><i class="fas fa-dollar-sign" aria-hidden="true"></i> $2M+ Downtime Avoided/yr</span>
           </div>
           <div class="project-tech" role="list">
-            <span>BERT</span><span>ResNet-50</span><span>LightGBM</span><span>CLIP</span><span>PyTorch</span>
+            <span>PyTorch</span><span>Kafka</span><span>Vertex AI</span><span>Apache Spark</span><span>Grafana</span>
           </div>
           <div class="project-links">
-            <a href="#" class="proj-link proj-link-github" aria-label="Code repository">
-              <i class="fab fa-github" aria-hidden="true"></i> Code
+            <span class="proj-no-code"><i class="fas fa-lock" aria-hidden="true"></i> Proprietary</span>
+            <a href="projects/anomalyformer.html" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
-            <a href="projects/multimodal-risk-engine.html" class="proj-link proj-link-details" aria-label="Project details">
+          </div>
+        </article>
+
+        <!-- ── PERSONAL / KAGGLE PROJECTS ── -->
+
+        <!-- P1: Credit Card Fraud Detection -->
+        <article class="project-card glass-card reveal proj-personal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-credit-card"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-personal">Kaggle</span>
+              <span class="badge badge-cat">Classification</span>
+            </div>
+          </div>
+          <h3>Credit Card Fraud — EDA &amp; ML Pipeline</h3>
+          <p class="project-desc">End-to-end fraud detection on the Kaggle Credit Card Fraud dataset (284K transactions, 0.17% fraud). Comprehensive EDA, SMOTE balancing, XGBoost + isolation forest ensemble, SHAP feature attribution.</p>
+          <div class="project-approach">
+            <span class="approach-label">Approach</span>
+            <p>Extensive class-imbalance handling via SMOTE and cost-sensitive learning. XGBoost with Optuna hyperparameter search; isolation forest as unsupervised baseline. SHAP summary plots reveal the top fraud signals (time-since-last-tx, amount z-score, PCA components).</p>
+          </div>
+          <div class="project-metrics">
+            <span><i class="fas fa-bullseye" aria-hidden="true"></i> 0.91 AUC-PR</span>
+            <span><i class="fas fa-chart-bar" aria-hidden="true"></i> SHAP Explainability</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>Python</span><span>XGBoost</span><span>SHAP</span><span>SMOTE</span><span>Optuna</span><span>Pandas</span>
+          </div>
+          <div class="project-links">
+            <a href="projects/credit-fraud-eda.html" class="proj-link proj-link-github" aria-label="View code and notebook">
+              <i class="fas fa-code" aria-hidden="true"></i> Code
+            </a>
+            <a href="projects/credit-fraud-eda.html" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
+          </div>
+        </article>
+
+        <!-- P2: Loan Default Risk Predictor -->
+        <article class="project-card glass-card reveal proj-personal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-landmark"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-personal">Open Data</span>
+              <span class="badge badge-cat">Risk Modelling</span>
+            </div>
+          </div>
+          <h3>Loan Default Risk Predictor</h3>
+          <p class="project-desc">Gradient-boosted ensemble on the Home Credit Default Risk dataset (307K customers, 122 features). Advanced feature engineering from bureau data + instalment history; LightGBM stacking with calibrated probabilities.</p>
+          <div class="project-approach">
+            <span class="approach-label">Approach</span>
+            <p>Joins bureau, credit card, and instalment tables to engineer 80+ features (delinquency ratios, utilisation trends, payment velocity). Two-level stacking: LightGBM + XGBoost base learners, logistic regression meta-learner. Calibrated with Platt scaling for well-defined risk bands.</p>
+          </div>
+          <div class="project-metrics">
+            <span><i class="fas fa-bullseye" aria-hidden="true"></i> 0.793 Kaggle AUC</span>
+            <span><i class="fas fa-table" aria-hidden="true"></i> 307K Customers</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>Python</span><span>LightGBM</span><span>XGBoost</span><span>Scikit-learn</span><span>Pandas</span><span>SHAP</span>
+          </div>
+          <div class="project-links">
+            <a href="projects/loan-default-predictor.html" class="proj-link proj-link-github" aria-label="View code">
+              <i class="fas fa-code" aria-hidden="true"></i> Code
+            </a>
+            <a href="projects/loan-default-predictor.html" class="proj-link proj-link-details" aria-label="Project details">
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
+            </a>
+          </div>
+        </article>
+
+        <!-- P3: Financial News Sentiment Signal -->
+        <article class="project-card glass-card reveal proj-personal">
+          <div class="project-top">
+            <div class="project-icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+            <div class="project-badges">
+              <span class="badge badge-personal">Public Data</span>
+              <span class="badge badge-cat">NLP</span>
+            </div>
+          </div>
+          <h3>Financial News Sentiment Signal</h3>
+          <p class="project-desc">FinBERT fine-tuned on financial news headlines (Reuters/GDELT open data) to produce a daily market sentiment score. Signal backtested as a feature overlay on a simple index momentum strategy.</p>
+          <div class="project-approach">
+            <span class="approach-label">Approach</span>
+            <p>FinBERT (ProsusAI) fine-tuned on Financial PhraseBank; inference runs on a daily batch of scraped headlines. Sentiment scores aggregated by ticker and smoothed with a 5-day EMA. Backtested using <code>vectorbt</code> against a buy-and-hold NIFTY baseline over 3 years.</p>
+          </div>
+          <div class="project-metrics">
+            <span><i class="fas fa-brain" aria-hidden="true"></i> FinBERT Fine-tuned</span>
+            <span><i class="fas fa-chart-area" aria-hidden="true"></i> 3-yr Backtest</span>
+          </div>
+          <div class="project-tech" role="list">
+            <span>Python</span><span>FinBERT</span><span>Hugging Face</span><span>vectorbt</span><span>Pandas</span><span>GDELT API</span>
+          </div>
+          <div class="project-links">
+            <a href="projects/market-sentiment-nlp.html" class="proj-link proj-link-github" aria-label="View code">
+              <i class="fas fa-code" aria-hidden="true"></i> Code
+            </a>
+            <a href="projects/market-sentiment-nlp.html" class="proj-link proj-link-details" aria-label="Project details">
               <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Details
             </a>
           </div>

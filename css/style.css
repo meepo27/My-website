@@ -1098,6 +1098,73 @@ body::before {
 }
 
 /* ============================================================
+   PROJECTS — INDUSTRY vs PERSONAL SPLIT
+   ============================================================ */
+.projects-category-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.proj-cat-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.proj-cat-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+.proj-cat-badge.industry {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: var(--cyan);
+}
+.proj-cat-badge.personal {
+  background: rgba(74,222,128,0.1);
+  border: 1px solid rgba(74,222,128,0.28);
+  color: #4ade80;
+}
+.badge-company {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: var(--cyan);
+  font-weight: 700;
+}
+.badge-personal {
+  background: rgba(74,222,128,0.1);
+  border: 1px solid rgba(74,222,128,0.28);
+  color: #4ade80;
+}
+.proj-company-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0.1rem 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.proj-no-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 0.3rem 0.7rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+}
+.proj-industry { border-left: 2px solid rgba(0,212,255,0.3); }
+.proj-personal  { border-left: 2px solid rgba(74,222,128,0.3); }
+
+/* ============================================================
    HERO — SCROLL FIX (prevents overlap with stats)
    ============================================================ */
 .hero { padding-bottom: 7rem; }          /* was 4rem — gives room for scroll indicator */
