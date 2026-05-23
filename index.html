@@ -36,7 +36,7 @@
 <!-- ─── Navbar ──────────────────────────────────────────────────────────────── -->
 <nav id="navbar" class="transparent">
   <div class="nav-inner">
-    <a href="#home" class="nav-brand">SC</a>
+    <a href="#home" class="nav-brand">Soumojit Chowdhury</a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -54,9 +54,9 @@
 <section id="home">
   <canvas id="particles-canvas"></canvas>
   <div class="hero-content">
-    <div class="hero-tag">
-      <i class="fa-solid fa-shield-halved"></i>
-      Financial Crime Analytics · APAC
+    <div class="hero-tag" id="hero-tag">
+      <i class="fa-solid fa-brain" id="hero-tag-icon"></i>
+      <span id="hero-tag-text">Data Science &amp; Machine Learning</span>
     </div>
     <h1 class="hero-name">Soumojit Chowdhury</h1>
     <div class="hero-title-line">
@@ -116,7 +116,7 @@
         </div>
         <div class="about-mini-card">
           <div class="label">Function</div>
-          <div class="value">Global Fraud Analytics</div>
+          <div class="value">Financial Crime Analytics</div>
         </div>
       </div>
 
@@ -124,21 +124,21 @@
         <p>
           Lead Data Scientist (Assistant Director) with 10+ years of ML experience specialising in
           Anti-Money Laundering (AML), fraud analytics, financial crime prevention, and real-time
-          money mule detection. Part of HSBC's Global Fraud Analytics function as one of three RTMM
-          programme leads across Australia, Singapore, Malaysia, and India — screening ~6–7 million
-          customers daily.
+          money mule detection. One of three real-time money mule programme leads at HSBC covering
+          Australia, Singapore, Malaysia, and India — screening ~6–7 million customers daily.
         </p>
         <br />
         <p>
           Deep expertise in ML model development, graph analytics (TigerGraph), behavioural biometrics
           (BioCatch), real-time transaction monitoring (Feedzai), and GenAI/LLM applications for
-          financial crime operations. Proven FLOD track record: RTMM controls 40–50% of market money
-          mule share at one-quarter Second Line's investigator cost, with ~40% end-to-end SAR conversion.
-          Regular engagement with MAS, FIU India, AUSTRAC, and senior leadership at VP/SVP level.
+          financial crime operations. Proven first-line track record: real-time money mule controls
+          cover 40–50% of market mule-suspected share at a fraction of the investigator cost,
+          with ~40% end-to-end SAR conversion. Regular engagement with MAS, FIU India, AUSTRAC,
+          and senior leadership at VP/SVP level.
         </p>
         <div class="about-badges">
           <span class="badge"><i class="fa-solid fa-location-dot"></i> India</span>
-          <span class="badge"><i class="fa-solid fa-building-columns"></i> HSBC Global Fraud Analytics</span>
+          <span class="badge"><i class="fa-solid fa-building-columns"></i> HSBC Financial Crime Risk</span>
           <span class="badge"><i class="fa-solid fa-earth-asia"></i> APAC Programme Lead</span>
           <span class="badge"><i class="fa-solid fa-scale-balanced"></i> MAS · FIU India · AUSTRAC</span>
         </div>
@@ -194,19 +194,19 @@
             <div class="exp-tenure">Mar 2022 – Present</div>
           </div>
           <div class="exp-company-line">
-            <span class="exp-company"><i class="fa-solid fa-building"></i> HSBC — Global Fraud Analytics</span>
+            <span class="exp-company"><i class="fa-solid fa-building"></i> HSBC</span>
             <span class="exp-location"><i class="fa-solid fa-location-dot"></i> India (APAC Coverage)</span>
           </div>
           <ul class="exp-bullets">
-            <li>RTMM Programme Lead for Australia, Singapore, Malaysia, and India — generating ~2,600 monthly alerts from ~6–7 million customers screened daily (Australia ~1,000 alerts, India ~600, Singapore ~600, Malaysia ~400).</li>
+            <li>Real-Time Money Mule Programme Lead across four APAC markets — generating ~2,600 monthly alerts from ~6–7 million customers screened daily.</li>
             <li>Elevated alert precision from a 10–20% baseline to ~50% through feature engineering, threshold optimisation, and population segmentation.</li>
-            <li>RTMM controls 40–50% of money mule-suspected customer share per market at approximately one-quarter of Second Line's investigator headcount cost.</li>
-            <li>Achieved ~40% end-to-end SAR conversion; outputs feed Unusual Customer Monitoring (UCM) filings to MAS, FIU India, and AUSTRAC.</li>
+            <li>Real-time money mule controls cover 40–50% of mule-suspected customer share per market at approximately one-quarter of second-line investigator headcount cost.</li>
+            <li>Achieved ~40% end-to-end SAR conversion; outputs feed Suspicious Activity Reports to MAS, FIU India, and AUSTRAC.</li>
             <li>Built an Isolation Forest model for New-to-Bank mule identification (~60% precision) with full model monitoring and PSI-based drift detection.</li>
             <li>Architected TigerGraph-based graph analytics layer using PageRank, degree centrality, and community detection for money mule ring identification.</li>
-            <li>Leading Feedzai deployment (targeting production Q3 2025) — queue architecture, PySpark feature maps, and rule engineering for real-time transaction decisioning.</li>
-            <li>Designed BioCatch compound scoring architecture integrating behavioural biometric risk signals into the RTMM alert pipeline.</li>
-            <li>Developed a GenAI Investigation Assist tool for automated case summarisation and UCM filing guidance, submitted for AI governance review.</li>
+            <li>Leading Feedzai deployment for real-time transaction decisioning — queue architecture, PySpark feature maps, and rule engineering.</li>
+            <li>Designed BioCatch compound scoring architecture integrating behavioural biometric risk signals into the real-time money mule alert pipeline.</li>
+            <li>Developed a GenAI Investigation Assist tool for automated case summarisation and SAR filing guidance, submitted for AI governance review.</li>
             <li>Maintains a BigQuery feature library of ~200 features across customer, account, transaction, and digital footprint dimensions.</li>
             <li>Presents findings to VPs, SVPs, and regulatory bodies (MAS, FIU India, AUSTRAC); manages and mentors 4 junior analysts.</li>
           </ul>

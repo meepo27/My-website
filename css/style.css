@@ -96,11 +96,12 @@ section {
 }
 
 .nav-brand {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   transition: color var(--transition);
+  white-space: nowrap;
 }
 
 #navbar.scrolled .nav-brand { color: var(--navy); }
@@ -187,6 +188,7 @@ section {
   font-weight: 500;
   margin-bottom: 1.5rem;
   letter-spacing: 0.04em;
+  transition: opacity 0.35s ease;
 }
 
 .hero-tag i { font-size: 0.75rem; }
@@ -1110,4 +1112,5 @@ footer a:hover { color: #fff; }
   section { padding: 3.5rem 0; }
   .hero-ctas { flex-direction: column; }
   .btn { justify-content: center; }
+  .nav-brand { font-size: 0.85rem; }
 }

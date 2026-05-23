@@ -123,6 +123,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 })();
 
+/* ─── Rotating hero tag ─────────────────────────────────────────────────────── */
+(function () {
+  const tag    = document.getElementById('hero-tag');
+  const tagTxt = document.getElementById('hero-tag-text');
+  const tagIco = document.getElementById('hero-tag-icon');
+  if (!tag || !tagTxt || !tagIco) return;
+
+  const items = [
+    { icon: 'fa-solid fa-brain',            text: 'Data Science & Machine Learning' },
+    { icon: 'fa-solid fa-shield-halved',    text: 'Financial Crime Analytics' },
+    { icon: 'fa-solid fa-ban',              text: 'AML & Fraud Prevention' },
+    { icon: 'fa-solid fa-diagram-project',  text: 'Graph Analytics & GenAI' },
+  ];
+
+  let idx = 0;
+
+  setInterval(() => {
+    tag.style.opacity = '0';
+    setTimeout(() => {
+      idx = (idx + 1) % items.length;
+      tagIco.className = items[idx].icon;
+      tagTxt.textContent = items[idx].text;
+      tag.style.opacity = '1';
+    }, 350);
+  }, 3000);
+})();
+
 /* ─── Typing animation ──────────────────────────────────────────────────────── */
 (function () {
   const el = document.getElementById('typing-text');
