@@ -142,21 +142,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   function tick() {
     const current = phrases[phraseIdx];
 
-    if (!deleting && charIdx <= current.length) {
+    if (!deleting) {
       el.textContent = current.slice(0, charIdx);
       charIdx++;
       if (charIdx > current.length) {
-        pauseTicks = 40;
+        charIdx = current.length;
         deleting = true;
+        pauseTicks = 40;
       }
       setTimeout(tick, 65);
-    } else if (deleting && charIdx >= 0) {
+    } else {
       if (pauseTicks > 0) {
         pauseTicks--;
         setTimeout(tick, 30);
         return;
       }
-      el.textContent = current.slice(0, charIdx);
       charIdx--;
       if (charIdx < 0) {
         deleting = false;
@@ -165,6 +165,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         setTimeout(tick, 400);
         return;
       }
+      el.textContent = current.slice(0, charIdx);
       setTimeout(tick, 35);
     }
   }

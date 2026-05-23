@@ -64,9 +64,6 @@ section {
   padding: 5rem 0;
 }
 
-section:nth-child(even) {
-  background: var(--surface);
-}
 
 /* ─── Navbar ────────────────────────────────────────────────────────────────── */
 #navbar {
@@ -362,6 +359,12 @@ section:nth-child(even) {
   color: #fff;
   flex-shrink: 0;
   box-shadow: 0 8px 28px rgba(27, 58, 107, 0.25);
+}
+
+.about-avatar-photo {
+  object-fit: cover;
+  font-size: 0;
+  background: var(--border);
 }
 
 .about-mini-card {
