@@ -1,352 +1,249 @@
-/**
- * Soumojit Chowdhury — Portfolio
- * main.js — Interactivity & Animations
- */
+/* ─── Navbar ────────────────────────────────────────────────────────────────── */
+const navbar = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
 
-'use strict';
-
-/* ============================================================
-   UTILITIES
-   ============================================================ */
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
-
-/* ============================================================
-   DYNAMIC YEAR
-   ============================================================ */
-const yearEl = $('#footer-year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-/* ============================================================
-   NAVBAR — scroll effect + active link tracking
-   ============================================================ */
-(function initNavbar() {
-  const navbar   = $('#navbar');
-  const toggle   = $('#nav-toggle');
-  const navLinks = $('#nav-links');
-  const links    = $$('.nav-link');
-
-  // Scroll effect
-  const onScroll = () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-    // Show/hide scroll-to-top
-    const btn = $('#scroll-top');
-    if (btn) {
-      const show = window.scrollY > 400;
-      btn.classList.toggle('visible', show);
-      btn.hidden = !show;
-    }
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Mobile hamburger
-  toggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    toggle.classList.toggle('open', isOpen);
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  // Close mobile menu on link click
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Active link via Intersection Observer on sections
-  const sections = $$('section[id]');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        links.forEach(l => l.classList.toggle('active', l.dataset.section === id));
-      }
-    });
-  }, { rootMargin: '-45% 0px -45% 0px' });
-
-  sections.forEach(s => observer.observe(s));
-})();
-
-/* ============================================================
-   SCROLL-TO-TOP BUTTON
-   ============================================================ */
-(function initScrollTop() {
-  const btn = $('#scroll-top');
-  if (!btn) return;
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-})();
-
-/* ============================================================
-   REVEAL ANIMATIONS (Intersection Observer)
-   ============================================================ */
-(function initReveal() {
-  const items = $$('.reveal');
-  if (!items.length) return;
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        // Stagger siblings within the same parent
-        const siblings = $$('.reveal', entry.target.parentElement);
-        const idx = siblings.indexOf(entry.target);
-        const delay = clamp(idx * 80, 0, 400);
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  items.forEach(el => observer.observe(el));
-})();
-
-/* ============================================================
-   TYPING ANIMATION
-   ============================================================ */
-(function initTyping() {
-  const el     = $('#typed-text');
-  if (!el) return;
-
-  const phrases = [
-    'Lead Data Scientist',
-    'GenAI & LLM Systems Architect',
-    'Financial Crime AI Expert',
-    'ML Engineering Specialist',
-    'Production AI Builder',
-    'Deep Learning Practitioner',
-  ];
-
-  let pIdx = 0, cIdx = 0, deleting = false;
-
-  const TYPE_SPEED   = 70;
-  const DELETE_SPEED = 35;
-  const PAUSE_AFTER  = 1800;
-  const PAUSE_BEFORE = 400;
-
-  function tick() {
-    const phrase = phrases[pIdx];
-    if (!deleting) {
-      el.textContent = phrase.slice(0, ++cIdx);
-      if (cIdx === phrase.length) {
-        deleting = true;
-        setTimeout(tick, PAUSE_AFTER);
-        return;
-      }
-      setTimeout(tick, TYPE_SPEED);
-    } else {
-      el.textContent = phrase.slice(0, --cIdx);
-      if (cIdx === 0) {
-        deleting = false;
-        pIdx = (pIdx + 1) % phrases.length;
-        setTimeout(tick, PAUSE_BEFORE);
-        return;
-      }
-      setTimeout(tick, DELETE_SPEED);
-    }
+function updateNavbar() {
+  if (window.scrollY > 60) {
+    navbar.classList.remove('transparent');
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+    navbar.classList.add('transparent');
   }
-  setTimeout(tick, 900);
-})();
+}
 
-/* ============================================================
-   PARTICLE CANVAS
-   ============================================================ */
-(function initParticles() {
-  const canvas = $('#particles-canvas');
+window.addEventListener('scroll', updateNavbar, { passive: true });
+updateNavbar();
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  const spans = hamburger.querySelectorAll('span');
+  if (navLinks.classList.contains('open')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = '';
+    spans[1].style.opacity = '';
+    spans[2].style.transform = '';
+  }
+});
+
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    const spans = hamburger.querySelectorAll('span');
+    spans[0].style.transform = '';
+    spans[1].style.opacity = '';
+    spans[2].style.transform = '';
+  });
+});
+
+/* ─── Smooth scroll ─────────────────────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'));
+    const top = target.getBoundingClientRect().top + window.scrollY - navH;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+
+/* ─── Particle canvas ───────────────────────────────────────────────────────── */
+(function () {
+  const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
-
   const ctx = canvas.getContext('2d');
-  let W, H, particles, animId;
 
-  // Prefer reduced motion
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) { canvas.style.display = 'none'; return; }
+  let W, H, particles;
 
   function resize() {
-    W = canvas.width  = canvas.offsetWidth;
+    W = canvas.width = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
-    buildParticles();
   }
 
-  function buildParticles() {
-    const count = Math.floor((W * H) / 18000);
+  function createParticles() {
+    const count = Math.floor((W * H) / 14000);
     particles = Array.from({ length: count }, () => ({
-      x:  Math.random() * W,
-      y:  Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      r:  Math.random() * 1.8 + 0.5,
-      o:  Math.random() * 0.5 + 0.15,
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.5 + 0.5,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.35 + 0.1,
     }));
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-
-    // Draw connections
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = 130;
-        if (dist < maxDist) {
-          const alpha = (1 - dist / maxDist) * 0.25;
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
-          ctx.lineWidth = 0.6;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Draw particles
     particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 212, 255, ${p.o})`;
-      ctx.fill();
-
-      // Move
       p.x += p.vx;
       p.y += p.vy;
       if (p.x < 0) p.x = W;
       if (p.x > W) p.x = 0;
       if (p.y < 0) p.y = H;
       if (p.y > H) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(147, 184, 232, ${p.alpha})`;
+      ctx.fill();
     });
 
-    animId = requestAnimationFrame(draw);
-  }
-
-  // Pause when tab hidden (battery/perf)
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(animId);
-    else draw();
-  });
-
-  const ro = new ResizeObserver(() => {
-    cancelAnimationFrame(animId);
-    resize();
-    draw();
-  });
-  ro.observe(canvas.parentElement);
-  resize();
-  draw();
-})();
-
-/* ============================================================
-   CONTACT FORM
-   ============================================================ */
-(function initContactForm() {
-  const form      = $('#contact-form');
-  if (!form) return;
-
-  const emailInput = $('#cf-email');
-  const msgInput   = $('#cf-message');
-  const submitBtn  = $('#submit-btn');
-  const btnText    = $('#btn-text');
-  const btnIcon    = $('#btn-icon');
-  const successEl  = $('#form-success');
-  const errorEl    = $('#form-error-msg');
-
-  /* --- Validators --- */
-  function validateEmail(val) {
-    if (!val.trim()) return 'Email is required.';
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    if (!re.test(val.trim())) return 'Please enter a valid email address.';
-    return '';
-  }
-  function validateMessage(val) {
-    if (!val.trim()) return 'Message is required.';
-    if (val.trim().length < 10) return 'Message must be at least 10 characters.';
-    return '';
-  }
-
-  function showError(inputEl, errorId, msg) {
-    const errEl = $('#' + errorId);
-    if (!errEl) return;
-    errEl.textContent = msg;
-    inputEl.classList.toggle('invalid', !!msg);
-  }
-
-  /* Live validation on blur */
-  emailInput.addEventListener('blur', () => showError(emailInput, 'email-error', validateEmail(emailInput.value)));
-  msgInput.addEventListener('blur',   () => showError(msgInput,   'message-error', validateMessage(msgInput.value)));
-
-  /* Clear error styling on input */
-  [emailInput, msgInput].forEach(el => {
-    el.addEventListener('input', () => el.classList.remove('invalid'));
-  });
-
-  /* Submit */
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Honeypot check — discard silently if bot filled it
-    const honeypot = form.querySelector('[name="_honeypot"]');
-    if (honeypot && honeypot.value) return;
-
-    const emailErr = validateEmail(emailInput.value);
-    const msgErr   = validateMessage(msgInput.value);
-
-    showError(emailInput, 'email-error',   emailErr);
-    showError(msgInput,   'message-error', msgErr);
-
-    if (emailErr || msgErr) {
-      [emailInput, msgInput].find(el => el.classList.contains('invalid'))?.focus();
-      return;
+    // draw connecting lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(74, 124, 199, ${0.12 * (1 - dist / 110)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
     }
 
-    // Loading state
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  createParticles();
+  draw();
+
+  window.addEventListener('resize', () => {
+    resize();
+    createParticles();
+  });
+})();
+
+/* ─── Typing animation ──────────────────────────────────────────────────────── */
+(function () {
+  const el = document.getElementById('typing-text');
+  if (!el) return;
+
+  const phrases = [
+    'Lead Data Scientist',
+    'Financial Crime Analytics Specialist',
+    'AML & Money Mule Detection Expert',
+  ];
+
+  let phraseIdx = 0;
+  let charIdx = 0;
+  let deleting = false;
+  let pauseTicks = 0;
+
+  function tick() {
+    const current = phrases[phraseIdx];
+
+    if (!deleting && charIdx <= current.length) {
+      el.textContent = current.slice(0, charIdx);
+      charIdx++;
+      if (charIdx > current.length) {
+        pauseTicks = 40;
+        deleting = true;
+      }
+      setTimeout(tick, 65);
+    } else if (deleting && charIdx >= 0) {
+      if (pauseTicks > 0) {
+        pauseTicks--;
+        setTimeout(tick, 30);
+        return;
+      }
+      el.textContent = current.slice(0, charIdx);
+      charIdx--;
+      if (charIdx < 0) {
+        deleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        charIdx = 0;
+        setTimeout(tick, 400);
+        return;
+      }
+      setTimeout(tick, 35);
+    }
+  }
+
+  tick();
+})();
+
+/* ─── IntersectionObserver reveal ──────────────────────────────────────────── */
+(function () {
+  const items = document.querySelectorAll('.reveal');
+  if (!items.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  items.forEach(item => observer.observe(item));
+})();
+
+/* ─── Scroll-to-top ─────────────────────────────────────────────────────────── */
+(function () {
+  const btn = document.getElementById('scroll-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+/* ─── Contact form ──────────────────────────────────────────────────────────── */
+(function () {
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+  if (!form) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    statusEl.textContent = '';
+    statusEl.className = '';
     submitBtn.disabled = true;
-    btnText.textContent = 'Sending…';
-    btnIcon.className = 'fas fa-spinner fa-spin';
-    successEl.classList.add('hidden');
-    errorEl.classList.add('hidden');
+    submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending…';
 
     try {
-      const data = new FormData(form);
-      const res  = await fetch(form.action, {
+      const res = await fetch(form.action, {
         method: 'POST',
-        body:   data,
-        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
       });
 
       if (res.ok) {
+        statusEl.textContent = 'Message sent — thank you! I\'ll be in touch soon.';
+        statusEl.className = 'success';
         form.reset();
-        successEl.classList.remove('hidden');
       } else {
-        throw new Error('Server error');
+        throw new Error('Server responded with ' + res.status);
       }
-    } catch (_) {
-      errorEl.classList.remove('hidden');
-      errorEl.textContent = 'Message could not be sent. Please email me directly at soumojit.chowdhury@gmail.com.';
+    } catch {
+      statusEl.textContent = 'Message could not be sent. Please email me directly at soumojit.chowdhury@gmail.com.';
+      statusEl.className = 'error';
     } finally {
       submitBtn.disabled = false;
-      btnText.textContent = 'Send Message';
-      btnIcon.className = 'fas fa-paper-plane';
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
     }
-  });
-})();
-
-/* ============================================================
-   SMOOTH ANCHOR SCROLL (offset for fixed nav)
-   ============================================================ */
-(function initSmoothScroll() {
-  document.addEventListener('click', e => {
-    const anchor = e.target.closest('a[href^="#"]');
-    if (!anchor) return;
-    const targetId = anchor.getAttribute('href').slice(1);
-    const target   = document.getElementById(targetId);
-    if (!target) return;
-    e.preventDefault();
-    const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 70;
-    const top  = target.getBoundingClientRect().top + window.scrollY - navH;
-    window.scrollTo({ top, behavior: 'smooth' });
   });
 })();
