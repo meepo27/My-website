@@ -365,6 +365,8 @@ section {
   object-fit: cover;
   font-size: 0;
   background: var(--border);
+  outline: 3px solid var(--navy-mid);
+  outline-offset: 3px;
 }
 
 .about-mini-card {
