@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/component-encryption/configuring-external-components/troubleshooting-tips
+Title: Troubleshooting Tips | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Component Encryption](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/component-encryption/)
+  * Troubleshooting Tips
+
+
+
+Was this page helpful?Â 
+
+# Troubleshooting Tips
+
+Configuring custom properties can be challenging due to the number of different configurations that are required to fully set up [component encryption](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/component-encryption).
+
+Here are some tips if you run into issues:
+
+  1. Ensure you're using the right software versions, as the most common source of errors is the usage of incorrect software versions. Ensure the following minimum versions are in use:
+
+     * **Java** : 8u141
+     * **Rabbit** : 3.6.14 / Erlang 20.1
+  2. Check for errors in the Pulse logs. The most common configuration errors which are easily identified in the logs are:
+
+     * The client side is configured without encryption and the server side is configured with encryption (or vice-versa).
+     * The public key of the certificate in the client truststore does not match the private key of the server keystore.
+     * The truststore does not include the certificate of the CA that signs it.
+  3. Check if the server is configured with SSL by using `openssl s_client -connect <server:port>` and verify if the certificates are displayed in the command output.
+
+  4. Set the encryption lib log level to trace by adding `<logger name="com.feedzai.ssl" level="trace"/>` to logger.xml. If the logs are significantly longer than expected, it might be a sign that too many SSL connections are being established.
+
+info
+
+Establishing too many SSL connections might have an impact on performance.
+
+  5. Under extreme circumstances, run the following command: `set -Djavax.net.debug=all`. This should be used with caution because it produces a long log. Check the following page to understand the generated logs: [https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug).
+
+
+

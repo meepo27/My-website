@@ -1,0 +1,36 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/
+Title: Monitoring | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * Monitoring
+
+
+
+# Monitoring
+
+Was this page helpful?Â 
+
+This section introduces how to monitor Pulse and its applications. We'll cover the multiple channels that can be used to gather information about what's happening inside Pulse: Log files, the UI and programmatically via JMX.
+
+  * [JMX and Notifications](/pulse/latest/docs/common/pulse/operations-guide/monitoring/jmx-and-notifications) â Learn how to access metrics from the Pulse Server and applications via JMX MBeans.
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging) â Learn how to configure and read Pulse logs
+    * [Event Storage Dump Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/event-storage-dump-logging)
+    * [Logging Confidential Data](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-confidential-data)
+    * [Logging Partitioning Information on Plan Operator](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-partitioning-information)
+    * [Logging Reference for Security Audits](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-reference-for-security)
+    * [Microsoft LightGBM logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/microsoft-lightgbm-logging)
+    * [Configuring Jetty to Log HTTP Requests](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/configuring-jetty)
+  * [Pulse Probes](/pulse/latest/docs/common/pulse/operations-guide/monitoring/pulse-probes) â Learn how to use Pulse metric probes, that provide instrumentation data on pulse processing steps in real time.
+    * [PKernel Probes](/pulse/latest/docs/common/pulse/operations-guide/monitoring/pulse-probes/pkernel-probes)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics) â Learn about monitoring metrics exposed in the /metrics endpoint.
+    * [Monitoring Processing of Profiles in PKernel](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/processing-profiles-in-pkernel) â Learn about PKernel monitoring metrics.
+    * [Monitoring Replication of Events in the Workflow](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/replication-of-events-in-the-workflow) â Learn about metrics to monitor the replication of events in the workflow.
+    * [Monitoring the Persistence of Events in the Workflow](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/persistence-of-events-in-the-workflow) â Learn about metrics to monitor the persistence of event data.
+    * [Monitoring Cassandra Driver Sessions](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/cassandra-driver-sessions) â Learn about Cassandra driver sessions monitoring metrics.
+    * [Monitoring Processing of Feedback Records in Pulse](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/processing-feedback-records-in-pulse)
+    * [Monitoring Event Storage Dumps in Pulse](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/event-storage-dumps-in-pulse)
+    * [Monitoring DynamoDB Profile Store](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/dynamodb-profile-store) â Learn about metrics to monitor the DynamoDB profile store.
+
+

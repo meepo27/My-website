@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/event-storage-dump-logging
+Title: Event Storage Dump Logging | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/)
+  * Event Storage Dump Logging
+
+
+
+On this page
+
+# Event Storage Dump Logging
+
+Was this page helpful?Â 
+
+## Event Storage Dump Loggingâ
+
+In case of a major failure, the Smart Event Storage Dump will log the event that failed to be persisted in the file. This event can contain confidential information, therefore, these logs should only be logged to the [Confidential Logger](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-confidential-data). In order to do that the following configurations must be added to the `logger.xml`:
+
+To the "common" logger:
+
+Main Log Appender
+    
+    
+    <logger name="com.feedzai.dump.storage.impl.files.FileDumpWriter" level="off"/>  
+    
+
+To the confidential logger:
+
+Confidential Log Appender
+    
+    
+    <!-- In trace level it will log the events that failed to be persisted into disk -->  
+    <logger name="com.feedzai.dump.storage.impl.files.FileDumpWriter" level="off" additivity="false">  
+        <appender-ref ref="CONFIDENTIAL-ASYNC"/>  
+    </logger>  
+    

@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-version-and
+Title: How to Version and Store | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop)
+  * How to Version and Store
+
+
+
+On this page
+
+# How to Version and Store
+
+Was this page helpful?Â 
+
+## Whyâ
+
+The main goals for versioning your work in a distributed version control system such as git are:
+
+  * To have a bundle of the application ready for deployment (stable versions that are promoted to Production environments may be tagged).
+  * To track the evolution of a Pulse application (**Pulse app**).
+
+
+
+## How toâ
+
+The method of versioning you work depends on the project specifications; however, the recommended approach is to version the **Pulse app** as a whole. This is done by:
+
+  1. Generating the .papp file, for example by:
+
+a. Using the option [Export Application](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-and-importing-applications).
+
+b. Using the REST API; 
+
+  2. Storing the file in git.
+
+
+
+
+Limitations of this recommendation
+
+There are a few aspects to have in mind associated to this recommendation as described below:
+
+  * The binaries of the data science **Models** are not exported with the .papp file, and thus, they binaries have to be versioned separately.
+  * The .papp file containing managed **Lists** with many items might become to large, and in this case, it might be preferable to store the .papp without **List** items.
+
+
+
+## Next Stepsâ
+
+Now that you know how to version and store your work, check the page [How to code review](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-code-review) to learn this process in the context of **App Collaboration**.

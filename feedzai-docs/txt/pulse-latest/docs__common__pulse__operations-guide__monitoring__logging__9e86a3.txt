@@ -1,0 +1,128 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/configuring-jetty
+Title: Configure Jetty to Log HTTP Requests | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/)
+  * Configure Jetty to Log HTTP Requests
+
+
+
+# Configure Jetty to Log HTTP Requests
+
+Was this page helpful?Â 
+
+Pulse uses Jetty **9.4.X** as the back-end engine for the web server. It is possible to configure the engine to automatically log every HTTP request into a log file (which will appear in the `log/` folder). To do so, itâs necessary to add a new logger entry to the file `conf/engine/jetty/jetty.xml` in Pulse:
+    
+    
+      <Configure id="Server" class="org.eclipse.jetty.server.Server">  
+        <Arg name="threadpool"><New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool"/></Arg>  
+        ...  
+        <Set name="RequestLog">  
+          <New id="RequestLog" class="org.eclipse.jetty.server.CustomRequestLog">  
+            <!-- Writer -->  
+            <Arg>  
+              <New class="org.eclipse.jetty.server.AsyncRequestLogWriter">  
+                <!-- Make http request log rotate by day. -->  
+                <Arg><Property name="solr.log.dir" default="log"/>/yyyy_mm_dd.request.log</Arg>  
+                <Set name="filenameDateFormat">yyyy_MM_dd</Set>  
+                <!-- Only delete rotated files after a week.  -->  
+                <Set name="retainDays">  
+                  <Property name="solr.log.requestlog.retaindays" default="7"/>  
+                </Set>  
+                <Set name="append">true</Set>  
+                <Set name="timeZone">UTC</Set>  
+              </New>  
+            </Arg>  
+            <!-- Default format String: -->  
+            <!-- Arg><Get class="org.eclipse.jetty.server.CustomRequestLog" name="EXTENDED_NCSA_FORMAT"/></Arg -->  
+            <!-- Custom format String: https://javadoc.io/doc/org.eclipse.jetty/jetty-server/9.4.51.v20230217/org/eclipse/jetty/server/CustomRequestLog.html -->  
+            <Arg>{{date: %{YYYY-MM-dd:hh:mm:ss:SSSZ}t},{response status:%s},{hostname: %{client}a}, {response time: %{ms}Tms}, {hostname: %{Host}i}, {user: %u}, {Connection status: %X}, {response status: %s}, {first line: %r}, {address client: %{client}a}, {address server: %{server}a}, {MAC: %{local}a}}</Arg>  
+          </New>  
+        </Set>  
+      ...  
+    
+
+The API of`CustomRequestLog` for **Jetty v9.4.51.v20230217** (used by **Pulse 25.0.15+**) is described at [the jetty-server documentation](https://javadoc.io/doc/org.eclipse.jetty/jetty-server/9.4.51.v20230217/org/eclipse/jetty/server/CustomRequestLog.html).
+
+By using this `CustomRequestLog` itâs possible to satisfy the following requirements from [CR707 PCR4293 Fraud Event Logging Components_Requirements](https://docs.google.com/spreadsheets/d/1-sx4FN8fwfxIAzGY1YAu2sTHoVttuP5lwqJtv_P-Ef4/edit?usp=sharing):
+
+Requirement| Loggable| RequestLog Argument (string format)  
+---|---|---  
+Properly formatted and accurate timestamp|   
+Must be in a format supported by `Jetty DateCache.`| 
+    
+    
+    {date: %{YYYY-MM-dd:hh:mm:ss:SSSZ}t}  
+  
+Status code for the event type request was successful or not|   
+Itâs possible to know via the HTTP response code.| 
+    
+    
+    {response status:%s}  
+  
+Device identifier (MAC address or other unique identifier)|   
+Likely not possible since printing physical address is the same as printing the IP of the client or server in our tests.| 
+    
+    
+    {MAC: %{local}a}
+
+  
+It prints the IP as physical address.  
+Session / Transaction ID|   
+Likely not possible since API doesnât provide a way to get an unique identifier for the request.|   
+Autonomous System Number (hostname)|   
+Possible. Could be necessary to print the host header for it.| 
+    
+    
+    {hostname: %{Host}i}
+
+  
+Might be possible for client to send wrong information.  
+Source IP (IPv4)| | 
+    
+    
+    {address client: %{client}a}  
+  
+Source IP (IPv6)|   
+Likely possible since IPv4 works, but untested.| 
+    
+    
+    {address client: %{client}a}
+
+  
+It should also print IPv6 if used. **Not tested.**  
+Status Code| | 
+    
+    
+    {response status: %s}  
+  
+Response Time| | 
+    
+    
+    {response time: %{ms}Tms}  
+  
+Additional headers (i.e., HTTP headers)| | 
+    
+    
+    {Header_Name: %{Header_Name}i}  
+  
+Where appropriate, the username and/or userID shall be included|   
+Likely not possible since API doesnât provide a way to get an unique identifier for the request.|   
+Where appropriate, the command executed shall be included| | 
+    
+    
+    {first HTTP line: %r}  
+  
+Where possible, all data shall be formatted as key-value-pairs allowing for easy extraction| | E.g.:  
+
+    
+    
+    {{date: %{YYYY-MM-dd:hh:mm:ss:SSSZ}t},{response status:%s},{hostname: %{client}a}, {response time: %{ms}Tms}, {hostname: %{Host}i}, {user: %u}, {Connection status: %X}, {response status: %s}, {first line: %r}, {address client: %{client}a}, {address server: %{server}a}, {MAC: %{local}a}}  
+  
+Where possible, a unique event identifier shall be included for event correlation; a unique event identifier shall be defined per event type6|   
+Likely not possible since API doesnât provide a way to get an unique identifier for the request.|   
+  
+The third column of the table above shows examples of possible values for the argument `formatString` that needs to be passed to the constructor of `org.eclipse.jetty.server.CustomRequestLog#CustomRequestLog( org.eclipse.jetty.server.RequestLog.Writer, java.lang.String )` in order to print the requirements of the first column.

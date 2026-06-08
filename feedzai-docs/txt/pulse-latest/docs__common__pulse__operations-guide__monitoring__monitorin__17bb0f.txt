@@ -1,0 +1,121 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/event-storage-dumps-in-pulse
+Title: Monitoring Event Storage Dumps in Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/)
+  * Monitoring Event Storage Dumps in Pulse
+
+
+
+On this page
+
+# Monitoring Event Storage Dumps in Pulse
+
+Was this page helpful?Â 
+
+This page describes how to monitor the dumping of events when they fail to be written to the Event Storage in Pulse using the `/metrics` endpoint.
+
+## Introductionâ
+
+In Pulse, each Workflow has it own Event Storage. When events reach the end of the workflow they are persisted in the Event Storage. If the Event Storage isn't avaliable (e.g.: Database is offline) the events are dumped to disk and are reprocessed later on by the Event Storage Dump component.
+
+It is essential to know if this component is operating within reasonable limits. By taking monitoring metrics from the Event Storage Dump, Pulse operators can have access to different information related to event dumps operations via the `/metrics` endpoint.
+
+info
+
+To enable the component that reports this metrics, reach out to the Feedzai Customer Success (CS) team.
+
+## Metricsâ
+
+The metrics are associated with an application, identifiable via an `appSlug` tag, where the service is running.
+
+The `appType` and `metricType` tags, that are also associated with these monitoring metrics, are common to other metrics exposed in Pulse and App Engines. They inform where the metrics were collected (Pulse Server or App Engine) and what type of metric it is being reported (e.g. APPLICATION), respectively.
+
+Name | Description | Unit | Possible Values | Tags  
+---|---|---|---|---  
+Gauges  
+      
+    
+    pulse.dump.storage.retry.queue.size
+
+| The total number of events that are present in the in-memory queue to be written to the dump file in the retry folder. | # | >= 0 | _appSlug  
+metricType  
+appType  
+workflowID  
+workflowDesc_  
+      
+    
+    pulse.dump.storage.failed.queue.size
+
+| The total number of events that are present in the in-memory queue to be written to the dump file in the failed folder. | # | >= 0 | _appSlug  
+metricType  
+appType  
+workflowID  
+workflowDesc_  
+      
+    
+    pulse.dump.storag.recovery.job
+
+| Whether the auto recovery job that reprocesses events dumped into the retry folder, is running or not. | Boolean | `true` \- Job is running  
+`false` \- Job is not running | _appSlug  
+metricType  
+appType  
+workflowID  
+workflowDesc_  
+Counters  
+      
+    
+    pulse.dump.storage.dump.entries.retry.counter
+
+| The total number of events that are currently stored in the disk to be retried by the auto recovery job. | # | >= 0 | _appSlug  
+metricType  
+appType  
+workflowID  
+workflowDesc_  
+      
+    
+    pulse.dump.storage.dump.entries.failed.counter
+
+| The total number of events that are currently stored in the disk but that already reached the maximum amounts of retry, therefore are no longer reprocessed and need to be recovered manually. | # | >= 0 | _appSlug  
+metricType  
+appType  
+workflowID  
+workflowDesc_  
+  
+## Responseâ
+
+Here you can see an excerpt of a response from a `/metrics` call focusing on the Event Storage Dump monitoring metrics provided by Pulse:
+
+Click here to expand...
+    
+    
+    {
+      "version": "3.1.3",
+      "gauges": {
+            "pulse.dump.storage.retry.queue.size,appSlug=,metricType=APPLICATION,workflowDesc=,appType=PULSE_APPLICATION,workflowID=": {
+                  "value": 0
+            },
+            "pulse.dump.storage.failed.queue.size,appSlug=,metricType=APPLICATION,workflowDesc=,appType=PULSE_APPLICATION,workflowID=": {
+                  "value": 0
+            },
+            "pulse.dump.storage.recovery.job,appSlug=,metricType=APPLICATION,workflowDesc=,appType=PULSE_APPLICATION,workflowID=": {
+                  "value": false
+            }
+      },
+      "counters": {
+            "pulse.dump.storage.dump.entries.retry.counter,appSlug=,metricType=APPLICATION,workflowDesc=,appType=PULSE_APPLICATION,workflowID=": {
+                  "count": 0
+            },
+            "pulse.dump.storage.dump.entries.failed.counter,appSlug=,metricType=APPLICATION,workflowDesc=,appType=PULSE_APPLICATION,workflowID=": {
+                  "count": 0
+            }
+      },
+      "histograms": {},
+      "meters": {},
+      "timers": {}
+      }
+    }
+        

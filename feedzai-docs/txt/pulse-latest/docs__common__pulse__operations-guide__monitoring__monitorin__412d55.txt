@@ -1,0 +1,389 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/cassandra-driver-sessions
+Title: Monitoring Cassandra Driver Sessions | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/)
+  * Monitoring Cassandra Driver Sessions
+
+
+
+On this page
+
+# Monitoring Cassandra Driver Sessions
+
+Was this page helpful?Â 
+
+Multiple Pulse components can be configured to work with a Cassandra database, such as the Profile Store and the Event Storage. The `/metrics` API exposes several metrics that allow Pulse operators to monitor the Cassandra drivers that these different components use to communicate with the Cassandra cluster(s).
+
+This page describes how to configure the monitoring of these drivers, as well as the available metrics.
+
+## Cassandra drivers and their configuration propertiesâ
+
+Within a Pulse App Engine, several Cassandra drivers can be created depending on the defined configurations. If a Cassandra connection configuration is provided at the global level, a Cassandra driver may be created at the App Engine level, which can then be used by the multiple components within the App Engine, as long as the Cassandra connection configuration of these components is either not provided (defaults to global) or equal to the one defined at the global scope. Otherwise, the component itself will create its own Cassandra driver.
+
+The prefix of the Cassandra driver metric names, as well as the metric tags, changes depending on whether the driver is created by the App Engine or by a specific component within the App Engine:
+
+Metric Name Prefix | Description | Tags  
+---|---|---  
+      
+    
+    pulse.cassandra.driver.stats
+
+| For the Cassandra driver that can be created by the App Engine. | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.workflow.cassandra.driver.stats
+
+| For the Cassandra driver that can be created within the scope of a given workflow component. | _appSlug  
+metricType  
+appType  
+workflowId  
+workflowDesc  
+elementId  
+elementDesc  
+context_  
+  
+## Available metricsâ
+
+The following table lists all the metrics that are exposed for each Cassandra driver:
+
+Name | Description | Unit  
+---|---|---  
+Counters  
+      
+    
+    <prefix>.blocking-executor-queue-depth
+
+| The total number of queued-up tasks in the Cassandra driver's blocking executor. | #  
+      
+    
+    <prefix>.connect-to
+
+| The total number of Cassandra hosts the driver is currently connected to. | #  
+      
+    
+    <prefix>.executor-queue-depth
+
+| The total number of queued-up tasks in the Cassandra driver's main internal executor. | #  
+      
+    
+    <prefix>.inflight-requests
+
+| The total number of inflight requests to Cassandra hosts. | #  
+      
+    
+    <prefix>.known-hosts
+
+| The total number of Cassandra hosts currently known by the driver, regardless of whether the hosts are up or down. | #  
+      
+    
+    <prefix>.open-connections
+
+| The total number of currently open connections to Cassandra hosts. | #  
+      
+    
+    <prefix>.reconnection-scheduler-task-count
+
+| The total number of queued up tasks in the Cassandra driver's reconnection executor. | #  
+      
+    
+    <prefix>.request-queue-depth
+
+| The total number of enqueued requests on all Cassandra hosts. | #  
+      
+    
+    <prefix>.task-scheduler-task-count
+
+| The total number of queued-up tasks in the Cassandra driver's scheduled tasks executor. | #  
+      
+    
+    <prefix>.trashed-connections
+
+| The total number of currently trashed connections to Cassandra hosts. | #  
+Gauges  
+      
+    
+    <prefix>.authentication-errors
+
+| The number of authentication errors while connecting to Cassandra nodes. | #  
+      
+    
+    <prefix>.client-timeouts
+
+| The number of requests that timed out before the driver received a response. | #  
+      
+    
+    <prefix>.connection-errors
+
+| The number of errors while connecting to Cassandra nodes. | #  
+      
+    
+    <prefix>.ignores
+
+| The number of times a request was ignored due to the retry policy, for instance, due to timeouts or unavailability. | #  
+      
+    
+    <prefix>.ignores-on-client-timeout
+
+| The number of times a request was ignored due to the retry policy after a client timeout. | #  
+      
+    
+    <prefix>.ignores-on-connection-error
+
+| The number of times a request was ignored due to the retry policy after a connection error. | #  
+      
+    
+    <prefix>.ignores-on-other-errors
+
+| The number of times a request was ignored due to the retry policy after an unexpected error. | #  
+      
+    
+    <prefix>.ignores-on-read-timeout
+
+| The number of times a request was ignored due to the retry policy after a read timed out. | #  
+      
+    
+    <prefix>.ignores-on-unavailable
+
+| The number of times a request was ignored due to the retry policy after an unavailable exception. | #  
+      
+    
+    <prefix>.ignores-on-write-timeout
+
+| The number of times a request was ignored due to the retry policy after a write timed out. | #  
+      
+    
+    <prefix>.other-errors
+
+| The number of requests that returned errors not accounted for by another metric. | #  
+      
+    
+    <prefix>.read-timeouts
+
+| The number of read requests that returned a timeout (independently of the final decision taken by the retry policy). | #  
+      
+    
+    <prefix>.retries
+
+| The number of times a request was retried due to the retry policy. | #  
+      
+    
+    <prefix>.retries-on-client-timeout
+
+| The number of times a request was retried due to the retry policy after a client timeout. | #  
+      
+    
+    <prefix>.retries-on-connection-error
+
+| The number of times a request was retried due to the retry policy after a connection error. | #  
+      
+    
+    <prefix>.retries-on-other-errors
+
+| The number of times a request was retried due to the retry policy after an unexpected error. | #  
+      
+    
+    <prefix>.retries-on-read-timeout
+
+| The number of times a request was retried due to the retry policy after a read timed out. | #  
+      
+    
+    <prefix>.retries-on-unavailable
+
+| The number of times a request was retried due to the retry policy after an unavailable exception. | #  
+      
+    
+    <prefix>.retries-on-write-timeout
+
+| The number of times a request was retried due to the retry policy after a write timed out. | #  
+      
+    
+    <prefix>.speculative-executions
+
+| The number of times a speculative execution was started because a previous execution did not complete within the delay specified by speculative execution policy. | #  
+      
+    
+    <prefix>.unavailables
+
+| The number of requests that returned an unavailable exception (independently of the final decision taken by the retry policy). | #  
+      
+    
+    <prefix>.write-timeouts
+
+| Returns the number of write requests that returned a timeout (independently of the final decision taken by the retry policy). | #  
+Meters  
+      
+    
+    <prefix>.bytes-received
+
+| The number of bytes received by the Cassandra driver so far. | #  
+      
+    
+    <prefix>.bytes-sent
+
+| The number of bytes sent by the Cassandra driver so far. | #  
+Timers  
+Metrics regarding the number of user requests performed on the Cassandra cluster: 
+
+  * The total number of requests.
+  * The requests rate (in requests per second), including 1, 5 and 15-minute rates.
+  * The mean, min and max latencies, as well as latency at a given percentile.
+
+|   
+  
+## API response exampleâ
+
+The following is an excerpt of a response from a /metrics call focusing on the Cassandra driver monitoring metrics:
+
+Click here to expand...
+    
+    
+      
+    {  
+      "version": "3.1.3",  
+      "gauges": {  
+        "pulse.cassandra.driver.stats.blocking-executor-queue-depth,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 0  
+        },  
+        "pulse.cassandra.driver.stats.connected-to,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 1  
+        },  
+        "pulse.cassandra.driver.stats.executor-queue-depth,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 0  
+        },  
+        "pulse.cassandra.driver.stats.inflight-requests,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 0  
+        },  
+        "pulse.cassandra.driver.stats.known-hosts,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 1  
+        },  
+        "pulse.cassandra.driver.stats.open-connections,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 2  
+        },  
+        "pulse.cassandra.driver.stats.reconnection-scheduler-task-count,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 0  
+        },  
+        "pulse.cassandra.driver.stats.request-queue-depth,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 0  
+        },  
+        "pulse.cassandra.driver.stats.task-scheduler-task-count,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 1  
+        },  
+        "pulse.cassandra.driver.stats.trashed-connections,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "value": 0  
+        }  
+      },  
+      "counters": {  
+        "pulse.cassandra.driver.stats.authentication-errors,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.client-timeouts,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.connection-errors,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores-on-client-timeout,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores-on-connection-error,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores-on-other-errors,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores-on-read-timeout,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores-on-unavailable,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.ignores-on-write-timeout,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.other-errors,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.read-timeouts,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries-on-client-timeout,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries-on-connection-error,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries-on-other-errors,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries-on-read-timeout,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries-on-unavailable,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.retries-on-write-timeout,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.speculative-executions,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.unavailables,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        },  
+        "pulse.cassandra.driver.stats.write-timeouts,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 0  
+        }  
+      },  
+      "meters": {  
+        "pulse.cassandra.driver.stats.bytes-received,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 70085,  
+          "m15_rate": 13655.832257436685,  
+          "m1_rate": 10008.181863718019,  
+          "m5_rate": 13062.761137000047,  
+          "mean_rate": 2685.961431360291,  
+          "units": "events/second"  
+        },  
+        "pulse.cassandra.driver.stats.bytes-sent,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 26621,  
+          "m15_rate": 2357.49710743481,  
+          "m1_rate": 1913.6517203981277,  
+          "m5_rate": 2285.3326489363553,  
+          "mean_rate": 1020.2309350480018,  
+          "units": "events/second"  
+        }  
+      },  
+      "timers": {  
+        "pulse.cassandra.driver.stats.requests,appSlug=myapp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+          "count": 52,  
+          "max": 1.1036750240000002,  
+          "mean": 0.08373713328355051,  
+          "min": 0.0025661990000000003,  
+          "p50": 0.007133643,  
+          "p75": 0.008593443000000001,  
+          "p95": 0.8025958230000001,  
+          "p98": 0.97049927,  
+          "p99": 1.1036750240000002,  
+          "p999": 1.1036750240000002,  
+          "stddev": 0.23199159630369318,  
+          "m15_rate": 6.085718936919922,  
+          "m1_rate": 4.7259628149837045,  
+          "m5_rate": 5.864636322164412,  
+          "mean_rate": 1.9928190509216706,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        }  
+      }  
+          
+    

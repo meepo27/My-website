@@ -1,0 +1,349 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/permissions
+Title: List of Permissions | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Securing an Application
+  * List of Permissions
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# List of Permissions
+
+The following sections list the permissions that are available to control access to resources of Pulse.
+
+Resource dependencies
+
+Resources sometimes have dependencies between them, hence to access one, you might need to have access to another. These dependencies are not always obvious. If you are having difficulties with resource permissions, contact Feedzai's technical support.
+
+## Globalâ
+
+Name| Description  
+---|---  
+`*`| Permission that gives complete access to Pulse.  
+  
+## Administrationâ
+
+Name| Description  
+---|---  
+`admin:logs:read`| Permission that grants access to the logs.  
+`admin:cluster:manage`| Permission that grants management access to the cluster.  
+`admin:cluster:read`| Permission that grants read access to the cluster.  
+`admin:configuration:delete`| Permission to delete configurations on the administration screens.  
+`admin:configuration:read`| Permission to read the configurations on the administration screens.  
+`admin:configuration:update`| Permission to update configurations on the administration screens.  
+`admin:deploy`| Permission to deploy services through the REST API.  
+`admin:security:reload`| Permission to reload security through REST API.  
+`admin:service:control`| Permission to start and stop services via the Administration API.  
+`admin:view`| Permission to access the administration screens.  
+`admin:usermanagement`| Permission to manage users.  
+  
+## Applicationâ
+
+### Managementâ
+
+Name| Description  
+---|---  
+`application:*`| Permission to perform all CRUD actions in application models.  
+`application:*:read`| Permission to read applications.  
+`application:apps:create`| Permission to create new applications.  
+`application:apps:delete`| Permission to delete applications.  
+`application:apps:manage`| Permission to start/stop/publish/export applications.  
+`application:apps:partialExport`| Permission to partially export applications.  
+`application:apps:partialImport`| Permission to partially import applications.  
+`application:apps:read`| Permission to read applications.  
+`application:apps:update`| Permission to update applications.  
+  
+### Data scienceâ
+
+#### Data sourcesâ
+
+Name| Description  
+---|---  
+`application:datascience_datasources:create`| Permission to create data science data sources.  
+`application:datascience_datasources:delete`| Permission to delete data science data sources.  
+`application:datascience_datasources:read`| Permission to read data science data sources.  
+`application:datascience_datasources:update`| Permission to update data science data sources.  
+  
+#### Evaluation metricsâ
+
+Name| Description  
+---|---  
+`application:datascience_evaluationmetrics:create`| Permission to create data science evaluation metrics.  
+`application:datascience_evaluationmetrics:delete`| Permission to delete data science evaluation metrics.  
+`application:datascience_evaluationmetrics:read`| Permission to read data science evaluation metrics.  
+`application:datascience_evaluationmetrics:update`| Permission to update data science evaluation metrics.  
+  
+#### Model projectsâ
+
+Name| Description  
+---|---  
+`application:datascience_modelprojects:create`| Permission to create data science model projects.  
+`application:datascience_modelprojects:delete`| Permission to delete data science model projects.  
+`application:datascience_modelprojects:read`| Permission to read data science model projects.  
+`application:datascience_modelprojects:update`| Permission to update data science model projects.  
+`application:datascience_modelprojects_evaluations:create`| Permission to create data science model evaluations.  
+`application:datascience_modelprojects_evaluations:delete`| Permission to delete data science model evaluations.  
+`application:datascience_modelprojects_evaluations:read`| Permission to read data science model evaluations.  
+`application:datascience_modelprojects_evaluations:update`| Permission to update data science model evaluations.  
+`application:datascience_modelprojects_featureimportance:create`| Permission to create feature importance.  
+`application:datascience_modelprojects_featureimportance:delete`| Permission to delete feature importance.  
+`application:datascience_modelprojects_featureimportance:read`| Permission to read feature importance.  
+`application:datascience_modelprojects_featureimportance:update`| Permission to update feature importance.  
+`application:datascience_modelprojects_hyperparam_tuning:create`| Permission to create hyperparameter tuning.  
+`application:datascience_modelprojects_hyperparam_tuning:delete`| Permission to delete hyperparameter tuning.  
+`application:datascience_modelprojects_hyperparam_tuning:read`| Permission to read hyperparameter tuning.  
+`application:datascience_modelprojects_hyperparam_tuning:update`| Permission to update hyperparameter tuning.  
+`application:datascience_modelprojects_hyperparam_tuning_eval:create`| Permission to create hyperparameter tuning evals.  
+`application:datascience_modelprojects_hyperparam_tuning_eval:delete`| Permission to delete hyperparameter tuning evals.  
+`application:datascience_modelprojects_hyperparam_tuning_eval:read`| Permission to read hyperparameter tuning evals.  
+`application:datascience_modelprojects_hyperparam_tuning_eval:update`| Permission to update hyperparameter tuning evals.  
+`application:datascience_modelprojects_models:create`| Permission to create Data Science models.  
+`application:datascience_modelprojects_models:delete`| Permission to delete Data Science models.  
+`application:datascience_modelprojects_models:read`| Permission to read Data Science models.  
+`application:datascience_modelprojects_models:update`| Permission to update Data Science models.  
+`application:datascience_modelprojects_targets:create`| Permission to create Data Science targets.  
+`application:datascience_modelprojects_targets:delete`| Permission to delete Data Science targets.  
+`application:datascience_modelprojects_targets:read`| Permission to read Data Science targets.  
+`application:datascience_modelprojects_targets:update`| Permission to update Data Science targets.  
+  
+#### Plansâ
+
+Name| Description  
+---|---  
+`application:datascience_plans:create`| Permission to create Data Science Plans.  
+`application:datascience_plans:delete`| Permission to delete Data Science Plans.  
+`application:datascience_plans:read`| Permission to read Data Science Plans.  
+`application:datascience_plans:run`| Permission to run Data Science Plans.  
+`application:datascience_plans:update`| Permission to update Data Science Plans.  
+`application:datascience_plans_executions:create`| Permission to create Data Science Plan Executions.  
+`application:datascience_plans_executions:delete`| Permission to delete Data Science Plans Executions.  
+`application:datascience_plans_executions:read`| Permission to read Data Science Plans Executions.  
+`application:datascience_plans_executions:update`| Permission to update Data Science Plans Executions.  
+  
+#### Rules projectsâ
+
+Name| Description  
+---|---  
+`application:datascience_rulesprojects:create`| Permission to create data science rules projects.  
+`application:datascience_rulesprojects:delete`| Permission to delete data science rules projects.  
+`application:datascience_rulesprojects:read`| Permission to read data science rules projects.  
+`application:datascience_rulesprojects:self-service-publish`| Permission to publish self-service rules.  
+`application:datascience_rulesprojects:update`| Permission to update data science rules projects.  
+`application:datascience_rulesprojects_environments:create`| Permission to create data science rules project evaluations.  
+`application:datascience_rulesprojects_environments:delete`| Permission to delete data science rules project evaluations.  
+`application:datascience_rulesprojects_environments:read`| Permission to read data science rules project evaluations.  
+`application:datascience_rulesprojects_environments:update`| Permission to update data science rules project evaluations.  
+`application:datascience_rulesprojects_evaluations:create`| Permission to create data science rules project evaluations.  
+`application:datascience_rulesprojects_evaluations:delete`| Permission to delete data science rules project evaluations.  
+`application:datascience_rulesprojects_evaluations:read`| Permission to read data science rules project evaluations.  
+`application:datascience_rulesprojects_evaluations:update`| Permission to update data science rules project evaluations.  
+`application:datascience_rulesprojects_rules:create`| Permission to create Data Science Rules that are not based from templates.  
+`application:datascience_rulesprojects_rules:create:fromAst`| Permission to create self-service rules.  
+`application:datascience_rulesprojects_rules:create:fromTemplate`| Permission to create data science rules from templates.  
+`application:datascience_rulesprojects_rules:delete`| Permission to delete data science rules.  
+`application:datascience_rulesprojects_rules:read`| Permission to read data science rules.  
+`application:datascience_rulesprojects_rules:update`| Permission to update data science rules that are not based on templates.  
+`application:datascience_rulesprojects_rules:update:fromAst`| Permission to update self-service rules.  
+`application:datascience_rulesprojects_rules:update:fromTemplate`| Permission to update data science rules from templates.  
+`application:datascience_rulesprojects_snapshots:create`| Permission to create data science rules project snapshots.  
+`application:datascience_rulesprojects_snapshots:delete`| Permission to delete data science rules project snapshots.  
+`application:datascience_rulesprojects_snapshots:read`| Permission to read data science rules project snapshots.  
+`application:datascience_rulesprojects_snapshots:update`| Permission to update data science rules project snapshots.  
+`application:datascience_rulesprojects_templates:create`| Permission to create data science rules project templates.  
+`application:datascience_rulesprojects_templates:delete`| Permission to delete data science rules project templates.  
+`application:datascience_rulesprojects_templates:read`| Permission to read data science rules project templates.  
+`application:datascience_rulesprojects_templates:update`| Permission to update data science rules project templates.  
+`application:ssr_audit:privilegedView`| Permission to read Self-Service Rules Audit entries in privileged views â for instance, retrieving the audit respective to all Rules present in a given application.  
+`application:ssr_audit:read`| Permission to read self-service rule audit entries.  
+`application:ssr_test:read`| Permission to read self-service rule test results.  
+`application:ssr_test:run`| Permission to run self-service rule tests.  
+`application:ssr_test:update`| Permission to update self-service rule test results.  
+  
+#### Schemasâ
+
+Name| Description  
+---|---  
+`application:datascience_schemas:create`| Permission to create Data Science Schemas.  
+`application:datascience_schemas:delete`| Permission to delete Data Science Schemas.  
+`application:datascience_schemas:read`| Permission to read Data Science Schemas.  
+`application:datascience_schemas:update`| Permission to update Data Science Schemas.  
+  
+#### Tagsâ
+
+Name| Description  
+---|---  
+`application:datascience_tag_groups:create`| Permission to create Data Science Tag Groups.  
+`application:datascience_tag_groups:delete`| Permission to delete Data Science Tag Groups.  
+`application:datascience_tag_groups:read`| Permission to read Data Science Tag Groups.  
+`application:datascience_tag_groups:update`| Permission to update Data Science Tag Groups.  
+`application:datascience_tag_types:create`| Permission to create Data Science Tag Types.  
+`application:datascience_tag_types:delete`| Permission to delete Data Science Tag Types.  
+`application:datascience_tag_types:read`| Permission to read Data Science Tag Types.  
+`application:datascience_tag_types:update`| Permission to update Data Science Tag Types.  
+  
+#### White-box explanationsâ
+
+Name| Description  
+---|---  
+`application:datascience_white_box_explanations:create`| Permission to create White Box Explanation configuration.  
+`application:datascience_white_box_explanations:delete`| Permission to delete White Box Explanation configuration.  
+`application:datascience_white_box_explanations:read`| Permission to read White Box Explanation configuration.  
+`application:datascience_white_box_explanations:update`| Permission to update White Box Explanation configuration.  
+  
+#### JupyterLabâ
+
+Name| Description  
+---|---  
+`useride:management`| Permission to access and restart the JupyterLab process.  
+  
+### Sandbox evaluationsâ
+
+Name| Description  
+---|---  
+`application:sandbox_evaluations:create`| Permission to create sandbox evaluations.  
+`application:sandbox_evaluations:delete`| Permission to delete sandbox evaluations.  
+`application:sandbox_evaluations:read`| Permission to read sandbox evaluations.  
+`application:sandbox_evaluations:update`| Permission to update sandbox evaluations.  
+  
+### Custom servicesâ
+
+Name| Description  
+---|---  
+`application:dependencies:create`| Permission to create new custom services.  
+`application:dependencies:delete`| Permission to delete custom services.  
+`application:dependencies:read`| Permission to read custom services.  
+`application:dependencies:update`| Permission to update custom services.  
+  
+### Historyâ
+
+Name| Description  
+---|---  
+`application:history:global:read`| Permission to read history log application-wide.  
+`application:history:global:revert`| Permission to revert changes application-wide.  
+`application:history:resource:read`| Permission to read history log of a single resource.  
+`application:history:resource:revert`| Permission to revert changes to a single resource.  
+  
+### Data-processing jobsâ
+
+Name| Description  
+---|---  
+`application:jobexecutions:abort`| Permission to abort job executions.  
+`application:jobexecutions:create`| Permission to create new job executions.  
+`application:jobexecutions:delete`| Permission to delete job executions.  
+`application:jobexecutions:read`| Permission to read job executions.  
+`application:jobexecutions:start`| Permission to start job executions.  
+`application:jobexecutions:update`| Permission to update job executions.  
+`application:job_profiles:create`| Permission to create job profiles.  
+`application:job_profiles:delete`| Permission to delete job profiles.  
+`application:job_profiles:read`| Permission to read job profiles.  
+`application:job_profiles:update`| Permission to update job profiles.  
+  
+### Managed listsâ
+
+Name| Description  
+---|---  
+`application:managedlists:create`| Permission to create managed lists.  
+`application:managedlists:delete`| Permission to delete managed lists.  
+`application:managedlists:read`| Permission to read managed lists.  
+`application:managedlists:update`| Permission to update managed lists.  
+`application:managedlistitems:create`| Permission to create managed list items.  
+`application:managedlistitems:delete`| Permission to delete managed list items.  
+`application:managedlistitems:read`| Permission to read managed list items.  
+`application:managedlistitems:update`| Permission to update managed list items.  
+`application:managedlistitems:decrypt`| Permission to download encrypted values of managed list items in plain text format. The plain text download needs to be enabled using the _pulse.global.lists.allowListDownloadInPlainText_ property.  
+`application:managedlistitems:revision:create`| Permission to create pending changes to managed list items. These are edits that another user must review (and approve) before they are applied to the list.  
+`application:managedlistitems:revision:update`| Permission to mark pending changes to list items as accepted or rejected. Accepted revisions are applied as definitive edits to the list.  
+`application:managedlistitems:revision:read`| Permission to read pending changes to managed list items.  
+  
+### Outcome combinatorsâ
+
+Name| Description  
+---|---  
+`application:outcome_combinators:create`| Permission to create new outcome combinators.  
+`application:outcome_combinators:delete`| Permission to delete outcome combinators.  
+`application:outcome_combinators:read`| Permission to read outcome combinators.  
+`application:outcome_combinators:update`| Permission to update outcome combinators.  
+  
+### Workflowsâ
+
+Name| Description  
+---|---  
+`application:rte_workflows:create`| Permission to create new workflows.  
+`application:rte_workflows:delete`| Permission to delete workflows.  
+`application:rte_workflows:read`| Permission to read workflows.  
+`application:rte_workflows:update`| Permission to update every parameter in a workflow.  
+`application:rte_workflows:update:schema`| Permission to update a workflow's schema.  
+`application:rte_workflows:update:name`| Permission to update a workflow's name and description.  
+`application:rte_workflows:update:outcomes`| Permission to update workflow outcomes.  
+`application:rte_workflows:update:outcomecombinator`| Permission to update a workflow's outcome combinator.  
+`application:rte_workflows:update:services`| Permission to update workflow services.  
+`application:rte_workflows:update:advancedconfigs`| Permission to update a workflow's advanced configurations.  
+  
+### User interfaceâ
+
+Name| Description  
+---|---  
+`pulseviews:login`| Permission to log in in pulseviews.  
+`pulseviews:management:tabs:*`| Permission to allow users to access all pulseviews tabs.  
+`pulseviews:management:tabs:dataconfiguration`| Permission to allow users to access pulseviews' data configuration tab.  
+`pulseviews:management:tabs:workflows`| Permission to allow users to access pulseviews' workflows tab.  
+`pulseviews:management:tabs:lists`| Permission to allow users to access pulseviews' fraud managed lists tab.  
+`pulseviews:management:tabs:jobs`| Permission to allow users to access pulseviews' jobs tab.  
+`pulseviews:management:tabs:history`| Permission to allow users to access pulseviews' history tab.  
+  
+## User managementâ
+
+### Auditâ
+
+Name| Description  
+---|---  
+`security:audit:read`| Permission to read audit logs.  
+  
+### Ownershipâ
+
+Name| Description  
+---|---  
+`security:ownership:read`| Permission to read group hierarchy.  
+`security:ownership:update`| Permission to update group hierarchy.  
+  
+### Permissionsâ
+
+Name| Description  
+---|---  
+`security:permissions:create`| Permission to create new permissions.  
+`security:permissions:delete`| Permission to delete permissions.  
+`security:permissions:read`| Permission to read permissions.  
+`security:permissions:update`| Permission to update permissions.  
+  
+### Rolesâ
+
+Name| Description  
+---|---  
+`security:roles:create`| Permission to create new roles.  
+`security:roles:delete`| Permission to delete roles.  
+`security:roles:read`| Permission to read roles.  
+`security:roles:update`| Permission to update roles.  
+  
+### Tenantsâ
+
+Name| Description  
+---|---  
+`security:tenants:create`| Permission to create tenants.  
+`security:tenants:delete`| Permission to delete tenants.  
+`security:tenants:read`| Permission to read tenants.  
+`security:tenants:update`| Permission to update tenants.  
+  
+### Usersâ
+
+Name| Description  
+---|---  
+`security:users:create`| Permission to create new users.  
+`security:users:delete`| Permission to delete users.  
+`security:users:expirepassword`| Permission to expire users' passwords.  
+`security:users:read`| Permission to read users.  
+`security:users:update`| Permission to update users.

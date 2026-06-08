@@ -1,0 +1,259 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/processing-feedback-records-in-pulse
+Title: Monitoring Processing of Feedback Records in Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/)
+  * Monitoring Processing of Feedback Records in Pulse
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Monitoring Processing of Feedback Records in Pulse
+
+This page describes how to monitor the processing of feedback records in Pulse using the `/metrics` endpoint.
+
+## Introductionâ
+
+Feedback records are a core concept of Pulse that allow users to provide feedback about past decisions from the system, e.g. when a transaction was previously marked as not fraudulent, but was actually fraudulent. This mechanism allows:
+
+  * Data Scientists to re-iterate over the metrics, rules and Machine Learning models used by the workflow, and use the feedback to iteratively improve the performance of the system.
+  * Users to evaluate the performance of the system by comparing the decisions of Pulse with the received feedback.
+
+
+
+The Feedback Storage Service is the service responsible to manage all the CRUD operations related with feedback records.
+
+It is essential to know if this service is operating within reasonable limits. By taking monitoring metrics from the Feedback Storage Service, Pulse operators can have access to different information related to feedback operations via the `/metrics` endpoint.
+
+## Metricsâ
+
+The metrics are associated with an application, identifiable via an `appSlug` tag, where the service is running.
+
+The `appType` and `metricType` tags, that are also associated with these monitoring metrics, are common to other metrics exposed in Pulse and App Engines. They inform where the metrics were collected (Pulse Server or App Engine) and what type of metric it is being reported (e.g. APPLICATION), respectively.
+
+Name | Description | Unit | Possible Values | Tags  
+---|---|---|---|---  
+Gauges  
+      
+    
+    pulse.feedbackstorage.status
+
+|  The current status of the Feedback Storage Service. This state is computed by looking at the current state of the internal components of the service. This means that: 
+
+  * If **all components are UNAVAILABLE** , then the **service is UNAVAILABLE**.
+  * If **all components are AVAILABLE** , then the **service is AVAILABLE**.
+  * If the **components have different states** then the **service is DEGRADED**.
+
+The DEGRADED state can happen, when for example feedback messages are dropped to the deadletter because of an issue in either the Event Storage or the Messaging Broker.  | # | 0 - UNAVAILABLE  
+1 - AVAILABLE  
+2 - DEGRADED | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.feedbacks.queue.size
+
+| The total number of entries that are present in the feedback messaging queue to be processed by the service. | # | >= 0 | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.event-storage-worker-app-{appId}-wf-{workflowId}.queue.size
+
+| The total number of operations pending in the executor of a given event storage. There is 1 executor per AppID-WorkflowID, the name of the metric will depend on that. | # | >= 0 | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.available.publishers
+
+| The total number of available publishers (that publish to the feedback queue on a REST/RMI request) at a given point in time. | # | > 0 | _appSlug  
+metricType  
+appType_  
+Counters  
+      
+    
+    pulse.feedbackstorage.deadletters.event-storage.counter
+
+| The total number of events that are currently stored in a deadletter, for the event-storage inserts. | # | >= 0 | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.deadletters.messaging.counter
+
+| The total number of events that are currently stored in a deadletter, for the feedback messaging publishes. | # | >= 0 | _appSlug  
+metricType  
+appType_  
+Timers  
+Timers contain the following metrics: 
+
+  * **count:** Number of events;
+  * **max:** Max Latency;
+  * **mean:** Mean Latency;
+  * **min:** Minimum Latency;
+  * **p50:** Latencies in the percentile 50;
+  * **p75:** Latencies in the percentile 75;
+  * **p95:** Latencies in the percentile 95;
+  * **p98:** Latencies in the percentile 98;
+  * **p99:** Latencies in the percentile 99;
+  * **p999:** Latencies in the percentile 99.9;
+  * **stddev:** Standard deviation of the latencies;
+  * **m15_rate:** Rate in the last 15 minutes;
+  * **m1_rate:** Rate in the last 1 minute;
+  * **m5_rate:** Rate in the last 5 minutes;
+  * **mean_rate:** Mean rate;
+  * **duration_units:** Seconds;
+  * **rate_units:** Calls/Second;
+
+  
+      
+    
+    pulse.feedbackstorage.feedbacks.consumption
+
+| The latency associated with consumption of feedback messages. | seconds | >= 0 | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.feedbacks.publish
+
+| The latency associated with publishing of feedback messages. | seconds | >= 0 | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.feedbacks.read
+
+| The latency associated with reads of feedback records from the event storage. | seconds | >= 0 | _appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.feedbackstorage.feedbacks.write
+
+| The latency associated with writes of feedback records to the event storage. | seconds | >= 0 | _appSlug  
+metricType  
+appType_  
+  
+## Responseâ
+
+Here you can see an excerpt of a response from a `/metrics` call focusing on the Feedback Storage Service monitoring metrics provided by Pulse:
+
+Click here to expand...
+    
+    
+      
+    {  
+      "version": "3.1.3",  
+      "gauges": {  
+            "pulse.feedbackstorage.available.publishers,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "value": 1  
+            },  
+            "pulse.feedbackstorage.event-storage-worker-app-pyRnWtaCjhc3bgXFjSpN_Q-wf-j0vmz74uFtljOI7m_x5CYA.queue.size,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "value": 0  
+            },  
+            "pulse.feedbackstorage.feedbacks.queue.size,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "value": 0  
+            },  
+            "pulse.feedbackstorage.status,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "value": 1  
+            },  
+      },  
+      "counters": {  
+            "pulse.feedbackstorage.deadletters.event-storage.counter,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "count": 0  
+            },  
+            "pulse.feedbackstorage.deadletters.messaging.counter,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "count": 0  
+            }  
+      },  
+      "histograms": {},  
+      "meters": {},  
+      "timers": {  
+            "pulse.feedbackstorage.feedbacks.consumption,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "count": 30,  
+                "max": 0.060647473,  
+                "mean": 0.015117776753910768,  
+                "min": 0.006571861,  
+                "p50": 0.010779865000000001,  
+                "p75": 0.012081169000000001,  
+                "p95": 0.056311958,  
+                "p98": 0.060647473,  
+                "p99": 0.060647473,  
+                "p999": 0.060647473,  
+                "stddev": 0.0131817571588833,  
+                "m15_rate": 0.4164373137301911,  
+                "m1_rate": 0.6044556218797338,  
+                "m5_rate": 0.44797335122240606,  
+                "mean_rate": 0.9025331257980914,  
+                "duration_units": "seconds",  
+                "rate_units": "calls/second"  
+            },  
+            "pulse.feedbackstorage.feedbacks.publish,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "count": 30,  
+                "max": 0.060647473,  
+                "mean": 0.015117776753910768,  
+                "min": 0.006571861,  
+                "p50": 0.010779865000000001,  
+                "p75": 0.012081169000000001,  
+                "p95": 0.056311958,  
+                "p98": 0.060647473,  
+                "p99": 0.060647473,  
+                "p999": 0.060647473,  
+                "stddev": 0.0131817571588833,  
+                "m15_rate": 0.4164373137301911,  
+                "m1_rate": 0.6044556218797338,  
+                "m5_rate": 0.44797335122240606,  
+                "mean_rate": 0.9025331257980914,  
+                "duration_units": "seconds",  
+                "rate_units": "calls/second"  
+            },  
+            "pulse.feedbackstorage.feedbacks.read,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "count": 0,  
+                "max": 0,  
+                "mean": 0,  
+                "min": 0,  
+                "p50": 0,  
+                "p75": 0,  
+                "p95": 0,  
+                "p98": 0,  
+                "p99": 0,  
+                "p999": 0,  
+                "stddev": 0,  
+                "m15_rate": 0,  
+                "m1_rate": 0,  
+                "m5_rate": 0,  
+                "mean_rate": 0,  
+                "duration_units": "seconds",  
+                "rate_units": "calls/second"  
+            },  
+            "pulse.feedbackstorage.feedbacks.write,appSlug=FeedbackStorageApp,metricType=APPLICATION,appType=PULSE_APPLICATION": {  
+                "count": 30,  
+                "max": 0.016729982,  
+                "mean": 0.009695945042182285,  
+                "min": 0.005439609000000001,  
+                "p50": 0.010094758,  
+                "p75": 0.010957537,  
+                "p95": 0.013827296000000001,  
+                "p98": 0.016729982,  
+                "p99": 0.016729982,  
+                "p999": 0.016729982,  
+                "stddev": 0.002369039049106484,  
+                "m15_rate": 0.4164373137301911,  
+                "m1_rate": 0.6044556218797338,  
+                "m5_rate": 0.44797335122240606,  
+                "mean_rate": 0.9025245514858581,  
+                "duration_units": "seconds",  
+                "rate_units": "calls/second"  
+            },  
+      }  
+    }  
+          
+    

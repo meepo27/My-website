@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/typical-permission-setups
+Title: Typical Permission Setups | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Securing an Application
+  * Typical Permission Setups
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Typical Permission Setups
+
+This page describes several scenarios that administrators often need to configure in Pulse.
+
+Resource dependencies
+
+Resources sometimes have dependencies between them, hence to access one, you might need to have access to another. These dependencies are not always obvious. If you are having difficulties with resource permissions, contact Feedzai's technical support.
+
+## Basic read-only accessâ
+
+A good reference of the permissions necessary for a user to be able to sign in to Pulse is the `pulseviews-reader` role. With the permissions of this role, a user can log in and view all the resources.
+
+The permissions assigned to `pulseviews-reader` are as follows:
+
+Name| Description  
+---|---  
+`application:*:read`| Allows the user to get the list and read metadata resource instances (e.g., applications, KPIs).  
+`pulseviews:login`| Allows the user to log in.  
+`pulseviews:management:tabs:*`| Allows the user to see all the tabs available in Pulse.  
+`security:ownership:read`| Allows the user to read ownership information (necessary to check if he can see specific resource instances).  
+`security:users:read`| Allows the user to read its metadata.  
+  
+## Restrict tenant permissions with rolesâ
+
+In the context of multi-tenancy, Pulse allows large companies to manage multiple clients by configuring a tenant for each client. Multiple users can be associated with a tenant to allow access and management of each account in Pulse. The level of access and permissions given to each tenant is controlled by adding roles to the user with defined permissions. The following is the list of permissions for tenant users:
+
+  * `pulseviews:login`
+  * `security:ownership:read`
+  * `security:permissions:read`
+  * `security:roles:read`
+  * `security:users:update`
+  * `security:users:read`
+
+
+
+These are the minimum permissions for a user to be able to log in. A user with this role will be able to log in to Pulse, but will not be able to do anything else (e.g. to open Pulse applications). The same applies to Case Manager; the user will need to have other roles with Case Manager permissions (`cm:...`), according to the work that user needs to do (e.g. CM admin, CM analyst, etc.).
+
+## Pulse permissionsâ
+
+A full list with all the permissions in Pulse can be found in the [List of Permissions](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/permissions) page.

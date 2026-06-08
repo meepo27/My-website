@@ -1,0 +1,82 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/cluster-monitoring
+Title: Cluster Monitoring | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * Cluster Monitoring
+
+
+
+On this page
+
+# Cluster Monitoring
+
+Was this page helpful?Â 
+
+Pulse allows monitoring the cluster through its UI. This topic explains how to set up notifications reporting status changes, how to analyse the cluster status, and how to change the leadership.
+
+## Examining the Clusterâ
+
+The Pulse cluster is organized in data centers. The image below shows the **Cluster** tab . At the top of this panel there is a list of data centers (two data centers in this example).
+
+Each line of this list includes the data center name and the the data center overall status, which in this case is _Healthy_ , meaning that all nodes are running as expected.
+
+However, the data center status may also be _Issue_ , _Critical, Unreachable_ or _Disabled. Issue_ means that although there are some faults the data center is able to work properly. The _Critical_ status is reported whenever there are faults and the data center cannot work properly. A data center is _Unreachable_ when it cannot be reached usually due to communication problems. The _Disabled_ status means that the data center was disabled manually.
+
+The following table shows all data center statuses.
+
+Status| Description  
+---|---  
+| All nodes are running as expected  
+| Although, not all nodes are running, the data center will work as expected  
+| There are faults and the data center cannot work as expected  
+| Cannot communicate with the data center  
+| Manually disabled for failover or maintenance  
+  
+Select the data center name to show its details.
+
+The image above shows the data center panel. At the top, we can see the data center information including the total number of nodes, the number of nodes down and the overall status. At the bottom it shows a list of cluster components. These components may be the pulse server or applications engines. Each line includes the component type, the number of nodes running, the number of nodes expected to be running (replication factor), a link to view the nodes (View Hosts), and the component status.
+
+After clicking in a View Hosts link, it presents the list of nodes and its status as the image below illustrates.
+
+In the example illustrated by the image above, there are three pulse server nodes and all of them are up (running). If by any chance a node fails. The cluster monitor will report it by changing the node icon. The image below shows the data center panel when a pulse server node is down.
+
+Moreover, the Pulse Server component also changes from healthy to Issue, the data center nodes down counter is increased and the data center status icon changes to a warning sign meaning that, although there is a node down, the system will work as expected. Nonetheless, we should investigate the reason of this fault an then fixing and restarting the node if possible.
+
+The node details may be consulted by clicking on the node IP/Port link. As an example, the image below shows the down node details.
+
+The node details include: the node type, a pulse server in this case; the uptime/downtime, here we can see, as the node status is down, that the _downtime_ is 13 minutes; the node status; the replication factor (the number of nodes expected to be running); the node leadership (whether if is the leader or not) and its location given by its IP address and port.
+
+Status
+
+Although, nodes only have two possible status (up and down), data center and cluster components may be:
+
+  * **Healthy** , meaning that all nodes are up;
+  * **Warning** (Issue), meaning that at least a node is up;
+  * **Critical,** meaning that at least one of the cluster component has all its nodes down.
+
+
+
+The image below illustrates a critical status. In this case, application _rta1_ is not running as all its nodes are down.
+
+## Setting Up Status Changes Notificationsâ
+
+Pulse allows sending email notifications reporting cluster status changes. These messages include reporting node status changes from UP to DOWN or DOWN to UP in both pulse server and application engine cluster nodes. To use this feature is important to have the SMTP settings properly configured. For example, for a Google SMTP account we would need to add the following configuration in **PULSE_HOME/conf/pulse.properties:**
+
+SMTP Configuration Example  
+---  
+`pulse.global.smtp.host=smtp.gmail.com pulse.global.smtp.port=465 pulse.global.smtp.encryptiontype=SMTPS pulse.global.smtp.user=<USERNAME> pulse.global.smtp.password=<PASSWORD> pulse.global.smtp.from=<SENDER_EMAIL> `  
+  
+In this example, `<USERNAME>` and `<PASSWORD>`stand for the user credentials and `<SENDER_EMAIL>` stands for the email one should see in the from field when a notification is received.
+
+The cluster status changes notification recipients are configured in the UI by selecting the cluster tab in the Administration view illustrated by the first image in the previous section.
+
+By clicking in the add button (represented by a plus sign), a new recipient may be included to receive status changes notifications.
+
+## Leadership changeâ
+
+You can request to change the leadership to another node in the node group (of Pulse, or of the application) by selecting the  button next to the node that is the current leader.
+
+Optionally, you can change the leadership status in the command line tool or via the Application Management REST API. 

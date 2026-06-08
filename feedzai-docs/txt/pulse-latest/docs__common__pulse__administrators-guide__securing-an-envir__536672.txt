@@ -1,0 +1,75 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-keycloak-pulse-oidc/
+Title: Configuring Keycloak in Pulse with OpenID Connect | Feedzai Pulse
+============================================================
+
+On this page
+
+# Configuring Keycloak in Pulse with OpenID Connect
+
+Was this page helpful?Â 
+
+This page describes how to integrate Keycloak as the Identity Provider (IdP) into the Pulse environments using OpenID Connect. The integration has been tested for Keycloak version 20.0.1. Take this into consideration when following this guide and the official Keycloak documentation.
+
+## Connecting Feedzai products to Keycloakâ
+
+### Pulse real-time scoringâ
+
+#### Keycloak Configurationâ
+
+To configure Keycloak to accept Pulse connections, complete the following steps:
+
+  1. Create a new OpenID Connect client, filling a descriptive Client ID (from now on referred as `CLIENT_ID`), e.g. pulse-oidc, and optionally define Name and Description. Before saving, and referring to the HTTPS URL of the real-time scoring Pulse environment as `PULSE_SCORING_URL`, do the following changes to the default configuration:
+     1. Enable Client authentication (sets this client as _confidential_) and Service accounts roles.
+     2. Set Root URL to `{PULSE_SCORING_URL}`.
+     3. Set Valid Redirect URIs to `{PULSE_SCORING_URL}/*`.
+  2. Save the client and go to the Client scopes tab to configure the claims to include in JWTs besides the standard ones.
+  3. Create a new OpenID Connect Client scope (or change an existing one) such that the following claims are included: JWT Claim| Mapper| Required?| Where to add  
+---|---|---|---  
+preferred_username| username (predefined/built-in)| Yes| Access token  
+aud| audience resolve (predefined/built-in)| Required if the server validating the tokens requires audience claim  
+name| full name (predefined/built-in)| No, but recommended, so that the user's Full Name is available to Pulse  
+email| email (predefined/built-in)| Required when using features that send emails to users (e.g. 4eye check); otherwise, recommended  
+locale| locale (predefined/built-in)| No, but highly recommended if internationalization is enabled at the IdP and the locale is used in Pulse  
+`roles.$CLIENT_ID` is the default in Pulse, but can be configured| client roles (predefined/built-in)| Yes, becuse the users need roles to be able to access the Pulse UI| Userinfo  
+`groups` is the default in Pulse, but can be configured| Custom mapper created by configuration with Mapper Type "Group Membership";  
+**"Full group path" must be disabled**|  Required only when users are associated with groups and that information is to be propagated to Pulse  
+`tenants` is the default in Pulse, but can be configured| Having tenants associeted with users is not a concept of Keycloak; the workaround is to have that information as a user attribute, and then use a custom mapper created by configuration with Mapper Type "User Property", to map the value of that attribute to the "tenants" claim| Required only when users are associated with tenants and that information is to be propagated to Pulse  
+  4. Save the Client scope and add it to the client for Pulse, making sure it is set as "Default".
+  5. Configure other settings, such as token/session durations, flows, etc.
+  6. Save the client.
+
+
+
+#### Pulse propertiesâ
+
+Create the following properties to configure Pulse to connect to Keycloak for SSO using OpenID Connect.
+
+The client secret (referred as `CLIENT_SECRET` in the configuration example below) can be retrieved at the Credentials tab of the client in Keycloak. Since this is sensitive information, the corresponding property in Pulse has encryption enabled. Therefore, if Pulse has an encryption key for properties set up, then the value of this property needs to be encrypted  using that key.
+
+The _discoveryURI_ (referred as `DISCOVERY_URI` in the configuration example below) is the URL of the "well known" endpoint of the IdP, and appears at the Realm Settings page of Keycloak as a link to "OpenID Endpoint Configuration".
+    
+    
+    ####################################################  
+    #                  OIDC  
+    ####################################################  
+    pulse.global.oidc.clientId=<CLIENT_ID>  
+    pulse.global.oidc.secret=<CLIENT_SECRET>  
+    pulse.global.oidc.discoveryURI=<DISCOVERY_URI>  
+      
+    ####################################################  
+    #                  JWT Auth Provider  
+    ####################################################  
+    # The following property is the id of the configuration, only needed to enable the plugin  
+    # if no other property is set  
+    pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.id=feedzai-keycloak  
+      
+    # Defaults for connection timeouts to the IdP and JWT clock skew  
+    #pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.connectTimeoutMs=500;  
+    #pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.readTimeoutMs=500;  
+    #pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.maxClockSkewSeconds=60;  
+      
+    # Default values for JWT claim names/paths, for clientID = `CLIENT_ID`  
+    #pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.tenantsPath=/tenants  
+    #pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.groupsPath=/groups  
+    #pulse.manager.services.core.security.authplugin.provider.jwt.idpConfig.rolesPath=/roles/<CLIENT_ID>  
+    

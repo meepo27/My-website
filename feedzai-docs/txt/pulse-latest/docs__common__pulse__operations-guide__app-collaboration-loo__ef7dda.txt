@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-code-review
+Title: How to Code Review | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)  
+  * Project Organization
+  * [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop)
+  * How to Code Review
+
+
+
+On this page
+
+# How to Code Review
+
+Was this page helpful?Â 
+
+## Whyâ
+
+Code review is an essential step to ensure that you deploy resources that meet the quality standards required in the field of Fraud Prevention. This guide provides you recommendations on how to accomplish this action.
+
+## How toâ
+
+As an example, consider that you want to migrate a resource from **DS environment** to **DEV environment**. The recommended approach for sharing changes and perform code review comprises the following steps:
+
+  1. Perform a [partial export](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources) of the relevant resources, for example, a deployable [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) in the **DS environment** (i.e. imagine that this step is executed on day 1).
+
+  2. Import the resources in the **DEV environment** (e.g. the deployable **Plan**).
+
+note
+
+The resources will keep evolving in the **DS environment**.
+
+  3. Perform a **partial export** of the same resource (i.e. the deployable **Plan**) in the **DS environment** (i.e. imagine that this step is executed on day 2).
+
+  4. Compare the partial exports of the resource between day 1 and day 2. To do so, there are two options:
+
+     * Version the day 1 export in git and replace it with the day 2 export, and then send the changes to review using the code review tools supported by your project (e.g. [Differential](https://phacility.com/phabricator/differential/)).
+     * Export the resource from the DEV environment and perform a diff against the resource exported in day 2. See the page [Comparing resource versions](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/comparing-resource-versions) for examples on how to perform this step.
+  5. If you agree with the changes, import the resource obtained in Step 3 in the **DEV environment**.
+
+
+
+
+## Next Stepsâ
+
+Now that you know the code review process, check the page [How to merge](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-merge) to learn how to migrate your work to the target environment.

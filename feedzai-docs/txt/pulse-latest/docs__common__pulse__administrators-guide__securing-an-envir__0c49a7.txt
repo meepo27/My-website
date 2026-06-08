@@ -1,0 +1,129 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/security-configuration/configuring-kerberos-for-data
+Title: Configuring Kerberos for Data Science Resources | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Security Configuration
+  * Configuring Kerberos for Data Science Resources
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Configuring Kerberos for Data Science Resources
+
+Pulse stores data science resources on the filesystem. To work with those resources in Pulse, users need to have access to the respective files. You can use group properties to grant access.
+
+This page describes how to use groups and group properties to grant a group access to the following data science resources:
+
+  * Data sources (created/used by plan executions, model evaluations, rule evaluations, sandbox evaluations)
+  * Statistic file of data source analysis
+  * Model binaries from model training and hyperparameter tuning
+  * Spark archive file (initialization of a leader app jvm process)
+  * Spark-libs (initialization of a leader app jvm process)
+
+
+
+## Hierarchical groups and access rightsâ
+
+When Pulse users try to access a data science resource, Pulse needs to access the respective files using Kerberos credentials. These credentials can be defined either in the Group Properties field of a group, or in the _pulse.properties_ file.
+
+Pulse doesn't only consider the groups that are explicitly assigned to the user, but also their parent groups in the group hierarchy.
+
+If none of the user's groups or their parent groups has any Kerberos credentials defined for the given resource, Pulse tries to fall back on credentials defined in the _pulse.properties_ file, if there are any.
+
+## Group propertiesâ
+
+To configure a group to use specific Kerberos credentials, add the following key-value pairs in the **Group Properties** field of the group:
+
+Key| Value  
+---|---  
+defaultPath| The path to the folder of the tenant on the HDFS.  
+kerberos.keytabPath| The path to the keytab file of the tenant.  
+kerberos.principal| The principal authentication to be used for Kerberos. Normally, it has the following format: `username/resource@REALM`.  
+  
+## Using groups to control visibilityâ
+
+The members of the groups that are set up this way can control who can see resources stored in the group's directory.
+
+To set the resource visible only to that specific group, complete the following steps. Note that the steps presume that the user has the membership of the group(s) that they select in step 3.
+
+  1. Open the resource.
+
+  2. Select the  button, and select **Specific Groups**. Select the group from the list of groups.
+
+  3. In the list of permissions, select **Read / Update / Delete** according to your choice. A check mark appears next to them when selected.
+
+  4. **Save** the resource.
+
+
+
+
+If the visibility of a data science resource is public (i.e. not limited to a specific group), then Pulse will use the Kerberos credentials defined in the _pulse.properties_ file, if there are any.
+
+## Exampleâ
+
+Let's consider an example where you want to configure the following Pulse groups to access HDFS directories:
+
+  * _TeamA_ and _TeamB_ are two groups that should have access only to their own respective directories, plus a directory with common resources (containing Spark archives and Spark libs).
+  * The members of the _landlords_ group should have access to all directories. They also have a directory for their own resources that should not be accessed by anyone else.
+
+
+
+To configure this, the following needs to be set up:
+
+**1\. HDFS directories:**
+
+Directory| Description| Permissions| Owner| Group  
+---|---|---|---|---  
+/user/pulse_common/| The common directory that stores files common to all teams, for example spark-libs, spark-archive, etc. The user of each team must belong to its group to be able to access this directory.| 770| pulse_common| pulse_common  
+/user/pulse_landlord/| This directory is specific to the landlord. It is used to store files with sensitive data of all teams.| 770| pulse_landlord| pulse_landlord  
+/user/teamA/| This directory is specific to TeamA. It stores the data science resources of this team.| 770| pulse_teamA| pulse_teamA  
+/user/teamB/| This directory is specific to TeamB. It stores the data science resources of this team.| 770| pulse_teamB| pulse_teamB  
+  
+**2\. HDFS users:**
+
+Each of these users must be configured with Kerberos authentication using a keytab file.
+
+User name| Description| Member of the group(s)| Maps to Pulse group  
+---|---|---|---  
+pulse_common| The HDFS user through which Pulse users will access common files.| pulse_common| all groups in Pulse  
+pulse_landlord| The HDFS user through which the landlords will access landlord-specific files.| pulse_landlord, pulse_common, pulse_teamA, pulse_teamB| landlords  
+pulse_teamA| The HDFS user through which members of TeamA will access their own files.| pulse_teamA, pulse_common| TeamA  
+pulse_teamB| The HDFS user through which members of TeamB will access their own files.| pulse_teamB, pulse_common| TeamB  
+  
+**3\. Pulse properties** in the _pulse.properties_ file:
+
+Replace the placeholders (marked with `<...>`) with the respective values. These properties allow Pulse users to access common files.
+    
+    
+    pulse.global.services.modules.distributed.jobs.kerberos.enabled=true  
+    pulse.global.services.modules.distributed.jobs.kerberos.principal=<principal_of_pulse_common>  
+    pulse.global.services.modules.distributed.jobs.kerberos.keytabPath=<keytab_path_of_pulse_common>  
+    pulse.global.services.modules.distributed.jobs.spark.master=yarn-client  
+    pulse.global.services.modules.distributed.clusterDirToReceive=hdfs:///user/pulse_common/spark-libs  
+    
+
+**4\. Pulse groups and users:**
+
+In Pulse, create three groups:
+
+  * landlords
+  * TeamA
+  * TeamB
+
+
+
+For each of these groups, add the following key-value pairs in the **Group Properties** field:
+
+Key| Value  
+---|---  
+defaultPath| The path to the respective HDFS directory of the group.  
+kerberos.keytabPath| The path to the group's keytab file.  
+kerberos.principal| The principal authentication to be used for Kerberos. Normally, it has the following format: username/resource@REALM.  
+  
+Add the users to their respective group. Landlord users must be added to the teams' groups as well.
+
+After configuring the above, users must set the resources visible only to the group. If the visibility is not restricted to the respective group, Pulse will use the credentials that are defined in the _pulse.properties_ file to access the resource.

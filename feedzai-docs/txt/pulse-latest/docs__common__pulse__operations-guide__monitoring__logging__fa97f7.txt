@@ -1,0 +1,84 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/microsoft-lightgbm-logging
+Title: Set Up Microsoft LightGBM Logging | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/)
+  * Set Up Microsoft LightGBM Logging
+
+
+
+On this page
+
+# Set Up Microsoft LightGBM Logging
+
+Was this page helpful?Â 
+
+To log information about what happens when training a model with the LightGBM provider, you can configure the logging levels from the most basic "INFO", up to the most extreme level "TRACE".
+
+## Logging levelsâ
+
+The LightGBM provider has several modules, each with different responsibilities. You can control the logging level per module.
+
+Module name| Description| Logging level description  
+---|---|---  
+**LightGBMBinary ClassificationModel**| Implements the OpenML class responsible for loading a model and scoring instances.   
+It is also called when saving the model to disk.| ERROR: Report that saving model to disk failed.  
+**LightGBMBinary ClassificationModelTrainer**| Responsible for training a LightGBM model.   
+  
+At the end of the train it saves an intermediate representation to disk that is then passed to LightGBMBinaryClassificationModel for the final model save to disk.| 
+
+  * INFO: Information messages reporting the stage at which the training is.
+  * ERROR: For errors during train.
+  * DEBUG: Report #train-instances, training parameters and features, more details on the sub-stages of training, progress in number of train iterations.
+
+  
+**LightGBMModelCreator**|  Starts all load/fit operations and validations prior to starting the aforementioned model load/fit process.| 
+
+  * INFO: Message with filepath from which the model is being loaded.
+  * ERROR: Errors when training the model or the validations for a model fit/load fail and where it is it trying to read from.
+
+  
+**LightGBMSWIG**|  Low-level implementation for model scoring.| 
+
+  * INFO: Saving model to disk calls.
+  * ERROR: Errors saving model to disk.
+  * DEBUG: Saving model to disk calls with file paths.
+  * TRACE: Show prediction score per instance. Note that this level is **very verbose!**
+
+  
+**LightGBMUtils**|  Loads the LightGBM libraries.| 
+
+  * INFO: When the libraries are loaded.
+  * DEBUG: Names of the libraries being loaded.
+
+  
+**SWIGResources**|  Lowest-level implementation level for resources handling during model scoring.| 
+
+  * DEBUG: In-memory instantiation of model.
+  * TRACE: Resource release calls.
+
+  
+**SWIGTrainResources**|  Lowest-level implementation level for resources handling during model fitting.| DEBUG: Details for train memory allocation.  
+  
+## How to set up loggingâ
+
+To configure such log levels, edit the file `conf/logger.xml`. Also, for Spark Standalone `spark-libs/logback-executors.xml` should also have such log levels.
+
+### Example configurationâ
+
+An example of configuring for maximum log level follows. Feel free to copy-paste, but beware of having too much logging enabled (see table above):
+
+conf/logger.xml & spark-libs/logback-executors.xml
+    
+    
+    <logger name="com.feedzai.openml.provider.lightgbm.LightGBMBinaryClassificationModel" level="trace"/>  
+    <logger name="com.feedzai.openml.provider.lightgbm.LightGBMBinaryClassificationModelTrainer" level="trace"/>  
+    <logger name="com.feedzai.openml.provider.lightgbm.LightGBMModelCreator" level="trace"/>  
+    <logger name="com.feedzai.openml.provider.lightgbm.LightGBMSWIG" level="trace"/>  
+    <logger name="com.feedzai.openml.provider.lightgbm.LightGBMUtils" level="trace"/>  
+    <logger name="com.feedzai.openml.provider.lightgbm.SWIGResources" level="trace"/>  
+    <logger name="com.feedzai.openml.provider.lightgbm.SWIGTrainResources" level="trace"/>  
+    

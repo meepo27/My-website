@@ -1,0 +1,90 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/replication-of-events-in-the-workflow
+Title: Monitoring Replication of Events in the Workflow | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/)
+  * Monitoring Replication of Events in the Workflow
+
+
+
+On this page
+
+# Monitoring Replication of Events in the Workflow
+
+Was this page helpful?Â 
+
+When the event arrives to the end of a published workflow, it is replicated to other workflow replicas via a messaging broker.
+
+The following table lists metrics available to monitor that execution:
+
+Name | Description | Unit | Tags  
+---|---|---|---  
+Gauge  
+      
+    
+    pulse.workflow.replication.replicationSendQueueSize
+
+| The events that are waiting to be sent to the messaging broker to be replicated after having been processed normally in this workflow. | # | _workflowID  
+appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.workflow.replication.replicationReceiveQueueSize
+
+| The events that are waiting to be processed after having been received in a workflow replica from the messaging broker. They are delivered to this in-memory queue and are then posted to the workflow queue. | # | _workflowID  
+appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.workflow.replication.routingReceiveQueueSize
+
+| The events that have been received from the messaging broker because they must be routed to this workflow â as the workflows that received them are not responsible for their partitions. They are now held in an in-memory queue waiting to be posted to the workflow queue. |  | _workflowID  
+appSlug  
+metricType  
+appType_  
+Counter  
+      
+    
+    pulse.workflow.replication.errorsSendReplication
+
+| The number of events that have failed to be replicated from the sender side to every replica. | # | _workflowID  
+appSlug  
+metricType  
+appType_  
+      
+    
+    pulse.workflow.replication.errorsReceiveReplication
+
+| The number of events that have failed to be received as replicas on the current replica. | # | _workflowID  
+appSlug  
+metricType  
+appType_  
+  
+##### Example of live metricsâ
+
+Click here to expand...
+    
+    
+      
+    "pulse.workflow.replication.replicationReceiveQueueSize,appSlug=bank,metricType=APPLICATION,workflowDesc=payments,appType=PULSE_APPLICATION,workflowId=pBqsDBqu114nuQhbTKlPjw":{  
+        "value":11  
+    },  
+    "pulse.workflow.replication.replicationSendQueueSize,appSlug=bank,metricType=APPLICATION,workflowDesc=payments,appType=PULSE_APPLICATION,workflowId=pBqsDBqu114nuQhbTKlPjw":{  
+        "value":4  
+    },  
+    "pulse.workflow.replication.errorsSendReplication,appSlug=bank,metricType=APPLICATION,workflowDesc=payments,appType=PULSE_APPLICATION,workflowId=pBqsDBqu114nuQhbTKlPjw":{  
+        "value":5792  
+    },  
+    "pulse.workflow.replication.errorsReceiveReplication,appSlug=bank,metricType=APPLICATION,workflowDesc=payments,appType=PULSE_APPLICATION,workflowId=pBqsDBqu114nuQhbTKlPjw":{  
+        "value":38123  
+    },  
+    "pulse.workflow.replication.routingReceiveQueueSize,appSlug=bank,metricType=APPLICATION,workflowDesc=payments,appType=PULSE_APPLICATION,workflowId=pBqsDBqu114nuQhbTKlPjw":{  
+        "value":3  
+    }  
+          
+    

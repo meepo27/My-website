@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/manage-users/tenant-user-management
+Title: Tenant User Management | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Managing Users](/pulse/latest/docs/common/pulse/operations-guide/manage-users/)
+  * Tenant User Management
+
+
+
+# Tenant User Management
+
+Was this page helpful?Â 
+
+For use cases that support multi-tenancy, it is possible for system administrators to delegate [user management](/pulse/latest/docs/common/pulse/operations-guide/manage-users/) capabilities to specific users from their tenants.
+
+Such users need to have the `usermanager` role associated to them, and are referred to as **Tenant User Managers**.
+
+Tenant User Managers have the following capabilities:
+
+  * They are **only able to see and manage users that are associated with the same tenant** or a subset of their tenants. This ensures that the Tenant User Manager canât create, see or change users from a tenant they donât belong to.
+    * If a user is associated to a tenant that the Tenant User Manager is not associated with, then this user wonât be visible to the latter. For example, if John is the User Manager for the tenants A, B and C, and Philip is a Fraud Analyst associated with tenants C and D; then, John canât see or manage Philip in the User Management feature. Only a User Manager not associated with any specific tenant (typically a Landord user) can manage Philip.
+  * They are able to update any field from the users listed on the previous point, with the following limitations:
+    * **Tenants** : The values for this field must be among the tenants that the Tenant User Manager is associated with.
+    * **Roles** : These must be selected from a list of tenant roles configured globally by the Feedzai Customer Success (CS) team for all tenants.
+    * **Groups** : These must be selected from among the groups that the Tenant User Manager is associated with, or any of their sub-groups.
+  * They can create users. Such users must have a role and tenant, but assigning them to groups is optional.
+
+
+
+caution
+
+Prior to the introduction of the Tenant User Management feature, it was possible for a User Manager in a multi-tenant setup to be assigned to a tenant while remaining able to manage users from all tenants. This is no longer the case. For User Managers to be able to manage users from all tenants, they must not be assigned to any tenant themselves.

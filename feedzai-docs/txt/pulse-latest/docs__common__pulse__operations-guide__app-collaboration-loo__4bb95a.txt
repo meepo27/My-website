@@ -1,0 +1,87 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-organize-your
+Title: How to Organize Your Work with Blocks | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop)
+  * How to Organize Your Work with Blocks
+
+
+
+On this page
+
+# How to Organize Your Work with Blocks
+
+Was this page helpful?Â 
+
+## Whyâ
+
+While developing new profiles with Plans, re-training Models with new data, and testing new Rules, using offline environments, your Pulse Application (Pulse app) will keep evolving in Production. By structuring your work with the concept of [Block ownership](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop#block-ownership) you are allowing:
+
+  * Multiple teams to work in parallel using different environments.
+  * Easy and quick migration of resources between environments.
+
+
+
+This page provides recommendations on how to set Pulse resources in the Data Science tab, and map them into the runtime Workflow using the concept of **Block ownership**.
+
+## How toâ
+
+This section guides you on how to combine resources developed in different environments into a single environment using a DEV environment as an example. Typically, a DEV environment contains the resources that are evolved by engineers, as well as the resources that are being evolved in PROD and in DS, which are recurrently [imported](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to DEV.
+
+### Use-case exampleâ
+
+Imagine that you have three environments with the following resources:
+
+| DS Environment| DEV Environment| PROD Environment  
+---|---|---|---  
+**Model**| **Evolving** : Model Project named _Card Transactions Detection_.| Contains the Model evolved in DS| Contains the Model evolved in DS  
+**Plan**| **Evolving** : Plan named _Features Plan_.| Contains the Plan evolved in DS| Contains the Plan evolved in DS  
+**Rules**| **Evolving** : Two Rules Projects named _DS Rules Project 1_ , _DS Rules Project 2_.| **Evolving** : One Rules Project named _Eng Rules Project 1_.| **Evolving** : One Rules Project named _Self-service Rules 1._  
+  
+Nomenclature
+
+The names used in this scenario are given as examples to illustrate ownership. For example, in a real project, you will not have all the engineer Rules in the same Rules Project. In fact, you will most likely have the Rules grouped by logic in multiple Rules Projects. Therefore, the key point is to define which team will be the owner of each Rules Project (i.e. each block).
+
+### Mapping resources in DEVâ
+
+To start working on resources and use them in runtime, you have to create the resources in Data Science tab and configure them in the Workflows tab.
+
+#### Data Science tabâ
+
+The figure below shows the example of a DEV environment with the following resources highlighted:
+
+  * The **Plan** _Features Plan_ imported from DS (see Block 1).
+  * The **Model Project** _Card Transactions Detection_ imported from DS (see Block 2).
+  * Four **Rules Projects** :
+    * _DS Rules Project 1_ imported from DS (see Block 3).
+    * _DS Rules Project 2_ imported from DS (see Block 4).
+    * **_Eng. Rules Project 1_ evolved in DEV (see Block 5)**.
+    * _Self-service Rules 1_ imported from PROD (see Block 6).
+
+
+
+#### Workflows tabâ
+
+The figure below shows the configuration of the runtime Workflow using the resources configured on the Data Science tab.
+
+The key idea is to show you that each Project imported from a different environment and the Project that is being evolved in the current environment need to be mapped to a Workflow service (e.g. in this case four Rules Projects were mapped to four Rules services).
+
+You can see the following Workflow services highlighted:
+
+  * One Plan service: Corresponds to the Plan _Features_ (see Block 1).
+  * One Scoring service: Corresponds to the Model Project _Card Transaction Detection_ (see Block 2).
+  * Four Rules services: Correspond to the Rules Projects:
+    * _DS Rules Project 1_ (see Block 3).
+    * _DS Rules Project 2_ (see Block 4).
+    * **_Eng. Rules Project 1_ (see Block 5).**
+    * _Self-service Rules 1_ (see Block 6).
+
+
+
+Check the page [Designing a Workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow) under the User Guide to learn how to configure a workflow.
+
+## Next Stepsâ
+
+Now that you know how to organize your Pulse App, learn [how to version and store](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-version-and) your exported files.

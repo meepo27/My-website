@@ -1,0 +1,113 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/about-pulse
+Title: About Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * About Pulse
+
+
+
+On this page
+
+# About Pulse
+
+Was this page helpful?Â 
+
+The Feedzai Platform processes events to detect and remediate financial crime. In the life cycle of the events, Pulse performs two main roles:
+
+  * At its core, Pulse comprises a **Real-Time Risk Engine** that processes and scores events for the different use cases, makes an automated decision about them and triggers alerts if necessary.
+  * Pulse also functions as a **Data Science Studio** for the Feedzai Platform, providing a user interface for data scientists to create rules and models that will be used by the Risk Engine to detect financial crime and suspicious activities.
+
+
+
+Pulse in the Feedzai Platform context
+
+## Main functionalitiesâ
+
+The following sections describe Pulse's main components and their functionalities.
+
+### Source Data Modelingâ
+
+With **Source Data Modeling** capabilities, Pulse supports a schema-agnostic architecture, making it easy to customize the schemas of master data streams for each business use case. Data scientists and engineers can use the built-in data analysis tools to validate data schemas, clean data and analyze datasets quickly.
+
+Pulse automatically analyzes imported datasets, creating field mappings and histograms that identify patterns and provide insights into the data. These insights can be used to identify parameters which can be used to enhance the projects. Data scientists and engineers can create stratified samples and natively design new features that are semantically equivalent both at model training and at runtime.
+
+### Segment-of-One Profile Engineâ
+
+One of the most powerful concepts within the platform, **Segment-of-One Profiles** allow Pulse to create hundreds of granular profiles, for different attributes in an event, rather than just estimating behavioral correlations.
+
+This means that events can be scored using each Segment-of-One attribute within the data stream, making the results become significantly more precise.
+
+For example, instead of evaluating a single debit transaction against a cohort of other similar debit cards (e.g. Visa Debit cards from ABC Bank), Segment-of-One will allow Pulse to, in just a few minutes, build a profile for every single debit card. Finally, Pulse evaluates the incoming event against these profiles, which can number in hundreds or even thousands.
+
+### Data Science Studioâ
+
+Pulseâs **Data Science Studio** is the ultimate unified toolset for any data science team. It simplifies many aspects of traditional data science work, effectively making it accessible to other user profiles including fraud and business analysts.
+
+Data scientists now have a powerful, yet easy to use, design studio to build data science projects and train [machine learning models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models). Teams can collaborate together on projects, share insights and improve outcomes, focusing on the real data science and not on the tooling and infrastructure.
+
+**Data transformations** can be developed to create new [data sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and [metrics](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#metric) that can be used in models and runtime workflows.
+
+[**Plans**](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) allow data science teams to quickly and easily transform data, combine data sources, and natively deploy these transformations to the runtime environment.
+
+### Machine Learning Modelsâ
+
+Pulse is designed to support all stages and iterations of the data science loop. The main end goals of this data science work are to efficiently iterate and train **machine learning models** , visually evaluating and easily comparing them.
+
+As the data scientist uncover patterns, understand and transform data, Pulse lets them go even further by easily enriching events with simple features, metrics and any other advanced derived features.
+
+Models are continuously retrained with new data as events are processed and alerts are decisioned. This native retraining of models allow financial institutions and merchants to evolve models and adapt to changing consumer behavior rapidly.
+
+### Rule Engineâ
+
+A simplified **Rule Engine** and its respective management UI allow data science teams to develop any detection and decision rules needed to optimize the performance of their projects. This adds an extra layer of depth to machine learning models.
+
+Similarly to models in the data science loop, Pulse extends the same iterative approach to the development and evaluation of rules.
+
+The performance of rules can be evaluated in real time, making it possible to iterate over them and achieve optimal outcomes. The engine is able to execute any rule in real time, regardless of its complexity, including access to Segment-of-One Profiles, or sequence in the execution workflow.
+
+### Workflow Orchestratorâ
+
+Pulse **Workflows** define the step-by-step process that the Real-Time Risk Engine follows when processing events. Workflows deploy the data science work seamlessly by combining data, plans, models and rules to drive real-time outcomes.
+
+In Pulse, deploying a model into production takes hours instead of months. Users are able to leverage Segment-of-One Profiles in models and rules, and execute all data science work on a single platform without the need for creating new custom code. Pulse's integrated runtime environment ensures that the result of the data science loop is ready to go into production and yield the same decisions as observed at design time.
+
+Pulse's execution engine consists of a series of high performance enterprise services that operate symbiotically in real time to process and score events with sub-millisecond latency.
+
+## Feedzai IQâ
+
+In addition to the advanced data science capabilities, Pulse also offers the option to leverage **Feedzai IQ** , a suite of ready-to-adopt risk assessment solutions providing AI-powered insights based on aggregated intelligence from across the Feedzai global network.
+
+**Feedzai IQ** can be used out of the box without requiring any [data preparation](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data), [model training](/pulse/latest/docs/common/pulse/users-guide/model-guide/), or [historical data collection](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data), thus enabling rapid deployment and immediate value realization without extensive data science work, and saving potentially months of lead time.
+
+Specifically, Feedzai IQ provides **TrustScore** , a federated risk score that encompasses the insights and patterns from Feedzaiâs global footprint to enable real-time scoring of fraud and financial crime risk.
+
+### TrustScoreâ
+
+Feedzai **TrustScore** is a federated machine learning model that provides a real-time risk score for every event processed by Pulse, with high accuracy and lower false positive rates than traditional rules, based on global risk patterns aggregated through the Feedzai community.
+
+TrustScore models are continuously updated and fine-tuned, reacting quickly to changes in the fraud landscape.
+
+#### Federated learningâ
+
+The training of the TrustScore models is done by Feedzai within its machine learning infrastructure, gathering insights from the diverse range of financial risk patterns across its entire client base, by means of federated learning techniques. These techniques allow financial inteligence sharing while keeping the data segregated and confidential within each customerâs environment.
+
+The federated learning approach works by using [aggregations](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#aggregation) from across the Feedzai network to train models which are kept isolated from each other. These models are later deployed to process real-time data streams in production environments. When a new transaction or event occurs in a client's production environment, it is simultaneously analyzed by all these specialized expert models. The resulting federated scores are aggregated via quality-aware weighting algorithms, producing a single, accurate and privacy-preserving TrustScore for each event.
+
+#### Risk Strategy integrationâ
+
+**TrustScore** is available for deployment as a ready-to-use risk score, either standalone or as part of a broader risk strategy. It can be seamlessly plugged into [rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) or [combined](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator) with other signals for a more comprehensive risk assessment.
+
+It can also be used as a starting point for developing custom [models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models), or as an additional input to influence an existing risk scoring model.
+
+## Administrationâ
+
+Pulse includes an **Administration** module for system administrators to easily configure and maintain the platform. System administrators are able to set up environments quickly, configure clusters, and deploy Pulse in high availability configurations.
+
+Pulse's security framework supports granular security configuration and access control. Access management and permissions can be configured within Feedzai.
+
+## Getting started with Feedzai Pulseâ
+
+Feedzai Pulse is a state-of-the-art and very complex platform. It is designed to fully support tasks for different user profiles while abstracting away most of this complexity and making sure that users do not become overwhelmed with the amount of possibilities.
+
+Now that you have a glimpse of what Feedzai Pulse is, you can read more about the [core concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts) to further understand how Pulse works and what you can accomplish with this platform.

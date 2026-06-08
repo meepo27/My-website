@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/
+Title: Monitoring Metrics | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * Monitoring Metrics
+
+
+
+# Monitoring Metrics
+
+Was this page helpful?Â 
+
+Pulse and App Engine instances collect monitoring metrics in different components that are then exposed through the `/metrics` endpoint. This endpoint has a default timeout of 1 second when retrieving the metrics from the App Engines. However, it's possible to use a timeout parameter to override this default. For example, calling `/metrics?timeout=3` will wait 3 seconds at most for metrics from the App Engines.
+
+To give more visibility about these metrics to Pulse's operators, this section will hold pages describing these metrics.
+
+Metrics Self Documentation
+
+Even when not described in this section, all metrics have a short description and other information which can be obtained at the `/metrics/rich` endpoint.
+
+This section will start presenting information about monitoring metrics related to PKernel but will be iteratively incremented with new information related to other components of the product.
+
+  * [Monitoring Processing of Profiles in PKernel](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/processing-profiles-in-pkernel) â Learn about PKernel monitoring metrics.
+  * [Monitoring Replication of Events in the Workflow](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/replication-of-events-in-the-workflow) â Learn about metrics to monitor the replication of events in the workflow.
+  * [Monitoring the Persistence of Events in the Workflow](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/persistence-of-events-in-the-workflow) â Learn about metrics to monitor the persistence of event data.
+  * [Monitoring Cassandra Driver Sessions](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/cassandra-driver-sessions) â Learn about Cassandra driver sessions monitoring metrics.
+  * [Monitoring Processing of Feedback Records in Pulse](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/processing-feedback-records-in-pulse)
+  * [Monitoring Event Storage Dumps in Pulse](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/event-storage-dumps-in-pulse)
+  * [Monitoring DynamoDB Profile Store](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/dynamodb-profile-store) â Learn about metrics to monitor the DynamoDB profile store.
+
+

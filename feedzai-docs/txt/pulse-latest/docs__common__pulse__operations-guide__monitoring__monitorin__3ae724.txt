@@ -1,0 +1,415 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/processing-profiles-in-pkernel
+Title: Monitoring Processing of Profiles in PKernel | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/)
+  * Monitoring Processing of Profiles in PKernel
+
+
+
+# Monitoring Processing of Profiles in PKernel
+
+Was this page helpful?Â 
+
+PKernel is used to calculate real-time metrics to enrich events.
+
+Having in mind that the majority of projects create real-time metrics, it is essential to know if PKernel is operating within reasonable limits. By taking monitoring metrics inside PKernel, we let Pulse operators to have access to different information related to PKernel via the /metrics endpoint.
+
+These metrics are associated with:
+
+  * a given PKernel, which is identifiable via a pkernelID tag;
+  * a plan workflow element, which is identifiable via the workflowElementID tag;
+  * a workflow, identifiable via the workflowID tag;
+  * an application, identifiable via an appSlug tag.
+
+
+
+Besides using the abovementioned tags to identify the PKernel monitoring metrics in the scope of an application, in certain cases, it is also necessary to identify the metrics in relation to PKernel components where these are being collected. This is possible through the following tags:
+
+  * `queryName` \- Used when metrics are being registered inside a PQL query. The value that is assigned to this tag is the name of the query on the PQL plan code.
+  * `stateType` \- Used when the metrics are related to operations performed on a given type of state object. The values associated with this tag can be deque or map. Deques are windows that contain the events processed within a certain time-frame; maps are dictionaries that contain the aggregations (e.g., avg, max) grouped by the values present in certain fields of an event.
+
+
+
+The `appType` and `metricType` tags, that are also associated with these monitoring metrics, are common to other metrics exposed in Pulse and App Engines. They inform where the metrics were collected (Pulse Server or App Engine) and what type of metric it is being reported (e.g., APPLICATION, BUSINESS), respectively.
+
+Name | Description | Unit | Tags  
+---|---|---|---  
+Counters  
+      
+    
+    pulse.pkernel.eventProcessing.exceptions.count
+
+| The total number of exceptions raised during event processing. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.eventProcessing.count
+
+| The total number of events processed. | # | _appSlug  
+metricType  
+pkernelID  
+appType  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.eventProcessing.query.count
+
+| The total number of events processed on each PQL query, identifiable via the `queryName` tag. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+queryName  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.checkpoints.count
+
+| The total number of checkpoints that were triggered. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.reads.count
+
+| The total number of read operations performed per state object type, identifiable via the `stateType` tag. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.writes.count
+
+| The total number of write operations performed per state object type, identifiable via the `stateType` tag. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.deletes.count
+
+| The total number of delete operations performed per state object type, identifiable via the `stateType` tag. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+Gauges  
+      
+    
+    pulse.pkernel.persistedState.events
+
+| The total number of events that are currently being managed per state object type, identifiable via the `stateType` tag. | # | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+Timers  
+      
+    
+    pulse.pkernel.eventProcessing.latency
+
+| The latency associated with event processing. | seconds | _appSlug  
+metricType  
+appType  
+pkernelID  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.eventProcessing.query.latency
+
+| The latency associated with event processing on each PQL query, identifiable via the `queryName` tag. | seconds | _appSlug  
+metricType  
+appType  
+pkernelID  
+queryName  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.checkpoints.latency
+
+| The latency associated with real-time metrics checkpoints. | seconds | _appSlug  
+metricType  
+appType  
+pkernelID  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.reads.latency
+
+| The latency associated with read operations performed per state object type, identifiable via the `stateType` tag. | seconds | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.writes.latency
+
+| The latency associated with write operations performed per state object type, identifiable via the `stateType` tag. | seconds | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+      
+    
+    pulse.pkernel.persistedState.deletes.latency
+
+| The latency associated with delete operations performed per state object type, identifiable via the `stateType` tag. | seconds | _appSlug  
+metricType  
+appType  
+pkernelID  
+stateType  
+workflowID  
+workflowElementID_  
+  
+Here you can see an excerpt of a response from a `/metrics` call focusing on the PKernel monitoring metrics that can be enabled in Pulse:
+
+Click here to expand...
+    
+    
+      
+    {  
+      "version": "3.1.3",  
+      "gauges": {  
+        "pulse.pkernel.persistedState.events,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "value": 909  
+        },  
+        "pulse.pkernel.persistedState.events,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=map,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "value": 20  
+        },  
+      },  
+      "counters": {  
+        "pulse.pkernel.eventProcessing.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.eventProcessing.exceptions.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 0  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=clean_input_0,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=dict_win_0_name,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=input,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=input_light,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 0  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=outputstream,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=outputstream_light,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.eventProcessing.query.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=win_0,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.persistedState.checkpoints.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 0  
+        },  
+        "pulse.pkernel.persistedState.deletes.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 0  
+        }  
+        "pulse.pkernel.persistedState.reads.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 3632  
+        },  
+        "pulse.pkernel.persistedState.reads.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=map,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 5449  
+        }  
+        "pulse.pkernel.persistedState.writes.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909  
+        },  
+        "pulse.pkernel.persistedState.writes.count,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=map,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 1818  
+        }  
+      },  
+      "histograms": {},  
+      "meters": {},  
+      "timers": {  
+        "pulse.pkernel.eventProcessing.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909,  
+          "max": 0.000991575,  
+          "mean": 0.0004416305666666667,  
+          "min": 0.000131604,  
+          "p50": 0.000415535,  
+          "p75": 0.0005846940000000001,  
+          "p95": 0.0008414662499999997,  
+          "p98": 0.00098357932,  
+          "p99": 0.000991575,  
+          "p999": 0.000991575,  
+          "stddev": 0.00020898503632162623,  
+          "m15_rate": 1,  
+          "m1_rate": 1,  
+          "m5_rate": 1,  
+          "mean_rate": 1.0007287324651737,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.eventProcessing.query.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,queryName=clean_input_0,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909,  
+          "max": 0.000012565,  
+          "mean": 0.000006972966666666667,  
+          "min": 0.000002329,  
+          "p50": 0.00000722,  
+          "p75": 0.000009459250000000001,  
+          "p95": 0.0000107924,  
+          "p98": 0.000012287360000000001,  
+          "p99": 0.000012565,  
+          "p999": 0.000012565,  
+          "stddev": 0.0000027487680998343,  
+          "m15_rate": 1.220727664702864,  
+          "m1_rate": 1.0000001835413925,  
+          "m5_rate": 1.0298722410207188,  
+          "mean_rate": 1.0036337781096774,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.persistedState.checkpoints.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 0,  
+          "max": 0,  
+          "mean": 0,  
+          "min": 0,  
+          "p50": 0,  
+          "p75": 0,  
+          "p95": 0,  
+          "p98": 0,  
+          "p99": 0,  
+          "p999": 0,  
+          "stddev": 0,  
+          "m15_rate": 0,  
+          "m1_rate": 0,  
+          "m5_rate": 0,  
+          "mean_rate": 0,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.persistedState.deletes.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 0,  
+          "max": 0,  
+          "mean": 0,  
+          "min": 0,  
+          "p50": 0,  
+          "p75": 0,  
+          "p95": 0,  
+          "p98": 0,  
+          "p99": 0,  
+          "p999": 0,  
+          "stddev": 0,  
+          "m15_rate": 0,  
+          "m1_rate": 0,  
+          "m5_rate": 0,  
+          "mean_rate": 0,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.persistedState.reads.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 3632,  
+          "max": 0.000004223,  
+          "mean": 0.0000010414500000000002,  
+          "min": 6.300000000000001e-8,  
+          "p50": 8.095e-7,  
+          "p75": 0.000001483,  
+          "p95": 0.0000027967,  
+          "p98": 0.0000034164000000000013,  
+          "p99": 0.000003998330000000002,  
+          "p999": 0.000004223,  
+          "stddev": 8.668869311879352e-7,  
+          "m15_rate": 3.7056964470628473,  
+          "m1_rate": 3.999999755278144,  
+          "m5_rate": 3.960170345305707,  
+          "mean_rate": 3.998497591528649,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.persistedState.reads.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=map,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 5449,  
+          "max": 0.000565127,  
+          "mean": 0.00001713365,  
+          "min": 6.300000000000001e-8,  
+          "p50": 0.0000013885000000000001,  
+          "p75": 0.00000393675,  
+          "p95": 0.0001296943,  
+          "p98": 0.0002498556999999992,  
+          "p99": 0.0002790459,  
+          "p999": 0.000565127,  
+          "stddev": 0.000058453089622799034,  
+          "m15_rate": 5.632120558828559,  
+          "m1_rate": 5.999999694097679,  
+          "m5_rate": 5.9502129316321355,  
+          "mean_rate": 5.998849917522664,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.persistedState.writes.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=deque,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 909,  
+          "max": 0.000020147000000000002,  
+          "mean": 0.0000032528000000000004,  
+          "min": 6.64e-7,  
+          "p50": 0.000002909,  
+          "p75": 0.000003883,  
+          "p95": 0.00000563765,  
+          "p98": 0.000017149720000000018,  
+          "p99": 0.000020147000000000002,  
+          "p999": 0.000020147000000000002,  
+          "stddev": 0.0000025704318492279516,  
+          "m15_rate": 1,  
+          "m1_rate": 1,  
+          "m5_rate": 1,  
+          "mean_rate": 1.000723693058066,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        },  
+        "pulse.pkernel.persistedState.writes.latency,appSlug=myapp,metricType=APPLICATION,pkernelID=62fa7f857130338cbbe6b9966319a8b1700c0a9f843523da99dca2ab6d421264,workflowElementID=f77043c7-af5e-47e2-8c18-06d1e9f14131,appType=PULSE_APPLICATION,stateType=map,workflowID=mxZUYgH6rymlJVWDqzlKyg": {  
+          "count": 1818,  
+          "max": 0.000284437,  
+          "mean": 0.00006079733333333334,  
+          "min": 6.64e-7,  
+          "p50": 0.000025976,  
+          "p75": 0.00012653175,  
+          "p95": 0.00018474519999999995,  
+          "p98": 0.00025243529999999996,  
+          "p99": 0.00027936906999999984,  
+          "p999": 0.000284437,  
+          "stddev": 0.00007068538603937175,  
+          "m15_rate": 2,  
+          "m1_rate": 2,  
+          "m5_rate": 2,  
+          "mean_rate": 2.001448399586337,  
+          "duration_units": "seconds",  
+          "rate_units": "calls/second"  
+        }  
+      }  
+    }  
+          
+    

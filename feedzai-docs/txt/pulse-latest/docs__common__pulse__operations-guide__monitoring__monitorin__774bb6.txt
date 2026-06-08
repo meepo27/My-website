@@ -1,0 +1,70 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/persistence-of-events-in-the-workflow
+Title: Monitoring the Persistence of Events in the Workflow | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Monitoring Metrics](/pulse/latest/docs/common/pulse/operations-guide/monitoring/monitoring-metrics/)
+  * Monitoring the Persistence of Events in the Workflow
+
+
+
+On this page
+
+# Monitoring the Persistence of Events in the Workflow
+
+Was this page helpful?Â 
+
+When your Application is published with one or more workflows executing, there are various storages to which events' data can be persisted.
+
+The following sections detail the metrics available for each one of them.
+
+## Workflow Event Storageâ
+
+Each Workflow has 1 connector to the event storage (either to a relational or Cassandra database), used for storing events near the end of processing and to recover via replay.
+
+Name | Description | Unit | Tags  
+---|---|---|---  
+Counters  
+      
+    
+    pulse.workflow.eventstorage.eventsQueuedSize
+
+| The number of events pending in-memory to be persisted to the storage. | # | _workflowID  
+appSlug  
+metricType  
+appType_  
+  
+##### Example of live metricsâ
+    
+    
+    "pulse.workflow.eventstorage.eventsQueuedSize,appSlug=nank,metricType=APPLICATION,appType=PULSE_APPLICATION,workflowID=pBqsDBqu114nuQhbTKlPjw":{  
+        "value":92  
+    }  
+    
+
+## Self Service Rules Testing Event Storageâ
+
+In this case, there is 1 connector to an SSR Event Storage for each Rules Element in the workflow that is running a snapshot for simple rules. 
+
+Name | Description | Unit | Tags  
+---|---|---|---  
+Counters  
+      
+    
+    pulse.workflow.rules.selfServiceRulesTestingStorage.eventsQueuedSize
+
+| The number of events pending in-memory to be persisted to the storage. | # | _workflowID  
+workflowElementID  
+appSlug  
+metricType  
+appType_  
+  
+##### Example of live metricsâ
+    
+    
+    "pulse.workflow.rules.selfServiceRulesTestingStorage.eventsQueuedSize,elementId=1f8204a3-43d0-4031-9783-fa0200939522,appSlug=bank,metricType=APPLICATION,appType=PULSE_APPLICATION,workflowDesc=payments,workflowId=pBqsDBqu114nuQhbTKlPjw,elementDesc=BlackRules":{  
+        "value":32  
+    }  
+    

@@ -1,0 +1,75 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/creating-and-using-groups
+Title: Creating and Using Groups | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Securing an Application
+  * Creating and Using Groups
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating and Using Groups
+
+When Pulse users create a resource (rules project, plan, model project, data source, etc.) they can decide to make it visible only to certain groups.
+
+For example, if a rules project is restricted to be visible only to a group, users of that group can view and edit that rules project if they have a role that allows them to view and edit rules projects.
+
+The following sections explain how to create a group, how to add members to it, and how to set the visibility of a resource.
+
+## Creating groupsâ
+
+To create a new group, complete the following steps:
+
+  1. Select the  button in the menu bar to navigate to the **Administration** page.
+  2. Open the **Security** tab.
+  3. In the **Groups** section, select _Hierarchical Groups_.
+  4. In the group tree, select the  button to add a child group to an existing group.
+  5. Enter a **Name** for the group.
+  6. In the **Group Properties** field, you can add properties to the group in the form of key-value pairs.
+
+
+
+## Adding users to a groupâ
+
+To add a user to a group, complete the following steps:
+
+  1. Select the  button in the menu bar to navigate to the **Administration** page.
+  2. Open the **Security** tab.
+  3. In the **Users** section, select the user.
+  4. In the **Groups** field, add the group.
+  5. **Save** the user.
+
+
+
+## Using groups to limit visibilityâ
+
+To limit the visibility of a resource, complete the following steps:
+
+  1. Open the resource and use the  button to edit the visibility options.
+
+  2. In the Visibility area, select the **Specific Groups** option.
+
+  3. Select the groups to which the resource should be visible.
+
+  4. For each group, select the actions (_Read_ , _Update_ , _Delete_) that can be performed on the resource.
+
+Note that users will be able to perform the selected actions only if an administrator assigned them a role that allows performing that action.
+
+
+
+
+### Exampleâ
+
+Consider the following scenario.
+
+  * Kate and John belong to the _data-scientist_ group.
+  * John has a role that grants him Read permissions on model projects, but doesn't have any role with the _Update_ permission.
+  * Kate creates a model project and sets it visible to the _data-scientists_ group, allowing group members to use their _Read_ and _Update_ permissions.
+
+
+
+In this case, John can see the model project, but he cannot update or delete it.

@@ -1,0 +1,125 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/manage-users/
+Title: Managing Users | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * Managing Users
+
+
+
+On this page
+
+# Managing Users
+
+Was this page helpful?Â 
+
+The following sections describe how to create and manage users in Pulse.
+
+caution
+
+Only users with the `usermanager` role can manage other users. Users tagged with the `admin` or `developer` roles **can not** be edited or deleted.
+
+The **User Management** dashboard can be accessed by selecting the  icon in the navigation bar.
+
+info
+
+Users tagged with the `admin` role will have access to additional administration features, and must therefore access the **User Management** tab by first selecting the  icon in the navigation bar, and then selecting the  icon in the sidebar.
+
+## Create a userâ
+
+  1. In the navigation bar, select the  icon to access the **User Management** page.
+
+  2. Select the  button to open the prompt to create a new user.
+
+  3. Enter all necessary details.
+
+     * **Full Name** (mandatory)
+     * **Username** (mandatory)
+     * **Email** (mandatory)
+
+info
+
+The email input will be used to set and recover the user's password.
+
+     * **Roles** (mandatory)
+     * **Tenants** (optional)
+  4. Select the **Create** button.
+
+
+
+
+The newly created user will receive an email in the assigned email address to set a password. They may also need to activate 2FA, if Pulse is configured to make it mandatory. After the password and 2FA are set, the new user will be able sign in to their account and use it normally.
+
+## Edit a userâ
+
+To edit a user, do the following steps:
+
+  1. In the navigation bar, select the  icon to access the **User Management** page.
+
+  2. In the list of users, select the  icon next to the username of the user you want to update.
+
+  3. Edit the fields in the dialog to make the intended changes. **Mandatory** fields cannot be left empty.
+
+  4. Select the **Save Changes** button.
+
+
+
+
+## Unlock a userâ
+
+A user can be locked out of the system if one of the following scenarios occur:
+
+  * If the user tries to sign into the account unsuccessfully too many times.
+  * For inactivity, i.e. if the user doesn't sign in for a prolonged period of time.
+
+
+
+If a user gets blocked as described above, a **User Manager** can change their status. To do this, do the following steps:
+
+  1. In the navigation bar, select the  icon to access the **User Management** page.
+
+  2. Select the **Unblock User** button in the **Status** section of the blocked user.
+
+
+
+
+The user is now unblocked and can sign into the account.
+
+## Disable a userâ
+
+Users can be disabled permanently, for example when a person no longer is associated with the company through which they had access to Pulse.
+
+A **User Manager** can disable another user by performing the following steps:
+
+  1. In the navigation bar, select the  icon to access the **User Management** page.
+
+  2. Select the  icon in the **Status** column of the intended user.
+
+  3. Select the **Confirm** button in the confirmation prompt.
+
+
+
+
+The user will no longer be able to login into the platform with their credentials.
+
+## Export usersâ
+
+A User Manager can export a list of users, alongside some of their attributes, by performing the following steps:
+
+  1. In the navigation bar, select the  icon to access the **User Management** page.
+
+  2. Select the  button in the table header.
+
+
+
+
+This will trigger the download of a CSV (comma-separated value) file with the following attributes: name, email, full name, roles, groups, tenant groups, enabled/blocked state, and External Auth.
+
+info
+
+Users stored in an external Identity Provider (such as Okta, Microsoft Active Directory, etc.) will only be exported after the user logs in for the first time in the Feedzai system. These users can be identified by having the External Auth attribute set to true.
+
+## Next stepsâ
+
+For user management in a multi-tenancy context, see [Tenant User Management](/pulse/latest/docs/common/pulse/operations-guide/manage-users/tenant-user-management).

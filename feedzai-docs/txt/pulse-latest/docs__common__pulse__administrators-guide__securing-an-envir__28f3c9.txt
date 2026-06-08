@@ -1,0 +1,178 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/security-configuration
+Title: Security Configuration | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Security Configuration
+  * Security Configuration
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Security Configuration
+
+Similar to other services the configuration for this module is performed in the main configuration file `PULSE_HOME/conf/pulse.properties`. Properties can be configured with name space pulse.manager or pulse.global.
+
+## Complete example configurationâ
+
+The following is a complete example configuration.
+    
+    
+    <target_namespace>.services.core.security.createDefaults=true  
+    <target_namespace>.services.core.security.hash=SHA-256  
+    <target_namespace>.services.core.security.database.schemapolicy=none  
+      
+    # LDAP example:  
+    <target_namespace>.services.core.security.realm.ldap.sample1.enable=false  
+    <target_namespace>.services.core.security.realm.ldap.sample1.systemusername=cn=admin,ou=people,dc=example,dc=com  
+    <target_namespace>.services.core.security.realm.ldap.sample1.systempassword=superduperpassword  
+    <target_namespace>.services.core.security.realm.ldap.sample1.connection=ldap://example.com  
+    <target_namespace>.services.core.security.realm.ldap.sample1.template=cn={0},ou=people,dc=example,dc=com  
+      
+    # LDAPS example:  
+    <target_namespace>.services.core.security.realm.ldap.sample2.enable=false  
+    <target_namespace>.services.core.security.realm.ldap.sample2.systemusername=cn=admin,ou=people,dc=example,dc=com  
+    <target_namespace>.services.core.security.realm.ldap.sample2.systempassword=superduperpassword  
+    <target_namespace>.services.core.security.realm.ldap.sample2.connection=ldaps://example.com  
+    <target_namespace>.services.core.security.realm.ldap.sample2.template=cn={0},ou=people,dc=example,dc=com  
+      
+    # AD example:  
+    <target_namespace>.services.core.security.realm.activedirectory.sample1.enable=true  
+    <target_namespace>.services.core.security.realm.activedirectory.sample1.url=ldap://test-ad.zai  
+    <target_namespace>.services.core.security.realm.activedirectory.sample1.searchfilter=(&(objectClass=user)(userPrincipalName=${login}))  
+    <target_namespace>.services.core.security.realm.activedirectory.sample1.searchbase=DC=feedzai,DC=com  
+    <target_namespace>.services.core.security.realm.activedirectory.sample1.searchscope=2  
+      
+    # Another AD example with Default Domain and system's account:  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.enable=true  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.url=ldap://test-ad.zai  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.searchfilter=(&(objectClass=user)(userPrincipalName=${login}))  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.searchbase=DC=feedzai,DC=com  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.searchscope=2  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.defaultdomain=feedzai.com  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.systemaccountusername=pulse-ad-username  
+    <target_namespace>.services.core.security.realm.activedirectory.sample2.systemaccountpassword=7a724f8fe49eb0dc241d27e6b71e000a  
+      
+    # Another Example for configuration with PAM:  
+    <target_namespace>.services.core.security.realm.pam.sample3.enable=true  
+    <target_namespace>.services.core.security.realm.pam.sample3.service=common-auth  
+    
+
+## Available propertiesâ
+
+The next table summarizes all available properties for this service.
+
+Parameter name| Type| Description| Mandatory| Default value  
+---|---|---|---|---  
+database| Database| The database configuration (overrides the defaults).| No| Inherited from `pulse.global.database` configuration  
+hash| String| The hash function for passwords. If you don't want encryption set to "none".| No| SHA-256  
+realm| List<AbstractRealm>| Possible realms are LdapRealm (used for LDAP authentication only, authorization is always retrieved from the database) and ActiveDirectoryRealm (used for active directory authentication)| No| N/A  
+xRequestedWithHeaderRequired| Boolean| Whether the REST API is to require the 'X-Requested-With' header to be present on all HTTP requests to protect against CSRF attacks.| No| `true`  
+transactions| TransactionManagerConfiguration| The configuration for the transaction manager used in the security metadata.| No| See table below  
+poolSize| Integer| The database pool size used for security metadata management.| No| `5`  
+poolLazy| Boolean| Whether the database pool used for security metadata management is lazy creating connections or eager.| No| `true`  
+  
+### Transaction Manager configurationâ
+
+Parameter name| Type| Description| Mandatory| Default value  
+---|---|---|---|---  
+afterCommitActionsThreads| Integer| The number of threads used to run the after commit actions.| No| 2  
+afterCommitActionsTimeoutSeconds| Integer| The timeout in seconds to wait for the execution of the after commit actions.| No| 60  
+  
+## Configuring the security realmâ
+
+You can also configure the security realm that you are going to use in this service's properties. `<name>` can be any user-defined string in case there are multiple realms configured. One name per realm.
+
+info
+
+If you are using LDAP or PAM, note that you will need to first create the users in the Pulse database, and mark them as external. Only afterwards you can authenticate using these services.
+
+Parameter name| Type| Description| Mandatory| Default value  
+---|---|---|---|---  
+`realm.ldap.<name>.systemusername`| String| The system username (use only if the LDAP server needs system authentication).| No| N/A  
+`realm.ldap.<name>.systempassword`| String| The system password (use only if the LDAP server needs system authentication). This field has configuration encryption support.| No| N/A  
+`realm.ldap.<name>.connection`| String| The LDAP / LDAPS connection. When using LDAPS, add the certificate to the truststore of Pulse, using the [keytool](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html).| Yes| N/A  
+`realm.ldap.<name>.template`| String| The template to use for authentication. When performing authentication, {0} will be replaced by the username.| Yes| N/A  
+  
+### Configuring the security realm's active directoryâ
+
+An active directory can be also be configured for the security realm.
+
+Parameter name| Type| Description| Mandatory| Default value  
+---|---|---|---|---  
+`realm.activeDirectory.<name>.url`| String| The Active Directory LDAP enpoint (e.g. ldap://test-ad.zai). To use a SSL connection (e.g. ldaps://test-ad.zai), the Active Directory server certificate must be installed into the JVM key store.| Yes| N/A  
+`realm.activeDirectory.<name>.searchBase`| String| The base tree node to start a search (e.g. DC=feedzai,DC=com).| Yes| N/A  
+`realm.activeDirectory.<name>.searchScope`| Integer| The type of search scope to use: 0 (Base), 1 (One level) and2 (Subtree)| No| 0 (Base)  
+`realm.activeDirectory.<name>.searchFilter`| String| The filter to use for authentication. When performing authentication `${login}` will be replaced by the username (e.g. `(&(objectClass=user)(userPrincipalName=${login}))`).| Yes| N/A  
+`realm.activeDirectory.<name>.defaultDomain`| String| A default domain that will be appended to the username if no domain is already provided with the username (e.g. feedzai.com).| No| N/A  
+`realm.activeDirectory.<name>.systemAccountUsername`| String| System's account username to be used on searching across the directory for the authorized users, instead of the end-users account. When provided, this should be specified in conjunction with the systemAccountPassword. If not provided, the end-user's account will be used.| No| N/A  
+`realm.activeDirectory.<name>.systemAccountPassword`| String| System's account password to be used on searching across the directory for the authorized users. Check further information on systemAccountUsername.| No| N/A  
+  
+caution
+
+LDAP protocol searches can have results with continuation references (<https://tools.ietf.org/html/rfc4511#section-4.5.3>).
+
+In Pulse's context, this can impact the system at 2 situations:
+
+  1. The allowed user set is spread across multiple servers (forest setup);
+  2. A valid user credentials are provided, outside of the search parameters scope (user not authorized to access Pulse).
+
+
+
+When either of these situations occurs, connectivity is required towards all possible endpoints which includes IP connectivity and SSL configurations (e.g. server's certificate validation).
+
+Not doing so could lead to:
+
+  1. Prevent login for authorized users;
+  2. Long lasting requests waiting for connect timeouts.
+
+
+
+### Configuring the Security Realm's PAMâ
+
+PAM can be also be configured for the security realm.
+
+Parameter name| Type| Description| Mandatory| Default value  
+---|---|---|---|---  
+`realm.pam.<name>.service`| String| The PAM service name. The name of the PAM service Pulse should use for authentication (must be in the /etc/pam.d directory).| Yes| N/A  
+  
+## Default security credentialsâ
+
+By default, the module is configured to clean all security tables and create a default user with access to everything when you start the Pulse Server. If you don't want this to happen, you **must** set the `policy` to create (or simply remove the tag) and set `createDefaults` to `false`.
+
+The default credentials use the username `pulse` and password `pulse`.
+
+## HTTP adapter security configurationâ
+
+The security configuration for the HTTP adapter is in the file `PULSE_HOME/conf/engine/web/http-adapter.ini`. There you can find the filters and the URL patterns being filtered. By default it looks like the following.
+    
+    
+    [main]  
+    authc.loginUrl = /login.jsp  
+    ssl.port = 8443  
+      
+    [urls]  
+    /login.jsp = ssl, authc  
+    /streams/** = ssl, authc  
+    /baselines/** = ssl, authc  
+    /kpis/** = ssl, authc  
+    
+
+The **main** section is used to configure the filters. In this case, we are stating that the login page is "login.jsp" and that the SSL port is "8443".
+
+The **urls** section is used to define the paths that will be filtered. In this case, everything beyond "streams", "baselines" and "kpis" will be secured using both defined filters.
+
+If you want to learn more about Shiro filters, please refer to [Shiro Web Configuration](http://shiro.apache.org/web.html).
+
+info
+
+Pulse overrides the default Shiro behavior. For example, if you declare a new Shiro instance, rules or permissions will not apply.
+
+## Using SSL in Pulseâ
+
+Must change the default certificate
+
+Pulse bundles a self-signed certificate which allows users to connect to it through HTTPS. This can be found in the conf/engine/jetty/ directory, comprising a keystore and a jetty.xml file. This certificate **must not be used in production** environments, as it is insecure. Learn how to set up a certificate in [Configuring an SSL Certificate for Pulse](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/security-configuration/configuring-an-ssl-certificate).

@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-partitioning-information
+Title: Log Partitioning Information on Plan Operator | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/)
+  * Log Partitioning Information on Plan Operator
+
+
+
+# Log Partitioning Information on Plan Operator
+
+Was this page helpful?Â 
+
+Pulse can be configured to log information about the way Pulse partitions work when calculating the values in the plan operator.
+
+The logger property `com.feedzai.pulse.datascience.plan.operators.impl` allows to configure which details should be logged. The following logging levels are available:
+
+Level| What is logged  
+---|---  
+info| A set of partitioning fields with corresponding metrics.   
+Computed metrics partitioning schemas of multiple _Group By_ fields.  
+debug| The name of the algorithm that was used to calculate the partitioning schema for shuffles, i.e., Optimal algorithm or Fast Suboptimal algorithm.  
+  
+**Example**
+
+The following example sets the logging about partitioning information to info level. It needs to be added to the `logger.xml`.
+
+Info Log Appender
+    
+    
+    <logger name="com.feedzai.pulse.datascience.plan.operators.impl" level="info"/>  
+    

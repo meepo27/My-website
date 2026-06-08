@@ -1,0 +1,231 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-reference-for-security
+Title: Logging Reference for Security Audits | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/)
+  * Logging Reference for Security Audits
+
+
+
+On this page
+
+# Logging Reference for Security Audits
+
+Was this page helpful?Â 
+
+Feedzai Pulse contains three distinct logs that can be tailored to obtain the exact needs of a security audit, e.g. a PCI-DSS security audit. This section documents the relevant logging configurations in Feedzai Pulse and how to perform them, including examples and recommendations. The main goal is to allow engineers to perform specific actions more easily, such as editing the logging configuration during audits.
+
+tip
+
+There are three main logging approaches that may be helpful in audits:
+
+  * **Security audit:** contains information usually very relevant for security audit, i.e. for PCI-DSS compliance;
+  * **Tracing interceptor:** includes logging at the HTTP request level;
+  * **Auditing:** log calls made to resource managers.
+
+
+
+## Loggingâ
+
+All operations executed internally by Pulse are accordingly logged to several levels of detail in log files located in the **PULSE_HOME/log** directory. In some specific cases, logs can also be logged into databases.
+
+Find more information about logging and the respective configuration in the [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging) page.
+
+The logging configuration file located in **PULSE_HOME/conf/logger/logger-legacy-audit.xml** allows the configuration of **security audit** and **tracing interceptor** logs. For **auditing** , it is also necessary to edit the Pulse properties file in **PULSE_HOME/conf/pulse.properties**.
+
+warning
+
+It is the user's own responsibility to change the logging configuration. Changes may result in the loss of valuable information for investigating problems. If the default configuration is changed, support teams may not be able to help, therefore, the user should be extremely careful when editing this file.
+
+## Security audit loggingâ
+
+To enable the security audit file, the user must change the configuration file that is located in **PULSE_HOME/conf/logger/logger-legacy-audit.xml**.
+
+The appenders section define where the logging messages will end up. Find more information about the different available appenders in the **Appenders** section in the [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging) page.
+
+By default, this is the code block where the security logging is disabled:
+    
+    
+    <!--  
+          Start of security audit logging.  
+    -->  
+    <!-- SECURITY-AUDIT LOGGING TAG  
+    <appender name="SECURITY-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+      <file>log/${pulse.logcontext}-security-audit.log</file>  
+      <filter class="ch.qos.logback.core.filter.EvaluatorFilter">  
+        <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">  
+          <marker>SECURITY_AUDIT</marker>  
+        </evaluator>  
+        <onMismatch>DENY</onMismatch>  
+        <onMatch>NEUTRAL</onMatch>  
+      </filter>  
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">  
+        <level>TRACE</level>  
+      </filter>  
+      <encoder>  
+        <pattern>[%-65(%P{slug} %P{appId} %P{member}) %P{isLeader}] %msg%n</pattern>  
+      </encoder>  
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+        <fileNamePattern>log/${pulse.logcontext}-security-audit.%d{yyyy-MM}-week-%d{WW}.log.gz</fileNamePattern>  
+        <maxHistory>16</maxHistory>  
+      </rollingPolicy>  
+    </appender>  
+      
+    <logger name="com.feedzai.pulse.service.security.SecurityLogging" level="trace" additivity="false">  
+      <appender-ref ref="SECURITY-AUDIT"/>  
+    </logger>  
+    SECURITY-AUDIT LOGGING TAG -->  
+    <!-- End of security audit logging. -->  
+    
+
+To enable it, comment in both "Security-audit logging tag" strings as shown below:
+    
+    
+    <!--  
+          Start of security audit logging.  
+    -->  
+    <!-- SECURITY-AUDIT LOGGING TAG -->  
+    <appender name="SECURITY-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+      <file>log/${pulse.logcontext}-security-audit.log</file>  
+      <filter class="ch.qos.logback.core.filter.EvaluatorFilter">  
+        <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">  
+          <marker>SECURITY_AUDIT</marker>  
+        </evaluator>  
+        <onMismatch>DENY</onMismatch>  
+        <onMatch>NEUTRAL</onMatch>  
+      </filter>  
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">  
+        <level>TRACE</level>  
+      </filter>  
+      <encoder>  
+        <pattern>[%-65(%P{slug} %P{appId} %P{member}) %P{isLeader}] %msg%n</pattern>  
+      </encoder>  
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+        <fileNamePattern>log/${pulse.logcontext}-security-audit.%d{yyyy-MM}-week-%d{WW}.log.gz</fileNamePattern>  
+        <maxHistory>16</maxHistory>  
+      </rollingPolicy>  
+    </appender>  
+      
+    <logger name="com.feedzai.pulse.service.security.SecurityLogging" level="trace" additivity="false">  
+      <appender-ref ref="SECURITY-AUDIT"/>  
+    </logger>  
+    <!-- SECURITY-AUDIT LOGGING TAG -->  
+    <!-- End of security audit logging. -->  
+    
+
+All output will be generated in the file located in **PULSE_HOME/log/your-pulse-log-context.security-audit.log.xml.** In the above configuration, it is possible to change this file's name and location as well as other parameters, such as the logging level and compressed name file.
+
+## Events logged in the security auditâ
+
+**User:**
+
+  * USER_CREATED,
+  * USER_UPDATED,
+  * USER_DELETED,
+  * USER_LOGIN,
+  * USER_LOGIN_FAILED,
+  * USER_PASSWORD_CHANGE,
+  * USER_PASSWORD_CHANGE_FAILED,
+  * USER_PASSWORD_EXPIRED,
+  * USER_PASSWORD_MANUALLY_EXPIRED,
+  * USER_DISABLE_BY_INACTIVITY,
+  * USER_MANUALLY_DISABLED,
+  * USER_MANUALLY_ENABLED,
+  * USER_DISABLED_BY_TOO_MANY_WRONG_LOGIN_ATTEMPTS,
+  * USER_TWO_FACTOR_CONFIG_DELETED,
+
+
+
+**Roles:**
+
+  * ROLE_CREATED,
+  * ROLE_UPDATED,
+  * ROLE_DELETED,
+
+
+
+**Tenants:**
+
+  * TENANT_CREATED,
+  * TENANT_UPDATED,
+  * TENANT_DELETED
+
+
+
+**Tenant Groups:**
+
+  * TENANT_GROUP_CREATED,
+  * TENANT_GROUP_UPDATED,
+  * TENANT_GROUP_DELETED
+
+
+
+**Groups:**
+
+  * GROUP_CREATED,
+  * GROUP_UPDATED,
+  * GROUP_DELETED
+
+
+
+## Tracing interceptor loggingâ
+
+caution
+
+Note that the tracing interceptor logging is very wordy and the log files will grow at a very fast rate. Enable this logging only if strictly necessary.
+
+By using the tracing interceptor, you enable the logging of events at the level of HTTP requests.
+
+It is possible to enable the logging of events by adding the following line to the **PULSE_HOME/conf/logger/logger-project.xml** configuration file:
+
+`<logger name="com.feedzai.pulse.web.api.commons.exceptions.TracingInterceptor" level="trace"/>`
+
+## Auditing loggingâ
+
+caution
+
+Note that the **auditing logging** is very wordy and the log files will grow at a very fast rate. Enable this logging only if strictly necessary.
+
+The purpose of auditing is to keep a log of calls that are made to resource managers. To enable it, follow the instructions in the Auditing page.
+
+The configuration below represents a specific security audit whose purpose is to enable logging to a file. To do so, perform the following changes displayed in  **pulse.properties** , as well as in the **PULSE_HOME/conf/logger/logger-legacy-audit.xml** file.
+
+pulse.properties
+    
+    
+    pulse.manager.auditing.logger.name=auditing  
+    pulse.manager.auditing.logger.level=trace  
+    
+
+logger.xml
+    
+    
+    <!-- Start of auditing logging. -->  
+    <appender name="AUDITING" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>log/${pulse.logcontext}-auditing.log</file>  
+        <encoder>  
+            <pattern>%msg</pattern>  
+        </encoder>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <!-- Daily rollover with gzip compression for the archives, keeping up to 30 -->  
+            <fileNamePattern>log/${pulse.logcontext}-auditing.%d.log.gz</fileNamePattern>  
+            <maxHistory>30</maxHistory>  
+        </rollingPolicy>  
+        <encoder>  
+            <pattern>%-5level %d{ISO8601} [%-65(%P{slug} %P{appId} %P{member}) %P{isLeader}] %-40([%thread]) %-65(%logger{0}.%M:%line) %msg%n%xEx{full}</pattern>  
+        </encoder>  
+    </appender>  
+    <appender name="AUDITING-ASYNC" class="ch.qos.logback.classic.AsyncAppender">  
+        <appender-ref ref="AUDITING" />  
+        <queueSize>8192</queueSize>  
+        <discardingThreshold>0</discardingThreshold>  
+        <includeCallerData>false</includeCallerData>  
+    </appender>  
+    <logger name="auditing" level="trace" additivity="false">  
+        <appender-ref ref="AUDITING-ASYNC"/>  
+    </logger>  
+    <!-- End of auditing logging. -->  
+    

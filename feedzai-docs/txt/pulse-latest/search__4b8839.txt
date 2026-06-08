@@ -1,0 +1,12 @@
+Source: https://cam.feedzai.com/pulse/latest/search
+Title: Search the documentation
+============================================================
+
+Skip to main content
+
+[**Pulse**](/pulse/latest/)[Understanding Pulse](/pulse/latest/docs/common/pulse/about-pulse)[Getting Started](/pulse/latest/docs/common/pulse/understanding-pulse/getting-started)[User Guide](/pulse/latest/docs/common/pulse/users-guide)[Security Guide](/pulse/latest/docs/common/pulse/security-guide)
+
+# Search the documentation
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#0e6a616d7b636b607a6f7a6761604e686b6b6a746f67206d6163).   
+Copyright Â© 2026 Feedzai.

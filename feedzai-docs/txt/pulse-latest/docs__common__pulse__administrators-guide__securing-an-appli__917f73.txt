@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/creating-and-assigning-roles
+Title: Creating and Assigning Roles | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Securing an Application
+  * Creating and Assigning Roles
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating and Assigning Roles
+
+A [role](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application#roles) is a set of [permissions](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application#permissions) on Pulse resources (such as applications, models, rules, etc.). You can reuse roles across multiple users or groups for a centralized control and consistency.
+
+The following sections describe how to create and use a role in Pulse.
+
+## Creating a roleâ
+
+To create a new role, complete the following steps:
+
+  1. Select the  button in the menu bar to navigate to the **Administration** page.
+
+  2. Open the **Security** tab.
+
+  3. In the **Roles** section, add  a new role.
+
+  4. Enter a **Name** for the role.
+
+  5. You can add **Users** to the role now, or return to this form later to add users.
+
+  6. In the **Permissions** field, select the [permissions](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/permissions) that this role will grant to users.
+
+  7. Use the **Save** button to create the role. If you want to create another role, you can use the  button next to the **Save** button and select **Save and New**.
+
+
+
+
+You can find examples of typical roles in the [Typical permission setups](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/typical-permission-setups).
+
+## Assigning a role to a userâ
+
+To assign a role to a user directly, edit the role (see below) and add the user in the **Users** field.
+
+Alternatively, [edit the user](/pulse/latest/docs/common/pulse/operations-guide/manage-users#edit-a-user) and add the new role in the **Roles** field.
+
+## Editing a roleâ
+
+To edit a role, complete the following steps:
+
+  1. Select the  button in the menu bar to navigate to the **Administration** page.
+  2. Open the **Security** tab.
+  3. In the **Roles** section, select the role that you want to edit.
+  4. You can edit the list of **Users** that have this role, or the **[Permissions](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/permissions)** that the role grants to users.
+  5. Use the **Save** button to save the role.
+
+

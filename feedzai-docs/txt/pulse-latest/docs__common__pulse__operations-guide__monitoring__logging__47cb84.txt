@@ -1,0 +1,124 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/logging-confidential-data
+Title: Log Confidential Data | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Logging](/pulse/latest/docs/common/pulse/operations-guide/monitoring/logging/)
+  * Log Confidential Data
+
+
+
+On this page
+
+# Log Confidential Data
+
+Was this page helpful?Â 
+
+Confidential or Personal Identifiable Information (PII) must **NEVER** be logged. However, in some cases, it might be necessary to access confidential data in logs to investigate production issues. In such cases, Pulse can expose logs with confidential data to a set of files that is separate from the normal application logs. Confidential logging should be activated only when it is absolutely necessary, for the time of an investigation.
+
+This page explains how to configure the confidential logger.
+
+warning
+
+The confidential log files **MUST NEVER** be sent to uncontrolled environments (e.g., cloud services such as Amazon CloudWatch) and they **MUST** be deleted immediately after the investigations.
+
+## Introductionâ
+
+Pulse uses the Logback framework to create confidential logs. Confidential logging uses two main concepts of Logback:
+
+  * **loggers** : they receive the log messages from Pulse, and pass them to the right appender.
+  * **appenders** : they store the log messages in their final destination.
+
+
+
+In Pulse, every process (i.e. Pulse server, or app engine) can send messages to more than one logger. Each logger can be connected to one or more appenders. Each appender sends the messages to a different file or to the network/terminal. This way, you can log each process' data to a separate file, and you can turn confidential logging on or off separately for each process.
+
+For example, confidential logs of the Pulse server process will be written to `CONFIDENTIAL-pulse.log`, while a confidential log of an app engine named _my-app_ will be written to `CONFIDENTIAL-app-my-app.log`. This helps you minimize the amount of PII that is logged.
+
+You can configure confidential logging by editing the file `PULSE_HOME/conf/loggers/logger-confidential.xml` of the server(s) that you want to log data from. This file uses Logback's log configuration syntax.
+
+To ensure that confidential logs aren't appended to the normal log files, such as `pulse.log` and `app-<APP-NAME>;.log`, you must have well-configured confidential loggers and confidential appenders in the `logger.xml` file.
+
+Avoid exposing confidential information
+
+You must ensure that your logger.xml file has the correct confidential logging setup. Otherwise, you may be exposing confidential logs in the normal log files.
+
+## Enabling confidential loggingâ
+
+To enable confidential logging, perform the following steps in the file `PULSE_HOME/conf/loggers/logger-confidential.xml` using [Logback's syntax](https://logback.qos.ch/manual/) in the `logger.xml` file:
+
+  1. Create a confidential log appender. See an example in the following sections.
+  2. Create a confidential logger. Configure that logger so that it uses the appender created in step 1. See an example in the following sections.
+  3. To kick off logging, set the _level_ property of the logger to the desired level (e.g., "info", "trace", ...). Any confidential log written by Pulse with a logging level above or equal to the configured level will appear in the respective `CONFIDENTIAL-*.log` files.
+
+
+
+### Example: creating confidential log appendersâ
+
+The following example creates two confidential log appenders, the "CONFIDENTIAL-ASYNC" appender is the one that receives the log messages, and passes them to the "CONFIDENTIAL" appender, which sends them to the defined output. Since it uses the _pulse.logcontext_ variable, it creates a separate file for each process.
+
+Confidential log appenders
+    
+    
+    <appender name="CONFIDENTIAL" class="ch.qos.logback.core.FileAppender">  
+      
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">  
+            <level>TRACE</level>  
+        </filter>  
+      
+        <file>log/CONFIDENTIAL-${pulse.logcontext}.log</file>  
+      
+        <encoder>  
+            <pattern>%-5level %d{ISO8601} }%-65(%P{slug} %P{appId} %P{member}) %P{isLeader}] %-40(}%thread]) %-65(%logger{0}.%M:%line) %msg%n%xEx{full}</pattern>  
+        </encoder>  
+    </appender>  
+    <appender name="CONFIDENTIAL-ASYNC" class="ch.qos.logback.classic.AsyncAppender">  
+        <appender-ref ref="CONFIDENTIAL"/>  
+        <queueSize>2048</queueSize>  
+        <discardingThreshold>0</discardingThreshold>  
+        <includeCallerData>true</includeCallerData>  
+        <neverBlock>true</neverBlock>  
+    </appender>  
+    
+
+### Example: configuring the confidential loggerâ
+
+To ensure that confidential logs written by Pulse are never exposed in the normal log files and are always appended to the `CONFIDENTIAL-*.log` files, you MUST ensure that the following logger is configured in the `PULSE_HOME/conf/loggers/logger-confidential.xml file` file.
+
+Confidential Logger
+    
+    
+    <!--  
+        WARNING:  
+            - This logger MUST NEVER be commented. Otherwise, confidential logs will end up in the normal log files.  
+            - This logger MUST NEVER be set to a level different than 'off', UNLESS it is strictly necessary to perform investigations that requires the visualization of confidential logs.  
+            - This logger MUST NEVER be set to a level different than 'off' if the logs written by the configured appender will end up on insecure environments (e.g., Amazon CloudWatch).  
+            - If this logger is set to a level different than 'off' to perform strictly necessary investigations, it MUST be set to 'off' again immediately after ending the investigations and all the produced log files must be immediately deleted without being sent to any untrusted/insecure medium.  
+    -->  
+    <logger name="confidential" level="off" additivity="false">  
+            <appender-ref ref="CONFIDENTIAL-ASYNC"/>  
+    </logger>  
+    
+
+This logger MUST NEVER be commented. Otherwise, confidential logs written in Pulse will end up in the normal log files.
+
+It is possible to configure more granular confidential log levels, by setting the level at class/package scope. To do this, configure loggers with classes/package names prefixed with `confidential.`, as shown in the following example:
+
+Examples of more granular confidential logging
+    
+    
+    <logger name="confidential.com.feedzai.pulse.libs.lists.UpdatableInMemoryList" level="error"/>  
+    <logger name="confidential.com.feedzai.pulse.libs.lists.ImmutableListsRuntimeLoader" level="info"/>  
+    
+
+# Turning off confidential logging
+
+To turn off confidential logging completely, set the logger's level to "off" and ensure that the logger has the following property set: `additivity="false"` .
+
+Reset confidential loggers level to OFF
+
+Make sure that the level of the confidential logger is set to "off" after ending any investigation. Otherwise, confidential logs continue to be written to the `CONFIDENTIAL-*.log` files.
+
+Never comment or change any property besides the level in the main confidential logger.

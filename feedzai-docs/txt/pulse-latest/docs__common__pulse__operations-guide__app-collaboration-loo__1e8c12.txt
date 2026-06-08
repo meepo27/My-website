@@ -1,0 +1,102 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-merge
+Title: How to Merge | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop)
+  * How to Merge
+
+
+
+On this page
+
+# How to Merge
+
+Was this page helpful?Â 
+
+## Whyâ
+
+The options [Export Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources) and [Import Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) allow you to migrate Pulse resources from one environment to another. Sometimes you might need to merge the work developed by various teams in a single environment.
+
+This guide applies when you want to merge more than one bundle containing changes that are in different folders among all the bundles (see page [Bundle structure](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/bundle-structure) to learn how files are organized in a bundle). More specifically, this applies to the following situations:
+
+  * Merge changes of different bundles containing different Pulse resources. For example, one bundle file contains **Rules Projects** and another bundle file contains **Models.**
+  * Merge changes in different bundles containing the same type of resource but with different resource projects. For example, two bundles with **Rules Projects:** one of them contains a **Rules Project** named _Card Transactions_ and the other contains a **Rules Project** named _Country transactions_.
+
+
+
+Merge the same resource
+
+If you have more than one bundle containing the same JSON file that has evolved simultaneously in different environments (e.g. two files contain different **Rules** inside a **Rules Project** named _Card Transactions_), you might have to open the two JSON files to combine the changes. This operation is **not recommended** because it is extremely error prone.
+
+## How toâ
+
+You have two methods to merge your work in a new environment:
+
+  * **Recommended approach:** Merging using Pulse UI.
+  * **Alternative approach:** Merging manually by copying and paste the folders in the bundle file.
+
+
+
+### Merging using Pulse UIâ
+
+Recommended approach
+
+Merging using Pulse UI is the recommended approach to minimize risks
+
+If you are importing multiple bundles using the Import option, execute the following actions for each file you want to import:
+
+  1. Select the **Pulse app** that will host the new resources
+
+  2. Select the button  to open the application options:
+
+  3. Select the option  to open the import wizard.
+
+  4. Follow the instructions in the page [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to complete the steps required by the import wizard.
+
+  5. After importing, repeat Steps 2-4 to import the other bundle files.
+
+
+
+
+### Merging manuallyâ
+
+If you choose to manually merge the file before importing the bundle, execute the following actions:
+
+  1. Copy and paste the JSON files of each bundle folder to a single folder on your operating system, following the [bundle structure](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/bundle-structure).
+
+  2. Zip the folder of the resources to a final folder to be imported by the UI.
+
+Zip the folders of the resources
+
+You need to zip directly the folders of the resources rather than their parent folder. This is shown in the figure below:
+
+  3. Select the option  to open the import wizard.
+
+  4. Follow the instructions in the page [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to complete the steps required by the import wizard.
+
+
+
+
+#### Merging between JSON filesâ
+
+Approach not supported
+
+Merging between JSON files has to be done manually and is not supported by the product.
+
+When you have JSON files with different versions of the same resource resulting from evolving the same block in different environments, you cannot use the options described above to merge the changes. In this case, you need to open the JSON files and combine the changes manually.
+
+The page [Comparing resource versions](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/comparing-resource-versions) provides typical examples of comparisons between changes within **Rules Projects** , **Models** and **Plans**. This examples give you an idea of what needs to be combine when merging JSON files.
+
+However, you should keep in mind that merging changes in JSON files might require extra effort and planning. For example, if you merge a **Rule** into a **Rules Project** ,there are a number of implications including:
+
+  * Define the **Rule** order.
+  * Create a new snapshot to include the new **Rule**.
+  * Add the snapshot to the runtime **Workflow**.
+
+
+
+## Next Stepsâ
+
+Now that you understand how to merge files, take a look at the page [Errors in App Collaboration](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/errors-in-app-collaboration).

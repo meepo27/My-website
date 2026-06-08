@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/securing-metadata
+Title: Securing Metadata | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)  
+  * Securing an Application
+  * Securing Metadata
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Securing Metadata
+
+Pulse is designed to be used by multiple users. However, not all users need to have full rights over all metadata. As such, the metadata in Pulse can be secured to prevent undesired accesses.
+
+Since controlling the permissions for each individual user in an application would not be manageable, Pulse allows resource instances to be shared with other [groups](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application#groups), instead of users. For instance, you can have a group _BankA_ where all users that are from Bank A will be on. Instead of allowing each user from this bank to have a certain right, you give these rights to the _BankA_ group. Because groups are hierarchical, you can have a sub-group of _BankA_ that has even less permissions (e.g. _BankA-Cashiers_).
+
+## Setting the visibility of resourcesâ
+
+Resources in Pulse are all configurable elements in an application â schemas, models, rules, data sources and so on. Given the multi-user nature of Pulse, it is common some resources not to be available for some users.
+
+To secure resources, Pulse provides a way of setting the **visibility** of each resource instance.
+
+That is, it is possible to allow a group to access KPI _A_ but not KPI _B_. It is also flexible to the point where you can define which of three different rights a group has over the instance â _read_ , _update_ and _delete_.
+
+There is a fourth right, _info_ , that is activated whenever none of the previous rights are selected. When resources have _info_ right they will appear on the listing views but without any link to edit them. This serves the purpose of making the user aware of their existence without giving any further details about its properties.
+
+Other rights
+
+Read, update and delete rights are orthogonal to all types of resources. But some resources might have other specific rights. Applications, for instance, have a specific _manage_ right that controls the access to Publish/Stop the application.
+
+The visibility of a resource can be configured on its view, under Advanced Options.
+
+### Making a resource publicâ
+
+The **default** security for a resource instance is basically no security. We call this **public visibility**. Essentially it means that everyone is able to view, update and delete it (as long as that user has the static permissions to do so).
+
+Therefore, public resources should be used with care, given their non-existing security.
+
+warning
+
+Since resources are public by default, it is recommended that you configure their visibility upon creation, to avoid non-desired accesses.
+
+### Making a resource privateâ
+
+The higher security level for a resource instance is to make it private. If configured this way, an instance will only be visible to the user who created it. No other user will be able to view it or modify it. Not even users that belong to the same group as the creator.
+
+### Sharing a resource with specific groupsâ
+
+Besides making a resource public or hiding it from all users, it is also possible to share it with some groups. Not only that, you can also decide what actions a group can perform on that instance.
+
+Groups are hierarchical. This is very useful when sharing a resource with a group. If you give _delete_ permissions to _Group A_ , **all ancestors** of _Group A_ will be able to delete the instance. The same applies to other rights.
+
+## Configuring default visibility settingsâ
+
+It is possible to define the default ownership settings with which new resources are created with. The common scenario of default ownership usage is the following: the need for some user's resources to have the same visibility settings (for example, being private resources or being resources that belong to some group). Such behavior would require applying the same visibility settings to each resource created by user. To facilitate this procedure, Pulse provides the mechanism that allow assigning the default settings for visibility per user. These settings will then be applied automatically to each created resource.
