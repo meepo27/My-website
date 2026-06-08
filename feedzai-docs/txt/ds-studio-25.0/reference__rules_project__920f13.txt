@@ -1,0 +1,729 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/rules_project/
+Title: rules_project - DS API
+============================================================
+
+#  `` rules_project Â¶  
+  
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` RulesProject Â¶
+    
+    
+    RulesProject(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a Rules Project in Pulse.
+
+###  `` actions `property` `writable` Â¶
+    
+    
+    actions: dict[str, list[[WorkflowActionParam](../action_param/#ds_api.action_param.WorkflowActionParam "            WorkflowActionParam \(ds_api.action_param.WorkflowActionParam\)")]]
+    
+
+Get or set the actions that the rules project can take.
+
+###  `` app `property` Â¶
+    
+    
+    app
+    
+
+Get the rules project's application
+
+###  `` desc `property` `writable` Â¶
+    
+    
+    desc: str
+    
+
+Get or set the user visible name of this rules project.
+
+###  `` evaluations `property` Â¶
+    
+    
+    evaluations: dict[str, [RulesProjectEvaluation](../rules_project_evaluation/#ds_api.rules_project_evaluation.RulesProjectEvaluation "            RulesProjectEvaluation \(ds_api.rules_project_evaluation.RulesProjectEvaluation\)")]
+    
+
+Get a mapping of this project's snapshots and their evaluations.
+
+The key of the dictionary is the name of the snapshot, and the value is the corresponding snapshot evaluation object.
+
+If a snapshot hasn't been evaluated, no entry for that snapshot is included in the dictionary.
+
+###  `` id `property` Â¶
+    
+    
+    id: str
+    
+
+Get the rules project's id.
+
+###  `` rules `property` Â¶
+    
+    
+    rules: list[[Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")]
+    
+
+Get the rules belonging to this rules project.
+
+###  `` schema `property` Â¶
+    
+    
+    schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")
+    
+
+Get the schema associated with this rules project.
+
+###  `` snapshots `property` Â¶
+    
+    
+    snapshots: dict[str, [RulesProjectSnapshot](../rules_project_snapshot/#ds_api.rules_project_snapshot.RulesProjectSnapshot "            RulesProjectSnapshot \(ds_api.rules_project_snapshot.RulesProjectSnapshot\)")]
+    
+
+Get a mapping of this project's snapshot objects and their names.
+
+The key of the dictionary is the name of the snapshot, and the value is the corresponding snapshot object.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` target_field `property` `writable` Â¶
+    
+    
+    target_field: str
+    
+
+Get or set the target field of this rules project.
+
+###  `` tenancy_type `property` Â¶
+    
+    
+    tenancy_type: RulesProjectTenancyTypeEnum
+    
+
+Get the tenancy type of this rules project.
+
+###  `` create `classmethod` Â¶
+    
+    
+    create(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)"), target_field: str, actions: Mapping[str, Sequence[[WorkflowActionParam](../action_param/#ds_api.action_param.WorkflowActionParam "            WorkflowActionParam \(ds_api.action_param.WorkflowActionParam\)")]] | None = None) -> RulesProject
+    
+
+Creates and returns a new Rules Project.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application ds_api object. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the new rules project. |  _required_  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pulse schema |  _required_  
+  
+####  `target_field` Â¶
+
+|  `str` |  Target field for the rules decision. |  _required_  
+  
+####  `actions` Â¶
+
+|  `Mapping[str, Sequence[[WorkflowActionParam](../action_param/#ds_api.action_param.WorkflowActionParam "            WorkflowActionParam \(ds_api.action_param.WorkflowActionParam\)")]]` |  Mapping between the possible actions for the rules to trigger, and the respective parameters. Default is None. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`RulesProject` |  New RulesProject.  
+  
+###  `` create_rule Â¶
+    
+    
+    create_rule(name: str, condition: str, variables: str | None = None, comment: str | None = None, actions: Set[str] | None = None, is_enabled: bool = True, control_flow: [ControlFlowActionTypeEnum](../rule/#ds_api.rule.ControlFlowActionTypeEnum "            ControlFlowActionTypeEnum \(ds_api.rule.ControlFlowActionTypeEnum\)") | None = None, managed_lists_id: Set[str] | None = None, reload: bool = True) -> [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")
+    
+
+Create a new rule within this rules project.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the rule to add. |  _required_  
+  
+####  `condition` Â¶
+
+|  `str` |  The expression of the rule's triggering condition. |  _required_  
+  
+####  `variables` Â¶
+
+|  `str` |  The rule's variables field, by default None. |  `None`  
+  
+####  `comment` Â¶
+
+|  `str` |  The comment describing this rule, by default None. |  `None`  
+  
+####  `actions` Â¶
+
+|  `Set[str]` |  Which actions are triggered by this rule, by default None. |  `None`  
+  
+####  `is_enabled` Â¶
+
+|  `bool` |  Boolean identifying whether the rule is enabled or not, by default True. |  `True`  
+  
+####  `control_flow` Â¶
+
+|  `[ControlFlowActionTypeEnum](../rule/#ds_api.rule.ControlFlowActionTypeEnum "            ControlFlowActionTypeEnum \(ds_api.rule.ControlFlowActionTypeEnum\)")` |  Control flow action to take after evaluating a rule, by default `ControlFlowActionTypeEnum.CONTINUE`. |  `None`  
+  
+####  `managed_lists_id` Â¶
+
+|  `Set[str]` |  The lists associated with the rule, by default None. |  `None`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If the rules project should be reloaded to reflect the added rule, by default True. This could be used when creating multiple rules, to avoid reloading on every creation. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")` |  The newly created rule.  
+  
+###  `` create_snapshot Â¶
+    
+    
+    create_snapshot(snapshot_desc: str | None = None, include_rules: Sequence[str | [RulesProjectSnapshot](../rules_project_snapshot/#ds_api.rules_project_snapshot.RulesProjectSnapshot "            RulesProjectSnapshot \(ds_api.rules_project_snapshot.RulesProjectSnapshot\)")] | None = None, find_by: str | None = None, reload: bool = True) -> [RulesProjectSnapshot](../rules_project_snapshot/#ds_api.rules_project_snapshot.RulesProjectSnapshot "            RulesProjectSnapshot \(ds_api.rules_project_snapshot.RulesProjectSnapshot\)")
+    
+
+Create a snapshot of the rules project and some/all of its rules.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `snapshot_desc` Â¶
+
+|  `str` |  Name given to the snapshot. If None is provided, a snapshot name is given using the format: `%m-%d-%Y_%H-%M-%S_project-desc`. |  `None`  
+  
+####  `include_rules` Â¶
+
+|  `Sequence[str | Rule]]` |  The list of rule objects, rule ids or rule names which uniquely identify the rules. If None, then all rules in the project are included in the snapshot, which is the default behavior. |  `None`  
+  
+####  `find_by` Â¶
+
+|  `('object', 'id', 'desc')` |  Name of the property of rules (or the rule objects themselves), which describes the values given to by the `include_rules` parameter:
+
+  * 'object' : Default behaviour. Include the given rule objects.
+  * 'id' : Include the rules in the project, given the list of rule ids.
+  * 'desc' : Include the rules in the project, following the order of the given rule's user visible names.
+
+|  `'object'`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If this rules project should be reloaded, by default True. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[RulesProjectSnapshot](../rules_project_snapshot/#ds_api.rules_project_snapshot.RulesProjectSnapshot "            RulesProjectSnapshot \(ds_api.rules_project_snapshot.RulesProjectSnapshot\)")` |  The newly created rules project snapshot.  
+  
+###  `` delete_rule Â¶
+    
+    
+    delete_rule(rule: str, find_by: str, reload: bool = True) -> None
+    
+
+Delete a rule associated with this rules project.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `rule` Â¶
+
+|  `str` |  The value of the rule property, specified by `find_by`, which identifies the rule to delete. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc')` |  Name of the property of a Rule, which uniquely identifies the rule to delete, which describes the given `rule`:
+
+  * 'id' : delete rule with the given id.
+  * 'desc' : delete rule with the given user visible name.
+
+|  `'id'`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If the rules project should be reloaded to reflect the deleted rule, by default True. |  `True`  
+  
+###  `` delete_snapshot Â¶
+    
+    
+    delete_snapshot(snapshot: str, find_by: str, reload: bool = True) -> None
+    
+
+Delete a snapshot associated with this rules project.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `snapshot` Â¶
+
+|  `str` |  The value of the snapshot property, specified by `find_by`, which identifies the snapshot to delete. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc')` |  Name of the property of a snapshot, which uniquely identifies the snapshot to delete, which describes the given `snapshot`:
+
+  * 'id' : delete snapshot with the given id.
+  * 'desc' : delete snapshot with the given user visible name.
+
+|  `'id'`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If the rules project should be reloaded to reflect the deleted snapshot, by default True. |  `True`  
+  
+###  `` duplicate_rule Â¶
+    
+    
+    duplicate_rule(rule: str | [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)"), find_by: str = [OBJECT](../utils/#ds_api.utils.ResourceSearchTypeEnum.OBJECT "            OBJECT
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.utils.ResourceSearchTypeEnum.OBJECT\)"), new_desc: str | None = None, new_control_flow: [ControlFlowActionTypeEnum](../rule/#ds_api.rule.ControlFlowActionTypeEnum "            ControlFlowActionTypeEnum \(ds_api.rule.ControlFlowActionTypeEnum\)") | None = None, new_comment: str | None = None, new_actions: Set[str] | None = None, new_variables: str | None = None, new_condition: str | None = None, reload: bool = True) -> [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")
+    
+
+Duplicate the given rule within this project.
+
+Optionally, you can change some attributes of the duplicate.
+
+If an object is provided to the `rule` parameter, the rule doesn't have to belong to this project. It will take the properties of the given rule, and create a new one within this project with those properties.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `rule` Â¶
+
+|  `str | [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")` |  The value of the rule property, or the rule object itself, specified by `find_by`, which identifies the rule to duplicate. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc', 'object')` |  Name of the property of a Rule, which uniquely identifies the rule to update (or the rule object itself), which describes the given `rule` parameter:
+
+  * 'id' : duplicate rule with the given id.
+  * 'desc' : duplicate rule with the given user visible name.
+  * (Default) 'object' : duplicate the given rule.
+
+|  `'id'`  
+  
+####  `new_desc` Â¶
+
+|  `str` |  The name of the duplicated rule. Defaults to the original name suffixed with '_duplicate'. |  `None`  
+  
+####  `new_control_flow` Â¶
+
+|  `[ControlFlowActionTypeEnum](../rule/#ds_api.rule.ControlFlowActionTypeEnum "            ControlFlowActionTypeEnum \(ds_api.rule.ControlFlowActionTypeEnum\)") | None` |  The control flow to use in the duplicate. Defaults to the original. |  `None`  
+  
+####  `new_actions` Â¶
+
+|  `Set[str] | None` |  The actions to used in the duplicate. Defaults to the original. |  `None`  
+  
+####  `new_comment` Â¶
+
+|  `str` |  The comment to use in the duplicate. Defaults to the original. |  `None`  
+  
+####  `new_variables` Â¶
+
+|  `str` |  The variables to use in the duplicate. Defaults to the original. |  `None`  
+  
+####  `new_condition` Â¶
+
+|  `str` |  The condition to use in the duplicate. Defaults to the original. |  `None`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If the rules project should be reloaded to reflect the added rule, by default True. This could be used when creating multiple rules, to avoid reloading on every creation. By default True. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")` |  The duplicated rule.  
+  
+Raises:
+
+Type | Description  
+---|---  
+`ValueError` |  Raised if a rule with the same name exists within the rules project.  
+  
+###  `` evaluate Â¶
+    
+    
+    evaluate(input_datasource: [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.DataSource\)"), evaluation_config: [RulesProjectEvaluationConfig](../rules_project_evaluation_config/#ds_api.rules_project_evaluation_config.RulesProjectEvaluationConfig "            RulesProjectEvaluationConfig \(ds_api.RulesProjectEvaluationConfig\)"), snapshot_desc: str | None = None, include_rules: list[str] | None = None, find_by: str | None = None, profile_name: str | None = None, spark_job_properties: Mapping[str, str] | None = None, wait: bool = True, reload: bool = True) -> [RulesProjectEvaluation](../rules_project_evaluation/#ds_api.rules_project_evaluation.RulesProjectEvaluation "            RulesProjectEvaluation \(ds_api.rules_project_evaluation.RulesProjectEvaluation\)")
+    
+
+Create a snapshot and evaluate it on the given input data source.
+
+Both spark job profile name and profile properties can be passed at the same time, but the profile name is prioritized.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `input_datasource` Â¶
+
+|  `[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.DataSource\)")` |  Data to run through the rules project to calculate alerts. |  _required_  
+  
+####  `evaluation_config` Â¶
+
+|  `RulesProjectEvalConfig` |  Configuration for the snapshot evaluation. |  _required_  
+  
+####  `snapshot_desc` Â¶
+
+|  `str` |  Name given to the snapshot. If none is provided, a snapshot name is given using the format: `%m-%d-%Y_%H-%M-%S_project-desc`. |  `None`  
+  
+####  `include_rules` Â¶
+
+|  `Sequence[str | RulesProjectSnapshot]]` |  The list of snapshots objects, snapshots ids or snapshots names which uniquely identify the rules. If None, then all rules in the project are included in the snapshot, which is the default behavior. |  `None`  
+  
+####  `find_by` Â¶
+
+|  `('object', 'id', 'desc')` |  Name of the property of rules (or the rule objects themselves), which describes the values given to by the `include_rules` parameter:
+
+  * 'object' : Default behaviour. Include the given rule objects.
+  * 'id' : Include the rules in the project, given the list of rule ids.
+  * 'desc' : Include the rules in the project, following the order of the given rule's user visible names.
+
+|  `'object'`  
+  
+####  `profile_name` Â¶
+
+|  `str | None` |  Job profile name, by default None |  `None`  
+  
+####  `spark_job_properties` Â¶
+
+|  `Mapping | None` |  Job profile properties, by default None |  `None`  
+  
+####  `wait` Â¶
+
+|  `bool` |  Waits for the snapshot evaluation to finish before returning the evaluation object. |  `True`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If the rules project should be reloaded to reflect the created snapshot and evaluation, by default True. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[RulesProjectEvaluation](../rules_project_evaluation/#ds_api.rules_project_evaluation.RulesProjectEvaluation "            RulesProjectEvaluation \(ds_api.rules_project_evaluation.RulesProjectEvaluation\)")` |  The evaluation object containing its status.  
+  
+###  `` from_dict `classmethod` Â¶
+    
+    
+    from_dict(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), rules_project_as_dict: dict[str, Any]) -> RulesProject
+    
+
+Create a Rules Project, given its dictionary representation.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The app in which to create the rules project on. |  _required_  
+  
+####  `rules_project_as_dict` Â¶
+
+|  `dict[str, Any]` |  The dictionary representation of the rules project. It must have the following keys: desc : str User visible name of the rules project to create schema : str Name of the schema to be used for the project, which must already exist in the app target_field : str Target field for the rules decision. actions : dict[str, dict[str, Any], optional Mapping between the action names, and the action parameters. The available parameters are:
+    
+    
+    param_desc : str,
+        The user visible name of the action parameter.
+    param_type : str
+        The name of the parameter type, which must be the name
+        of an ActionParamTypeEnum member.
+    param_is_mandatory : bool
+        A flag defining if the parameter is mandatory or not.
+    param_resource_id : str
+        The Id of the resource used if the type requires that
+        information (e.g.: ActionParamTypeEnum.MANAGED_LIST).
+        Default is None
+    
+
+rules: Sequence[dict[str, Any]], optional The rules to be created, represented as a dictionary, following the same representation expected from `Rule.from_dict` |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`RulesProject` |  The Rules Project created from the given dictionary.  
+  
+###  `` get_rule Â¶
+    
+    
+    get_rule(rule: str, find_by: str) -> [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)") | None
+    
+
+Retrieve a rule associated with this Rules Project.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `rule` Â¶
+
+|  `str` |  The value of the rule property, specified by `find_by`, which identifies the rule to get. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc')` |  Name of the property of a Rule, which uniquely identifies the rule to get, which describes the given `rule`:
+
+  * 'id' : get rule with the given id.
+  * 'desc' : get rule with the given user visible name.
+
+|  `'id'`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)") | None` |  The Rule with the provided `find_by` property or None if it doesn't exist.  
+  
+###  `` get_snapshot Â¶
+    
+    
+    get_snapshot(snapshot: str, find_by: str) -> [RulesProjectSnapshot](../rules_project_snapshot/#ds_api.rules_project_snapshot.RulesProjectSnapshot "            RulesProjectSnapshot \(ds_api.rules_project_snapshot.RulesProjectSnapshot\)")
+    
+
+Retrieve a rule associated with this Rules Project.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `snapshot` Â¶
+
+|  `str` |  The value of the snapshot property, specified by `find_by`, which identifies the snapshot to get. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc')` |  Name of the property of a snapshot, which uniquely identifies the snapshot to get, which describes the given `snapshot`:
+
+  * 'id' : get snapshot with the given id.
+  * 'desc' : get snapshot with the given user visible name.
+
+|  `'id'`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[RulesProjectSnapshot](../rules_project_snapshot/#ds_api.rules_project_snapshot.RulesProjectSnapshot "            RulesProjectSnapshot \(ds_api.rules_project_snapshot.RulesProjectSnapshot\)") | None` |  The Rules Project Snapshot with the provided `find_by` property or None if it doesn't exist.  
+  
+###  `` reorder_rules Â¶
+    
+    
+    reorder_rules(rules_in_order: Sequence[Union[str, [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")]], find_by: str = [OBJECT](../utils/#ds_api.utils.ResourceSearchTypeEnum.OBJECT "            OBJECT
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.utils.ResourceSearchTypeEnum.OBJECT\)"), tenant_id: str | None = None) -> None
+    
+
+Update the order of this project's rules in the context of a tenant.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `rules_in_order` Â¶
+
+|  `Sequence[Union[str, [Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")]]` |  The sorted list of rule objects, rule ids or rule names which uniquely identify the rules. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('object', 'id', 'desc')` |  Name of the property of rules (or the rule objects themselves), which describes the values given to by the `rules_in_order` parameter:
+
+  * 'object' : Default behaviour. Re-order the rules in the project, following the order of the given rules instances.
+  * 'id' : Re-order the rules in the project, following the order of the given rule ids.
+  * 'desc' : Re-order the rules in the project, following the order of the given rule's user visible names.
+
+|  `'object'`  
+  
+####  `tenant_id` Â¶
+
+|  `str` |  The id of the tenant where this operation is being performed, default is None. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`bool` |  True if any of the rules has been updated, false otherwise.  
+  
+###  `` shift_rule Â¶
+    
+    
+    shift_rule(rule: str, find_by: str, offset: int) -> None
+    
+
+Moves the rule the number of positions specified by the offset.
+
+This will in shift this rule in the rules project's ordered list of rules, copying the rule order value between affected rules. Therefore, even if the order values are not continuous (e.g. 1, 3, 5) they will be preserved as a whole but assigned to different rules (i.e. after any shift the order values will still be 1, 3 and 5).
+
+A rule will only be shifted forward (positive offset) or backwards (negative offset) at most until it reaches the end or beginning of the list, respectively - i.e. the list is not treated like a circular buffer.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `rule` Â¶
+
+|  `str` |  The value of the rule property, specified by `find_by`, which identifies the rule to shift. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc')` |  Name of the property of rules, which uniquely identifies the rule to shift, whose value is provided by the `rule`:
+
+  * 'id' : shift rule with the given id.
+  * 'desc' : shift rule with the given user visible name.
+
+|  `'id'`  
+  
+####  `offset` Â¶
+
+|  `int` |  The number of positions to move the rule. It can be positive to move the rule `offset` positions forward or negative to move it backwards. |  _required_  
+  
+###  `` to_dict Â¶
+    
+    
+    to_dict(include_params: Sequence[str] | None = None) -> dict[str, Any]
+    
+
+Get a dictionary representation of this project and its rules.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `include_params` Â¶
+
+|  `Sequence[str]` |  Properties of the rules project to include in the dictionary. Can be one of {'id', 'desc', 'app_id', 'tenancy_type', 'schema_id', 'target_field', 'actions', 'rules'} |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict[str, Any]` |  A DataFrame with the properties for all rules in the project, along with the project's properties.  
+  
+###  `` update_rule Â¶
+    
+    
+    update_rule(rule: str, find_by: str, reload: bool = True, **kwargs: Mapping[str, Any]) -> None
+    
+
+Update several properties of a rule associated with this project.
+
+Warning
+
+This method doesn't check whether the properties you pass as a kwarg is one of the existing modifiable ones, so it's up to the caller to make sure the keys are correct.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `rule` Â¶
+
+|  `str` |  The value of the rule property, specified by `find_by`, which identifies the rule to update. |  _required_  
+  
+####  `find_by` Â¶
+
+|  `('id', 'desc')` |  Name of the property of a Rule, which uniquely identifies the rule to update, which describes the given `rule`:
+
+  * 'id' : update rule with the given id.
+  * 'desc' : update rule with the given user visible name.
+
+|  `'id'`  
+  
+####  `reload` Â¶
+
+|  `bool` |  If the rules project should be reloaded to reflect the added rule, by default True. This could be used when creating multiple rules, to avoid reloading on every creation. By default True. |  `True`  
+  
+####  `**kwargs` Â¶
+
+|  `Mapping[str, Any]` |  Map between rule property names and the values we want to update them to |  `{}`  
+  
+Raises:
+
+Type | Description  
+---|---  
+`TypeError` |  If any of the given property values aren't of the required type  
+  
+##  `` RulesProjectTenancyTypeEnum Â¶
+
+Bases: `[JavaEnumWrapper](../java_enum_wrapper/#ds_api.java_enum_wrapper.JavaEnumWrapper "            JavaEnumWrapper \(ds_api.java_enum_wrapper.JavaEnumWrapper\)")`
+
+Possible types of tenancy for rules projects.
+
+###  `` MULTI_TENANT_DISTINCT `class-attribute` `instance-attribute` Â¶
+    
+    
+    MULTI_TENANT_DISTINCT = auto()
+    
+
+Multi-tenant distinct. Each tenant may have its individual rules.
+
+###  `` MULTI_TENANT_SHARED `class-attribute` `instance-attribute` Â¶
+    
+    
+    MULTI_TENANT_SHARED = auto()
+    
+
+Multi-tenant shared. Rules are common to all tenants but are processed independently by each tenant. This means events are filtered by tenant on evaluations, and that on stateful rules each tenant has a dedicated rules engine.
+
+###  `` SINGLE_TENANT `class-attribute` `instance-attribute` Â¶
+    
+    
+    SINGLE_TENANT = auto()
+    
+
+Single tenant, the default. There is no tenant segregation.

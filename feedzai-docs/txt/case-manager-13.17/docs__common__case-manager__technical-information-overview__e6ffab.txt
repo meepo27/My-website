@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/technical-information-overview
+Title: About Technical Information | Case Manager
+============================================================
+
+On this page
+
+# About Technical Information
+
+This section includes all the technical information regarding how to install, configure, upgrade, and monitor Case Manager.
+
+### Keep up with the latest updatesâ
+
+Get to know the latest updates and how to upgrade Case Manager to the latest version.
+
+### [What's New](/case-manager/13.17/docs/common/release-information/whats-new)
+
+### [What's Changed](/case-manager/13.17/docs/common/case-manager/release-information/whats-changed)
+
+### [Upgrade to the Latest Version](/case-manager/13.17/docs/common/release-information/upgrading-guides/upgrading-guide-overview)
+
+### Learn with how-to guidesâ
+
+Go through the different guides and learn how to set up Case Manager. Start by understanding how to install Case Manager and how to configure it according to the business needs. Once everything is set up, learn how to perform health checks to track how Case Manager is performing.
+
+### [Install Case ManagerGo through the necessary requirements and steps to install Case Manager.](/case-manager/13.17/docs/common/case-manager/installation-guide)
+
+### [Configure Case ManagerSet up Case Manager according to the business needs.](/case-manager/13.17/docs/internal/case-manager/configuration-guide/configuration-guide-overview)
+
+### [Monitor Case ManagerPerform health checks to Case Manager and check the available metrics.](/case-manager/13.17/docs/common/case-manager/monitoring-guide)
+
+### Master the configurationâ
+
+Get to know all the different parameters and properties to help you tune Case Manager's configuration.
+
+REST APIAccess all endpoints and associated fields.
+
+### [Performance TuningTune Case Manager to achieve better performance.](/case-manager/13.17/docs/common/case-manager/reference/performance-tuning-checklist)
+
+### [PermissionsAccess all permissions required the different Case Manager functionalities.](/case-manager/13.17/docs/common/case-manager/reference/permissions)
+
+### [Core ConfigurationAccess all properties and settings in the config.json file.](/case-manager/13.17/docs/internal/case-manager/reference/core-config-json)
+
+### [Security ConfigurationAccess all properties and settings in the security.json file.](/case-manager/13.17/docs/common/case-manager/reference/security-json)
+
+### [User Interface ConfigurationAccess all properties and settings in the gui-config.json file.](/case-manager/13.17/docs/common/case-manager/reference/user-interface/user-interface-overview)

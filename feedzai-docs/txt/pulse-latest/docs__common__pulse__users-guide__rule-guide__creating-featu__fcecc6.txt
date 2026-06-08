@@ -1,0 +1,106 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/
+Title: Using PQL in Features | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/)
+  * Using PQL in Features
+
+
+
+On this page
+
+# Using PQL in Features
+
+Was this page helpful?Â 
+
+**Pulse Query Language** (**PQL**) is Pulse's query language that allows users to compute complex values based on input data fields.
+
+This topic introduces the basic concepts of PQL.
+
+To learn how to use PQL in some specific scenarios, read the following user guides:
+
+  * [Handling NULL values with PQL](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/handling-null-values-with-pql)
+  * [PQL in derived features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/pql-in-derived-features)
+  * [Calling UDFs](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/function-calls-in-pql#udf-calls)
+
+
+
+## Usageâ
+
+The following image shows an example of how PQL is used in a map operator to create a derived field in a plan.
+
+This map operator adds a categorical field called _Card Present Flag_ , representing whether there was a bank card present in the transaction. The PQL expression is in the _Expression_ column.
+
+## PQL expressionsâ
+
+In the Pulse UI, users can combine the following building blocks (values, operators, functions, subclauses) into PQL expressions:
+
+Building block / subclause| Purpose, observation| Example(s)  
+---|---|---  
+Constants of [primitive data types](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/pql-data-types-and-type-conversions)| Use a fixed value| 
+    
+    
+    1.999
+    'true'
+    'Swiped'  
+  
+Input data fields| Use values of the input data.After typing the name of the data field, resolve the typed name to an existing data field name from the list that the UI offers.| 
+    
+    
+    Amount  
+  
+`:` (i.e. the [cast operator](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/pql-data-types-and-type-conversions#cast-operator))| Convert data into another data type| 
+    
+    
+    Amount:int  
+  
+[Arithmetic operators](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/operators-in-pql#arithmetic-operators)| Calculate a new value from two values of int, long, float or double type| 
+    
+    
+    Balance - Amount  
+  
+[Boolean operators](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/operators-in-pql#boolean-operators)| Calculate a new true/false value| 
+    
+    
+    and
+    or
+    !
+    ==  
+  
+[Function calls](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/function-calls-in-pql)| You can call two types of functions: built-in functions, and custom functions (aka. UDFs)| The following example calls the _between()_ built-in function:
+    
+    
+    between(Amount, 0, 200)  
+  
+[Conditional expressions](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/conditional-expressions-in-pql)| Return a value based on a condition| 
+    
+    
+    if Amount > 1000 then 'HighAmount' else 'LowAmount'  
+  
+Variable declarations| Declare auxiliary variables that help you calculating other values| The following example shows how you define two variables (first_timestamp and last_timestamp) in order to calculate a third value (last_timestamp - first_timestamp ) / 60*60*1000.0)
+    
+    
+    ( let first_timestamp = first().Timstamp ?? 0 in
+    let last_timestamp = last().Timestamp ?? 0 in
+    ( last_timestamp - first_timestamp ) / 60 _60_ 1000.0 )  
+  
+Collections, tuples| Work on tuples, lists, sets, and maps of data instead of a single data field| In the following example, OrderItems is a list of orders. Each item of the list is a tuple with the following fields: ItemId, Quantity, Price
+    
+    
+    OrderItems.get(0).Quantity  
+  
+[Aggregations, and functions over aggregated datasets](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-metrics)| Aggregate data to calculate minimum, maximum, average, or alternatively to access specific records of the aggregated dataset| 
+    
+    
+    avg(Amount) - prev().Amount  
+  
+`??`(i.e. the [coalesce operator](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/handling-null-values-with-pql))| Handle NULL values| 
+    
+    
+    Amount ?? 0  
+  
+Reserved keywords
+
+Some keywords and symbols cannot be used outside of their original purpose. See the list of [reserved keywords](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features/reserved-keywords-in-pql) for more information.

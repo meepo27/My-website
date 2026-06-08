@@ -1,0 +1,171 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/histograms/
+Title: histograms - DS API
+============================================================
+
+#  `` histograms Â¶
+
+##  `` ConstantFieldError Â¶
+
+Bases: `Exception`
+
+Raised when numerical field is constant.
+
+##  `` NumericalHistogramConfig Â¶
+    
+    
+    NumericalHistogramConfig(minv, maxv, max_bins=1000)
+    
+
+Bases: `object`
+
+Configuration object for numerical histograms.
+
+It requires three configurable values: minv/maxv the minimum and maximum histogram values, and max_bins the number of bins or resolution of the histogram.
+
+The minv and maxv configurables are private accessible via get_minmax() and set_minmax(), while nbins is a property.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `minv` Â¶
+
+|  |  minimum value of the histogram. Smaller values will be counted in the underflow bin. |  _required_  
+  
+###  `maxv` Â¶
+
+|  |  maximum value of the histogram. The last bin is closed on the right side, i.e. entries with value == maxv will be counted in the last bin. Larger values will be counted in the overflow bin. |  _required_  
+  
+###  `max_bins` Â¶
+
+|  |  resolution of the histogram, i.e. number of bins within minv and maxv. There will be two extra bins to account for underflow and overflow. |  `1000`  
+  
+###  `` max_bins `property` `writable` Â¶
+    
+    
+    max_bins
+    
+
+###  `` get_minmax Â¶
+    
+    
+    get_minmax()
+    
+
+###  `` set_minmax Â¶
+    
+    
+    set_minmax(minv, maxv)
+    
+
+Setter function for minv and maxv. It raises exceptions if they are not finite numbers or if minv > maxv.
+
+##  `` TimeHistogramConfig Â¶
+    
+    
+    TimeHistogramConfig(time_resolution='h')
+    
+
+Bases: `object`
+
+Configuration object for datetime histograms. It requires one configurable value: the time_resolution of the plot.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `time_resolution` Â¶
+
+|  |  time resolution of the histogram. |  `'h'`  
+  
+###  `` time_resolution `property` `writable` Â¶
+    
+    
+    time_resolution
+    
+
+##  `` build_numerical_bin_expr Â¶
+    
+    
+    build_numerical_bin_expr(field: StructField, stats: dict, max_bins: int) -> Tuple[str, Column, Callable] | None
+    
+
+Builds a bin expression for a numerical field.
+
+Returns:
+
+Type | Description  
+---|---  
+`tuple of (str, Column, callable)` |  `(field_name, bin_expr, decode_fn)` where _bin_expr_ maps each value to a string-encoded bin index and _decode_fn_ converts the string back to the `(bin_range, breakdown_values)` key used in the histogram dict. If the field is constant, returns `None`.  
+  
+##  `` build_string_bin_expr Â¶
+    
+    
+    build_string_bin_expr(field: StructField, stats: dict, cardinality_threshold: int | None, dist_sampling: float | None) -> Tuple[str, Column, Callable]
+    
+
+Builds a bin expression for a string field.
+
+Returns:
+
+Type | Description  
+---|---  
+`tuple of (str, Column, callable)` |  `(field_name, bin_expr, decode_fn)`.  
+  
+##  `` build_timestamp_bin_expr Â¶
+    
+    
+    build_timestamp_bin_expr(field: StructField, time_config: TimeHistogramConfig) -> Tuple[str, Column, Callable]
+    
+
+Builds a bin expression for a timestamp field.
+
+Returns:
+
+Type | Description  
+---|---  
+`tuple of (str, Column, callable)` |  `(field_name, bin_expr, decode_fn)`.  
+  
+##  `` compute_all_histograms Â¶
+    
+    
+    compute_all_histograms(data: _TDataFrame, field_bin_exprs: list[Tuple[str, Column, Callable]], breakdown_cols: list[Column], breakdowns: list[str]) -> dict[str, dict]
+    
+
+Compute histograms for all fields in a single pass:
+
+  1. Builds an array-of-structs with one element per field, each containing `(field_name_literal, bin_expression)`.
+  2. Explodes the array so every input row produces N rows (one per field).
+  3. Runs a single `groupBy("__field", "__bin", *breakdowns).count()`.
+  4. Partitions the collected rows back into per-field histogram dicts using the field-specific _decode_fn_.
+
+
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data` Â¶
+
+|  `DataFrame` |  Source DataFrame. |  _required_  
+  
+###  `field_bin_exprs` Â¶
+
+|  `list of (str, Column, callable)` |  One tuple per field, as returned by `build_*_bin_expr`. Each tuple is `(field_name, bin_column_expr, decode_fn)`. |  _required_  
+  
+###  `breakdown_cols` Â¶
+
+|  `list of Column` |  Pre-built breakdown column expressions for the `groupBy`. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  `list of str` |  Field names corresponding to _breakdown_cols_. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict[str, dict]` |  Mapping from field name to histogram dict. Each histogram dict maps `(bucket_key, breakdown_values) -> count`.

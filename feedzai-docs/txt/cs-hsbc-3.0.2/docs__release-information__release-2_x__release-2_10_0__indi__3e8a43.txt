@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3408-HSBC-3444-Add-Inbound-Payment-Notification-Case-Manager-extension
+Title: HSBC-3408-HSBC-3444-Add-Inbound-Payment-Notification-Case-Manager-extension | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3408-HSBC-3444-Add-Inbound-Payment-Notification-Case-Manager-extension
+
+### Add _Inbound Payment Notification_ Case Manager extensionâ
+
+FeatureFTMT-29922HSBC-3408HSBC-3444
+
+We've added a new Case Manager extension named _Inbound Payment Notification_ that is able to send notifications to AFIS from Inbound Payments automation rules. This extension has a different schema compared to the Outbound Payments extensions and includes a `rule_explanations` field that lists the rule explanations triggered by the event.
+
+By default the extension is enabled, but it can be disabled by setting `inbound_payment_notification_extension_enabled` to `false`. For more details please refer to the [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) and the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.

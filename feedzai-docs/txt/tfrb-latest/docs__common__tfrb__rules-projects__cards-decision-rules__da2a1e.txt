@@ -1,0 +1,61 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-decision-rules
+Title: Cards - Decision Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - Decision Rules
+
+
+
+On this page
+
+# Cards - Decision Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Decision Rules_ are triggered based on the score value produced by a machine learning model. If your application workflow does not have a model, the `fraud_score` field remains empty, and thus rules in inside the _Decision Rules_ project are not triggered.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-DR1
+
+### Comment
+
+> Declines a transaction if it scored above a set threshold.
+
+### Actions
+
+  * [Cards-DR1]
+
+
+
+### Variables
+    
+    
+    HIGH_SCORE_THRESHOLD = cards__rules_thresholds["model_high_score"].threshold;
+    
+    score = event.fraud_score * 1000;
+
+### Condition
+    
+    
+    (score ?? 0) >= HIGH_SCORE_THRESHOLD
+
+### Explanation
+
+> [Cards-DR1] - Decline - Model score ({localvar.score}) was above the threshold ({localvar.HIGH_SCORE_THRESHOLD}).
+
+### Mark As
+
+The outcome of this rule is: **decline**

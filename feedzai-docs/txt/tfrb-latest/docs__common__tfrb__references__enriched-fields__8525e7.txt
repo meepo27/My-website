@@ -1,0 +1,230 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/enriched-fields
+Title: Enriched Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Enriched Fields
+
+
+
+On this page
+
+# Enriched Fields
+
+Was this page helpful?Â 
+
+This page helps you understand:
+
+  * The logic behind Reference Data's field enrichment.
+  * Which Digital Trust's Transfers and Digital Activity fields are enriched.
+  * How some fields can be enriched by third-party providers.
+  * Pulse enrichers.
+
+
+
+tip
+
+Note that the enrichment only occurs if the target fields are not sent in the payload. This means that the payload fields have precedence over the enrichment.
+
+## Reference Data enrichmentâ
+
+Each time an entity is sent to Reference Data, that same entity will be used to enrich further transactional events. This means that the entity data will map directly to the fields in the payload. Consider the following example, in which a Customer entity is sent to Reference Data with the following information:
+    
+    
+    {  
+      "customer_id": "customer_1",  
+      "customer_name": "John",  
+      ...  
+    }  
+    
+
+From this point onwards, the next card event with the `customer_1` value for `customer_id` will have its `customer_name` field enriched with `John`.
+
+As for the next transfer, since there might be two parties involved (i.e. sender and receiver), the `customer_1` value for `sender_id` or `receiver_id`, will have its respective `sender_name` or `receiver_name` field enriched with `John`. Both the sender's and receiver's information are enriched within the same transaction.
+
+### Reference Data entitiesâ
+
+  * **Cards** uses Customer (`customer_id`), Account (`account_iban`) and Merchant (`acceptor_id`) entities.
+  * **Transfers** uses Customer (`sender_id` and `receiver_id`), Account (`sender_account_iban` and `receiver_account_iban`) and Device (`device_id`) entities.
+  * **Digital Activity** uses Customer (`customer_id`), Account (`account_iban`) and Device (`device_id`) entities.
+
+
+
+For more information, refer to the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page.
+
+## Digital Activity endpoints' updates to Reference Dataâ
+
+You can trigger updates to the Reference Data Storage via the Digital Activity API. These updates apply exclusively to fields starting with the `new_*` prefix as described in the following examples:
+
+  * The customer wants to update the status of his card. He opens the app and momentarily disables the card. The bank calls the Update Card endpoint in Digital Activity and sets `new_card_status` = `blocked`. If approved, this will update the `card_status` for the Card entity in the Reference Data Storage.
+  * The customer changes his phone number on the bank's app. The bank sends a Profile Update request to Feedzai with `new_customer_phone_number` = `1-970-664-2654`. If approved, this will update the `customer_phone_number` = `1-970-664-2654` for the Customer entity in the Reference Data Storage.
+
+
+
+Notice that updates from the Digital Activity API occur under the following conditions:
+
+  * `POST` events whose system decision is `approve`.
+
+  * `PUT` events regardless of the system decision.
+
+caution
+
+To amend information, you need to resend the entire entity data (i.e. populate all the `new_*` fields). If you want to update pieces of information instead of updating the entire entity, use the Reference Data API with the PATCH method. Refer to the [Reference Data Operations](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle#reference-data-operations) section to understand the difference between these methods.
+
+
+
+
+In addition, all fields sent with the `new` prefix will update the Reference Data entity. For instance, both `new_device_first_seen` and `device_first_seen` from the Device endpoint are sent, but only `new_device_first_seen` will be updated because it is the new value.
+
+Fields without prefix, like `device_first_seen`, will be enriched by the current Reference Data in case they are not sent in the payload of the update requests.
+
+For more information, check Digital Activity's [API](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/digitalactivity) documentation.
+
+## Digital Trust enrichmentâ
+
+### Transfers fieldsâ
+
+The Transfers events' fields that become enriched are as follows:
+
+  * `device_browser`
+  * `device_browser_version`
+  * `device_browser_language`
+  * `device_browser_no_tracking`
+  * `device_browser_private_mode`
+  * `device_id`
+  * `device_ip_address`
+  * `device_ip_address_location`
+  * `device_ip_country_code`
+  * `device_ip_region`
+  * `device_isp`
+  * `device_latitude`
+  * `device_longitude`
+  * `device_operating_system`
+  * `device_os_version`
+  * `device_type`
+  * `device_user_agent`
+  * `device_android_id`
+  * `device_cbf`
+  * `device_model`
+  * `device_mac_address`
+  * `device_screen_width`
+  * `device_screen_height`
+  * `device_serial_id`
+  * `session_register_date`
+  * `device_session_duration`
+  * `device_network_type`
+  * `revelock_alerts`, which includes the following:
+    * `view`
+    * `risk`
+    * `alert_date`
+    * `profile_quality`
+    * `similarity`
+    * `user_training`
+    * `family_name`
+    * `signature_name`
+  * `revelock_automated_actions`, which includes the following:
+    * `action`
+    * `timestamp`
+  * `revelock_score`
+
+
+
+### Digital Activity fieldsâ
+
+The Digital Activity events' fields that become enriched are the following:
+
+  * `device_browser`
+  * `device_browser_version`
+  * `device_browser_language`
+  * `device_browser_no_tracking`
+  * `device_browser_private_mode`
+  * `device_id`
+  * `device_ip_address`
+  * `device_ip_city`
+  * `device_ip_country_code`
+  * `device_ip_region`
+  * `device_isp`
+  * `device_latitude`
+  * `device_longitude`
+  * `device_os`
+  * `device_os_version`
+  * `device_type`
+  * `device_user_agent`
+  * `device_android_id`
+  * `device_cbf`
+  * `device_model`
+  * `device_mac_address`
+  * `device_screen_width`
+  * `device_screen_height`
+  * `device_serial_id`
+  * `session_register_date`
+  * `device_session_duration`
+  * `device_network_type`
+  * `revelock_alerts`1, which includes the following [fields](https://cam.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/api/session-object-alerts):
+    * `view`
+    * `risk`
+    * `alert_date`
+    * `profile_quality`
+    * `similarity`
+    * `user_training`
+    * `family_name`
+    * `signature_name`
+  * `revelock_automated_actions`2, which includes the following fields:
+    * `action`
+    * `timestamp`
+  * `revelock_score`3
+
+
+
+1Find the full list of fields in the [Digital Trust](https://cam.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/api/session-object-alerts) documentation.
+
+2These fields exist as part of the out-of-the-box fields for Transfers and Digital Activity. If you need to set up new actions for a new rule, read the [Digital Trust](https://documentation.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/console/rules#setting-up-rule-actions) documentation.
+
+3This field exists as part of the out-of-the-box fields in the **Revelock Plan** workflow element for both Transfers and Digital Activity. This field is transformed and enriched by the previous workflow element - **Revelock Enricher**. To set up scores for a new rule - e.g. to populate Case Manager's Session Risk Score, see the Variables example in the [How to write a rule with Digital Trust's enriched fields](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules#how-to-write-a-rule-with-digital-trusts-enriched-fields) section.
+
+## Third-party providersâ
+
+As an extension of the out-of-the-box enrichment, it is possible to enrich IP, Bin, and currency exchange fields by using enrichment functions. Check [Pulse](https://cam.feedzai.com/pulse/25.0.5/docs/common/understanding-pulse/core-concepts/workflows/plans-in-workflows#data-enrichment)'s documentation for more information.
+
+## Pulse enrichersâ
+
+### Bin providersâ
+
+Pulse's current BIN (Bank Identification Number) lookup process uses data from two providers, Binbase and Bindb. Their data is obtained directly from card issuers. While Binbase is the sole source for 8-digit BIN lookups, Bindb remains in use for other purposes, as detailed in the table that follows.
+
+Relying on third-party providers, rather than the card issuers themselves, can result in incomplete or outdated information. This poses a significant risk to the accuracy of Feedzai's data. By going directly to the source, it is possible to bypass this problem and ensure the most current information available.
+
+The following table outlines the information those two providers have.
+
+Field| Meaning| Bin base| BinDB  
+---|---|---|---  
+Bin| Bank identification number of the issuer of the account| X| X  
+Card brand| Identifies if the brand (e.g. VISA / Mastercard) or brands are associated with the account range| X| X  
+Issuing organization| Name of the card issuer| X| X  
+Type of card| Indicates if credit, debit or prepaid| X| X  
+Category of the card| | X| X  
+Issuing country ISO name| | X| X  
+Issuing country ISO A2 code| Card issuance country| X| X  
+Issuing country ISO A3 code| | X| X  
+Country ISO number| | X| X  
+Issuing organization website| | X| X  
+Issuing organization phone number| | X| X  
+Maximum PAN length| | X|   
+Bin type| Indicates if consumer Bin or commercial Bin| X|   
+Bin is regulated| Indicator for regulated Bins| X|   
+  
+### Email, IP, and phone number providersâ
+
+Feedzai cloud uses several sources to enrich transaction data. The following table details each source and the information it provides.
+
+Field| Source| Meaning  
+---|---|---  
+Email| adamloving, androidarea51m digitalfaq, ghacks, mailinator_aliases, xenforo| Disposable emails  
+IPv4| IPligence| IP City  
+IP Country   
+IP Geographical Coordinates  
+IP| ProxyRSS| List of proxy IPs  
+IP| Alien Vault| Compromised IPs  
+IP| TOR List| List of TOR IPs  
+Phone number| libphonenumber| Library that parses, formats and validates phone numbers

@@ -1,0 +1,64 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/channels
+Title: Channels | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * Channels
+
+
+
+On this page
+
+# Channels
+
+Was this page helpful?Â 
+
+This page gives you a short overview of what channels are and how they can be used in an omnichannel detection scenario.
+
+A **channel** is the means of communication through which data is received by the financial institution. Examples for different channels can be: ATM, bank branch, card, Internet banking, mobile banking, etc.
+
+Typically, each channel has a different schema and different [data patterns](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types). Because of this, each channel may require a different strategy to prevent financial crime, as well as a different approach to alert management and reporting. For example, rules or machine learning model features based on payment terminal identifiers will be relevant for card transactions, but not relevant for internet banking transactions. Likewise, terminal identifiers are relevant to analysts looking at card alerts, but not to analysts looking at internet banking.
+
+## Channels in Pulse and Case Managerâ
+
+### Runtime channelsâ
+
+In Pulse, each channel corresponds to the data of a specific runtime [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows). Workflows can be further organized into applications.
+
+This setup helps teams working on different channels to manage the system effectively:
+
+  * Users can configure each workflow with flexible logic that applies to a specific channel.
+  * Updates to the detection strategy can be deployed independently for each channel. This is especially relevant when independent teams work on different channels.
+
+
+
+Further, in Case Manager, users can connect each Pulse workflow to a different alert management configuration. For more details, see the Case Manager documentation.
+
+### Channels in the data science environmentâ
+
+In the data science environment, historical data from each channel is represented as a [data source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources). These data sources can be used, for example, to build and train machine learning models.
+
+## Cross-channel attacksâ
+
+Treating each channel independently makes it easier to configure the system with the specifics of each channel in mind. However, itâs also important to look at the data from multiple channels holistically â for detection, alert management and reporting. This is because financial crime has evolved, and there are attacks that exploit gaps in systems where channels are disconnected. For example, if we just look at ATM data, all withdrawals look the same. But if we couple this with Internet banking data, we may notice that some withdrawals happen after a user logs into their account using a new device and raises the withdrawal limit. Such withdrawals are much more suspicious, because there is a risk that what preceded them was an account takeover.
+
+Cross-channel attacks require an omnichannel approach to detection.
+
+## Using data from multiple channelsâ
+
+The main principle behind **omnichannel detection** in Pulse is to enable data scientists and analysts to build rules and models that use data from multiple channels, while still allowing teams to work on channels independently. This is achieved as follows:
+
+  * Each channel has its own detection strategy, implemented in a workflow. Within that workflow, the channel is referred to as the **main channel**.
+  * Data scientists and analysts working on the main channel can incorporate data from other channels, which are referred to as **secondary channels**.
+
+
+
+In Pulse, data is analyzed with [plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans). A typical workflow will include one or more plans that compute features based on the data.
+
+Pulse supports **[omnichannel plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans#deployable-omnichannel-plans)**. Using these plans, data scientists and analysts can build profiles based on data from multiple channels.
+
+  * In the data science environment, users can create and run omnichannel plans that consume data from multiple data sources â one data source for the main channel, and one for each secondary channel.
+  * In the [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows), omnichannel plans are connected to other workflows â one workflow for each secondary channel.
+
+

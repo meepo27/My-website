@@ -1,0 +1,119 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/inbound-payments/transaction-life-cycle
+Title: Inbound Payments | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * Inbound Payments
+
+
+
+On this page
+
+# Inbound Payments
+
+Was this page helpful?Â 
+
+Learn about the inbound payments' transaction life cycle and understand how the Inbound Payments API is used in the different stages of a transaction, i.e. inbound transfer initiation, info, feedback, and settlement.
+
+## Transaction life cycleâ
+
+The following diagram shows how the Inbound Payments API endpoints come into play in the course of a typical transaction life cycle:
+
+The following steps describe the flow depicted in the diagram above, which represents an integration between the receiver's bank and Feedzai.
+
+  1. The receiver's bank receives an inbound payment request.
+  2. The receiver's bank invokes Feedzai's **Inbound Transfer Initiation** endpoint with the payload related to the given inbound payment. In some situations, the **Info** endpoint is also used at this point, for example, to communicate pre-decided payments.
+
+info
+
+For transactions that occur between customers from the same bank, two events should be sent to Feedzai, one via **[Inbound Payments API](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-initiation)** , and another one via **[Outbound Transfers](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-transfer-initiation)** API.
+
+  3. Feedzai conducts real-time data analysis and scores. The inbound payment is processed by the risk engine platform with rules and/or models. As a result, the risk engine generates a recommendation that the inbound payment is either **genuine** or **fraudulent**.
+  4. Fraud analysts perform manual investigation on alerts raised by the risk engine. This step only applies to inbound payments subject to longer processing times. For example, for instant inbound transfers, the alert investigation works as a post-mortem analysis because the inbound transfer is processed in real time.
+  5. The receiver's system makes an automated decision based on Feedzai's recommendation and optionally notifies Feedzai about this decision via **Info** or **Feedback** endpoints.
+  6. The receiver's account is updated with the funds and, optionally, the receiver's bank informs Feedzai about the payment via the **Settlement** endpoint.
+  7. A fraud analyst can investigate the event at any point after the real-time event processing is completed. The information is sent back to the risk engine and can be leveraged by rules and models.
+
+
+
+### Endpoint summaryâ
+
+These endpoints allow users to send information at different stages of a transaction life cycle as follows:
+
+  * **Inbound Transfer Initiation:** Allows Feedzai's clients to leverage data science capabilities to score a transaction according to its risk.
+  * **Info:** Allows Feedzai's clients to update and add new information to an existing transaction, as well as to notify Feedzai about transactions processed upstream.
+  * **Get:** Allows clients to obtain the current transaction status, including all the details of the event, i.e., the information sent through the endpoints during an inbound payment's life cycle.
+  * **Settlement:** Allows Feedzai's clients to inform Feedzai when a transaction is settled. Note that this endpoint is non-scorable, i.e., it does not flow through rules in order to generate a decision. However, the information is used by Feedzai's risk engine platform to calculate metrics and profiles, which impacts subsequent inbound payments associated with the same customer. It is also shown in the fraud analyst interface (Case Manager) as a new event to support the alert investigation.
+  * **Feedback:** Allows Feedzai's clients to label a transaction using pre-configured options that classify the inbound payment according to its risk. The labeling of an event is highly recommended since it gives feedback to Feedzai's platform enabling it to learn or consolidate illegal activity patterns. The _x4xx_ messages refer to the dispute cases and reverse the action of the previous inbound transfer initiation.
+
+
+
+## Endpoints and event typesâ
+
+The available endpoints allow you to integrate with the Inbound Payments API at the key stages of the transaction life cycle. This ensures that all the information is used to detect and prevent fraudulent activity efficiently. Since each endpoint is used to accomplish a different goal, the following table summarizes the key information for each of them:
+
+Endpoint/   
+event type| Event subtype| Mandatory (M), Recommended (R), Optional (O)| Is the event scored?| Recommendation (approve/   
+decline)| Ability to inform Feedzai about final decision (accepted/   
+rejected)| Ability to label the transaction  
+---|---|---|---|---|---|---  
+Inbound Transfer Initiation| N/A| M| Yes| Yes| No| No  
+Info| Additional information| O| No| No| Yes| No  
+Pre-decided| R| No| No| Yes| No  
+Not-honor| R| No| No| Yes| No  
+Out of band (sms/call)| O| No| No| Yes| No  
+Dispute| R| No| No| Yes| No  
+Settlement| N/A| O| No| No| No| No  
+  
+Feedback| Dispute| -Â M, for Info with subtype dispute\- R, all other cases| No| No| No| Yes  
+Out of band| Only used in combination with Info - out of band. In this case is mandatory| No| No| No| Yes  
+  
+This table gives you the following information:
+
+  * **Mandatory (M), Recommended (R), Optional (O):** These options relate to the message request. Messages specified as recommended are used by the risk engine platform to improve the system's accuracy to monitor inbound payments.
+  * **Is the event scored?** An event can be scored by the data science models with a number ranging between 0-1000, where 1000 represents the highest probability of being fraudulent. The scoring is only generated if you have models configured in the risk engine platform.
+
+
+
+info
+
+**Scorable events:** The endpoints and event subtypes marked as scorable are the ones with the `score` field in the API response. However, the actual scoring depends on:
+
+  * The platform having a model configured in the runtime workflow.
+  * The filter conditions defined in the runtime workflow allowing the event to reach the scoring operator.
+
+
+
+  * **Recommendation (approve/decline):** Generated by the risk engine rules with the possible values "approve" or "decline".
+  * **Ability to inform Feedzai about final decision (accepted/rejected):** Final decision made by the client, i.e., transaction accepted or declined.
+  * **Ability to label the transaction:** The `feedback_value` field is populated with the value "true" or "false" representing a fraudulent or genuine transaction, respectively. This is used to improve the accuracy of the data science models, and to calculate metrics such as precision and false positive rate.
+
+
+
+## Recommendations on cash and ATM depositsâ
+
+To correctly map cash and ATM deposits to inbound payments, and hence score cash and ATM deposits, some fields need to be populated to identify cash or ATM deposit events as follows:
+    
+    
+        {  
+            // Required fields  
+            "event_external_id": "4048611b295e993d1b561d9030c53424bbf2b95e",   
+            "lifecycle_id": "1df7a7qg78vd7fs",  
+            "channel_type": "atm", // To indicate it's ATM  
+            "payment_status": "entered",    
+            "created_at": 1603207359060,  
+            "sender_transaction_amount": 1603207359060,  
+            "sender_transaction_currency": "GBP",  
+            "sender_transaction_bank_account_number": "5a800244-325a-4086-ab8a-23ecbb927be5",  
+            "direction": "incoming",  
+            "event_occurred_at": 1684492270092,  
+      
+            // Recommended for mapping cash and ATM deposits  
+            "payment_type": "sepa", // To indicate it's a deposit  
+            "payment_sub_type": "direct_deposit", // Use the `direct_deposit` value to indicate it's a direct deposit  
+        }  
+    
+
+Read the [Inbound Transfer Initiation [POST]](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-initiation) documentation for more information on other fields you can use in the payload.

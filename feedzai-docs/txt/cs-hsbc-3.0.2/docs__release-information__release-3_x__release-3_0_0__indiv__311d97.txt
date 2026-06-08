@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-2122
+Title: HSBC-2122 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-2122
+
+### Remove unused Pulse binariesâ
+
+ReworkHSBC-2122
+
+We've removed a set of Pulse binaries related to the following unused services:
+
+  * workflow-list-manager-workflow-service
+  * expired-metrics-pulse-service
+  * fraudforce-workflow-service
+  * revelock-workflow-service
+  * revelock-udfs
+  * data-migration-service
+  * outcome-priority-enforcer-service
+  * enrichment-framework-lib
+
+
+
+Along with the removal of these binaries, we have also removed the `import_solutions_udfs` Ansible variable given the binaries it imported are no longer available.
+
+This change should not impact upgrades unless the current deployed version has a very early version installed (e.g. 1.6). In these versions the services were still part of the applications and Pulse required the binaries to be available before the more recent version could remove their reference.
+
+If any deployment from the outlined early versions is planned, there are some steps that are required prior to the update:
+
+  * Keep only the following services from each application and removing all remaining using the Pulse UI:
+    * Alert Storage Service
+    * Data Transfer Pipeline Service
+    * HTTP Input Service
+    * Historic Events Service
+    * Logging Admin Service
+    * Workflow List Manager Service
+    * Workflow Monitoring Service
+  * Remove the following properties:
+    * `*.services.modules.fraudmodel.import.ListedKeywords`
+    * `*.services.modules.datascience.context.import.ListedKeywords`
+    * `*.services.modules.datascience.context.rules.import.ListedKeywords`
+    * `*.services.modules.fraudrules.import.ListedKeywords`
+    * `*.services.modules.fraudmodel.import.ValueFormatTools`
+    * `*.services.modules.datascience.context.import.ValueFormatTools`
+    * `*.services.modules.datascience.context.rules.import.ValueFormatTools`
+    * `*.services.modules.fraudrules.import.ValueFormatTools`
+    * `*.services.modules.fraudmodel.import.DateConversionTools`
+    * `*.services.modules.datascience.context.import.DateConversionTools`
+    * `*.services.modules.datascience.context.rules.import.DateConversionTools`
+    * `*.services.modules.fraudrules.import.DateConversionTools`
+    * `*.services.modules.fraudmodel.import.Revelock`
+    * `*.services.modules.fraudrules.import.Revelock`
+    * `*.services.modules.datascience.context.import.Revelock`
+    * `*.services.modules.datascience.context.rules.import.Revelock`
+
+

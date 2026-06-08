@@ -1,0 +1,70 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/pulse-lists
+Title: Pulse Lists | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Pulse Lists
+
+
+
+# Pulse Lists
+
+Was this page helpful?Â 
+
+Lists store sets of items and are available for rules to check the same pattern against a large number of values (e.g. a list of credit card numbers, a list of merchants).
+
+In the process of fraud detection it's very common to define blacklists to block transactions from certain cards or to define common parameters in transactions that should be reviewed by analysts (triggering an alarm every time such transactions occur). Lists for grouping and managing these values so that they can be used in rules (check the [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview) page to learn more about how rules are organized in TFB).
+
+info
+
+Lists regarding sanctions are only relevant if you have Feedzai's Watchlist Transaction Screening solution enabled.
+
+Name| Description  
+---|---  
+Blacklisted keywords|   
+Cards - Rules Thresholds| Thresholds used in Cards Rules  
+Common Currencies| Top 15 most used currencies in payments according to the Society for Worldwide Interbank Financial Telecommunication (SWIFT) as of Feb 2017.  
+Digital Activity - Rules Thresholds| Thresholds used in Digital Activity Rules  
+EEA Countries| List of Countries within the European Economic Area (EEA)  
+Fraud Rates| Fraud Rates internal list for PSD2 monitoring  
+High Risk Addresses| List of High Risk Addresses  
+High Risk Counterparty| List of High Risk Counterparties (by either Account Number or Name)  
+High Risk Geographies| List of High Risk Geographies (by Country Code)  
+High Risk IP Addresses| List of High Risk IP Addresses  
+High Risk MCCs| List of High Risk MCCs (Merchant Category Codes)  
+PosNeg Listed Accounts| PosNeg List for Bank Account Numbers  
+PosNeg Listed Address ZIPs| PosNeg List for zip codes.  
+PosNeg Listed Alias| PosNeg List for Alias in an Instant Transfers platform (e.g. phone number, email address, customer ID, etc)  
+PosNeg Listed BICs| PosNeg List for Bank Identifier Codes for SWIFT payments  
+PosNeg Listed Biller IDs| PosNeg List for Biller IDs (by reference number) for Bill Payments  
+PosNeg Listed Cards| PosNeg List for cards by card_id  
+PosNeg Listed Countries| PosNeg List for country codes.  
+PosNeg Listed Customers| PosNeg List for customers by customer_id  
+PosNeg Listed DD Companies| PosNeg List for Direct Debit Companies (by account number)  
+PosNeg Listed Devices| PosNeg List for Devices  
+PosNeg Listed Device Types| PosNeg List for Device Types  
+PosNeg Listed Email Addresses| PosNeg List for Email Addresses  
+PosNeg Listed Email Domains| PosNeg List for Email Domains  
+PosNeg Listed IP Addresses| PosNeg List for IPs  
+PosNeg Listed Keywords| PosNeg List for Keywords in bank transfers' notes  
+PosNeg Listed MCCs| PosNeg List for MCCs.  
+PosNeg Listed Merchants| PosNeg List for merchants by acceptor_id  
+PosNeg Listed Phone Numbers| PosNeg List for Phone Numbers  
+PosNeg Listed Sort Codes| PosNeg List for Bank Sort Codes  
+PosNeg Listed Terminals| PosNeg List for terminals.  
+sanctions_relevant_internal_match_reasons| Relevant internal match reasons for triggering rules conditions  
+sanctions_relevant_internal_match_types| Relevant internal match types for triggering rules conditions  
+sanctions_relevant_match_reasons| Relevant match reasons for triggering rules conditions  
+sanctions_relevant_match_types| Relevant match types for triggering rules conditions  
+sanctions_review_internal_match_reasons| Review match reasons for triggering rules conditions  
+sanctions_review_internal_match_types| Review match types for triggering rules conditions  
+sanctions_review_match_reasons| Review match types for triggering rules conditions  
+sanctions_review_match_types| Review match types for triggering rules conditions  
+SCA Exempted MCCs| List of exempted MCCs under PSD2 Article 12  
+Transfers - Rules Thresholds| Thresholds used in Transfers Rules  
+Very High Risk Geographies| List of Very High Risk Geographies (by Country Code)  
+PosNeg Listed BICs Inbound| PosNeg List for Bank Identifier Codes for SWIFT inbound payments  
+PosNeg Listed DD Companies Inbound| PosNeg List for Direct Debit Companies (by account number) on inbound payments  
+PosNeg Listed Accounts Inbound| PosNeg List for Bank Account Numbers on inbound payments  
+Inbound - Rule Thresholds| Thresholds used in Inbound Payments Rules

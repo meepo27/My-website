@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/assign-and-lock-rules
+Title: assign-and-lock-rules | Transaction Fraud for Banking
+============================================================
+
+# assign-and-lock-rules
+
+Was this page helpful?Â 
+
+assign-and-lock rules
+
+**Fraud Prevention Agents - L1** and **Fraud Prevention Agents - L2** need to assign alerts to themselves to act on them.
+
+**Fraud Prevention Agents - L2** and **Fraud Prevention Managers** can reassign to themselves alerts that have already been assigned to other agents.
+
+Only **Fraud Prevention Managers** can act on alerts assigned to other agents; therefore, they don't need to assign alerts to themselves.

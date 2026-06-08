@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4201
+Title: HSBC-4201 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4201
+
+### Update Case Manager to version 13.30.0â
+
+FeatureFTMT-35919HSBC-4201
+
+We've upgraded Case Manager to version 13.30.0.
+
+The Case Manager's SLA scheduler now performs a graceful shutdown, which ensures its resources are safely and consistently released when the system stops. This fixes an issue where SLAs would not trigger due to a database lock.

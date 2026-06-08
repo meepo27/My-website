@@ -1,0 +1,103 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-apm-rules
+Title: APM Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * APM Rules
+
+
+
+On this page
+
+# APM Rules
+
+### Descriptionâ
+
+Alternative Payment Method (APM) rules look for payments whose number or total amount of transactions per APM is above the threshold.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## Velocity-APM1
+
+### Comment
+
+> Alert payment if the total amount per APM (e.g Paypal, Neteller), MID and Customer Email, in the last 24h, is above a set threshold
+
+### Actions
+
+  * [Velocity-APM1]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = 
+      tenanted_rules_thresholds['velocity_apm1_apm_merch_cust_email_sum_24h'].threshold 
+      ?? merchant_risk_levels__rules_thresholds['velocity_apm1_apm_merch_cust_email_sum_24h'].threshold 
+      ?? global_default__rules_thresholds['velocity_apm1_apm_merch_cust_email_sum_24h'].threshold 
+      ?? 0;  
+
+### Condition
+    
+    
+    //Filters
+    amount_threshold > 0 and (event.payment_method_id ?? '' != '')  and (event.merchant_id ?? '' != '') 
+    // Limits
+    and event.apm_merch_cust_email_sum_24h >= amount_threshold 
+
+### Explanation
+
+> Total amount spent using this APM ({event.payment_method_id}) in this MID ({event.merchant_id}) with the Email {event.customer_email}, in the last 24h is {event.apm_merch_cust_email_sum_24h}, and is equal/above limit of {localvar.amount_threshold} . 
+
+### Mark As
+
+N/A
+
+## Velocity-APM2
+
+### Comment
+
+> Alert payment if the number of transactions per APM (e.g Paypal, Neteller), MID and Customer Email, in the last 24h, is above a set threshold
+
+### Actions
+
+  * [Velocity-APM2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = 
+      tenanted_rules_thresholds['velocity_apm2_apm_merch_cust_email_cnt_24h'].threshold 
+      ?? merchant_risk_levels__rules_thresholds['velocity_apm2_apm_merch_cust_email_cnt_24h'].threshold 
+      ?? global_default__rules_thresholds['velocity_apm2_apm_merch_cust_email_cnt_24h'].threshold 
+      ?? 0;  
+
+### Condition
+    
+    
+    //Filters
+    count_threshold > 0 and (event.payment_method_id ?? '' != '') and (event.merchant_id ?? '' != '')  and (event.customer_email ?? '' != '') 
+    // Limits
+    and event.apm_merch_cust_email_cnt_24h >= count_threshold   
+
+### Explanation
+
+> Total number of transactions using this APM ({event.payment_method_id}), in this MID ({event.merchant_id}) and Email ({event.customer_email}), in last 24h is {event.apm_merch_cust_email_cnt_24h} and is equal/above limit of {localvar.count_threshold} .
+
+### Mark As
+
+N/A

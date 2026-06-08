@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/
+Title: Creating Features | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Creating Features
+
+
+
+Was this page helpful?Â 
+
+# Creating Features
+
+This section shows how to create new features that can be used in rules:
+
+  1. [Creating a plan for the features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-a-plan-for-features)
+
+In Pulse, a plan entity is a recipe of how to transform one data source into another. A plan contains map and metric operators that represent the new features. If you already have a plan for features, skip this step.
+
+  2. [Adding lists to the plan](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-lists-in-features)
+
+If you want to access list items of complex lists, you need to add them to the plan. For example, if you have a list with the information about the risk level each country has, you can add that list to the plan, and use it in your features and rules.
+
+  3. [Creating derived features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-derived-features)
+
+Apply complex expressions over your dataset's existing fields to extract new features.
+
+  4. [Creating metrics (historical profiles)](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-metrics)
+
+Generate a large number of profiles and include time-based features.
+
+  5. [Using PQL in features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features)
+
+Learn how to use the Pulse Query Language (PQL) in map and metrics operators to define the "formula" of the new features.
+
+  6. [Following best practices for plans](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/best-practices-for-plans)
+
+Use best practices to organize map and metrics operators within a plan in a meaningful way.
+
+  7. [Creating the data source with the features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-the-data-source)
+
+Run the plan to create the data source that contains the new fields.
+
+
+

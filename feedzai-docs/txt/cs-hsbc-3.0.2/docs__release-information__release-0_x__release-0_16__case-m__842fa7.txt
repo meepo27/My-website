@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transaction-history-transfers
+Title: Transaction History - Transfers | Feedzai Documentation
+============================================================
+
+# Transaction History - Transfers  
+  
+Below you can find screenshots of how this widget will look like after all the required modifications done:
+
+**Field Modifications**
+
+ _Notes_ :
+
+Initially, the "amount" field was intended to be a concatenation of the currency and amount fields. However, during the development process, we found a limitation that prevented us from implementing this mapping as intended. As a workaround, we have implemented two separate fields for the currency and amount.
+
+Similarly, we have also encountered limitations when mapping the 3-digit currency code to the intended code, and when mapping the Transaction Type to the corresponding description. As of now, we will display the values sent without mapping, while we continue to work on finding alternatives to resolve these issues and implement them correctly.
+
+Change| Field  
+---|---  
+Added| Currency  
+Fixed| Amount  
+Fixed| Transaction Type  
+Fixed| Transaction Sub-type  
+Fixed| Device ID  
+Removed| Direction

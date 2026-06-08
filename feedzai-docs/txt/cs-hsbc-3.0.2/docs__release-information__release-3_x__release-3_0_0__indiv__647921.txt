@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3850
+Title: HSBC-3850 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3850
+
+### Upgrade Ansible Roles to version 34.1.0â
+
+FeatureHSBC-3850
+
+We've upgraded Ansible Roles to version 34.1.0. This version updates the Case Manager pipeline to accept the `SELF_HEALING` Pulse application state, in addition to `STARTED` and `STARTING`.
+
+We also fixed an issue where the pipeline waited for an application that did not always exist. Case Manager will now correctly identify the available applications and wait for them to reach their desired states.

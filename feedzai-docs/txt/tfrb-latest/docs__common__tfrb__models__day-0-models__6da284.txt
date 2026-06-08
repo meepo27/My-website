@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/models/day-0-models
+Title: Day-0 Models | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Use Models](/tfrb/latest/docs/common/tfrb/models/use-models)
+  * Day-0 Models
+
+
+
+On this page
+
+# Day-0 Models
+
+Was this page helpful?Â 
+
+This page contains information about how to use a machine learning model from day 0 with no historical data.
+
+## Introductionâ
+
+When kickstarting TFB, rules may trigger numerous, unwanted alerts. To fine-tune them, a machine learning model offers an easy way to control the number of alerts triggered by rules. In some other cases, rules may not exist, and therefore a machine learning model is needed to start scoring transactions. However, it is not always possible to have historical data to train a model.
+
+Pulse includes the Day-0 machine learning model to cover these cases for Cards transactions. It was trained on industry data using the Microsoft LightGBM algorithm. The purpose of this model is to provide support at the start of a project. However, it does not replace a model trained on specific data in the long term, and fraud performance can't be guaranteed. The goal of this tool is to temporarily address the lack of data to train a model.
+
+## Day-0 model life cycleâ
+
+The model starts working in shadow mode. Shadow mode means that the model gives a score to each event, but the scores are not impacting the event decision done by Pulse. The model is waiting to be fine-tuned and activated when ready.
+
+In the solution life cycle, take the following steps:
+
+  1. After a short period in shadow mode, adjust the model thresholds to fine-tune the output (such as alert rate and, if labels are available during shadow mode, FPR). Copy the data to a Data Science environment, and use a JupyterLab notebook prepared by Feedzai to find the right threshold values.
+  2. When you are happy with the result, set the thresholds in production, and set the model to live mode. From this point on, the model score is taken into consideration for the decision about the event.
+  3. Later, when there is enough data and labels, train a new model and run it through the same process (i.e. shadow mode, fine-tuning, live mode).
+
+
+
+## Data fieldsâ
+
+The model uses fields created by the Cards plan. This plan should be added to the workflow together with the model.
+
+The following table lists the schema fields that are required to be filled to use the 0 Day Model:
+
+Field Name| Field Type| Description  
+---|---|---  
+amount| LONG| Input schema field, amount in USD cents  
+event_occurred_at| LONG| Input schema field, the time stamp of the event  
+card_pan| STRING| Input schema field, the identifier of the card  
+mcc| STRING| Input schema field, merchant category code (MCC)  
+acceptor_country_code| STRING| Input schema field, the country code of the acceptor (merchant)  
+acceptor_id| STRING| Input schema field, the identifier of the acceptor (merchant)  
+  
+On top of these raw features, several features are created such as velocities across different entities, categorizations and risky fields.

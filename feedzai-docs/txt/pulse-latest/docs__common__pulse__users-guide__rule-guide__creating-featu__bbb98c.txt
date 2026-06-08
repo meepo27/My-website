@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-the-data-source
+Title: Creating the Data Source with the Features | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/)
+  * Creating the Data Source with the Features
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating the Data Source with the Features
+
+When you create a plan, you create a recipe of how to transform the input data source into the output data source. To actually create the output data source, you need to run the plan.
+
+Testing in data science environment
+
+If you create a plan execution in data science environment, the metrics are calculated immediately. However, in a real-time scoring environment, scheduled metrics (SMJs) may take considerably longer. This may lead to differences when you run a plan execution in a data science environment vs. when you use the same plan to score the same events in a real-time scoring environment.
+
+To simulate the behavior of SMJs, you can use the `context.plan.delay.*` Pulse property. It delays the update of scheduled metrics in the data science environment. For each plan, set it to the time that it takes for the SMJs to finish. Get in touch with Feedzai if you want to use this setting.
+
+## How toâ
+
+To create a new data source which includes the new field(s), execute the following actions:
+
+  1. In the **Data Science** tab, open the features plan.
+  2. Use the  button to execute the plan.
+     1. In the Data Source tab, select the input data source for the plan execution. For example, _Cleaned Transactions_.
+
+If the plan has more than one channel, select the input data source for each channel.
+
+     2. In the **Data Sinks** tab, configure the output of the plan:
+
+        * **Name** for the output data source. For example, _Rule Features v1_.
+        * **Type** : the file format of the output data â _Parquet_ (default) or _CSV_.
+
+Parquet format is recommended
+
+Using the Parquet file format for data files is highly recommended. Besides allowing a direct encoding of data types (which automates the mapping of field types when importing datasets), it also improves performance and disk usage: compared to CSV, Parquet files occupy less space and take less time to load.
+
+        * **Directory Path** : The path and file name where Pulse will store the output file, containing the data of the new data source. Example: `<file:///datasets/rule-features-v1.parquet>`. Note that the format varies according to the operating system.
+     3. Use the  button to have access to additional configurations:
+
+        1. **Job Profile** : Allows you to choose a profile to optimize CPU cores and memory assigned to the Spark job that will run the plan.
+
+        2. [Data Partitioning](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/data-partitioning-for-the-metrics-operator): If you have metrics operators in your plan, this functionality allows to choose the **Data Partitioning** option that enables Spark to reorganize the data into different partitions as homogenously and well distributed as possible. Pulse allows you to choose one of the following options: **Data-Aware Optimizer** , **Hash-Based** , and **Manual Partition**. These options are described in detail in the [Data Partitioning](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/data-partitioning-for-the-metrics-operator) page.
+
+Metrics operators
+
+The data partitioning option takes effect only if you have metrics operators in your plan. Otherwise, this option does not affect the performance of the plan execution.
+
+     4. Use the  button again to execute the plan. It generates a new data source in Pulse, with the name you selected for the data sink. Pulse also saves an output file with the transformed data to your file system.
+
+  3. When the plan execution is finished, check the new data source to confirm that its schema includes new fields.
+
+

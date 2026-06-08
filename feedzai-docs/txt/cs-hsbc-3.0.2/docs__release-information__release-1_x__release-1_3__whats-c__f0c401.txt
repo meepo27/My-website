@@ -1,0 +1,248 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/whats-changed
+Title: What's Changed | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.3.1`â
+
+### Add new "Pulse Workflow Audit" pipeline to Logstashâ
+
+Feature
+
+A new Logstash pipeline was added which extracts workflow information (including rules and workflow elements) whenever there is a publish.
+
+The documentation was updated with the data schema for this pipeline.
+
+### Add new Field to Event Notificationâ
+
+Bug Fix
+
+New field `sender_transaction_bank_account_number` added to Payment Fulfillment outbound call from Case Manager to AFIS.
+
+It will appear now in the Payload coming from Event notification.
+
+## Release `1.3.0`â
+
+### Case Managerâ
+
+#### Changes to Case Manager fields and positionsâ
+
+Rework
+
+We have customized the CM UI accordingly with the new requirements.
+
+See [Case Manager Transfers UI changes](/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-transfers-ui-changes/ui-changes-transfers) for a comprehensive list of Transfers Event UI page changes.
+
+See [Case Manager Digital Activity UI changes](/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-digital-activity-ui-changes/ui-changes-digital) for a comprehensive list of Digital Activity Event UI page changes.
+
+See [Search Page UI changes](/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-search-page/ui-changes-search-page) for a comprehensive list of Search Page UI page changes.
+
+See [Search Result UI changes](/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-search-result/ui-changes-search-result) for a comprehensive list of Search Result UI page changes.
+
+See [Customer Details UI changes](/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-transfers-ui-changes/customer-details-rework) for a comprehensive list of Search Result UI page changes.
+
+#### Add Saf Indicator to Case Managerâ
+
+Feature
+
+Created Saf Indicator field in Payments schema, with the objective of replacing the payment_saf field.
+
+Saf Indicator is available in Case Manager automation rules and SLAs.
+
+#### Fix scores with decimal numbers numbers in some Case Manager tablesâ
+
+Bug Fix
+
+We're now rounding scores so that they're always displayed as whole numbers.
+
+#### Bulk actions made available in transaction historyâ
+
+Rework
+
+As requested, we've made the bulk actions (fraud/not fraud) available in the transaction history.
+
+Note that with this change, analysts will be able to label transactions without being assigned to them beforehand.
+
+#### Fix status reason not getting updated via custom extensionâ
+
+Bug Fix
+
+Fixed an issue that prevented the status reason to be updated by the `Set Reason | Payment Reversal as Unable to Contact - Decline` custom extension.
+
+Achieved by changing the corresponding status reason `Payment Reversal as Unable to Contact - Decline` to match the reason configured in the custom extension.
+
+##### warning
+
+The reason shouldn't be edited for the extension to work.
+
+#### Fix transactions not opening in Case Managerâ
+
+Bug Fix
+
+As part of a previous feature, we've removed the `status_transfers` state machine.
+
+This caused the transactions in one of these states to not open in Case Manager.
+
+Because of that, we've re-enabled the state machine but it's marked as **deprecated** and will no longer be updatable.
+
+The transactions will use one of the remaining state machines.
+
+#### Search field "Customer Email" now searches both `sender_email` and `customer_email`.â
+
+Rework
+
+The search for Customer Email on Case Manager was changed as requested, now this search box is able to filter to two different keys: `sender_email` and `customer_email`.
+
+This fixes the reported issue where searching for Customer Email on the search screen was not returning any results
+
+#### Update Get Next so it no longer fetches non-alerted events.â
+
+Bug Fix
+
+Updated Assign and Lock configurations so that the Get Next no longer fetches non-alerted events.
+
+From now on the Linked Alerts widget will only show alerted events.
+
+### Event Storage ETLâ
+
+#### Add `formatted_results` to ETL extractionsâ
+
+Feature
+
+We've added a new column `formatted_results` to the ETL extractions to store rules explanations in the following format:
+    
+    
+    [  
+        {  
+            "ruleId": "rule_id_1",  
+            "explanation": "Customer name is Fraudulent Joe"  
+        },  
+        {  
+            "ruleId": "rule_id_2",  
+            "explanation": "This rule triggered because customer name is Joe. Customer name: Fraudulent Joe."  
+        }  
+    ]  
+    
+
+Copy
+
+A new property has been added to enable/disable this new column: `eventstorageetl.extraction.includeFormattedResultTracking`.
+
+By default, we've enabled this new property.
+
+#### ETL tool support for dynamic outcomes and scores.â
+
+Feature
+
+This column holds all the outcomes and scores in the following format:
+    
+    
+    {  
+        "fraud": {  
+            "outcomeDecision": true,  
+            "score": 0.0  
+        },  
+        "decision": {  
+            "outcomeDecision": "approve",  
+            "score": [  
+                0.0,  
+                0.0,  
+                0.0  
+            ]  
+        }  
+    }  
+    
+
+Copy
+
+There's a new property `eventstorageetl.extraction.outcomesInSingleField` that when enabled exports a new column `outcomes_and_scores`.
+
+By default, we've enabled this new property.
+
+For this to work `eventstorageetl.extraction.includeOutcomes` (`include_outcomes` ansible variable) needs to be enabled as well.
+
+#### Add option to disable outcomes extraction in ETLâ
+
+Feature
+
+The ansible variable `include_outcomes` can be changed to `false` to disable the outcomes extraction.
+
+### Miscâ
+
+#### Feedzai Platform Upgradesâ
+
+Feature
+
+We've upgrade Reference Data Service to version 3.6.7. This upgrade resolves an issue that caused some PATCH and PUT reference data requests to fail to persist data.
+
+[Artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) page has been updated accordingly.
+
+#### Update logstash pipelinesâ
+
+Feature
+
+We've updated the logstash pipelines, the new version includes:
+
+  * added a ansible configuration variable to limit the extractions max file size.
+  * enabled "Add Note" pipeline
+
+
+
+The external notifications installation documentation was also updated according to the previous changes.
+
+#### Increase Application JVM heap size according to performance testsâ
+
+Improvement
+
+##### warning
+
+In order to have these configured by default in both _production_ and _pre-production_ you should confirm that `project-<env>` inventories are included when running Feedzai ansible-toolkit.
+
+In practice that's `-i project-prod` and `-i project-pre-prod` respectively.
+
+#### Fix Case Manager partitioning scriptsâ
+
+Bug Fix
+
+We've identified an issue in Case Manager partitioning scripts where project field indexes were not being created in the partitioned tables which led to performance degradation.
+
+This version includes a fix to the partitioning scripts to add project field indexes. We've also included `EVENT_TIMESTAMP` to increase the database performance regarding Case Manager searches.
+
+#### Improvements on External Notifications resiliency and observabilityâ
+
+Improvement
+
+The [monitoring documentation](https://cam.feedzai.com/cs-hsbc/0.15.1/docs/common/operations-guide/monitoring/collect-metrics) as been updated accordingly.
+
+#### Add a new page in Case Manager that reports the versions being usedâ
+
+Feature
+
+A new page was added to Case Manager which reports the Case Manager version, Solution version and project version running on that environment.
+
+The page can be accessed via a web browser, by navigating to `/ext/version.json` in Case Manager.
+
+#### Add `Shadow Fraud`, `Scam` and `Shadow Scam` outcomesâ
+
+Feature
+
+Scam Score is now available to be used in Case Manager, for example, in Automation Rules.
+
+The shadow counterparts haven't been added to Case Manager core schema since shadow models are "non-live" and therefore not usually shown in Case Manager. Monitoring these models performance is a very different task that leverages different tools.
+
+#### Allow JWK service configuration in High Available environmentsâ
+
+ReworkFTMT-9531
+
+We've made JWK service endpoints configurable to support API requests across all nodes in High Available environments by introducing a new variable in the Ansible pipelines:
+
+  * jwk_service_host
+
+
+
+For the complete description and default variables values see [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible).
+
+**Note:** In environments with only one Pulse node this new variable doesn't need to be overridden.

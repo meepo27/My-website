@@ -1,0 +1,94 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/base-requirements
+Title: Base Requirements | Feedzai Documentation
+============================================================
+
+On this page
+
+# Base Requirements
+
+The purpose of this guide is to walk you through the requirements needed for setting up each Feedzai component.
+
+Furthermore, this guide also includes the requirements for installing or configuring the following components:
+
+  * [Pulse](/cs-hsbc/3.0.2/docs/installation-guide/pulse/requirements-pulse)
+  * [Case Manager](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/requirements-casemanager)
+  * [Reference Data Service](/cs-hsbc/3.0.2/docs/installation-guide/refdata/requirements-refdata)
+  * [Cassandra](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-cassandra)
+  * [RabbitMQ](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-rabbitmq)
+  * [ZooKeeper](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-zookeeper)
+
+
+
+##### info
+
+The requirements below are applicable to all servers where Feedzai services will be installed, as well as other third-party services that are part of the product stack.
+
+## Operating Systemâ
+
+Feedzai deployments officially support the following operating systems:
+
+  * Red Hat Enterprise Linux 7.9 (64 bit)
+  * CentOS 7.9 (64 bit)
+
+
+
+##### info
+
+**Installing on AWS**
+
+If you are installing Feedzai products on AWS, the Amazon Linux 2 distribution is also supported.
+
+To ensure Feedzaiâs services work properly, and the Feedzai team is able to investigate or remediate any issues, the following must be ensured:
+
+  * All servers need to have `ntp` daemon configured.
+  * Turn-off the `swap` file (disable all swap lines on the `/etc/fstab file`);
+  * All servers need to have an Operating System group and user named `feedzai`.
+  * All the servers should be accessible via SSH for the `feedzai` user.
+  * All Feedzai Pulse servers must have `ulimit` set to `65535`. Example:
+
+
+    
+    
+    sudo tee /etc/security/limits.d/99-feedzaiproc.conf << 'EOF'  
+    feedzai soft nofile 65535  
+    feedzai hard nofile 65535  
+    feedzai soft nproc 65535  
+    feedzai hard nproc 65535  
+    EOF  
+    
+
+Copy
+
+  * The following packages must be installed:
+    * `which`
+    * `tar`
+    * `bzip2`
+    * `less`
+    * `nc`
+    * `unzip`
+    * `vim`
+    * `telnet`
+    * `wget`
+    * `Python3.6`
+    * `Python2.7`
+    * `libselinux-python3`
+
+
+
+##### info
+
+It is recommended that both `Python2.7` and `Python3.6` are installed because there may be dependencies that require different Python versions.
+
+##### tip
+
+It is recommended that the servers are kept up to date with the latest Operating System and security patches. Our recommendaton is that servers have access to a CentOS mirror with at least daily updates. In case virtual machines are provisioned based on immutable images, this should be ensured for the base image.
+
+## Web Browserâ
+
+Feedzai products that have a Web UI (Pulse, Case Manager, and Genome) officially support the following browsers:
+
+  * Chrome (version 92 or later)
+  * Firefox (version 91 or later)
+  * Edge (version 92 or later)
+
+

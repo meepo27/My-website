@@ -1,0 +1,26 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/digital-activity/additional-resources/generated-fields
+Title: Generated Fields | Feedzai Documentation
+============================================================
+
+On this page
+
+# Generated Fields
+
+The Digital Activity API generates fields that will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Authentication| authentication  
+Credentials Update| credentials_update  
+Device| device  
+New Payee| new_payee  
+Profile Update| profile_update  
+Alias| alias  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Digital Activity API as a timestamp, in milliseconds.

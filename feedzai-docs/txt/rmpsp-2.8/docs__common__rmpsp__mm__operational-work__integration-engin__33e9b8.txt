@@ -1,0 +1,26 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/mm-rules-testing-strategy
+Title: Merchant Monitoring Rules Testing Strategy | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/overview)
+  * [Rule Testing](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/overview)
+  * Merchant Monitoring Rules Testing Strategy
+
+
+
+# Merchant Monitoring Rules Testing Strategy
+
+The goal of these pages is to describe the execution of **Scenario's Rules Testing (E2E)** \- where functional end-to-end tests are executed over the rules, with the entire system up and running, to ensure that the system behaves correctly and that merchant monitoring rules only trigger upon the expected conditions.
+
+All different components are covered, namely:
+    
+    
+    - Event and entity injection  
+    - Calculation of profile metrics  
+    - Rule and Alert triggering  
+    
+
+The following sections of this document provide you with an overview regarding the different interactions between the system components in order to perform the E2E testing. This aims to guide you during rule testing, by providing you with additional details on how the solution works and how to interact with the different endpoints during the testing process.

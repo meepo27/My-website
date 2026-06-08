@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-rules
+Title: Pulse Audit - Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Pulse Audit
+  * Pulse Audit - Rules
+
+
+
+# Pulse Audit - Rules
+
+Was this page helpful?Â 
+
+The **Pulse Audit - Rules** entity stores all audit events for Rules. For every action in Pulse related to Rules, this entity captures the audit trail.
+
+It comprises the [Pulse Audit - Base Schema](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-base) and the following fields:
+
+Name| Type| Description| Example  
+---|---|---|---  
+`audit_payload`| row| The audit payload associated with the rules action.|   
+âââ`labels`| string| |   
+âââ`context`| string| | 

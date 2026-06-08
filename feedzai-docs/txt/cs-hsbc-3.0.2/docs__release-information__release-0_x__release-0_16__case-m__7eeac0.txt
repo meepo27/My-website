@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-event-summary
+Title: Digital Activity - Event Summary | Feedzai Documentation
+============================================================
+
+# Digital Activity - Event Summary  
+  
+Before:
+
+After:
+
+**Field Modifications**
+
+Change| Field  
+---|---  
+Added| Source  
+Added| User ID  
+Added| Name of website  
+Enriched| Event Type  
+Fixed| Date  
+Fixed| Event Sub Type  
+Fixed| Customer Date of Birth  
+Removed| Customer Name  
+Removed| Event Status  
+Removed| Fail Reason

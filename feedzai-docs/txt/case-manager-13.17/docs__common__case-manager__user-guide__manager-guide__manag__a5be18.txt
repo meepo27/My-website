@@ -1,0 +1,99 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manage-message-translations
+Title: Manage Messages | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage System Configurations
+  * Manage Messages
+
+
+
+On this page
+
+# Manage Messages
+
+You can manage the **message translations** necessary for your use case in the **Messages** page. The next steps will show you how to view, filter, create, edit, and delete messages.
+
+## View messagesâ
+
+Access the **Messages** page.
+
+  1. On the sidebar, hover **Settings** .
+
+  2. Select **Messages** from the dropdown list.
+
+
+
+
+## Filter messagesâ
+
+Use the filters to refine the messages displayed on the list. You can filter by **Language** , **Key** , and/or **Message**.
+
+  1. Select **Searches** to open the filters menu.
+
+
+
+For example, this could be helpful to view all messages connected to a specific key, i.e.:
+
+Key| Language| Translation (message)  
+---|---|---  
+`activity.histogram.day.xAxis.role`| English| Hours of the day  
+`activity.histogram.day.xAxis.role`| PortuguÃªs (Brasil)| Horas do dia  
+  
+You can, also, see your latest filters and save them for later use.
+
+  * To save a filter, hover the filter in the **Latest** list and select .
+
+  * To remove a filter from the **Saved** list:
+
+    1. Navigate to the **Saved** tab.
+    2. Hover the filter and select .
+  * To remove a filter from the **Latest** list, hover the filter and select .
+
+  * To reset all values input, select **Restore defaults**.
+
+
+
+
+## Create messagesâ
+
+Create a new message to assign a translation to a specific key.
+
+  1. In the **Messages** page, select the **New Message** button.
+
+  2. Complete the fields with the information that best describes the new message.
+
+     * **Language** : Choose the appropriate language from the dropdown list.
+
+     * **Key** : Input the variable key you wish to assign a translation to.
+
+     * **Translation** : Write the message translation for the selected language and key.
+
+  3. Select **Create**.
+
+
+
+
+info
+
+Select **Cancel** to discard your changes and return to the **Messages** page.
+
+## Edit or delete messagesâ
+
+You can adjust or delete existing messages that are no longer relevant to your needs:
+
+  1. Under the **Actions** column, select the  icon.
+
+  2. Select **Edit Message** or **Delete Message** , depending on your desired action.
+
+
+
+
+Editing a message
+
+When editing a message, you can only change its **Translation**. For your convenience, the **Language** and **Key** fields are greyed-out.
+
+Deleting a message
+
+If you delete a message of a key that has no additional messages, that key will be removed from the table.

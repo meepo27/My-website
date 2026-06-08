@@ -1,0 +1,156 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts
+Title: Access Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/)
+  * Access Alerts
+
+
+
+On this page
+
+# Access Alerts
+
+You can access alerts in the Alerts or Search pages. In each page, you can use the filters to narrow down the events that require your analysis.
+
+## Alerts vs Eventsâ
+
+Before learning how to access alerts, let's start by distinguishing events from alerts.
+
+  * **Events** are all the possible transactions, withdrawals, etc., including those that triggered alerts and those who have not, regardless if they have been reviewed by an analyst or not.
+  * **Alerts** are events whose conditions have triggered an alert and that need to be manually reviewed.
+
+
+
+The alerts that haven't been reviewed are displayed on the Alerts page. On the other hand, you can see all events received by the system on the Search page, including those already reviewed and the ones that didn't trigger an alert. This allows you to take action on events that have already been processed by the system and decide upon them otherwise, thus improving the machine-learning models and closing the feedback loop. For example, you can decide that an event marked as Suspicious by the system is, in fact, legitimate.
+
+## List alertsâ
+
+Access the **Alerts** page using the main menu to see alerts that haven't been reviewed.
+
+  * The **All Channels** tab displays alerts from all channels. When viewing this tab, you can use the **Link to Case** button to organize the alerts in cases.
+  * The channel-specific tab displays only alerts from the selected channel. In this tab, you can filter alerts, move them to queues, assign them to analysts, or classify them.
+
+
+
+Depending on the product's configuration and your user permissions, you can only perform actions on alerts that are assigned to you. If you cannot act on an alert, see the information displayed on the interface and recheck your selection.
+
+info
+
+Note that the **All Channels** tab may not include the sum of the alerts from all the channel-specific tabs. If you select a filter that only belongs to a specific channel, the list shows the alerts according to the filter of that specific channel.
+
+If you are not using Omnichannel, the list does not display the channel tabs.
+
+### Preview alertsâ
+
+While viewing the alert list, select each alert to quickly preview its details.
+
+### Manage alert listâ
+
+You can adjust how the alert list is displayed to fit your preference. This way, you can ensure that you focus on the most relevant information, thus making the investigation process more efficient.
+
+The **Settings** dropdown allows you to:
+
+  * Use the **Manage Columns** option to select which columns you want to see and which you want to hide.
+
+
+
+  * Use the **Manage Columns** option to change the order of the columns. Note the **Score** and **Timestamp** columns in the following example:
+
+
+
+Reordering fixed columns
+
+When reordering columns, make sure that you keep the fixed columns to the left to ensure a more efficient investigation process.
+
+  * Use the **Display Density** option to adjust the font density to your preference, namely Default, Comfortable, or Compact.
+
+
+
+By selecting the top of any column, you can sort the alerts according to such values in an ascending or descending order. In addition, you can specify the number of alerts that you want to see per page. This may be very efficient when performing bulk actions, meaning that, for instance, you could link all alerts from a specific customer to a case.
+
+## Filtering alertsâ
+
+Use filters to refine the alerts displayed on the list. This could be helpful, for example, to see all the alerts that are assigned to you. Let's take a look at some examples of these filters:
+
+  * **Tenants** : Lists only alerts from the selected tenant.
+  * **Queues** : Lists only alerts from the selected queue.
+  * **Analysts** : Lists alerts according to the assignee options: All analysts, Assigned, Assigned to me, or Unassigned.
+  * **Timestamp** : Lists only alerts that were created on the selected time period.
+  * **Rule Names** and **Rule IDs** : Lists only alerts that triggered the selected rule(s).
+
+
+
+After you perform a search, the selected filters remain available. This way, you can reuse your latest three searches without needing to select each filter again.
+
+The **Latest** searches are displayed in order of their occurence, from the most recent to the oldest. This is reset when you clear your browser's cache.
+
+Be aware that the most recent search and its results are kept on the page until you perform a new search, even when navigating to other pages. This is reset at the end of each day or upon logout.
+
+In case you want to reuse certain recurrent searches for multiple days or even weeks, save them by selecting the  button. You can always find and access them in the **Saved** tab. This is reset when you clear your browser's cache.
+
+To remove the searches that you no longer need, hover over the search and deselect the  button.
+
+info
+
+The **Latest** and **Saved** areas display only the filters for which you selected specific values. For example, when you perform a search by a specific analyst, that value (i.e. the analyst's name) is displayed in this area.
+
+## Export alerts listâ
+
+You can export the list of filtered alerts to better support the investigation and reporting processes.
+
+In Omnichannel configurations, you can export the list on the **All channels** tab and on each channel-specific tab.
+
+To export events, open the **Settings** dropdown and select the **Export** option. A file is then downloaded with the list of events. Notice that only the columns displayed in the table will be exported.
+
+File format
+
+The events are exported either on a CSV or XLSX file depending on the product's configuration.
+
+tip
+
+Press `.` on your keyboard to display the shortcuts menu and select the **Export** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Get alerts automaticallyâ
+
+If you don't have any alerts assigned to you, you can use the **Get Next** button to automatically fetch the next unassigned and unreviewed alert by queue without the need to perform a manual search. This way, analysts can have a more efficient access to their workload. In addition, it also enables a better team workload management as it ensures that alerts are evenly distributed between the different analysts.
+
+info
+
+The fields that correspond to the unreviewed state of alerts is configured by the system administrator.
+
+Imagine that you have an _Urgent_ queue with the alerts that need to be reviewed as soon as possible.
+
+  1. Select the **Event Queues** option.
+  2. Select the queue that includes the alerts that you need to review, in this case, **Urgent**.
+  3. Select **Get Next**. You are then redirected to the details page of an alert from that queue that is both unassigned and unreviewed.
+
+
+
+info
+
+The order according to which the alerts are fetched is configured by the system administrator.
+
+  4. Review the alert. You can navigate to other pages and then select **Back to Alert** when you're ready to make a decision.
+
+
+
+  5. After you make a decision, select **Get Next** to fetch the next alert.
+
+
+
+### Automatic review nextâ
+
+The **Automatic review next** option takes the Get Next feature one step further. With this option enabled, after making a decision on an alert, analysts are automatically redirected to the alert without having to select **Get Next**.
+
+In Omnichannel configurations, the queue selection list presents different channels. This allows analysts to review alerts from one channel or from multiple channels at the same time.
+
+tip
+
+Make sure that **Events Queues** option is selected. Then, type `.` on your keyboard to display the shortcuts menu and select the **Get Next** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Next stepsâ
+
+Learn more about [searching alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/searching-for-alerts) or start [reviewing alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-intro).

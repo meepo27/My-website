@@ -1,0 +1,91 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/migrate-pulse-resources/export-resources
+Title: Export Resources | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Pulse Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/pulse-guide)
+  * [Migrate Pulse Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/migrate-pulse-resources/overview)
+  * Export Resources
+
+
+
+On this page
+
+# Export Resources
+
+Learn how to export resources (i.e. lists, models projects, plans, and rules projects).
+
+danger
+
+Make sure you back up the environment you want to update:
+
+  1. Open Pulse in the new environment.
+  2. Select the options menu  in your Pulse application.
+  3. **Export Application**.
+
+
+
+To export resources:
+
+  1. Select the **Options** menu in the Pulse application of your current environment.
+  2. Select the **Export Resources** option:
+
+
+
+  3. Each resource has a specific tab. Use each tab to select the resources that you want to export.
+
+
+
+info
+
+To make sure that all resources are selected, keep a list of all the model projects, models, plans, plan executions, rules projects, and snapshots that you want to export and insert the name of each resource into the corresponding field.
+
+### Model projectsâ
+
+  1. In the **Export Resources** pop-up window, the **Model Projects** tab is selected by default. Select the model projects that you want to export.
+  2. Optionally, if you want to include a file with the model object, select the **Include Binary** option.
+  3. Make sure that you add  each resource to the export bundle.
+
+
+
+### Plansâ
+
+  1. Open the **Plans** tab.
+  2. Select the plans that you want to export.
+
+
+
+info
+
+Since non-deployable plans are not directly deployed in a runtime workflow, you can select only deployable plans.
+
+  2. If you want to export a specific configuration of the plan, select the plan executions from the **Executions List**. For traceability and history purposes, Feedzai recommends selecting the last plan execution for each exported plan.
+
+  3. Make sure that you add  each resource to the export bundle.
+
+
+
+
+### Rules projectsâ
+
+  1. Open the **Rules Projects** tab.
+
+  2. Select the rules projects that you want to export.
+
+  3. If you want to export a specific configuration of a rules project, select the snapshots from the **Snapshot List**. For traceability and history purposes, Feedzai recommends selecting all existing snapshots.
+
+  4. Make sure that you add  each resource to the export bundle.
+
+
+
+
+Once all resources are configured, select the **Export Bundle** button.
+
+## Listsâ
+
+Lists are simple resources that can be migrated by exporting the list items from the source environment and importing them in the target environment. The resource transfer process allows you to export and import list metadata, but not list items. List items are exported and imported through a CSV file. To export and import list items refer to the [Transfer List Items](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/migrate-pulse-resources/transfer-list-items) guide.
+
+## Next stepsâ
+
+Now that you can export resources from the current environment, learn how to [import resources](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/migrate-pulse-resources/import-resources) in the new environment.

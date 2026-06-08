@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3882
+Title: HSBC-3882 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3882
+
+### Add operational status filter to the Cards Fulfillment extensionâ
+
+FeatureFTMT-33601HSBC-3882
+
+We've extended the Fulfillment extension to accept the `operational_status` state machine in addition to the `status` state machine.
+
+We have also updated the filter logic to support specific statuses. By default, the extension executes for all `status` changes, but limits `operational_status` changes to `On Hold` or `Unresolved`. This behavior can be configured during deployment using the Ansible variable `fulfillment_channels_state_machines`. Please refer to [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information.

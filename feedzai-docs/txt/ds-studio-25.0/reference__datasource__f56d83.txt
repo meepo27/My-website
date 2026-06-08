@@ -1,0 +1,525 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/datasource/
+Title: datasource - DS API
+============================================================
+
+#  `` datasource Â¶
+
+This module contains the API to interact with Pulse data sources.
+
+Start by fetching a data source by running
+    
+    
+    ds = app.pullDataSourceByDesc("<name as it appears in the UI>")
+    
+
+Then you can launch analyze jobs, run feature selection, call AutoML to generate features and more.
+
+##  `` FieldType `module-attribute` Â¶
+    
+    
+    FieldType = autoclass('com.feedzai.pulse.esp.FieldType')
+    
+
+##  `` PARAMS_CSV_ALLOWED `module-attribute` Â¶
+    
+    
+    PARAMS_CSV_ALLOWED = {'has_header': bool, 'sep': str, 'encoding': str, 'missing_values': Set, 'quote': str, 'line_separator': str}
+    
+
+##  `` PARAMS_INFERENCE_ALLOWED `module-attribute` Â¶
+    
+    
+    PARAMS_INFERENCE_ALLOWED = {'cat_threshold': int, 'job_properties': Dict, 'n_records': int, 'dtypes': Dict}
+    
+
+##  `` PARAMS_PARQUET_ALLOWED `module-attribute` Â¶
+    
+    
+    PARAMS_PARQUET_ALLOWED = {'merge_schemas': bool}
+    
+
+##  `` PARQUET_ALLOWED_OVERWRITING_MAP `module-attribute` Â¶
+    
+    
+    PARQUET_ALLOWED_OVERWRITING_MAP: dict[str, dict] = {value: {TYPE: ([CategoricalField](../types/#ds_api.types.CategoricalField "            CategoricalField \(ds_api.types.CategoricalField\)"), [DateTimeField](../types/#ds_api.types.DateTimeField "            DateTimeField \(ds_api.types.DateTimeField\)")), TYPE: ([StringField](../types/#ds_api.types.StringField "            StringField \(ds_api.types.StringField\)"),)}, value: {TYPE: ([CategoricalField](../types/#ds_api.types.CategoricalField "            CategoricalField \(ds_api.types.CategoricalField\)"), [DateTimeField](../types/#ds_api.types.DateTimeField "            DateTimeField \(ds_api.types.DateTimeField\)")), TYPE: ([NumericalField](../types/#ds_api.types.NumericalField "            NumericalField \(ds_api.types.NumericalField\)"),), TYPE: ([NumericalField](../types/#ds_api.types.NumericalField "            NumericalField \(ds_api.types.NumericalField\)"),)}, value: {TYPE: ([CategoricalField](../types/#ds_api.types.CategoricalField "            CategoricalField \(ds_api.types.CategoricalField\)"), [DateTimeField](../types/#ds_api.types.DateTimeField "            DateTimeField \(ds_api.types.DateTimeField\)")), TYPE: ([NumericalField](../types/#ds_api.types.NumericalField "            NumericalField \(ds_api.types.NumericalField\)"),)}}
+    
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` DataSource Â¶
+    
+    
+    DataSource(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a Data Source in Pulse.
+
+###  `` schema `property` Â¶
+    
+    
+    schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")
+    
+
+The schema from the data source.
+
+###  `` slug `property` Â¶
+    
+    
+    slug: str
+    
+
+Sanitized name. Equivalent to Pulse 'internal name'.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` analyze Â¶
+    
+    
+    analyze(default_breakdowns: bool = True, wait: bool = False, job_profile: Optional[[JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)")] = None, job_properties: Optional[Dict[str, str]] = None) -> bool
+    
+
+Analyze this datasource with Pulse.
+
+By analyzing a data source, Pulse will launch a job to compute approximate histograms for each numerical feature.
+
+The default analysis configuration will also include histogram breakdowns with **all categorical variables**. For each categorical variable in the data source, there will be a new histogram in each numerical feature.
+
+data sources with many categorical fields
+
+It is recommended to set `default_breakdowns=False` when there are many categorical fields. Otherwise, the amount of metadata that is generated might compromise the performance of Pulse.
+
+The datasource analysis will be run with Pulse's default config for datasource analysis.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `default_breakdowns` Â¶
+
+|  `bool` |  Whether the analysis should include breakdowns for all categorical fields or not. Default is `True`. |  `True`  
+  
+####  `wait` Â¶
+
+|  `bool` |  Whether to wait for the datasource analysis to finish. The data analysis outcome will be logged. Default is `False`. |  `False`  
+  
+####  `job_profile` Â¶
+
+|  `[JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)")` |  Pulse UI custom job profile. |  `None`  
+  
+####  `job_properties` Â¶
+
+|  `dict` |  Additional spark properties, e.g. `{"spark.executor.memory": "1g"}`. By default, no additional spark properties are added. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`bool` |  Whether the analysis started or not.  
+  
+###  `` create `classmethod` Â¶
+    
+    
+    create(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, path: str, file_format: str = 'csv', schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None, **kwargs)
+    
+
+Creates a new data source in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The App where the datasource will be created. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the data source as it appears in the UI. |  _required_  
+  
+####  `path` Â¶
+
+|  `str` |  The path of the file containing the dataset. |  _required_  
+  
+####  `file_format` Â¶
+
+|  `str` |  The input file format. Options are `csv` and `parquet`. Defaults to `csv`. |  `'csv'`  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  The Pulse Schema to use. Optional. If not specified, the Schema will be inferred by Pulse. Only used for csv files. |  `None`  
+  
+####  `kwargs` Â¶
+
+|  `Dict` |  Keyword arguments used for the configuration of the DataSource and for the SchemaInference job. |  `{}`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`has_header` |  `bool` |  Flags whether the dataset is to be read with header. Only used for csv files. Defaults to True.  
+`sep` |  `str` |  Delimiter to use. Should contain exactly one character. Only used for csv files. Defaults to `','`.  
+`missing_values` |  `set of str` |  Set of strings with values for empty value. Only used for csv files. Defaults to `{'', 'NA', 'NULL'}`.  
+`quote` |  `str` |  The character used to denote the start and end of a quoted item. Only used for csv files. Defaults to `"'"`.  
+`line_separator` |  `str` |  The string used mark the end of line. Only used for csv files. Defaults to `'\n'`.  
+`encoding` |  `str` |  Encoding to use for UTF when reading/writing. Only used for csv files. Defaults to `'UTF-8'`.  
+`cat_threshold` |  `int` |  A value that represents the maximum number of distinct values on a given field for it to be inferred as categorical. Defaults to 15.  
+`job_properties` |  `Dict` |  The dictionary with the specific properties for the schema inference job. Will only be used if no Schema is specified. Defaults to Pulse PropertiesProfile.  
+`n_records` |  `int` |  The number of records that will be read per partition when performing datasource schema inference. Will only be used if no Schema is specified. Defaults to 15000.  
+`dtypes` |  ` Dict` |  The dictionary with the field overriding information when inferring the datasource schema. Will only be used if no Schema is specified. Defaults to None.  
+`merge_schemas` |  `bool` |  Specify if schema merging should be allowed. Only used for parquet files. Defaults to False. See: [https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#schema-merging]()  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataSource` |  DataSource object corresponding to the Pulse datasource created.  
+  
+###  `` create_automl_fe_plan Â¶
+    
+    
+    create_automl_fe_plan(semantics: Sequence[[SemanticField](../datasources/datasource_transformations/#ds_api.datasources.datasource_transformations.SemanticField "            SemanticField
+    
+    
+      
+          dataclass
+       \(ds_api.datasources.datasource_transformations.SemanticField\)")], timestamp_field: str, realtime_windows: Optional[Sequence[[TimeModel](../types/#ds_api.types.TimeModel "            TimeModel \(ds_api.types.TimeModel\)")]] = None, scheduled_windows: Optional[Sequence[[TimeModel](../types/#ds_api.types.TimeModel "            TimeModel \(ds_api.types.TimeModel\)")]] = None, plan_name: Optional[str] = None, profile_filter: Optional[str] = None, compute_unfiltered_metrics: bool = False) -> [JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")
+    
+
+Creates automl's feature engineering plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `semantics` Â¶
+
+|  `sequence of SemanticField` |  Sequence of semantic objects to define the transformations. |  _required_  
+  
+####  `timestamp_field` Â¶
+
+|  `str` |  The name of the timestamp field. |  _required_  
+  
+####  `realtime_windows` Â¶
+
+|  `sequence of TimeModel` |  Realtime windows to use in the metrics. |  `None`  
+  
+####  `scheduled_windows` Â¶
+
+|  `sequence of TimeModel` |  Scheduled windows to use in the metrics. |  `None`  
+  
+####  `plan_name` Â¶
+
+|  `str` |  Name of the resulting feature engineering plan. In case it is not provided, a name is automatically generated. |  `None`  
+  
+####  `profile_filter` Â¶
+
+|  `str` |  Filter to be used in metrics. Fields must be enclosed with the pattern ${field}. |  `None`  
+  
+####  `compute_unfiltered_metrics` Â¶
+
+|  `bool` |  Boolean that controls if unfiltered metrics are also computed, in case a profile filter is defined. Default is False. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  The created plan.  
+  
+Examples:
+    
+    
+    >>> app = Feedzai().app(name="sample")
+    >>> dataset: DataSource = app.pullDataSourceByDesc("data")
+    >>> real_time_windows = (TimeModel(1, TimeUnit.DAY),)
+    >>> semantics = (
+    ...     TaggedField("card", tags=["card", "grouping-entity"]),
+    ...     TaggedField("ip", tags=["ip", "entity", "grouping-entity"]),
+    ...     TaggedField("amount", tags=["amount"]),
+    ...     CompositeField(
+    ...         "card, customer", tags=["grouping-entity"], fields=["card", "customer"]
+    ...     ),
+    ... )
+    >>> plan = dataset.create_automl_fe_plan(
+    ...     semantics=semantics,
+    ...     timestamp_field="timestamp1",
+    ...     realtime_windows=real_time_windows,
+    ...     plan_name="test fe plan",
+    ...     profile_filter="${event_type} == 'TRANSACTION' and ${scorable} == true"
+    ... )
+    
+
+###  `` get_dtypes Â¶
+    
+    
+    get_dtypes(pyspark_context=False)
+    
+
+Returns a dictionary mapping field names to DataScienceFields.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `pyspark_context` Â¶
+
+|  |  Indicates if this is a pyspark context or a Pulse context. In a pyspark context the type of time fields will be given as timestamp in seconds (this is the default unit after the pulse_to_pyspark transformation), otherwise the actual type from Pulse will be returned. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Dict` |  Dictionary with field description as keys and the corresponding DataScienceField type as values.  
+  
+###  `` run_automl_feature_engineering Â¶
+    
+    
+    run_automl_feature_engineering(semantics: Sequence, timestamp_field: str = 'event_occurred_at', realtime_windows: Optional[Sequence[[TimeModel](../types/#ds_api.types.TimeModel "            TimeModel \(ds_api.types.TimeModel\)")]] = None, scheduled_windows: Optional[Sequence[[TimeModel](../types/#ds_api.types.TimeModel "            TimeModel \(ds_api.types.TimeModel\)")]] = None, plan_name: Optional[str] = None, output_datasource_name: Optional[str] = None, profile_filter: Optional[str] = None, compute_unfiltered_metrics: bool = False, output_path: Optional[str] = None) -> str
+    
+
+Runs automl's feature engineering on this datasource.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `semantics` Â¶
+
+|  `sequence of SemanticField` |  Sequence of semantic objects to define the transformations. |  _required_  
+  
+####  `timestamp_field` Â¶
+
+|  `str` |  The name of the timestamp field. |  `'event_occurred_at'`  
+  
+####  `realtime_windows` Â¶
+
+|  `sequence of TimeModel` |  Realtime windows to use in the metrics. |  `None`  
+  
+####  `scheduled_windows` Â¶
+
+|  `sequence of TimeModel` |  Scheduled windows to use in the metrics. |  `None`  
+  
+####  `plan_name` Â¶
+
+|  `str` |  Name of the resulting feature engineering plan. In case it is not provided, a name is automatically generated. |  `None`  
+  
+####  `output_datasource_name` Â¶
+
+|  `str` |  Name of the feature engineered datasource. In case it is not provided, the process created a derived name from the input source. |  `None`  
+  
+####  `profile_filter` Â¶
+
+|  `str` |  Filter to be used in metrics. Fields must be enclosed with the pattern ${field}. |  `None`  
+  
+####  `compute_unfiltered_metrics` Â¶
+
+|  `bool` |  Boolean that controls if unfiltered metrics are also computed, in case a profile filter is defined. Default is False. |  `False`  
+  
+####  `output_path` Â¶
+
+|  `str` |  The path where the new datasource should be stored. In can it is not provided, the new datasource is saved in the source's path. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`str` |  The plan execution id.  
+  
+Examples:
+    
+    
+    >>> app = Feedzai().app(name="sample")
+    >>> dataset: DataSource = app.pullDataSourceByDesc("data")
+    >>> real_time_windows = (TimeModel(1, TimeUnit.DAY),)
+    >>> semantics = (
+    ...     TaggedField("card", tags=["card", "grouping-entity"]),
+    ...     TaggedField("ip", tags=["ip", "entity", "grouping-entity"]),
+    ...     TaggedField("amount", tags=["amount"]),
+    ...     CompositeField(
+    ...         "card, customer",
+    ...         tags=["grouping-entity"], fields=["card", "customer"]
+    ...     ),
+    ... )
+    >>> plan_execution_id = dataset.run_automl_feature_engineering(
+    ...     semantics=semantics,
+    ...     timestamp_field="timestamp1",
+    ...     realtime_windows=real_time_windows,
+    ...     plan_name="test fe plan",
+    ...     output_datasource_name="output data",
+    ...     profile_filter="${event_type} == 'TRANSACTION' and ${scorable} == true"
+    ... )
+    
+
+###  `` run_feature_selection Â¶
+    
+    
+    run_feature_selection(target_field: str, threshold: float = 0.9, sample_size: int = 200000, max_features: int | None = None, job_properties: dict[str, str] | None = None, job_profile: [JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)") | None = None)
+    
+
+Run feature selection on the Datasource.
+
+Features are selected so that the cumulative sum of the feature importance on the selected features is below the given `threshold`. A maximum of `max_features` will be returned. The feature importance is computed from an H2O GBT model run on a sample of the data.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target_field` Â¶
+
+|  `str` |  The field to be used as target. |  _required_  
+  
+####  `threshold` Â¶
+
+|  `float` |  Threshold on the cumulative feature importance, defaults to 0.9. |  `0.9`  
+  
+####  `sample_size` Â¶
+
+|  `int` |  Sample size, defaults to 200,000. |  `200000`  
+  
+####  `max_features` Â¶
+
+|  `int` |  Maximum number of features to return, defaults to Inf. |  `None`  
+  
+####  `job_properties` Â¶
+
+|  `Mapping of str` |  Map of spark configurations for the job. If not provided defaults to the config of the current spark session. |  `None`  
+  
+####  `job_profile` Â¶
+
+|  `[JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)")` |  Pulse UI custom job profile. |  `None`  
+Notes
+
+If both job_properties and job_profile are specified and there is intersection between their properties, the job_properties property will overwrite the job_profile property.
+
+Returns:
+
+Type | Description  
+---|---  
+`set of str` |  The selected features.  
+  
+Examples:
+    
+    
+    >>> selected_features = datasource.run_feature_selection(
+    ...     target_field="target"
+    ... )
+    >>> job_profile = app.pullJobProfileByDesc("job_profile_name")
+    >>> selected_features = datasource.run_feature_selection(
+    ...     target_field="target",
+    ...     threshold=0.7,
+    ...     sample_size=1_000_000,
+    ...     max_features=20,
+    ...     job_properties={
+    ...         "spark.master": "yarn",
+    ...         "spark.app.name": "Feature Selection",
+    ...         "spark.executor.memory": "1g",
+    ...         "spark.dynamicAllocation.enabled": "True",
+    ...         "spark.dynamicAllocation.maxExecutors": "4",
+    ...     }
+    ... )
+    >>> selected_features = datasource.run_feature_selection(
+    ...     target_field="target",
+    ...     threshold=0.7,
+    ...     sample_size=1_000_000,
+    ...     max_features=20,
+    ...     job_profile=job_profile
+    ... )
+    
+
+###  `` split Â¶
+    
+    
+    split(plan_name: str, splits: Set[[Split](../datasources/datasource_transformations/#ds_api.datasources.datasource_transformations.Split "            Split
+    
+    
+      
+          dataclass
+       \(ds_api.datasources.datasource_transformations.Split\)")], timestamp_field: str = 'event_occurred_at', scorable_filter: Optional[str] = None, wait: bool = False) -> Set[str]
+    
+
+Splits the datasource according to the splits passed.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `plan_name` Â¶
+
+|  `str` |  Name that the resulting datasource split plan will have. |  _required_  
+  
+####  `splits` Â¶
+
+|  `set of Split` |  A set of `Split` that will determine how the data source will be split. Must have at least one element. |  _required_  
+  
+####  `timestamp_field` Â¶
+
+|  `str` |  The name of the timestamp field. |  `'event_occurred_at'`  
+  
+####  `scorable_filter` Â¶
+
+|  `str` |  Optional string to filter scorable events. Fields must be enclosed with the pattern ${field}. |  `None`  
+  
+####  `wait` Â¶
+
+|  `bool` |  Optional flag to indicate whether the method should wait for the datasource split to end before returning the designated method output. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`set of str` |  The names of the new datasources that the splitting process will create.  
+  
+Examples:
+    
+    
+    >>> scorable = "(${amount} > 0)"
+    >>> splits = {
+    ...     Split("train", 1350776834512, 1351173363000),
+    ...     Split("test", 1351173363000, 1351473463000)
+    ... }
+    >>> datasources = datasource.split(
+    ...     plan_name="plan",
+    ...     splits=splits,
+    ...     timestamp_field="timestamp",
+    ...     scorable_filter=scorable
+    ... )
+    
+
+###  `` to_pyspark Â¶
+    
+    
+    to_pyspark(spark_session: _TSparkSession) -> _TDataFrame
+    
+
+Convert datasource to pyspark.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `spark_session` Â¶
+
+|  `pyspark.sql.SparkSession.` |  Spark session to use. Defaults to Pulse's session. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  The converted pyspark dataframe.

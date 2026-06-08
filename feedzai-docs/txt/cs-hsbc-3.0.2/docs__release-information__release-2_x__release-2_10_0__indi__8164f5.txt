@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-2602-Improve-DTP-Dataflow-pipeline-dependencies-file-staging
+Title: HSBC-2602-Improve-DTP-Dataflow-pipeline-dependencies-file-staging | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-2602-Improve-DTP-Dataflow-pipeline-dependencies-file-staging
+
+### Improve DTP Dataflow pipeline dependencies file stagingâ
+
+FeatureHSBC-2602
+
+Currently, every time a publish occurs with the DTP service enabled, the Dataflow pipeline dependencies file is uploaded to the configured staging bucket.
+
+We have updated this behavior; from now on, the dependencies file will only be uploaded once per release.
+
+The current active dependencies file version is in the Pulse property: `pulse.global.services.rte.workflow.dtp.dataflow.fileToStageVersion`.

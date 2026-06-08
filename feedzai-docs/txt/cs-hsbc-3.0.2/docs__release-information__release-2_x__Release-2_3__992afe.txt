@@ -1,0 +1,492 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.3
+Title: Release 2.3 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.3.4`â
+
+### Fix an issue with inbound permissions during deploymentâ
+
+Bug FixHSBC-1958
+
+We've fixed an issue where, when inbound permissions were already present in the `admin` role, these were not getting added again, causing the deployment pipeline to fail. These permissions are no longer being added to the role, and in fact are now removed from the role as they are not strictly needed.
+
+## Release `2.3.3`â
+
+### Fix an issue with the ETL extractionâ
+
+We've fixed an issue in the ETL tool extractions, in which the ETL tool was looking for a nonexistent schema field (and database column) used for testing.
+
+## Release `2.3.2`â
+
+### ETL Papp format fixâ
+
+We have fixed an issue in the ETL tool, in which the papp file it was using to connect to Pulse was using the new default Pulse papp export format introduced recently. As the current ETL tool does not currently support this format, we have updated the papp file it uses to use the legacy file format, to restore the ETL tool's functionality.
+
+## Release `2.3.1`â
+
+### Add Inbound Payments to Case Manager Search Screenâ
+
+FeatureHSBC-2104
+
+We've added the Inbound Payments channel to the Case Manager search screen. Following this change, an Inbound Payments tab will appear in search results as it does for other channels, and search criteria will also retrieve results for the Inbound Payments channel. Additionally, a new advanced search section for Inbound Payments has been added with the same search criteria as the Outbound Payments (Transfers) advanced search criteria section.
+
+### Add Inbound Payments Case Manager Event Details Pageâ
+
+FeatureHSBC-2102
+
+We've added the Inbound Payments channel to Case Manager Event Details Page, defaulting to the same default displayed widgets as Outbound Payments. What widgets are displayed can be controlled, as for Outbound Payments and Digital Activity, by the self-service UI editing directly in Case Manager, so the added fields represent only a baseline that may be modified directly in the UI.
+
+### Pulse Version Upgraded to 25.0.52â
+
+FeatureFTMT-14325HSBC-1981
+
+We've upgraded Pulse to version 25.0.52.
+
+This version of Pulse has improved support for cross-channel metrics. A new Ansible variable `cross_channel_metrics_enabled` was created to control whether cross-channel metrics are enabled. More information can be found in the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Remove permissions with typoâ
+
+Bug Fix
+
+We've removed the `cm:action:reveal-schema:card_pan_plain_text` and `cm:resource:manager.*` permissions since these were created with a typo.
+
+By removing them we guarantee the correct permissions are assigned to user roles.
+
+### Added `customer_id_number` to Consent and Behaviour endpointsâ
+
+Bug FixFTMT-17711HSBC-2152
+
+We fixed a bug where `customer_id_number` field was not available for Consent and Behaviour endpoints.
+
+This issue is now resolved and the field can be used on the respective endpoints.
+
+### New field for Celebrus Model Scoreâ
+
+FeatureFTMT-14242HSBC-2001
+
+We've added a new field `model_risk_score` to the Pulse API for the Outbound Payments. We've also updated the Payments workflow schema to include this new field.
+
+### Reconcile Inbound Schema Differences for CMâ
+
+FeatureHSBC-2101
+
+We have added below fields and indexes to Inbound Payments CM schema, making them available to use in SLAs and automation rules.
+
+Please find below the newly added fields
+
+**Inbound Payments**
+
+**Field Name**| **Datatype**  
+---|---  
+dispute_end_date| TIMESTAMP  
+dispute_feedback_notes| STRING  
+dispute_refunded| STRING  
+oob_feedback_notes| STRING  
+feedback_type| STRING  
+oob_end_date| TIMESTAMP  
+oob_response_type| STRING  
+dispute_notes| STRING  
+dispute_reason| STRING  
+dispute_start_date| TIMESTAMP  
+dispute_submitted_by| STRING  
+oob_comm_type| STRING  
+oob_notes| STRING  
+oob_start_date| TIMESTAMP  
+bulk_id| STRING  
+channel_type| STRING  
+created_at| TIMESTAMP  
+customer_transaction_amount| TIMESTAMP  
+device_browser| STRING  
+device_browser_version| STRING  
+device_first_seen| TIMESTAMP  
+device_imei_number| STRING  
+device_ip_address| STRING  
+device_ip_address_location| STRING  
+device_ip_country_code| STRING  
+device_ip_region| STRING  
+device_isp| STRING  
+device_language| STRING  
+device_latitude| STRING  
+device_longitude| STRING  
+device_operating_system| STRING  
+device_os_version| STRING  
+device_type| STRING  
+device_user_agent| STRING  
+direction| STRING  
+event_external_id| STRING  
+event_occurred_at| TIMESTAMP  
+execution_at| TIMESTAMP  
+frequency| STRING  
+geographic_scope| STRING  
+last_sca_at| TIMESTAMP  
+malware_flag| BOOLEAN  
+number_of_payments| INTEGER  
+pass_reset| BOOLEAN  
+payment_status| STRING  
+payment_sub_type| STRING  
+payment_type| STRING  
+product_code| STRING  
+proxy_flag| BOOLEAN  
+receiver_account_id| STRING  
+receiver_bank_branch_id| STRING  
+recurring_payment| BOOLEAN  
+reference_number| STRING  
+requested_execution_at| TIMESTAMP  
+sca_risk_score| TIMESTAMP  
+sender_account_balance| TIMESTAMP  
+sender_account_bic| STRING  
+sender_account_credit_limit| TIMESTAMP  
+sender_account_currency| STRING  
+sender_account_debt_balance| TIMESTAMP  
+sender_account_id| STRING  
+sender_account_last_activity| TIMESTAMP  
+sender_account_number_of_cards| INTEGER  
+sender_account_open_date| TIMESTAMP  
+sender_account_status| STRING  
+sender_account_type| STRING  
+sender_alias| STRING  
+sender_alias_last_update_time| STRING  
+sender_alias_registration_time| STRING  
+sender_alias_status| STRING  
+sender_alias_type| STRING  
+sender_bank_branch_id| STRING  
+sender_citizen_id_number| STRING  
+sender_city| STRING  
+sender_country_code| STRING  
+sender_currency| STRING  
+sender_dob| STRING  
+sender_email_change_flag| BOOLEAN  
+sender_id| STRING  
+sender_initiated_at| TIMESTAMP  
+sender_kyc_lvl| STRING  
+sender_number_of_accounts| INTEGER  
+sender_number_of_cards| INTEGER  
+sender_occupation| STRING  
+sender_passport_number| STRING  
+sender_phone_change_flag| BOOLEAN  
+sender_region| STRING  
+sender_registration_date| TIMESTAMP  
+sender_risk_rating| STRING  
+sender_segment| STRING  
+sender_ssn| STRING  
+sender_street_addr| STRING  
+sender_tax_number| STRING  
+sender_total_balance| TIMESTAMP  
+sender_total_credit_limit| TIMESTAMP  
+sender_zip| STRING  
+session_register_date| TIMESTAMP  
+transaction_goal| STRING  
+transaction_method| STRING  
+user_email_address| STRING  
+user_phone_number| STRING  
+user_phone_number_country_code| STRING  
+channelId| STRING  
+customer_portfolio_product| STRING  
+customer_portfolio_channel| STRING  
+customer_portfolio_type| STRING  
+customer_portfolio_class| STRING  
+customer_portfolio_country| STRING  
+customer_portfolio_region| STRING  
+source| STRING  
+payment_message_source| STRING  
+customer_type| STRING  
+office_id| STRING  
+customer_account_type| STRING  
+sender_transaction_type| STRING  
+sender_transaction_cop_result| STRING  
+sender_transaction_auth_type| STRING  
+external_status_reason| STRING  
+receiver_bank_bic| STRING  
+internal_payment_type| STRING  
+internal_event_source| STRING  
+text_for_receiver| STRING  
+lifecycle_id_alt| STRING  
+sender_transaction_original_amount| DOUBLE  
+sender_transaction_original_currency| STRING  
+customer_id_number| STRING  
+rcv_name| STRING  
+receiver_transaction_bank_account_number| STRING  
+rcv_tnx_mm_susp_bank_acc_num| STRING  
+rcv_tnx_ops_susp_bank_acc_num| STRING  
+rcv_tnx_bank_redirect_acc_num| STRING  
+is_batch| STRING  
+reversal_code| INTEGER  
+reversal_reason| STRING  
+inhibit_code| INTEGER  
+stop_valid_code| INTEGER  
+product_valid_code| INTEGER  
+credit_valid_code| INTEGER  
+repayment_valid_code| INTEGER  
+account_not_found_code| INTEGER  
+account_transaction_valid_code| INTEGER  
+mm_payment_status| STRING  
+  
+Please find below the newly added indexes
+
+**Inbound Payments**
+
+**Column Name**  
+---  
+payment_type  
+payment_sub_type  
+rcv_name  
+receiver_bank_bic  
+rcv_transact_bank_acc_number  
+sender_transaction_type  
+  
+### Inbound Payments Schema Changesâ
+
+FeatureHSBC-2043
+
+We have made the requested adjustments to Inbound Payments and Reference Data schema.
+
+Please find below the new added fields
+
+**Inbound Payments**
+
+**Field Name**| **Datatype**  
+---|---  
+receiver_transaction_mm_suspense_bank_account_number| String  
+receiver_transaction_ops_suspense_bank_account_number| String  
+receiver_transaction_bank_redirect_account_number| String  
+is_batch| String  
+reversal_code| Integer  
+reversal_reason| String  
+inhibit_code| Integer  
+stop_valid_code| Integer  
+product_valid_code| Integer  
+credit_valid_code| Integer  
+repayment_valid_code| Integer  
+account_not_found_code| Integer  
+account_transaction_valid_code| Integer  
+mm_payment_status| String  
+  
+**Reference Data - Customer**
+
+**Field Name**| **Datatype**  
+---|---  
+line_of_business| String  
+business_start_date| Long  
+employer_name| String  
+employer_start_date| Long  
+app_fraud_source| String  
+app_fraud_overall_decision| String  
+app_fraud_overall_decision_text| String  
+app_fraud_session_id| String  
+app_fraud_timestamp| Long  
+app_fraud_bio_score| Double  
+app_fraud_bio_risk_level| String  
+app_fraud_bio_is_rat| String  
+app_fraud_bio_is_bot| String  
+app_fraud_bio_is_emulator| String  
+app_fraud_bio_reason_code| String  
+app_fraud_tmx_policy_score| Double  
+app_fraud_tmx_risk_rating| String  
+app_fraud_tmx_summary_reason_codes| String  
+app_fraud_tmx_device_id| String  
+app_fraud_tmx_fuzzy_device_id| String  
+app_fraud_tmx_fuzzy_device_id_confidence| Integer  
+app_fraud_tmx_first_party_score| Double  
+app_fraud_tmx_true_ip| String  
+app_fraud_tmx_proxy_ip| String  
+app_fraud_tmx_digital_id_trust_score| Double  
+  
+**Reference Data - Account**
+
+**Field Name**| **Datatype**  
+---|---  
+product_type| String  
+account_closed_date| Long  
+  
+### Add Inbound Payments channel to Customer Details Pageâ
+
+FeatureHSBC-2103
+
+We've added the Inbound Payments channel to Case Manager Customer Details page Transaction History.
+
+### Add Inbound Payments channel to Alerts Pageâ
+
+FeatureHSBC-2105
+
+We've added the Inbound Payments channel to the Case Manager Alerts page.
+
+### Add Inbound Payments channel to Customer Details Pageâ
+
+FeatureHSBC-2103
+
+We've added the Inbound Payments channel to Case Manager Customer Details page Transaction History.
+
+### AMH Outbound Payments Schema Changesâ
+
+FeatureFTMT-16494FTMT-16649HSBC-1992
+
+We have made the requested adjustments to Outbound Payments schema.
+
+Please find below the newly added fields
+
+**Outbound Payments - Transfers**
+
+**Field Name**| **Datatype**  
+---|---  
+bank_processing_application| String  
+bank_processing_type| String  
+reversal_indicator| String  
+check_book_request_date| Long  
+cash_form| Integer  
+check_number| String  
+thailand_fps_ind| Integer  
+gpb_manual_payment_ind| Integer  
+scameter_warning| Integer  
+sender_billing_amount| Double  
+  
+**Outbound Payments - Digital**
+
+**Field Name**| **Datatype**  
+---|---  
+new_customer_flag| String  
+scameter_warning| String  
+  
+## Release `2.3.0`â
+
+### Enable multi-tenancy in Case Managerâ
+
+FeatureHSBC-2071
+
+We've enabled multi-tenancy in Case Manager. This feature can be enabled by using the Ansible variable `cm_multi_tenancy_enabled`. Please check [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information.
+
+### Add List Management Service to workflowâ
+
+FeatureFTMT-14956FTMT-14957FTMT-17203HSBC-1970
+
+We've added the List Management Service to the Payments and Inbound Payments workflows.
+
+See [Configure List Management Service](https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service) for information on how to configure the service.
+
+### New search field for HKID/Passport numberâ
+
+FeatureFTMT-15538HSBC-1908
+
+We have modified the customer id field in the search to also consider the HKID or passport number in addition to the customer ID. Specifically, the search will now query both the fields `customer_citizen_id_number` and `customer_id`, returning results when either of these criteria match the value in the search box.
+
+### Add a new extension for Case Managerâ
+
+FeatureFTMT-16590HSBC-1993
+
+We have added new Extension `Send 2 WAY / 1 WAY SMS` for the Case Manager
+
+  * `Send Mobile Payment Push` \- Case Manager Extension that can be used in Automation Rules and SLAs.
+
+
+
+We have added new ansible variables to control this extension separately from the existing Send Mobile Payment Push, which are comprised of all the variables for the Send Mobile Payment Push extension, but with _send_sms appended at the end of the variable names. Full details may be found in the [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager#ansible)
+
+We have added new Operational Status `Remind Customer`
+
+Additional fields added to the CM extension are
+
+  * `customer_portfolio_class`
+  * `operational_status`
+  * `customer_id_number`
+  * `alert_id`
+  * `treatment_strategy`
+  * `self_serve_strategy`
+  * `customer_name`
+  * `customer_surname`
+  * `customer_mobile_phone`
+  * `customer_email`
+  * `customer_preferred_language`
+  * `sender_transaction_original_amount`
+  * `sender_transaction_original_currency`
+
+
+
+### Added the Inbound Payments APIâ
+
+FeatureHSBC-1987
+
+We've added the Inbound Payments API to the workflow of Inbound Payments applications.
+
+Refer to the [API Reference](/cs-hsbc/3.0.2/api#tag/inboundpayments) section for a specification of the available endpoints.
+
+### Add missing permissions for read-only admin roleâ
+
+FeatureFTMT-17207HSBC-1875
+
+We've added a new set of permissions that will be required for the read-only admin role.
+
+You can find the up to date information in the [Permissions Guide](/cs-hsbc/3.0.2/docs/operations-guide/permissions).
+
+### Ensure Delete Reference Data Endpoint is included in workflowâ
+
+Bug FixFTMT-17231HSBC-2033HSBC-1951HSBC-2088
+
+Use the reference data delete endpoint bundled together with the other reference data endpoint classes, so that the existing workflow configuration works without needing to add the HSBC-specific one. This solves an issue that required a UI workaround during an AMH QA deployment.
+
+To support this change under the hood, we've also removed the following Pulse services (these previously showed up in the Data Configuration tab in the Pulse UI) which shipped by default with the original Feedzai application, but were not being used and were simply cluttering the application. In doing so, we were also able to remove some underlying dependencies which make the deployment package slightly leaner and safer.
+
+  * FraudForce Enricher
+  * FraudForce Enrichment Service
+  * Revelock Enricher
+  * Revelock Enrichment Service
+  * List Management Service (this is an older default one, and in this release is being replaced by the `Workflow List Management Service`)
+  * Expired Metrics Service
+  * Outcome Priority Enforcer
+
+
+
+### Remove references to DynamoDBâ
+
+DocsHSBC-1941
+
+See up-to-date information at [Pulse Installation Guide](/cs-hsbc/3.0.2/docs/installation-guide/pulse/requirements-pulse) and [Monitoring Services](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse)
+
+### Pulse Version Upgraded to 25.0.46â
+
+FeatureFTMT-14325HSBC-1980
+
+We've upgraded Pulse version to 25.0.46.
+
+This version of Pulse has support for the cross-channel metrics.
+
+### Case Manager version Upgraded to 13.14.3â
+
+FeatureFTMT-14311HSBC-1994
+
+This upgrade includes the addition of the **AND** and **OR** logic operators in Automation Rules and SLAs.
+
+Refer to [Case Manager Documentation](https://cam.feedzai.com/case-manager/13.14/docs/common/case-manager/release-information/whats-new) for more information.
+
+### Add Case Manager support for Global Rolloutâ
+
+FeatureHSBC-1957
+
+We have added support for multi application deployments in Case Manager.
+
+Please find a description of the changes in [Global Rollout Documentation](/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.1/global-rollout).
+
+### Input and Workflow Schema Updateâ
+
+FeatureFTMT-15663HSBC-1881
+
+The following field was added to the `Payments` and `Payments + Outcomes` schemas and Pulse APIs:
+
+Field| Datatype| Description  
+---|---|---  
+bioc.is_mobile_rat| boolean| BioCatch Rat indicator for Mobile  
+  
+This field was also added in Case Manager as follows:
+
+  * `bioc.is_mobile_rat`
+    * Digital Activity Vendor Risk Data widget
+
+
+
+### Exclude outcomes and results from ETL when configured for Historical Data Loadingâ
+
+FeatureFTMT-14963HSBC-1731
+
+We have changed ETL to exclude outcomes and results when configured for Historical Data Loading. Please find the updated configuration reference in [ETL Configurations](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).

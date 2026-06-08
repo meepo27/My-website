@@ -1,0 +1,111 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details
+Title: About Processing Model Details | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * Processing Model Details
+
+
+
+On this page
+
+# About Processing Model Details
+
+Was this page helpful?Â 
+
+Learn how transfers are processed and understand how to integrate with the Feedzai's transfers API at the different points of the transfer life cycle. The pages in this chapter provide you a functional description for a successful integration with a focus on key models: Automated Clearing House (ACH), Correspondent Banking, Real-Time Gross Transfers and Peer-to-Peer.
+
+## Processing modelsâ
+
+The transfers API was designed to allow integration at any point of a transfer life cycle and account for any processing model (i.e. model agnostic). Take the following models as examples:
+
+### ACHâ
+
+ACH is an electronic clearing system in which payment orders are exchanged among financial institutions, primarily via telecommunication networks, and handled by a data processing center.
+
+The Clearing House is a central location or central processing mechanism through which financial institutions agree to exchange payment instructions or other financial obligations (e.g. securities). The institutions settle for items exchanged at a designated time based on the rules and procedures of the clearing house. In some cases, the clearing house may assume significant counterparty, financial or risk management responsibilities for the clearing system.
+
+The clearing is the process of transmitting, reconciling and, in some cases, confirming payment orders or security transfer instructions prior to settlement, possibly including the netting of instructions and the establishment of final positions for settlement.
+
+This system is designed to work with payment batches, allowing you to process a large number of credit transfers at once. Examples of typical transfers include:
+
+  * Payroll transfers
+  * Social security benefits
+  * Tax refunds
+
+
+
+Learn how you can integrate with Feedzai to protect transfers in the [ACH](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach) model.
+
+### Correspondent Bankingâ
+
+Correspondent Banking is an arrangement under which one bank (correspondent) holds deposits owned by other banks (respondents) and provides payment and other services to those respondent banks. Such arrangements may also be known as agency relationships in some domestic contexts. The key characteristic of this model is to ensure efficient reachability between correspondent banks, independently on the currency.
+
+In international banking, balances held for a foreign respondent bank may be used to settle foreign exchange transactions. Reciprocal correspondent banking relationships may involve the use of so-called _nostro_ and _vostro_ accounts to settle foreign exchange transactions.
+
+This model is typically used in:
+
+  * Overseas transfers.
+  * When the financial institutions involved in the transfer have different currencies.
+
+
+
+Learn how you can integrate with Feedzai to protect transfers in the [Correspondent Banking](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/correspondent-banking) model.
+
+### Real-time Gross Transfersâ
+
+Real-Time Gross Transfers is a model for real time settlement of funds, individually on an order by order basis (i.e. without netting). The "real-time" component means that the instructions are processed at the time they are received rather than at some later time. The "gross transfers" component means that the settlement funds corresponding to the transfers instruction occurs individually (on an instruction by instruction basis).
+
+This model is typically used in:
+
+  * Settlement between financial institutions on the retail infrastructures in single transfers or batches (e.g. batch of transfers and clearing of card transactions of a correspondent financial institution). Support real-time transactions in two use cases:
+    * Above a certain threshold, e.g. 100.000â¬ is mandatory in some countries to transfer via RTGSs for two main reasons:
+      * Decrease systemic risk.
+      * Provide visibility to the supervisor high volume transactions, e.g. AML activities.
+    * Offer a real-time transfer option for consumers who have this need.
+
+
+
+Examples of systems that operate under this model include Fedwire and TARGET 2.
+
+info
+
+**Real-Time Gross Tansfers model:** The transactions processed by this model are known as urgent transfers. This model is not used to process all transactions due to systemic reasons and the high costs associated with a very resilient and available system.
+
+Learn how you can integrate with Feedzai to protect transfers in the [Real-time Gross Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/real-time-gross-transfers) model.
+
+### Peer-to-Peerâ
+
+Peer-to-Peer payments (P2P) is an online technology that allows customers to transfer funds from their online application connect to Bank Account, Wallet or credit card to another individualâs via the Internet or a mobile phone.
+
+The following use cases are examples of Peer-to-Peer payments:
+
+  * Users establish secure accounts with a trusted third-party vendor, designating their bank account or credit card information to be used to transfer and accept funds. Using the third partyâs website or mobile application, individuals can complete the process of sending or receiving funds. Users are generally identified by their phone number or email address and can send funds to anyone who is a member of the network. Paypal is an example of this approach.
+
+  * Users access an online interface or mobile application (developed by their bank or financial institution) to choose the amount of funds to be transferred. The recipient is designated by their email address or phone number. Once the transfer has been initiated by the sender, the recipient then receives a notification to use the online interface to input his or her bank account information and routing number to accept the transfer of funds. In this method, recipients do not need to have an account with the financial institution of the sender in order to receive a money transfer.
+
+
+
+
+## Transfers timelineâ
+
+There are two scenarios in transfers regarding timeline:
+
+  * **Real time:** Transfers that are processed in real time undergo an API behavior similar to card transactions. The Transfer Initiation endpoint should be used for any update (e.g. any failure is communicated via the pre-decided type of the Info endpoint).
+  * **Non-real time:** Transfers that take longer to process (i.e. in the order of hours). The Transfer Initiation endpoint is used to start the process.
+
+
+
+## Learn moreâ
+
+Learn more about the transfer life cycle for the following models:
+
+  * [ACH](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach)
+  * [Correspondent Banking](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/correspondent-banking)
+  * [Real-time Gross Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/real-time-gross-transfers)
+  * [Peer-to-Peer](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/peer-to-peer)
+
+

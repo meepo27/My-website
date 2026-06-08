@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/single-sign-on
+Title: Single Sign-On | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Technical Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/technical-concepts-overview)
+  * Single Sign-On
+
+
+
+On this page
+
+# Single Sign-On
+
+Single Sign-On (**SSO**) is a single/centralized system for user authentication to which a set of related (but independent) applications delegate the authentication management of their users. This eliminates the need for users to set different passwords as well as to sign in to each application individually. Another component associated with this functionality is allowing users to sign out from all the applications at once (_i.e._ without having to sign out from all the applications individually). This is component is commonly referred to as Single Logout (**SLO**).
+
+## SSO in Case Managerâ
+
+There are different approaches to implement **SSO** , one of which is by using Security Assertion Markup Language (SAML) as the protocol to authenticate and authorize users. SAML uses security tokens that contain assertions to communicate user information between a SAML authority, referred to as Identity Provider (IdP), and a SAML consumer, referred to as Service Provider (SP).
+
+Case Manager acts as the SP and Pulse acts as a non-standard IdP Proxy to allow Case Manager to authenticate and authorize its users. Therefore, Case Manager does not handle SAML messages directly, instead, Case Manager forwards messages to Pulse which communicates with the IdP.
+
+## Authentication scenarios in Case Managerâ
+
+There are two authentication scenarios in Case Manager, namely SP-initiated and IdP-initiated.
+
+  * **SP-initiated** : When a user opens a Case Manager URL, and is not already signed in, the user is redirected to the IdP's sign in page. In the IdP domain, the user is prompted with a sign-in form and after being authenticated is automatically redirected back to the Case Manager URL. In this case, the user is signed in to the application that was accessing in the first place (_i.e._ Case Manager) as well as to all the other applications that are configured as SPs (e.g. Pulse or any other application in the Client's SSO catalog).
+  * **IdP-initiated** : A user has access to a central gateway/portal, in which the user can sign in through SAML, and then can select a Pulse URL. The user can also select other applications that are configured as SPs without being prompted with a sign-in form to enter the credentials again.
+
+
+
+Visit the page [Signing in with Single Sign-On](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-sso) under the User's guide to learn more about the authentication scenarios in the user standpoint.
+
+IdP URL
+
+Note that the layout of the IdP's sign in page is managed by the client and this platform might already be implemented to support other applications even before the client purchases any of the Feedzai's products. Therefore, this image is only shown to highlight that the URL and the sign in form are different from the non-SSO web page to sign in Case Manager.
+
+## Sign out scenarios in Case Managerâ
+
+Sign out is performed by the **SLO** component. Similarly to the sign in, the sign out can be initiated via SP and IdP.
+
+  * **SP-initiated** : When a user signs out from Case Manager. In this case, the user selects a sign out button provided by the Case Manager UI and the user is signed out from all the applications at once.
+  * **IdP-initiated** : When a user signs out from the IdP. The user has access to a central gateway/portal, which has a sign out button that can be used to sign out from all the applications at once. Visit the page [Signing out via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-out-via-idp-initiated) to learn how to sign out using with this scenario.
+
+
+
+## Learn moreâ
+
+To gain a practical knowledge on **SSO** check the following pages under the User's Guide:
+
+  * [Signing in via SP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated)
+  * [Signing in via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated)
+  * [Signing out via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-out-via-idp-initiated)
+
+

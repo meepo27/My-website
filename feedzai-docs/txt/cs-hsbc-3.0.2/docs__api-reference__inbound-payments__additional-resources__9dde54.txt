@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/inbound-payments/additional-resources/asynchronous-operation
+Title: Asynchronous Operation | Feedzai Documentation
+============================================================
+
+# Asynchronous Operation
+
+The Inbound Payments Connector supports asynchronous operation. This page covers the foundational aspects to help you with the integration process.
+
+Non-get endpoints support an `async` query parameter which, if `true`, will trigger the asynchronous processing of the request. If the `async` query parameter is set to false, the system will assure the synchronous operation. The default value for the `async` query parameter can be defined per endpoint using configuration.
+
+When invoking an endpoint using the asynchronous operation mode, request validations such as authentication, authorization and payload specific validations (e.g. schema validations and timestamp validations) are executed immediately. Any invalid request will fail immediately as it would in the synchronous operation mode.
+
+Once validations are successfully passed, the request is sent to a message broker (such as RabbitMQ) where it waits to be processed by the system at a controlled rate. Once the request is successfully persisted in the message broker, the asynchronous request will terminate with an HTTP 202 Accepted response, denoting that the request will be eventually processed. Since the request was not fully processed yet, any response fields that result from processing the request (most notably the score, decision and triggered actions on the Transfer Initiation endpoint will not be present in this response).
+
+Requests are consumed from the message broker at a configurable rate and execute the same operations as they would if they were synchronous. Once the request is completed, a response will be produced and stored in a message broker. This response is the same as the one that would have been produced in synchronous operation mode. You can use the Responses Get endpoint to retrieve the responses from the message broker.
+
+The responses obtained from the Responses Get endpoint can be correlated to the original request using the `lifecycle_id` response field, which will have the same value that was sent in the homonym request field.

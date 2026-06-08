@@ -1,0 +1,160 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/features/map_feature/
+Title: map_feature - DS API
+============================================================
+
+#  `` map_feature Â¶  
+  
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` MAP_DEP_TYPE_NAME `module-attribute` Â¶
+    
+    
+    MAP_DEP_TYPE_NAME = 'map'
+    
+
+##  `` MapFeatureBuilder `module-attribute` Â¶
+    
+    
+    MapFeatureBuilder = autoclass([DS_API_CLASSPATH](../../../#ds_api.DS_API_CLASSPATH "            DS_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.DS_API_CLASSPATH\)") + 'plan.features.MapFeature$Builder')
+    
+
+##  `` MapFeature Â¶
+    
+    
+    MapFeature(name: str, expression: str, field_type: [DataScienceField](../../../types/#ds_api.types.DataScienceField "            DataScienceField \(ds_api.types.DataScienceField\)"), description: Optional[str] = None)
+    
+
+Bases: `[BaseFeature](../feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")`
+
+Represents a Map feature in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `name` Â¶
+
+|  `str` |  Name of the map feature |  _required_  
+  
+###  `expression` Â¶
+
+|  `str` |  Feature expression. Fields must be enclosed with the pattern `${field}`, eg, `"${TransactionAmount} > 100 and ${Fraud} != false"`. |  _required_  
+  
+###  `field_type` Â¶
+
+|  `[DataScienceField](../../../types/#ds_api.types.DataScienceField "            DataScienceField \(ds_api.types.DataScienceField\)")` |  For example `CategoricalField(["true", "false"])`. |  _required_  
+  
+###  `description` Â¶
+
+|  `str` |  Feature description, by default None. |  `None`  
+  
+###  `` description `property` `writable` Â¶
+    
+    
+    description
+    
+
+###  `` expression `property` `writable` Â¶
+    
+    
+    expression
+    
+
+###  `` field_type `property` `writable` Â¶
+    
+    
+    field_type
+    
+
+###  `` name `property` `writable` Â¶
+    
+    
+    name
+    
+
+###  `` operator `property` Â¶
+    
+    
+    operator
+    
+
+###  `` from_dict `classmethod` Â¶
+    
+    
+    from_dict(feat_dict: Dict[str, str]) -> MapFeature
+    
+
+###  `` from_java_feature `classmethod` Â¶
+    
+    
+    from_java_feature(feature: JavaClass, operator: [BaseFeaturesOperator](../../operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")) -> MapFeature
+    
+
+Creates a MapFeature from a Java DS-API MapFeature.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `Java DS-API MapFeature` |  |  _required_  
+  
+####  `operator` Â¶
+
+|  `[MapOperator](../../operators/map_operator/#ds_api.plans.operators.map_operator.MapOperator "            MapOperator \(ds_api.plans.operators.map_operator.MapOperator\)")` |  |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`MapFeature` |  MapFeature  
+  
+###  `` get_dependencies Â¶
+    
+    
+    get_dependencies() -> Set[str]
+    
+
+###  `` get_dependencies_by_type Â¶
+    
+    
+    get_dependencies_by_type() -> Dict[str, List[str]]
+    
+
+###  `` rename_dependencies Â¶
+    
+    
+    rename_dependencies(old_name: str, new_name: str)
+    
+
+###  `` to_dict Â¶
+    
+    
+    to_dict(with_operator=True) -> dict[str, str | float | int | bool | None]
+    
+
+###  `` to_java_feature_builder Â¶
+    
+    
+    to_java_feature_builder() -> JavaClass
+    
+
+From MapFeature to a Java DS-API MapFeature.Builder.
+
+Returns:
+
+Type | Description  
+---|---  
+`Builder` |  MapFeature.Builder

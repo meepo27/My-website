@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/patch-customers-reference-data
+Title: Patch Reference Data: customers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Patch Reference Data: customers
+
+
+
+Was this page helpful?Â 
+
+# Patch Reference Data: customers
+    
+    
+    PATCH 
+    
+    ## /api/referenceData/customers/:key
+
+The Reference Data Patch endpoint allows you to send partial 'customers' data to Feedzai that will be merged with previous entity.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+  * 404
+
+
+
+OK
+
+Unauthorized
+
+Not Found

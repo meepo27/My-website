@@ -1,0 +1,115 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview
+Title: Case Manager Overview | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Case Manager Overview
+
+
+
+On this page
+
+# Case Manager Overview
+
+This page walks you through the different elements of Case Manager's interface.
+
+## Menu toolbarâ
+
+The menu toolbar provides access to the main Case Manager pages:
+
+  * The  **Homepage** option displays the Alerts page by default.
+  * The  **Search** option displays the Search page.
+  * The  **Alerts** option displays the Alerts page.
+  * The  **Cases** option displays the Cases page.
+  * The  **Dashboards** option displays the pages for the different Dashboards pages.
+  * The  **Reports** option displays the Reports page.
+  * The  **Settings** option opens the Settings menu.
+
+
+
+info
+
+The options displayed in the menu toolbar can be configured by the system administrator.
+
+## Shortcuts menuâ
+
+To improve your efficiency using Case Manager, use the shortcuts menu to directly perform a specific action or navigate to other pages without using your mouse.
+
+  1. Press `.` on your keyboard. The two types of shortcut options are displayed in your screen:
+  2. **Action** : Possible actions within a specific page. For example, Export events, Get Next alert or case, or Classify and alert. Note that, at the moment, these actions are only available in the Alerts page, Event Details page and Case Details page.
+  3. **Page:** Pages to which you can navigate. For example, go to **Cases** page, go to **Queues** page, or go to **Self-Service Rules** page. You can use these quick options on all Case Manager pages.
+  4. Select one of the available options. You can also filter a specific option by typing its name.
+
+
+
+## Headerâ
+
+The header is always displayed while navigating across pages. It allows users to access the homepage and their profile, and use the get next functionality to automatically fetch [alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts#get-alerts-automatically) and [cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases#get-cases-automatically).
+
+## Alerts Pageâ
+
+The **Alerts** page displays all unreviewed alerts in Case Manager. In this page, you can select alerts and perform actions on one or multiple alerts.
+
+Learn more about the [Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts) page.
+
+## Searchâ
+
+You can perform two types of search in Case Manager: **By Event** and **By Customer**.
+
+When accessing the Search menu on the sidebar, you can access these pages by hovering the  icon and selecting either:
+
+  * **Search by Event**
+  * **Search by Customer**
+
+
+
+### Search by Eventâ
+
+The **Search by Event** page displays all **Events** and **Alerts** sent to Case Manager. In this page, you can use the search fields to filter the alerts displayed on the list and perform actions on them.
+
+See [Search Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/searching-for-alerts) to learn more.
+
+### Search by Customer��â
+
+When you enter this section, you can search for a specific customer. To do this, insert the ID of the customer in the `Customer ID` field and select **Search**. There, you can see different types of information about the client:
+
+  * ID
+  * Name
+  * Email
+  * KYC status
+
+
+
+info
+
+You can only search by one **Customer ID** at a time.
+
+See [Search by Customer](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-customers/searching-customers) to learn more.
+
+## Casesâ
+
+The **Cases** page allows you to create cases or filter the existing cases to assign them to a specific analyst or a workload queue.
+
+Learn more about the [Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases) page.
+
+## Dashboardsâ
+
+By hovering the **Dashboards** option, the menu displays the available dashboards to help you monitor how your team and the system are performing.
+
+Learn more about [Dashboards](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/dashboards).
+
+## Reportsâ
+
+The **Reports** page allows you to create new reports or review the existing reports.
+
+Learn more about [Reports](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reports).
+
+## Settingsâ
+
+By hovering the **Settings** option, the menu displays the different management tools such as [Queues](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/queues), [Automation Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules), [SLAs](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/slas), [Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules) and [Lists](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/lists).
+
+## Sign outâ
+
+To end your Case Manager session, select your username in the page header and then select the **Log Out** option.
+
+Note that, if you have Single Sign-On configured, you will log out from all other applications. Learn more about [Single Sign-On](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-sso).

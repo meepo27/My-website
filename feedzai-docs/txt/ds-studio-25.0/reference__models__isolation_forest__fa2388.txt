@@ -1,0 +1,177 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/isolation_forest/
+Title: isolation_forest - DS API
+============================================================
+
+#  `` isolation_forest Â¶  
+  
+##  `` IsolationForestConfig Â¶
+    
+    
+    IsolationForestConfig(ntrees: int = 50, sample_size: int = 100, min_rows: int = 1, max_depth: int = 8, sample_rate: float = -1.0, mtries: int = -1, nbins: int = 2, seed: int | None = None, ignored_fields: set[str] | None = None, schema: [Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[TrainingConfig](../#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)")`
+
+The H2O Isolation Forest configuration object used for model training.
+
+This is an unsupervised learning algorithm used for anomaly detection. The target variable will be automatically excluded from features during training.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `ntrees` Â¶
+
+|  `int` |  Number of trees in the forest, defaults to 50. |  `50`  
+  
+###  `sample_size` Â¶
+
+|  `int` |  Number of samples to use per tree, defaults to 100. |  `100`  
+  
+###  `min_rows` Â¶
+
+|  `int` |  Minimum number of rows in a leaf, defaults to 1. |  `1`  
+  
+###  `max_depth` Â¶
+
+|  `int` |  Maximum depth of trees, defaults to 8. |  `8`  
+  
+###  `sample_rate` Â¶
+
+|  `float` |  Row sampling rate. Use -1 for automatic, defaults to -1.0. |  `-1.0`  
+  
+###  `mtries` Â¶
+
+|  `int` |  Number of features to try per split. Use -1 for automatic, defaults to -1. |  `-1`  
+  
+###  `nbins` Â¶
+
+|  `int` |  Number of bins for numerical features, defaults to 2. |  `2`  
+  
+###  `seed` Â¶
+
+|  `int` |  The seed value. |  `None`  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when training a model. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+Examples:
+    
+    
+    >>> model_config = IsolationForestConfig(
+    ...     ntrees=100,
+    ...     sample_size=500,
+    ...     max_depth=10
+    ... )
+    >>> model_config.ntrees # gets the ntrees: 100
+    >>> model_config.ntrees = 50 # sets the ntrees to 50
+    >>> model = model_project.train(
+    ...     "model_name",
+    ...     datasource,
+    ...     "target_field",  # Will be excluded from features automatically
+    ...     model_config
+    ... )
+    >>> model.waitUntilModelTrained()
+    >>> config_from_model = model.get_config()
+    
+
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` max_depth `property` `writable` Â¶
+    
+    
+    max_depth
+    
+
+###  `` min_rows `property` `writable` Â¶
+    
+    
+    min_rows
+    
+
+###  `` mtries `property` `writable` Â¶
+    
+    
+    mtries
+    
+
+###  `` nbins `property` `writable` Â¶
+    
+    
+    nbins
+    
+
+###  `` ntrees `property` `writable` Â¶
+    
+    
+    ntrees
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` sample_rate `property` `writable` Â¶
+    
+    
+    sample_rate
+    
+
+###  `` sample_size `property` `writable` Â¶
+    
+    
+    sample_size
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(config: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")) -> IsolationForestConfig
+    
+
+Creates an IsolationForestConfig from the java object.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  Java configuration object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`IsolationForestConfig` |  Configuration object according to its python representation.

@@ -1,0 +1,104 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/release-information/release-0.x/Release-0.2
+Title: Release 0.2 | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.2.0`â
+
+### Merchant Monitoringâ
+
+Feature
+
+This release introduces **Merchant Monitoring (MM)** â an account monitoring solution for Payment Service Providers (PSPs) to prevent and detect risk at the merchant level. MM is designed for acquirers, gateways, and Payment Service Providers (PSPs) that need to detect abnormal merchant behavior.
+
+### Batch Processor Integrationâ
+
+Feature
+
+Batch Processor is integrated to support a scheduled behavioral analysis over complete merchants portfolio, allowing detection of abnormal merchant behavior so that PSPs can act before more fraud and damages occur.
+
+  * Batch Processor version: 3.5.6
+
+
+
+### Default Feedzai Configurationâ
+
+Feature
+
+This release includes default Feedzai configuration for Batch Processor, enabling out-of-the-box deployment and operation of the solution.
+
+### Support RabbitMQ 4.2.X and quorum queuesâ
+
+Feature
+
+This release adds support for quorum queues, making the release compatible with the following RabbitMQ and Erlang versions:
+
+  * RabbitMQ 4.2.5
+  * Erlang 27.3.4.10
+
+
+
+By default, "QUORUM" is used but this can be changed by updating the following Ansible variables:
+
+  * rabbitmq_queue_type
+  * rabbitmq_pulse_queue_type
+  * rabbitmq_casemanager_use_quorum_queues
+
+
+
+### Upgrade Pulseâ
+
+Feature
+
+Upgrade Pulse from 25.1.8 to 25.1.9.
+
+### Upgrade Case Managerâ
+
+Feature
+
+Upgrade Case Manager from 13.29.0 to 13.31.0.
+
+### Fix Case Manager deployment pipelineâ
+
+Bug Fix
+
+Add maintenance permissions for Case Manager deployment.
+
+Added `cm:resource:maintenance-start-stop:admin` permission to the admin role to prevent 403 errors during CI pipeline execution.
+
+### Fix RDS port mismatch in HTTP Input Serviceâ
+
+Bug Fix
+
+Fixed a configuration mismatch where the HTTP Input Service was still using the port 8443 to communicate with the Reference Data Service (RDS).
+
+The reference_data_port Ansible variable has been updated to dynamically follow `reference_data_app_port` (defaulting to 8080), ensuring all endpoints (RMPSP / MM) can communicate with RDS.
+
+This change affects the following properties:
+
+  * `pulse.app.rmpsp.solutions.services.input.http.forward.connector.payments.reference.data.storage.rds.port`
+  * `pulse.app.rmpsp.solutions.services.input.http.forward.reference.data.storage.rds.port`
+  * `pulse.app.mm.solutions.services.input.http.forward.reference.data.storage.rds.port`
+
+
+
+### Add dummy Pulse Dev licenses in the installer assemblyâ
+
+Bug Fix
+
+Added dummy Pulse licenses to the installer assembly artifact. These have been added to unblock the creation of the Pulse base GCP image for RMA at HSBC's end.
+
+##### info
+
+These dummy licenses are identical to the licenses in HSBC F24's installer assembly, and are already expired. They are **NOT** substitutes for the actual licenses that are required for Pulse startup, and which HSBC expects to set up in their GCP Secret Manager.
+
+Discussions regarding the actual Pulse Dev licenses for HSBC RMA are ongoing between Feedzai Account Management team and HSBC. The real licenses will be issued after these discussions conclude.
+
+### Fix encrypt properties task across multiple Ansible playbooksâ
+
+Bug Fix
+
+Changed the Ansible task `415.encrypt-properties` to overcome issues with the default task not being able to run on the HSBC GCP environment for Pulse, Case Manager and Reference Data components, similar to what was done for the F24 project.

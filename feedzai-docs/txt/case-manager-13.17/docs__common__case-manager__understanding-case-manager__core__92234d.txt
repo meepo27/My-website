@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel
+Title: Omnichannel | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Omnichannel
+
+
+
+On this page
+
+# Omnichannel
+
+Omnichannel is the ability to ingest transaction data coming from multiple origins and use cases, and segregate it into one solution to produce a cohesive user experience. By sharing relevant data and potential risky situations among channels, the omnichannel structure helps risk engine and analysts make better decisions and detect suspicious activity.Â 
+
+Omnichannel applies, for example, to a bank that allows to manage transactional fraud screening for credit card fraud as well as transactional fraud screening for SWIFT.Â With omnichannel, the system now supports different schemas, multiple outcomes, and multiple risk workflows.
+
+## Channelsâ
+
+A channel is the means of communication through which data is received. Sources of data can be:
+
+  * Internet Banking
+  * Mobile Banking
+  * Bank branch
+  * ATM
+  * Phone (Contact Center)
+  * Third-party (e.g., AIS & PIS under PSD2)
+
+
+
+Depending on the channel, the content in theÂ Event details pageÂ varies.Â A channel such as online banking would most likely take into consideration fields such as the device used to login. This helps analysts to check if that device is different from what the user usually uses. On the other hand, for a channel such as ATM, that field would not be relevant. Instead, analysts would rather see, for example, the ATM location.
+
+## Channel groupsâ
+
+A channel group represents all channels that belong to the same risk strategy application (i.e. PAPP). This means that two channels that belong to the same application will belong to the same channel group, andÂ two channels that belong to different applications will belong to different channel groups. Channel groups are used, for example, for **List Management** sinceÂ lists are shared per application. This means that, if a user modifies a list from an application that contains multiple channels, all those channels are affected.
+
+## Learn moreâ
+
+Now that you understand the omnichannel concept, learn how it applies to the different Case Manager features such asÂ [Search](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/searching-for-alerts),Â [Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts),Â [Cases](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-cases),Â [Queues](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-queues),Â [SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas)Â andÂ [Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules).

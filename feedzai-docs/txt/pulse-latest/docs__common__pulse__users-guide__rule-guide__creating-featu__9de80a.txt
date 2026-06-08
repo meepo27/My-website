@@ -1,0 +1,72 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-derived-features
+Title: Creating Derived Features | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/)
+  * Creating Derived Features
+
+
+
+On this page
+
+# Creating Derived Features
+
+Was this page helpful?Â 
+
+This page describes how to edit and run an existing plan that creates a new data source with new features.
+
+In the example shown, you can see how to add a new field that is calculated based on a single transaction. If you want to create a feature that is based on many aggregated transactions, you must use [metrics](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#metric), i.e. historical profiles â refer to the page on [creating metrics](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-metrics).
+
+## Adding the featuresâ
+
+To add new features, execute the following actions:
+
+  1. In the **Data Science** tab, open the features plan.
+
+  2. Drag a **Map** operator to the plan if there is none yet.
+
+Clipboard
+
+To save time, you can use the clipboard  to copy-paste operators in plans. This allows you to add operators without the need of specifying all their fields each time you create a new plan.
+
+  3. Edit  the map as follows:
+
+     1. Select the **Fields to Add** tab.
+
+     2. In the **Output Field Name** column, specify the name of the new feature.
+
+     3. In the **Expression** column, write the [Pulse Query Language expression](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features) that calculates the output value. For example, the following expression calculates whether the credit card was present at the transaction:
+            
+            if (POSEntryMode == 'Swiped' or POSEntryMode == 'Keyed' or POSEntryMode == 'Chip') then 'true' else 'false'  
+            
+
+     4. Define the **Type** of the output field. In the example of calculating whether the credit card was present at the transaction, the type of the output field is _Categorical_ , with two possible values: _true_ and _false_.
+
+     5. Confirm that you want to add the field to the output schema, using the  button.
+
+     6. Add all the features to the map operator by following the previous steps.
+
+     7. **Save** the map operator.
+
+
+
+
+## Creating the data source with the featuresâ
+
+  1. To create a new data source which includes the new field(s), execute the following actions:
+     1. With the plan still open, use the  button to execute the plan.
+        1. In the **Data Source** tab, select the data source that will be the input for the plan. For example _Cleaned Transactions_ , or _Model Features v1_. If the plan has more than one channel, select the input data source for each channel.
+        2. In the **Data Sinks** tab, configure the output of the plan:
+           * **Name** for the output data source. For example, _Rule Features v1_. **Type** : _Parquet_ (default) or _CSV_ , depending on what type of output file you want to generate.
+
+Parquet format is recommended
+
+Using the Parquet file format for data files is highly recommended. Besides allowing a direct encoding of data types (which automates the mapping of field types when importing datasets), it also improves performance and disk usage: compared to CSV, Parquet files occupy less space and take less time to load.
+
+           * **Directory Path** : the path and file name where Pulse will store the output file, containing the data of the new data source. Example: `file:///datasets/rule-features-v1.parquet`. Note that the format varies according to the operating system.
+        3. Use the  button to execute the plan. It generates a new data source in Pulse, named _Rule Features v1_. Pulse also saves an output file with the transformed data to your filesystem.
+     2. Check the new data source to confirm that its schema includes new fields.
+
+

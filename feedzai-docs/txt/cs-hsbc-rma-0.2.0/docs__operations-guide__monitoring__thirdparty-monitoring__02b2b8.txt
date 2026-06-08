@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/thirdparty-monitoring
+Title: Monitoring Third-Party and Open Source Components | Feedzai RMA Documentation
+============================================================
+
+# Monitoring Third-Party and Open Source Components
+
+##### info
+
+**Important note**
+
+While Feedzai can provide recommendations on how to monitor third-party and open source software based on experience of using that software, Feedzai is not accountable for the software or its observability facilities. For client-hosted installations, clients are expected to install and operate such software, and that also extends to monitoring.
+
+This guide only provides a reference to some of the most important metrics to monitor on some of these systems, and does not constitude a definitive monitoring guide. 
+
+The purpose of this guide is to complement the recommendations for [monitoring Feedzai components](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/on-prem-monitoring) with recommendations for third-party dependencies.
+
+This guide covers:
+
+  * Monitoring [recommendations for ZooKeeper](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-zookeeper).
+  * Monitoring [recommendations for Cassandra](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-cassandra).
+  * Monitoring [recommendations for RabbitMQ](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-rabbitmq).
+
+

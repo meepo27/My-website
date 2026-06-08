@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3860
+Title: HSBC-3860 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3860
+
+### Add scheduled metrics Cassandra table migration guideâ
+
+DocsHSBC-3860
+
+We've added a guide for migrating scheduled metrics Cassandra keyspaces/tables. This can be used to decouple the existing setup and reduce the possibility of metrics collisions in multi-channel deployments.
+
+For more information please refer to [Cassandra Profiles Migration](/cs-hsbc/3.0.2/docs/operations-guide/how-to/cassandra-profiles-migration).

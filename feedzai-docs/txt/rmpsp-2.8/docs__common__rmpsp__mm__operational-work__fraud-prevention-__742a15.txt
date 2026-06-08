@@ -1,0 +1,109 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/merchant-portfolio-overview
+Title: Merchant Portfolio Overview | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Manager](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview)
+  * [Analytics Dashboards Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/analytics-dashboards-guide)
+  * Merchant Portfolio Overview
+
+
+
+On this page
+
+# Merchant Portfolio Overview
+
+The merchant portfolio overview dashboard is an entry point to analyze merchants on an individual or multiple level. It includes, among others, the number of merchants in a PSP's portfolio, the top merchants in relation to the highest transaction amount, and the top regions in relation to the highest volume of transactions.
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by fields. For instance, the `fields.merchant_id` field allows you to filter by a specific merchant ID. 
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [field](/rmpsp/2.8/docs/common/rmpsp/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. To finalize the creation of your condition, enter a value.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for. 
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most common used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+The **Merchant Portfolio Overview** provides other filters to refine your search such as:
+
+  * **Merchant ID**
+  * **Merchant MCC**
+  * **Merchant Name**
+  * **Event Type** : `feedback`, `info`, `merchant monitoring`, `payment`
+  * **Region**
+  * **Feedzai Channel** : `mmchannel` or `payments`
+
+
+
+## Merchant analysisâ
+
+  * **Number of merchants** : The total number of merchants.
+  * **Number of customer regions** : The count of distinct geographic areas into which a merchant divides its customer base.
+  * **Distribution of transactions over time** : The number of transactions spread across a given period (e.g. over the last 7 days).
+  * **Top 10 merchants by total amount** : The hierarchical ranking of the top 10 merchants based on their total amounts, where each merchant's portion represents their respective percentage. By selecting a merchant from the graph, you're redirected to the merchant's [transaction overview](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/transaction-overview) dashboard, which provides a more detailed view of that specific merchant's transactions.
+
+
+
+caution
+
+Note that selecting line dots works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.
+
+* * *
+
+### Top Merchant by Total Amountâ
+
+This table presents a comprehensive overview of the top merchants, showcasing their total amount. The table consists of the following columns:
+
+  * **Merchant ID** : The unique identifier assigned to each merchant.
+  * **Merchant name** : The names of the merchants.
+  * **Total amount** : The total transaction amount for each merchant.
+  * **Feedzai approved amount** : The total transaction amount that has been approved by Feedzai.
+  * **Feedzai declined amount** : The total transaction amount that has been declined by Feedzai.
+  * **% Feedzai approved amount** : The transaction amount that has been approved by Feedzai vs. the total amount, in percentage.
+  * **% Feedzai declined amount** : The transaction amount that has been declined by Feedzai vs. the total amount, in percentage.
+
+
+
+tip
+
+  * The table is sortable. You can arrange data into ascending or descending order according to a column.
+  * By hovering over each **merchant name** , you can use the **magnifying glass** icon to either filter out that merchant or filter by that specific merchant only.
+  * You can also export the table by selecting **Raw** or **Formatted**.
+
+
+
+* * *
+
+### Merchant Geo Locationâ
+
+The following map allows you to hover over any country to see the transaction amount per merchant country code.

@@ -1,0 +1,180 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/entity-history
+Title: Entity History | Case Manager
+============================================================
+
+On this page  
+  
+# Entity History
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| No| I18n key to the widget title.  
+cssClass| String| Yes| Widget custom class names, separated by space.  
+checkboxLabel| String| Yes| I18n key to the checkbox label.  
+name| String| No| A unique identifier representing the widget. It is a mandatory prop if resource is present.  
+resource| String| No| Resource name that points to the endpoint that populates the widget. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+filter| String| Yes| Filter for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderBy| String| Yes| OrderBy for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+limit| Number| Yes| Limits the number of results for the external resource.  
+tableConfiguration| Object| No| Table configuration which supports these properties.  
+selectConfiguration| Object| Yes| Select to filter the data in the table. This object that can contain these properties.  
+timestampSelectConfiguration| Object| No| Select to filter the timestamp from which the events must be fetched. Please see more details in here.  
+legacyHistory| Boolean| Yes| When set to true, enables the use of the old related transactions endpoint (`api/event`) instead of the new one (`api/related-transations`)  
+exportButton (since v8.2.0)| Object| Yes| Object to configure the export button. Please check the [Export Resources](/docs/internal/case-manager/configuration-guide/user-interface-configuration/export-resources) page for more details about this configuration.  
+rulesFilterAlwaysVisible| Boolean| Yes| When set to true, the related transactions rules filter is always visible on the widget header  
+rulesFilterTooltipLabel| String| Yes| I18n key to the related transactions rules filter helper tooltip description  
+  
+### tableConfigurationâ
+
+Same as the [Table](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/table) widget, except for the _title, key, cssClass and selectConfiguration_ properties that are not necessary.
+
+Additionally, you can configure bulk and inline actions, un-fix the row selection column, add vertical scroll and quickFilters using the following properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+inlineActions| Array<Object>| Yes| List of inline actions that will be mapped into small button icons and be placed in each table row. Each action will only take effect on a specific item. Each inline action must be an object with [these properties](/docs/common/case-manager/reference/user-interface/pages).  
+bulkActions| Array<Object>| Yes| Configures the bulk actions. Please check the [Alert Button List](/docs/common/case-manager/reference/user-interface/widgets/action-button-list) section to see the available properties.  
+  
+fixedRowSelection| Boolean| Yes| The column to select table rows is fixed by default. Set the value of this property fo false to change that default behaviour.  
+verticalScroll| Boolean| Yes| Adds vertical scroll within the table.  
+maxHeight| Number| Yes| Sets the table's max height. This is going to be applied only when vertical scroll is set (see property above).  
+quickFilters| Array<Object>| Yes| List of filters to quickly filter the table values. Each object must have [these properties](/docs/common/case-manager/reference/user-interface/pages/search-listing-page).  
+quickPreview| String| Yes| Enables the quick preview functionality. Points to a details page configuration or to a drawer configuration. Learn more about the [Quick Preview](/docs/internal/case-manager/configuration-guide/user-interface-configuration/quick-preview).  
+  
+### selectConfigurationâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+renderType| String| Yes| Defines which text should appear in the select options. The possible values for this property are: "label", "value" or "label-value".  
+values| Array<Object>| Yes| List of initial values. Each item must be an object with the following properties:
+
+  * **value** (string) - Value of one of the select options
+
+  
+options| Array<Object>| Yes| List of options. Each item must be an object with the following properties:
+
+  * **label** (string) - Option label.
+  * **value** (string) - Option value. If this is a conditional filter, it should contain an unique key to be used as a key for the **conditional** object
+  * **sourceValue**(string) - The key in the data object, of the entity item, that corresponds to the same key as defined in **value** property. This is only useful when this widget has a different resource from the one in the detailed page, where this widget is being presented.
+  * **path** (string) - Since **version 8.2** if the value referenced by the value is an array we can specify the value for each element. Example:
+    * Event payload
+
+
+    
+    
+      {
+          id: "eventCM",
+          relatedTransactions: [
+              {
+                  id: "id_of_the_transaction"
+              },
+              {
+                  id: "id_of_the_transaction2"
+              }
+          ]
+      }
+    
+
+* Configuration
+    
+    
+    selectConfiguration: {
+        options: [
+            {
+                value: "relatedTransactions",
+                path: "id"
+            }
+        ]
+    }
+      
+  
+multi| Boolean| Yes| Whether the select allows multiple values or not.  
+canContainNulls| String| Yes| This property can take 3 values and is used to determine if we should update the table when the quick-filters have null values:
+
+  * **all** : means that all fields values can be null, this is also **the default** in case anything is defined;  
+
+  * **some** : means we can have fields null with null values but at least one can't be null;  
+
+  * **none** : means that no field value can be null;
+
+  
+  
+conditional| Object| Yes| Object to configure the conditional filter. This object must contain a key that it's the same as the value passed in the **options**. Each key has as value an object that can contain these properties.  
+  
+### conditionalâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+field| String| No| The field of the details object that will be used to do the comparison  
+compare| Array<String>| No| An array of keys of the entity-history resource.  
+  
+**Conditional example**
+    
+    
+    conditional: {  
+        "<KEY>": {  
+            field: "name",  
+            compare: ["field1", "field2"]  
+        }  
+    }  
+    
+
+### timestampSelectConfigurationâ
+    
+    
+    "timestampSelectConfiguration": {  
+        "filter": "gteq",  
+        "options": [  
+            {  
+                "label": "placeholder.all.time"  
+            },  
+            {  
+                "label": "placeholder.last.day",  
+                "value": {  
+                    "type": "subtractTime",  
+                    "value": 1,  
+                    "unit": "day"  
+                }  
+            }  
+        ],  
+        "defaultValue": {  
+            "label": "placeholder.last.day"  
+        },  
+        "placeholder": "placeholder.timestamp",  
+        "renderType": "label",  
+        "type": "select",  
+        "i18n": true,  
+        "key": "timestamp",  
+        "multi": false  
+    }  
+    
+
+Please read the configuration settings for the options and defaultValue properties in [here](/case-manager/13.17/docs/common/case-manager/reference/user-interface/fields), in the sections "Configuring the select options values" and "Configuring the select default value" .
+
+### channelsâ
+
+The channels property lets you define in what events this Widget will be displayed and also what tabs should be displayed. For each tab you can define a specific Table configuration.
+
+Since **version 8.2** two new properties are now available:
+
+Property| Types| Optional| Description  
+---|---|---|---  
+tabPos| String| Yes| This property lets you define the order of the tabs. If this property the order is not guaranteed.  
+visibleTabs| String| Yes| Lets you define which tabs can be visible for each details page independently of the widget visibility.  
+  
+**Example** :
+    
+    
+    channels: {  
+        "o4b": {  
+            tabPos: 2  
+            visibleTabs: ["cmp, open_banking"]  
+        },  
+        "cmp": {  
+            tabPos: 1  
+        },  
+        "open_banking": {}  
+    }  
+    

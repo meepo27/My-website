@@ -1,0 +1,118 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference
+Title: Operator Reference | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans)
+  * Operator Reference
+
+
+
+On this page
+
+# Operator Reference
+
+Was this page helpful?Â 
+
+When designing a [plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) to [process your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data), the following operators are available:
+
+## Operators in deployable plansâ
+
+### Sourceâ
+
+Defines an original data source the plan takes as input. Uses the schema of the data source to define the input format for the plan.
+
+A [non-deployable plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans#non-deployable-plans) can take several sources, for example, coming from different files.
+
+### Mapâ
+
+Performs major data transformations on your datasets. Lets you add new fields to the current data schema, remove existing ones, and update expressions that define how the value of a field is calculated. You can also reorder the fields on the "Add Fields" tab of a map operator in a manner that better suits your work.
+
+Use the map to manipulate your data, [clean up your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/cleaning-up-the-data), transform your data, perform calculations on existing fields to [derive features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-derived-features), etc.
+
+You can configure field additions and updates with advanced expressions implemented in [UDFs](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions).
+
+### Filterâ
+
+Applies an expression to the data and narrows down its scope.
+
+Use the filter to, for example, obtain only transactions from a specific merchant that require different processing.
+
+You can apply filters with expressions implemented in [UDFs](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions).
+
+### Listâ
+
+Accesses the content of a list and stores it to a new field which gets added to the events that traverse the list operator.
+
+### Metricsâ
+
+Generates measurable information, aggregates results and gives you valuable insight on your data, for the [time windows](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#window) you define.
+
+Calculates all selected aggregations for all possible combinations of selected time windows and grouping fields.
+
+Available aggregations are **avg** , **count** , **max** , **min** , **sum** , as well as advanced expressions implemented in [UDFs](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions).
+
+Use metrics, for example, when in a [features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) plan you want to calculate the total amount (**sum**) spent by each card (**Group By**), in a single day (**Window**).
+
+### Sampleâ
+
+Reduces the current data to a configurable percentage of the original size. Sampled values are randomly selected using the sampling percentage as the selection probability.
+
+Sampling a dataset multiple times, with the same percentage, will always return the same resulting data.
+
+Use the sample, for example, when implementing a [Stratified Sample](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/creating-a-stratified-sample) to reduce the number of non-fraud transactions in your dataset.
+
+### Sinkâ
+
+Terminates the logical flow of the plan.
+
+When you run the plan, the sink outputs the result of the plan to a new data source and to a file in your filesystem.
+
+Non-deterministic functions
+
+When you apply UDFs in Map, Filter or Metrics operators, the usage of non-deterministic functions can result in non-deterministic results. For example, when you include any randomness factor into your expressions.
+
+Source and sink operators
+
+Pulse automatically adds a source and a sink operator to deployable plans. You need only to configure them when executing the plan.
+
+Clipboard
+
+You can use the clipboard  in order to copy-paste operators in plans. This helps you save time by allowing you to create plans more efficiently without the need of specifying all their fields each time you create a new plan, letting you use the operators you have already configured.
+
+## Operators in non-deployable plansâ
+
+Some operators only make sense at a design and exploration stage in your data science project. When processing a data stream in real-time to classify instances as `true` or `false` (let's take the fraud detection use case as an example), these activities are not repeatable nor applicable, for instance when joining data from separate sources.
+
+As such, the following operators are only available for [non-deployable plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans#non-deployable-plans), and perform typical data manipulation activities you might do in a database:
+
+### Group Byâ
+
+Groups data on a combination of fields, calculates aggregated metrics for each grouping, and outputs the result to a new field in the resulting dataset. Available aggregations are **avg** , **count** , **max** , **min** , **sum**.
+
+For example, group by _card_number_ and use the _max(amount)_ aggregation over a one-month window to obtain the highest transaction amount for each card in the last month.
+
+### Lookup Byâ
+
+Availability of Lookup Metrics
+
+The `Lookup By` operator is only available when using the [Railgun engine](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine), and when explicitly enabled via configuration. To activate this functionality, reach out to the Feedzai Customer Success (CS) team.
+
+Extends the capabilities of the `Group By` operator by providing a way to select which group to return the aggregated value of. (By default, `Group By` always returns the aggregation that matches the value of the grouping fields in the current row.)
+
+The `Lookup By` operator allows specifying a retrieval field (or set of fields) that is different from the grouping field(s), thus overriding the default behavior of the `Group By` operator.
+
+For example, group the data by _recipient_ID_ and use the _sum(amount)_ aggregation over a one-week window, and then use _sender_ID_ as the lookup field to obtain the total amount received in the last week by the account that is sending money in a transaction.
+
+### Joinâ
+
+Combines rows from two workflow data paths that match on the specified fields.
+
+Allows for **Left** , **Inner** , **Right** and **Full** join.
+
+### Unionâ
+
+Combines the resulting data from two workflow data paths.
+
+Both datasets must have the exact same fields with the same types, which can be specified in a different order. The output schema can be chosen when configuring the union.

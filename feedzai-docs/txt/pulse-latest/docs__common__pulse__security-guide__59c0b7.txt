@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/security-guide
+Title: About the Security Guide | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * About the Security Guide
+
+
+
+# About the Security Guide
+
+Was this page helpful?Â 
+
+This guide helps system architects and administrators understand the following security concepts in Pulse, and get an overview of the related tasks:
+
+  * [Security Entities](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application)
+
+  * [Component Encryption](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/component-encryption)
+
+  * [Security Configurations](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/security-configuration):
+
+    * [SSL Certificate](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/security-configuration/configuring-an-ssl-certificate)
+    * [Kerberos](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/security-configuration/configuring-kerberos-for-data)
+  * Single Sign-On options:
+
+    * [Configuring AD FS](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs)
+
+    * [Configuring SSO using Generic IdP](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-sso-using-a)
+
+    * [Configuring Keycloak](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-keycloak)
+
+
+

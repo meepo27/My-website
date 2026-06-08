@@ -1,0 +1,64 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/organize-workload-manually
+Title: Organize Workload Manually | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * Organize Workload Manually
+
+
+
+On this page
+
+# Organize Workload Manually
+
+Was this page helpful?Â 
+
+Learn how to manually add events/alerts and cases to a queue as well as to assign them to a team member.
+
+Even with a setup in place to automate the workload management of fraud teams, there are situations in which you need to act manually to correct the workload distribution. For example, you might want to add an alert to a queue that represents new fraud patterns, or you might want to assign an alert that requires a specific skill set to a fraud analyst.
+
+This page describes how to manually perform actions on the workload in Case Manager.
+
+## Events and alertsâ
+
+To move events or alerts to a queue or assign them to an analyst:
+
+  1. Open the event or alerts pages:
+     * **For events:** In the general menu, hover over the **Search** icon, and select the **Search By Event** option.
+     * **For alerts:** In the general menu, enter the **Alerts** page.
+  2. Select one or multiple events/alerts using the checkboxes.
+  3. Use the  button to open more actions.
+  4. Select the **Move to Queue** option and then choose a **Queue**.
+  5. Select the **Assign to Analyst** option and then choose an **Analyst**.
+  6. Alternatively, in the search by events or alerts pages, you can open an event and perform Step 3.
+
+
+
+## Casesâ
+
+To move cases to a queue or assign them to an analyst:
+
+  1. Using the general menu, enter the **Cases** page. You can also access cases by hovering over the **Search** icon and selecting the option **Search By Case**.
+  2. Select one or multiple cases using the checkboxes.
+     * Select the  button and then choose an **Analyst**.
+     * Select the  button and then choose a **Queue**.
+  3. Alternatively, you can open the case and perform Steps 2(i) and 2(ii) using the  button to see those actions:
+
+
+
+  4. You can also move events already associated with a case, to a queue, and assign them to any analyst, as follows:
+
+
+  * In the **Linked Events** table, select the events using the checkboxes.
+  * Use the  button to open more actions.
+    * Select the **Move to Queue** option and then select a **Queue**.
+    * Select the **Assign to Analyst** option and then select an **Analyst**.
+
+
+
+## Learn moreâ
+
+Check the [Manage Lists](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/manage-lists) page to learn how to add, remove, and search for items within a list.

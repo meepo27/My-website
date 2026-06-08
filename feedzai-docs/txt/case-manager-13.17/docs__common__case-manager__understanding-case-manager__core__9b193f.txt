@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview
+Title: Core Concepts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Core Concepts
+
+
+
+# Core Concepts
+
+The **Core Concepts** section deals with different concepts and processes that you should understand to start using Case Manager. Here, you will be able to learn more about the tiles that comprise Case Manager as a whole, its key concept and actions, and how they interact with one another.Â 
+
+In this section, you will be able to improve your knowledge of the following concepts:
+
+[Alerts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/alerts)| [Fraud](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/fraud)  
+---|---  
+Alerts are the backbone or Case Manager, as they are the key concepts with which the analysts will be working.| Fraud Â represents a decisionÂ that will help youÂ in marking transactions as fraudulent or not.  
+[Score](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/score)| [States and Outcomes](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/states-and-outcomes)  
+Score will help you have a quick overview on the likelihood of an event to be fraudulent.| Analysts review events, alerts or cases looking for fraud situations. Outcomes allow the analyst to classify their analysis for further action and as feedback to the Feedzai Pulse engine.  
+[Cases](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/cases)| [Queues](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/queues)  
+Cases allowÂ analysts to link events to cases, allowing them to structure their workload.| An exclusive concept of Case Manager, queues are a helpful tool that allow you define the structure of your workload.  
+[Lists](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/lists)| [Block/Allow Lists](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/block-allow-lists)  
+Analysts can manage lists Â in a truly self-service way, being able to tune the system to their ongoing needs without needing specialised assistance.| Block/Allow ListsÂ are a concept native to Case Manager that allow you to automatize the action taking on events.  
+[Automation Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules)| [SLAs](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/slas)  
+Automation rules are a means of automatizing the processing of events in Case Manager.| SLAs define what should be done when certain actions, such an event arriving or beign assigned to a user, occur.  
+[Self-Service Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules)| [Reasons](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reasons)  
+Self-Service Rules create logical structures for Case Manager to automatically act to simplify and streamline the analysts' workload.| Reason Codes offer detailed information about the underlying rationale in classifying events.  
+[Multi-Tenancy](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/multi-tenancy)| [Tokenization](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/tokenization)  
+Multi-Tenancy allows clients with a Fraud Prevention installation to host more than one tenant in a single environment.| Tokenization provides a PCI-compliant product that relies on hardware-proven security devices.  
+[Reports](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reports)| [Dashboards](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/dashboards)  
+Reports will help you get a clear picture of how your alert system is doing.| DashboardsÂ show youÂ data displaying the current status of the metrics of your product in a visual and straightforward way.

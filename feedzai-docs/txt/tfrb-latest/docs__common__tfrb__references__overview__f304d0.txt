@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/overview
+Title: References | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * References
+
+
+
+# References
+
+Was this page helpful?Â 
+
+### [Rules projectsLearn how rules are organized in your Pulse application and find out which rules come out of the box](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+
+### [Pulse schemasA schema describes the available data fields from a data source, as well as their types](/tfrb/latest/docs/common/tfrb/references/pulse-schemas)
+
+### [Pulse listsLists store items, and can be used in rules to check if a transaction field is known for a specific attribute](/tfrb/latest/docs/common/tfrb/references/pulse-lists)
+
+### [Enriched fieldsUnderstand how Digital Trust and Transfer fields are enriched](/tfrb/latest/docs/common/tfrb/references/enriched-fields)
+
+### [Digital Trust integrationLearn about Transaction Fraud for Banking's standard integration with Digital Trust](/tfrb/latest/docs/common/tfrb/references/dt-integration)
+
+### [Digital Trust Enricher's UDFsLearn how to use Digital Trust Enricher's UDFs](/tfrb/latest/docs/common/tfrb/references/dt-integration)
+
+### [Map API fieldsMap the API fields used in Cards, Transfers, and Digital Activity rules, among other parameters](/tfrb/latest/docs/common/tfrb/references/map-api-fields)
+
+### [Schema mappingsIncludes comma-separated value (CSV) files that allow you to confirm where API fields are used](/tfrb/latest/docs/common/tfrb/schema-mappings/overview)
+
+### [Rule explanationsLearn what rule explanations are and how enabling rule explanations affects responses](/tfrb/latest/docs/common/tfrb/references/pulse-rule-explanations)
+
+### [Model explanationsLearn what model explanations are and how enabling model explanations affects responses](/tfrb/latest/docs/common/tfrb/references/pulse-model-explanations)
+
+### [Data Exporting ToolLearn what the data exporting tool is, how exports are structured and the entities for which they are available](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)

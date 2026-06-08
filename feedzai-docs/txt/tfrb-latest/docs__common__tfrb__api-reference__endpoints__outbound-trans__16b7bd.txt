@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/outbound-transfers
+Title: Outbound Transfers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * Outbound TransfersÂ 
+
+
+
+# Outbound Transfers
+
+Was this page helpful?Â 
+
+The transfer API provides various endpoints to allow you to send information during the whole transfer's life cycle. You can send data related to transfer initiation, transfer updates, settlements, and fraud feedback actions, corresponding to API requests to the Transfer Initiation, Info, Settlement and Feedback endpoints, respectively.
+
+## [ðï¸ ResponsesThe Responses Get Endpoint allows you to retrieve the result of events that were processed asynchronously.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-transfer-responses)## [ðï¸ TransferThe Transfer Endpoint allows you to retrieve a transfer previously sent to Feedzai.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-transfers)## [ðï¸ Scorable InfoThe Transfer Info Scorable endpoint allows you to leverage Feedzai's data science capabilities to score a transaction according to its risk.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-transfer-info-initiation)## [ðï¸ InfoThe Info endpoint enables you to update and add new information to an existing transfer.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-transfer-info)## [ðï¸ SettlementThe Settlement endpoint allows you to inform Feedzai when a transfer is settled.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-transfer-settlement)## [ðï¸ SettlementThe Settlement endpoint allows you to inform Feedzai when a transfer is settled.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-transfer-settlement)## [ðï¸ Transfer initiationThe Transfer Initiation endpoint allows you to leverage Feedzai's data science capabilities to score a transaction according to its risk.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-transfer-initiation)## [ðï¸ FeedbackThe Feedback endpoint allows you to label transfers, for instance, as 'Fraud' or 'Not Fraud'. The labeling of an event is highly recommended since it gives feedback so that Feedzai's risk engine can learn and consolidate fraud patterns](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-transfer-feedback)

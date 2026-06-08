@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/pages
+Title: Pages | Case Manager
+============================================================
+
+On this page
+
+# Pages
+
+## Root Configurationâ
+
+In Case Manager 1.6.0, the concept of dynamic pages was introduced. This new feature will allow one to dynamically create pages that can be populated by specific resources.
+
+To create them, you need to add an entry under the **pages** property, where the property name will uniquely identify the page and the value will be an object that must have the following properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| Yes| Holds the i18n key to the page title.  
+type| String| No| Holds the page type. It must be one of the following values:
+
+  * **listing** \- which allows you to create a page to list items
+  * **search** \- which allows you to create a page to list and filter items
+  * **details** \- which allows you to create a page to display detailed information about a specific item
+  * **dashboard** \- which allows you to create a page to display a dashboard
+
+  
+resource| String| Yes, if type is **dashboard**|  Holds the resource name that will be used to populate the page.The resource name must match one of the core [resources](/docs/common/case-manager/reference/user-interface/resources) or one of the custom resources.  
+Pages of type **dashboard** don't have this property.  
+config| Object| No| Holds the object to configure the page appearance. This object may vary depending on the page type:This object may vary depending on the page type:
+
+  * [listing/search](/docs/common/case-manager/reference/user-interface/pages/search-listing-page)
+  * [details](/docs/common/case-manager/reference/user-interface/pages/details-page)
+  * [dashboard](/docs/common/case-manager/reference/user-interface/pages/dashboards-page)
+
+  
+  
+### Exampleâ
+
+An example of configuration to add a page named **"alerts"** :
+
+#### Pages Configuration Exampleâ
+    
+    
+    {  
+        ...,  
+        "pages":{  
+            "alerts": {  
+                "type": "listing",  
+                "resource": "event",  
+                "config": {...}  
+            }  
+        },  
+        ...  
+    }  
+    
+
+danger
+
+Page names must be unique and cannot contain the `.` and `:` characters in its name.

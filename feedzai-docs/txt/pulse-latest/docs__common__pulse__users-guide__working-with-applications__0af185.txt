@@ -1,0 +1,101 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/
+Title: Working with Applications | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Working with Applications
+
+
+
+On this page
+
+# Working with Applications
+
+Was this page helpful?Â 
+
+A Pulse application (**Pulse app**) is an interface that hosts resources developed by various end-users. With **Pulse apps** , Data Scientists, Software Engineers, and Fraud Analysts are able to collaborate on developing a Fraud Prevention solution. This concept is referred to as **App Collaboration**.
+
+Pulse supports easy-to-use tools that allow users to develop resources in separate offline environments, and then combine the work in a production environment (see App Collaboration tools).
+
+## Pulse Applicationsâ
+
+Similarly to software apps which are interactive programs that allow users to perform tasks, a **Pulse app** is an interface that hosts resources developed by various end-users to perform certain tasks.
+
+The ultimate goal of a **Pulse app** is to support the configuration of resources that work together to solve a well defined objective, e.g. detect fraud. To achieve this, **Pulse apps** are used to configure [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources), and develop [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans), [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models), [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules), among other functionalities. These resources are then configured on [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows), also hosted by **Pulse apps** , to process transactions in real-time.
+
+Pulse resources are not bound to the host application. This allows multiple teams to develop resources in parallel using different environments. This concept is referred to as **App Collaboration** and is explained in more detail in the next subsection.
+
+## App Collaborationâ
+
+Developing a fraud-prevention application requires multiple teams to work together:
+
+  * **Data Scientists:** Develop [Metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop#feature-engineering) and **Models** using Data Science environments.
+  * **Delivery teams** : Configure **Schema** and **Workflows** using Development environments.
+  * **Engineering teams** : Write advanced **Rules** and populate [Lists](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) using Development environments.
+  * **Fraud Analysts** : Write Self-service Rules (**SSR**) and populate **Lists** directly in Production.
+
+
+
+Using the **App Collaboration** concept, each team evolves resources in parallel using **Pulse apps** configured on various offline environments. The changes are then transferred and combined in a trustful way with the resources that are Production. The image below illustrates the idea of **App Collaboration** :
+
+The flow illustrated in the diagram above is not a one-time process. As fraud patterns evolve, and you gain new knowledge on your data, there is a need to re-engineer new features, retrain **Models** and write new **Rules**. These needs require a constant integration between work developed in offline environments with work that is in Production. Therefore, Feedzai recommends a working methodology that is explained in the page [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop) under the Operations Guide. This working methodology covers the following key points:
+
+  * How to structure an application in different environments.
+  * Workflow between environments.
+
+
+
+## App Collaboration toolsâ
+
+To make **App Collaboration** easy-to-use, Pulse provides a set of tools that allows you to migrate selected resources or the full **Pulse app** (i.e. PAPP file) between environments. The export/import tools foster the following:
+
+  * **Merge resources:** Multiple teams working simultaneously on different resources can merge resources using Pulse UI.
+  * **Standard working method:** You can easily manage a standard procedure to transfer resources to Production using **App Collaboration Loop**.
+  * **Frequent updates:** Pulse services configured in runtime can be frequently updated in production because deployments are fast and easy to track.
+
+
+
+### Migrating Resources and Pulse appsâ
+
+Pulse allows migrating selected resources or entire **Pulse apps**. The decision to use one or the other depends on the type of changes that you want to migrate or the procedure that is in place for each project. Check the page [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop) for more information about the recommended procedure.
+
+#### Export and import Resourcesâ
+
+Pulse allows exporting and importing the following resources:
+
+  * **Rules Projects** with or without snapshots.
+  * **Lists** metadata.
+  * **Models** with or without the binary.
+  * **Plans** with or without executions.
+
+
+
+Check the pages [Exporting Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources) and [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to learn how to perform these operations.
+
+#### Export and Import Pulse appsâ
+
+Pulse allows exporting and importing the entire **Pulse app** through the UI. When updating a **Pulse app** in a live production environment, you should adopt the blue-green method to perform the update with zero downtime.
+
+Check the page [Exporting and Importing Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-and-importing-applications) to learn how to perform these operations.
+
+## Application changes in runtimeâ
+
+In Pulse, you can make changes on your **Workflow** , even when is processing transactions. These changes, however, are not immediately applied to the running application. Instead, they are only applied when you explicitly **Publish** the application.
+
+Check the page [Publishing Application changes](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/publishing-application-changes) to learn how to make your changes effective in the runtime **workflow**.
+
+## Learn moreâ
+
+The following pages allow a better understanding of how a **Pulse App** works:
+
+  * [The Application Life Cycle](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/the-application-life-cycle)
+  * [Publishing Application Changes](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/publishing-application-changes)
+  * [Exporting Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources)
+  * [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources)
+  * [Exporting and Importing Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-and-importing-applications)
+  * [Resource Versioning](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/resource-versioning)
+  * [Automatic Application Repair](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/automatic-application-repair)
+
+
+
+Learn how to evolve a **Pulse app** from end-to-end by checking [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop).

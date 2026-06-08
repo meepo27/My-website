@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/network-requirements
+Title: Network Requirements | Feedzai Documentation
+============================================================
+
+# Network Requirements  
+  
+Welcome to the Network Requirements Guide.
+
+In this section you will find a set of pages with information about Network Requirements:
+
+  * [Firewall rules for Cassandra](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/network-cassandra)
+  * [Firewall rules for RabbitMQ](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/network-rabbitmq)
+  * [Firewall rules for ZooKeeper](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/network-zookeeper)
+
+

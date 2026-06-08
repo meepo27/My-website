@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-2885-HSBC-2958-HSBC-3214-HSBC-3376-HSBC-3482-Case-Manager-version-upgraded-to-13-22-0
+Title: HSBC-2885-HSBC-2958-HSBC-3214-HSBC-3376-HSBC-3482-Case-Manager-version-upgraded-to-13-22-0 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-2885-HSBC-2958-HSBC-3214-HSBC-3376-HSBC-3482-Case-Manager-version-upgraded-to-13-22-0
+
+### Case Manager version upgraded to 13.22.0â
+
+FeatureFTMT-18187FTMT-22596FTMT-22865FTMT-22986FTMT-27682WPB-239611HSBC-2885HSBC-2958HSBC-3214HSBC-3376HSBC-3482
+
+We've upgraded Case Manager to version 13.22.0 which includes the following:
+
+  * Fix an issue where the event note payload was not including the event payload (including the event tenant name)
+  * Fix an issue where refreshing Case Manager's search page would throw a warning if the previous search had a multi-criteria filter (e.g. `Customer ID`)
+  * A new _Smart Search_ functionality described below
+  * A new feature where the Activity Log now shows when a change was triggered by an Automation Rule (more details below)
+
+
+
+#### Smart Searchâ
+
+With _Smart Search_ , when searching for events using filters for channel-specific fields (Outbound, Digital Activity, Cards, or Inbound Payments), the search results will only display events that exactly match the selected filters.
+
+Hereâs how it works:
+
+  * If a search is performed using only common filters, all tabs will be enabled, displaying the total number of filtered events.
+  * If a search includes a channel-specific filter (for example, _Beneficiary Name_ in Inbound Payments), only the corresponding tab will be enabled, showing the total number of matching events. The tabs corresponding to the other use cases will not display any results.
+
+
+
+##### note
+
+Since the From and To Date filter is mandatory in all searches, the All Channels tab will always display all events, regardless of other search filters.
+
+#### Automation Rules in Activity Logâ
+
+When there is a change in an event that is the result of an Automation Rule triggering, the Activity Log now shows the Automation Rule instead of the **system** user. Clicking the Automation Rule name will link to the respective Automation Rule (if the user has permissions to access it).
+
+This feature has two important caveats:
+
+  1. It is **not retroactive** , meaning that only Automation Rules triggered in this version will be shown in the Activity Log.
+  2. If the **Automation Rule is deleted, Case Manager will not be able to show it** in the Activity Log and will revert back to the previous behaviour of showing the **system** user as the actor.
+     * Note: this **does not affect disabled Automation Rules** â those will show up in the Activity Log.
+
+

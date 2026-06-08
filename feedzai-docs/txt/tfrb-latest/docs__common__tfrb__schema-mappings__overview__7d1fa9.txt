@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/schema-mappings/overview
+Title: Schema Mappings | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Schema Mappings
+
+
+
+# Schema Mappings
+
+Was this page helpful?Â 
+
+This page contains comma-separated value (CSV) files that allow you to confirm where API fields are used. Among other parameters, these CSVs contain rules, metrics, and variables from Cards and Transfers.
+
+As a business analyst, you need to understand the impact of missing data fields on your client's data. As such, the following files allow you to:
+
+  * Validate the API fields required to run each rule (e.g. fields in a rule's condition and metrics).
+  * Confirm where an API field is being used in the whole solution (e.g. in which metrics, rule conditions, or variables).
+
+
+
+**Cards**
+
+[Map API Fields to Rules](/tfrb/latest/tfrb_cards_rules.csv) Â Â [API Fields Usage](/tfrb/latest/tfrb_cards_api_schema.csv)
+
+  
+
+
+**Digital Activity**
+
+[Map API Fields to Rules](/tfrb/latest/tfrb_da_rules.csv) Â Â [API Fields Usage](/tfrb/latest/tfrb_da_api_schema.csv)
+
+  
+
+
+**Inbound Payments**
+
+[Map API Fields to Rules](/tfrb/latest/tfrb_inbound_rules.csv) Â Â [API Fields Usage](/tfrb/latest/tfrb_inbound_api_schema.csv)
+
+  
+
+
+**Transfers**
+
+[Map API Fields to Rules](/tfrb/latest/tfrb_transfers_rules.csv) Â Â [API Fields Usage](/tfrb/latest/tfrb_transfers_api_schema.csv)

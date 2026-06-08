@@ -1,0 +1,93 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/use-channel-databases
+Title: Use channel specific databases | Feedzai Documentation
+============================================================
+
+On this page
+
+# Use channel specific databases
+
+Case Manager supports using separate databases for channel-specific tables, optimizing performance by distributing queries and storage across multiple databases. This setup provides effective isolation between channels and improves overall system efficiency.
+
+## Overviewâ
+
+Database segregation is done in a main-dedicated relation, meaning the main database will hold all `AM_*` tables which include system tables and the `AM_EVENT` and `AM_EVENT_STORAGE` for the channels that are configured to use this database. On the other hand the dedicated database will store only the `AM_EVENT` and `AM_EVENT_STORAGE` tables for the channels that are configured to use it.
+
+In the following sections we will demonstrate how to configure a dedicated database for one channel while keeping the others running against the main database.
+
+## Configuring channel-specific databasesâ
+
+##### warning
+
+Ensure that the required databases are created with sufficient CPU resources, storage, and the necessary permissions replicated from the base database. Confirm that firewall rules are configured to allow Case Manager to connect to each specific database.
+
+Also ensure that each database has adequate maximum connections available. While channel-specific databases typically require fewer connections, it is recommended to set the connection limits similar to those of the base database to ensure smooth operation.
+
+In this section we demonstrate how to configure Case Manager with three different channels where two will use the main database and the other a dedicated database.
+
+As an example consider the following:
+
+  * We have deployed two databases which we will consider as main and dedicated. Each database is using a proxy running locally where port `3307` connects to the transfers database and port `3308` to the inbound one
+  * Outbound (transfers) and Digital Activity channels will use the main database
+  * Inbound will use the dedicated database
+  * For simplicity we will consider there is no read only database in the setup
+
+
+
+The first thing to do is to configure `pdb_active_channels` as follows:
+    
+    
+    pdb_active_channels:  
+      - transfers  
+      - inbound-payments  
+    
+
+Copy
+
+With this configuration the deployment will:
+
+  * Use the `transfers` configured database as the main database. Since `transfers` and `digital-activity` are usually tied together, by omitting the latter from the configuration the channel will use the `transfers` database
+  * Configure `inbound-payments` to use a dedicated database
+
+
+
+##### warning
+
+The item order in `pdb_active_channels` matters. Having `transfers` as the first item is not the same as having it in any other order since the first item's configured database will be considered as the main database.
+
+The next step is to set the variables that configure the connection and connection options for each channel. These variables extend the following ones by adding the channel suffix (`_<channel>`) to them:
+
+  * `database_casemanager_jdbc`
+  * `database_casemanager_username`
+  * `database_casemanager_password`
+  * `database_casemanager_schema`
+  * `database_casemanager_schemapolicy`
+  * `database_casemanager_pool_size`
+  * `database_casemanager_pool_lazy`
+  * `database_casemanager_reconnect_on_lost`
+  * `database_casemanager_max_number_retries`
+  * `database_casemanager_retry_interval`
+  * `database_casemanager_query_select_timeout`
+
+
+
+By default the suffixed variables use the value from the database variables defined in [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).
+
+##### info
+
+While in this example we are omitting the read only database, the same variable extensibility applies in the form of `database_casemanager_ro_*_<channel>`.
+
+For simplicity let us assume all database variables are the same except for the connection string. At this point we already have configured them according to the Case Manager configuration recommendations and we are only missing setting the channel specific connection strings:
+    
+    
+    # Configure transfers connection string  
+    # Note that database_casemanager_jdbc_opts can also be suffixed  
+    database_casemanager_jdbc_transfers: "jdbc:postgresql://localhost:3307/feedzai?{{ database_casemanager_jdbc_opts | join('&') }}"  
+      
+    # Configure inbound payments connection string  
+    # Note that database_casemanager_jdbc_opts can also be suffixed  
+    database_casemanager_jdbc_inbound_payments: "jdbc:postgresql://localhost:3308/feedzai?{{ database_casemanager_jdbc_opts | join('&') }}"  
+    
+
+Copy
+
+Deploying Case Manager will now set the `transfers` database as main, `digital-activity` will use the same database and `inbound-payments` will use its own database to store event information.

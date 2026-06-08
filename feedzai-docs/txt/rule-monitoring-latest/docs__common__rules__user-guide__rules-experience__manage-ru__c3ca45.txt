@@ -1,0 +1,80 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing-pages/operators
+Title: Operators in Rule Writing | Rule Monitoring
+============================================================
+
+On this page
+
+# Operators in Rule Writing
+
+Was this page helpful?Â 
+
+Operators provide flexible writing capabilities that enable you to write rules according to your business needs. The rule [creation form](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing#create-a-rule) displays different operators depending on the selected conditions.
+
+This page details the different available operators by type:
+
+  * Defined values comparison
+  * List values
+  * Schema comparison
+  * Strings check
+
+
+
+## Defined values comparisonâ
+
+These operators compare the selected field with a specific value defined in the rule. For example, you can use this operator to check if the amount is greater than or equal to 1000.
+
+This type includes the following operators:
+
+  * **Equal to** ;
+  * **Not equal to** ;
+  * **Greater than** ;
+  * **Equal or greater** ;
+  * **Less than** ;
+  * **Equal or less** ;
+  * **Is empty** ;
+  * **Is not empty**
+
+
+
+## List valuesâ
+
+These operators allow you to validate if a field is present (or not) in a specific list or if a list contains a specific field.
+
+This type includes the following operators:
+
+  * **Is present** ;
+  * **Is not present** ;
+  * **Contains** ;
+  * **Does not contain**
+
+
+
+The **Is present** and **Is not present** operators are used to validate if the select field is (or not) present in a specific list. For example, you can use this operator to check if the _Acceptor Country_ value is in the _Very High Risk Geographies_ block list.
+
+The **Contains** and **Does not contain** operators are used to validate if a specific list contains (or not) a specific value. For example, you can use this operator to check if the Posneg Listed Countries contains a specific country.
+
+## Schema comparisonâ
+
+These operators are used to compare different fields. For example, you can check if a card's last 4 digits are equal to a card's bin.
+
+This type includes the following operators: **Equal** , **Not equal to** , **Greater than** and **Less than**.
+
+  * **Equal** and **Not equal to** compare fields of the same type (i.e. numeric vs numeric, alphanumeric vs alphanumeric, and alphabetic vs alphabetic).
+  * **Greater than** and **Less than** compare numeric fields.
+
+
+
+## Strings checkâ
+
+These operators are used to search for a certain value in a specific event field. For example, you can check if a customer's phone number contains 1234.
+
+This type includes the following operators: **Contains** and **Does not contain**.
+
+## Learn moreâ
+
+Learn more about:
+
+  * What [rules](/rules/latest/docs/common/rules/overview) are and how they work.
+  * How to [manage](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules) rules - create, edit, test, delete, and use the audit capabilities to have a clear understanding of all changes made.
+
+

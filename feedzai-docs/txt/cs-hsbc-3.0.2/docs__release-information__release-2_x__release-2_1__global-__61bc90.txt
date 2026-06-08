@@ -1,0 +1,84 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.1/global-rollout/
+Title: Global Rollout | Feedzai Documentation
+============================================================
+
+On this page
+
+# Global Rollout
+
+In this section, you will find comprehensive details regarding the main changes in the structure of our project to accommodate the global rollout changes.
+
+This solution currently preserves backwards compatibility with the existing UK Outbound Payments solution, such that no changes to the deployment process or ansible variables should be explicitly needed there.
+
+Please find below the list of changes introduced below.
+
+## General improvementsâ
+
+### Merging of default inventoriesâ
+
+We have merged inventories that were essentially being used for the same purpose.
+
+From this point forward, `dsf` and `default` inventories should be dropped in favor of `project-ds` and `project-default`, respectively.
+
+The playbook examples in `Installation Guide` were updated accordingly.
+
+* * *
+
+## Pulseâ
+
+### Cards applicationâ
+
+DSF environment can now automatically create both the outbound payments application (on an initial deployment, when an existing payments application does not already exist) and the cards application (on an initial deployment, when an existing cards application does not already exist), using patches.
+
+The `apps_enabled` variable controls which apps are created in Pulse DSF, the same as Pulse Runtime. This variable is documented in this section.
+
+We also added a patch to create a default Cards application in a Pulse Runtime Deployment, this does not run by default, but is controlled by the `pulse_commands_context` variable in the Pulse variables.yml file.
+
+For example, setting this variable to have the value "cards" on a Pulse deployment, will run the patches related with the Cards Application.
+
+The schema for the Cards application was also created based on the mappings that were accorded in the DMAs for the endpoints, namely Authorization, Authentication 3DS and Non Monetary Events.
+
+### Changes on variable directory structureâ
+
+To allow support for global rollout initiatives, we've made significant changes to our folder structure organization.
+
+These changes provide a more dynamic variable directory structure, using nested Ansible inventories for better flexibility and customization.
+
+Specifically, inventories containing variables defined per-region or per-market should always be specified _after_ the default ones. For example, to include `uk/project-prod/cards` variables for the UK region that take precedence over the `prod` environment variables (`project-prod` inventory), we might have something like the following:
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-prod \  
+        -i ... \  
+        -i uk/project-prod/cards \  
+        pulse.yml ...  
+    
+
+Copy
+
+Please consult the updated [Installing Feedzai with Ansible](/cs-hsbc/3.0.2/docs/installation-guide/ansible/feedzai-ansible) documentation for more details. The [Blue-Green Documentation](/cs-hsbc/3.0.2/docs/installation-guide/pulse/blue-green-deployments) has also been updated accordingly.
+
+### Support for running patches for multiple appsâ
+
+This is done by using a new Ansible variable named `apps_enabled`.
+
+The `apps_enabled` variable is used to define which of the available apps will actually be deployed.
+
+By doing so, patches will also run for each application, namely once per app declared in `apps_enabled`.
+
+Each app has portfolios as well, ensuring we only run patches that are specific to a particular app type. (e.g. HSBC could deploy UK Cards and HSBC Cards under the same context, as they will have different app slugs it still guarantees different patch executions).
+
+* * *
+
+## Case Managerâ
+
+### Support for multi regional channelsâ
+
+Similarly to Pulse, we have introduced a new Ansible variable (`apps_enabled`) to control which channels are deployed in Case Manager.
+
+My setting this variable with the applications that are deployed in Pulse, Case Manager deployments will configure the various channels to connect to the correct application and workflow.
+
+If a channel's application/workflow is not yet deployed in Pulse, it will point to the outbound payments application but it won't process any events since Pulse will not publish anything to the channel respective queue.
+
+You can find a detailed description of the deployment configuration in [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).

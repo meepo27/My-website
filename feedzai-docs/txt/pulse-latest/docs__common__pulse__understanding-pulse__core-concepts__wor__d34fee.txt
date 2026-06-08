@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/actions-and-action-listeners
+Title: Actions and Action Listeners | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows)
+  * Actions and Action Listeners
+
+
+
+On this page
+
+# Actions and Action Listeners
+
+Was this page helpful?Â 
+
+Actions are generated at the **Workflow Element** level and are used to tag/mark the events flowing in the workflow.
+
+Pulse offers two default actions â **Accept** and **Block** â but you can [define custom actions](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/advanced-workflow-configurations) according to your workflow requirements. In addition, it is possible to define the parameters for each action for the cases where it is necessary to pass extra information when an action is triggered.
+
+When connecting Real-Time Analytics to Fraud Prevention Applications, these actions can be used to filter what kind of events are to be listened by the connector.
+
+Moreover, when developing Custom Services,
+
+special actions can be performed taking into account the type of action in place.
+
+Custom services can be used to access or modify the event's state as events reach them, but they also can listen to specific actions triggered by [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules).
+
+Consider a service that is intended to modify the events (or add some important metadata to them), but only those that match a specific **Rule**. You can declare this service as an **Action Listener** choosing the **Action** to be listened and tell the specific **Rule** to trigger this action. When the **Action** is triggered, the service will receive the corresponding event and can process it as intended.
+
+## Trigger Actionsâ
+
+Trigger Actions are used to notify action subscribers (**Action Listeners**) of some occurrence during the processing of a workflow element. The subscribers can be either another workflow element or any other module as long as it has access to the workflow.
+
+Two mechanisms can be used to trigger actions:
+
+  1. By [creating new Rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules) and [configuring them in the Rules Service](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules).
+  2. By writing Custom Services that extend the `WorkflowService` class and calling `triggerAction(TriggeredAction, Message)` .
+
+
+
+## Action Parametersâ
+
+Each **Action** can have its own parameters. Parameters allow passing event-specific information when an action is triggered.
+
+One example would be for a _sendEmail_ action to have the parameters _to_ and _title_ with values _[[email protected]](/cdn-cgi/l/email-protection#d1bcb0b8bd91b4a9b0bca1bdb4ffb2bebc)_ and _Rule Alert._
+
+## Action Listenersâ
+
+Use **Action Listeners** in order to subscribe to triggers being sent from workflow elements. Custom Workflow Services
+
+can be notified of actions triggered by any rules configured in the workflow.
+
+By default there are no **Action Listeners** configured in a workflow, so even if an element is configured to trigger an action, if there's no subscriber it will take no effect.
+
+Actions handling
+
+The triggering of **Actions** works synchronously, so be careful with the way you implement your listeners. It might be desirable to implement an asynchronous handling on the listener's side.
+
+When configuring **Action Listeners** , the list of available listeners is populated from the existing services. For a service to be listed either:
+
+  * The service is a part of a workflow
+  * The service is part of the overall application environment and implements a `WorkflowActionHandler` interface.
+
+

@@ -1,0 +1,222 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules
+Title: Manage Automation Rules | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * Manage Automation Rules
+
+
+
+On this page
+
+# Manage Automation Rules
+
+Automation rules allow to automatically perform actions on events and cases based on certain conditions. These rules allow to automatically move alerts to queues, assign alerts to analysts, link alerts to cases, or even change the alert status.
+
+info
+
+The **Channel** information explained on this page is only visible if the product is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+## View Automation Rulesâ
+
+Access the **Automation Rules** page using the **Settings** option in the main menu.
+
+Automation rules execution
+
+For performance purposes, automation rules may execute according to the order defined on this list or in parallel, depending on Case Manager's configuration. 
+
+## Filter Automation Rulesâ
+
+Use filters to refine the rules displayed on the list. This could be helpful, for example, to view all rules with a specific name.
+
+The **Search** filter lists rules whose name or description match the text inserted on this field.
+
+## Create Automation Rulesâ
+
+Create rules to automate what should happen when certain actions occur. For example, you can configure a rule that automatically sets a status when an alert arrives to the investigation tool.
+
+  1. Select the **New Rule** button.
+
+  2. Start by adding the rules's basic information:
+
+     * **Name** : Rule's name. For example, "Set new alerts as unreviewed".
+     * **Description** : Explanation of the rule's purpose. For example, "Set all incoming alerts as unreviewed".
+     * **Channel** : Defines that only events from the selected channel are considered in the rule's conditions.
+     * **Type** : Defines if the rule should be triggered based on **Events** or **Cases**.
+  3. Specify the rule's conditions according to your needs. In this example, the conditions would be the following:
+
+  4. Select the **Enabled** option to indicate if the rule should go into effect immediately or not.
+
+  5. **Create** the rule.
+
+
+[See more examples](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/automation-rule-examples) of Automation Rules' configuration.
+
+### Available Operatorsâ
+
+The Automation Rule creation form displays different operators depending on the selected conditions. Operators provide flexible writing capabilities that enable you to write rules according to your business needs.
+
+These are the available operators for Automation Rules:
+
+Operator| Description  
+---|---  
+**=**|  Equal  
+**!=**|  Not equal  
+**>**|  Greater than  
+**> =**| Greater than or equal  
+**<**|  Less than  
+**< =**| Less than or equal  
+**is NULL**|  Empty value  
+**is NOT NULL**|  Not empty value  
+**is IN**|  Is present in  
+**is NOT IN**|  Is not present in  
+  
+#### Relational Operatorsâ
+
+The **=** , **!=** , **>** , **> =**, **<** , **< =** operators are used to compare the selected field with a specific value defined in the rule:
+
+  * **=** and **!=** compare fields of the same type (i.e. numeric vs numeric, alphanumeric vs alphanumeric and alphabetic vs alphabetic).
+
+  * **>** , **> =**, **<** , **< =** compare numeric fields.
+
+For example, to check if an _Alert_ was flagged and the _Account Credit Limit_ **equals** 2000.
+
+Or to check if an _Amount_ **is greater than** 1000.
+
+
+
+
+#### `is NULL` and `is NOT NULL`â
+
+The **is NULL** and **is NOT NULL** operators check if a field is empty or not empty, respectively. For example, to check if the _Beneficiary City_ field of an event **is not empty**.
+
+#### `is IN` and `is NOT IN`â
+
+The **is IN** and **is NOT IN** operators allow you to validate if a field is one (or none, respectively) of the multiple specified values. This means that using **IN** is the same as using multiple **=** statements, but in a more practical way. They can be applied to a variety of core fields within the system: _Status Reasons_ , _Queue_ , _Tenant_ , _State Machine_ values and _Access Group_.
+
+For example, when there is a change to a Status Reason, you can use the **is IN** operator to check if the new status reason is within the list of values provided, i.e. if it is one of the reasons listed.
+
+info
+
+Beyond the core fields, the **is IN** and **is NOT IN** operators are also extendable to custom fields. To activate this functionality for custom fields, enable the `multi_field_in_automations` setting. 
+
+#### Logical Operatorsâ
+
+You can group multiple conditions in your rule and attribute them `AND` or `OR` logic. These operators are used to combine two or more conditions and evaluate them based on the rules of logic. Unlike relational operators, which compare values, logical operators determine the truth value (true or false) of a compound statement based on the individual conditions.
+
+Operator| Description  
+---|---  
+**AND**|  Returns true if **all** grouped conditions return true.  
+**OR**|  Returns true if **one** of the grouped conditions returns true.  
+  
+To assign a logical operator to your Automation Rule, do the following steps:
+
+  1. Select the  icon to add a new condition to your rule.
+  2. Select your operator in the toggle button.
+
+
+
+You can continue adding additional conditions to your rule.
+
+Attention
+
+You **can not** attribute the `AND` and `OR` logic simultaneously, you can only use one of them **exclusively**. The logic you select when adding your second condition will apply to all additional conditions.
+
+## Edit Automation Rulesâ
+
+Edit existing rules and adjust their parameters to better suit your needs:
+
+  1. In the rules' list, hover over the rule that you want to edit and select to **Edit** .
+
+  2. Edit the **Name** , **Description** , **Type** , and **Conditions** fields. The **Channel** field is not editable.
+
+  3. **Save** the changes.
+
+
+
+
+## Delete Automation Rulesâ
+
+Delete the rules that are no longer relevant to your needs:
+
+  1. In the rules' list, hover over the rule you want to delete and select to **Delete** .
+
+
+
+  2. Since this is a sensitive operation, the page displays a dialog for you to confirm the deletion.
+
+
+
+## Export and Import Automation Rulesâ
+
+Use the export and import functionality to test automation rules in a test environment before promoting changes to a production environment. This makes replicating changes between environments less error-prone.
+
+### Exportâ
+
+Go to **Settings** and select **Export Settings** to download a file with automations.
+
+The exported file includes the following metadata: `name`, `description`, `channel`, `enabled`, `trigger`, `conditions` and `actions`. For each new imported Automation Rule, a new `id` is generated. On the other hand, _auditable metadata_ fields are not exported as they might not exist in the target environment.
+
+info
+
+ _Auditable metadata_ such as `createdBy`, `createdAt`, `updatedAt` etc., is **not exported** as it is related to the source environment, so replicating them in the target environment can be misleading.
+
+caution
+
+Case Manager exports the automation rules related to **Events** or **Cases** , depending on the selected tab in the Automation Rules page. Make sure you're in the _correct_ tab before exporting.
+
+### Importâ
+
+Go to **Settings** and select **Import Settings**. You will be prompted to select the file to import. Make sure you select a file in `.cmsettings` format; otherwise, you get an error and cannot proceed with the import.
+
+caution
+
+**Do not edit the** `.cmsettings` **file** as it can lead to issues with inconsistent data during the import process.
+
+#### Validation and conflicts previewâ
+
+Upon importing, the selected file undergoes validation. The system will inform the user in the event of conflicts, but it will not specify the cause of those conflicts. The import process performs the following validations:
+
+  * **Channel validation** : validates if the imported queue channel exists in the target environment.
+  * **Database duplication** : validates if the queue already exists in the database.
+  * **Tenant validation** : validates if the imported queue tenant exists in the target environment.
+
+
+
+Besides the validation above, it also validates some of the **condition fields** and **actions**. The following condition validations are performed:
+
+  * **Event schema fields validation** : validates the fields prefixed with `.schema` used in the automation rule condition.
+  * **State machine fields validation** : validates the fields prefixed with `.eventStates` used in the automation rule condition.
+  * **Case fields validation** : validates the fields prefixed with `.case` used in the automation rule condition.
+
+
+
+Finally, the following action validations are performed:
+
+  * **Setting an event or case status validation:** validates if the status exists in the target environment.
+  * **Setting an event or case queue validation:** validates if the queue exists in the target environment.
+  * **Setting an access group validation:** validates if the access group exists in the target environment.
+  * **Setting an event or case user validation:** validates if the user exists in the target environment.
+  * **Setting an event or case SLA validation:** validates if the SLA exists in the target environment.
+
+
+
+caution
+
+As the import process might have automations that are not imported due to validation errors, the position of the automation rules in the target environment might be different than its original place.
+
+info
+
+If all the automations in the imported file have conflicts with automations that already exist in the target environment, you cannot proceed with the import.
+
+## Learn moreâ
+
+Now that you know how to use SLAs, learn more about:
+
+  * [Automation Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules) basics.
+  * [Automation rule examples](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/automation-rule-examples) to help you better understand how automations rules can be used.
+  * What are [SLAs](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/slas) and [how to work with SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas) to also help you automatize how alerts are processed.
+
+

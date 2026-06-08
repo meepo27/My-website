@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/alert-storage-service
+Title: Alert Storage Service | Case Manager
+============================================================
+
+On this page
+
+# Alert Storage Service
+
+## Event/Alert Configurationâ
+
+Configuration Entry| Purpose| Mandatory| Default  
+---|---|---|---  
+`messaging`| The global MessagingConfiguration.| No (but it's required to send events to CM)| See MessagingConfiguration.  
+`dc`| The datacenter specific configurations. Currently only contains MessagingConfiguration. For each datacenter, the messaging configuration can be specified using **dc. <dc_id>.messaging **.| No (but it's required to send events to CM)| See MessagingConfiguration.  
+`event.filter.field`| 
+
+  * Filter used to pick the events that should be sent from Pulse's workflow to Case Manager.
+  * Events will be filtered according to the value of the (target) field specified in this setting.
+  * To be sent to Case Manager, the field value should match the filters value; otherwise, the event is discarded.
+  * The field should be within the Schema defined above (e.g. amount, channel, country, target).
+  * If no field is specified then all events will be sent to Case Manager.
+
+| Only when ` event.filter.values ` is set|   
+`event.filter.values`| The target value that the event's field being filtered should match to satisfy the filter.| Only when ` event.filter.field ` is set|   
+`outcome.name`| A comma delimited list with the [outcomes](/docs/common/case-manager/understanding-case-manager/architecture/pulse-gets-feedback-from) that should be listened to notify event status changes to the Case Manager. (Since Case Manager 7.0)| No|   
+`rule.action`| The rule's action that should be listened to mark an event as being an "Alert" or not.| No|   
+`channelAwareDispatching`| Indicates if events are published to a separate output topic per workflow (true) or a single topic for all workflows (false).| No| false  
+`async`| Indicates if requests should be processed synchronously (false) or asynchronously (true). Synchronous processing blocks the workflow thread when submitting requests to the messaging system so it should be avoided unless there is some unforeseen issue with async mode. Even asynchronous mode with a single dispatcher thread is preferable to synchronous mode.| No| true  
+`numberOfDispatcherThreads`| Gets the number of dispatcher threads to use for publishing messages to the event topic. This should be increased only if it is observed that the dispatch queue size has a non-zero value on a sustained basis. Note that setting this to a value higher than 1 doesn't provide a strict guarantee of FIFO (First-In First-Out) delivery.| No| 1  
+`maxDispatchQueueSize`| The maximum number of requests that may be waiting for a dispatcher thread. If this value is reached, events will be discarded.| No| 500000  
+`maxCloseTimeMillis`| The maximum time (in milliseconds) to wait for the processing of pending requests on workflow shutdown.| No| 90000  
+  
+## Messaging configurationâ
+
+  * Alert Storage Service configuration is datacenter aware (currently contains only a MessagingConfiguration).
+  * ASS config for messaging is based on Pulse MessagingConfiguration - it will use the same properties for messaging as the version of Pulse being used.
+  * Alert Storage Service overrides the configurations with the local DC specific configuration, if it exists.
+  * ASS default Messaging configs (can be overridden in the properties, but it's not recommended:
+    * TTL=0
+    * embedded broker disabled
+    * durable=true
+    * delete queue on unsubscribe disabled
+  * "brokers" and "brokerImpl" are not mandatory, having default values "localhost" and ActiveMQ respectively.
+
+

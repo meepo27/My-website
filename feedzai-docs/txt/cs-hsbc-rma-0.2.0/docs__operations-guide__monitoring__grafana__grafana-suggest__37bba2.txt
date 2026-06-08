@@ -1,0 +1,89 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/grafana/grafana-suggestions
+Title: Grafana | Feedzai RMA Documentation
+============================================================
+
+On this page  
+  
+# Grafana
+
+In this page you can find a description of the recommend setup for Grafana.
+
+## Overviewâ
+
+For some components (e.g. Pulse and Case Manager) it is recommended to have two dashboards:
+
+  * Cluster: holds the cluster view containing data for all component nodes. Ideally this page shouldn't have a filter, and dashboards should aggregated values of all nodes
+  * Node: holds dashboards with metrics breakdown per node. Note that some of the dashboards in the page can monitor the same metrics as the cluster page
+
+
+
+This distinction is important because it may help pinpointing an issue with a specific node while keeping a view of the overall cluster healthiness.
+
+##### info
+
+The following example assumes the datasource is InfluxDB
+
+To better understand the differences, imagine we want to monitor Case Manager latency when processing new events (`New Event Latency`). We would need the following pages:
+
+  * Cluster page:
+    * No filters
+    * `New Event Latency` dashboard for all percentiles, where:
+      * We first select the `mean` value of the various metric values (`p50`, `p95`, etc), grouped by `host` and filtered by `eventType='NEW_EVENT'`
+      * We select the `max` value of each metrics values without grouping by hosts
+
+
+
+  * Node page:
+    * A filter by node (name, IP or any other metadata that identifies the node and can be used to filter metric queries)
+    * `New Event Latency` dashboard for all percentiles, where:
+      * We select the `mean` value of the various metric values (`p50`, `p95`, etc) filtered by `eventType='NEW_EVENT'` and `"host" = '$host'`. Note that the filter `$host` is based on [Grafana templating feature](https://grafana.com/docs/grafana/latest/explore/simplified-exploration/traces/investigate/add-filters/)
+
+
+
+We can see that the overall new event processing reached around 400ms maximum. If we compare this latency value with the node example we can see that the node maximum processing time was around 300ms which means this node was not the one with the highest processing time.
+
+##### info
+
+This example refers to Case Manager `cm.event.processing.latency` metric (or `cm_event_processing_latency_*` in Prometheus)
+
+## Metrics in Prometheusâ
+
+Feedzai products expose various metric fields in a single measurement. For instance `cm.event.processing.latency` will have, among others, `p50` and `p99`.
+
+While in some solutions these are exported (and can be queried) in the same way, in Prometheus each measurement field is exposed as a single metric. In the above example, `p50` for the `cm.event.processing.latency` metric would be `cm_event_processing_latency_p50`.
+
+Comparing to InfluxDB, a single query that aggregates various fields of a measurement would have to be split into `n` queries, where `n` is the amount of fields in the measurement. Considering the example in Expectation, in Prometheus it would look like following:
+    
+    
+    # Query A  
+    cm_event_processing_latency_p50 {  
+        duration_units = "seconds",  
+        eventType = "NEW_EVENT",  
+        metricType = "APPLICATION",  
+        metric_type = "timer",  
+        rate_units = "calls/second"  
+    }  
+      
+    # Query B  
+    cm_event_processing_latency_p99 {  
+        duration_units = "seconds",  
+        eventType = "NEW_EVENT",  
+        metricType = "APPLICATION",  
+        metric_type = "timer",  
+        rate_units = "calls/second"  
+    }  
+      
+    ...  
+    
+
+Copy
+
+## Component metricsâ
+
+Please find below the list of Grafana suggestions for each of the available components:
+
+  * [Pulse Setup](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/grafana/pulse-grafana-suggestions)
+  * [Case Manager Setup](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/grafana/case-manager-grafana-suggestions)
+  * [Reference data Setup](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/grafana/rds-grafana-suggestions)
+
+

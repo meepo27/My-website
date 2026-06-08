@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-transfers-ui-changes/transfers-cop-details-transfers-rework
+Title: Transfers - Confirmation of Payee Details | Feedzai Documentation
+============================================================
+
+# Transfers - Confirmation of Payee Details  
+  
+**Event: Transfer**
+
+**Widget: Confirmation of Payee check**
+
+Before:
+
+After:
+
+Action| Field| UI  
+---|---|---  
+Rename section| Confirmation of Payee check| Confirmation of Payee Details  
+Moved from Transaction Grid and Renamed| Payee Cop Name| Payee CoP Name  
+Rename| COP Payment Match Name| Payee CoP Match Name  
+Moved from Transaction Grid and Renamed| CoP Description| Payment CoP Description  
+Rename| Beneficiary Name Response - COP| Beneficiary Name Response  
+Rename| Beneficiary Match Name Response - COP| Beneficiary Match Name Response

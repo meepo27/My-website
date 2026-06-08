@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3911
+Title: HSBC-3911 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3911
+
+### Add new Cards outcome to API specificationâ
+
+DocsFTMT-33585HSBC-3911
+
+We've updated the API specification to include the `wallet_decision` outcome in the Cards response.
+
+We've also updated the API titles to be more readable.
+
+Please refer to [Non-Mon](/cs-hsbc/3.0.2/api#tag/nonmon/operation/postNonMon) and [Cards Authorization](/cs-hsbc/3.0.2/api#tag/cards/operation/postCardAuthorization) for more details.

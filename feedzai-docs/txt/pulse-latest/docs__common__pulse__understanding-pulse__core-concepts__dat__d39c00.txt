@@ -1,0 +1,50 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-source-analysis
+Title: Data Source Analysis | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources)
+  * Data Source Analysis
+
+
+
+On this page
+
+# Data Source Analysis
+
+Was this page helpful?Â 
+
+Pulse lets you extract simple metrics from your data so that you can easily perform high-level analyses and start uncovering some patterns in your data.
+
+Depending on the data type, Pulse calculates different metrics for each data field. The following matrix shows which are the metrics available for each field type:
+
+| Histogram| Mean| Std. Dev| Min| Max| Count| Distinct| Missing Values Count  
+---|---|---|---|---|---|---|---|---  
+Numeric| Yes| Yes| Yes| Yes| Yes| Yes| No| Yes  
+Categorical| Yes| No| No| No| No| Yes| Yes| Yes  
+String| No| No| No| No| No| Yes| No| Yes  
+  
+This may help you uncover, for example, data quality issues where your dataset includes negative values in transaction amounts.
+
+info
+
+With Pulse, there is no need for you to load your data into a distributed database and manually run queries to analyze the data.
+
+Statistics generation is distributed in Spark. This means that even for very large sets of data, with several TB in size, Pulse is very fast to compute metrics and to simplify your data validation and understanding stage.
+
+## Breakdownsâ
+
+When you run an analysis, in addition to generating overall metrics, Pulse also calculates them over field combinations. This allows you to break them down by another categorical field and its values, usually the one that labels transactions, for example, as fraud or not fraud.
+
+info
+
+When you analyze a data source, you must always select for which breakdown fields and values you want Pulse to calculate statistics.
+
+If Pulse allowed you to skip this action, and simply calculate broken-down statistics for all possible combination of fields and values, it would rapidly cause performance degradation due to lack of computational resources.
+
+The following images display the analysis on the _TransactionAmount_ field broken down by fraud and non-fraud transactions. A pattern emerges indicating that, in this dataset, fraud is more prevalent in lower value transactions.
+
+Note that Pulse will not consider any invalid instance in your dataset for calculating these metrics. For example, rows with an incorrect date format or a value not specified for a categorical field are always skipped.
+
+In histograms, the number of instances displayed for each bin is always an approximate value.

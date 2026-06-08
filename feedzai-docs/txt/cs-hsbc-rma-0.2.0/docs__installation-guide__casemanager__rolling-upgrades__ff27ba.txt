@@ -1,0 +1,129 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/casemanager/rolling-upgrades
+Title: Rolling Upgrades | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Rolling Upgrades
+
+The recommended approach for zero downtime deployments in Case Manager is a technique known as rolling upgrades.
+
+Rolling upgrades leverage Case Manager's maintenance mode in the following way:
+
+  * The existing cluster is put into maintenance mode which will stop all RabbitMQ message consumption, e.g. new events.
+  * The existing Case Manager cluster (or a new one) upgrade is performed
+  * When the upgrade is finished maintenance mode is stopped allowing the cluster to start processing messages again
+
+
+
+Please note that this technique should only be used when an existing Case Manager cluster exists.
+
+* * *
+
+### Requirementsâ
+
+  * Maintenance mode is enabled via Case Manager API. This requires a user with the following permissions:
+    * `*`: includes the permission to login to Case Manager
+    * `cm:resource:maintenance-start-stop:admin`: permission to enable/disable maintenance mode
+  * A dedicated machine to run database patches with access to Case Manager API. This can be either direct access to a Case Manager instance or access to a Load Balancer
+
+
+
+* * *
+
+### Rolling upgradesâ
+
+##### warning
+
+This approach is currently under discussion and may not represent the final solution
+
+To prevent database locking issues when running in high available environments the orchestrator (control-node) should be responsible for running the database changelogs.
+
+The pipeline is defined as follows:
+
+  1. Maintenance mode is enabled in all Case Manager instances
+  2. A machine is created to apply patches
+  3. Case Manager images are created with the latest Feedzai release
+  4. Case Manager instances are configured but do not apply patches
+  5. After validating the new cluster, load balancers are updated to redirect traffic to the new cluster
+     1. If validation fails a rollback command can be issued to bring the database back to its previous state
+  6. Maintenance mode is disabled allowing the new cluster to start processing events
+
+
+
+This solution follows a similar approach to [Blue-Green deployments](/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/blue-green-deployments#temporary-solution-for-joint-session) where SSH to Case Manager machines is not available.
+
+To support maintenance mode we have created two new playbooks, `case-manager-enable-maintenance-mode.yml` and `case-manager-disable-maintenance-mode.yml`. The required configuration parameters can be found in [Case Manager Configuration](/cs-hsbc-rma/0.2.0/docs/installation-guide/casemanager/configuration-casemanager) with the description tag `Maintenance mode only`.
+
+These playbooks use Case Manager Ansible variables and hosts inventory and all playbook tasks run only once even if the hosts file contains more than one Case Manager instance. This is due to the fact that we only require a request to a single Case Manager instance to enable/disable maintenance since the maintenance status will be synchronized across all instances.
+
+Step 1 consists in running the following Ansible task that will enable Case Manager maintenance mode.
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        case-manager-enable-maintenance-mode.yml  
+    
+
+Copy
+
+In step 2 only tags that are responsible for extracting and setting up the required components to run Liquibase patches should be included. This step can be run in the same machines as step 1 in which case only tags `case-manager.750` and `case-manager.755` are required.
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        case-manager.yml \  
+        --tags case-manager.050,case-manager.060,case-manager.110,case-manager.120,case-manager.215,case-manager.220,case-manager.410,case-manager.415,case-manager.425,case-manager.440,case-manager.710,case-manager.730,case-manager.750,case-manager.755  
+    
+
+Copy
+
+In step 3 all tags should be included except tags that are responsible applying patches which were executed in the previous step.
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        case-manager.yml \  
+        --tags case-manager.configure \  
+        --skip-tags case-manager.750,case-manager.755  
+    
+
+Copy
+
+In case any issues are detected during validation, the database can be reverted to its previous state by rollbacking the database changes.
+
+For this cases, there is a need to override the variable `cm_liquibase_rollback` to `true` and then run the proper Ansible task
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        case-manager.yml \  
+        --tags case-manager.rollback  
+    
+
+Copy
+
+After validation of the new cluster/installation is done, maintenance mode can be disabled (step 6) by running the corresponding tag.
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        case-manager-disable-maintenance-mode.yml  
+    
+
+Copy

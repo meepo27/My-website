@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.1/individual-release-notes/HSBC-4407
+Title: HSBC-4407 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4407
+
+### Fix block code expiration value not computing with offsetâ
+
+Bug FixFTMT-37370HSBC-4407
+
+We've fixed an issue where the fields `cm_transaction_block_date` and `cm_transaction_block_expiration` in Case Manager extension payloads were not computed using the configured offset days (default `5`).

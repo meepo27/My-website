@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4027
+Title: HSBC-4027 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4027
+
+### Add new schema fields to Outbound and Inbound Paymentsâ
+
+FeatureFTMT-32720HSBC-4027
+
+We've added the following fields to the Outbound (Transfers and Digital) API and workflow schemas:
+
+Field Name| Datatype| Description  
+---|---|---  
+tmx.digital_id_trust_score| Number| Digital ID Trust Score  
+tmx.chall_reason_code| String| Challenger Risk Reason Code  
+  
+The following field was also added to Outbound and Inbound Payments:
+
+Field Name| Datatype| Description  
+---|---|---  
+vocalink.vocalink_chall_score| Number| Challenge Vocalink Score

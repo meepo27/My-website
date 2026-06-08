@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-input-adapters
+Title: Adding input adapters | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/)
+  * [Designing a workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/)
+  * Adding input adapters
+
+
+
+On this page
+
+# Adding input adapters
+
+Was this page helpful?Â 
+
+## Whyâ
+
+**Input adapters** are the [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) element that allow your application to know how to consume data from an external source.
+
+Your **Workflow** can consume data from different sources, such as CSV files, REST APIs, sockets reading ISO8583-formatted messages, etc. Thus, for each data input in your project, your **Workflow** needs a different **Input adapter**.
+
+Adding **Input adapters** is the first step in designing your **Workflow**.
+
+## How toâ
+
+To add and configure an Input adapter to your [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows), execute the following actions:
+
+  1. In the  **Workflows** tab, select an existing **Workflow**.
+
+  2. Drag a new **Input Adapter Service** to the **Diagram** canvas.
+
+  3. â **Edit** the **Input Adapter Service**.
+
+  4. In the **Main tab** , select which [Custom Service](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows#custom-services) implements the functionality for your **Input Adapter**. Pulse includes an embedded **Synthetic Generator** that acts as a test input Custom Service, and periodically injects dummy data into your **Workflow,** according to its **Schema**.
+
+  5. In the **Schemas tab** , confirm that the **Service Output** is consistent with the data you expect for your project.
+
+Extra fields
+
+Note that the **Service Output** contains more fields that the **Schema** you specified for the **Workflow**. Pulse automatically adds a _timestamp_ and UUID fields to the event schema.
+
+Additionally, for each [configured Outcome](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/configuring-outcomes) Pulse adds the boolean _< outcome_name>_ and _<outcome_name>_score_ fields.
+
+  6. In the **Properties** tab, set the values for each property to define the service configuration in your **Workflow**. Properties and default values are defined at the **Custom Service** that implements your **Input Adapter**.
+
+
+
+
+## Next Stepsâ
+
+Proceed with the designing of your Workflow by adding, configuring and connecting other services. Check the following pages:
+
+  * [Adding plans](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-plans)
+  * [Adding models](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models)
+  * [Adding rules](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules)
+  * [Adding custom services](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-custom-services)
+
+

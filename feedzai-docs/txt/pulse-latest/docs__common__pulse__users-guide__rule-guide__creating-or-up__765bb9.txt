@@ -1,0 +1,70 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-or-updating-the-rules-project
+Title: Creating or Updating the Rules Project | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Creating or Updating the Rules Project
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating or Updating the Rules Project
+
+Rules projects group rules that target the same variable of a specific data source, and can be executed in sequence.
+
+This topic describes the following options for ensuring that your Pulse has a rules project for the rules:
+
+  * Creating a new rules project
+  * Updating an existing rules project in case you already had one before you added new features to the data source
+
+
+
+## Creating a rules projectâ
+
+If you don't have a rules project for the rules yet, create one by executing the following actions:
+
+  1. In the Data Science  tab, add  a new rules project.
+
+  2. Give a **Name** to your rules project.
+
+  3. Select _Advanced_ for the **Type** of your rules project.
+
+  4. Choose the **Origin Schema** on which the rules will be based.
+
+  5. Choose a **Target Variable** which defines which field from the data source will be the target variable (e.g. Fraud/Not Fraud). You can target any categorical field of the data source.
+
+  6. Create the list of **Actions** that will be possible to execute when the rules are triggered. For instance 'Block' and 'Accept'.
+
+You can add parameters to pass information to the action you added. Use the  button next to it to do so.
+
+  7. Select the **Multi-Tenancy** option that will be applied to the rules project:
+
+     1. _Global_ : disables multi-tenancy for this rules project.
+
+     2. _Duplicated for Tenant_ : applies all the rules to all the tenants included in the application.
+
+     3. _By Tenant_ : allows selection of the tenants to which the rules will be applied.
+
+Tenant alert
+
+Tenant accounts should be created in the system, otherwise you can not manage multi-tenant rules projects.
+
+
+
+
+## Updating an existing rules projectâ
+
+If you already have a rules project for your rules, and you added new features in the previous step, the rules project needs to be updated to reflect the schema changes. Namely, the schema associated to the rules project has to be changed to the schema of the data source which contains the new feature.
+
+You can do this as follows:
+
+  1. Go to the **Data Science** tab.
+  2. In the **Rules Project** section, select the configure  option next to the rules project.
+  3. For the **Origin Schema** , select the Data Source that contains the features you want to include in the rules.
+  4. Save the changes.
+
+

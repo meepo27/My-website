@@ -1,0 +1,283 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/exploration_results/
+Title: exploration_results - DS API
+============================================================
+
+#  `` exploration_results Â¶
+
+##  `` EXPLORATION_OBJECT_VERSION `module-attribute` Â¶
+    
+    
+    EXPLORATION_OBJECT_VERSION = 'v0.0'
+    
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` SAMPLE_SIZE `module-attribute` Â¶
+    
+    
+    SAMPLE_SIZE = 500
+    
+
+Sample size.
+
+##  `` ExplorationResults Â¶
+    
+    
+    ExplorationResults(results_dict: dict, max_bins: int, time_resolution: str, breakdowns: list, n_rows: int, timestamp_field: str | None = None, cost_field: str | None = None, target=(None, None), data: DataFrame | _TDataFrame | None = None, sample_size: int | None = 100000, report_html: str | None = None)
+    
+
+Bases: `object`
+
+Results of the exploration compute_stats.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `results_dict` Â¶
+
+|  `dict` |  dictionary-like results obtained from exploration.stats.compute_stats(). |  _required_  
+  
+###  `max_bins` Â¶
+
+|  `int` |  binning resolution used for the histogram computation of numerical fields. In practice, this value defines the maximum number of bins that can be used to draw histograms for numerical fields. |  _required_  
+  
+###  `time_resolution` Â¶
+
+|  `str` |  time resolution used for the histogram computation of datetime fields. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  `list` |  a list of field names that were used to calculate breakdowns over. |  _required_  
+  
+###  `n_rows` Â¶
+
+|  `int` |  number of rows of the explored dataset. |  _required_  
+  
+###  `timestamp_field` Â¶
+
+|  `str | None` |  name of the timestamp field. Default: None. |  `None`  
+  
+###  `cost_field` Â¶
+
+|  `str | None` |  name of the cost field. Default: None. |  `None`  
+  
+###  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. Default: None. |  `(None, None)`  
+  
+###  `data` Â¶
+
+|  `DataFrame | _TDataFrame | None` |  Pandas or PySpark DataFrame. A small sample (500 rows) will be stored as a Pandas DataFrame. If a target exists then the sample will be balanced with respect to the target value. This is useful for the sample section of the html report and to create scatter plots. Depending on the specification of parameter `sample_size`, this data will be used as well to compute the time dependencies. Default: None. |  `None`  
+  
+###  `sample_size` Â¶
+
+|  `int | None` |  number of instances taken from `data` to use in the computation of time dependencies. If -1 is given then all instances will be used. If `None` then time dependencies won't be computed. Default: 100k. |  `100000`  
+  
+###  `report_html` Â¶
+
+|  `str | None` |  an existing html report in string format. If None is passed it will generate it. It's mainly useful when creating an ExplorationResults from serialized results using the 'load' method. Default: None. |  `None`  
+  
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`field_names` |  |  List of field names.  
+`constant_fields` |  |  List of constant fields.  
+`n_unhealthy` |  |  Number of unhealthy values (missing, nan, infs, empty) summed over all fields.  
+`target_rate` |  |  Rate of positives.  
+  
+###  `` breakdowns `instance-attribute` Â¶
+    
+    
+    breakdowns = breakdowns
+    
+
+###  `` constant_fields `instance-attribute` Â¶
+    
+    
+    constant_fields = list((name) for [field](../../field/#ds_api.field "            field \(ds_api.field\)") in (values()) if is_constant)
+    
+
+###  `` cost_field `instance-attribute` Â¶
+    
+    
+    cost_field = cost_field
+    
+
+###  `` field_names `instance-attribute` Â¶
+    
+    
+    field_names = list(keys())
+    
+
+###  `` field_results `property` `writable` Â¶
+    
+    
+    field_results: Dict[str, [FieldResults](../field_results/#ds_api.exploration.field_results.FieldResults "            FieldResults \(ds_api.exploration.field_results.FieldResults\)")]
+    
+
+###  `` max_bins `instance-attribute` Â¶
+    
+    
+    max_bins = max_bins
+    
+
+###  `` n_fields `instance-attribute` Â¶
+    
+    
+    n_fields = len(results_dict)
+    
+
+###  `` n_rows `instance-attribute` Â¶
+    
+    
+    n_rows = n_rows
+    
+
+###  `` n_unhealthy `instance-attribute` Â¶
+    
+    
+    n_unhealthy = sum((n_unhealthy) for [field](../../field/#ds_api.field "            field \(ds_api.field\)") in (values()))
+    
+
+###  `` report `property` `writable` Â¶
+    
+    
+    report
+    
+
+###  `` sample_df `property` `writable` Â¶
+    
+    
+    sample_df
+    
+
+###  `` target_rate `instance-attribute` Â¶
+    
+    
+    target_rate = compute_target_rate()
+    
+
+###  `` time_dependencies `instance-attribute` Â¶
+    
+    
+    time_dependencies = [compute_time_dependencies](../time_dependencies/#ds_api.exploration.time_dependencies.compute_time_dependencies "            compute_time_dependencies \(ds_api.exploration.time_dependencies.compute_time_dependencies\)")(drop(*(constant_fields)), timestamp_field, sample_size)
+    
+
+###  `` time_resolution `instance-attribute` Â¶
+    
+    
+    time_resolution = time_resolution
+    
+
+###  `` timestamp_field `instance-attribute` Â¶
+    
+    
+    timestamp_field = timestamp_field
+    
+
+###  `` compute_target_rate Â¶
+    
+    
+    compute_target_rate()
+    
+
+Method to retrieve the target rate if a target is specified.
+
+###  `` generate_report Â¶
+    
+    
+    generate_report(show_all_checks=False, embed_dependencies=False)
+    
+
+Generates an HTML report of the exploration results.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `show_all_checks` Â¶
+
+|  |  Boolean value indicating whether all checks that were run should be displayed in the report, even if they triggered no warnings. Default is False. |  `False`  
+  
+####  `embed_dependencies` Â¶
+
+|  |  Bolean value indicating if the report html file should include all css and js dependencies (bootstrap, jquery, vega). Embedding them increases significantly the size of the file, but in security-closed environments where there is no internet access, the dependencies might need to be embedded in order to be able to render the report. Default is False. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  Overview report of the data in HTML format.  
+  
+###  `` load `classmethod` Â¶
+    
+    
+    load(file_name)
+    
+
+Loads results object from given pickle file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `file_name` Â¶
+
+|  |  name of file to deserialize results from. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ExplorationResults` |  an ExplorationResults instance.  
+  
+###  `` save Â¶
+    
+    
+    save(file_name='exploration_results.pkl', overwrite=False)
+    
+
+Saves results object into given pickle file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `file_name` Â¶
+
+|  |  name of file to serialize results into. |  `'exploration_results.pkl'`  
+  
+####  `overwrite` Â¶
+
+|  |  bool indicating whether to overwrite the file if it already exists. Default: False. |  `False`  
+  
+###  `` save_report_html Â¶
+    
+    
+    save_report_html(file_name='report.html', overwrite=False)
+    
+
+Saves the HTML report.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `file_name` Â¶
+
+|  |  name of the file to save the report into. |  `'report.html'`  
+  
+####  `overwrite` Â¶
+
+|  |  bool indicating whether to overwrite the file if it already exists. Default: False. |  `False`

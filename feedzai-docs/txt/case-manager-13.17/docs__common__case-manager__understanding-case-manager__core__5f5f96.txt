@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules
+Title: Automation Rules | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Automation Rules
+
+
+
+On this page
+
+# Automation Rules
+
+Automation rules allow to automatically perform actions on events and cases based on certain conditions. These rules allow to automatically move alerts to queues, assign alerts to analysts, link alerts to cases, or even change the alert status.
+
+Automation rules help you perform automatic tasks according to the following logic: if certain conditions apply, then an action is taken. For example, you can configure a rule that automatically sets a status when an alert arrives to the investigation tool.
+
+  * The **input** action is the reason for which you want the event to undergo the automation, in this case, when the event arrives to the system.
+  * The **conditions** Â that have to be met in order for that process to trigger an action, in this case, when an event is flagged as an alert.
+  * TheÂ **outputs** areÂ the actions you want to be performed when the input meets the specified conditions, in this case, set a status as _Unreviewed_.
+
+
+
+## Learn moreÂ â
+
+Get a clearer picture of what automation rules are by checking the following pages:
+
+  * [Managing Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules): Learn how to configure and manage automation rules.
+  * [Queues](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/queues): Learn more aboutÂ queues and how they can be included in automation rules.
+
+

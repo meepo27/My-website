@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/out-of-the-box-settings
+Title: Out-of-the-Box Settings | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * [Operationalize Fraud Teams](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview)
+  * Out-of-the-Box Settings
+
+
+
+On this page
+
+# Out-of-the-Box Settings
+
+Was this page helpful?Â 
+
+The out-of-the-box settings include default configurations for queues, automation rules, and SLAs. These settings are defined to:
+
+  * Offer an automated transition between the various Case Manager's statuses.
+  * Automatically organize alerts in queues with different priorities to help the analyst investigation.
+
+
+
+## Queuesâ
+
+The out-of-the-box queues are configured according to the channel (i.e. transfers, cards and digital activity):
+
+Breach queues are used in conjunction with SLAs. These settings allow analysts to have a central place to look into alerts at risk of breaching.
+
+Card alert, transfer alert and digital activity alert queues contain alerts that are investigated as a post-mortem analysis, i.e. these alerts are associated with events that have been already declined or accepted by the financial institution, but their analysis is important to:
+
+  * Provide feedback to the system on whether the event was correctly accepted or rejected.
+  * Prevent future card payments when the analyst identifies that a card is being used for fraudulent purposes.
+
+
+
+## SLAsâ
+
+The out-of-the-box SLAs are the following:
+
+These SLAs account for:
+
+  * Transfers that are at risk of breaching.
+  * Alerts (card, transfer and digital activity events) that have been assigned to an analyst but the review process is taking longer than expected, thus preventing the investigation from being forgotten.
+
+
+
+## Automation rulesâ
+
+The out-of-the-box automation rules are the following:
+
+These automation rules are used in conjunction with SLAs and queues, ensuring the automated flow of the Case Manager statuses. They are configured for event arrival, event assignee changes, and event status changes.
+
+## Learn Moreâ
+
+If you want to build on the top of the out-of-the-box settings by creating queues, SLAS, and automation rules, check the [About Operationalizing Fraud Teams](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview) page.

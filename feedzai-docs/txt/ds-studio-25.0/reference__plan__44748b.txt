@@ -1,0 +1,1111 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plan/
+Title: plan - DS API
+============================================================
+
+#  `` plan Â¶
+
+DS-API module to manage Plans and their contents in Pulse.
+
+Omnichannel Plans
+
+At the moment Omnichannel integration is still in beta. Feature dependencies are unstable for Omnichannel plans.
+
+##  `` AVAILABLE_FILE_FORMATS `module-attribute` Â¶
+    
+    
+    AVAILABLE_FILE_FORMATS = ['csv', 'parquet']
+    
+
+##  `` DIFF_NAME_PLACEHOLDER `module-attribute` Â¶
+    
+    
+    DIFF_NAME_PLACEHOLDER = '{plan_name}_diff_{other_plan_name}'
+    
+
+##  `` DeployablePlanConfig `module-attribute` Â¶
+    
+    
+    DeployablePlanConfig = autoclass([MODEL_CLASSPATH](../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'datascience.plan.DeployablePlanConfig')
+    
+
+##  `` FilterFeature `module-attribute` Â¶
+    
+    
+    FilterFeature = autoclass([DS_API_CLASSPATH](../#ds_api.DS_API_CLASSPATH "            DS_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.DS_API_CLASSPATH\)") + 'plan.features.FilterFeature')
+    
+
+##  `` FilterOperatorConfig `module-attribute` Â¶
+    
+    
+    FilterOperatorConfig = autoclass([MODEL_CLASSPATH](../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'datascience.plan.operator.FilterOperatorConfig')
+    
+
+##  `` JChar `module-attribute` Â¶
+    
+    
+    JChar = autoclass('java.lang.Character')
+    
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` Plan Â¶
+    
+    
+    Plan(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Representing a Plan in Pulse.
+
+###  `` CSV_SCHEMA `class-attribute` `instance-attribute` Â¶
+    
+    
+    CSV_SCHEMA = Enum('CSV_SCHEMA', _headers)
+    
+
+###  `` main_channel `property` Â¶
+    
+    
+    main_channel: [Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)")
+    
+
+###  `` secondary_channels `property` Â¶
+    
+    
+    secondary_channels: list[[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)")]
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` add_empty_filter_operator Â¶
+    
+    
+    add_empty_filter_operator(name: str) -> [FilterOperator](../plans/operators/filter_operator/#ds_api.plans.operators.filter_operator.FilterOperator "            FilterOperator \(ds_api.plans.FilterOperator\)")
+    
+
+Adds a new filter operator to the Plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the new operator |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[FilterOperator](../plans/operators/filter_operator/#ds_api.plans.operators.filter_operator.FilterOperator "            FilterOperator \(ds_api.plans.FilterOperator\)")` |  The new operator  
+  
+###  `` add_empty_list_operator Â¶
+    
+    
+    add_empty_list_operator(name: str) -> [ListOperator](../plans/operators/list_operator/#ds_api.plans.operators.list_operator.ListOperator "            ListOperator \(ds_api.plans.ListOperator\)")
+    
+
+Adds a new list operator to the Plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the new operator. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[ListOperator](../plans/operators/list_operator/#ds_api.plans.operators.list_operator.ListOperator "            ListOperator \(ds_api.plans.ListOperator\)")` |  The new operator.  
+  
+###  `` add_empty_map_operator Â¶
+    
+    
+    add_empty_map_operator(name: str) -> [MapOperator](../plans/operators/map_operator/#ds_api.plans.operators.map_operator.MapOperator "            MapOperator \(ds_api.plans.MapOperator\)")
+    
+
+Adds a new map operator to the Plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the new operator. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[MapOperator](../plans/operators/map_operator/#ds_api.plans.operators.map_operator.MapOperator "            MapOperator \(ds_api.plans.MapOperator\)")` |  The new operator.  
+  
+###  `` add_empty_metric_operator Â¶
+    
+    
+    add_empty_metric_operator(name: str) -> [MetricOperator](../plans/operators/metric_operator/#ds_api.plans.operators.metric_operator.MetricOperator "            MetricOperator \(ds_api.plans.MetricOperator\)")
+    
+
+Adds a new metric operator to the Plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the new operator. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[MetricOperator](../plans/operators/metric_operator/#ds_api.plans.operators.metric_operator.MetricOperator "            MetricOperator \(ds_api.plans.MetricOperator\)")` |  The new operator.  
+  
+###  `` add_operator Â¶
+    
+    
+    add_operator(operator: [BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")) -> [BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")
+    
+
+Adds a constructed operator to the Plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `operator` Â¶
+
+|  `[BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")` |  Operator object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")` |  The new operator.  
+  
+###  `` auto_rename_metrics Â¶
+    
+    
+    auto_rename_metrics()
+    
+
+Automatically renames all the metrics based on their configuration.
+
+Default naming: `lowercase({groupby_fields}_{aggregation}_ {aggregation fields}_{window size}_{is_real_time})` eg. accountid_avg_amount_1h_rt. Advanced aggregations will be named: `lowercase({groupby_fields}_agg_ {window size}_{is_real_time})`. If a metric name is duplicated anywhere in the plan it appends "_n". Updates the references to the old names across the plan.
+
+###  `` connect_operators Â¶
+    
+    
+    connect_operators(connection: [Connection](../plans/connection/#ds_api.plans.connection.Connection "            Connection \(ds_api.plans.Connection\)"))
+    
+
+Adds a new connection between two Operators.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `connection` Â¶
+
+|  `[Connection](../plans/connection/#ds_api.plans.connection.Connection "            Connection \(ds_api.plans.Connection\)")` |  Connection between two operators. |  _required_  
+  
+###  `` connect_operators_names Â¶
+    
+    
+    connect_operators_names(op_names: list[str]) -> None
+    
+
+Connects the operators in the same order as they are indexed.
+
+Only supports deployable linear plans.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `op_names` Â¶
+
+|  `list` |  List of ordered operator names. |  _required_  
+  
+Raises:
+
+Type | Description  
+---|---  
+`ValueError` |  If the plan contains duplicated operator names. If there are not at least two operator names.  
+`TypeError` |  If the operator name does not exist.  
+  
+###  `` create_empty_deployable_plan `classmethod` Â¶
+    
+    
+    create_empty_deployable_plan(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)"), timestamp_field_desc: str, name: str) -> Plan
+    
+
+Creates a new (empty) Deployable Plan in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application ds_api object. |  _required_  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pulse Schema |  _required_  
+  
+####  `timestamp_field_desc` Â¶
+
+|  `str` |  Desc name of the schema timestamp field. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the new plan. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Plan` |  New Plan  
+  
+###  `` create_empty_omnichannel_plan `classmethod` Â¶
+    
+    
+    create_empty_omnichannel_plan(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, main_channel: [Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)"), secondary_channels: list[[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)")] | None = None) -> Plan
+    
+
+Create a new empty Deployable Omnichannel Plan in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Pulse application ds_api object. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the new plan. |  _required_  
+  
+####  `main_channel` Â¶
+
+|  `[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+
+
+  
+      dataclass
+   \(ds_api.plans.omnichannel.Channel\)")` |  Main channel configuration. |  _required_  
+  
+####  `secondary_channels` Â¶
+
+|  `list of Channel` |  Secondary channels. When not configured or if the list is empty, this is equivalent to create an empty deployable plan. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Plan` |  New Plan.  
+  
+###  `` create_snapshot Â¶
+    
+    
+    create_snapshot(schema_name: str | None = None, snapshot_name: str | None = None) -> JavaClass
+    
+
+Creates a Plan snapshot.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `snapshot_name` Â¶
+
+|  `str` |  Name of the snapshot, by default "planname_yyyyMMdd_HHmm_ms". |  `None`  
+  
+####  `schema_name` Â¶
+
+|  `str` |  If specified it exports the schema with this name, by default None. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`PlanSnapshot` |  PlanSnapshot JavaClass  
+  
+###  `` diff Â¶
+    
+    
+    diff(other: Plan, show: bool = True, only_diff: bool = True, save: bool = False, save_as: Optional[str] = None) -> Optional[Plan]
+    
+
+Compare 2 plans. Differences can be displayed graphically when running inside a Jupyter Notebook.
+
+Note
+
+When creating a new plan from the diff, the schema and timestamp fields must be the in both plans. Also note that a renamed operator acts like a new operator for the diff, which means an operator that is not present in the 'other' plan will be discarded.
+
+Danger
+
+List and Sample operators are not supported.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `other` Â¶
+
+|  `Plan` |  Plan to compare against. The 'new' plan. When pushing the diff to Pulse, this is the same as doing `other - self`. |  _required_  
+  
+####  `show` Â¶
+
+|  `bool` |  Whether to display the differences as an HTML output. Only possible within a Jupyter Notebook. Defaults to True. |  `True`  
+  
+####  `only_diff` Â¶
+
+|  `bool` |  If True only shows features with differences. |  `True`  
+  
+####  `save` Â¶
+
+|  `bool` |  If True it outputs a new valid plan with the differences. This will override 'show'. Defaults to False. |  `False`  
+  
+####  `save_as` Â¶
+
+|  `str` |  The name of the diff plan, if None it will be `"{plan_a}_diff_{plan_b}"`. |  `None`  
+  
+Raises:
+
+Type | Description  
+---|---  
+`NotImplementedError` |  When trying to show a diff outside a Jupyter Notebook.  
+`ValueError` |  When the plans do not have the same schema or a different timestamp field. This is only raised when 'return_diff_plan' is set to true.  
+  
+###  `` disconnect_operators Â¶
+    
+    
+    disconnect_operators(connection: [Connection](../plans/connection/#ds_api.plans.connection.Connection "            Connection \(ds_api.plans.Connection\)"))
+    
+
+Deletes the connection between two operators.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `connection` Â¶
+
+|  `[Connection](../plans/connection/#ds_api.plans.connection.Connection "            Connection \(ds_api.plans.Connection\)")` |  Connection between two operators |  _required_  
+  
+###  `` duplicate Â¶
+    
+    
+    duplicate(new_name: Optional[str] = None, app: Optional[[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")] = None) -> Plan
+    
+
+Duplicates current plan to Pulse.
+
+Optionally allows to duplicate the plan to a different app. This assumes the necessary dependencies are available, ie. Plan schema and lists referenced by a ListOperator.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `new_name` Â¶
+
+|  `str` |  Desc name of the duplicated plan, by default will be the current name followed by '_duplicate'. |  `None`  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application ds_api object where the Plan should be created in, by default will be the current app. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Plan` |  Duplicated plan.  
+  
+Raises:
+
+Type | Description  
+---|---  
+`ValueError` |  If a plan with the same name as the duplicate already exists.  
+  
+###  `` from_csv `classmethod` Â¶
+    
+    
+    from_csv(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None, timestamp_field_desc: str | None = None, name: str | None = None, path: Path | str | None = None, *, main_channel: [Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)") | None = None, secondary_channels: list[[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)")] | None = None) -> Plan
+    
+
+Returns a new Deployable Plan with the configuration from the csv file.
+
+The new Plan configuration will be updated in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application ds_api object. |  _required_  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pulse schema |  `None`  
+  
+####  `timestamp_field_desc` Â¶
+
+|  `str` |  Desc name of the schema timestamp field. |  `None`  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the new plan |  `None`  
+  
+####  `path` Â¶
+
+|  `str or Path` |  Path to where the csv will be read from. |  `None`  
+  
+####  `main_channel` Â¶
+
+|  `[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+
+
+  
+      dataclass
+   \(ds_api.plans.omnichannel.Channel\)")` |  If a main_channel is given, the schema, and timestamp_field_desc parameters are ignored. |  `None`  
+  
+####  `secondary_channels` Â¶
+
+|  `list of Channel` |  Optionally pass the omnichannel configuration for the plan. Note that it is assumed the "schema" and "timestamp_field_desc" are properties of the main channel. |  `None`  
+Notes
+
+This method is intended to edit an existing Plan configuration previously exported.
+
+General guidelines to edit the csv:
+
+  * The row order of the 'operator_name' will determine their position in the Pulse Plan.
+  * Pulse fields must be enclosed within the pattern ${field}.
+  * Boolean values: {True, "TRUE", "True", "true", "T", "t", "1", 1} are accepted.
+  * Any feature to be removed should be on a single row and the field 'map_remove_fields' should be True.
+  * Feature updates will occur if a feature name is repeated.
+
+
+
+Fields input format and considerations:
+
+  * A more extensive documentation on each of the fields can be found on the Feature class docstrings.
+  * operator_type: possible values are: map, metric, list, filter.
+  * expression: to be used for Filter, Map and List operators.
+  * metric_groupby_fields: formatted as a list of strings, eg. `['MerchantName', 'City']`.
+  * metric_aggregation: Pulse fields must be enclosed within the pattern `'${field_desc}'`. eg. `'avg(${amount})'`, `'countDistinct(${MerchantCity})'`, `'count()'`.
+  * metric_window_size: usual types "second", "minute", "hour", "day", "week". eg. 1 day.
+  * metric_is_real_time: boolean.
+  * metric_filter: Fields must be enclosed with the pattern `'${field}'` eg. `'${TransactionAmount} > 100 and ${Fraud} != false`'.
+  * metric_delay: int.
+  * metric_is_tumbling: boolean.
+  * metric_filter_incomplete_instances: boolean, must be the same for the whole operator.
+  * metric_timestamp_field: must be the same for the whole operator.
+  * map_field_type: possible values are: numerical, string, datetime, categorical.
+  * map_field_config: contains additional field configuration for datetime fields, possible values: nanoseconds, microseconds, milliseconds, seconds, minutes, hours, days. Or categories for categorical fields, eg. `['true', 'false']`.
+  * map_remove_fields: boolean.
+  * list_operation: get, or contains.
+  * list_field: desc of the list field.
+
+
+
+Returns:
+
+Type | Description  
+---|---  
+`Plan` |  New Plan  
+  
+Raises:
+
+Type | Description  
+---|---  
+`Exception` |  If the Plan configuration is invalid.  
+  
+###  `` from_pandas `classmethod` Â¶
+    
+    
+    from_pandas(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None, timestamp_field_desc: str | None = None, name: str | None = None, pd_df: DataFrame | None = None, *, main_channel: [Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)") | None = None, secondary_channels: list[[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+    
+    
+      
+          dataclass
+       \(ds_api.plans.omnichannel.Channel\)")] | None = None) -> Plan
+    
+
+Returns a new Deployable Plan with the configuration from the pandas dataframe.
+
+The new Plan configuration will be updated in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application ds_api object. |  _required_  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pulse schema |  `None`  
+  
+####  `timestamp_field_desc` Â¶
+
+|  `str` |  Desc name of the schema timestamp field. |  `None`  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the new plan |  `None`  
+  
+####  `pd_df` Â¶
+
+|  `DataFrame` |  Pandas dataframe with the plan features. |  `None`  
+  
+####  `main_channel` Â¶
+
+|  `[Channel](../plans/omnichannel/#ds_api.plans.omnichannel.Channel "            Channel
+
+
+  
+      dataclass
+   \(ds_api.plans.omnichannel.Channel\)")` |  If a main_channel is given, the schema, and timestamp_field_desc parameters are ignored. |  `None`  
+  
+####  `secondary_channels` Â¶
+
+|  `list of Channel` |  Optionally pass the omnichannel configuration for the plan. Note that it is assumed the "schema" and "timestamp_field_desc" are properties of the main channel. |  `None`  
+See Also
+
+from_csv : For guidelines to input csv data in the right format.
+
+Returns:
+
+Type | Description  
+---|---  
+`Plan` |  New Plan  
+  
+Raises:
+
+Type | Description  
+---|---  
+`(JavaException, ValueError, TypeError)` |  If the Plan configuration is invalid.  
+  
+###  `` from_plan_snapshot `classmethod` Â¶
+    
+    
+    from_plan_snapshot(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), plan_snapshot: [JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")) -> Plan
+    
+
+Returns a new Plan based on the snapshot.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  |  _required_  
+  
+####  `plan_snapshot` Â¶
+
+|  `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Plan` |  New Plan.  
+  
+###  `` get_feature_dependencies Â¶
+    
+    
+    get_feature_dependencies(feature: [BaseFeature](../plans/features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.BaseFeature\)"), ascending=True) -> set[[FeatureUID](../plans/utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)")]
+    
+
+Gets a set of feature dependencies calculated recursively.
+
+Feature dependencies are represented as a unique tuple of feature name and operator name. Considers the filter operator as a feature with dependencies.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `[BaseFeature](../plans/features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.BaseFeature\)")` |  Feature to get the dependencies from. |  _required_  
+  
+####  `ascending` Â¶
+
+|  `bool` |  If True it will look for dependencies in upstream operators, including the direct dependencies, otherwise it will look downstream. (Default = True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`set` |  Sequence of `FeatureUID` with the names of the feature dependencies calculated recursively and the operator name where they are defined.  
+  
+###  `` get_feature_operators Â¶
+    
+    
+    get_feature_operators() -> List[[BaseFeaturesOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")]
+    
+
+Return this plan's 'feature operators', i.e., map, list, and metric operators. Filter operators are excluded.
+
+Returns:
+
+Type | Description  
+---|---  
+`List of BaseFeaturesOperator` |  List of feature operators in the plan.  
+  
+###  `` get_features Â¶
+    
+    
+    get_features() -> List[[BaseFeature](../plans/features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.BaseFeature\)")]
+    
+
+Return all features in the plan excluding "schema features".
+
+###  `` get_features_dependencies_by_type Â¶
+    
+    
+    get_features_dependencies_by_type() -> Dict[str, Dict[str, Set[str]]]
+    
+
+Gets a set of feature dependencies calculated recursively.
+
+Feature dependencies are represented as a unique tuple of feature name and operator name.
+
+Considers the filter operator as a feature with dependencies.
+
+If we have the following graph of dependencies for features A, B and C and specific dependency types:
+
+[C]--(map)-->[B]--(aggregation)-->[A]
+
+Feature C is considered an "aggregation" dependency of Feature A (regardless of its dependency type to B) because it is a dependency of the intermediate Feature B that is used in the aggregation expression of Feature A.
+
+Returns:
+
+Type | Description  
+---|---  
+`Dict[str, Dict[str, Set[str]]]` |  Dictionary of features' dependencies by type. The keys are the names of the features and the values are the dicts of upstream dependencies by type.  
+  
+###  `` get_features_dependencies_graph Â¶
+    
+    
+    get_features_dependencies_graph() -> DiGraph
+    
+
+Gets a directed graph object from NetworkX built with the dependencies between the Plan features.
+
+Nodes are unique tuples of feature and operator names.
+
+Considers the filter operator as a feature with dependencies.
+
+Returns:
+
+Type | Description  
+---|---  
+`DiGraph` |  DiGraph  
+  
+###  `` get_operator_by_name Â¶
+    
+    
+    get_operator_by_name(name: str) -> Optional[[BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")]
+    
+
+Selects the Pulse Operators with the matching name.
+
+If more than one operator is found then the first one is returned.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the operator. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Optional[[BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")]` |  The Pulse operator if matching name or None.  
+  
+###  `` get_operator_connections Â¶
+    
+    
+    get_operator_connections() -> List[[Connection](../plans/connection/#ds_api.plans.connection.Connection "            Connection \(ds_api.plans.Connection\)")]
+    
+
+Gets the operator connections.
+
+Returns:
+
+Type | Description  
+---|---  
+`list of Connections` |  list of Connections  
+  
+###  `` get_operators Â¶
+    
+    
+    get_operators() -> List[[BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")]
+    
+
+Gets the Plan operators.
+
+Returns:
+
+Type | Description  
+---|---  
+`list of BaseOperator` |  List of operators in the plan.  
+  
+###  `` get_type Â¶
+    
+    
+    get_type() -> str
+    
+
+Returns plan type.
+
+Returns:
+
+Type | Description  
+---|---  
+`str` |  Either 'DEPLOYABLE' or 'NON_DEPLOYABLE'  
+  
+###  `` remove_feature_and_dependants Â¶
+    
+    
+    remove_feature_and_dependants(feature: [BaseFeature](../plans/features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.BaseFeature\)"))
+    
+
+Removes the given feature and all the downstream dependencies.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `[BaseFeature](../plans/features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.BaseFeature\)")` |  Feature to be deleted and from which to remove downstream dependencies. |  _required_  
+  
+###  `` remove_operator Â¶
+    
+    
+    remove_operator(operator: [BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)"))
+    
+
+Removes an operator from the Plan.
+
+Automatically deletes any connections involving this operator.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `operator` Â¶
+
+|  `[BaseOperator](../plans/operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.BaseOperator\)")` |  Operator to be removed. |  _required_  
+  
+###  `` rename_feature Â¶
+    
+    
+    rename_feature(old_name: str, new_name: str)
+    
+
+Renames the given features updating the references to the old names across the plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `old_name` Â¶
+
+|  `str` |  Old name to change from. |  _required_  
+  
+####  `new_name` Â¶
+
+|  `str` |  New name to change to. |  _required_  
+  
+###  `` run Â¶
+    
+    
+    run(input_datasources: list[[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")], output_names: list[str], output_paths: list[str], *, secondary_datasources: dict[str, [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")] | None = None, job_profile: [JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)") | None = None, job_properties: dict[str, str] | None = None, wait: bool = False, file_format: str = 'parquet', partitioning_config: [PartitioningConfig](../partitioning_config/#ds_api.partitioning_config.PartitioningConfig "            PartitioningConfig \(ds_api.partitioning_config.PartitioningConfig\)") = [AdaptivePartitioningConfig](../adaptive_partitioning_config/#ds_api.adaptive_partitioning_config.AdaptivePartitioningConfig "            AdaptivePartitioningConfig \(ds_api.adaptive_partitioning_config.AdaptivePartitioningConfig\)")(), **kwargs: bool | str | set[str]) -> str
+    
+
+Runs this Plan, supports deployable and non-deployable plans.
+
+The plan will be run with the Pulse default config in place unless specified another Pulse job config and/or spark parameters.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `input_datasources` Â¶
+
+|  `list` |  List of DataSource objects. |  _required_  
+  
+####  `output_names` Â¶
+
+|  `list` |  Desc names of the output data sources. |  _required_  
+  
+####  `output_paths` Â¶
+
+|  `list` |  Paths to the output datasets. |  _required_  
+  
+####  `secondary_datasources` Â¶
+
+|  `dict[str, [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")]` |  Mapping of channel name to input Data source for secondary channels. For example `{"cards": <DataSource: CardsClean>}`. |  `None`  
+  
+####  `job_profile` Â¶
+
+|  `[JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)")` |  Pulse UI custom job profile. |  `None`  
+  
+####  `job_properties` Â¶
+
+|  `dict` |  Additional spark properties, eg. {"spark.executor.memory": "1g"}, by default no additional spark properties are added. |  `None`  
+  
+####  `wait` Â¶
+
+|  `bool` |  Whether to wait for the plan execution to finish. The plan execution outcome will be logged. By default, False. |  `False`  
+  
+####  `file_format` Â¶
+
+|  `str` |  Chosen file format for outputs. By default, parquet. |  `'parquet'`  
+  
+####  `partitioning_config` Â¶
+
+|  `[PartitioningConfig](../partitioning_config/#ds_api.partitioning_config.PartitioningConfig "            PartitioningConfig \(ds_api.partitioning_config.PartitioningConfig\)")` |  The configuration for the partitioning approach to use when executing the plan. By default, `AdaptivePartitioningConfig()`. |  `[AdaptivePartitioningConfig](../adaptive_partitioning_config/#ds_api.adaptive_partitioning_config.AdaptivePartitioningConfig "            AdaptivePartitioningConfig \(ds_api.adaptive_partitioning_config.AdaptivePartitioningConfig\)")()`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`delimiter` |  `str` |  Delimiter character for the output datasets, by default ",". Only used if output format is csv.  
+`line_sep` |  `str` |  Line separator for the output datasets, by default "\n". Only used if output format is csv.  
+`quote_char` |  `str` |  Quotation character for the output datasets, by default '"'. Only used if output format is csv.  
+`header` |  `bool` |  Write out the column names, by default True. Only used if output format is csv.  
+`missing_values` |  `set of str` |  Missing values for the output datasets, by default "", empty string. Only used if output format is csv.  
+  
+Returns:
+
+Type | Description  
+---|---  
+`str` |  Name of the plan execution.  
+  
+###  `` select_features Â¶
+    
+    
+    select_features(feature_names: List[str])
+    
+
+Removes from the Plan any feature that is not needed to output the given list of features.
+
+If a feature is updated, thus having duplicated names, it will conservatively keep all upstream dependencies.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature_names` Â¶
+
+|  `list of str` |  List of feature names to keep. |  _required_  
+  
+###  `` to_csv Â¶
+    
+    
+    to_csv(path: Union[Path, str])
+    
+
+Exports the deployable Plan to a tabular csv format.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `path` Â¶
+
+|  `Path or str` |  Path to where the csv will be saved. |  _required_  
+  
+###  `` to_pandas Â¶
+    
+    
+    to_pandas() -> DataFrame
+    
+
+Exports the deployable Plan to a pandas dataframe.
+
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas dataframe containing features and all their editable attributes.  
+  
+###  `` to_pulse Â¶
+    
+    
+    to_pulse()
+    
+
+Sends the current plan configuration of Operators and Features to Pulse.
+
+Raises:
+
+Type | Description  
+---|---  
+`JavaException` |  If the Plan configuration is not valid.  
+  
+###  `` update_from_csv Â¶
+    
+    
+    update_from_csv(path: Union[Path, str])
+    
+
+Updates this Deployable Plan with the configuration from the csv file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `path` Â¶
+
+|  `str or path` |  Path to where the csv will be read from. |  _required_  
+See Also
+
+from_csv : For guidelines to input csv data in the right format.
+
+Raises:
+
+Type | Description  
+---|---  
+`(JavaException, ValueError, TypeError)` |  If the Plan configuration is invalid.  
+  
+###  `` update_from_pandas Â¶
+    
+    
+    update_from_pandas(pd_df: DataFrame)
+    
+
+Updates this Deployable Plan with the configuration from the pandas dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `pd_df` Â¶
+
+|  `DataFrame` |  Pandas dataframe with the plan features. |  _required_  
+See Also
+
+from_csv : For guidelines to input csv data in the right format.
+
+Raises:
+
+Type | Description  
+---|---  
+`(JavaException, ValueError, TypeError)` |  If the Plan configuration is invalid.  
+  
+###  `` validate Â¶
+    
+    
+    validate()
+    
+
+Validates the current state of the Plan including any alterations to Operators and Features.
+
+Raises:
+
+Type | Description  
+---|---  
+`JavaException` |  If the Plan configuration is invalid.

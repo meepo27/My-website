@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.2/individual-release-notes/HSBC-4427
+Title: HSBC-4427 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-4427
+
+### Add support for adding IPv6 addresses to `PosNeg Listed IP Addresses` from Case Managerâ
+
+FeatureFTMT-36830HSBC-4427
+
+We've enabled the ability to add IPv6 addresses (`device_ip_address_v6`) entries to the `PosNeg Listed IP Addresses` list directly from the event details page in Case Manager. This is the same list already used by IPv4 addresses (`device_ip_address`).

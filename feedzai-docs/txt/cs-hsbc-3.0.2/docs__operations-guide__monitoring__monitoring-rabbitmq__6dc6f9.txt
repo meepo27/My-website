@@ -1,0 +1,69 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/monitoring-rabbitmq
+Title: Monitoring RabbitMQ | Feedzai Documentation
+============================================================
+
+On this page
+
+# Monitoring RabbitMQ
+
+##### tip
+
+For a complete reference of the monitoring recommendations for RabbitMQ, refer to the [official documentation](https://www.rabbitmq.com/monitoring.html). Make sure to refer to the version being used.
+
+##### info
+
+The details in this page may change depending on how you have installing your RabbitMQ cluster. For example, if you are using Kubernetes, you should be using the [RabbitMQ Kubernetes Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview.html), and [different recommendations apply](https://www.rabbitmq.com/kubernetes/operator/operator-monitoring.html).
+
+## Collecting metricsâ
+
+RabbitMQ exposes several application-specific metrics that are collected and reported by RabbitMQ nodes. Some of these are cluster-wide, and others are node-specific. It is important to consider this when collecting and storing them.
+
+The recommended monitoring approach from RabbitMQ is using the [Prometheus plugin](https://www.rabbitmq.com/prometheus.html). Feedzai has also used the [management plugin](https://www.rabbitmq.com/management.html) to serve metrics, and also allowing the cluster to be managed via a UI or an API. When activated, the management plugin provides an [HTTP API](https://www.rabbitmq.com/management.html#http-api).
+
+##### warning
+
+There are some performance concerns with the management plugin, which is why the recommendation is to use the Prometheus plugin. If you just wish to monitor cluster-wide metrics (see below), having the plugin enabled on a single node would suffice. However, for redundancy and node-specific metrics, all nodes in the cluster should have it enabled.
+
+##### note
+
+Telegraf provides an [input plugin](https://www.influxdata.com/integration/rabbitmq-monitoring/) that relies on the RabbitMQ Management Plugin.
+
+## Top Metrics to Monitorâ
+
+In this section you will find which metrics are important to monitor in **RabbitMQ**.
+
+##### info
+
+Note that the following list is simply a reference to the most important metrics, and should not be considered as the single source of monitoring the healthiness of the system.
+
+### Cluster-Wide Metricsâ
+
+Cluster-wide metrics provide a high level view of cluster state, including the interaction between cluster nodes. To access these metrics, use the endpoint `GET /api/overview` from the [HTTP API](https://www.rabbitmq.com/management.html#http-api)
+
+Metric Name| Description  
+---|---  
+`object_totals.connections`| Total number of connections  
+`object_totals.channels`| Total number of channels  
+`object_totals.queues`| Total number of queues  
+`object_totals.consumers`| Total number of consumers  
+`queue_totals.messages_ready`| Number of messages ready for delivery  
+`queue_totals.messages_unacknowledged`| Number of unacknowledged messages  
+`message_stats.publish_details.rate`| Message delivery rate  
+`message_stats.deliver_get_details.rate`| Message publish rate  
+  
+##### tip
+
+Consider capturing [message metrics individually](https://www.rabbitmq.com/monitoring.html#queue-metrics) for the most important queues with the `GET /api/queues/{vhost}/{qname}` endpoint.
+
+### Node Metricsâ
+
+Most of the metrics represent point-in-time absolute values of individual nodes. To access these metrics, use the endpoint `GET /api/nodes/{node}` from the [HTTP API](https://www.rabbitmq.com/management.html#http-api) (or `GET /api/nodes` if your collector supports an array).
+
+Metric Name| Description  
+---|---  
+`proc_total`| Erlang process limit  
+`proc_used`| Erlang processes used  
+`mem_limit`| Memory usage high watermark  
+`mem_used`| Total amount of memory used  
+`queue_totals.messages_ready`| Number of messages ready for delivery  
+`queue_totals.messages_unacknowledged`| Number of unacknowledged messages

@@ -1,0 +1,223 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas
+Title: Manage SLAs | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * Manage SLAs
+
+
+
+On this page
+
+# Manage SLAs
+
+Service Level Agreements (SLAs) allow to automatically perform actions on events and cases based on a time and schedule.
+
+info
+
+The **Channel** information explained on this page is only visible if the product is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+## View SLAsâ
+
+Access the **SLAs** page using the **Settings** option in the main menu.
+
+## Filter SLAs Listâ
+
+Use filters to refine the SLAs displayed on the list. This could be helpful, for example, to view all SLAs with a specific name.
+
+The **Search** filter lists only SLAs whose name or description match the text inserted on this field.
+
+## Create SLAsâ
+
+Create SLAs to automate what should happen when certain conditions occur. For example, you can configure an SLA that sends an alert to a specific queue depending on the time that alert has been in the system.
+
+  1. Select the **New SLA** button to open the SLA creation form.
+
+  2. Start by adding the SLA's basic information:
+
+     * **Name** : SLA's identification. For example: _Daily Escalation_.
+     * **Description** : Explanation of the SLA's purpose. For example: _Move all unreviewed alerts to Urgent queue_.
+     * **Channel** : Defines that only events from the selected channel are considered in the SLA's conditions.
+     * **Type** : Defines if the SLA should be triggered based on **Events** or **Cases**.
+  3. Specify the SLA conditions according to your needs. In this example, the conditions would be the following:
+
+Exclude weekends
+
+When this option is selected, the SLA does not take weekends (Saturdays and Sundays) into consideration. For instance, a 24-hour SLA due on a Saturday at 2:00 PM will be triggered on the following Monday at 2:00 PM. Likewise, a 48-hour SLA due on a Sunday will be triggered on the following Tuesday.
+
+  4. **Create** the SLA.
+
+
+
+
+### Available Operatorsâ
+
+The SLA creation form displays different operators depending on the selected conditions. Operators provide flexible writing capabilities that enable you to write rules according to your business needs.
+
+These are the available operators for SLAs:
+
+Operator| Description  
+---|---  
+**=**|  Equal  
+**!=**|  Not equal  
+**>**|  Greater than  
+**> =**| Greater than or equal  
+**<**|  Less than  
+**< =**| Less than or equal  
+**is NULL**|  Empty value  
+**is NOT NULL**|  Not empty value  
+**is IN**|  Is present in  
+**is NOT IN**|  Is not present in  
+  
+#### Relational Operatorsâ
+
+The **=** , **!=** , **>** , **> =**, **<** , **< =** operators are used to compare the selected field with a specific value defined in the rule:
+
+  * **=** and **!=** compare fields of the same type (i.e. numeric vs numeric, alphanumeric vs alphanumeric and alphabetic vs alphabetic).
+
+  * **>** , **> =**, **<** , **< =** compare numeric fields.
+
+For example, to check if an _Alert_ was flagged and the _Account Credit Limit_ **equals** 2000.
+
+Or to check if an _Amount_ **is greater than** 1000.
+
+
+
+
+#### `is NULL` and `is NOT NULL`â
+
+The **is NULL** and **is NOT NULL** operators check if a field is empty or not empty, respectively. For example, to check if the _Beneficiary City_ field of an event **is not empty**.
+
+#### `is IN` and `is NOT IN`â
+
+The **is IN** and **is NOT IN** operators allow you to validate if a field is one (or none, respectively) of the multiple specified values. This means that using **IN** is the same as using multiple **=** statements, but in a more practical way. They can be applied to a variety of core fields within the system: _Status Reasons_ , _Queue_ , _Tenant_ , _State Machine_ values and _Access Group_.
+
+For example, when there is a change to a Status Reason, you can use the **is IN** operator to check if the new status reason is within the list of values provided, i.e. if it is one of the reasons listed.
+
+info
+
+Beyond the core fields, the **is IN** and **is NOT IN** operators are also extendable to custom fields. To activate this functionality for custom fields, enable the `multi_field_in_automations` setting. See [Schema Entries](/case-manager/13.17/docs/internal/case-manager/reference/core-config-json#schema-entries) for more information.
+
+#### Logical Operatorsâ
+
+You can group multiple conditions in your rule and attribute them `AND` or `OR` logic. These operators are used to combine two or more conditions and evaluate them based on the rules of logic. Unlike relational operators, which compare values, logical operators determine the truth value (true or false) of a compound statement based on the individual conditions.
+
+Operator| Description  
+---|---  
+**AND**|  Returns true if **all** grouped conditions return true.  
+**OR**|  Returns true if **one** of the grouped conditions returns true.  
+  
+To assign a logical operator to your SLA, do the following steps:
+
+  1. Select the  icon to add a new condition to your rule.
+  2. Select your operator in the toggle button.
+
+
+
+You can continue adding additional conditions to your rule.
+
+Attention
+
+You **can not** attribute the `AND` and `OR` logic simultaneously, you can only use one of them **exclusively**. The logic you select when adding your second condition will apply to all additional conditions.
+
+## Edit SLAsâ
+
+Edit SLAs and adjust their parameters to better suit your needs:
+
+  1. In the SLAs list, hover over the SLA that you want to delete and select to **Edit** .
+
+
+
+  2. Edit the **Name** , **Description** and **Conditions** fields. The **Channel** field is not editable.
+
+  3. **Save** the changes.
+
+
+
+
+## Delete SLAsâ
+
+Delete the SLAs that are no longer relevant to your use case:
+
+  1. In the SLAs list, hover over the SLA that you want to delete and select to **Delete** .
+
+  2. Since this is a sensitive operation, the page displays a dialog for you to confirm the deletion.
+
+
+
+
+## Export and Import SLAsâ
+
+Use the export and import functionality to test SLAs in a test environment before promoting changes to a production environment. This makes replicating changes between environments less error-prone.
+
+### Exportâ
+
+Go to **Settings** and select **Export Settings** to download a file with SLAs.
+
+The exported file includes the following metadata: `id`, `name`, `description`, `channel`, `conditions`, `source`, `actions` and `goal`. The `id` is kept so that Automation Rules continue to work seamlessly if they use such SLAs in the new environment. On the other hand, _auditable metadata_ fields are not exported as they might not exist in the target environment.
+
+info
+
+ _Auditable metadata_ such as `createdBy`, `createdAt`, `updatedAt` etc., is **not exported** as it is related to the source environment, so replicating them in the target environment can be misleading.
+
+caution
+
+Case Manager exports the SLAs related to **Events** or **Cases** , depending on the selected tab in the SLAs page. Make sure you're in the _correct_ tab before exporting.
+
+### Importâ
+
+Go to **Settings** and select **Import Settings**. You will be prompted to select the file to import. Make sure you select a file in `.cmsettings` format; otherwise, you get an error and cannot proceed with the import.
+
+caution
+
+**Do not edit the** `.cmsettings` **file** as it can lead to issues with inconsistent data during the import process.
+
+#### Validation and conflicts previewâ
+
+Upon importing, the selected file undergoes validation. The system will inform the user in the event of conflicts, but it will not specify the cause of those conflicts. The import process performs the following validations:
+
+  * **Channel validation** : validates if the imported queue channel exists in the target environment.
+  * **Database duplication** : validates if the queue already exists in the database.
+  * **Tenant validation** : validates if the imported queue tenant exists in the target environment.
+
+
+
+Besides the validation above, it also validates some of the **condition fields** and **actions**. The following condition validations
+
+are performed:
+
+  * **Event schema fields validation** : validates the fields prefixed with `.schema` used in the automation rule condition.
+  * **State machine fields validation** : validates the fields prefixed with `.eventStates` used in the automation rule condition.
+  * **Case fields validation** : validates the fields prefixed with `.case` used in the automation rule condition.
+
+
+
+Finally, the following action validations are performed:
+
+  * **Setting an event or case status validation:** validates if the status exists in the target environment.
+  * **Setting an event or case queue validation:** validates if the queue exists in the target environment.
+  * **Setting an access group validation:** validates if the access group exists in the target environment.
+  * **Setting an event or case user validation:** validates if the user exists in the target environment.
+  * **Setting an event or case SLA validation:** validates if the SLA exists in the target environment.
+
+
+
+caution
+
+As the import process might have SLAs that are not imported due validation errors, the position of the SLAs in the target environment might be different than its original place.
+
+info
+
+If all the SLAs in the imported file have conflicts with SLAs that already exist in the target environment, you cannot proceed with the import.
+
+## Learn moreâ
+
+Now that you know how to use SLAs, learn more about:
+
+  * [SLAs](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/slas) basics.
+  * What are [Automation Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules) and how they can also help you automatize how alerts are processed.
+  * How to [work with Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules).
+
+

@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/release-information/release-0.x/Release-0.1
+Title: Release 0.1 | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.1.1`â
+
+### Dependency Fixesâ
+
+Bug Fix
+
+Resolved an issue with missing `spark-dist` artifact and other dependency fixes.
+
+## Release `0.1.0`â
+
+### Transaction Fraud for PSPsâ
+
+Feature
+
+This release introduces **Transaction Fraud for PSPs (TFP)** â a real-time fraud detection solution that detects fraud scenarios related to card transactions and alternative payments at the merchant level. TFP is designed for acquirers, gateways, and Payment Service Providers (PSPs) that need to detect abnormal payment behavior.
+
+### Case Manager Integrationâ
+
+Feature
+
+Case-Manager is integrated to support analyst workflows for reviewing and investigating transactions flagged by the fraud detection models, enabling timely action on identified risks.
+
+### Default Feedzai Configurationâ
+
+Feature
+
+This release includes default Feedzai configuration for both Pulse and Case-Manager, enabling out-of-the-box deployment and operation of the solution.
+
+##### Merchant Monitoring Not Available
+
+**Merchant Monitoring (MM)** is not supported in this release. The batch processor required by this use case has not yet been implemented and will be delivered in a future release.

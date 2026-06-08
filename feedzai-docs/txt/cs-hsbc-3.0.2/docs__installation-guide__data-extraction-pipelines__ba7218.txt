@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/
+Title: Data Extraction Pipelines | Feedzai Documentation
+============================================================
+
+# Data Extraction Pipelines
+
+In this section you will find a set of pages with information about the Data Extraction Pipelines:
+
+  * [Data Extraction Pipelines Overview](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/overview-dep)
+  * [Data Extraction Pipelines Requirements](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/requirements-dep)
+  * [Installing Data Extraction Pipelines with Ansible](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/ansible-dep)
+  * [Data Extraction Pipelines Configurations](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/configuration-dep)
+  * [Data Schema](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/data-schema)
+
+

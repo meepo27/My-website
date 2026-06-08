@@ -1,0 +1,5 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/
+Title: Index | Case Manager
+============================================================
+
+# Index

@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview
+Title: Create and Manage Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * Create and Manage Rules
+
+
+
+On this page
+
+# Create and Manage Rules
+
+Was this page helpful?Â 
+
+Creating and managing rules is the first step of your user journey to help you set up your tools to detect and mitigate fraudulent transactions. In this page, you will learn how to map your custom business logic to the basic rule configurations in Pulse to get the best out of the risk engine platform.
+
+## High-level building blocks for rule creationâ
+
+To successfully create rules, you need to consider the following high-level building blocks:
+
+  * [Understand the workflow and snapshots](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/understand-workflow)
+
+
+  * [Change the plan](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/change-plan) (i.e. create new metrics)
+
+  * [Create rules projects](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules-projects)
+
+  * [Create rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules)
+
+  * [Migrate Pulse resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview) between environments
+
+  * [Publish rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/publish-rules/overview) to production
+
+
+

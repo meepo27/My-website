@@ -1,0 +1,190 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.5
+Title: Release 2.5 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.5.2`â
+
+### Add decision outcome columns to Digital Activity Case Manager tablesâ
+
+FeatureFTMT-20451HSBC-2425
+
+Add `DECISION_ID` and `EVENT_DECISION_ID` columns to the `AM_EVENT_DIGITAL_ACTIVITY` table in order to resolve an issue appearing in search following the Mobile Outbound extension support for Digital Activity added in version `2.5.1`.
+
+### Add deployment guides for Pulse and Case Managerâ
+
+DocsHSBC-2315
+
+We've added a new `How To` section with a set of deployment guides for Pulse and Case Manager.
+
+These guides cover the following subjects:
+
+  * How to deploy new applications/channels
+  * Use application/channel specific databases
+
+
+
+Please find the Pulse guides in [Pulse How To](/cs-hsbc/3.0.2/docs/installation-guide/pulse/pulse-how-to) and the Case Manager guides in [Case Manager How To](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to-conf-installation).
+
+## Release `2.5.1`â
+
+### Add Digital Activity support for Case Manager Mobile Outbound extensionâ
+
+FeatureFTMT-21346HSBC-2425
+
+We've added the `decision` state machine to Digital Activity. Enabling the execution of the Mobile Outbound extension to Digital Activity events.
+
+##### warning
+
+The feature is available in version 2.5 and will be available again in version >= 2.7.X. It will **not** be included in minor version 2.6.
+
+## Release `2.5.0`â
+
+### Add Documentation for Multi tenancyâ
+
+FeatureHSBC-2086
+
+Find a descriptive multi tenancy guide in [Multi-Tenancy Concepts](/cs-hsbc/3.0.2/docs/concepts/multi-tenancy/overview).
+
+### Add Fields to Payment Fulfillment Extensionâ
+
+FeatureFTMT-18681HSBC-2268
+
+We've added the below fields in the Payment Fulfillment API for the Outbound API call from Case Manager :
+
+**Field Name**| **Channel**  
+---|---  
+user_id| Transfers  
+customer_id_global| Transfers  
+sender_initiated_at_local| Transfers  
+lifecycle_id_alt| Transfers  
+customer_id_number| Transfers  
+payment_sub_type| Transfers  
+receiver_transaction_bank_account_number| Transfers  
+sender_transaction_ref_nr_alt| Transfers  
+sender_transaction_original_amount| Transfers  
+sender_transaction_original_currency| Transfers  
+operational_status| Transfers  
+oob_notes| Transfers  
+treatment_strategy| Transfers  
+self_serve_strategy| Transfers  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for full details.
+
+### Case Manager version upgraded to 13.16.2â
+
+FeatureFTMT-14311FTMT-17140HSBC-1997
+
+We've upgraded Case Manager to version 13.16.2.
+
+With this upgrade we enabled a feature that allows SLAs and Automation rules to be exported and imported, improving the process of migrating them between environments. This functionality uses the same permissions of the queues import/export feature enabled on a previous version.
+
+We have also enabled a feature that provides the count of alerts in each queue, broken down by state machine state. This can be found in Queues settings page in Case Manager. Note that a time filter must be selected for the counts to appear.
+
+### Remove Data Migration Serviceâ
+
+FeatureHSBC-2210
+
+We've removed all existing data migration service properties from the Pulse configuration, as they weren't being used.
+
+### Add PosNeg lists for Inbound Payments Appâ
+
+FeatureHSBC-2173HSBC-2261
+
+We've added 8 new lists to Pulse and Case Manager for Inbound Payments App, namely:
+
+  * Payments_Hot Beneficiary Sort Code and Account Numbers
+  * Payments_Low Risk Account Numbers
+  * Payments_Vulnerable Customer List
+  * Payments_Hot Customer ID
+  * Payments_Ex Jade Customers
+  * Payments_Crypto Beneficiary Name
+  * Payments_Crypto Payment Reference
+  * Payments_Low Risk Sort Code
+
+
+
+### Change Case Manager Amount mappingsâ
+
+FeatureFTMT-18233HSBC-2256
+
+We've changed the `amount` column mapping, in the remaining pages and channels, to the new field `amount_dbl` based on `sender_transaction_amount_dbl`. This change affects the following pages:
+
+  * Alerts page
+  * Search Page
+  * Event Details transaction history widget
+  * Customer Details transaction history widget
+
+
+
+### Add Fields to Mobile Outbound extensionsâ
+
+FeatureFTMT-18136HSBC-2238
+
+We've added the below 4 fields to be included in the 2Way SMS / 1 Way SMS for Outbound API call from Case Manager :
+
+**Field Name**| **Channel**  
+---|---  
+payment_message_source| Transfers  
+payment_sub_type| Transfers  
+thailand_fps_ind| Transfers  
+customer_alias| Transfers  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for full details.
+
+### Add customer ID and customer ID number to Case Manager external notificationsâ
+
+FeatureFTMT-18381HSBC-2244
+
+We've added the `customer_id` and `customer_id_number` fields to Case Manager external notifications payload.
+
+Please find below the changes included in external notifications payload.
+
+**Field Name**| **Channel**  
+---|---  
+customer_id| Inbound Payments  
+customer_id_number| Inbound Payments  
+customer_id_number| Transfers  
+  
+### Fix ETL hostname parameterâ
+
+Bug FixFTMT-16570HSBC-2003
+
+We have fixed an issue where ETL had problem connecting to database. As part of resolution we have changed the hostname for ETL from `database_pulse_eventstorage_host` to `database_pulse_eventstorage_hostname`.
+
+### Enable Spark History Server integrationâ
+
+FeatureFTMT-15172HSBC-1814
+
+We've enabled the Spark History Server integration with Pulse. Configuration uses the following two new Ansible variables:
+
+  * `pulse_spark_eventlog_enabled`
+  * `pulse_spark_eventlog_dir`
+
+
+
+By default, the Spark logs are disabled (except for DSE).
+
+More information can be found in the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### ETL extraction for HDL fails if the lifecycle_id is not a valid UUIDâ
+
+Bug FixHSBC-2197
+
+We have updated the ETL configuration for historical data loading so that it no longer fails when the lifecycle_id is an invalid UUID. Please find the updated configuration reference in [ETL Configurations](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).
+
+### Add support for Reference Data Service multi tenancy with the tenant as a query parameterâ
+
+FeatureHSBC-2220
+
+We've added support to collect the tenant as a query parameter for Reference Data Service multi tenancy during deployment.
+
+This configuration can be done using the following Ansible variables:
+
+  * `reference_data_tenant_provider_parameter_key` \- Configures the parameter key for the query parameter strategy (the default value is tenant)
+  * `reference_data_tenant_provider_fallback` \- Configures the tenant value if no tenant in the request is found (the default value is feedzai)
+
+

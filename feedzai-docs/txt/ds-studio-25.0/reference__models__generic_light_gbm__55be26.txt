@@ -1,0 +1,414 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/generic_light_gbm/
+Title: generic_light_gbm - DS API
+============================================================
+
+#  `` generic_light_gbm Â¶  
+  
+##  `` GenericLightGBMConfig Â¶
+    
+    
+    GenericLightGBMConfig(builder, boosting_type: str = 'gbdt', num_iterations: int = 100, learning_rate: float = 0.1, num_leaves: int = 31, lightgbm_seed: int = 0, max_depth: int | None = None, min_data_in_leaf: int = 20, min_sum_hessian_in_leaf: float = 0.001, bagging_fraction: float = 1.0, bagging_freq: int = 0, feature_fraction: float = 1.0, feature_fraction_bynode: float = 1.0, lambda_l1: float = 0.0, lambda_l2: float = 0.0, min_gain_to_split: float = 0.0, drop_rate: float = 0.1, max_drop: int = 50, skip_drop: float = 0.5, xgboost_dart_mode: bool = False, uniform_drop: bool = False, top_rate: float = 0.2, other_rate: float = 0.1, min_data_per_group: int = 100, max_cat_threshold: int = 32, cat_l2: float = 10.0, cat_smooth: float = 10.0, max_cat_to_onehot: int = 4, verbosity: int = 1, max_bin: int = 255, min_data_in_bin: int = 3, bin_construct_sample_cnt: int = 200000, enable_bundle: bool = True, zero_as_missing: bool = False, is_unbalance: bool = False, undersampling: float | None = None, oversampling: float | None = None, seed: int | None = None, ignored_fields: set[str] | None = None, schema: [Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[TrainingConfig](../#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)")`
+
+Generic GBM configuration object. Serves as parent class for LightGBMConfig and FairGBMConfig.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `builder` Â¶
+
+|  |  Builder that comes from the specific algorithm. |  _required_  
+  
+###  `boosting_type` Â¶
+
+|  `str` |  Boosting type. |  `'gbdt'`  
+  
+###  `num_iterations` Â¶
+
+|  `int` |  Number of booster iterations. |  `100`  
+  
+###  `learning_rate` Â¶
+
+|  `float` |  Learning rate. |  `0.1`  
+  
+###  `num_leaves` Â¶
+
+|  `int` |  Maximum tree leaves. |  `31`  
+  
+###  `lightgbm_seed` Â¶
+
+|  `int` |  Seed used to generate other seeds. |  `0`  
+  
+###  `max_depth` Â¶
+
+|  `int | None` |  Maximum tree depth. |  `None`  
+  
+###  `min_data_in_leaf` Â¶
+
+|  `int` |  Minimum leaf data points. |  `20`  
+  
+###  `min_sum_hessian_in_leaf` Â¶
+
+|  `float` |  Minimal sum of hessian per leaf. |  `0.001`  
+  
+###  `bagging_fraction` Â¶
+
+|  `float` |  Bagging sample fraction. |  `1.0`  
+  
+###  `bagging_freq` Â¶
+
+|  `int` |  Bagging frequency. |  `0`  
+  
+###  `feature_fraction` Â¶
+
+|  `float` |  Feature fraction by tree. |  `1.0`  
+  
+###  `feature_fraction_bynode` Â¶
+
+|  `float` |  Feature fraction by tree node. |  `1.0`  
+  
+###  `lambda_l1` Â¶
+
+|  `float` |  L1 regularization. |  `0.0`  
+  
+###  `lambda_l2` Â¶
+
+|  `float` |  L2 regularization. |  `0.0`  
+  
+###  `min_gain_to_split` Â¶
+
+|  `float` |  Minimal gain to split a leaf. |  `0.0`  
+  
+###  `drop_rate` Â¶
+
+|  `float` |  DART drop rate. |  `0.1`  
+  
+###  `max_drop` Â¶
+
+|  `int` |  DART max drop. |  `50`  
+  
+###  `skip_drop` Â¶
+
+|  `float` |  DART skip drop. |  `0.5`  
+  
+###  `xgboost_dart_mode` Â¶
+
+|  `bool` |  DART XGBoost mode. |  `False`  
+  
+###  `uniform_drop` Â¶
+
+|  `bool` |  DART uniform drop. |  `False`  
+  
+###  `top_rate` Â¶
+
+|  `float` |  GOSS top retain rate. |  `0.2`  
+  
+###  `other_rate` Â¶
+
+|  `float` |  GOSS other retain rate. |  `0.1`  
+  
+###  `min_data_per_group` Â¶
+
+|  `int` |  Minimum data per group. |  `100`  
+  
+###  `max_cat_threshold` Â¶
+
+|  `int` |  Maximum categories thresholds. |  `32`  
+  
+###  `cat_l2` Â¶
+
+|  `float` |  Categorical L2 regularization. |  `10.0`  
+  
+###  `cat_smooth` Â¶
+
+|  `float` |  Categorical smoothing. |  `10.0`  
+  
+###  `max_cat_to_onehot` Â¶
+
+|  `int` |  Max categories to one-hot encode. |  `4`  
+  
+###  `verbosity` Â¶
+
+|  `int` |  Verbosity of the LightGBM backend. |  `1`  
+  
+###  `max_bin` Â¶
+
+|  `int` |  Max bins. |  `255`  
+  
+###  `min_data_in_bin` Â¶
+
+|  `int` |  Minimum bin data. |  `3`  
+  
+###  `bin_construct_sample_cnt` Â¶
+
+|  `int` |  Bin construction sample count. |  `200000`  
+  
+###  `enable_bundle` Â¶
+
+|  `bool` |  Exclusive Feature Bundling (EFB). |  `True`  
+  
+###  `zero_as_missing` Â¶
+
+|  `bool` |  Use zeroes as missing. |  `False`  
+  
+###  `is_unbalance` Â¶
+
+|  `bool` |  Unbalanced label. |  `False`  
+  
+###  `undersampling` Â¶
+
+|  `float` |  The value for undersampling. Only this or oversampling can be used. |  `None`  
+  
+###  `oversampling` Â¶
+
+|  `float` |  The value for oversampling. Only this or undersampling can be used. |  `None`  
+  
+###  `seed` Â¶
+
+|  `int` |  The seed value. |  `None`  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when training a model. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+###  `` bagging_fraction `property` `writable` Â¶
+    
+    
+    bagging_fraction
+    
+
+###  `` bagging_freq `property` `writable` Â¶
+    
+    
+    bagging_freq
+    
+
+###  `` bin_construct_sample_cnt `property` `writable` Â¶
+    
+    
+    bin_construct_sample_cnt
+    
+
+###  `` boosting_type `property` `writable` Â¶
+    
+    
+    boosting_type
+    
+
+###  `` cat_l2 `property` `writable` Â¶
+    
+    
+    cat_l2
+    
+
+###  `` cat_smooth `property` `writable` Â¶
+    
+    
+    cat_smooth
+    
+
+###  `` drop_rate `property` `writable` Â¶
+    
+    
+    drop_rate
+    
+
+###  `` enable_bundle `property` `writable` Â¶
+    
+    
+    enable_bundle
+    
+
+###  `` feature_fraction `property` `writable` Â¶
+    
+    
+    feature_fraction
+    
+
+###  `` feature_fraction_bynode `property` `writable` Â¶
+    
+    
+    feature_fraction_bynode
+    
+
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` is_unbalance `property` `writable` Â¶
+    
+    
+    is_unbalance
+    
+
+###  `` lambda_l1 `property` `writable` Â¶
+    
+    
+    lambda_l1
+    
+
+###  `` lambda_l2 `property` `writable` Â¶
+    
+    
+    lambda_l2
+    
+
+###  `` learning_rate `property` `writable` Â¶
+    
+    
+    learning_rate
+    
+
+###  `` lightgbm_seed `property` `writable` Â¶
+    
+    
+    lightgbm_seed
+    
+
+###  `` max_bin `property` `writable` Â¶
+    
+    
+    max_bin
+    
+
+###  `` max_cat_threshold `property` `writable` Â¶
+    
+    
+    max_cat_threshold
+    
+
+###  `` max_cat_to_onehot `property` `writable` Â¶
+    
+    
+    max_cat_to_onehot
+    
+
+###  `` max_depth `property` `writable` Â¶
+    
+    
+    max_depth
+    
+
+###  `` max_drop `property` `writable` Â¶
+    
+    
+    max_drop
+    
+
+###  `` min_data_in_bin `property` `writable` Â¶
+    
+    
+    min_data_in_bin
+    
+
+###  `` min_data_in_leaf `property` `writable` Â¶
+    
+    
+    min_data_in_leaf
+    
+
+###  `` min_data_per_group `property` `writable` Â¶
+    
+    
+    min_data_per_group
+    
+
+###  `` min_gain_to_split `property` `writable` Â¶
+    
+    
+    min_gain_to_split
+    
+
+###  `` min_sum_hessian_in_leaf `property` `writable` Â¶
+    
+    
+    min_sum_hessian_in_leaf
+    
+
+###  `` num_iterations `property` `writable` Â¶
+    
+    
+    num_iterations
+    
+
+###  `` num_leaves `property` `writable` Â¶
+    
+    
+    num_leaves
+    
+
+###  `` other_rate `property` `writable` Â¶
+    
+    
+    other_rate
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` skip_drop `property` `writable` Â¶
+    
+    
+    skip_drop
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` top_rate `property` `writable` Â¶
+    
+    
+    top_rate
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    
+
+###  `` uniform_drop `property` `writable` Â¶
+    
+    
+    uniform_drop
+    
+
+###  `` verbosity `property` `writable` Â¶
+    
+    
+    verbosity
+    
+
+###  `` xgboost_dart_mode `property` `writable` Â¶
+    
+    
+    xgboost_dart_mode
+    
+
+###  `` zero_as_missing `property` `writable` Â¶
+    
+    
+    zero_as_missing
+    

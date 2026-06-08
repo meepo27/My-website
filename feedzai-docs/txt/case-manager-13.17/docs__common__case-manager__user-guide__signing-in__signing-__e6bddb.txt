@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-out-via-idp-initiated
+Title: Sign out via IdP-initiated | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Sign in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/)
+  * [Sign in with SSO](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-sso)
+  * Sign out via IdP-initiated
+
+
+
+On this page
+
+# Sign out via IdP-initiated
+
+Sign out via IdP-initiated allows to sign out from all applications at once without having to sign out from each application individually.
+
+## How Toâ
+
+For this example, a Case Manager instance and a Pulse instance have been configured in the IdP as a Service Provider (SP). Check Pulse Check [Configuring AD FS](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-a-relying-party-trust) in the Pulse documentation to learn how to add Case Manager as an SP.
+
+  * A Demo environment configured in the IdP as PULSE DEMO.
+  * A Demo environment configured in the IdP as CaseManager.
+
+
+
+SP applications
+
+Note that the Case Manager and the Pulse instances are used here as an example. In a production system the IdP could be configured with any application used by the client.
+
+To understand the concept of signing out from all the applications via IdP-initiated execute the following actions:
+
+  1. Sign into PULSE DEMO and CaseManager instances using either [SP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated) or [IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated).
+
+  2. Access the main IdP URL and choose the first Sign Out option (Sign out from all the sites that you have accessed).
+
+
+
+
+danger
+
+Note that the second Sign Out option (Sign out from this site) is only to sign out from the IdP website, and does not signs out the SP option that is selected under Select one of the following sites. Also note that, when selecting this second Sign Out option, the IdP does not communicate with application, and thus, the Case Manager session that is already signed will remain active.
+
+  3. Verify that both the Case Manager and the Pulse instances initiated in Step 1 are signed out (you may have to reload the pages or perform any operation within these instance). Note that you are redirected to an URL that allows you to sign in via SP-initiated.
+
+
+
+## Next Stepsâ
+
+  * Learn more about sign in scenarios with SSO:
+    * [Signing in via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated)
+    * [Signing in via SP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated)
+
+

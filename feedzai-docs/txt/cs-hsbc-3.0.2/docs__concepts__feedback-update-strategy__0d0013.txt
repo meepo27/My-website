@@ -1,0 +1,67 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/concepts/feedback-update-strategy
+Title: Feedback Update Strategy | Feedzai Documentation
+============================================================
+
+On this page
+
+# Feedback Update Strategy
+
+As of version 2.8.0 (and 2.5.5, 2.7.2) we have introduced a configurable strategy to control how events are updated when a feedback is received.
+
+This page focuses on the concepts of feedback and labeling strategies. For configuration details, refer to the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+## How feedback labeling worksâ
+
+When a feedback is received by Pulse there is a process in place to label events related with the feedback. Each of the labeled events will generate a new feedback event that is injected into the workflow and later to be later consumed by Case Manager.
+
+In previous versions this strategy was not configurable and it meant that a feedback would generate `n` feedback events, where `n` is the number of related events (e.g. initiation, info).
+
+In this new approach this strategy is configurable and supports two strategies:
+
+  * `ALL`: all events sharing the same `lifecycle_id`
+  * `SINGLE`: a feedback update per Case Manager event with the same `lifecycle_id`, according to the event type precedence
+
+
+
+##### info
+
+For Cards all clearings will receive feedback labels as they are independent Case Manager events
+
+## Strategy examplesâ
+
+To better understanding how the feedback strategy works take the following example:
+
+  * A transfer initiation reaches Pulse
+  * Two info requests are made to update the initiation
+  * A feedback event is made
+
+
+
+Using the `ALL` feedback strategy would mean three feedback events would be reinjected into the workflow and later processed by Case Manager. This ensures consistency across all related events by propagating the label to all events with the same `lifecycle_id`.
+
+In the database we would be able to see all related events with the feedback label:
+
+Event date| lifecycle_id| event_type| FDZ_FEEDBACKS  
+---|---|---|---  
+Tue, 28 Jan 2025 00:56:27| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| feedback| {}  
+Tue, 28 Jan 2025 00:56:18| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| info| {"fraud": {"@type": "bincla", "metadata": {"inject": false, "lifecycle_id": "b8298fd6-7b96-4cb8-b5e6-3f0c13de489d"}, "realOutcome": false, "reportInstant": 1738025787583}}  
+Tue, 28 Jan 2025 00:56:17| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| info| {"fraud": {"@type": "bincla", "metadata": {"inject": false, "lifecycle_id": "b8298fd6-7b96-4cb8-b5e6-3f0c13de489d"}, "realOutcome": false, "reportInstant": 1738025787583}}  
+Tue, 28 Jan 2025 00:56:08| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| transfer_initiation| {"fraud": {"@type": "bincla", "metadata": {"inject": false, "lifecycle_id": "b8298fd6-7b96-4cb8-b5e6-3f0c13de489d"}, "realOutcome": false, "reportInstant": 1738025787583}}  
+  
+On the other hand, using the `SINGLE` feedback strategy would mean only one event would be reinjected into the workflow, minimizing the number of events that would be processed by Case Manager.
+
+To choose the event to update a event type precedence is taken into account. In outbound the event to updated is calculated as follows:
+
+  * Choose the event type according to a precedence of (from highest to lowest): info, transfer_initiation, settlement
+  * If two events have matching precedence the most recent one is selected
+
+
+
+In the database we would be able to see the most recent event with the feedback label:
+
+Event date| lifecycle_id| event_type| FDZ_FEEDBACKS  
+---|---|---|---  
+Tue, 28 Jan 2025 00:56:27| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| feedback| {}  
+Tue, 28 Jan 2025 00:56:18| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| info| {"fraud": {"@type": "bincla", "metadata": {"inject": false, "lifecycle_id": "b8298fd6-7b96-4cb8-b5e6-3f0c13de489d"}, "realOutcome": false, "reportInstant": 1738025787583}}  
+Tue, 28 Jan 2025 00:56:17| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| info| {}  
+Tue, 28 Jan 2025 00:56:08| b8298fd6-7b96-4cb8-b5e6-3f0c13de489d| transfer_initiation| {}

@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/ad-hoc-investigations-rules
+Title: Ad-Hoc Investigations Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Ad-Hoc Investigations Rules
+
+
+
+On this page
+
+# Ad-Hoc Investigations Rules
+
+### Descriptionâ
+
+The Ad-Hoc Investigations rules project includes rules that use information from the ad-hoc investigations' channel, e.g. alerts a merchant if there is at least one ad-hoc investigation marked as fraud over the course of 30 days.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## AHIR1
+
+### Comment
+
+> ### Actions
+
+  * Alert
+  * [AHIR1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.cnt_risky_ahi_30d >= 1
+
+### Explanation
+
+> Merchant ({event.merchant_id}) has recorded {event.cnt_risky_ahi_30d} investigations marked as 'Risky' in the last 30 days. Please review the Investigations channel for further details.
+
+### Mark As
+
+N/A

@@ -1,0 +1,91 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/create-ssr
+Title: Create Self-Service Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * Create Self-Service Rules
+
+
+
+On this page
+
+# Create Self-Service Rules
+
+Was this page helpful?Â 
+
+Self-Service Rules (SSRs) allow you to quickly create a rule, test and deploy it directly in production to improve fraud prevention.
+
+The risk engine platform has a set of [standard rules](/tfrb/latest/docs/common/tfrb/rules-projects/overview) that are used in combination with [lists](/tfrb/latest/docs/common/tfrb/references/pulse-lists) to catch fraud. However, fraudsters are constantly coming up with new workarounds to trick the system. Counteracting new waves of fraud might require tweaking a rule or creating a new one. The rules created in the risk engine platform are normally developed and tested in staging environments, to ensure that the work in development does not affect the work in production. They are also developed by teams that have deep knowledge in this area and often have taken special training. Therefore, there is an inevitable gap between the time that these rules start to be written and the time that they are deployed in production.
+
+SSRs are a Case Manager functionality that allows you to fill this gap, and have a rule live in production in a few minutes. With this capability, you can write a rule using an intuitive interface, test and publish it directly into production. As an example, you can use SSRs to create a rule with a different threshold and publish in production to have it quickly live.
+
+## Create an SSRâ
+
+To create SSRs in Case Manager, execute the following steps:
+
+  1. Enter the **Self Service Rules** page in Case Manager's **Settings**
+  2. Use the  button to open the SSRs creation panel.
+
+
+
+As an example, imagine that you want to define an SSR with a lower threshold than the one defined in the Cards-FR19 rule that is configured in the risk engine (see a full list of [Fraud rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules). The Cards-FR19 declines transactions and generates an alert when the number of transactions made by a card within three minutes is equal or higher than five. The following settings show you how to create an SSR identical to UB23 but setting a new limit for the number of transactions within three minutes: equal or higher than three.
+
+  * **Name:** Limit the number of transactions in the last 3 minutes
+  * **Explanation:** Decline transaction if the number of transactions made by the card within the last 3 minutes is equal or higher than 3 (updated threshold).
+
+
+
+The following image shows you how to define the conditions for this example:
+
+info
+
+The **Schema Entity** is also shared by the risk engine rules. Check the [_Workflow Schema <version>_](/tfrb/latest/docs/common/tfrb/references/pulse-schemas) under the Schema Reference page to have access to the full list of fields.
+
+info
+
+When adding the **amount** field to the condition, the value is defined in cents (e.g. 1000 to represent $10.00).
+
+The following image shows you how to define the decision and the status for this example:
+
+### Create an SSR with TrustScoreâ
+
+The following image exemplifies an SSR created specifically to auto-decline card events with a score equal or greater than 750.
+
+For Cards and Outbound Transfers, this score is the output of Feedzai's [TrustScore](/tfrb/latest/docs/common/tfrb/about/how-it-works#trustscore), or a combination of scoring models and TrustScore.
+
+## Test an SSRâ
+
+You can test a rule after selecting the  button, or you can test it later by viewing  the rule (this icon is shown when hovering over your list of SSRs). Select a predefined time period or define a 'Custom' start/end date that will be used to perform the test:
+
+The rule is tested using the events that are in Case Manager whose timestamp is within the time window that you select.
+
+Once the test run has ended, you can analyze its results:
+
+  * **Hit Rate:** Percentage of events that triggered the rule.
+  * **Hit Rate Count:** Absolute number of events that triggered the rule.
+  * **Hit Rate Amount:** Sum of the transaction amount captured by the rule.
+  * **FPR (False-Positive Rate):** Percentage of events that are not fraud in the real world, and that were classified as fraud by the risk engine.
+  * **Precision:** Out of all events within the time window that were declined by the risk engine, how many were correctly declined.
+
+
+
+## Reorder SSRsâ
+
+By clicking and dragging rules, users can establish their priority. This means that rules on the top are prioritized over those that come down below:
+
+## Publish SSRsâ
+
+Writing and testing SSRs are stages that are performed offline, and thus, do not impact the processing of live transactions. The SSRs become live only after publishing them.
+
+danger
+
+**Publishing rules:** Make sure you double check the SSRs and test them carefully before publishing them. Promoting SSRs that do not perform well might have a negative business impact.
+
+To promote SSRs to your live environment, use the  button.
+
+tip
+
+**Active Rules:** when publishing changes, Case Manager will activate the rules that have the state as enabled.

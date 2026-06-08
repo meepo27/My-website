@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/explanations
+Title: Explanations | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows)
+  * Explanations
+
+
+
+On this page
+
+# Explanations
+
+Was this page helpful?Â 
+
+Explanations simplify the end-user interpretation of the result of processed events. These explanations describe in a human-friendly way why events were classified in a certain way by [models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models); for example, why they represent fraudulent transactions, or why they activated [rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules).
+
+So, for each [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) element that can produce a score and contribute to an outcome, you can define locally how Pulse generates an explanation.
+
+Each workflow stage will then be enabled to produce different explanations for a given event.
+
+## Explanations and Rulesâ
+
+When a transaction goes through the [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) and reaches a **Rules Service** workflow element, all the defined [rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) are tested. Whenever a rule is triggered, it can, if configured, generate an explanation. Explanations are generated from an [explanation template](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/rules-components) defined locally at each rule and only contain one reason to explain why the rule was triggered.
+
+The explanation template field is designed to contain a human-friendly description of why the transaction failed to satisfy the triggered rule. To improve these descriptions, the template field allows to perform parameter substitution and include, for example, transaction values or environment variable values.
+
+## Explanations and Modelsâ
+
+When a transaction is scored in a **Scoring Service** , Pulse can, if configured, also generate an explanation. Explanations are generated to show how each model feature contributed to an [outcome](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) and outcome score.
+
+Contrary to **Rules Services** , Pulse automatically builds explanations containing feature contributions to the outcome, so it is not necessary to configure any explanation template.
+
+The result of explanations in a **Scoring Service** is a list of all data fields used as features for the model and the weight from each one in the decision.
+
+## Computing Explanationsâ
+
+Depending on how you configure each of your **Scoring Services** and **Rules Services** , Pulse generates explanations as follows:
+
+  * **Computed on critical path** : Pulse generates explanations immediately after the event is processed at a **Scoring** or **Rules Service**. This may be useful when you need to act upon an explanation as it occurs and triggers an external action in another system. For example, you can use a custom service to handle explanations and dispatch actions to external systems.
+
+Explanations on critical path
+
+Consider that computing explanations in the middle of a workflow will cause a performance degradation.
+
+It is recommended that you use this option only when it is crucial that you analyze explanations right away.
+
+  * **Computed after workflow completion** : Pulse only generates explanations after the workflow has finished processing an event.
+
+
+

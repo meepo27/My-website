@@ -1,0 +1,68 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/correspondent-banking
+Title: Correspondent Banking | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details)
+  * Correspondent Banking
+
+
+
+On this page
+
+# Correspondent Banking
+
+Was this page helpful?Â 
+
+Learn about the Correspondent Banking end-to-end life cycle to smoothly integrate with the transfers API.
+
+## Transaction initiationâ
+
+The scenarios described in this section explain the transfer life cycle for both single counterparty and multiple counterparties. This page covers the end-to-end default scenario in which only the Transfer Initiation endpoint is called to process transfers.
+
+info
+
+**Endpoints Integration:** Check the [Transaction Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle) page to learn more about the life cycles for transfer updates, settlements, and feedback actions, corresponding to requests to the Info, Settlement and Feedback endpoints, respectively.
+
+### Single counterpartyâ
+
+The life cycle that involves a single counterparty applies to large financial institutions. The following diagram depicts a typical flow:
+
+The steps depicted in the previous image are the following:
+
+  1. The sender, also referred to as originator, initiates the transfer using any available channel - for example, mobile, internet banking, phone, bank branch, contact center, email, file transfer system.
+  2. The sender bank receives the transfer instructions and debits the sender's account. The sender bank sends the transfer instructions to the receiver bank. A combination of message MT103 and MT202 (or MT202 COV) are used in this process. The MT103 is the transfer message and is in the critical. The MT202 (or MT202 COV) is the correspondent message to settle the funds between the banks, is sent afterwards, and does not include information about the originating financial institution.
+  3. The receiver bank receives the message from the sender bank, acknowledges and deducts a transaction fee. It also receives the instructions to credit the receiver's account.
+  4. The receiver's account is updated with the funds.
+
+
+
+info
+
+**Integration with Feedzai API:** The transfers API was designed to allow banks that operate at different points of the transfers life cycle to integrate with Feedzai. This flexible integration capability is shown in the previous figure with the API  label.
+
+### Multiple counterpartiesâ
+
+The scenario of multiple counterparties occurs when the sender and the receiver's bank are small-sized institutions. In this case, a third-party is required to establish the main communication (e.g. overseas connection) between the correspondents.
+
+The steps depicted in the previous image are the following:
+
+  1. The sender, also referred to as originator, initiates the transfer using any available channel - for example, mobile, internet banking, phone, bank branch, contact center, email, file transfer system.
+  2. The sender bank receives the transfer instructions and debits the sender's account. The sender bank sends the transfer instructions to the sender correspondent bank. A combination of message MT103 and MT202 (or MT202 COV) are used in this process. The former is in the critical path whereas the latter is sent afterwards and does not include information about the originating financial institution.
+  3. The sender correspondent bank receives the message from the sender bank, acknowledges, deducts a fee from this transaction and forwards the transfer messages to the receiver correspondent bank.
+  4. The receiver correspondent bank receives the message from the sender correspondent bank, acknowledges, deducts a fee from this transaction and forwards the transfer messages to the receiver bank.
+  5. The receiver bank receives the transfer messages and credits the receiver's account.
+  6. The receiver's account is updated with the funds.
+
+
+
+info
+
+**Integration with Feedzai API:** The transfers API was designed to allow banks that operate at different points of the transfers life cycle to integrate with Feedzai. This flexible integration capability is shown in the previous figure with the API  label.
+
+## Learn moreâ
+
+Check the [Real-time Gross Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/real-time-gross-transfers) page to learn how to integrate with other transfer methods.

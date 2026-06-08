@@ -1,0 +1,88 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/responses-errors
+Title: Responses and Errors | Feedzai Documentation
+============================================================
+
+On this page
+
+# Responses and Errors
+
+When a client makes a request to an HTTP server and the server successfully receives their request, the server notifies the client if the request was successfully processed or not. Read this page to understand what each response and error means.
+
+## Successful responseâ
+
+Successful calls to Feedzai's API result in a response with HTTP 200 code. Please check each endpoint's documentation to see the structure of a successful response.
+
+### Warning responseâ
+
+A warning response is a subtype of a successful response which is sent with the HTTP 200 code. The transaction is also processed. The response returns:
+
+  * `status` field with the response 'warning'.
+  * `warnings` field with the reasons for this outcome..
+
+
+
+## Error responseâ
+
+When a call to Feedzai's API results in an error, the response object returned always has the same fields. In particular, the `status` field is shared with the successful response objects of all endpoints. The **Error Response** object is defined as follows:
+
+Name| Field Type| Description  
+---|---|---  
+`code`| String| An indicative code for the error. See possible values below.  
+`errors`| Array of strings| A list of free text explanations for the error.  
+`status`| String| Always with value `error`.  
+  
+### Generic Error codes - Possible Valuesâ
+
+Error code| Description| HTTP Code  
+---|---|---  
+`authenticationError`| The request could not be authenticated.| `401`  
+`authorizationError`| The authenticated user does not have permission to access the endpoint.| `403`  
+`parseError`| The request could not be parsed.| `400`  
+`invalidParameterError`| The URL parameter provided is invalid.| `400`  
+`invalidTimestampError`| The timestamp provided in the request is invalid.| `400`  
+`nonexistentEndpoint`| The endpoint being called does not exist.| `404`  
+`unsupportedMethod`| The HTTP method to call this endpoint is not supported.| `405`  
+`tooManyRequests`| The allowed request rate was exceeded.| `429`  
+`internalError`| Feedzai's system produced an internal error.| `500`  
+`timeoutError`| Feedzai's system failed to produce a timely response.| `504`  
+  
+Please check each endpoint's documentation for specific error codes.
+
+## Responses for timestamps out of rangeâ
+
+This subsection describes responses for requests with timestamps that are out of the valid range.
+
+Endpoint| Timestamp| Response HTTP code| Error or Warning| Is transaction processed?  
+---|---|---|---|---  
+Authorization| `event_occurred_at` in the past| 400| Error| No  
+Authorization| `event_occurred_at` in the future| 400| Error| No  
+Info, Clearing, Feedback| `event_occurred_at` in the past| 200| Warning| Yes  
+Info, Clearing, Feedback| `event_occurred_at` in the future| 400| Error| No  
+  
+**Error Response Example:**
+    
+    
+    {  
+        "status": "error",  
+        "code": "invalidTimestampError",  
+        "errors": [  
+            "Event has timestamp in the future: <EVENT_OCCURRED_AT> | Now is: '2018-09-04T16:41:30.774Z'"  
+        ]  
+    }  
+    
+
+Copy
+
+**Warning response example:**
+    
+    
+    {  
+        "lifecycle_id": <LIFECYCLE_ID>,  
+        "warnings": [  
+            "Event has timestamp in the past: <EVENT_OCCURRED_AT> | Now is: '2018-09-04T16:40:40.522Z'"  
+        ],  
+        "status": "warning"  
+    }  
+    
+
+Copy

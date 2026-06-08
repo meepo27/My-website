@@ -1,0 +1,133 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/features/list_contains_feature/
+Title: list_contains_feature - DS API
+============================================================
+
+#  `` list_contains_feature Â¶
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` ListContainsFeatureBuilder `module-attribute` Â¶
+    
+    
+    ListContainsFeatureBuilder = autoclass([DS_API_CLASSPATH](../../../#ds_api.DS_API_CLASSPATH "            DS_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.DS_API_CLASSPATH\)") + 'plan.features.ListContainsFeature$Builder')
+    
+
+##  `` ListContainsFeature Â¶
+    
+    
+    ListContainsFeature(name: str, list_id: str, expression: str, *, timestamp_field: str | None = None, description: str | None = None)
+    
+
+Bases: `[ListFeature](../list_feature/#ds_api.plans.features.list_feature.ListFeature "            ListFeature \(ds_api.plans.features.list_feature.ListFeature\)")`
+
+Represents a ListContains feature in Pulse.
+
+###  `` description `property` `writable` Â¶
+    
+    
+    description
+    
+
+###  `` expression `property` `writable` Â¶
+    
+    
+    expression: str
+    
+
+###  `` list_id `property` `writable` Â¶
+    
+    
+    list_id: str
+    
+
+###  `` name `property` `writable` Â¶
+    
+    
+    name
+    
+
+###  `` operator `property` Â¶
+    
+    
+    operator
+    
+
+###  `` timestamp_field `property` `writable` Â¶
+    
+    
+    timestamp_field: str | None
+    
+
+###  `` from_dict `classmethod` Â¶
+    
+    
+    from_dict(feat_dict: Dict[str, str]) -> ListContainsFeature
+    
+
+###  `` from_java_feature `classmethod` Â¶
+    
+    
+    from_java_feature(feature: JavaClass, operator: [BaseFeaturesOperator](../../operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")) -> ListContainsFeature
+    
+
+Creates a ListContainsFeature from a Java DS-API ListContainsFeature.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `Java DS-API ListContainsFeature` |  |  _required_  
+  
+####  `operator` Â¶
+
+|  `[ListOperator](../../operators/list_operator/#ds_api.plans.operators.list_operator.ListOperator "            ListOperator \(ds_api.plans.operators.list_operator.ListOperator\)")` |  |  _required_  
+  
+###  `` get_dependencies Â¶
+    
+    
+    get_dependencies() -> set[str]
+    
+
+###  `` get_dependencies_by_type Â¶
+    
+    
+    get_dependencies_by_type() -> dict[str, list[str]]
+    
+
+###  `` rename_dependencies Â¶
+    
+    
+    rename_dependencies(old_name: str, new_name: str)
+    
+
+###  `` to_dict Â¶
+    
+    
+    to_dict(with_operator: bool = True) -> dict[str, str | float | int | bool | None]
+    
+
+###  `` to_java_feature_builder Â¶
+    
+    
+    to_java_feature_builder() -> JavaClass
+    
+
+From ListContainsFeature to a Java DS-API ListContainsFeature.Builder.
+
+Returns:
+
+Type | Description  
+---|---  
+`Builder` |  ListContainsFeature.Builder

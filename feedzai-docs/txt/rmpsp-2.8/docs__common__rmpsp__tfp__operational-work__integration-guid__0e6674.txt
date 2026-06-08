@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/integration-guide/overview
+Title: Integration Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * Integration Guide
+
+
+
+# Integration Guide
+
+This guide provides you with the relevant steps to successfully test the system.
+
+  * [User Acceptance Testing](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/integration-guide/uat/overview): Learn how to test rules, and ensure the system is well configured / running properly.
+
+

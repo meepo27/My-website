@@ -1,0 +1,101 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/
+Title: Building and evaluating your model | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Model Guide
+
+
+
+On this page
+
+# Building and evaluating your model
+
+Was this page helpful?Â 
+
+Pulse supports your Data Science loop by enabling you to quickly train your models and evaluate the results over several iterations.
+
+A model project aggregates several iterations of a model and provides tools for you to assess whether the features you designed are useful, well constructed, etc. At each iteration, you are able to understand how close you are to reaching your projects goals and what actions you took to reach those results.
+
+Building and evaluating your models with Pulse involves:
+
+  * Training a model
+  * Evaluating a model
+  * Tuning model parameters
+  * Comparing models
+
+
+
+## Edit model evaluation pageâ
+
+The **Edit Model Evaluation** page allows you to configure how you look at the results of your model and how you can evaluate them against models in your project.
+
+The following image displays the **Edit Model Evaluation** page:
+
+The **Edit Model Evaluation** page contains the following areas:
+
+  1. **Evaluation target and comparison**
+
+
+
+Defines the target value and model comparisons for your model evaluation. Select the **Target Value** you want to analyze in your model evaluation. This allows for the evaluation of any value of your model's target variable. For example, both **Fraud** and **Not Fraud**. Select the models you want to **Compare With** to have their evaluations plotted on the ROC Curve area and displayed in the Metrics table.
+
+  2. **ROC curve**
+
+
+
+Graphically displays the typical evaluation metrics of Machine Learning models, such as Recall and FPR.
+
+Adjust the **X-Axis Range** and **Y-Axis Range** sliders to zoom in and out of your model's results. Select the **X-Axis** and **Y-Axis** metrics to generate a custom chart in the **X/Y Plot**. Any count and cost-based metrics are available.
+
+  3. **Metrics table**
+
+
+
+Displays the results plotted in the **ROC Curve** area in a tabular manner. Includes all metrics for all possible combinations of the configured breakdowns for the evaluation.
+
+Adjust the **Threshold** slider to define the confidence you have in the model. This means that for example, all Data Source instances above the threshold are evaluated as Fraud. Select the  **View ROC** option in a row to display the graphical evaluation in the **ROC Curve** area for the selected breakdown.
+
+### Evaluation Metricsâ
+
+Select  from the  options menu to define custom metrics. For example, calculating your profit in using your model to automatically detect fraud vs. what you would have spent doing a manual revision. You can then display these custom metrics in the **ROC Curve** and **Metrics** table.
+
+### Comparison Detailsâ
+
+It is common that several models are trained and configured mostly identically. Select the  option to quickly examine the difference between models you are comparing. Changes are highlighted in a different color.
+
+## Exploration pageâ
+
+The **Exploration** page is designed to assist you in fine tuning your [model](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models). It lets you:
+
+  * Check the performance of your models at the defined thresholds.
+  * Assess how close is the model to your success/acceptance criteria, without breaking client SLAs.
+  * Detect possible cost-efficiencies when you make very small adjustments.
+
+
+
+Select the  option from the **Model Project** page.
+
+The following image displays the **Exploration** page:
+
+The **Exploration** page contains the following areas:
+
+  1. **Targets**
+
+
+
+Displays comparative analyses of your evaluations under different criteria. For example, determines, for each evaluation, which one performs the best, i.e. captures the most fraud money, when you set the FPR at approximately 1%.
+
+Displays the threshold and selected metrics for which the configured criteria reach their best performance.
+
+Use the  option to configure the criteria you will use to explore a new target.
+
+  2. **Evaluations**
+
+
+
+Lists all existing evaluations in your model project, both resulting from single model evaluations and hyperparameter tuning. Use the search filter to navigate through these two evaluation types and use  checkboxes to select which **Evaluations** should be displayed for each item in the **Targets** area.
+
+## Getting Startedâ
+
+To start working on your models, learn how you can train a Model and/or perform a Hyperparameter Tuning.

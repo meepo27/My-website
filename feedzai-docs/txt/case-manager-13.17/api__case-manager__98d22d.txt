@@ -1,0 +1,128 @@
+Source: https://cam.feedzai.com/case-manager/13.17/api/case-manager
+Title: Feedzai's Case Manager REST API | Case Manager
+============================================================
+
+  * async-action
+    * postGet an asynchronous action submission by the given context params.
+    * postSubmit an asynchronous action with the given context params.
+  * check
+    * getChecks if the current CM node should be available in a load balancer.
+    * getGets whether this Case Manager node is currently ingesting events
+    * getGets whether Case Manager is currently in maintenance.
+  * case-source
+    * getGets a paginated list of case sources.
+    * postCreates a new case source.
+    * putUpdates a case source status (enable/disable).
+    * putUpdates a case source.
+  * configuration
+    * getEndpoint to retrieve CM's core configuration.
+    * getGets a paginated list of configuration entities, as a JSON object.
+    * postCreates a configuration object from the given model.
+    * getEndpoint to retrieve CM's configuration by identifier.
+    * putUpdates a configuration object from the given model.
+    * delDeletes a configuration object from the given model. This operation is not supported yet.
+    * getEndpoint to retrieve CM's reduced latest GUI configuration.
+    * getEndpoint to retrieve CM's latest GUI configuration.
+    * getEndpoint to retrieve Case Manager's GUI configuration schema.
+  * entity-aggregation
+    * getGets entity aggregations, according to the given parameters.
+  * entity-data
+    * getGets entity data, according to the given parameters.
+    * getLists entity data, according to the given parameters.
+  * entity-file
+    * postCreate an association between N files and N entities.
+    * getLists entity files, according to the given parameters.
+  * entity
+    * postExports the entries of current entityName
+    * getGets a single entity by ID.
+    * postGets a single entity by ID.
+    * getGets a list of available entities.
+    * getGets a paged list of the entityName.
+    * postGets a paged list of the entityName using POST.
+  * export-event
+    * postDownloads a file-based report, exporting a set of Events.
+    * postDownloads a file-based report, exporting a set of Events, from the read-only instance of the database.
+  * postcreate
+  * event-note
+    * getGets all the notes from a given event.
+  * event
+    * getGets the event matching the given ID (identifier + timestamp + channelId).
+    * getGet the current event (if possible) that is being reviewed by the user.
+    * getGet the next event to be reviewed by the current user.
+    * getGets a paginated list of events, as a JSON object.
+    * postGets a paginated list of events (for omnichannel), as a JSON object.
+    * getGets a list of linked events to the main event.
+    * postChecks if there any events that match a criteria.
+  * gui-config
+    * postMake changes on a set of gui-config components. This request requires authentication as well as the cm:resource:self-service-config permission.
+    * postGets a gui-config component's default state (i.e: its project persisted state without preferencesapplied). This request requires authentication as well as the cm:resource:self-service-config permission.
+    * getLists the currently active gui-config preferences. This request requires authentication as well as the cm:resource:self-service-config permission.
+    * postResets a list of gui-config preferences to their default state. This request requires authentication as well as the cm:resource:self-service-config permission.
+    * postResets the page widgets to their default state, for a given channel. Cross-channel elements will also be reset. This request requires authentication as well as the cm:resource:self-service-config permission.
+  * language-message
+    * getEndpoint to retrieve message keys translated for the given language.
+    * getEndpoint to retrieve login message keys translated for the given language.
+  * maintenance
+    * putAttempts to finish any ongoing maintenance mode in Case Manager.
+    * putAttempts to start a maintenance mode in Case Manager.
+  * pulse-rules
+    * getGets the pulse rules from all configured workflows.
+  * queue-user
+    * putAssigns the given queues to the given user.
+    * getRetrieves the queues assigned to the user in session.
+  * related-transactions
+    * postGets a paginated list of related transactions, as a JSON object.
+    * postGets a paginated list of related transactions using read only resources, as a JSON object.
+  * ssr
+    * getGets audit entries of a self-service rule
+    * getGets a list of self-service rules.
+    * postCreates a self-service rule.
+    * getGets the self-service rule matching with the given ssr Id.
+    * putUpdates the self-service rule matching with the given 'id'
+    * delDeletes a self-service rule
+    * getGets the self-service rules metadata
+    * postChanges the order of a self-service rule
+    * postPublishes the self-service rules
+    * getGets the current status of the self-service rule capabilities
+    * postValidates a self-service rule
+  * ssr-testing
+    * getGets the tests of a self-service rule.
+    * postCreates a self-service rule test.
+    * getGets the last test of a self-service rule.
+  * session
+    * getRetrieve the current user session.
+    * putChange password for current user.
+    * postLogin.
+    * delLogout from the current session.
+    * postConfirms the given password reset.
+    * postGenerates new configuration required for 2-Factor Authentication.
+    * postReplaces 2-Factor Authentication configuration.
+    * postRequests a password reset to Pulse.
+    * postResets 2-Factor Authentication configuration.
+    * putRestores the expired password for current user.
+    * postLogin endpoint for SSO/SAML authentication.
+    * getLogout endpoint for SSO/SAML authentication.
+    * postValidates configuration required to 2-Factor Authentication.
+    * postValidates the given username and token.
+  * statusReason
+    * getList all available status reasons, as a JSON object. Filtering parameters for this API are completely ignored and is applied client-side only. This request requires authentication as well as the state machine status reason cm:state-machine:status-reason:read:<state-machine> permission.
+    * postCreate a status reason. This request requires authentication as well as the state machine status reason cm:state-machine:status-reason:write:<state-machine> permission.
+    * getGet a status reason. This request requires authentication as well as the state machine status reason cm:state-machine:status-reason:read:<state-machine> permission.
+    * delDelete a status reason. This request requires authentication as well as the state machine status reason cm:state-machine:status-reason:delete:<state-machine> permission.
+  * tenant
+    * getGet information of a tenant from a given identifier.
+    * getGet the tenant groups of the current user.
+    * getList all tenants available.
+  * timezone
+    * getGet information of a time zone from a given time zone identifier. This request requires authentication as well as the cm:resource:timezone:read:* permission.
+    * getGets a list of all available time zones, as a JSON object. Filtering parameters for this API are completely ignored and is applied client-side only. This request requires authentication as well as the cm:resource:timezone:read:* permission.
+  * user
+    * getGet information about a user given its identifier. It is also possible to pass in channel IDs(which represent the required channel permissions to get the resource) and case types (which represent therequired case type permissions to get the resource). By default, if none are passed, no permissions are enforced. Requires authentication and the cm:resource:user:read:* permission.
+    * getGet a (paginated) list of users that obey the given pagination parameters and according to a providedtenant. If no tenant is passed, landlords are returned. Requires authentication and the cm:resource:event-users:read:* permission.
+    * getGet a (paginated) list of users that obey the given pagination parameters. It is also possible to pass in channel IDs and case types, which will filter the returned resources by the user's permissions.By default, if none are passed, no resource filtering is done. Requires authentication and the cm:resource:user:read:* permission.
+  * version
+    * getGet the version currently being used by Case Manager.
+
+
+
+[API docs by Redocly](https://redocly.com/redoc/)

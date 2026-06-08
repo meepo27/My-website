@@ -1,0 +1,64 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reports
+Title: Reports | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Reports
+
+
+
+On this page
+
+# Reports
+
+Reports allow you to capture and download a snapshot of how your system performed during a given timeframe.
+
+Reports are especially useful for:
+
+  * Obtaining global business and system performance information, and specific information calculated over different dimensions and date ranges, in a way that is simple to analyze.
+  * Providing periodic and on-demand business and system monitoring to upper levels in your organization.
+  * Keeping an auditable track record over time of how your business is evolving and how the system is enabling you to detect more financial crime.
+
+
+
+For example, you can use reports to track useful data such as:
+
+  * How many alerts have been raised within a timeframe.
+  * How many global transactions have been marked with a certain state.
+  * The alert reviewing performance for each of your analysts.
+  * The alert resolution rate per queues.
+
+
+
+## Report Templatesâ
+
+To generate a report and analyze the results, you must first design a **Report Template** that fits your custom monitoring requirements. Report templates don't have any actual data - they define which data will be consumed, how to transform it, and how to present the output when you generate a report.
+
+You can design and customize report templates using an external report designer tool, such as [JasperReports](https://www.jaspersoft.com/products/jaspersoft-community). Report templates allows you to define the style, tables, information and formatting that you want your report to display.
+
+Once you have correctly defined and exported your template, you can then upload it and reuse the same template to systematically generate the same report for different timeframes.
+
+## Generated reportsâ
+
+When you specify and generate reports, you can download them and, for example, share with the rest of your team.
+
+Download format
+
+You can download reports as CSV, PDF and/or Excel files.
+
+Only operational reports (i.e. detailed picture of the present) are supported. All reports are executed over the operational database and no pre-migration, pre-aggregation or pre-calculation is executed to support analytical reports.
+
+Analytical reports
+
+Trying to run analytical reports can cause:
+
+  * Long report-generation delays
+  * System crash due to memory exhaustion
+  * System processing delays due to the extra database load (including realtime scoring)
+
+
+
+## Learn moreâ
+
+Now that you've know the basics about reports, learn how to [manage reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports).

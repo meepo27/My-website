@@ -1,0 +1,101 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/four-eyes-check
+Title: Reviewing Rule Changes - Four Eyes Check | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Reviewing Rule Changes
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Reviewing Rule Changes - Four Eyes Check
+
+When creating or editing rules, you may want to ask other colleagues to review your work to ensure rule safety and high quality. If four eyes check is enabled in your Pulse environment, you can request a review directly in Pulse.
+
+This page describes both sides of the review: how to request a rule review from a peer, and how to give feedback if you are requested to review rules.
+
+## Prerequisitesâ
+
+To allow reviews of rule changes, an administrator must configure the following:
+
+  * The `fourEyeCheck.enabled` property must be set to `true`. After this property is set to _true_ , you need to refresh the Pulse page in your browser to be able to request reviews.
+
+
+
+Optionally, for the notification emails to work as designed, the following settings can be configured as well. However, if you don't intend to use the notification emails, these can be skipped:
+
+  * The SMTP properties must be configured, so that the notification emails are properly sent.
+  * The `pulse.global.fourEyeCheck.notifications.email.from` property: sets the email address from which Pulse sends the notification email to the reviewers. By default, it's [[email protected]](/cdn-cgi/l/email-protection#f9898c958a9cb99f9c9c9d839890d79a9694).
+  * The `pulse.global.ui.host` property is used to configure the URL where Pulse runs, and by default it's set to `http://localhost:8080/`. The notification email contains a link to the rule snapshot that needs to be reviewed, and the link starts with the URL set in this property. If the default value is not set to the actual value, the link in the email won't work.
+
+
+
+Get in touch with Feedzai to set up four eye check in your Pulse environment.
+
+### Set up a static e-mail to receive all Four Eyes Check notificationsâ
+
+In addition to direct notifications sent to the author and reviewer in four eyes checks, Pulse allows setting up a static e-mail address which will receive all four eyes check notifications. This allows Pulse users to review the open revisions more thoroughly, and thus catch errors that might otherwise be missed. Note that the recipient of these emails will not be addressed directly, as they will be merely copies of the notifications sent to the author and reviewer of the corresponding four eyes check.
+
+Notifying multiple users
+
+This e-mail address can be set to that of a mailing list, which allows multiple users to receive every four eyes notifications.
+
+To enable notifications for Pulse rules, provide the e-mail address via the following Pulse property: `pulse.global.fourEyeCheck.notifications.email.staticreviewer`.
+
+## Purpose of peer reviewsâ
+
+Ensuring every change is reviewed by a second pair of eyes helps prevent unwanted or unplanned changes from being published.
+
+Snapshots that were not approved by a peer may still be published live, but the user importing the snapshot must explicitly confirm such a control bypass.
+
+info
+
+If the Four Eyes Check feature is enabled, changes by all users (even those with the approval role) are subject to a review from a peer. In other words, users cannot self-approve their own changes.
+
+## Request a reviewâ
+
+To request a review of a snapshot, execute the following steps:
+
+  1. In the **Data Science** tab, go to the rules project that contains the rule snapshot. Under **Snapshots** , select the snapshot that you created.
+
+  2. Use the **Request Review** button to submit the snapshot for review.
+
+  3. In the **Submit Snapshot for Review** window, fill in the following fields:
+
+     1. **Change Description** : Describe the changes you made to rules, data fields and lists. Include the name of the snapshot that contains the rule's previous state for reference, if there is such a snapshot. This will let the reviewer know the name of the snapshot they should compare yours to. Usually it is the snapshot that was last published live.
+     2. **Notify User(s)** : Type the name of the Pulse users that you want to invite to review the snapshot. In this field, you can select only users that have an email address configured in Pulse. If you don't find a user, contact your Pulse administrator.
+  4. Use the **Submit** button to send the snapshot for review and request the selected users to review the changes included in the snapshot.
+
+  5. As a result, the users you selected will receive an email with the following information:
+
+     1. Review submitted on your behalf.
+     2. The name of the rules project.
+     3. The name of the snapshot.
+     4. A link to the snapshot.
+  6. You can follow up on the status of the review next to the snapshot's name:
+
+  7. You will receive an email notification when the snapshot is accepted or rejected.
+
+
+
+
+## Review rulesâ
+
+If you are asked to review a rule snapshot, perform the following steps:
+
+  1. Open the link from your email, or go to Pulse in the **Data Science** tab and look for the snapshot submitted for review.
+
+  2. If there is a previous snapshot that you want to compare it with, use the **Compare with another Snapshot** button to see the differences.
+
+  3. When you have decided whether the snapshot should be published or not, select the **Review Snapshot** button.
+
+  4. Add your feedback in the **Explanation** field, and select the **Accept** or **Reject** button according to your decision about the snapshot.
+
+  5. The user who requested this review will be notified of your decision via email.
+
+
+

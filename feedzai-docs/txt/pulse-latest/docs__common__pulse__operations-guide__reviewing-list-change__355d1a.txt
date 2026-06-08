@@ -1,0 +1,95 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/reviewing-list-changes
+Title: Reviewing List Changes - Four Eyes Check | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * Reviewing List Changes
+
+
+
+On this page
+
+# Reviewing List Changes - Four Eyes Check
+
+Was this page helpful?Â 
+
+[Lists](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) provide a way to amplify the power of [rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) by allowing repetitive patterns to be defined as a single rule that then gets applied to a large number of values. Given the high level of automation that lists enable, ensuring every change is reviewed by a second pair of eyes helps prevent unwanted or unplanned changes from being published.
+
+If the **Four-Eyes Check for Lists** functionality is enabled in your Pulse environment, changes to lists will not be published right away; instead, they will be queued for review. Such pending list changes only go live after a reviewer approves them.
+
+Reviews of changes made to lists can be requested and performed directly in the Pulse interface. This page describes both sides of the review process: how to request a review for changes to lists, and how to perform such a review.
+
+## Prerequisitesâ
+
+To allow reviews of list changes, an administrator must set the `pulse.global.managedListsRevision.enabled` property to `true` in the Administration > Configuration view. The default value of this property is `false`.
+
+Optionally, for the notification emails to work as designed, the following settings can be configured as well. However, if you don't intend to use the notification emails, these can be skipped:
+
+  * The SMTP properties must be configured, so that the notification emails are properly sent.
+  * The `pulse.global.managedListsRevision.notifications.email.from` property: sets the email address from which Pulse sends the notification email to the reviewers. By default, it's `[[email protected]](/cdn-cgi/l/email-protection)`.
+  * The `pulse.global.ui.host` property is used to configure the URL where Pulse runs, and by default it's set to `http://localhost:8080/`. The notification email contains a link to the list changes that need to be reviewed, and the link starts with the URL set in this property. If the default value is not set to the actual value, the link in the email won't work.
+
+
+
+Get in touch with Feedzai to set up four eyes check for lists in your Pulse environment.
+
+### Set up a static e-mail to receive all Four Eyes Check notificationsâ
+
+In addition to direct notifications sent to the author and reviewer in four eyes checks, Pulse allows setting up a static e-mail address which will receive all four eyes check notifications. This allows Pulse users to review the open revisions more thoroughly, and thus catch errors that might otherwise be missed. Note that the recipient of these emails will not be addressed directly, as they will be merely copies of the notifications sent to the author and reviewer of the corresponding four eyes check.
+
+Notifying multiple users
+
+This e-mail address can be set to that of a mailing list, which allows multiple users to receive every four eyes notifications.
+
+To enable notifications for Pulse managed lists, provide the e-mail address via the following Pulse property: `pulse.global.managedListsRevision.notifications.email.staticreviewer`.
+
+## Request a review for list changesâ
+
+info
+
+Users need to have the `application:managedlistitems:revision:create` [permission](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application#permissions) to request reviews of list changes from others.
+
+To request a review of a change made to a list, perform the following steps:
+
+  1. In the sidebar, select the  icon to open the **Lists** view.
+  2. Select the list you want to make changes to.
+  3. Make the desired changes to the list. For example, adding a new item, editing or deleting an existing item, or importing a batch of items from a CSV file.
+
+caution
+
+You won't be able to make changes to list items for which there are already pending changes. Attempting to do so will show an error message indicating the ID of the pending review.
+
+  4. Optionally fill the **Notify users** field to indicate specific users you wish to inform of your review request. If the notification settings are properly configured, and the users have an email address associated with their Pulse account, they will receive an email message notifying them of the pending changes.
+  5. Select the  button to add the changes to the review queue.  
+A floating success message will be displayed, confirming that the changes have been submitted for review.
+
+
+
+## Review pending changes to listsâ
+
+info
+
+Users need to have the `application:managedlistitems:revision:read` and `application:managedlistitems:revision:update` [permissions](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application#permissions) to view pending changes to lists and review them.
+
+  1. In the sidebar, select the  icon to open the **Lists** view.  
+Lists with pending changes will be marked with an **Unreviewed** label.
+
+  2. Open the list with pending changes that you wish to review. Each item with changes will be marked with a label indicating the type of change (e.g. "Edited", "Added", "Deleted", etc.)
+
+  3. Select the  button at the top right of the table of lists.  
+The number in parenthesis is the count of unreviewed changes.
+
+  4. Review the overall changes to the list. Change details will at first be collapsed, as indicated by the  symbol to their left.
+
+  5. Expand the details of each change using the  button. This will display a side-by-side comparison of the old and new data associated with the change. Created items will have no content on the left side; deleted items will have no content on the right side. The image below shows an example with two changes â one adding a new item, and the other editing an existing item:
+
+caution
+
+Changes that consist of batch imports of list items will have no preview (as those can typically include thousands of items). In such cases, the only details that are shown are the number of imported items (in the "Name" column), the import mode (append without overwriting existing items, append with overwriting existing items, and complete rewrite), the change author, and the change timestamp.
+
+  6. Select "accept" (âï¸ icon) or "decline" (â icon). For either action, a confirmation dialog is shown. It's possible to disable the display of this dialog in the future, but it's strongly recommended to keep it.  
+A floating success message will be displayed, confirming that the changes have been reviewed and (if approved) will be applied to the list.
+
+
+

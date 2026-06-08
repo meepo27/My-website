@@ -1,0 +1,536 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-authentication
+Title: Authentication | Case Manager
+============================================================
+
+On this page
+
+# Authentication
+
+Deprecated API specification
+
+Case Manager is currently moving to an API specification generated with Swagger. Due to Case Manager's API size and complexity, the resources are being gradually moved to the new format. Until this transition is complete, please make sure that you check both this page and the [new API specification](/case-manager/13.17/api/).
+
+When all resources are moved to the new format, this page will be deleted.
+
+This page details the REST API regarding Authentication.
+
+### Sessionâ
+
+**Get the session of the user that is authenticated in the system**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/session
+
+| \--| \--| The user's session as a JSON object.| Get the session of the user that is authenticated in the system.  
+**Example****Request**| `/api/session`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"id"_: "107027353"_ ,
+    
+    	"username"_: "pulse"_ ,
+    
+    	"password"_: null_ ,
+    
+    	"name"_: "pulse"_ ,
+    
+    	"roles"_: [],
+    	"permissions"_: ["cm:_"_],
+    
+    	"tenancy"_: ,
+    
+    	"posNegPrefix"_: null*
+    
+    }  
+  
+**Login the user in the system**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/session
+
+| 
+    
+    
+    {
+    "username"_: ""_ ,
+    
+    "password"_: ""_ ,
+    
+    "otp"_: ""_
+    
+    }
+
+| \--| The user's session as a JSON object.| Login the user in the system.  
+**Example****Request**| **URL request**| `/api/session`  
+---  
+  
+**Payload**
+    
+    
+    {
+    
+    
+    	"username"_: "pulse"_ ,
+    
+    	"password"_: "Pulse1!!"_ ,
+    
+    	"otp"_: "271920"_
+    
+    }  
+  
+**Response**|  HTTP 200Â (if all fields are correct OR if otp is missing but Pulse's 2FA is disabled)
+    
+    
+    {
+    	"id"_: "107027353"_ ,
+    
+    	"username"_: "pulse"_ ,
+    
+    	"password"_: null_ ,
+    
+    	"name"_: "pulse"_ ,
+    
+    	"authBy"_: "PULSE"_ ,
+    
+    	"roles"_: [],
+    	"permissions"_: [
+    
+    	"cm:_"_
+    
+    	],
+    
+    	"tenants"_: [
+    	{
+    
+    	"id"_: "oo9_BOJZ5HrRonpCoeRBig"_,
+    	"key"_: "NPC"_,
+    	"name"_: "NPC"_,
+    	"comment"_: ""*
+    
+    	}
+    
+    	],
+    
+    	"legacyMultitenancy"_: false_ ,
+    
+    	"otp"_: null_ ,
+    
+    	"secretResetKey"_: null_ ,
+    
+    	"candidateSecretKey"_: null_ ,
+    
+    	"tenancy"_:{
+    
+    	"present"_: false*
+    
+    	},
+    
+    	"posNegPrefix"_:{
+    
+    	"present"_: false*
+    
+    	}
+    
+    }  
+  
+Response| HTTP 204(with 2FA enabled - indicates that should proceed to the next step)  
+  
+**Generate the user's 2FA configuration.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+PUT| 
+    
+    
+    /api/session/generate-config
+
+| 
+    
+    
+    {
+    	"username"_: ""_ ,
+    
+    	"password"_: ""_
+    
+    }
+
+| \--| \--| Generates a candidate secret key.  
+**Example** Request| **URL request**`/api/session/validate-config`**Payload**
+    
+    
+    {
+    	"username"_: "riskofficer2"_ ,
+    
+    	"password"_: "Pulse1!!"_
+    
+    }  
+  
+---|---  
+Response| HTTP 200Â **Payload**
+    
+    
+    {
+    	"candidateSecretKey"_: "CANDIDATE_SECRET_KEY"_
+    
+    }  
+  
+**Validate the user's 2FA configuration**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+PUT| 
+    
+    
+    /api/session/validate-config
+
+| 
+    
+    
+    {
+    	"username"_: ""_ ,
+    
+    	"password"_: ""_ ,
+    
+    	"otp"_: ""_
+    
+    }
+
+| \--| \--| Validate the user's 2FA configuration (generating a secret reset key) and logs the user in.  
+**Example** Request| **URL request**`/api/session/validate-config`**Payload**
+    
+    
+    {
+    	"username"_: "risofficer2"_ ,
+    
+    	"password"_: "Pulse1!!"_ ,
+    
+    	"otp"_: "284024"_
+    
+    }  
+  
+---|---  
+Response| HTTP 200Â **Payload**
+    
+    
+    {
+    	"secretResetKey"_: "SECRET_RESET_KEY"_
+    
+    }  
+  
+**Reset the user's 2FA configuration.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+PUT| 
+    
+    
+    /api/session/reset-config
+
+| 
+    
+    
+    {
+    	"username"_: ""_ , // required only if logged out*
+    
+    	"password"_: ""_ , // required only if logged out*
+    
+    	"otp"_: ""_
+    
+    }
+
+| \--| \--| Reset the user's 2FA configuration, generating a new candidate secret key.  
+**Example** Request| **URL request**`/api/session/reset-config`**Payload**
+    
+    
+    {
+    	"otp"_: "283234"_
+    
+    }  
+  
+---|---  
+Response| HTTP 200Â **Payload**
+    
+    
+    {
+    	"candidateSecretKey"_: "CANDIDATE_SECRET_KEY"_
+    
+    }  
+  
+**Replace the user's 2FA configuration.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+PUT| 
+    
+    
+    /api/session/replace-config
+
+| 
+    
+    
+    {
+    	"otp"_: ""_
+    
+    }
+
+| \--| \--| After receiving aÂ new candidate secret key,Â we need to send username, password and otp in order to confirm and obtain a new reset key.  
+  
+**Example** Request| **URL request**`/api/session/reset-config`**Payload**
+    
+    
+    {
+    	"otp"_: ""_
+    
+    }  
+  
+---|---  
+Response| HTTP 200Â **Payload**
+    
+    
+    {
+    	"secretResetKey"_: "SECRET_RESET_KEY"_
+    
+    }{"}  
+  
+**Change the user's password.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**PUT**| 
+    
+    
+    /api/session
+
+| 
+    
+    
+    {
+    	"username"_: ""_ ,
+    
+    	"passwords"_:{
+    
+    	"oldPassword"_: ""_,
+    	"newPassword"_: ""*
+    
+    	}
+    
+    }
+
+| \--| \--| Change the user's password.  
+**Example****Request**| **URL request**`/api/session`**Payload**
+    
+    
+    {
+    	"username"_: ""_ ,
+    
+    	"passwords"_:{
+    
+    	"oldPassword"_: ""_,
+    	"newPassword"_: ""*
+    
+    	}
+    
+    }  
+  
+---|---  
+**Response**|  HTTP 204Â   
+  
+**Restore the user's expired password.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**PUT**| 
+    
+    
+    /api/session/restore
+
+| 
+    
+    
+    {
+    	"username"_: ""_ ,
+    
+    	"passwords"_:{
+    
+    	"oldPassword"_: ""_,
+    	"newPassword"_: ""*
+    
+    	}
+    
+    }
+
+| \--| \--| Restore the user's password.  
+**Example****Request**| **URL request**`/api/session/restore`**Payload**
+    
+    
+    {
+    	"username"_: ""_ ,
+    
+    	"passwords"_:{
+    
+    	"oldPassword"_: ""_,
+    	"newPassword"_: ""*
+    
+    	}
+    
+    }  
+  
+---|---  
+**Response**|  HTTP 204Â   
+  
+**Logout the user from the system.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+DELETE| 
+    
+    
+    /api/session
+
+| \--| \--| \--| Logout the user from the system  
+**Example** Request| **URL request**`/api/session`  
+---|---  
+Response| HTTP 204Â   
+  
+**Request password reset for the user.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/session/request-password-reset
+
+| 
+    
+    
+    {*
+    
+    	"username"_:_ ""_,_
+    
+    	"clientId"_:_ ""*
+    
+    }
+
+| \--| \--| Request password reset for the user.  
+**Example****Request**| **URL request**`/api/session/request-password-reset`
+    
+    
+    {*
+    
+    	"username"_:_ "YWRtaW4="_,_
+    
+    	"clientId"_:_ "pulse_views"*
+    
+    }  
+  
+---|---  
+**Response**|  HTTP 204Â   
+  
+**Validate password reset for the user.**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+POST  
+| 
+    
+    
+    /api/session/validate-password-reset
+
+| 
+    
+    
+    {*
+    
+    	"username"_:_ ",*
+    
+    	"token"_:_ ""*
+    
+    }
+
+| \--| \--| Validate password reset for the user.  
+**Example** Request| **URL request**`/api/session/validate-password-reset`
+    
+    
+    {*
+    
+    	"username"_:_ "YWRtaW4="_,_
+    
+    	"token"_:_ "dGVzdGU="*
+    
+    }  
+  
+---|---  
+Response| HTTP 204Â   
+  
+**Confirm password reset for the user.**
+
+**Request** Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+POST  
+| 
+    
+    
+    /api/session/confirm-password-reset
+
+| 
+    
+    
+    {*
+    
+    	"username"_:_ ""_,_
+    
+    	"token"_:_ ""_,_
+    
+    	"newPassword"_:_ ""*
+    
+    }
+
+| \--| \--| Confirm password reset for the user.  
+**Example** Request| **URL request**`/api/session/confirm-password-reset`
+    
+    
+    {*
+    
+    	"username"_:_ "YWRtaW4="_,_
+    
+    	"token"_:_ "dGVzdGU="_,_
+    
+    	"newPassword"_:_ "dGVzdGU="*
+    
+    	}  
+  
+---|---  
+Response| HTTP 204Â 

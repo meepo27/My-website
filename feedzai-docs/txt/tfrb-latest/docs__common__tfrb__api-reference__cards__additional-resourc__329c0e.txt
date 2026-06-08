@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/cards/additional-resources/generated-fields
+Title: Generated Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Cards
+  * Generated Fields
+
+
+
+On this page
+
+# Generated Fields
+
+Was this page helpful?Â 
+
+The Cards API generates some fields which will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Authorization| authorization  
+Info| info  
+Clearing| clearing  
+Feedback| feedback  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Cards API as a timestamp, in milliseconds.

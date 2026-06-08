@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3076-HSBC-3141-Pulse-Version-Upgrade
+Title: HSBC-3076-HSBC-3141-Pulse-Version-Upgrade | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3076-HSBC-3141-Pulse-Version-Upgrade
+
+### Pulse Version Upgradeâ
+
+FeatureFTMT-26830WPB-378442HSBC-3076HSBC-3141
+
+Also In:2.4.9 (Pulse Version 25.0.85)2.5.7 (Pulse Version 25.0.85)2.8.1 (Pulse Version 25.0.85)2.9.0 (Pulse Version 25.0.85)
+
+We've upgraded Pulse version to 25.0.90 for the 2.10.0 release.
+
+This upgrade includes:
+
+  * Performance improvements for real-time cross-channel metrics
+  * A fix for issue with file descriptor leaks that were affecting the Pulse server.
+
+

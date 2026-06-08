@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/tfrb/latest/
+Title: Transaction Fraud for Banking
+============================================================
+
+Skip to main content
+
+[**Home**](/tfrb/latest/)[TFB](/tfrb/latest/docs/common/tfrb/about/overview)
+
+[FAQ](/tfrb/latest/docs/common/tfrb/faq)
+
+English
+
+  * [English](/tfrb/latest/)
+  * [EspaÃ±ol](/tfrb/latest/es/)
+
+
+
+# Transaction Fraud for Banking
+
+Monitor all the transactions throughout your entire business in real time. Prevent the most complex fraud occurrences with accuracy and scalability.
+
+[Get started](/tfrb/latest/docs/common/tfrb/about/overview)
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#53373c30263e363d2732273a3c3d133536363729323a7d303c3e).   
+Copyright Â© 2026 Feedzai.

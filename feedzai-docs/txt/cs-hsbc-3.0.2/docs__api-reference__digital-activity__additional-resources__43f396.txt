@@ -1,0 +1,137 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/digital-activity/additional-resources/authentication-response-scenarios
+Title: Authentication Response Scenarios | Feedzai Documentation
+============================================================
+
+On this page
+
+# Authentication Response Scenarios
+
+This section presents several scenarios that might occur in the Digital Activity's Authentication response, depending on the rules that are triggered in the Pulse workflow. Check the Authentication endpoint for more information about detailed request and response examples.
+
+When no rules are triggered, the following fields and default values are shown in the Authentication endpoint's response:
+
+  * `"alert": false` This field is changed to 'true' when any rule with the action 'alert' is triggered. See examples of possible scenarios below.
+  * `"action_codes": []` This field is populated with the actions of the first triggered rule, other than the 'alert' action. Note that the 'alert' action is represented by the `alert` field.
+  * `"secondary_action_codes":[]` This field is populated with all the non-'alert' actions of every triggered rule, except the first triggered rule.
+
+
+
+When rules are triggered, they match the following scenarios:
+
+## Scenario 1â
+
+  * **The first triggered rule:**
+    * Action field - Alert
+  * **Excerpt from the Digital Activity's Authentication response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = [],  
+    "secondary_action_codes" = []  
+    }  
+    
+
+Copy
+
+## Scenario 2â
+
+  * **The first triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Digital Activity's Authentication response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = ["Action 1", "Action 2", "Action 3"],  
+    "secondary_action_codes" = []  
+    }  
+    
+
+Copy
+
+## Scenario 3â
+
+  * **The first triggered rule:**
+    * Action field - Alert
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Digital Activity's Authentication response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = [],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3"]  
+    }  
+    
+
+Copy
+
+## Scenario 4â
+
+  * **The first triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Digital Activity's Authentication response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = ["Action 1", "Action 2", "Action 3"],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3"]  
+    }  
+    
+
+Copy
+
+## Scenario 5â
+
+  * **The first triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **The third triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 4
+  * **Excerpt from the Digital Activity's Authentication response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = ["Action 1", "Action 2", "Action 3"],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3", "Action 4"]  
+    }  
+    
+
+Copy
+
+## Scenario 6â
+
+  * **The first triggered rule:**
+    * This rule doesn't have actions.
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Digital Activity's Authentication response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = [],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3"]  
+    }  
+    
+
+Copy

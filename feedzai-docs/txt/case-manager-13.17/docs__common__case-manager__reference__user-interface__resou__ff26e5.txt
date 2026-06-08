@@ -1,0 +1,169 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/resources
+Title: Resources | Case Manager
+============================================================
+
+On this page  
+  
+# Resources
+
+In order for the application to know where it should fetch the data needed to populate certain parts of it, it is necessary to specify a set of resources with information about where the data should be fetched from.
+
+By default, a list of core resources is already defined as part of the application configuration. However, those default resources can be extended or overridden.
+
+Before listing the core resources, it is important to explain how a resource is represented. A resource is an object that should contain a property called **endpoint** , which is a not optional string, that contains the path to the endpoint that must be used to retrieve the data for this resource.
+
+The list of core resources are the following:
+
+#### Resourcesâ
+    
+    
+    {  
+     selectMerchant: {  
+         endpoint: "/api/entity/select-merchant"  
+     },  
+     note: {  
+         endpoint: "/api/event-note"  
+     },  
+     reason: {  
+         endpoint: "/api/status-reason"  
+     },  
+     selectTerminal: {  
+         endpoint: "/api/entity/select-terminal"  
+     },  
+     pnlists: {  
+         endpoint: "/api/event-posneg"  
+     },  
+     timezone: {  
+         endpoint: "/api/timezone"  
+     },  
+     selectMcc: {  
+         endpoint: "/api/entity/select-mcc"  
+     },  
+     locale: {  
+         endpoint: "/api/locale"  
+     },  
+     automationConfig: {  
+         endpoint: "/api/configuration/automation"  
+     },  
+     selectChannel: {  
+         endpoint: "/api/entity/select-channel"  
+     },  
+     automation: {  
+         endpoint: "/api/automation"  
+     },  
+     file: {  
+         endpoint: "/api/file"  
+     },  
+     selectStatus: {  
+         endpoint: "/api/status"  
+     },  
+     selectCardBin: {  
+         endpoint: "/api/entity/select-cardbin"  
+     },  
+     eventUser: {  
+         endpoint: "/api/event-user"  
+     },  
+     restorePassword: {  
+         endpoint: "/api/session/restore"  
+     },  
+     state: {  
+         endpoint: "/api/event-status"  
+     },  
+     event: {  
+         endpoint: "/api/event"  
+     },  
+     eventReport: {  
+         endpoint: "/api/event-report"  
+     },  
+     eventReportReadOnly: {  
+         endpoint: "/api/event-report/readonly"  
+     },  
+     selectCustomer: {  
+         endpoint: "/api/entity/select-customer"  
+     },  
+     merchant: {  
+         endpoint: "/api/entity/merchant"  
+     },  
+     sla: {  
+         endpoint: "/api/sla"  
+     },  
+     selectUser: {  
+         endpoint: "/api/user"  
+     },  
+     reportTemplate: {  
+         endpoint: "/api/report-template"  
+     },  
+     session: {  
+         endpoint: "/api/session"  
+     },  
+     eventQueue: {  
+         endpoint: "/api/event-queue"  
+     },  
+     report: {  
+         endpoint: "/api/report"  
+     },  
+     queue: {  
+         endpoint: "/api/queue"  
+     },  
+     tenant: {  
+         endpoint: "/api/tenant"  
+     },  
+     userQueues: {  
+         endpoint: "/api/queue-user/user-queues"  
+     },  
+     reviewNext: {  
+         endpoint: "/api/event/review/next"  
+     },  
+     getCurrent: {  
+         endpoint: "/api/event/review/current"  
+     },  
+     extension: {  
+         endpoint: "/api/extension/action"  
+     },  
+     assignQueues: {  
+         endpoint: "/api/queue-user/assign-queues"  
+     },  
+     generate2FAConfig: {  
+         endpoint: "/api/session/generate-config"  
+     },  
+     validate2FAConfig: {  
+         endpoint: "/api/session/validate-config"  
+     },  
+     reset2FAConfig: {  
+         endpoint: "/api/session/reset-config"  
+     },  
+     replace2FAConfig: {  
+         endpoint: "/api/session/replace-config"  
+     },  
+     customers: {  
+        endpoint: "/api/entity-data/customers",  
+     },  
+     entityFile: {  
+        endpoint: "/api/entity-file",  
+     },  
+     cards: {  
+        endpoint: "/api/entity-data/cards",  
+     },  
+     accounts: {  
+        endpoint: "/api/entity-data/accounts",  
+     }  
+    }  
+    
+
+To override an existing resource, one just has to add an entry, in the configuration resources object, with the same name as the resource being overridden and a new endpoint. Example:
+
+#### Resource overrideâ
+    
+    
+    {  
+        ...  
+        resources: {  
+            queue: {  
+                endpoint: "api/queue2"  
+            }  
+        }  
+        ...  
+    }  
+    
+
+To add new resources, the procedure is the same except for the resource name, which should be unique.

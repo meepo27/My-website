@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.2/individual-release-notes/HSBC-4425
+Title: HSBC-4425 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4425
+
+### Add columns to Transfers Transaction Historyâ
+
+FeatureFTMT-36746HSBC-4425
+
+We've added the following HSBCNet columns to the Transaction History widget in the Event Details page, for the Transfers channel:
+
+Column Name| Field Name  
+---|---  
+User ID| user_id  
+Customer Country Code| customer_country_code  
+Sender Bank Country Code| sender_bank_country_code  
+Receiver Bank Name| receiver_bank_name  
+Receiver Bank Country Code| receiver_bank_country_code  
+Receiver Account Bank ID| receiver_account_bank_id  
+Payment Held Indicator| sender_transaction_held  
+Transaction Sign Status| sender_transaction_sign_status  
+Payment Message Source| payment_message_source  
+Transaction Notes| text_for_receiver  
+Customer Business Type| customer_business_type

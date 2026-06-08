@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/file-sar
+Title: File SAR | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * File SAR
+
+
+
+On this page
+
+# File SAR
+
+Was this page helpful?Â 
+
+In some geographies, financial institutions are required to report fraudulent activity using Suspicious Activity Reports (SAR). The Feedzai's SAR Manager component allows fraud analysts to create SARs by providing a guided experience and pre-populating several fields to make this process easier.
+
+info
+
+**Access to the SAR functionality:** This functionality applies only to specific geographies and under certain use cases. If SAR is not within the scope of your license, you can skip this page entirely.
+
+## SAR scopeâ
+
+In some jurisdictions, reporting suspicious activity needs to be performed via a formal document named Suspicious Activity Report (SAR). For example, in the US, the scope of activity that requires filing a SAR within a fraud context is well defined, and includes:
+
+  * ACH
+  * Advance fee
+  * Business loan
+  * Check
+  * Consumer loan
+  * Credit/Debit card
+  * Healthcare/Public or private health insurance
+  * Mail
+  * Mass-marketing
+  * Ponzi scheme
+  * Pyramid scheme
+  * Securities fraud
+  * Wire
+  * Other (specify type of suspicious activity in space provided)
+
+
+
+Check the [FinCEN Suspicious Activity Report (FinCEN SAR) XML Schema 2.0 User Guide](https://bsaefiling.fincen.treas.gov/docs/XMLUserGuide_FinCENSAR.pdf) to learn more about US e-filing requirements.
+
+## Fraud analyst journeyâ
+
+After finding evidence of suspicious activity, the fraud analyst journey to start a SAR is the following:
+
+  1. The analyst groups all the relevant events - both alerts and non-alerted events - into a case. The case is the starting point to create a SAR.
+  2. The analyst uses the cases' panel to access the created case and investigates the events linked to it:
+  3. Once the case is fully investigated and the analyst confirms that the events within the case pertain to illegal activity, the analyst marks the case as closed:
+  4. The previous action opens a pop-up window with the option to "Close with SAR":
+  5. After submitting the case as _Closed with SAR_ , the relevant case is updated and displays the SAR Information widget:
+  6. Fraud analysts can now use the **Open SAR** button to start filling the report.
+
+
+
+To learn more about how to submit and access created SARs, check the official [SAR](https://cam.feedzai.com/sar-manager/3.0.1/) documentation.

@@ -1,0 +1,413 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/operators-in-rules
+Title: Operators in Rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/)
+  * Operators in Rules
+
+
+
+On this page
+
+# Operators in Rules
+
+Was this page helpful?Â 
+
+The Rule Definition Language (RDL) is designed for defining variables and conditions for Rules in Pulse. RDL queries event data, and transforms it using operators and function calls.
+
+This topic gives you a list of operators that you can use when writing rules.
+
+## Operatorsâ
+
+The following table explains the meaning of each supported operator.
+
+Rules failing with null values
+
+Rules fail to be evaluated if an RDL expression in the condition or in the variables returns a null error, i. e. if the last evaluated operator in the expression's tree returns a null error. In that case Pulse skips that rule and continues the workflow with the next rule or the next workflow element.
+
+Check the **Input parameters** column in the following table to see whether the respective operator returns a null exception when receiving a null value in the input value.
+
+In the case of operations over collections, check the **Description** column of the table to see which ones return a null exception when the collection is `null`.
+
+### Comparison operatorsâ
+
+`**==** , **!=**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Checks if the two operands are equal or not.| Any [primitive data type](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/data-types-in-rules). The two operands must be of the same type.| 
+    
+    
+    card_present_flag == true
+    
+    merchant_country == 'EU'  
+  
+`**<** , **>** , **< =**, **> =**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Compares two values of an ordered domain.| Numeric data types: `int`, `long`, `float`, `double`| 
+    
+    
+    amount > average_amount_per_card_in_1_month * 1.5  
+  
+### Arithmetic operatorsâ
+
+`**+** , **-** , ***** , **/** , **%**`
+
+Description| Input parameters| Examples  
+---|---|---  
+The arithmetic operators obey the following type promotion rules:
+
+  1. If at least one of the arguments is a double, the result is a double.
+  2. If at least one of the arguments is a float, the result is a float, unless the result is a double because of the first rule.
+  3. If at least one of the arguments is a long, the result is a long, unless the result is a double or float because of the first two rules.
+
+| Numeric types: `int`, `long`, `float`, `double`The arithmetic operators throw a null exception if any of the input parameters is `null`.| 
+    
+    
+    5%2
+
+Returns the integer remainder of the division 5/2.  
+  
+### Boolean operatorsâ
+
+`**and**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns `true` if both received arguments are true.| BooleanThe and operator throws a null exception in the following cases:
+
+  * `nullExpression` and `true`
+  * `nullExpression` and `false`
+  * `true` and `nullExpression`
+
+| 
+    
+    
+    card_present_flag == false and merchant_country == 'RU'  
+  
+`**or**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns `true` if at least one of the received arguments is true.| Boolean| 
+    
+    
+    CardWatchList.contains( tokenized_card_PAN ) or RiskyCountries.contains( card_country )  
+  
+`**!**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Inverts the value of a boolean expression.| BooleanThe `!` operator throws a null exception if the input parameter is `null`.| 
+    
+    
+    ! CardWatchList.contains( tokenized_card_PAN )  
+  
+### Functions on RDL Maps, and Pulse Listsâ
+
+Lists created in Pulse under **Lists** are represented in RDL as RDL Maps.
+
+`_MyList_ **[** _my_key_ **]**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns the value stored in the List under the referred key.| my_key: the same type as the key of the list| 
+    
+    
+    transactionContinent = Countries[ country_code ].continent_code;
+
+Fetches the continent code for the current _country_code_ from the _Countries_ list.  
+  
+`_MyList_.**contains**( _my_key_ );`
+
+Description| Input parameters| Examples  
+---|---|---  
+Checks if the List contains a value for a specific key.| my_key: the same type as the key of the list| 
+    
+    
+    isInBlackList = blackList.contains( tokenized_card_PAN );  
+  
+### RDL Lists and RDL Setsâ
+
+Note that RDL Lists are not the same as Lists created in Pulse under **Lists** .
+
+`_MyCollection_ **[** `condition` **]**`
+
+Description| Input parameters| Examples  
+---|---|---  
+Creates a window of the collection according to the condition.If the condition defines a single element of a collection, the `[ ]` can be used to access the data in that single element. Example: `_countryList_[ _country_code_ ]._continent_code_`|  condition: see examples on the right| 
+
+  * Create a new list with the countries where the current card (_card_number_) is whitelisted:
+        
+        myWhiteListCountries = WhiteList[ card_number ] .country_code;
+
+  * Create a new list (aka. window) with the last 5 events that have the same card number as the current event:
+        
+        lastEvents = event [ 5 tuples by card_number ];
+
+  * Access the second event in the lastEvents window:
+        
+        secondEvent = lastEvents[2];
+
+  * Create a new list with the last five events where the terminal type was X or Y:
+        
+        lastEventsWithTerminalTypeXZ = event [ 5 tuples where terminal_type == "X" or  terminal_type == "Y" ];
+
+  * Create a new list (aka. window) with the last 3 events of the last 24 hours that have the same card number as the current event:
+        
+        lastEvents24Hours = event [ 3 tuples by card_number for 24h ];
+
+
+  
+  
+`_MyCollection_.**contains**( `expression` )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Checks if the collection contains a specific element.| expression: must match the data type of the collection elements| 
+    
+    
+    cardWatchList.contains( tokenized_card_PAN )  
+  
+`_MyCollection_.**filter**( _my_field_ => `condition` )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Filters the elements of a collection based on a condition.The operator throws a null exception if the collection is `null`.| 
+
+  * _my_field:_ a field of the collection
+  * condition: boolean expression
+
+| 
+    
+    
+    lastEvents.filter( amount => amount > 200 )
+
+Returns only the events where the amount is over 200.  
+  
+##### Explicitly iterating over Lists is not recommended
+
+It is not recommended to iterate explicitly over Pulse Lists (e.g., using filter, all, etc), as this is highly inefficient. Pulse Lists are optimized for contains/lookup operations.
+
+`_MyCollection_.**any**( _my_field_ => `condition` )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns `true` if at least one element of the collection fulfills the given condition.The operator throws a null exception if the collection is `null`.Use it carefully on large collections, as the rule will have to do a check on all incoming transactions, against all list elements.| 
+
+  * _my_field:_ a field of the collection
+  * condition: boolean expression
+
+| 
+    
+    
+    myWhiteListCountries.any( country => Countries[ country ].continent_code == transaction_continent )
+
+Returns `true` if the _myWhiteListCountries_ list contains any country that is on the same continent as the current event.  
+  
+##### Explicitly iterating over Lists is not recommended
+
+It is not recommended to iterate explicitly over Pulse Lists (e.g., using filter, all, etc), as this is highly inefficient. Pulse Lists are optimized for contains/lookup operations.
+
+`_MyCollection_.**all**( _my_field_ => `condition` )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns `true` if all elements of the collection fulfill the condition.Use it carefully on large collections, as the rule will have to do a check on all incoming transactions, against all collection elements.The operator throws a null exception if the collection is `null`.| 
+
+  * _my_field:_ a field of the collection
+  * condition: boolean expression
+
+| 
+    
+    
+    customerDevices.all( device -> device.score < 500 )  
+  
+##### Explicitly iterating over Lists is not recommended
+
+It is not recommended to iterate explicitly over Pulse Lists (e.g., using filter, all, etc), as this is highly inefficient. Pulse Lists are optimized for contains/lookup operations.
+
+`_MyCollection_.**sum**( _my_field_ )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Sums all the numeric values in the collection.The operator throws a null exception if the collection is `null`.| _my_field:_ a field of the collection| 
+    
+    
+    lastEvents.sum( amount )  
+  
+`_MyCollection_.**count**()`
+
+Description| Input parameters| Examples  
+---|---|---  
+Counts the elements in the collection.The operator throws a null exception if the collection is `null`.| N/A| 
+    
+    
+    lastEvents.count()  
+  
+`_MyCollection_.**min**( _my_field_ )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns the lowest element in the collection.The operator throws a null exception if the collection is `null`.| _my_field:_ a field of the collection| 
+    
+    
+    lastEvents.min( amount )  
+  
+`_MyCollection_.**max**( _my_field_ )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns the highest element in the collection.The operator throws a null exception if the collection is `null`.| _my_field:_ a field of the collection| 
+    
+    
+    lastEvents.max( amount )  
+  
+`_MyCollection_.**avg**( _my_field_ )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Returns the average of the elements in the collection.The operator throws a null exception if the collection is `null`.| _my_field:_ a field of the collection| 
+    
+    
+    lastEvents.avg( amount )  
+  
+### RDL Listsâ
+
+Note that RDL Lists are **not** the same as Lists created in Pulse under **Lists** . See the previous section.
+
+`_MyRDLList_.**at**( _my_index_ )`
+
+Description| Input parameters| Examples  
+---|---|---  
+Applies only to RDL Lists.Returns the value stored in the RDL List under the referred index.The at operator throws a null exception if the input parameter is `null`.| _my_index:_ integer| 
+    
+    
+    lastEvents.at(2)
+
+Returns the second event of the _lastEvents_ list.  
+  
+### Selecting a value dynamicallyâ
+
+`_outputVariable_ = **match** if `condition` then `expression1`; else `expression2`; end end`
+
+Description| Input parameters| Examples  
+---|---|---  
+Implements an if-then-else block.If the condition is true, the output variable receives the value of expression1. Otherwise the output variable receives the value of expression2.| 
+
+  * _outputVariable:_ any type.
+  * condition: boolean expression.
+  * expression1 and expression2: the same data type as the _outputVariable_.
+
+| 
+    
+    
+    events = event [ 3 tuples by card_number for 24h ];
+    
+    prevEvent = match
+    
+      if events.count() > 2 then
+    
+        return events.at(2);
+    
+    Â Â elseÂ ifÂ events.count()Â >Â 1Â then
+    
+        return events.at(1);
+    
+      else
+    
+        return null;
+    
+      end
+    
+    end
+
+Returns the last event from the _events_ list.  
+  
+### Othersâ
+
+``expression1` **??** `expression2``
+
+Description| Input parameters| Examples  
+---|---|---  
+The coalesce (`??`) operator returns expression1, unless expression1 is `null`, in which case it returns expression2.In RDL, the coalesce operator has the highest precedence when used in conjunction with arithmetic or boolean operators, meaning that it gets evaluated before the other operators.| Any| 
+
+  * Return -1 if _MyList_ is empty, otherwise return the amount average of the list:
+        
+        MyList.avg( amount ) ?? -1 
+
+  * Example to illustrate the precedence in relation to other operators:
+        
+        1 + null ?? 3 + 4
+
+This expression is equivalent to
+        
+        1 + (null ?? 3) + 4
+
+...and returns 8 as the result.
+
+  
+  
+`UDF (User-defined function) calls`
+
+Description| Input parameters| Examples  
+---|---|---  
+You can call [User-Defined Functions](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/built-in-udfs) to perform specific computations.| | 
+
+  * Find the location of the substring "775" in the _card_acceptor_id:_
+        
+        matchLocation = StringUtils.indexOf( card_acceptor_id , "775" );
+
+  * Fetch the first letter 3 positions after the match location found with the above query:
+        
+        letterAfterMatch = StringUtils.substring( card_acceptor_id );
+
+  * Check if the email_domain field matches the defined [Java pattern](https://docs.oracle.com/javase/7/docs/api/java/util/   regex/Pattern.html):
+        
+        isNumericDomain = StringTools.regexMatches( "[0-9]+.com", email_domain );
+
+  * From the complex field called _countries_map,_ retrieves the string value associated to the "USA" key:
+        
+        CollectionUDFs.getString( countries_map, "USA" )
+
+  * From the complex field called _countries_map,_ retrieves the integer value associated to the "USA" key:
+        
+        CollectionUDFs.getInt( call_code_map, "USA" )
+
+
+  
+  
+## Operator precedenceâ
+
+The following table lists RDL operators according to their precedence order. Operators at the top of the table have higher precedence.
+
+Operator| Precedence  
+---|---  
+grouping| `(expr)`  
+unary| `+expr` `-expr` `!`  
+cast| `(type) expr`  
+coalesce| `??`   
+Note that this operator has a different precedence in PQL.  
+arithmetic â multiplicative| `*` `/` `%`  
+arithmetic â additive| `+` `-`  
+comparison| `>` `>=` `==` `<=` `<` `!=`  
+logical â OR| `or`  
+logical â AND| `and`  
+assignment| `=`  
+  
+warning
+
+Unlike other languages, in RDL the operator `or` takes precedence over the `and` operator.
+
+The following rules apply:
+
+  * Operators with higher precedence are evaluated before the ones with lower precedence.
+  * Operators in the same line have the same precedence:
+    * All binary operators except for the assignment operator are evaluated from left to right.
+    * Assignment operator is evaluated right to left.
+
+

@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/overview
+Title: Rule Testing Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/overview)
+  * Rule Testing
+
+
+
+# Rule Testing Guide
+
+Rule testing is the first stage of the rule activation / tuning. This guide explains the relevant steps to successfully complete this stage.
+
+  * [MM Rules Testing Strategy](/rmpsp/2.8/docs/common/rmpsp/mm//operational-work/integration-engineer/integration-guide/rule-testing/mm-rules-testing-strategy): contains a brief introduction to the different types of tests that you can perform.
+  * [Scenarios Testing for MM Rules](/rmpsp/2.8/docs/common/rmpsp/mm//operational-work/integration-engineer/integration-guide/rule-testing/scenario-testing-for-mm-rules): introduces different system components, with additional explanation on how those components are used during the tests to emulate the system behavior in a production-like scenario.
+  * [Test Scenario Example with Postman Collection](/rmpsp/2.8/docs/common/rmpsp/mm//operational-work/integration-engineer/integration-guide/rule-testing/test-scenario-example-with-postman-collection): includes a practical example to help you structure a test case to validate a rule, alongside a Postman Collection.
+  * [Testing Endpoints](/rmpsp/2.8/docs/common/rmpsp/mm//operational-work/integration-engineer/integration-guide/rule-testing/testing-endpoints): contains a walkthrough on the different platform endpoints that can be used to reproduce the scenario described above.
+
+

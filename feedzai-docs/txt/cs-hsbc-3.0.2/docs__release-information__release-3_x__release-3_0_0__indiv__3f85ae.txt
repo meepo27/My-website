@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4034
+Title: HSBC-4034 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4034
+
+### Add new enrichers for Cards and Non-Mon eventsâ
+
+FeatureFTMT-28255HSBC-4034
+
+We've added the following enrichers to be used in Cards and Non-Mon events:
+
+**Field Name**| **Enricher Name**  
+---|---  
+sic| sicEnrich  
+trans_reversal_ind| transReversalIndEnrich  
+digital_wallet_token_type| digitalWalletTokenTypeEnrich  
+card_customer_present_details| cardCustomerPresentDetailsEnrich  
+pos_cardholder_ver_method| posCardholderVerMethodEnrich  
+  
+For more details on the available values and configuration please refer to the [Case Manager Enrichers page](/cs-hsbc/3.0.2/docs/operations-guide/how-to/use-enrichers-in-case-manager).

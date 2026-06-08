@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3140-Add-Workflow-Monitoring-Service-to-the-Reference-Data-application
+Title: HSBC-3140-Add-Workflow-Monitoring-Service-to-the-Reference-Data-application | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3140-Add-Workflow-Monitoring-Service-to-the-Reference-Data-application
+
+### Add Workflow Monitoring Service to the Reference Data applicationâ
+
+FeatureHSBC-3140
+
+Also In:2.8.12.9.0
+
+We've added the Workflow Monitoring Service to the Reference Data application.
+
+This service will populate the `workflow.events` metric with the events that are processed by that workflow and can be used to create monitoring dashboards.

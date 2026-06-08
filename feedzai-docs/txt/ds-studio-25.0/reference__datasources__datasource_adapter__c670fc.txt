@@ -1,0 +1,147 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/datasources/datasource_adapter/
+Title: datasource_adapter - DS API
+============================================================
+
+#  `` datasource_adapter Â¶
+
+##  `` DefaultParameters `module-attribute` Â¶
+    
+    
+    DefaultParameters = namedtuple('DefaultParameters', ('has_header', 'sep', 'quote', 'line_separator', 'encoding', 'missing_values', 'merge_schemas', 'n_records', 'cat_threshold', 'dtypes'), defaults=(True, ',', '"', '\n', name(), {'', 'NA', 'NULL'}, False, DEFAULT_NUMBER_OF_RECORDS, DEFAULT_MAX_CATEGORIES, {}))
+    
+
+##  `` MS `module-attribute` Â¶
+    
+    
+    MS = 1000
+    
+
+The number of milliseconds in one second. Used to convert to/from spark timestamps.
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` SparkDatasourceAdapter Â¶
+    
+    
+    SparkDatasourceAdapter(spark_session)
+    
+
+Bases: `object`
+
+A class that follows the adapter pattern. This class is responsible for:
+
+  * adapting pulse data sources into spark dataframes, through `from_pulse_datasource`
+  * adapting spark dataframes into pulse data sources, through `to_pulse_datasource`
+
+
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `spark_session` Â¶
+
+|  `SparkSession` |  Session to which the adapter is bound to. |  _required_  
+  
+###  `` spark_session `instance-attribute` Â¶
+    
+    
+    spark_session = spark_session
+    
+
+###  `` from_pulse_datasource Â¶
+    
+    
+    from_pulse_datasource(app, name)
+    
+
+Adapts a pulse data source into a pyspark dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The app in which the data source exists. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The Data Source name as it appears in the UI. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  DataFrame equivalent to the referenced pulse data source.  
+  
+###  `` to_pulse_datasource Â¶
+    
+    
+    to_pulse_datasource(dataframe: _TDataFrame, app: [App](../../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, path: str, file_format: str = 'csv', schema: Optional[[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")] = None, **kwargs: Union[bool, str, int, Dict[str, Any], Set[str]])
+    
+
+Adapts a pyspark dataframe into a pulse datasource. The dataframe will be written in the path specified before being added to Pulse. DateType and TimestampType fields are written as unix time (in milliseconds). The schema will be automatically inferred using AbstractDataSource#inferSchema approach if the Schema is not specified.
+
+All pySpark types but DecimalType and MLlib types are supported.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `dataframe` Â¶
+
+|  `DataFrame` |  DataFrame which will be used to create a Pulse datasource. |  _required_  
+  
+####  `app` Â¶
+
+|  `[App](../../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The App where the datasource will be created. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the datasource. |  _required_  
+  
+####  `path` Â¶
+
+|  `str` |  The path of the file containing the dataset. |  _required_  
+  
+####  `file_format` Â¶
+
+|  `str` |  The input file format. Options are `csv` and `parquet`. Defaults to `csv`. |  `'csv'`  
+  
+####  `schema` Â¶
+
+|  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  The Pulse Schema to use. Optional. If not specified, the Schema will be inferred by Pulse. Only used for csv files. |  `None`  
+  
+####  `kwargs` Â¶
+
+|  `Dict` |  Keyword arguments used for the configuration of the DataSource and for the SchemaInference job. |  `{}`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`has_header` |  `bool` |  Flags whether the dataset is to be read with header. Only used for csv files. Defaults to True.  
+`sep` |  `str` |  Delimiter to use. Should contain exactly one character. Only used for csv files. Defaults to ','.  
+`missing_values` |  `set of str` |  Set of strings with values for empty value. Only used for csv files. Defaults to {"", "NA", "NULL"}.  
+`quote` |  `str` |  The character used to denote the start and end of a quoted item. Only used for csv files. Defaults to "'".  
+`line_separator` |  `str` |  The string used mark the end of line. Only used for csv files. Defaults to "\n".  
+`encoding` |  `str` |  Encoding to use for UTF when reading/writing. Only used for csv files. Defaults to 'UTF-8'.  
+`cat_threshold` |  `int` |  A value that represents the maximum number of distinct values on a given field for it to be inferred as categorical. Defaults to 15. Will only be used if no Schema is specified.  
+`job_properties` |  `Dict` |  The dictionary with the specific properties for the schema inference job. Will only be used if no Schema is specified. Defaults to Pulse PropertiesProfile.  
+`n_records` |  `int` |  The number of records that will be read per partition when performing datasource schema inference. Will only be used if no Schema is specified. Defaults to 15000.  
+`dtypes` |  ` Dict` |  The dictionary with the field overriding information when inferring the datasource schema. Will only be used for csv files and if no Schema is specified. Defaults to None.  
+`merge_schemas` |  `bool` |  Specify if schema merging should be allowed. Only used for parquet files. Defaults to False. See: https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#schema-merging  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[DataSource](../../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")` |  The new DataSource instance.

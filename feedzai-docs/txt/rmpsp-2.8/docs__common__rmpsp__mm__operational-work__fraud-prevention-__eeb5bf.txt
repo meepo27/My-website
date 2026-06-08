@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview
+Title: Fraud Prevention Agent | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * Fraud Prevention Agent
+
+
+
+# Fraud Prevention Agent
+
+### [Case Manager for Fraud Prevention AgentsLearn how to work with alerts and/or cases using Case Manager.](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/case-manager-guide)

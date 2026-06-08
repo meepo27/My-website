@@ -1,0 +1,273 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/datasources/datasource_transformations/
+Title: datasource_transformations - DS API
+============================================================
+
+#  `` datasource_transformations Â¶  
+  
+Module that handles datasource/feature related transformations/conversion.
+
+##  `` DEFAULT_SPARK_APP_NAME `module-attribute` Â¶
+    
+    
+    DEFAULT_SPARK_APP_NAME = 'pySparkJob-created-by-ds_api'
+    
+
+##  `` FINAL_TIMESTAMP `module-attribute` Â¶
+    
+    
+    FINAL_TIMESTAMP = datetime(2200, 1, 1)
+    
+
+##  `` INITIAL_TIMESTAMP `module-attribute` Â¶
+    
+    
+    INITIAL_TIMESTAMP = datetime(1970, 1, 1)
+    
+
+##  `` TagUtils `module-attribute` Â¶
+    
+    
+    TagUtils = autoclass(_AUTOML_TRANSFORMATIONS_CLASSPATH + 'TagUtils')
+    
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` CompositeField `dataclass` Â¶
+    
+    
+    CompositeField(desc: str, tags: Sequence[str], fields: Sequence[str])
+    
+
+Bases: `SemanticField`
+
+Defines a composite field to use in the semantics construction.
+
+Please check the `available_tags` property to get the list of supported tags.
+
+###  `` TAGS_MAP `class-attribute` `instance-attribute` Â¶
+    
+    
+    TAGS_MAP = {'address': ADDRESS_TAG, 'line1': LINE1_TAG, 'line2': LINE2_TAG, 'zip': ZIP_TAG, 'city': CITY_TAG, 'region': REGION_TAG, 'country': COUNTRY_TAG, 'coordinate': COORDINATE_TAG, 'longitude': LONGITUDE_TAG, 'latitude': LATITUDE_TAG, 'location': LOCATION_TAG, 'datetime': DATETIME_TAG, 'expiration-date': EXPIRATION_DATETIME_TAG, 'yymm-datetime': YYMM_DATETIME_TAG, 'name': NAME_TAG, 'email': EMAIL_TAG, 'amount': AMOUNT_TAG, 'available-amount': AVAILABLE_AMOUNT_TAG, 'entity': ENTITY_TAG, 'grouping-entity': GROUPING_ENTITY_TAG, 'acquirer': ACQUIRER_TAG, 'card': CARD_TAG, 'customer': CUSTOMER_TAG, 'ip': IP_TAG, 'merchant': MERCHANT_TAG}
+    
+
+###  `` available_tags `property` Â¶
+    
+    
+    available_tags: List[str]
+    
+
+Returns the list of available tags.
+
+###  `` desc `instance-attribute` Â¶
+    
+    
+    desc: str
+    
+
+###  `` fields `instance-attribute` Â¶
+    
+    
+    fields: Sequence[str]
+    
+
+###  `` tags `instance-attribute` Â¶
+    
+    
+    tags: Sequence[str]
+    
+
+###  `` to_pulse Â¶
+    
+    
+    to_pulse(tagged_fields: Sequence)
+    
+
+Turns our CompositeField into its pulse representation.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `tagged_fields` Â¶
+
+|  `sequence of converted TaggedField` |  Set of possible simple tagged fields that can be used to compose the composite field. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`A pulse representation of the composite field.` |   
+  
+##  `` SemanticField `dataclass` Â¶
+    
+    
+    SemanticField()
+    
+
+Superclass for TaggedField and CompositeField
+
+###  `` TAGS_MAP `class-attribute` `instance-attribute` Â¶
+    
+    
+    TAGS_MAP = {'address': ADDRESS_TAG, 'line1': LINE1_TAG, 'line2': LINE2_TAG, 'zip': ZIP_TAG, 'city': CITY_TAG, 'region': REGION_TAG, 'country': COUNTRY_TAG, 'coordinate': COORDINATE_TAG, 'longitude': LONGITUDE_TAG, 'latitude': LATITUDE_TAG, 'location': LOCATION_TAG, 'datetime': DATETIME_TAG, 'expiration-date': EXPIRATION_DATETIME_TAG, 'yymm-datetime': YYMM_DATETIME_TAG, 'name': NAME_TAG, 'email': EMAIL_TAG, 'amount': AMOUNT_TAG, 'available-amount': AVAILABLE_AMOUNT_TAG, 'entity': ENTITY_TAG, 'grouping-entity': GROUPING_ENTITY_TAG, 'acquirer': ACQUIRER_TAG, 'card': CARD_TAG, 'customer': CUSTOMER_TAG, 'ip': IP_TAG, 'merchant': MERCHANT_TAG}
+    
+
+###  `` available_tags `property` Â¶
+    
+    
+    available_tags: List[str]
+    
+
+Returns the list of available tags.
+
+##  `` Semantics Â¶
+
+Utility class to convert to/from a json semantic file.
+
+###  `` from_semantic_file `staticmethod` Â¶
+    
+    
+    from_semantic_file(filename: str, path: Optional[str] = None) -> Tuple[SemanticField, ...]
+    
+
+Takes a semantic file and converts it into a usable collection of SemanticField.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `filename` Â¶
+
+|  `str` |  Filename of the semantic file. |  _required_  
+  
+####  `path` Â¶
+
+|  `str` |  Path where the file is to be saved, default is the working directory |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`tuple of SemanticField` |  A collection of SemanticField.  
+  
+###  `` to_semantic_file `staticmethod` Â¶
+    
+    
+    to_semantic_file(semantics: Sequence[SemanticField], filename: str = 'semantic_file.json', path: Optional[str] = None)
+    
+
+Takes a collection of semantics and writes a json semantic file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `semantics` Â¶
+
+|  `sequence of SemanticField` |  Semantics to write. |  _required_  
+  
+####  `filename` Â¶
+
+|  `str` |  Name for the semantic file, default is "semantic_file.json" |  `'semantic_file.json'`  
+  
+####  `path` Â¶
+
+|  `str` |  Path where the file is to be saved, default is the working directory |  `None`  
+  
+##  `` Split `dataclass` Â¶
+    
+    
+    Split(name: str, start_timestamp: Optional[Union[int, datetime]] = None, end_timestamp: Optional[Union[int, datetime]] = None, path: Optional[str] = None)
+    
+
+Defines a datasource split.
+
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`name` |  `str` |  Name of the datasource created by the split  
+`start_timestamp` |  `(optional, int or datetime)` |  Timestamp starting the splitting interval. If not specified, the beginning of the dataset will be included and end_timestamp must be specified.  
+`end_timestamp` |  `(optional, int or datetime)` |  Timestamp ending the splitting interval. If not specified, the end of the dataset will be included and start_timestamp must be specified.  
+`path` |  `(optional, str)` |  The writing path for the split.  
+  
+###  `` end_timestamp `class-attribute` `instance-attribute` Â¶
+    
+    
+    end_timestamp: Optional[Union[int, datetime]] = None
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name: str
+    
+
+###  `` path `class-attribute` `instance-attribute` Â¶
+    
+    
+    path: Optional[str] = None
+    
+
+###  `` start_timestamp `class-attribute` `instance-attribute` Â¶
+    
+    
+    start_timestamp: Optional[Union[int, datetime]] = None
+    
+
+###  `` to_pulse Â¶
+    
+    
+    to_pulse()
+    
+
+##  `` TaggedField `dataclass` Â¶
+    
+    
+    TaggedField(desc: str, tags: Sequence[str])
+    
+
+Bases: `SemanticField`
+
+Defines a tagged field to use in the semantics construction.
+
+Please check the `available_tags` property to get the list of supported tags.
+
+###  `` TAGS_MAP `class-attribute` `instance-attribute` Â¶
+    
+    
+    TAGS_MAP = {'address': ADDRESS_TAG, 'line1': LINE1_TAG, 'line2': LINE2_TAG, 'zip': ZIP_TAG, 'city': CITY_TAG, 'region': REGION_TAG, 'country': COUNTRY_TAG, 'coordinate': COORDINATE_TAG, 'longitude': LONGITUDE_TAG, 'latitude': LATITUDE_TAG, 'location': LOCATION_TAG, 'datetime': DATETIME_TAG, 'expiration-date': EXPIRATION_DATETIME_TAG, 'yymm-datetime': YYMM_DATETIME_TAG, 'name': NAME_TAG, 'email': EMAIL_TAG, 'amount': AMOUNT_TAG, 'available-amount': AVAILABLE_AMOUNT_TAG, 'entity': ENTITY_TAG, 'grouping-entity': GROUPING_ENTITY_TAG, 'acquirer': ACQUIRER_TAG, 'card': CARD_TAG, 'customer': CUSTOMER_TAG, 'ip': IP_TAG, 'merchant': MERCHANT_TAG}
+    
+
+###  `` available_tags `property` Â¶
+    
+    
+    available_tags: List[str]
+    
+
+Returns the list of available tags.
+
+###  `` desc `instance-attribute` Â¶
+    
+    
+    desc: str
+    
+
+###  `` tags `instance-attribute` Â¶
+    
+    
+    tags: Sequence[str]
+    
+
+###  `` to_pulse Â¶
+    
+    
+    to_pulse()
+    

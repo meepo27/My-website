@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/analytics-dashboards-guide
+Title: Analytics Dashboards Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * Analytics Dashboards Guide
+
+
+
+# Analytics Dashboards Guide
+
+The analytics dashboards include metrics that provide you with real-time charts with information about fraud prevention agents' performance and rule monitoring. Based on these insights, you can improve workload management, or write self-service rules to quickly block a fraudulent behavior.
+
+This guide provides you with the following information:
+
+  * [Agent performance - alerts dashboard](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/view-agent-performance-dashboard-alerts)
+  * [Agent performance - cases dashboard](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/view-agent-performance-dashboard-cases)
+  * [Rule monitoring dashboard](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/view-rule-monitoring-dashboard)
+
+

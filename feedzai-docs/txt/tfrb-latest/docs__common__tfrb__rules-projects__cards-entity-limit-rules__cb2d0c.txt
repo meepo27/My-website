@@ -1,0 +1,108 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-entity-limit-rules
+Title: Cards - Entity Limit Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - Entity Limit Rules
+
+
+
+On this page
+
+# Cards - Entity Limit Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Entity Limit Rules_ allow you to limit the amount and count of transactions for cards that are in PosNeg lists with the value "review". Normally, cards would be added to this list with such value as a result of Fraud rules triggering. Therefore, these rules can be seen as a second layer of protection against suspicious cards, and the actions triggered by these rules decline the card.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-EL1
+
+### Comment
+
+> Decline transaction and flag card to be auto declined if the amount spent in the last 24h is above a set threshold and the card is listed to be limited . Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Auto Decline Card
+  * [Cards-EL1]
+
+
+
+### Variables
+    
+    
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["max_sum_appr_amout_card_24h"].threshold;
+    SUM_AMOUNT_LIMIT_CONVERTED = (SUM_AMOUNT_LIMIT * 1.0) / 100;
+    
+    SUM_AMOUNT_CONVERTED = (event.review_appr_auth_cardid_sum_bi * 1.0) / 100;
+
+### Condition
+    
+    
+    // List
+    event.posneg_card_value == 'review'
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.review_appr_auth_cardid_sum_bi >= SUM_AMOUNT_LIMIT
+
+### Explanation
+
+> [Cards-EL1] - Decline - Amount spent in last 24h ({localvar.SUM_AMOUNT_CONVERTED} {event.currency_code}) was above the threshold for limit listed cards ({localvar.SUM_AMOUNT_LIMIT_CONVERTED} {event.currency_code}). Card {event.card_id} flagged for auto decline.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-EL2
+
+### Comment
+
+> Decline transaction and flag card to be auto declined if the number of transactions made in the last 24h is above a set threshold and the card is listed to be limited . Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Auto Decline Card
+  * [Cards-EL2]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_count_appr_card_24h"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.posneg_card_value == 'review'
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.review_appr_auth_cardid_count_ >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-EL2] - Decline - Transactions made in last 24h ({event.review_appr_auth_cardid_count_}) was above the threshold for limit listed cards ({localvar.COUNT_LIMIT}). Card {event.card_id} flagged for auto decline.
+
+### Mark As
+
+The outcome of this rule is: **decline**

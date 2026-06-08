@@ -1,0 +1,37 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/requirements-dep
+Title: Data Extraction Pipelines Requirements | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Data Extraction Pipelines Requirements
+
+##### info
+
+This guide is just a quick reference of the requirements to install Pulse. For a comprehensive guide, please refer to the [official documentation](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=926).
+
+## Requirementsâ
+
+This service requires the following software to run.
+
+### Java Environmentâ
+
+OpenJDK SE Development Kit, with the following vendors (with their latest hotfix versions):
+
+  * Azul Zulu
+  * Amazon Corretto
+  * Oracle
+
+
+
+##### info
+
+Tests are done with the **Azul Zulu JVM** (version 17 or higher). **Java 8 is no longer supported** as this service now uses Logstash 9.
+
+##### info
+
+Java is required to run execute the ansible plugin that fetches the secrets from Google Secret Manager.
+
+### Serviceâ
+
+The machine should be configured with a [service account](https://cloud.google.com/iam/docs/service-account-overview) with access to the configured bucket.

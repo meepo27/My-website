@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exceptions/
+Title: exceptions - DS API
+============================================================
+
+#  `` exceptions Â¶
+
+Helper exception handling functions.
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` JavaAttributeNotFound Â¶
+    
+    
+    JavaAttributeNotFound(attribute: str, java_attributes: Sequence[str])
+    
+
+Bases: `AttributeError`
+
+Exception to throw when a user requests method/field not present in the java object.
+
+##  `` PulseIndexerExistsError Â¶
+
+Bases: `RuntimeError`
+
+Raised when creating an Indexer resource that already exists in Pulse.
+
+##  `` unwrap_java_exception Â¶
+    
+    
+    unwrap_java_exception(func)
+    
+
+Executes the function passed by argument and if that function raises a JavaException, unwraps that exception, logs its name, message and stacktrace and then propagates the thrown exception
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `func` Â¶
+
+|  |  A lambda with no arguments. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Any` |  The result returned by func.

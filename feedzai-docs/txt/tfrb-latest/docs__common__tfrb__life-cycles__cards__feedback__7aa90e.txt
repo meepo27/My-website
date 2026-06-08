@@ -1,0 +1,157 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback
+Title: Feedback Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Cards](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle)
+  * Feedback Endpoint
+
+
+
+On this page
+
+# Feedback Endpoint
+
+Was this page helpful?Â 
+
+The Feedback endpoint allows you to label a transaction on whether the transaction is legitimate or suspicious. The labeling of an event is highly recommended since it gives feedback to Feedzai's risk engine enabling it to learn or consolidate fraud patterns.
+
+## Chargebackâ
+
+This use case applies when a cardholder decides to dispute a transaction. First, send to Feedzai the Info request under [Dispute](/tfrb/latest/docs/common/tfrb/life-cycles/cards/info#dispute). Then send the final dispute result to Feedzai using the Feedback endpoint. Note that this use case normally applies after [Clearing](/tfrb/latest/docs/common/tfrb/life-cycles/cards/clearing). Check the [Transaction Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle) initial page to understand where this endpoint fits within the customer journey of a transaction.
+
+Under this use case, the cardholder can either dispute the transaction directly with the issuer (referred to as scenario 1) or with the acquirer/network (scenario 2).
+
+### Scenario 1 - cardholder disputes with the issuerâ
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (Client, Account, Card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer **accepts** the transaction (with a reason code).
+  11. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  12. Authorization message response (ISO 8583 or network proprietary message).
+  13. Payment is **accepted**.
+  14. Cardholder disputes the transaction authenticity.
+  15. Info request (Dispute): e.g. dispute related information is sent.
+  16. Pulse receives the Info request, and updates the transaction information in Case Manager.
+
+
+  * Key: Life cycle ID.
+  * Adds the dispute information.
+
+
+  17. Case Manager is updated with the field values sent via the Info endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Dispute` functional block label).
+  18. Info response (Dispute).
+  19. Message acknowledged.
+  20. After being contacted by the cardholder, the issuer bank opens a dispute.
+  21. ISO 8583 reversal or chargeback request message(4xx).
+  22. Network opens a case dispute (life cycle ID, Dispute ID).
+  23. ISO 8583 reversal or chargeback response message(4xx).
+  24. Dispute conclusion - ISO 8583 reversal or chargeback request message (4xx).
+  25. Feedback request (Chargeback): information related with the cardholder refunds is sent.
+  26. Pulse updates the transaction label.
+  27. Case Manager is updated with the field values sent via the Feedback endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Labeling` functional block label).
+  28. Feedback response (Chargeback).
+  29. Cardholder is informed of the dispute conclusion.
+
+
+
+### Scenario 2 - cardholder disputes with the acquirer/networkâ
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer **accepts** the transaction (with a reason code).
+  11. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  12. Authorization message response (ISO 8583 or network proprietary message).
+  13. Payment is **accepted**.
+  14. Cardholder disputes the transaction authenticity with the merchant.
+  15. After being contacted by the cardholder, the merchant opens a dispute with acquirer/network.
+  16. ISO 8583 reversal or chargeback request message(4xx).
+  17. Info request (Dispute): e.g. dispute related information is sent.
+  18. Pulse receives the info request, and updates the transaction information in Case Manager.
+
+
+  * Key: Life cycle ID.
+  * Adds the dispute information.
+
+
+  19. Case Manager is updated with the field values sent via the Info endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Dispute` functional block label).
+  20. Info response (Dispute).
+  21. Message acknowledged.
+  22. Dispute conclusion - ISO 8583 reversal or chargeback request message (4xx).
+  23. Feedback request (Chargeback): information related with the cardholder refunds is sent.
+  24. Pulse updates the transaction label.
+  25. Case Manager is updated with the field values sent via the Feedback endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Labeling` functional block label).
+  26. Feedback response (Chargeback).
+  27. Cardholder is informed of the dispute conclusion.
+
+
+
+## Out of Band Authorizationâ
+
+This use case applies when you want to communicate to Feedzai the outcome of the contact that you established with the cardholder on whether the transaction is legitimate or suspicious
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer **accepts** the transaction (with a reason code).
+  11. SMS/Call from issuer to cardholder to verify the transaction authenticity.
+  12. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  13. Authorization message response (ISO 8583 or network proprietary message).
+  14. Payment is **accepted**.
+  15. Info request (Out of Band): e.g. with the type of contact made.
+  16. Pulse receives the Info request, and updates the transaction information in Case Manager.
+
+
+  * Key: Life cycle ID.
+  * Adds the contact Information.
+
+
+  17. Case Manager is updated with the field values sent via the Info endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Out of Band` functional block label).
+  18. Info response (Out of Band): e.g. with the type of contact made.
+  19. Message acknowledged.
+  20. The cardholder replies with the confirmation of the transaction.
+  21. Feedback request (Out of Band Authorization): with the type of contact made and the cardholder's reply.
+  22. Pulse updates the transaction label.
+  23. Case Manager is updated with the field values sent via the Feedback endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Labeling` functional block label).
+  24. Feedback response (Out of Band Authorization).
+  25. Message acknowledged.
+
+
+
+## Learn moreâ
+
+Learn more about the detailed life cycle of other endpoints:
+
+  * [Authorization Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/cards/authorization)
+  * [Info Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/cards/info)
+  * [Clearing Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/cards/clearing)
+
+

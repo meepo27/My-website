@@ -1,0 +1,10 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/postman
+Title: Postman | Feedzai Documentation
+============================================================
+
+# Postman
+
+  * [Download Postman Collection](/cs-hsbc/3.0.2/download/imported/postman/hsbc_collection.json)
+  * [Download Postman Local Environment](/cs-hsbc/3.0.2/download/imported/postman/hsbc_local_environment.json)
+
+

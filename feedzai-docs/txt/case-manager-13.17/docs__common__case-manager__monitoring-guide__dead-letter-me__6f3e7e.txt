@@ -1,0 +1,127 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/monitoring-guide/dead-letter-messages-logger
+Title: Dead Letter Messages Logger | Case Manager
+============================================================
+
+On this page  
+  
+# Dead Letter Messages Logger
+
+Deprecated
+
+The dead letter messages loggers are deprecated, and will be removed in a future release. To know how the new dead letter system works and how to configure it, refer to [Dead Letters System](/case-manager/13.17/docs/common/case-manager/monitoring-guide/dead-letters-system).
+
+It's possible to configure loggers for dead letter messages. They are used in order to make sure CM doesn't lose important information, such as getting an event from the queue and encountering an error that prevents the event from being properly processed and persisted in Case Manager.
+
+By using a logger for this purpose, it's easy to configure the target file and the format of each entry. Note that you should not configure it as a rolling logger or some logger that destroys messages, in order to ensure information is not lost.
+
+There are several loggers that can be used as dead letters in Case Manager. The following are the available dead letter logger names:
+
+  * **EVENT_QUEUE-DEADLETTER** , for handling errors during event ingestion.
+    * For omnichannel configurations, the logger name is **EVENT_QUEUE_{{WORKFLOW_ID}}-DEADLETTER** (where workflow ID is the identifier of the workflow corresponding to the desired channel).
+    * For classic configurations, only **EVENT_QUEUE-DEADLETTER** is used.
+  * **AUTOMATION_QUEUE_DEADLETTER** , for automation rules errors (e.g. failure to execute an automation due to an event not being persisted yet by the event storage batch).
+  * **ELASTICSEARCH_DATA_PLUMBING_DEADLETTER** and **ELASTICSEARCH_DATA_PLUMBING_CASES_DEAD_LETTER** , for errors writing to Elasticsearch.
+  * **LOGGER_DEADLETTER** , for user action errors.
+  * **PULSE_FEEDBACK_DEADLETTER** , for error while sending status change outcomes (feedback) to Pulse
+  * **CM_EVENT_STORAGE_DEADLETTER** , for errors while persisting events to the AM_EVENT_STORAGE table.
+  * **CM_EVENT_COMMON_DEADLETTER** , for errors while persisting events to the AM_EVENT_COMMON table.
+
+
+
+Below are example configurations that should be placed on the `logback.xml` file. Bear in mind that in omnichannel configurations, there's a separate event dead letter logger per channel, i.e., the logger name changes from `EVENT_QUEUE-DEADLETTER` to `EVENT_QUEUE_<workflow_id>-DEADLETTER`.
+
+#### Event Queue Deadletter - Omnichannelâ
+    
+    
+    <!-- Omnichannel Event queue deadletter (one for each channel) -->  
+    <appender name="{{workflow_id}}-EVENT-QUEUE-DEADLETTER" class="ch.qos.logback.core.FileAppender">  
+        <file>logs/{{workflow_id}}-event-deadletter.log</file>  
+        <append>true</append>  
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <pattern>%date %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+      
+    <logger name="EVENT_QUEUE_{{workflow_id}}-DEADLETTER" level="INFO" additivity="false">  
+         <appender-ref ref="{{workflow_id}}-EVENT-QUEUE-DEADLETTER"/>  
+    </logger>  
+    
+
+#### Event Queue Deadletter - Classic (non-omnichannel)â
+    
+    
+    <!-- Classic Event queue deadletter -->  
+    <appender name="EVENT-QUEUE-DEADLETTER" class="ch.qos.logback.core.FileAppender">  
+        <file>logs/event-deadletter.log</file>  
+        <append>true</append>  
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <pattern>%date %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+      
+    <!-- additivity=false ensures deadletter data only goes to this log -->  
+    <logger name="EVENT_QUEUE-DEADLETTER" level="INFO" additivity="false">  
+      <appender-ref ref="EVENT-QUEUE-DEADLETTER"/>  
+    </logger>  
+    
+
+#### Other Dead Letter Configurationsâ
+    
+    
+    <!-- write down dead letter automations -->  
+    <appender name="AUTOMATION-QUEUE-DEADLETTER" class="ch.qos.logback.core.FileAppender">  
+        <file>logs/automation-deadletter.log</file>  
+        <append>true</append>  
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <pattern>%date %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+      
+    <!-- write down dead letter for Pulse feedback -->  
+    <appender name="PULSE-FEEDBACK-DEADLETTER" class="ch.qos.logback.core.FileAppender">  
+        <file>logs/pulse-fdbk-deadletter.log</file>  
+        <append>true</append>  
+      
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <pattern>%date %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+      
+    <!-- write down dead letter for AM_EVENT_STORAGE -->  
+    <appender name="CM-EVENT-STORAGE-DEADLETTER" class="ch.qos.logback.core.FileAppender">  
+        <file>logs/cm-event-storage-deadletter.log</file>  
+        <append>true</append>  
+      
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+             <pattern>%date %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+      
+    <!-- write down dead letter for AM_EVENT_COMMoN -->  
+    <appender name="CM-EVENT-COMMON-DEADLETTER" class="ch.qos.logback.core.FileAppender">  
+        <file>logs/cm-event-common-deadletter.log</file>  
+        <append>true</append>  
+      
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+             <pattern>%date %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+      
+    <!-- additivity=false ensures deadletter data only goes to this log -->  
+    <logger name="AUTOMATION_QUEUE_DEADLETTER" level="INFO" additivity="false">  
+       <appender-ref ref="AUTOMATION-QUEUE-DEADLETTER"/>  
+    </logger>  
+    <logger name="PULSE_FEEDBACK_DEADLETTER" level="INFO" additivity="false">  
+       <appender-ref ref="PULSE-FEEDBACK-DEADLETTER"/>  
+    </logger>  
+    <logger name="CM_EVENT_STORAGE_DEADLETTER" level="INFO" additivity="false">  
+       <appender-ref ref="CM-EVENT-STORAGE-DEADLETTER"/>  
+    </logger>  
+    <logger name="CM_EVENT_COMMON_DEADLETTER" level="INFO" additivity="false">  
+       <appender-ref ref="CM-EVENT-COMMON-DEADLETTER"/>  
+    </logger>  
+    
+
+info
+
+You can import some of the messages on these log files using the [admin tool](/case-manager/13.17/docs/internal/case-manager/configuration-guide/admin-tool).

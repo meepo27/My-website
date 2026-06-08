@@ -1,0 +1,715 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-fraud-rules
+Title: Fraud Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Fraud Rules
+
+
+
+On this page
+
+# Fraud Rules
+
+### Descriptionâ
+
+Fraud rules prevent various fraud schemes that are generally associated with collusive/fraudulent merchants. A collusive merchant scheme occurs when a merchant's owner(s) and/or their employees conspire to commit fraud using their customers' (cardholder) accounts and/or personal information. Moreover, the scheme encompasses any abnormal behavior, which may indicate illicit activity or illegitimate gains by the merchant.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## Failed-3DS-Count-Rate-FR1
+
+### Comment
+
+> Failed 3ds count rate, in 1 month, is equal to or above a set threshold
+
+### Actions
+
+  * [Failed-3DS-Count-Rate-FR1]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["count_3ds_limit_1m"].threshold ?? default_threshold_list["count_3ds_limit_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_3ds_count_ratio = event.rt_3ds_ko_cnt_4w * 100; 
+
+### Condition
+    
+    
+    // number of failed 3DS payments over the total number of payments in one month 
+    // (Filter: payment_3ds_status_code defined and not in ("","y","Y")) 
+    event.rt_3ds_ko_cnt_4w >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) failed 3DS count rate of one month is {localvar.formated_3ds_count_ratio} % and is equal/above the limit of {localvar.formated_threshold} %.
+
+### Mark As
+
+N/A
+
+## Failed-3DS-Amount-Rate-FR2
+
+### Comment
+
+> Failed 3ds amount rate, in 1 month, is equal to or above a set threshold
+
+### Actions
+
+  * [Failed-3DS-Amount-Rate-FR2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["amount_3ds_limit_1m"].threshold ?? default_threshold_list["amount_3ds_limit_1m"].threshold;
+    threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+    threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100;
+    formated_3ds_amount_ratio = event.rt_3ds_ko_amt_4w * 100; 
+
+### Condition
+    
+    
+    // total amount of failed 3DS payments over the total amount of payments in one month 
+    // (Filter: payment_3ds_status_code defined and not in ("","y","Y"))
+    event.rt_3ds_ko_amt_4w >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount  
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) failed 3DS amount rate of one month is {localvar.formated_3ds_amount_ratio} % and is equal/above the limit of {localvar.formated_threshold} %.
+
+### Mark As
+
+N/A
+
+## Failed-3DS-Cnt-Increase-FR3
+
+### Comment
+
+> Failed 3ds count rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * [Failed-3DS-Cnt-Increase-FR3]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["count_3ds_1m_3m_list"].threshold ?? default_threshold_list["count_3ds_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // failed 3DS rate of one month over the failed 3DS rate of three months (delayed over 4w) 
+    // (Filter: payment_3ds_status_code defined and not in ("","y","Y"))
+    event.rtcomp_3ds_ko_cnt_1m_to_3m >=  threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) failed 3DS count rate of one month is {event.rtcomp_3ds_ko_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Failed-3DS-Amt-Increase-FR4
+
+### Comment
+
+> Failed 3ds amount rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Failed-3DS-Amt-Increase-FR4]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["amount_3ds_1m_3m_list"].threshold ?? default_threshold_list["amount_3ds_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // failed 3DS amt rate of one month over the failed 3DS rate of three months (delayed over 4w) 
+    // (Filter: payment_3ds_status_code != "Y"')
+    event.rtcomp_3ds_ko_amt_1m_to_3m >=  threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) failed 3DS amount rate of one month is {event.rtcomp_3ds_ko_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Visa-VFMP-Early-Warning-FR5
+
+### Comment
+
+> Visa Fraud Monitoring Program - Early Warning (VFMP) - Fraud to sales ratio, in one month.
+
+### Actions
+
+  * [Visa-VFMP-Early-Warning-FR5]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_vfmp_early_rat_threshold = default_threshold_list["min_vfmp_early_rat_threshold"].threshold; // 0.65%
+    max_vfmp_early_rat_threshold = default_threshold_list["max_vfmp_early_rat_threshold"].threshold; // 0.9%
+    min_vfmp_early_amt_threshold = default_threshold_list["min_vfmp_early_amt_threshold"].threshold; // USD 50,000
+    max_vfmp_early_amt_threshold = default_threshold_list["max_vfmp_early_amt_threshold"].threshold; // USD 75,000 
+    //For Rule Explanation
+    visa_fraud_to_sales_ratio = event.rt_visa_fraud_amt_1m*100; 
+    visa_fraud_amount = event.visa_fraud_amt_cur_m/100; 
+
+### Condition
+    
+    
+    //The amount ratio of Visa fraudulent payments to all payments (feedback_label == 'fraud' and feedback_value == true) 
+    (event.rt_visa_fraud_amt_1m >= min_vfmp_early_rat_threshold 
+     and event.rt_visa_fraud_amt_1m < max_vfmp_early_rat_threshold) 
+    and 
+    // The total amount of Visa payments that are fraudulent
+    (event.visa_fraud_amt_cur_m>= min_vfmp_early_amt_threshold 
+     and event.visa_fraud_amt_cur_m < max_vfmp_early_amt_threshold) 
+    
+
+### Explanation
+
+> Visa Fraud Monitoring Program - Early Warning (VFMP) - The fraud to sales ratio, in one month, is {localvar.visa_fraud_to_sales_ratio} and the amount of fraudulent payments is {localvar.visa_fraud_amount} 
+
+### Mark As
+
+N/A
+
+## Visa-VFMP-Standard-FR6
+
+### Comment
+
+> Visa Fraud Monitoring Program - Standard (VFMP) - Fraud to sales ratio, in one month.
+
+### Actions
+
+  * [Visa-VFMP-Standard-FR6]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_vfmp_standard_rat_threshold = default_threshold_list["min_vfmp_standard_rat_threshold"].threshold; // 0.9%
+    max_vfmp_standard_rat_threshold = default_threshold_list["max_vfmp_standard_rat_threshold"].threshold; // 1.8%
+    min_vfmp_standard_amt_threshold = default_threshold_list["min_vfmp_standard_amt_threshold"].threshold; // USD 75,000
+    max_vfmp_standard_amt_threshold = default_threshold_list["max_vfmp_standard_amt_threshold"].threshold; // USD 250,000 
+    //For Rule Explanation
+    visa_fraud_to_sales_ratio = event.rt_visa_fraud_amt_1m *100; 
+    visa_fraud_amount = event.visa_fraud_amt_cur_m/100;  
+
+### Condition
+    
+    
+    //The amount ratio of Visa fraudulent payments to all payments (feedback_label == 'fraud' and feedback_value == true) 
+    (event.rt_visa_fraud_amt_1m >= min_vfmp_standard_rat_threshold
+     and event.rt_visa_fraud_amt_1m < max_vfmp_standard_rat_threshold) 
+    and 
+    // The total amount of Visa payments that are fraudulent 
+    (event.visa_fraud_amt_cur_m>= min_vfmp_standard_amt_threshold 
+     and event.visa_fraud_amt_cur_m < max_vfmp_standard_amt_threshold)  
+    
+
+### Explanation
+
+> Visa Fraud Monitoring Program - Standard (VFMP) - The fraud to sales ratio, in one month, is {localvar.visa_fraud_to_sales_ratio} and the amount of fraudulent payments is {localvar.visa_fraud_amount} 
+
+### Mark As
+
+N/A
+
+## Visa-VFMP-Excessive-FR7
+
+### Comment
+
+> Visa Fraud Monitoring Program - Excessive (VFMP) - Fraud to sales ratio, in one month.
+
+### Actions
+
+  * Alert
+  * [Visa-VFMP-Excessive-FR7]
+
+
+
+### Variables
+    
+    
+    min_vfmp_excessive_rat_threshold = default_threshold_list["min_vfmp_excessive_rat_threshold"].threshold; // 1.8%
+    min_vfmp_excessive_amt_threshold = default_threshold_list["min_vfmp_excessive_amt_threshold"].threshold; // USD 250,000
+    //For Rule Explanation
+    visa_fraud_to_sales_ratio = event.rt_visa_fraud_amt_1m*100; 
+    visa_fraud_amount = event.visa_fraud_amt_cur_m/100; 
+
+### Condition
+    
+    
+    //The amount ratio of Visa fraudulent payments to all payments (feedback_label == 'fraud' and feedback_value == true) 
+    event.rt_visa_fraud_amt_1m >= min_vfmp_excessive_rat_threshold 
+    and 
+    // The total amount of Visa payments that are fraudulent 
+    event.visa_fraud_amt_cur_m >= min_vfmp_excessive_amt_threshold
+    
+
+### Explanation
+
+> Visa Fraud Monitoring Program - Early Warning (VFMP) - The fraud to sales ratio, in one month, is {localvar.visa_fraud_to_sales_ratio} and the amount of fraudulent payments is {localvar.visa_fraud_amount} 
+
+### Mark As
+
+N/A
+
+## Visa-VFMP-3DS-Early-FR8
+
+### Comment
+
+> Visa Fraud Monitoring Program - 3DS - Early Warning (VFMP) - 3DS Fraud to sales ratio, in one month. (US only)
+
+### Actions
+
+  * Alert
+  * [Visa-VFMP-3DS-Early-FR8]
+
+
+
+### Variables
+    
+    
+    min_vfmp_3ds_early_rat_threshold = default_threshold_list["min_vfmp_3ds_early_rat_threshold"].threshold; // 0.5%
+    max_vfmp_3ds_early_rat_threshold = default_threshold_list["max_vfmp_3ds_early_rat_threshold"].threshold; // 0.75%
+    min_vfmp_3ds_early_amt_threshold = default_threshold_list["min_vfmp_3ds_early_amt_threshold"].threshold; // USD 5,000
+    max_vfmp_3ds_early_amt_threshold = default_threshold_list["max_vfmp_3ds_early_amt_threshold"].threshold; // USD 7,500 
+    //For Rule Explanation
+    visa_3ds_fraud_to_sales_ratio = event.rt_visa_fraud_amt_1m*100; 
+    visa_3ds_fraud_amount = event.visa_fraud_amt_cur_m/100; 
+
+### Condition
+    
+    
+    //The amount ratio of Visa fraudulent US domestic 3DS payments to all US 3DS domestic payments 
+    (event.rt_visa_us_3ds_ok_fraud_amt_1m >= min_vfmp_3ds_early_rat_threshold   
+     and event.rt_visa_us_3ds_ok_fraud_amt_1m < max_vfmp_3ds_early_rat_threshold) 
+    and 
+    // The total amount of Visa US domestic 3DS payments that are fraudulent
+    (event.visa_us_3ds_ok_fraud_amt_cur_m >= min_vfmp_3ds_early_amt_threshold  
+     and event.visa_us_3ds_ok_fraud_amt_cur_m < max_vfmp_3ds_early_amt_threshold)   
+    
+
+### Explanation
+
+> Visa Fraud Monitoring Program - 3DS - Early Warning (VFMP) - The 3DS fraud to sales ratio, in one month, is {localvar.visa_3ds_fraud_to_sales_ratio} and the amount of 3DS fraudulent payments is {localvar.visa_3ds_fraud_amount} 
+
+### Mark As
+
+N/A
+
+## Visa-VFMP-3DS-Standard-FR9
+
+### Comment
+
+> Visa Fraud Monitoring Program - 3DS - Standard (VFMP) - 3DS Fraud to sales ratio, in one month. (US only)
+
+### Actions
+
+  * [Visa-VFMP-3DS-Standard-FR9]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_vfmp_3ds_standard_rat_threshold = default_threshold_list["min_vfmp_3ds_standard_rat_threshold"].threshold; // 0.75%
+    min_vfmp_3ds_standard_amt_threshold = default_threshold_list["min_vfmp_3ds_standard_amt_threshold"].threshold; // USD 7,500
+    //For Rule Explanation
+    visa_3ds_fraud_to_sales_ratio = event.rt_visa_fraud_amt_1m*100; 
+    visa_3ds_fraud_amount = event.visa_fraud_amt_cur_m/100; 
+
+### Condition
+    
+    
+    //The amount ratio of Visa fraudulent US domestic 3DS payments to all US 3DS domestic payments 
+    event.rt_visa_us_3ds_ok_fraud_amt_1m >= min_vfmp_3ds_standard_rat_threshold  
+    and 
+    // The total amount of Visa US domestic 3DS payments that are fraudulent
+    event.visa_us_3ds_ok_fraud_amt_cur_m >= min_vfmp_3ds_standard_amt_threshold  
+    
+
+### Explanation
+
+> Visa Fraud Monitoring Program - 3DS - Standard (VFMP) - The 3DS fraud to sales ratio, in one month, is {localvar.visa_3ds_fraud_to_sales_ratio} and the amount of 3DS fraudulent payments is {localvar.visa_3ds_fraud_amount} 
+
+### Mark As
+
+N/A
+
+## Mastercard-EFM-FR10
+
+### Comment
+
+> Mastercard Excessive Fraud Merchant Compliance Program (EFM)
+
+### Actions
+
+  * [Mastercard-EFM-3DS-FR10]
+  * Alert
+
+
+
+### Variables
+    
+    
+    mc_efm_ecom_sales_cnt_threhsold = default_threshold_list["mc_efm_ecom_sales_cnt_threhsold"].threshold; // 1000
+    mc_efm_fraud_cbk_amt_threshold = default_threshold_list["mc_efm_fraud_cbk_amt_threshold"].threshold; // USD 50,000
+    mc_efm_fraud_cbk_rate_threshold = default_threshold_list["mc_efm_fraud_cbk_rate_threshold"].threshold; // 0.5%   
+    mc_efm_3ds_amt_rate_non_reg_threshold = default_threshold_list["mc_efm_3ds_amt_rate_non_reg_threshold"].threshold; // 10%
+    mc_efm_3ds_amt_rate_reg_threshold = default_threshold_list["mc_efm_3ds_amt_rate_reg_threshold"].threshold; // 50% 
+    
+    //For Rule Explanation
+    mc_fraud_cbk_amount = event.mc_fraud_cbk_amt_cur_m/100; 
+    rt_mc_fraud_cbk_cnt_1m = event.rt_mc_fraud_cbk_cnt_1m*100;  
+
+### Condition
+    
+    
+    //The number of E-Comm Mastercard sales in the previous month 
+    event.mc_ecom_cnt_prev_m >= mc_efm_ecom_sales_cnt_threhsold
+    and 
+    // The total amount of Mastercard chargebacks that are fraud related (reason code 4837) in the current month
+    event.mc_fraud_cbk_amt_cur_m >= mc_efm_fraud_cbk_amt_threshold 
+    and 
+    // The number of Mastercard fraud CBK in the current month over the number of E-Comm sales of the previous month
+    event.rt_mc_fraud_cbk_cnt_1m >= mc_efm_fraud_cbk_rate_threshold 
+    and 
+    // The Mastercard 3DS volume rate for Regulated and Non-Regulated Countries
+    ((!regulated_countries_3ds.contains(event.merchant_country_code) and event.rt_mc_3ds_ok_amt_1m <= mc_efm_3ds_amt_rate_non_reg_threshold)  
+    or 
+    (regulated_countries_3ds.contains(event.merchant_country_code) and event.rt_mc_3ds_ok_amt_1m <= mc_efm_3ds_amt_rate_reg_threshold))
+    
+
+### Explanation
+
+> Mastercard Excessive Fraud Merchant Compliance Program (EFM) - The Fraud CBK amount is {localvar.mc_fraud_cbk_amount} and the Fraud CBK rate is {localvar.rt_mc_fraud_cbk_cnt_1m} 
+
+### Mark As
+
+N/A
+
+## Fraud-Amount-Rate-FR11
+
+### Comment
+
+> Fraud amount rate, in one month, is equal to or above a set threshold
+
+### Actions
+
+  * [Fraud-Amount-Rate-FR11]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["fraud_amount_limit_1m"].threshold ?? default_threshold_list["fraud_amount_limit_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_fraud_amt_4w_4w_dlay * 100; 
+
+### Condition
+    
+    
+    // total amount of fraudulent payments over the total amount of payments in one month (delayed over 4w) 
+    // (Filter: feedback_type == 'fraud' and feedback_value == 'true')
+    event.rt_fraud_amt_4w_4w_dlay >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) fraud rate of one month is {localvar.formated_ratio} % and is equal/above the limit of {localvar.formated_threshold} %.
+
+### Mark As
+
+N/A
+
+## Fraud-Amount-Increase-FR12
+
+### Comment
+
+> Fraud amount rate of, 1 month vs 3 months, is equal to or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Fraud-Amount-Increase-FR12]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["fraud_amount_1m_3m_list"].threshold ?? default_threshold_list["fraud_amount_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // Fraud amount rate of one month (delayed over 4w) over the fraud amount rate of three months (delayed over 8w)
+    // (Filter: feedback_type == 'fraud' and feedback_value == 'true')
+    event.rtcomp_fraud_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) Fraud amount rate of one month is event.rtcomp_fraud_1m_to_3m x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Rejected-Count-Rate-FR13
+
+### Comment
+
+> Rejected count rate, in one month, is equal to or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Rejected-Count-Rate-FR13]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["reject_count_limit_1m"].threshold ?? default_threshold_list["reject_count_limit_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_rejct_cnt_4w * 100; 
+
+### Condition
+    
+    
+    // The number of rejected payments over the total number of payments in one month 
+    // (Filter: event_type == "info" and payment_auth_status == "declined")
+    event.rt_rejct_cnt_4w >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) rejected count rate of one month is {localvar.formated_ratio} % and is equal/above the limit of {localvar.formated_threshold} %.
+
+### Mark As
+
+N/A
+
+## Rejected-Amount-Rate-FR14
+
+### Comment
+
+> Rejected amount rate, in one month, is equal to or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Rejected-Amount-Rate-FR14]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["reject_amount_limit_1m"].threshold ?? default_threshold_list["reject_amount_limit_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    // For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_rejct_amt_4w * 100; 
+
+### Condition
+    
+    
+    // The amount of rejected payments over the total amount of payments in one month 
+    // (Filter: event_type == "info" and payment_auth_status == "declined")
+    event.rt_rejct_amt_4w >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) rejected amount rate of one month is {localvar.formated_ratio} % and is equal/above the limit of {localvar.formated_threshold} %.
+
+### Mark As
+
+N/A
+
+## Rejected-Count-Increase-FR15
+
+### Comment
+
+> Rejected count rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * [Rejected-Count-Increase-FR15]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["reject_count_1m_3m_list"].threshold ?? default_threshold_list["reject_count_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // Rejected rate of one month over the rejected rate of three months (delayed over 4w) 
+    // (Filter: event_type == "info" and payment_auth_status == "declined")
+    event.rtcomp_rejct_cnt_1m_to_3m >=  threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) rejected count rate of one month is {event.rtcomp_rejct_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Rejected-Amt-Increase-FR16
+
+### Comment
+
+> Rejected amount rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Rejected-Amt-Increase-FR16]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["reject_amount_1m_3m_list"].threshold ?? default_threshold_list["reject_amount_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // rejected amount rate of one month over the rejected amount rate of three months (delayed over 4w)
+    // (Filter: event_type == "info" and payment_auth_status == "declined")
+    event.rtcomp_rejct_amt_1m_to_3m >=  threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) rejected amount rate of one month is event.rtcomp_rejct_amt_1m_to_3m x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Rejected-Daily-Increase-FR17
+
+### Comment
+
+> Rejected count rate of 1 day over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Rejected-Daily-Increase-FR17]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["reject_count_1d_3m_list"].threshold ?? default_threshold_list["reject_count_1d_3m_list"].threshold; 
+    threshold_count = multi_tenanted_threshold_list["min_trx_count_3m_1d_dlay"].threshold ?? default_threshold_list["min_trx_count_3m_1d_dlay"].threshold;
+
+### Condition
+    
+    
+    // Rejected rate of one day over the rejected rate of three months (delayed over 1day)
+    // (Filter: event_type == "info" and payment_auth_status == "declined")
+    event.rtcomp_rejct_cnt_1d_to_3m >=  threshold 
+    and event.cnt_3m_1d_dlay >= threshold_count 
+
+### Explanation
+
+> Merchant ({event.merchant_id}) rejected count rate of one day is {event.rtcomp_rejct_cnt_1d_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A

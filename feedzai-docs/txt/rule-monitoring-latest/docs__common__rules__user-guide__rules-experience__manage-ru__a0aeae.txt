@@ -1,0 +1,9 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/
+Title: Manage Rules | Rule Monitoring
+============================================================
+
+# Manage Rules
+
+Was this page helpful?Â 
+
+The Rules Strategy platform allows financial institutions to quickly create a rule, test, and publish it directly in production without the need of specialized support by Feedzai. This page helps you to understand how to manage [rules](/rules/latest/docs/common/rules/overview) \- create, edit, test, delete, and use the audit capabilities to have a clear understanding of all changes made.

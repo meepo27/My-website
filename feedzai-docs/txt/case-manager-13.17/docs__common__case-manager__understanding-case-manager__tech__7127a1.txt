@@ -1,0 +1,36 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/scalable-storage
+Title: Scalable Storage | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Technical Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/technical-concepts-overview)
+  * Scalable Storage
+
+
+
+On this page
+
+# Scalable Storage
+
+Case Manager's database cluster is the place where all the data being manipulated by the system is being stored, including all the events coming from each client's channels. Such database cluster is composed by a read-write and (an optional) read-only database.
+
+A natural limitation of such architecture is that CM's volume storage capabilities are capped by the storage limits of the underlying databases (for instance, [128TB for AWS Aurora](https://aws.amazon.com/about-aws/whats-new/2020/09/amazon-aurora-increases-maximum-storage-size-128tb/)).
+
+In order to expand CM's storage limitations, it's possible to have different channels being supported by dedicated database clusters, thus providing per-channel horizontal storage capabilities. This feature allows to split the storage of different event channels across multiple databases, allowing the channels that require more storage to be supported by their own database.
+
+## CM Storage Infrastructureâ
+
+The following diagram depicts CM's storage infrastructure. This infrastructure consists of two different setups: the standard deployment where a single database cluster is used to store all channels' data, and the scalable storage deployment where multiple database clusters can be setup to support different channels. Find next more details on the latter.
+
+### Channel-dedicated Database Clusterâ
+
+The Channel-dedicated Database Cluster allows to have different channels being supported by different and independent databases and is composed by two types of clusters:
+
+  * **Main** database cluster: a _single_ cluster that will store **all** CM tables. There are some CM tables which their main purpose is to gather all channels data in a single place (eg. `AM_EVENT_COMMON`), those tables are stored on the **main** cluster.
+
+  * **Channel-dedicated** database cluster: _one-or-more_ clusters supporting each one of its own channel. Each dedicated cluster will only store the `AM_EVENT_<channel>` and `AM_EVENT_STORAGE` tables (ie. the `<channel>`'s events) of the respective channel. These tables need a dedicated database since they are the most sizable and, thus, demand more storage space.
+
+
+
+
+In order to improve performance on read-operations, it's also possible to pair each cluster with an optional read-only database.

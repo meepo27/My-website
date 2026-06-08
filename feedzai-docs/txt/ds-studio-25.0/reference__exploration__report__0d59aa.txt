@@ -1,0 +1,42 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/report/
+Title: report - DS API
+============================================================
+
+#  `` report Â¶
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` report Â¶
+    
+    
+    report(exploration_results, show_all_checks=False, embed_dependencies=False)
+    
+
+Function that prints the report for stats.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `exploration_results` Â¶
+
+|  |  ExplorationResults instance created from the stats.compute_stats method. |  _required_  
+  
+###  `show_all_checks` Â¶
+
+|  |  Boolean value indicating whether all checks that were run should be displayed in the report, even if they triggered no warnings. Default is False. |  `False`  
+  
+###  `embed_dependencies` Â¶
+
+|  |  Boolean value indicating if the report html file should include all css and js dependencies (bootstrap, jquery, vega). Embedding them increases significantly the size of the file, but in security-closed environments where there is no internet access, the dependencies might need to be embedded in order to be able to render the report. Default is False. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`str` |  Overview report of the data in HTML format.

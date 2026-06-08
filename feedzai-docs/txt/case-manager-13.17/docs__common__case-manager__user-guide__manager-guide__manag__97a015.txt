@@ -1,0 +1,165 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-queues
+Title: Manage Queues | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * Manage Queues
+
+
+
+On this page
+
+# Manage Queues
+
+Queues help you to manage and track alerts and cases. You can think of queues as containers in which you can store alerts or cases and assign them to analysts.
+
+In this section, you will learn how to work with queues - create, view, edit, and delete.
+
+info
+
+The **Channel** information explained on this page is only visible if the product is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+## View Queuesâ
+
+Access the **Queues** page using the **Settings** option in the main menu. In this page you will find a list of all existing queues and relevant information about each of them.
+
+  
+
+
+### Alerts Totalâ
+
+In the queues list, you can find the the total number of alerts per queue in the Alerts Total column. If you hover the number of alerts of a queue, an informative popup will appear which categorizes the alerts per [State Machine](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/states-and-outcomes).
+
+Alerts Total column
+
+The Alerts Total column only displays the number of alerts per queue when a time window has been selected in the search filter.
+
+### Alerts Breakdown per State Machine Statusâ
+
+In the Queues page, you can find an expandable drawer that breaks down the total number of alerts of all available queues per state machine status. You can also use this drawer to filter your queues.
+
+  
+
+
+## Filter Queuesâ
+
+Use filters to refine the queues displayed on the list. This could be helpful, for example, to view all queues from a specific channel.
+
+Click the **Searches** button to open the filtering dropdown.
+
+  * **Name** : Lists only queues whose name or description match the text inserted on this field.
+  * **Type** : Lists only queues from the selected type: Event or Case.
+  * **All Tenants** : Lists only queues from the selected tenant(s).
+  * **All Channels** : Lists only queues from the selected channel(s).
+  * **Metrics Time Window** : While it lists all queues, it only displays the number of alerts in the _Alerts Total_ column for the queues that have had alerts added to them in the defined time window.
+
+
+
+Here you can also see your **latest** or **saved** filtered searches in the **Latest** tab or **Saved** tab, respectively. To save a filtered search, hover it in the Latest tab and select the  icon.
+
+### Quick Filtering by State Machine Statusâ
+
+In the Alerts Breakdown by State Machine Status drawer, you can select each of the statuses to quickly filter your results to present only queues that contain alerts with the selected status for that state machine.
+
+  
+
+
+info
+
+You can only filter by one status of a specific state machine. Multiple status/state machine filtering is not available.
+
+## Create Queuesâ
+
+Create queues to store your events and cases in a more organized manner:
+
+  1. Select the **New Queue** button.
+
+  2. Complete the fields with the information that best describes the new queue.
+
+     * **Name:** Queue's name (e.g. "Urgent").
+     * **Description:** Brief description of the queue's purpose (e.g. "Alerts to be reviewed in 24h.").
+     * **Type:** Defines if the queue is specific to **Events** or **Cases**.
+     * **Channel:** Ensures that only events from the select channel are added to the queue.
+     * **Tenant** : As a landlord in a Multi-Tenancy environment, you can create different queues for different tenants. Adding tenants to queues ensures that only events from the select tenant are added to the queue. In addition, it ensures that the queue is only visible to users with permissions to view that specific tenant.
+     * **Users** : Ensures that the queue is only visible for the selected users.
+  3. Select **Create**.
+
+
+
+
+## Edit Queuesâ
+
+Edit queues and adjust their parameters to better suit your needs:
+
+  1. In the queues list, select the  icon of the queue that you want to edit and select the **Edit** button.
+
+  2. Edit the **Name** , **Description** , **Tenant** (only editable when the queue doesn't have events or cases linked to it), and **Users** fields.
+
+Attention
+
+The **Type** and **Channel** fields are not editable.
+
+  3. **Save** the changes.
+
+
+
+
+## Delete Queuesâ
+
+Delete the queues that are no longer relevant to your use case:
+
+  1. In the queues list, select the  icon of the queue that you want to edit and select the **Delete** button.
+
+  2. Since this is a sensitive operation, the page displays a dialog for you to confirm the deletion.
+
+
+
+
+## Export and Import Queuesâ
+
+Use the export and import functionality to test queues in a test environment before promoting changes to a production environment. This makes replicating changes between environments less error-prone.
+
+### Exportâ
+
+Go to **Settings** and select **Export Settings** to download a file with queues.
+
+The exported file includes the following metadata: `id`, `name`, `description`, `channel`, `tenant` and `type`. The `id` is kept so that Automation Rules and SLAs continue to work seamlessly if they use such queues in the new environment. On the other hand, the queue `users` and _auditable metadata_ fields are not exported as they might not exist in the target environment.
+
+info
+
+ _Auditable metadata_ such as `createdBy`, `createdAt`, `updatedAt` etc., is **not exported** as it is related to the source environment, so replicating them in the target environment can be misleading.
+
+### Importâ
+
+Go to **Settings** and select **Import Settings**. You will be prompted to select the file to import. Make sure you select a file in `.cmsettings` format; otherwise, you get an error and cannot proceed with the import.
+
+caution
+
+**Do not edit the** `.cmsettings` **file** as it can lead to issues with inconsistent data during the import process.
+
+#### Validation and conflicts previewâ
+
+Upon importing, the selected file undergoes validation. The system will inform the user in the event of conflicts, but it will not specify the cause of those conflicts. The import process performs the following validations:
+
+  * **Channel validation** : validates if the imported queue channel exists in the target environment.
+  * **Database duplication** : validates if the queue already exists in the database.
+  * **Tenant validation** : validates if the imported queue tenant exists in the target environment.
+
+
+
+info
+
+If all the queues in the imported file have conflicts with queues that already exist in the target environment, you cannot proceed with the import.
+
+## Learn moreâ
+
+Learn more about queues and how you can use them to distribute workload.
+
+  * [Queues](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/queues) basics.
+  * Manyally move [alerts to queues](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#moving-alerts-to-queues) or [cases to queues](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/acting-on-cases#move-cases-to-queues) to improve your team's efficiency.
+  * Automatically move alerts to queues using [automation rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/automation-rule-examples#move-alerts-to-queues).
+  * [Multi-tenancy](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/multi-tenancy) basics.
+
+

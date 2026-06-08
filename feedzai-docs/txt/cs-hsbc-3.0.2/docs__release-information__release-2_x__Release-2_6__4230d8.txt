@@ -1,0 +1,155 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.6
+Title: Release 2.6 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.6.0`â
+
+### Workflow Monitoring Service added to Inbound Payments Workflowâ
+
+FeatureHSBC-2365
+
+We've added the Workflow Monitoring Service to the Inbound Payments Workflow.
+
+This service will populate the `workflow.events` metric with the events that are processed by that workflow and can be used to create monitoring dashboards.
+
+### Upgrade JupyterLab version to 25.0.28â
+
+FeatureHSBC-2279
+
+We have upgraded JupyterLab to version 25.0.28.
+
+The new docker image will have to be loaded in existing environments. Please find the newest version in the [Installation Guide](/cs-hsbc/3.0.2/docs/installation-guide/overview).
+
+### Add Voice Biometrics (Nuance) field to Pulseâ
+
+FeatureFTMT-14249FTMT-17979HSBC-2207
+
+We've added a new complex field `voice_biometrics_nuance` to Outbound and Digital Activity APIs and to the `Payments` and `Payments + Outcomes` schemas.
+
+Please find below the field definition:
+
+**Field Name**| **Datatype**  
+---|---  
+is_in_watchlist| Boolean  
+session_auth_decision| String  
+session_risk_level| Integer  
+text_decision| String  
+biometric_decision| String  
+pbf_score| Double  
+pbf_decision| String  
+watchlist_score| Double  
+watchlist_decision| String  
+fraudster_score| Double  
+text_score| Double  
+highest_fraud_score| Double  
+highest_fd_norm_score| Double  
+identified_voiceprint_id| String  
+session_auth_score| Double  
+session_veredict| Integer  
+expected_fa_rate| Double  
+session_risk_score| Double  
+synth_score| Double  
+pbc_score| Double  
+  
+### Add customer_ssn field to Pulseâ
+
+FeatureFTMT-19691HSBC-2347
+
+We have added the `customer_ssn` field to the `Payments` and `Payments + Outcomes` schemas.
+
+Please find below the field definition:
+
+**Field Name**| **Datatype**  
+---|---  
+customer_ssn| String  
+  
+### Add premier marker to Pulse and Case Managerâ
+
+FeatureFTMT-18234HSBC-2293
+
+We've added the `premier_marker` field to the `Payments` and `Payments + Outcomes` schemas.
+
+The field was also added to Case Manager and is available to be used in Automation Rules and SLAs.
+
+**Field Name**| **Datatype**  
+---|---  
+premier_marker| String  
+  
+### Change Inbound Transfer Initiation mandatory fieldsâ
+
+Bug FixFTMT-17618HSBC-2121HSBC-2319
+
+The following fields were made optional in the Inbound Transfer Initiation endpoint:
+
+  * device_id
+  * receiver_bank_bic
+  * receiver_bank_country_code
+  * receiver_name
+  * receiver_transaction_bank_account_number
+
+
+
+### Add account_pw_change_flag field to Pulseâ
+
+FeatureFTMT-19381HSBC-2305
+
+We have added a new field `account_pw_change_flag` to Outbound and Digital Activity APIs and to the `Payments` and `Payments + Outcomes` schemas. Please find below the field definition:
+
+**Field Name**| **Datatype**  
+---|---  
+account_pw_change_flag| Boolean  
+  
+### Add new schema field to Inbound Paymentsâ
+
+FeatureFTMT-18883HSBC-2284
+
+We have added a new field `customer_reported_income_dbl` to the Customer Reference Data API and to the `Inbound Payments` and `Inbound Payments + Outcomes` schemas.
+
+Please find below the field definition:
+
+**Field Name**| **Datatype**  
+---|---  
+customer_reported_income_dbl| Double  
+  
+### Update Mobile Outbound Data Schema Documentationâ
+
+FeatureHSBC-2304
+
+We've updated the documentation for the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.
+
+### Add partitioning to dedicated channel databasesâ
+
+FeatureHSBC-2302
+
+We've added the execution of the Case Manager database changelog patches to the dedicated channel databases, so that the partitioning and index trigger functions that already exist for the single common database will also be automatically added for the channel-specific databases.
+
+The following variables are used to setup the properties for each channel (each of the following variables needs a specific channel defined in its suffix _<channel>, which can be one of `transfers`, `digital_activity`, `inbound_payments`, and `cards`).
+
+  * `database_casemanager_jdbc_<channel>`
+  * `database_casemanager_username_<channel>`
+  * `database_casemanager_schema_<channel>`
+
+
+
+### Add Biocatch Push field to Pulseâ
+
+FeatureFTMT-19304HSBC-2294
+
+We have added a new complex field `biopush` to Outbound and Digital Activity APIs and to the `Payments` and `Payments + Outcomes` schemas.
+
+Please find below the field definition:
+
+**Field Name**| **Datatype**  
+---|---  
+bio_push_score| Double  
+bio_push_id| Double  
+bio_push_name| String  
+bio_push_platform_name| String  
+bio_push_context| String  
+bio_push_mule_account_risk_level| String  
+  
+We've also changed the `Push Score` mapping in Case Manager's Digital Activity Event Details to the new field.

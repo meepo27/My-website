@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3722
+Title: HSBC-3722 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3722
+
+### Fix API specification examplesâ
+
+Bug FixHSBC-3722
+
+We have fixed an issue in the API specification where field types and examples differed in datatype. For example, `customer_annual_turnover` showed as `number` but the example would should as a `string` (`"15000000.00"`).
+
+Please refer to the [API specification page](/cs-hsbc/3.0.2/api) for more information.

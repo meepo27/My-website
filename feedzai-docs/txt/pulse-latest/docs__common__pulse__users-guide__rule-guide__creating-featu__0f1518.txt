@@ -1,0 +1,101 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-metrics
+Title: Creating Metrics | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/)
+  * Creating Metrics
+
+
+
+# Creating Metrics
+
+Was this page helpful?Â 
+
+You can create new fields to augment a [data source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) based on an aggregation of events over a period of time. These kind of features are called [**metrics**](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#metric), or **historical profiles**.
+
+Metrics describe typical behavior. For example: this customer typically uses two devices, and makes one transfer per month to pay the rent. Certain behavior patterns, or changes in the behavior, may help you detect financial crime.
+
+Metrics operator limits
+
+For performance reasons, there are limits to the number of Metrics operators that can be added to a Plan. For more information about this, see [Limits](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/limits).
+
+To add new metrics, execute the following actions:
+
+  1. In the **Data Science** tab, open the features plan.
+
+  2. Drag a **Metrics** operator to the plan if there is none yet.
+
+Adding metrics operators
+
+To save time, you can use the clipboard  to copy-paste operators in plans. This allows you to add operators without specifying all their fields each time you create a new plan.
+
+  3. Edit  the metrics operator as follows:
+
+     1. Add an **Operator Name** for the metrics operator.
+
+     2. Add  a new metric to the operator. Later, when you run the plan, Pulse will add this metric to the output data source as a new field.
+
+     3. Set the **Group By** fields over which to calculate aggregated metrics. For example:
+
+        1. _AccountID_ , to aggregate metrics for each card number.
+        2. _MerchantID_ , to aggregate metrics for each merchant.
+        3. _AccountID_ , _MerchantID_ , to aggregate metrics for the profile of each card number in each merchant.
+     4. If relevant, set the **Lookup By** fields (matching the count and types of the **Group By** fields) to define which group to retrieve.
+
+tip
+
+For more detailed information on setting up Lookup By metrics, refer to the [Using Lookup Metrics](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics/using-lookup-metrics) guide.
+
+     5. In the **Window** section, configure the time window over which to calculate the metric.
+
+        1. In the **Expression** field, add the time interval that you want to include. For example, _1 hour_ or _7 days_.
+
+This means that you want to calculate a metric based on the events of the last hour, or of the last seven days.
+
+For details on the syntax supported in window expressions, please refer to the [Time window](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/plans-in-workflows#time-window) section of the documentation on Plans in Workflows.
+
+        2. If you use the **Delay** field, recent events will not be immediately accounted for. For example, a 3-hour window with 1-hour delay means that out of the last 3+1=4 hours of events, the last 1 hour will not be considered. This is useful if you are computing a historical baseline profile and donât want it to be influenced by recent behavior.
+
+        3. **Is tumbling** : tumbling windows expire all events at once, once they reach their predetermined size. Afterwards, they start filling again and the cycle repeats itself.
+
+        4. You can define a **Filter** for the time window. Only events that fulfill the filter condition will be taken into account when calculating the metric. Use [Pulse Query Language (PQL) expressions](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features) returning a boolean value to define the filter.
+
+     6. In the **Edit Update Period** section, choose if the metric should be updated in real time, or periodically on a schedule.
+
+        1. **Real Time** : ideal for metrics with a small window (e.g. less than one day), to ensure that rapid attacks are detected.
+
+Under Real Time, select the _Update on every event_ option. The _Update every_ option is available for legacy reasons and should not be selected. This option is currently not accepted for omnichannel plans. It will be supported in future versions of Pulse.
+
+        2. **Scheduled** : ideal for metrics with a large window (e.g. 1 month). Since there is less fluctuation in the long-term behavior, the metric can be updated less frequently. To specify when the metric should be updated, you can either set _Start of_ or _Scheduled_.
+
+In the latter, you must type a [Cron expression](https://www.quartz-scheduler.net/documentation/quartz-2.x/tutorial/crontriggers.html), e.g. `0 0 12 * * ?` (i.e. _At noon every day_).
+
+     7. In the **Aggregation** section, select the **Function** you want to use to calculate the metric. If the function needs a parameter, select the **Field** that provides that parameter.
+
+Limitations when storing the state of real-time metrics on disk
+
+Note that storing the state of metric on disk is in continuous development, and it does not provide full feature parity to the previous, RAM-based version.
+
+Examples of functions:
+
+        * To calculate the sum of the _TransactionAmount_ field over each time window, for each _group by_ field: the function is _Sum_ , and the parameter field is _TransactionAmount._
+        * To calculate the number of the transactions over each time window, for each _group by_ field: the function is _Count_ , and it has no parameters.
+     8. Optionally, in the **Advanced** tab of the Aggregation section, you can define a [Pulse Query Language (PQL) expression](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features). This tab allows you to compute more complex values. When calculating metrics in a plan that is based on more than one channel, the Advanced tab is not available.
+
+     9. **If your plan has more than one channel** , do the following:
+
+        1. Toggle off all secondary channels that are not relevant for the metric using the toggle next to the channel's name in the Group By section.
+        2. You can decide not to include main channel data in the aggregation. To do so, select the **Do not include main channel data in the aggregation** option. Select this option when the main channel has no data relevant for the aggregation. For example, when processing debit card transactions, it might be useful to know how many devices the customer has used. This information can be aggregated from the online banking channel. But unlike online banking, the main channel (debit cards) will not contain any information about devices.
+        3. After selecting the _group by_ field(s) for the main channel, select the matching field(s) for each active secondary channel. If there is more than one _group by_ field, the order of the fields **must** match across the different channels.
+        4. If you selected an aggregation function that has parameters, select the parameter fields for each channel.
+        5. Note that only scheduled metrics can use data from secondary channels. If you create a real-time metric with data from secondary channels, you will receive an error message when saving the metric.
+     10. In the **Details** section, add a description for the metric.
+
+  4. Use the **Save** button to add the metric to the operator.
+
+  5. The metrics get a default name. You can hover over a metric and use the  button to rename it.
+
+
+

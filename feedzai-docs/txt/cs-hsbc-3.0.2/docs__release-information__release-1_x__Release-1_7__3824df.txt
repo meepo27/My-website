@@ -1,0 +1,118 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.7
+Title: Release 1.7 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.7.0`â
+
+### Fixes and improvements to periodic thread dumpsâ
+
+Bug Fix
+
+For the periodic thread dumps feature, the linux `logrotate` utility was using a location in `/var/lib` to which the user running Pulse and Case Manager would not necessarily have access, leading to the periodic thread dumps not being rotated, and the log file becoming large. This script now uses a location within the Pulse directory itself now to store its logrotate status (for Pulse `/opt/feedzai/pulse/scripts/logrotate-status/jstack_logrotate.status`).
+
+Additionally, the thread dumps taken now support multiple processes in the case of running on Pulse (supports multiple applications, and the spark driver which controls SMJs and Pulse data science jobs).
+
+### Reference Data Logs are now compressedâ
+
+Feature
+
+During the Go Live there were alerts regarding the disk usage in the Reference Data cluster since the service logs were not being compressed.
+
+To prevent similar warnings or errors in the future, Reference Data logs are now automatically compressed when rotated.
+
+### New variable added to RDS configuration recommendationsâ
+
+Feature
+
+In order to avoid increased timeouts fetching Reference Data for enrichment, a new variable named `reference_data_grace_period_ms` can be found here: [RDS configuration recommendations](/cs-hsbc/3.0.2/docs/installation-guide/refdata/configuration-refdata)
+
+### Add new indexes to optimize Case Manager SLAs and Feedbacksâ
+
+Feature
+
+We have added an index on `EVENT_SLA_ACTIVE` in the `AM_EVENT_SLA` table.
+
+We also updated the `AM_EVENT_SLA` and `AM_EVENT_STORAGE` partitioning functions to include `EVENT_TIMESTAMP` in the partition indexes.
+
+By having this option, every new partition will have the following set of indexes that were identified as points of optimization for SLA and Feedback processing:
+
+  * `(EVENT_SLA_TIMESTAMP_BREACH, EVENT_TIMESTAMP)` in `AM_EVENT_SLA`
+  * `(EVENT_SLA_ACTIVE, EVENT_TIMESTAMP)` in `AM_EVENT_SLA`
+  * `(EVENT_VERSION_ID, EVENT_TIMESTAMP)` in `AM_EVENT_STORAGE`
+
+
+
+### Add support for filtered indexes in Case Managerâ
+
+Feature
+
+In previous releases Case Manager partitions did not have filtered indexes propagated from the main table due to lack of support in the partitioning functions.
+
+This support was added so that any filtered index that exists in the main table is propagated to new partitions.
+
+In particular, an index on the `amount` field for `AM_EVENT_COMMON` and `AM_EVENT_DIGITAL_ACTIVITY` with a `not null` constraint was added using this filtered index functionality.
+
+### Enable periodic thread dumps for Case Manager and Pulseâ
+
+Feature
+
+We have implemented a new feature that will take periodic thread dumps into the local file system for both Pulse and Case Manager.
+
+Check [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) and [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager#ansible) for more information.
+
+**Note:** The generated files will be stored in `<component_installation_dir>/scripts/log` where `<component_installation_dir>` is Case Manager/Pulse installation directory.
+
+### Add new fields to the rules extracted by the Pulse Workflow Audit pipelineâ
+
+Feature
+
+We have added five fields to the Pulse Workflow Audit pipeline:
+
+  * `workflow.rules[].condition`
+  * `workflow.rules[].variables`
+  * `workflow.rules[].rulesProjectSnapshotDesc`
+  * `workflow.elements[type = rules].rulesProjectDesc`
+  * `workflow.elements[type = plan].planDesc`
+
+
+
+These fields allow more fine-grained control over rule and plan changes. More details can be found on the [Data Schema page](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/data-schema#pulse-workflow-audit-schema).
+
+### Fix behaviour and Consent endpoints returning error codesâ
+
+Bug Fix
+
+We have fixed an issue where the `consent` and `behaviour` API endpoints were returning `500` error codes due to missing type definitions for the `numeric double` type used by the `sender_transaction_original_amount` field.
+
+### Fix Event Description enrichment list itemâ
+
+Bug Fix
+
+We have fixed a wrongly created list item in the Event Description enrichment list which had its key set to key plus description.
+
+This is now set as follows:
+
+  * key: `mNTB`
+  * description: `NTB Customer via a Digital Flow to become a Customer. When Application Completed and Successful`
+
+
+
+Note that this change does not require the plan to be updated in/outside the workflow.
+
+### Add documentation for Case Manager tablesâ
+
+Docs
+
+We have added documentation for Case Manager tables under [Case Manager Tables](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/database-table-structure).
+
+### Add documentation for RabbitMQ Queuesâ
+
+Docs
+
+We have added documentation describing [RabbitMQ Queues](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/monitoring-rabbitmq-queues) used by Pulse and Case Manager.
+
+Docs

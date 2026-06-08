@@ -1,0 +1,49 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/business-targets
+Title: Business Targets | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * [Model Evaluation](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation)
+  * Business Targets
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Business Targets
+
+Pulse includes an exploration mode that lets you analyze your [model evaluations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) and [hyperparameter tuning](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/hyperparameter-tuning) results from a business perspective. This provides an extra layer of depth to data science model evaluations by letting you fine-tune them with extra business-related performance metrics.
+
+In a fraud detection scenario, it is common that your [data science loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop) is targeted at maximizing fraud detection without violating business goals. For example, if the business goal is to not exceed 1% FPR, the data science loop should just try to optimize your model performance at that fixed FPR. You'll probably reach a point where you have a large number of model evaluation with small differences in configuration and performance.
+
+**Business targets** in Pulse are very useful to display comparative analyses of all these model evaluations at once, under different criteria, and help you navigate results. For example, determine, for each model evaluation, which one performs the best, i.e. captures the most fraud money, when you set the FPR as approximately 1%.
+
+For each business target and model evaluation, Pulse displays the classification threshold and selected metrics for which the configured criteria reach their best performance in each evaluation.
+
+The following image displays Pulse's exploration mode with different business targets configured.
+
+Analyzing evaluations
+
+Note that you can combine and add to your targets both single model evaluations and evaluations resulting from a hyperparameter tuning.
+
+So, with business targets, you have an improved ability to:
+
+  * Check the performance of your model evaluation at different score thresholds.
+  * Assess how close model evaluations are to your success/acceptance criteria, without breaking SLAs.
+  * Detect possible cost-efficiencies when you make very small adjustments. For example, understanding how much your model's Recall improves when you slightly decrease your classification threshold.
+
+
+
+## Learn moreâ
+
+Check the following pages to learn how to put model evaluations into practice:
+
+  * [Evaluating a Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model)
+  * [Tuning Model Parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters)
+  * [Comparing Models](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models)
+
+

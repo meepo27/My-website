@@ -1,0 +1,426 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/types/
+Title: types - DS API
+============================================================
+
+#  `` types Â¶  
+  
+##  `` TIME_UNITS `module-attribute` Â¶
+    
+    
+    TIME_UNITS = {(toString()) for value in (values())}
+    
+
+##  `` TimeUnit `module-attribute` Â¶
+    
+    
+    TimeUnit = autoclass('com.feedzai.commons.util.time.TimeUnit')
+    
+
+##  `` CategoricalField Â¶
+    
+    
+    CategoricalField(possible_values: Optional[Set[str]] = None)
+    
+
+Bases: `DataScienceField`
+
+Representation of a Pulse categorical field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `possible_values` Â¶
+
+|  `Set of str` |  Possible value for the categorical field. |  `None`  
+  
+###  `` possible_values `instance-attribute` Â¶
+    
+    
+    possible_values = possible_values
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> CategoricalField
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` ComplexField Â¶
+    
+    
+    ComplexField()
+    
+
+Bases: `DataScienceField`
+
+Representation of a Pulse ComplexField
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(_) -> ComplexField
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` DataScienceField Â¶
+    
+    
+    DataScienceField(data_science_field)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Base class for every type.
+
+Default constructor.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data_science_field` Â¶
+
+|  |  Pulse's DataScienceField class. |  _required_  
+  
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+##  `` DateTimeField Â¶
+    
+    
+    DateTimeField(time_format: Format)
+    
+
+Bases: `DataScienceField`
+
+Representation of a Pulse DateTimeField.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `time_format` Â¶
+
+|  `Format` |  The time format for the date time field. |  _required_  
+  
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` time_format `instance-attribute` Â¶
+    
+    
+    time_format = time_format
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> DateTimeField
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` DateTimeFormat Â¶
+    
+    
+    DateTimeFormat(time_format: str)
+    
+
+Bases: `Format`
+
+Representation of a date time format (equivalent to Pulse's DateTimeFormat).
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `time_format` Â¶
+
+|  `str` |  The date time pattern associated with this format. |  _required_  
+  
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> DateTimeFormat
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+###  `` validate Â¶
+    
+    
+    validate()
+    
+
+##  `` Format Â¶
+    
+    
+    Format(time_format: JavaClass)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Base class for every format.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `time_format` Â¶
+
+|  `JavaClass` |  The time format for the date time field. |  _required_  
+  
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+##  `` NativeType Â¶
+
+Bases: `Enum`
+
+Supported Native Types in the creation of schema fields
+
+###  `` BOOLEAN `class-attribute` `instance-attribute` Â¶
+    
+    
+    BOOLEAN = 'BOOLEAN'
+    
+
+###  `` DOUBLE `class-attribute` `instance-attribute` Â¶
+    
+    
+    DOUBLE = 'DOUBLE'
+    
+
+###  `` FLOAT `class-attribute` `instance-attribute` Â¶
+    
+    
+    FLOAT = 'FLOAT'
+    
+
+###  `` INT `class-attribute` `instance-attribute` Â¶
+    
+    
+    INT = 'INT'
+    
+
+###  `` LONG `class-attribute` `instance-attribute` Â¶
+    
+    
+    LONG = 'LONG'
+    
+
+###  `` STRING `class-attribute` `instance-attribute` Â¶
+    
+    
+    STRING = 'STRING'
+    
+
+###  `` UTF8STRING `class-attribute` `instance-attribute` Â¶
+    
+    
+    UTF8STRING = 'UTF8STRING'
+    
+
+##  `` NumericalField Â¶
+    
+    
+    NumericalField()
+    
+
+Bases: `DataScienceField`
+
+Representation of a Pulse NumericalField
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(_) -> NumericalField
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` StringField Â¶
+    
+    
+    StringField()
+    
+
+Bases: `DataScienceField`
+
+Representation of a Pulse StringField
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(_) -> StringField
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` TimeModel Â¶
+    
+    
+    TimeModel(value: int, unit: TimeUnit)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Representation of a Pulse TimeModel to construct a time window.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `value` Â¶
+
+|  `int` |  Value of the time window. |  _required_  
+  
+###  `unit` Â¶
+
+|  `TimeUnit` |  Enum object to define the window, possible values: MILLISECOND SECOND MINUTE HOUR DAY WEEK |  _required_  
+  
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> TimeModel
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` TimestampFormat Â¶
+    
+    
+    TimestampFormat(unit: str)
+    
+
+Bases: `Format`
+
+Representation of a timestamp format (equivalent to Pulse's TimestampFormat).
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `unit` Â¶
+
+|  `str` |  The time format identifier. The domain values are (the java.concurrent.TimeUnit values): NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS. |  _required_  
+  
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> TimestampFormat
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+##  `` get_dtype Â¶
+    
+    
+    get_dtype(ds_field, pyspark_context: bool = False) -> DataScienceField
+    
+
+Get the python representation of a DataScienceField from a Pulse field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `ds_field` Â¶
+
+|  |  |  _required_  
+  
+###  `pyspark_context` Â¶
+
+|  `bool` |  Indicates whether this is a pyspark context or a Pulse context. In a pyspark context the type of time fields will be given as timestamp in seconds (this is the default unit after the pulse_to_pyspark transformation), otherwise the actual type from Pulse will be returned. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataScienceField` |  The corresponding python DataScienceField representation.  
+  
+##  `` get_time_format Â¶
+    
+    
+    get_time_format(ds_field) -> Format
+    
+
+Get the python TimeFormat representation from a Pulse field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `ds_field` Â¶
+
+|  |  A Pulse DataScienceField corresponding to a DateTimeField. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Format` |  The associated time Format.

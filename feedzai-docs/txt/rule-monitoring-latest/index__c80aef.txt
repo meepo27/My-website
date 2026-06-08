@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/rules/latest/
+Title: Rule Monitoring
+============================================================
+
+Skip to main content
+
+[**Rule Monitoring**](/rules/latest/)[Overview](/rules/latest/docs/common/rules/overview)[User Guide](/rules/latest/docs/common/rules/user-guide)
+
+# Rule Monitoring
+
+Feedzai's Rule Monitoring gives Feedzai customers autonomy to monitor their rules-based risk strategy from a central dashboard. Customers can, thus, swiftly decide when to act to update their strategy whenever it is needed.
+
+[Get started](/rules/latest/docs/common/rules/overview)
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#57333834223a32392336233e383917313232332d363e7934383a).   
+Copyright Â© 2026 Feedzai.

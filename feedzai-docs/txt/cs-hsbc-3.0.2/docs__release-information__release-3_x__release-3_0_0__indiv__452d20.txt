@@ -1,0 +1,85 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3745
+Title: HSBC-3745 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3745
+
+### Add Reference Data fields to the Cards workflow schemasâ
+
+FeatureFTMT-32500HSBC-3745
+
+FeatureFTMT-34761HSBC-3993
+
+We've added the following fields to the `Cards` and `Cards + Outcomes` schemas:
+
+New Fields
+
+Field Name| Datatype| Entity  
+---|---|---  
+account_closed_date| Long| Accounts  
+account_customers| List<String>| Accounts  
+product_type| String| Accounts  
+account_iban| String| Accounts  
+app_fraud_bio_is_bot| String| Customers  
+app_fraud_bio_is_emulator| String| Customers  
+app_fraud_bio_is_rat| String| Customers  
+app_fraud_bio_reason_code| String| Customers  
+app_fraud_bio_risk_level| String| Customers  
+app_fraud_bio_score| Double| Customers  
+app_fraud_overall_decision| String| Customers  
+app_fraud_overall_decision_text| String| Customers  
+app_fraud_session_id| String| Customers  
+app_fraud_source| String| Customers  
+app_fraud_timestamp| Long| Customers  
+app_fraud_tmx_device_id| String| Customers  
+app_fraud_tmx_digital_id_trust_score| Double| Customers  
+app_fraud_tmx_first_party_score| Double| Customers  
+app_fraud_tmx_fuzzy_device_id| String| Customers  
+app_fraud_tmx_fuzzy_device_id_confidence| Integer| Customers  
+app_fraud_tmx_policy_score| Double| Customers  
+app_fraud_tmx_proxy_ip| String| Customers  
+app_fraud_tmx_risk_rating| String| Customers  
+app_fraud_tmx_summary_reason_codes| String| Customers  
+app_fraud_tmx_true_ip| String| Customers  
+business_start_date| Long| Customers  
+customer_age| String| Customers  
+customer_alias_last_update_time| Long| Customers  
+customer_annual_turnover| Double| Customers  
+customer_annual_turnover_last_update_date| Timestamp| Customers  
+customer_branch_id| String| Customers  
+customer_business_type| String| Customers  
+customer_business_type_last_update_date| Timestamp| Customers  
+customer_businessphone_last_update_at| Timestamp| Customers  
+customer_corresp_address_last_update_at| Timestamp| Customers  
+customer_daytime_work_phone| String| Customers  
+customer_fiv_marker_last_updated_at| Timestamp| Customers  
+customer_fiv_markers| String| Customers  
+customer_hmphone_last_update_at| Timestamp| Customers  
+customer_home_address_last_update_at| Timestamp| Customers  
+customer_mbphone_last_update_at| Timestamp| Customers  
+customer_mobile_phone| String| Customers  
+customer_number_of_accounts| Integer| Customers  
+customer_occupation_status| String| Customers  
+customer_occupation_status_last_update_at| Timestamp| Customers  
+customer_portfolio_segment| String| Customers  
+customer_portfolio_segment_last_update_date| Timestamp| Customers  
+customer_reported_income_last_update_date| Timestamp| Customers  
+customer_voice_id| String| Customers  
+customer_voice_id_last_change_date| Timestamp| Customers  
+customer_wrkphone_last_update_at| Timestamp| Customers  
+delivery| String| Customers  
+employer_name| String| Customers  
+employer_name_last_update_date| Long| Customers  
+employer_start_date| Long| Customers  
+line_of_business| String| Customers  
+  
+Note also that the following fields are new to the Customer Reference Data API:
+
+  * `customer_age`
+  * `delivery`
+
+
+
+These can now be used to enrich Cards events via Reference Data.

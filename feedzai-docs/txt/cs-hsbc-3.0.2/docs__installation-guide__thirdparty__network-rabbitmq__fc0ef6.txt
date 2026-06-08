@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/network-rabbitmq
+Title: Firewall Rules for RabbitMQ | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Firewall Rules for RabbitMQ
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+Erlang| TCP 25672| Erlang inter-node and CLI tool communication  
+Erlang| TCP 4369| Peer discovery service (Erlang)  
+Pulse| TCP 5671-5672| RabbitMQ AMQP (5671 for TLS)  
+Case Manager| TCP 5671-5672| RabbitMQ AMQP (5671 for TLS)  
+Logstash| TCP 5671-5672| RabbitMQ AMQP (5671 for TLS)  
+HTTP| TCP 15672| RabbitMQ Management UI  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+Erlang| TCP 25672| Erlang inter-node and CLI tool communication  
+Erlang| TCP 4369| Peer discovery service (Erlang)

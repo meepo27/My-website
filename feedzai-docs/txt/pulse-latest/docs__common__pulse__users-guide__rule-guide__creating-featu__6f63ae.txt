@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/creating-a-plan-for-features
+Title: Creating a Plan for Features | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/)
+  * Creating a Plan for Features
+
+
+
+# Creating a Plan for Features
+
+Was this page helpful?Â 
+
+In Pulse, a plan entity defines a transformation flow of one data source into another data source. In a plan it is possible to add, update and remove fields, or calculate metrics on the data.
+
+To create a plan, execute the following steps.
+
+  1. In the **Data Science** tab, add  a plan.
+
+  2. Add a **Name** for the plan.
+
+  3. Select the **Deployable** option. This option ensures that you can deploy your plan to another environment (e.g. QA or Production) later on.
+
+  4. In the **Schema** field, specify the data schema that the plan is built on. You can select an existing schema, or an existing data source.
+
+For example, if you select the* Data with Features for Models* data source, then the plan will be based on a copy of the current schema of that data source.
+
+  5. Use the **Confirm** button to acknowledge that future changes in the origin schema won't change the schema of the plan.
+
+  6. In the **Timestamp Field** , select the schema field that represents the timestamp of the events. When Pulse aggregates the data over a time period, it will consider this field as the timestamp of the event.
+
+Only fields of [timestamp](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types) type can be selected.
+
+info
+
+If you don't select a timestamp field for the plan, you won't be able to create metrics in the plan later on.
+
+  7. If you want to use data from more than one channel, select the **Omnichannel** option, and configure the channels as follows:
+
+     1. Add a **Name** for the **Main Channel**. This channel contains the events that you want to process, and uses the schema selected in step 4.
+
+     2. **Secondary channels** provide additional information that you can use to process the events of the main channel. You can use the **Add Channel** button to add secondary channels.
+
+For each secondary channel, add a **Name** , a **Schema** and the **Timestamp Field** that that channel will use.
+
+There should be at least some fields that can be cross-referenced between the channels. For example, both schemas might include a customer identifier, even though it might be actually called differently in each schema.
+
+  8. **Save** the plan settings.
+
+
+

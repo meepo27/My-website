@@ -1,0 +1,135 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-customers/reviewing-customers
+Title: Review Customers | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * Investigate Customers
+  * Review Customers
+
+
+
+On this page
+
+# Review Customers
+
+While reviewing alerts, you may want to investigate a specific customer to understand their behavior so that you can better support your decision.
+
+This page helps you to understand the available customer widgets and how they can help you to [act on alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts).
+
+info
+
+The widgets on the Customer Details page are configurable according to your needs. Learn more about [managing widgets](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manage-details-page).
+
+The following widgets represent an example of a Case Manager configuration.
+
+## Headerâ
+
+The header displays general information about the customer such as name, total balance, status, or risk rating. While scrolling down the page, the header is always visible so that you can quickly access its information and actions.
+
+tip
+
+Use the anchors to navigate to the main widgets, for example, Customer Details, Customer Portfolio, or Transaction History.
+
+## Customer Insightsâ
+
+This section displays the customer's historical information regarding a specific timeframe. This information gives analysts a better understanding of a customer's behavior, helping them detect any suspicious activity more easily. This section displays the following information:
+
+  * Total number of the customer's **Accounts** , **Cards** , **Transactions** , and **Cases** , broken down by state. Each of these counts displays a maximum of three states.
+
+
+
+Note
+
+Since transactions and cases can have more than one state, their total may be different from the sum of the counts of all their states. In addition, the "Flagged" and "Not flagged" states indicate if the customer's accounts or cards have been added to lists or not, respectively.
+
+Hover over each state to see more information, namely:
+
+  * In the **Transactions** and **Cases** counts, see the most recent transactions or cases and go to the respective details page to see further details.
+
+
+
+  * In the **Accounts** and **Cards** counts, see the accounts or cards flagged or not flagged by lists.
+
+
+
+  * **Activity by weekday** heatmap and **Activity by time of day** histogram with the total number of transactions per weekday or hour, respectively. In the **Activity by weekday** histogram, the transactions' daily distribution is represented by color: the lighter color represents fewer transactions, whereas the darker color represents more transactions.
+
+
+
+Hover over each day or hour to see the exact number of transactions.
+
+  * The **Transaction amounts** insight with the maximum, minimum and median amounts of the transactions performed by the customer.
+
+
+
+  * **Top Locations** and **Top Devices** used by the customer to perform transactions.
+
+
+
+info
+
+The customer insights are only supported for omnichannel configurations, including those with only one channel.
+
+## Customer Detailsâ
+
+This widget displays general information about the customer, such as location, contact, and business-related details.
+
+tip
+
+This widget may display actions such as add to list or copy to clipboard.
+
+  * Use the  icon to quickly add an entity (e.g. customer ID) to a list. Learn more on how to [manage lists](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-lists).
+
+  * Use the  icon to quickly copy information (e.g. email) to your clipboard.
+
+
+
+
+## Customer Portfolioâ
+
+This widget displays the different cards and accounts associated with the customer. This information provides a baseline understanding of the customer's behavior and helps to detect suspicious activity.
+
+While analyzing accounts and cards, select the **Details** button to quickly preview the respective details.
+
+In addition, when selecting an account, the Customer Portfolio highlights the cards connected to the account.
+
+## Rules Triggered by Location and Deviceâ
+
+This widget shows a summary of all triggered rules (for locations and devices) of a customer to understand the most common risk patterns that the customer normally faces.
+
+## Device Historyâ
+
+This widget shows the history of devices used by the customer over the past 30 days. It includes information related to the device activity and its potential connection with suspicious activities.
+
+tip
+
+Use the  icon to copy a device's information to your clipboard.
+
+## Transaction Historyâ
+
+This widget displays all the transactions performed by the customer. This places alerts in a more general picture and allows to act upon them more efficiently.
+
+Similar to what happens in the Alert Details page, you can perform several actions such as exporting, acting on transactions, or managing how the list is displayed to fit your preference.
+
+## Notesâ
+
+While investigating customers, you may need to document any steps taken during your investigation to share with other analysts that review the customer. Notes are also useful when escalating alerts to other analysts. This widget includes all the notes added to the customer and to other events involving the same customer. The **Origin** column shows where each note was added, i.e. the current customer or an event.
+
+Learn more about [how to manage notes](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/managing-notes-in-alerts).
+
+## Attached Filesâ
+
+During the investigation, analysts may need to add extra information to support it. This information may be useful for subsequent investigation steps, legal action, or auditing. This widget also provides a convenient storage for any information that is not currently represented or supported by the interface.
+
+Learn more on [how to manage files](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/managing-files-in-alerts).
+
+## Activity Logâ
+
+This widget displaysÂ the different actions performed in the page, namely regarding attached files, notes, and updates to lists.Â 
+
+Select the description of each action for more details.
+
+## Next stepsâ
+
+Now that you understand how to review customers, you can continue [reviewing alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts) or start [acting on them](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts).

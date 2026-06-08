@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/changing-the-password
+Title: Change password | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Sign in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/)
+  * Change password
+
+
+
+# Change password
+
+When signed in, you can change your Case Manager password. To change your password, perform the following steps:
+
+  1. Select your username in the page header and then select the **Change password** option.
+  2. In the **Change Password** window, enter your current password and the new one.
+
+
+
+  3. Use the **Change Password** button to save the change. Once you submit the password change, your session will expire. Complete the [sign-in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/) form to access your Case Manager account.
+
+

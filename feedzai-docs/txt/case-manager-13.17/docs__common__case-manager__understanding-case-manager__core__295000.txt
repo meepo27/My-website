@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/block-allow-lists
+Title: Block/Allow Lists | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Block/Allow Lists
+
+
+
+On this page
+
+# Block/Allow Lists
+
+Sometimes events relate to users that are already known fraudsters and you want to block them automatically by adding them to a blacklist. In other situations, we know a user can be trusted, even when presenting suspicious patterns (e.g. an employee) and we want to avoid receiving **Alerts** related to them. It is also common to want to block or allow certain IP addresses or devices.
+
+**Block/Allow Lists** let you automate how you classify all events originated from these entities and automatically accept or decline those events without ever requiring a manual review. Additionally, Case Manager can be configured to greylist entities, for example, when they will always require a review before being blocked or allowed.
+
+## Lists and Rulesâ
+
+**Block/Allow Lists** are configured in the underlying Pulse instance, as [Lists](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/lists), connected with Case Manager and work in conjunction with [Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules). This means that when a **Rule** looks for patterns in a **List** and is triggered, then the configured **Actions** are caught and executed in Case Manager.
+
+Case Manager **Block/Allow Lists** are configured as **Complex Lists** in Pulse, which means that you can add different entities to each list, such as the card number, a specific customer and a specific merchant. They are ready to handle 3 scenarios:
+
+  * **Whitelisting:** Â All events originated from entities in the list are automatically approved (Positive).
+  * **Blacklisting:** Â All events originated from entities in the list are automatically declined (Negative).
+  * **Graylisting:** Â All events originated from entities in the list are automatically sent for review (Review).
+
+
+
+To make use of these lists, Case Manager needs that Pulse has 3 **Rules** configured, one for each **List**. For example, if you are blacklisting/whitelisting cards, you need a **Rule** for each possible **Action** and respective state in Case Manager:
+
+  * **Accept:** If the card number is present in the **Positive** list then the event should be automatically accepted.
+  * **Block:** If the card number is present in the **Negative** list then the event should be automatically declined.
+  * **Review:** If the card number is present in the **Review** list then the event should automatically generate an alert and must be reviewed.
+
+
+
+Unlisted Entities
+
+If an entity is not present in any list, no action will be taken.
+
+Whitelisting Entities
+
+For example, if you want to automatically accept an event whose `channel` field is in a Positive list, then Pulse must execute a **Rule** that triggers anÂ **Accept** action, as follows:
+
+This means that whenever these requirements are met, the event is automatically accepted.Â 
+
+## Taking Decisionsâ
+
+When you take an action on an event, you will be prompted with a dialogue that will let you add the different fields of that event to lists.
+
+In there, events can be managed in a most proficient way, deciding which of the fields related to that event can be sent to an Allow, Block or Review list.
+
+## Learn Moreâ
+
+To understandÂ **Block/Allow Lists** Â better, check the following pages:
+
+  * [Pulse Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules): Learn how Rules work in Pulse.
+  * [Pulse Lists](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/lists): Learn how Lists work in Pulse.
+  * [Adding entities to Block/Allow Lists](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-lists): Learn how to add entities, such as card numbers, to Block/Allow Lists.
+
+

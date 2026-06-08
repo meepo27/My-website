@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/
+Title: Processing your data | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * Processing your data
+
+
+
+On this page
+
+# Processing your data
+
+Was this page helpful?Â 
+
+[Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) are Pulse's way of helping you become much more efficient with some of the most time consuming and technically demanding Data Science tasks.
+
+**Plans** are a vital concept in Pulse, and one that makes it a very powerful Data Science tool. They represent a way to boost the performance of:
+
+  * **Data scientists**  
+Delivering a set of tools that make it easier to process data for the training of Machine Learning models. Data Scientists can now focus on real data science instead of solving engineering and tooling problems.
+  * **Engineers**  
+Abstracting a lot of the usual complexity involved in deploying Data Science work into Production. With a fully integrated modeling and run-time environment, Pulse enables a seamless deployment, without any major effort.
+
+
+
+You can design **Plans** to assist you in the following activities:
+
+  * Data cleaning, transformation, formatting, joining
+  * Schema validation
+  * Feature engineering
+
+
+
+Typically, a data science project will have several plans that are executed in sequence and generate new data sources each as the output. These intermediate data sources are subsequently used as input for other plans.
+
+## Create/Edit plan pageâ
+
+The **Create/Edit plan page** lets you design a plan to transform your data from data sources. It enables you to visually compose a flow that takes your data input and outputs a new and transformed data source.
+
+The following image displays the **Create/Edit plan page** :
+
+The **Create/Edit plan page** contains the following areas:
+
+  1. **Title and status**  
+Name and type of the plan. Indicates whether the plan is [Deployable or Non-Deployable](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans).
+  2. **Actions**  
+Available operations over the plan. Use the  option to transform your data using the plan, and generate a new data source.
+  3. **Operators**  
+Available elements to compose the data flow of your plan. If the plan is deployable, you cannot use some of the operators. Check the [Operators Reference](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference) for detailed information on all available elements.
+  4. **Plan**  
+Area where you design the data flow of your plan. Drag operators and drop them into the canvas to create the different stages in your plan. Drag the handles from an operator to another operator to connect and define the data path between them. Use the **Edit Operator** option to configure the behavior of each stage of your plan.
+
+
+
+## Getting Startedâ
+
+To start processing and transforming your data to determine which fields you should use to train your models, learn how to perform [data analysis and sampling](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data) tasks.

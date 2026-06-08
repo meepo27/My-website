@@ -1,0 +1,115 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules
+Title: Adding rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/)
+  * [Designing a workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/)
+  * Adding rules
+
+
+
+On this page
+
+# Adding rules
+
+Was this page helpful?Â 
+
+## Whyâ
+
+**Rules** add an extra layer of scoring and decision-making to your project in runtime. Just like [Models](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models), **Rules** contribute to the classification of events moving along the **Workflow** and to the final [Workflow outcomes](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/configuring-outcomes).
+
+Once you reach a [Rules Evaluation](/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-rules-using-a-snapshot) that shows that your **Rules** block has reached or surpassed business objectives, you can simply configure the same block of Rules to run within a service in runtime.
+
+You can deploy blocks of [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) in a runtime **Workflow** by adding **Rules Services**. Typically, you can deploy different **Rules Services** both for detection, for example, blacklisting users, and for a decision, for example weighing in on the final score.
+
+## How toâ
+
+To add and configure a block of [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) to score events in your **Workflow** , execute the following actions:
+
+  1. In the  **Workflows** tab, select an existing **Workflow**.
+
+  2. Drag a new **Rules Service** to the **Diagram** canvas.
+
+Rules Services
+
+When selecting Rules Services in workflows, a snapshot is automatically generated and selected in the configuration dialog. You cannot select any other snapshot than the automatically-generated one.
+
+  3. â **Edit** the **Rules Service**.
+
+  4. In the **Main** tab:
+
+     1. Define to which of the [Workflow Outcomes](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/configuring-outcomes) the **Rules** will contribute. After being processed by a **Rules Service** , the _< outcome_name>_ and _< outcome_name>_score_ fields in the event schema will reflect the **Rules** decision.
+
+     2. Select the **Rules Project** that contains the block of **Rules** you want to apply in your runtime processing. The **Rules Project** also defines the input schema for the **Rules Service** as defined at the Data Science stage.
+
+Self-Service Rules
+
+All usage of self-services interface is performed through a Rules Workflow Element.
+
+When adding a [Self-Service Rules project](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-self-service-rules-project), a snapshot is automatically created and assigned. The latest snapshot is built adding changes on top of the one published before it (as reflected in the Publishing section). Older snapshots are kept and can be changed via API to allow a more sophisticated and greater control over the system. This allows you to easily look up the history of the published rules and roll back, if needed.
+
+Self-Service Rules in a Multi-Tenancy scenario
+
+In order to have a workflow ready for Self-Service Rules in a Multi-Tenanted scenario, you should add two rule elements:
+
+        * One pointing to a Global Simple rules projects
+        * One pointing to a By-tenant Simple rules project.
+
+     3. Select the **Rules Snapshot** to specify which **Rules** to execute in the **Rules Service**. The **Rules Snapshot** carries the **Rules** , their order of execution and individual contribution to outcomes and scores, as defined and evaluated during the Data Science stage.
+
+Multi-Tenancy Solution
+
+If the Workflow is being configured with a [Rules Project](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-or-updating-the-rules-project) of the type Multi-Tenancy,  the **Rules Snapshot** has information related to the **Rules** that are going to be applied to each Tenant.
+
+     4. Configure whether **Workflow** generates **Explanations** as to why the **Rules** triggered.
+
+Explanations on critical path
+
+If you choose to compute **Explanations** on the **Critical Path** , they will immediately be accessible to be processed in **Custom Service,** once they are generated.
+
+  5. In the **Schemas** **tab** :
+
+     1. Confirm that the **Service Input** and **Service Output** are consistent with the data you expect for the **Rules**.
+     2. Make sure the **Service Input** and **Service Output** are correctly mapped from the **Event Schema** , for each real-time event moving along the **Workflow**.
+  6. In the **Properties** tab, set the values for each property to define the service configuration in your **Workflow**. Properties and default values are defined by Pulse.
+
+  7. â Connect the previous service in the Workflow to the Rules Service. You can also learn [to organize your work with blocks](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-organize-your) in order to do this in a most efficient way.
+
+
+
+
+### Solving schema conflictsâ
+
+If Pulse invalidates your [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows#conflicts) due to schema mapping conflicts in a Workflow Service, you must solve them as follows:
+
+  1. â Edit the **Service**.
+  2. Select the **Schemas** tab.
+  3. Look for a count of **Input Conflicts** and **Output Conflicts** above 0.
+  4. Select each **Conflict** filter to see which fields could not be mapped. Alternatively, select the **Service** filter and locate the conflict fields in the **Event Schema**. These are marked as _Missing Input_ or _Missing Output_.
+  5. If the **Event Schema** contains a field that you can map to the **Service Input** or **Output** , manually enter the name of that field.
+
+
+
+The following images display schema conflicts during resolution:
+
+Conflicts count
+
+Note that Pulse will still display the original conflicts count even after you have solved them.
+
+Removed fields
+
+If a **Plan** you configured for a **Plan Service** removes fields from the workflow schema, then you must ensure that subsequent services in the **Workflow** do not require those fields. Otherwise, Pulse will generate schema conflicts, invalidate your **Workflow** , and you will have no available fields to map from.
+
+In these cases, you should redesign your **Plan** , articulate it with the remaining Data Science work to be used in runtime, and redeploy it to your **Workflow**.
+
+## Next Stepsâ
+
+Proceed with the designing of your Workflow by adding, configuring and connecting other services. Check the following pages:
+
+  * [Adding input adapters](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-input-adapters)
+  * [Adding plans](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-plans)
+  * [Adding models](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models)
+  * [Adding custom services](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-custom-services)
+
+

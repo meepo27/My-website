@@ -1,0 +1,20 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/case-manager-installation-guide
+Title: Case Manager Installation Guide | Feedzai Documentation
+============================================================
+
+# Case Manager Installation Guide
+
+Welcome to the Case Manager Installation Guide.
+
+In this section you will find a set of pages with information about the Case Manager installation process:
+
+  * [Requirements](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/requirements-casemanager)
+  * [Network and Connectivity](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/network-casemanager)
+  * [Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager)
+  * [Rolling Upgrades](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/rolling-upgrades)
+  * [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions)
+  * [Notifications Schema](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/notifications-schema)
+  * [Multi-tenancy Configuration](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/multi-tenancy-configuration)
+  * [How To](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to-conf-installation)
+
+

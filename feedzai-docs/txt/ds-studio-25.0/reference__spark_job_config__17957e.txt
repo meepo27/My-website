@@ -1,0 +1,183 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/spark_job_config/
+Title: spark_job_config - DS API
+============================================================
+
+#  `` spark_job_config Â¶
+
+##  `` JOB_BACKEND_IMPL `module-attribute` Â¶
+    
+    
+    JOB_BACKEND_IMPL = autoclass('com.feedzai.pulse.service.datascience.config.JobConfigurator$JobBackendImplementation')
+    
+
+##  `` JOB_TYPE `module-attribute` Â¶
+    
+    
+    JOB_TYPE = autoclass('com.feedzai.pulse.service.datascience.JobType')
+    
+
+##  `` KEY_TAB_DIR `module-attribute` Â¶
+    
+    
+    KEY_TAB_DIR = 'KEY_TAB_DIR'
+    
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` SparkJobConfig Â¶
+    
+    
+    SparkJobConfig(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a spark job configuration.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` create `classmethod` Â¶
+    
+    
+    create(sparkJobName, sparkConfig, kerberosConfig)
+    
+
+##  `` SparkMasterURL `dataclass` Â¶
+    
+    
+    SparkMasterURL(master: str, deploy_mode: str | None)
+    
+
+Stores information about the Spark master URL.
+
+This class is useful to parse master URLs from Pulse Configuration, while maintaining compatibility with different Spark versions/distributions.
+
+See more at [Submitting Applications / Master URLs](https://spark.apache.org/docs/3.3.1/submitting-applications.html#master-urls)
+
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`master` |  `str` |  Spark master URL. One of 'local', 'spark', 'mesos', 'yarn', or 'k8s'.  
+`deploy_mode` |  `(str, optional)` |  Deploy mode for the different master URLs. One of 'client' or 'cluster'.  
+  
+###  `` deploy_mode `instance-attribute` Â¶
+    
+    
+    deploy_mode: str | None
+    
+
+###  `` master `instance-attribute` Â¶
+    
+    
+    master: str
+    
+
+###  `` from_pulse_config `classmethod` Â¶
+    
+    
+    from_pulse_config(config: Any) -> SparkMasterURL
+    
+
+Return the master URL compatible with Spark 2 onwards.
+
+Previous URLs would be called local, yarn-client, yarn-cluster. However, Spark 2 introduced a "special" Spark master which is just YARN and delegates the deployment mode to Hadoop. The new options are::
+    
+    
+    --master yarn --deploy-mode client|cluster
+    
+
+This function translates 'yarn-client' and 'yarn-cluster' to their respective Spark 2+ configs.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `SparkConfig` |  Spark Config as returned by :func:`get_spark_session_with_app_name` or :func:`get_spark_session_without_app_name`. |  _required_  
+  
+##  `` add_kerberos_to_spark_properties Â¶
+    
+    
+    add_kerberos_to_spark_properties(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)"), spark_config: dict) -> None
+    
+
+Adds kerberos configuration to `spark_config`.
+
+Note
+
+This function mutates the contents of `spark_config`.
+
+##  `` get_spark_config_with_app_name Â¶
+    
+    
+    get_spark_config_with_app_name(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)"), app_name: str | None, job_profile_name: str | None = None, group_name: str | None = None, clean_spark_properties: bool = True) -> Any
+    
+
+Retrieves the effective 'com.feedzai.pulse.service.datascience.config.SparkConfig' from Pulse Server to be used by an external Spark job. These configurations will depend on a given optional job profile and group model.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `pulse` Â¶
+
+|  `[Server](../server/#ds_api.server.Server "            Server \(ds_api.Server\)")` |  The ds_api.Server used to communicate with Pulse. |  _required_  
+  
+###  `app_name` Â¶
+
+|  `str` |  An optional name of a pulse application. This parameter should be used when we want to have access to application specific properties. This allows to use use the same properties being usd by Spark jobs executed in Pulse. |  _required_  
+  
+###  `job_profile_name` Â¶
+
+|  `str` |  The name of the job profile to reuse the Spark properties defined there. If 'None' then it will retrieve the properties associated to default job profile for jobs of type 'EXTERNAL_DS_JOB'. |  `None`  
+  
+###  `group_name` Â¶
+
+|  `str` |  The name of the group model used to retrieve the configurations defined in its properties. |  `None`  
+  
+###  `clean_spark_properties` Â¶
+
+|  `bool` |  True if it should clean the Spark properties specific to Pulse use case, false otherwise. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`SparkConfig` |  A com.feedzai.pulse.service.datascience.config.SparkConfig with Pulse's configuration.  
+  
+##  `` get_spark_config_without_app_name Â¶
+    
+    
+    get_spark_config_without_app_name(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)")) -> Any
+    
+
+Retrieves the effective 'com.feedzai.pulse.service.datascience.config.SparkConfig' from configurations defined in the global scope of 'com.feedzai.pulse.service.datascience.config.DataScienceConfig' and `com.feedzai.pulse.service.distributed.job.config.DistributedJobServiceConfig`.
+
+The DataScienceConfig has priority over DistributedJobServiceConfig.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `pulse` Â¶
+
+|  `[Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)")` |  The ds_api.Server used to communicate with Pulse. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  A 'com.feedzai.pulse.service.datascience.config.SparkConfig' from configurations defined in the global scope of data science service configuration.

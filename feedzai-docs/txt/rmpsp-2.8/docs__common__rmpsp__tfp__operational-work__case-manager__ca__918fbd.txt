@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide
+Title: Case Manager Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * Case Manager Guide
+
+
+
+# Case Manager Guide
+
+### [PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/event-flow)
+
+### [Merchants](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/merchant/event-flow)

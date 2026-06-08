@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/schema-migrator-tool
+Title: Overview | Feedzai Documentation
+============================================================
+
+On this page
+
+# Overview
+
+Schema migrator is Feedzai's solution to migrating existing data on a running system. It is ideal due to its capability of splitting the data in time ranges to **avoid locking up the database and impairing incoming traffic**.
+
+### Ansible variablesâ
+
+Variable| Type| Default Value| Description  
+---|---|---|---  
+schema_migrator_run| boolean| true| Whether the script should be executed or not  
+schema_migrator_range_start| integer| | Number specifying at which position to start  
+schema_migrator_range_end| integer| | Number specifying at which position to start  
+schema_migrator_range_step| integer| | Number specifying the incrementation  
+schema_migrator_script_file_path| integer| specific script path| Path to the script file to be executed  
+schema_migrator_configuration_path| string| /opt/feedzai/schema-migrator/conf/config.properties| Path to the tool configurations properties file  
+schema_migrator_database_username| string| lookup('gcp_secret_manager', secret='schema_migrator_database_username')| Database username  
+schema_migrator_database_password| string| lookup('gcp_secret_manager', secret='schema_migrator_database_password')| Database password  
+schema_migrator_database_jdbc| string| jdbc:postgresql://postgres:5432/feedzai| Database connection  
+schema_migrator_database_engine| string| com.feedzai.commons.sql.abstraction.engine.impl.PostgreSqlEngine| Database engine  
+schema_migrator_database_schema| string| eventstorage| Database schema where the script will be executed

@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/concepts/multi-tenancy/tenant-management
+Title: Tenant Management | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Tenant Management
+
+## Create new Tenantsâ
+
+You can create Tenants that you can later associate to your users. Do so in the **Multi-Tenancy** section in Pulse:
+
+  1. Click on the **Administration** button [] in Pulse
+
+  2. Click on **Multi-Tenancy** [] on the left hand pane
+
+  3. Click on **Add** [] a new Tenant
+
+  4. Populate its **Name** and **ID** as well as any comment you may want to add
+
+  5. **Save** and you will be able to see your tenants in the **Multi-Tenancy** page:
+
+
+
+
+* * *
+
+## Create users associated with tenantsâ
+
+  1. Click on the **Security** Icon [  ] in Pulse
+
+  2. The **Users** Section should be visible as shown below
+
+  3. Click on **Add** [] which will show an user form
+
+  4. Fill in the required fields, select the **Tenant** to which the user should be associated and **Save**
+
+  5. The user should now be available in the previous page
+
+
+
+
+* * *
+
+## Multi-Tenancy in Listsâ
+
+Lists in Pulse also support the multi-tenancy concept:
+
+  * **Global** lists are aimed to be used on non multi-tenanted environments or if shared across all tenants
+  * In **By Tenant** and **By Tenant Group** lists each Tenant (or group of tenants) will be able to see and manage a subset of all the items without impacting other Tenants
+
+
+
+The list configuration will should under the `Tenancy` column in the List Management page:
+
+##### info
+
+Refer below for more information
+
+  * [Creating new Tenants](https://cam.feedzai.com/case-manager/latest/docs/common/case-manager/configuration-guide/security-configuration/configuring-users-roles-permissions#creating-tenants)
+  * [Multi tenancy in lists](https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists#multi-tenancy)
+
+

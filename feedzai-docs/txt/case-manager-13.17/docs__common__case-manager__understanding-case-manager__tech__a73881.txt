@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/extensions
+Title: Extensions | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Technical Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/technical-concepts-overview)
+  * Extensions
+
+
+
+# Extensions
+
+Case Manager **Extensions** allow custom code from third parties to be run whenever a custom action is performed, enabling custom JAVA code to be run alongside Case Manager's code. Therefore, you can configure custom buttons on the User Interface and those buttons will be associated with actions that will call the custom code.
+
+The processing flow of the implemented extension is as follows:
+
+  1. A custom button is added to the event/entity page. This button has an action type that will be an arbitrary string.
+  2. Button visibility relies on the configured permissions, so it is only visible/enabled if the user has permissions for it.
+  3. When the user clicks the button, a request is sent to Case Manager with the action type and the related event/entity IDs.
+  4. Case Manager receives the request and verify if the user has permissions to perform that action type.
+  5. Case Manager creates a context object with all the necessary data and call the extension code.
+  6. The extension code will return a special result object.
+  7. The browser will eventually receive the result object.
+
+
+
+Therefore, by implementing **Extensions** , you will be able to customize your Case Manager application with endless possibilities. For example, integrators can configure a button that sends an SMS to the customer of a given event if the analyst considers there is a problem with his email account.
+
+Consequently, Case Manager extensions increase the extensibility of the product by providing tools to clients that let them create a more integrated and customized experience, being particularly helpful for those clients that want to integrate their own systems into Case Manager Integrators are thus able to develop the required new features that they need for their systems themselves.

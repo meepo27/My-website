@@ -1,0 +1,253 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.2
+Title: Release 1.2 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.2.0`â
+
+### Logstash pipelines - support for multiple bucketsâ
+
+Feature
+
+We have added support in logstash pipelines to configure different buckets (per pipeline).
+
+### Role based bulk assign optionâ
+
+Feature
+
+We have created a new permission cm:resource:history:assign-bulk:* that allows a user to bulk assign events from the Alerts and Search pages.
+
+This permission was added to all roles except for the Fraud Prevention Agents L1 and L2, as defined in the requirement.
+
+Note: bulk assign in the event transaction history is still available to users with the Fraud Prevention Agents L1 or L2 roles.
+
+### Add new JVM flag to Application JVM Optsâ
+
+Bug Fix
+
+With the latest product upgrade it is required to add a new flag (`-XX:-UseAESIntrinsics`) to the application JVM Opts (`pulse.app.tfrb.appengine.jvmopts ` property) so Pulse is able to copy the necessary libraries to Dataproc when running Schedule Metrics (SMJs).
+
+**Note:** If `tfrb_app_jvmopts` is being overridden in the Ansible pipelines it is required to add this new flag.
+
+### Customer Phone Search Modificationsâ
+
+Rework
+
+The search for Customer Phone on Case Manager was changed as requested, now this search box is able to filter to two different keys: `sender_phone` and `customer_phone`.
+
+This fixes the reported issue where searching for Customer Phone Number on the search screen was not returning any results
+
+### Add New Fields to the Case Managerâ
+
+Feature
+
+We've added 3 new Fields to the Case Manager schema and also made them available while creating Automation Rule and SLAs.
+
+Field| Type| UI Name  
+---|---|---  
+internal_payment_type| String| Internal Payment Type  
+internal_event_source| String| Internal Event Source  
+isJade| Boolean| Is Jade  
+  
+### Remove access to Lists Management page from L2 roleâ
+
+Rework
+
+Removed permission from L2 role so that respective users can't go to the lists management tab in Case Manager. L2 users can still add specific entities to lists from the Event Details page.
+
+### Feedzai Platform Upgradesâ
+
+Feature
+
+We've upgraded to Pulse 25.0.12 and Case Manager 13.9.0.
+
+### Add support for historical eventsâ
+
+Feature
+
+We've added support for receiving historical Digital Activity and Fraud Tagging events.
+
+These events won't be accounted for in real-time metrics but can be used in scheduled metrics. In the case you don't want to account for these specific events even in scheduled metrics, there's an helpful generated field - `is_historical` which can be used for that purpose.
+
+### Add FDZ_UUID to the ETL extractionsâ
+
+Feature
+
+We've added the field `FDZ_UUID` to the ETL extractions to have a unique record identifier in the data extracted.
+
+### Remove workaround to Datasource Analysis failure in GCPâ
+
+Rework
+
+There was an issue with the latest product releases that prevented Datasource Analysis in GCP environments and required a project workaround.
+
+The fix was already applied upstream and the project workaround was therefore reverted.
+
+### Include Customer Segment fields in CM Data Extractâ
+
+Feature
+
+Added the following fields to the Case Manager external notifications payload.
+
+Fields  
+---  
+customer_id  
+customer_portfolio_region  
+customer_portfolio_product  
+customer_portfolio_channel  
+customer_portfolio_country  
+customer_portfolio_type  
+customer_portfolio_class  
+  
+### Add Transformations and rename fields for Digital Activity event in Case Managerâ
+
+Rework
+
+We've added Transformations for field `True IP Geo` to show Country name when 3 Digit Code is received for Digital Activity event.
+
+Fields updated are
+
+Section| Field  
+---|---  
+Network| True IP Geo  
+Transaction History - Digital Activity| True IP Geo  
+  
+We have renamed `Voice Score Type_New` to `Smart ID Score` in the widget and Transaction History.
+
+We have added the new field `Payment Reference` to Transaction History that directly maps to `sender_transaction_notes`.
+
+### Add PIB suspension indicatorâ
+
+Feature
+
+We've updated the Case Manager transfers and digital activity schemas to include the PIB suspension indicator (`pib_suspended`).
+
+Case Manager external notifications were also updated to include this field.
+
+In order to send this field to Case Manager, we created a custom Alert Storage Service.
+
+This service enriches the event with a new `additional_fields` field, this is enriched with information from the message that is being processed in Pulse.
+
+To enable this enrichment the following property must have a value `true`:
+
+  * pulse.app.tfrb.com.feedzai.hsbc.pulse.services.customalertstorageservice.additionalfields.enricher.active
+
+
+
+And the information fields to be added need to be included here (list of comma separated strings e.g.: pib_suspended,another_field):
+
+  * pulse.app.tfrb.com.feedzai.hsbc.pulse.services.customalertstorageservice.additionalfields.enricher.fields
+
+
+
+### Add network widget field mappingâ
+
+Feature
+
+We have added a new field called Device ISP and IP location is renamed to IP City
+
+### Change the mapping of Event Type to payment_type_sub_typeâ
+
+Rework
+
+We have changed the mapping for the field - Event Type which is in the following widgets :
+
+Event: Digital Activity
+
+Section: Event Summary, Transaction History, Search Screen Page and Alert Search Page
+
+Field: Event Type
+
+Old Mapping: txn_type
+
+New Mapping: payment_type_sub_type
+
+### Fix issue with Case Manager reasonsâ
+
+Bug Fix
+
+We've fixed an issue where previously deleted reasons were being re-added to Case Manager.
+
+### Add Missing Resource for External Status Reason on Case Managerâ
+
+Bug Fix
+
+We've added missing resource for field `External Status Reason` which causes CM to show the field database name instead of its pretty name.
+
+### External Status Reason extension is enabledâ
+
+Feature
+
+We've enabled the External Status Reason extension, allowing the user to set a reason via Feedback API using the `external_status_reason` field.
+
+To allow this we've removed the `transfer status` state machine, and moved its reasons to the `status` state machine.
+
+We also removed the following automation rules that were used to sync the state between the two state machines:
+
+  * Handle Transfers Status change to Fraud (Feedbacks)
+  * Handle Transfers Status change to Not Fraud (Feedbacks)
+
+
+
+### Change on event date formatâ
+
+Bug Fix
+
+We have fixed an issue where events were showing in a 12 hour format without the AM/PM marker, instead of a 24 hour format.
+
+### Renamed Customer Account Level Classification field reference on Case Managerâ
+
+Bug Fix
+
+We've renamed all the references of the field `Customer Account Level Classification`to `Segment`, as initially intended.
+
+### Customer Name Search Modificationsâ
+
+Rework
+
+The search for Customer Name on Case Manager was changed as requested, now this search box is able to filter to two different keys: `sender_name` (Like in the Originator Name on the Advanced Search) and `customer_name`.
+
+### Change on Amount Fields Formatâ
+
+Bug Fix
+
+We've made some changes on how the amount values were being displayed, previously they were displaying like "$1200", and we were requested to change it to display like "1200 (USD)".
+
+This change was applied to the following widgets:
+
+Section: Transaction
+
+Fields: Originator Amount & Amount(Bene)
+
+Section: Originator Account Details
+
+Fields: Balance
+
+Section: Originator Details
+
+Fields: Total Balance
+
+### Inclusion of Event Description fieldâ
+
+Feature
+
+We've added a new field called `Event Description` to Case Manager, this field is present for Digital Activity Events, in the Event Summary and Transaction History widget.
+
+This new field is mapping to `sender_transaction_code`, it receives the specific code, and if there is a match with a valid code, a transformation is done, and the correspondent description is shown in Case Manager. Example: QPS -> Request - Paperless Statements.
+
+As agreed, to not occupy too much space in Case Manager UI, we used the short version of the description
+
+### New Field Mapping in Network Section on Transfer eventsâ
+
+Feature
+
+We've made some changes on the mapping of the fields in the Network section, please find below the list of modifications.
+
+Field| Section| Change| Feedzai Mapping| AFIS Mapping  
+---|---|---|---|---  
+Device ISP| Network| Added| device_geo_ip_isp| ipAddressIsp  
+Device Location| Transaction History + Search Screen| Rework| device_geo_ip_city| geoIpCity  
+IP City| Transaction History + Search Screen| Renamed| device_ip_city| ipAddressCity

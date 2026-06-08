@@ -1,0 +1,57 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/overview
+Title: Installation Guide | Feedzai Documentation
+============================================================
+
+On this page
+
+# Installation Guide
+
+Welcome to the Feedzai Installation Guide. In this guide you will find useful information on how to install Feedzaiâs products.
+
+## Artifacts
+
+Name| Version| Note  
+---|---|---  
+Installer| [3.0.2](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/installer-assembly/3.0.2/installer-assembly-3.0.2-dist.tar.gz)|   
+Project Pulse Configurations| [3.0.2](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/assembly-pulse/3.0.2/assembly-pulse-3.0.2-dist.tar.gz)|   
+Project Pulse Data Science Configurations| [3.0.2](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/assembly-dsf/3.0.2/assembly-dsf-3.0.2-dist.tar.gz)|   
+Project Case Manager Configurations| [3.0.2](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/assembly-case-manager/3.0.2/assembly-case-manager-3.0.2-dist.tar.gz)|   
+Project ETL Configurations| [3.0.2](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/assembly-etl/3.0.2/assembly-etl-3.0.2-dist.tar.gz)|   
+Empty Application for DSE Environments| [3.0.2](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/pulse-applications-dsf/3.0.2/pulse-applications-dsf-3.0.2-dist.tar.gz)|   
+Pulse| [25.1.9](https://maven.feedzai.com/repository/releases/com/feedzai/deliverables/pulse-gcp/25.1.9/pulse-gcp-25.1.9.tar.gz)|   
+Spark Libs| [25.1.9](https://maven.feedzai.com/repository/releases/com/feedzai/deliverables/spark-libs-gcp/25.1.9/spark-libs-gcp-25.1.9.tar.gz)|   
+Spark Dist| [3.5.7-hadoop-3.3.5](https://maven.feedzai.com/content/repositories/releases/com/feedzai/deliverables/spark-dist/3.5.7-hadoop-3.3.5/spark-dist-3.5.7-hadoop-3.3.5.tar.gz)|   
+Case Manager| [13.31.0](https://maven.feedzai.com/repository/releases/com/feedzai/deliverables/case-manager/13.31.0/case-manager-13.31.0.tar.gz)|   
+Reference Data Server| [3.7.12](https://maven.feedzai.com/content/repositories/releases/com/feedzai/solutions/commons/referencedataservice/reference-data-server-assembly/3.7.12/reference-data-server-assembly-3.7.12-dist.tar.gz)|   
+Keycloak Feedzai Theme| [2.3.0](https://maven.feedzai.com/content/repositories/releases/com/feedzai/keycloak/keycloak-feedzai-theme/2.3.0/keycloak-feedzai-theme-2.3.0.tar.gz)|   
+Event Storage ETL| [18.3.0](https://maven.feedzai.com/repository/commons-releases/com/feedzai/commons/event-storage-etl/event-storage-etl-assembly/18.3.0/event-storage-etl-assembly-18.3.0-dist.tar.gz)|   
+JupyterLab Docker Image| [25.0.49-gcs-2.2.29](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/docker-jupyterlab/25.0.49-gcs-2.2.29/docker-jupyterlab-25.0.49-gcs-2.2.29-gcp.tar.gz)| ****Load Docker Image as**  
+`docker.feedzai.com/feedzai/jupyterlab:25.0.49-gcs-2.2.29-gcp`**  
+  
+## Installing Feedzai Servicesâ
+
+  * [Pulse Requirements](/cs-hsbc/3.0.2/docs/installation-guide/pulse/requirements-pulse)
+  * [Case Manager Requirements](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/requirements-casemanager)
+  * [Reference Data Service Requirements](/cs-hsbc/3.0.2/docs/installation-guide/refdata/requirements-refdata)
+
+
+
+## Configuring Third-Party Servicesâ
+
+  * [Cassandra Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-cassandra)
+  * [RabbitMQ Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-rabbitmq)
+  * [ZooKeeper Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-zookeeper)
+
+
+
+## Feedzai Ansible Toolkitâ
+
+  * [Installing Feedzai with Ansible](/cs-hsbc/3.0.2/docs/installation-guide/ansible/feedzai-ansible)
+
+
+
+## Database Setupâ
+
+  * [Retention Scripts](/cs-hsbc/3.0.2/docs/installation-guide/database/retention-scripts)
+
+

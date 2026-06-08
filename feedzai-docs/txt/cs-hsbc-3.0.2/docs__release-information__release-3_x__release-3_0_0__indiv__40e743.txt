@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3804
+Title: HSBC-3804 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3804
+
+### Add Wallet Decision outcome to Cards and Non-Monâ
+
+FeatureFTMT-33585HSBC-3804
+
+We've added the `wallet_decision` outcome to the **Cards** workflow. The field was also added to the **Cards + Outcomes** schema and is included in the real-time response for requests to the Authorization and Non-Mon endpoints.
+
+This outcome can have the following values by default:
+
+  * `RED`
+  * `YLW`
+  * `GRN`
+  * `none`
+
+

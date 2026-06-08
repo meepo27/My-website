@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/features/hsbc_status_reason
+Title: Feedback API `external_status_reason` | Feedzai Documentation
+============================================================
+
+On this page
+
+# Feedback API `external_status_reason`
+
+ _Source:_
+
+  * Requirement FTMT-1085
+  * HSBC-823
+
+
+
+A new field `external_status_reason` was added in the Feedback API to support SAS EFM as the primary decision maker. This new field is optional and will not be enforced. Although it can receive any value - since we expect this list to be updated fairly regularly and don't want to drop any events - we'll only update Case Manager Status Reason in case we receive the following values:
+
+Possible values  
+---  
+Fraud - Telephone Banking Automated  
+Fraud - Telephone Call Centre Agent  
+Fraud - Branch  
+Fraud - Email/Fax/Mail  
+Fraud - Direct Payment  
+Fraud - Other  
+Fraud - Token Reactivation  
+Fraud - Remote Access  
+Fraud - Credential Stuffing  
+Fraud - Compromise Point Unknown  
+Fraud - Smishing  
+Fraud - Malware  
+Fraud - Token Reactivation  
+Fraud - Remote Access  
+Fraud - Credential Stuffing  
+Fraud - Compromise Point Unknown  
+Fraud - Smishing  
+Fraud - Malware  
+Scam - CEO/Business Email Compromise  
+Scam - Impersonation (Police/Bank)  
+Scam - Impersonation (Other)  
+Scam - Other  
+Scam - Invoice and Mandate  
+Scam - Investment  
+Scam - Advance Fee  
+Scam - Purchase  
+Scam - Romance  
+Scam - Other  
+Fraud - Account Takeover - Secure Key Activation  
+Fraud - Account Take Over  
+Fraud - Payment Beneficiary/Mule  
+Fraud - 1st Party Fraud  
+  
+## Referencesâ
+
+[Requirement definition and specification](/cs-hsbc/3.0.2/api#tag/transfers/operation/putTransferFeedback)

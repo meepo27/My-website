@@ -1,0 +1,20 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3434-Add--fdz-channel--to-Cards-and-Inbound-Payments
+Title: HSBC-3434-Add--fdz-channel--to-Cards-and-Inbound-Payments | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3434-Add--fdz-channel--to-Cards-and-Inbound-Payments
+
+### Add `fdz_channel` to Cards and Inbound Paymentsâ
+
+FeatureFTMT-30250HSBC-3434
+
+The `fdz_channel` field, which describes the channel of the event, was missing for the **Cards** and **Inbound Payments** channels.
+
+The field will now be automatically enriched with the following values and also be included in ETL extractions:
+
+  * Cards: `CARDS`
+  * Inbound Payments: `INBOUND-PAYMENTS`
+
+

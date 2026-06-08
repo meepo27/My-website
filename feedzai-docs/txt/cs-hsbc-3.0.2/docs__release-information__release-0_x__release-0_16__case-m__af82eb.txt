@@ -1,0 +1,74 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-transaction
+Title: Transfers - Transaction | Feedzai Documentation
+============================================================
+
+# Transfers - Transaction  
+  
+Before:
+
+After:
+
+**Field Modifications**
+
+ _Notes_ :
+
+~~Currently, the Amt (Bene) field will display the amount along with the currency.~~ ~~However, we are currently awaiting the addition of a new field in the schema that will allow us to display the amount in decimal format.~~ ~~Until this issue is resolved, it is expected that this field will display "N/A".~~
+
+As of 0.16.1 we standardized all amount fields to look the same across all screens. For release 0.17.0 we plan to use the new fields on the schema.
+
+The VRP_INDICATOR field isn't present on the schema yet, so for now it is expected that this field will display "N/A".
+
+Change| Field  
+---|---  
+Added| RPS Queue Name  
+Added| Amt (Bene)  
+Added| FX Deal ID  
+Added| Payment Date local timestamp  
+Added| VRP_INDICATOR  
+Added| Transfer to self account indicator  
+Added| New Beneficiary indicator flag  
+Added| New Beneficiary create date  
+Added| Payee Cop Name  
+Added| CoP Description  
+Added| SO MandateID  
+Added| SO Mandate Status ID  
+Added| SO MandateID+Ref  
+Enriched| Transaction Type  
+Enriched| Channel  
+Enriched| CoP Description  
+Fixed| Source  
+Fixed| Original Amount  
+Fixed| Payment Value Date  
+Fixed| Frequency  
+Fixed| Recurring Payment  
+Fixed| Beneficiary Bank Branch ID  
+Fixed| Reference Number  
+Fixed| Transaction Notes  
+Fixed| Transaction Method  
+Renamed| Date -> Event Date  
+Removed| Payment Value Date  
+Removed| Product Code  
+Removed| Bulk ID  
+Removed| Geographic Scope  
+Removed| Originator Urgency  
+Removed| Number of Payments  
+Removed| SCA Result  
+Removed| Last SCA  
+Removed| Transaction Goal  
+Removed| Good Beneficiary Flag  
+Removed| Bad Beneficiary Flag  
+Removed| Total Cust for Bene(Customers paid for Beneficiary )  
+Removed| Beneficiary First Paid Date  
+Removed| Total Num Payment Bene  
+Removed| Max Value Paymt Bene  
+Removed| Bene Cust Status  
+Removed| Cust First for Bene  
+Removed| SO Ammend Date  
+Removed| SO Ammend Time  
+Removed| SO Action Type  
+Removed| SO Start Date  
+Removed| Signed Status Code  
+Removed| SO Fequency Info  
+Removed| SO Schedule Ref Num  
+Removed| SO referrence  
+Removed| Most Restrictive Rule ID

@@ -1,0 +1,43 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-beneficiary-details
+Title: Transfers - Beneficiary Details | Feedzai Documentation
+============================================================
+
+# Transfers - Beneficiary Details  
+  
+Before:
+
+After:
+
+**FIelds Modification** :
+
+Change| Fields  
+---|---  
+Enriched| Currency  
+Enriched| Country  
+Renamed| Zip Code -> Bene Postcode  
+Fixed| Name  
+Fixed| Registration Date  
+Removed| Beneficiary ID  
+Removed| Segment  
+Removed| Date of Birth  
+Removed| Citizen ID Number  
+Removed| Passport Number  
+Removed| Social Security Number  
+Removed| Tax Number  
+Removed| Email Address  
+Removed| Phone Number  
+Removed| Address  
+Removed| City  
+Removed| Region  
+Removed| Number of Cards  
+Removed| Number of Accounts  
+Removed| Total Balance  
+Removed| Total Credit Limit  
+Removed| KYC Level  
+Removed| Risk Rating  
+Removed| Occupation  
+Removed| Beneficiary Alias  
+Removed| Beneficiary Alias Type  
+Removed| Beneficiary Alias Status  
+Removed| Beneficiary Alias Registration Time  
+Removed| Beneficiary Alias Last Update Time

@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3391
+Title: HSBC-3391 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3391
+
+### Extend the PaymentFulfillment extension to work for Cards and Non-Mon channelsâ
+
+FeatureFTMT-29506HSBC-3391HSBC-3999
+
+We've updated the PaymentFulfillment extension to support Cards and Non-Mon channel events. On the back of this support we've also configured the fulfillment Cards and Non-Mon schemas, which can be found in [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions).
+
+Additionally, the state machines that may trigger PaymentFulfillment are now configurable during deployment by using the Ansible variable `fulfillment_channels_state_machines`. For more information regarding this feature please refer to the [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).

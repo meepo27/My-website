@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/overview
+Title: API Resources | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * API Resources
+
+
+
+# API Resources
+
+Was this page helpful?Â 
+
+This section provides you with the information you need to work with the API.
+
+### [EndpointsLearn all the operations you can do with Feedzai's API and how to communicate with its multiple endpoints.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+
+### [Additional ResourcesFind information about authentication, response and errors, generated fields, among other resources necessary to successfully work with the API.](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)

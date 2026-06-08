@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/schema-mapping
+Title: Schema Mapping | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [API Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/overview)
+  * [Additional Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/additional-resources)
+  * Schema Mapping
+
+
+
+# Schema Mapping
+
+This page contains comma-separated value (CSV) files that allow you to confirm where API fields are used. Among other parameters, these CSVs contain rules, metrics, and variables from Payments.
+
+As a business analyst, you need to understand the impact of missing data fields on your client's data. As such, the following files allow you to:
+
+  * Validate the API fields required to run each rule (e.g. fields in a rule's condition and metrics).
+  * Confirm where an API field is being used in the whole solution (e.g. in which metrics, rule conditions, or variables).
+
+
+
+[Rules](/rmpsp/2.8/download/rmpsp-mm-rules.csv)Â Â [API Schema](/rmpsp/2.8/download/payments-api-schema.csv)

@@ -1,0 +1,335 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/light_gbm/
+Title: light_gbm - DS API
+============================================================
+
+#  `` light_gbm Â¶  
+  
+##  `` LightGBMConfig Â¶
+    
+    
+    LightGBMConfig(**kwargs)
+    
+
+Bases: `[GenericLightGBMConfig](../generic_light_gbm/#ds_api.models.generic_light_gbm.GenericLightGBMConfig "            GenericLightGBMConfig \(ds_api.models.generic_light_gbm.GenericLightGBMConfig\)")`
+
+The Microsoft LightGBM configuration object used for model training.
+
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`boosting_type` |  `str` |  Boosting type.  
+`num_iterations` |  `int` |  Number of booster iterations.  
+`learning_rate` |  `float` |  Learning rate.  
+`num_leaves` |  `int` |  Maximum tree leaves.  
+`lightgbm_seed` |  `int` |  Seed used to generate other seeds.  
+`max_depth` |  `int` |  Maximum tree depth.  
+`min_data_in_leaf` |  `int` |  Minimum leaf data points.  
+`min_sum_hessian_in_leaf` |  `float` |  Minimal sum of hessian per leaf.  
+`bagging_fraction` |  `float` |  Bagging sample fraction.  
+`bagging_freq` |  `int` |  Bagging frequency.  
+`feature_fraction` |  `float` |  Feature fraction by tree.  
+`feature_fraction_bynode` |  `float` |  Feature fraction by tree node.  
+`lambda_l1` |  `float` |  L1 regularization.  
+`lambda_l2` |  `float` |  L2 regularization.  
+`min_gain_to_split` |  `float` |  Minimal gain to split a leaf.  
+`drop_rate` |  `float` |  DART drop rate.  
+`max_drop` |  `int` |  DART max drop.  
+`skip_drop` |  `float` |  DART skip drop.  
+`xgboost_dart_mode` |  `bool` |  DART XGBoost mode.  
+`uniform_drop` |  `bool` |  DART uniform drop.  
+`top_rate` |  `float` |  GOSS top retain rate.  
+`other_rate` |  `float` |  GOSS other retain rate.  
+`min_data_per_group` |  `int` |  Minimum data per group.  
+`max_cat_threshold` |  `int` |  Maximum categories thresholds.  
+`cat_l2` |  `float` |  Categorical L2 regularization.  
+`cat_smooth` |  `float` |  Categorical smoothing.  
+`max_cat_to_onehot` |  `int` |  Max categories to one-hot encode.  
+`verbosity` |  `int` |  Verbosity of the LightGBM backend.  
+`max_bin` |  `int` |  Max bins.  
+`min_data_in_bin` |  `int` |  Minimum bin data.  
+`bin_construct_sample_cnt` |  `int` |  Bin construction sample count.  
+`enable_bundle` |  `bool` |  Exclusive Feature Bundling (EFB).  
+`zero_as_missing` |  `bool` |  Use zeroes as missing.  
+`is_unbalance` |  `bool` |  Unbalanced label.  
+`undersampling` |  `float` |  The value for undersampling. Only this or oversampling can be used.  
+`oversampling` |  `float` |  The value for oversampling. Only this or undersampling can be used.  
+`seed` |  `int` |  The seed value.  
+`ignored_fields` |  `set of str` |  Set of names corresponding to the fields to be ignored when training a model.  
+`schema` |  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI.  
+  
+Examples:
+    
+    
+    >>> model_config = LightGBMConfig(
+    ...     bagging_fraction=0.9,
+    ...     undersampling=0.85
+    ...)
+    >>> model_config.num_leaves # gets num_leaves: 31
+    >>> model_config.num_leaves = 10 # sets num_leaves to 10
+    >>> model = model_project.train(
+    ...     "model_name",
+    ...     datasource,
+    ...     "target_field",
+    ...     model_config
+    ... )
+    >>> model.waitUntilModelTrained()
+    >>> config_from_model = model.get_config()
+    
+
+###  `` bagging_fraction `property` `writable` Â¶
+    
+    
+    bagging_fraction
+    
+
+###  `` bagging_freq `property` `writable` Â¶
+    
+    
+    bagging_freq
+    
+
+###  `` bin_construct_sample_cnt `property` `writable` Â¶
+    
+    
+    bin_construct_sample_cnt
+    
+
+###  `` boosting_type `property` `writable` Â¶
+    
+    
+    boosting_type
+    
+
+###  `` cat_l2 `property` `writable` Â¶
+    
+    
+    cat_l2
+    
+
+###  `` cat_smooth `property` `writable` Â¶
+    
+    
+    cat_smooth
+    
+
+###  `` drop_rate `property` `writable` Â¶
+    
+    
+    drop_rate
+    
+
+###  `` enable_bundle `property` `writable` Â¶
+    
+    
+    enable_bundle
+    
+
+###  `` feature_fraction `property` `writable` Â¶
+    
+    
+    feature_fraction
+    
+
+###  `` feature_fraction_bynode `property` `writable` Â¶
+    
+    
+    feature_fraction_bynode
+    
+
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` is_unbalance `property` `writable` Â¶
+    
+    
+    is_unbalance
+    
+
+###  `` lambda_l1 `property` `writable` Â¶
+    
+    
+    lambda_l1
+    
+
+###  `` lambda_l2 `property` `writable` Â¶
+    
+    
+    lambda_l2
+    
+
+###  `` learning_rate `property` `writable` Â¶
+    
+    
+    learning_rate
+    
+
+###  `` lightgbm_seed `property` `writable` Â¶
+    
+    
+    lightgbm_seed
+    
+
+###  `` max_bin `property` `writable` Â¶
+    
+    
+    max_bin
+    
+
+###  `` max_cat_threshold `property` `writable` Â¶
+    
+    
+    max_cat_threshold
+    
+
+###  `` max_cat_to_onehot `property` `writable` Â¶
+    
+    
+    max_cat_to_onehot
+    
+
+###  `` max_depth `property` `writable` Â¶
+    
+    
+    max_depth
+    
+
+###  `` max_drop `property` `writable` Â¶
+    
+    
+    max_drop
+    
+
+###  `` min_data_in_bin `property` `writable` Â¶
+    
+    
+    min_data_in_bin
+    
+
+###  `` min_data_in_leaf `property` `writable` Â¶
+    
+    
+    min_data_in_leaf
+    
+
+###  `` min_data_per_group `property` `writable` Â¶
+    
+    
+    min_data_per_group
+    
+
+###  `` min_gain_to_split `property` `writable` Â¶
+    
+    
+    min_gain_to_split
+    
+
+###  `` min_sum_hessian_in_leaf `property` `writable` Â¶
+    
+    
+    min_sum_hessian_in_leaf
+    
+
+###  `` num_iterations `property` `writable` Â¶
+    
+    
+    num_iterations
+    
+
+###  `` num_leaves `property` `writable` Â¶
+    
+    
+    num_leaves
+    
+
+###  `` other_rate `property` `writable` Â¶
+    
+    
+    other_rate
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` skip_drop `property` `writable` Â¶
+    
+    
+    skip_drop
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` top_rate `property` `writable` Â¶
+    
+    
+    top_rate
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    
+
+###  `` uniform_drop `property` `writable` Â¶
+    
+    
+    uniform_drop
+    
+
+###  `` verbosity `property` `writable` Â¶
+    
+    
+    verbosity
+    
+
+###  `` xgboost_dart_mode `property` `writable` Â¶
+    
+    
+    xgboost_dart_mode
+    
+
+###  `` zero_as_missing `property` `writable` Â¶
+    
+    
+    zero_as_missing
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(config: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")) -> LightGBMConfig
+    
+
+Creates a LightGBMConfig from the java object.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  Java configuration object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[GeneralizedLinearModelConfig](../glm/#ds_api.models.glm.GeneralizedLinearModelConfig "            GeneralizedLinearModelConfig \(ds_api.models.glm.GeneralizedLinearModelConfig\)")` |  Configuration object according to its python representation.

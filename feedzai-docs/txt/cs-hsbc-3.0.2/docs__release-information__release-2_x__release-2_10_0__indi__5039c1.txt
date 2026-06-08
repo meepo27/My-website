@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3461-Add--node-properties--template-to-Pulse-Data-Science-Assembly
+Title: HSBC-3461-Add--node-properties--template-to-Pulse-Data-Science-Assembly | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3461-Add--node-properties--template-to-Pulse-Data-Science-Assembly
+
+### Add `node.properties` template to Pulse Data Science Assemblyâ
+
+FeatureHSBC-3461
+
+We've added the `node.properties.j2` template to the Data Science assembly.
+
+Previously Data Science installations defaulted to a template that only supported single node setups, meaning that in the Pulse UI the node would always show the localhost IP (`127.0.0.1`).

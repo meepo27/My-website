@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/
+Title: DS API
+============================================================
+
+# WelcomeÂ¶
+
+Welcome to **DS-API** documentation! Kick-off things with the [quickstart](getting-started/quickstart/) guide to look at a few recipes that will help you with common tasks. For further details, refer to the [API Reference](reference/).
+
+## User GuidesÂ¶
+
+The user guide contains mostly information on what the DS-API is as well as what it is not! Some recipes/patterns for common tasks are also provided, with additional context in what's happening under the hood.
+
+  1. [Quickstart](getting-started/quickstart/)
+  2. [String Indexing](getting-started/indexing/)
+
+
+
+## API ReferenceÂ¶
+
+Check the [Python reference](reference/) section for details on all the Python functions, classes, and all that jazz.
+
+Java Reference
+
+At the moment we are migrating the DS-API Java reference. Please check back later for updates.

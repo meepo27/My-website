@@ -1,0 +1,168 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/investigate-alerts
+Title: Investigate Alerts | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Agent](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/case-manager-guide)
+  * [Daily Monitoring (standard)](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/overview)
+  * Investigate Alerts
+
+
+
+On this page
+
+# Investigate Alerts
+
+As a fraud prevention agent, the first step you should take is to access the workload. Depending on the risk engine's decision, you may find a set of events for review.
+
+This page helps you understand how to access the events and cases that are up for review.
+
+## Access events and casesâ
+
+When events arrive at Case Manager, they can be displayed in more than one page, depending on the fraud risk and the complexity. On Case Manager's sidebar you can access:
+
+  * **Search By Event** : Displays all the events (alerted and non-alerted). By default, some filters, such as **Alerted** and **Created Date** , are already populated to always show the latest alerted events.
+  * **Cases** : Events can be grouped into cases for a more organized action-taking process. This allows you to access events that may be correlated and that require a thorough investigation. Cases offer extra functionalities, such as note attachment.
+  * **Settings** : This option is only available for certain [roles](/rmpsp/2.8/docs/common/rmpsp/admin-reference/roles-and-permissions) and provides various management tools such as queues, automation rules, SLAs, self-service rules and lists.
+  * **Dashboards** : This option is only available for certain [roles](/rmpsp/2.8/docs/common/rmpsp/admin-reference/roles-and-permissions) and displays dashboards to help you monitor merchants, agents and rules, as well as analyze transactions, alerts, and cases.
+
+
+
+## Select and analyze eventsâ
+
+As previously mentioned, the key pages to access your workload are the **Search by Event** and **Cases** pages.
+
+Whether you open an alerted or non-alerted event, you will land on the **Merchant Monitoring Event Details** page, which contains information that helps you make your decision.
+
+Note that you won't be able to make a decision based on a specific widget alone. An investigation is a comprehensive approach, in which you open several events, e.g. from the same merchant ID, and search for fraud evidence by looking at multiple widgets.
+
+The **Merchant Monitoring Event Details** page displays the following information.
+
+### Merchant Detailsâ
+
+The **Merchant Details** widget contains information about the merchant that processed the payment, such as merchant's ID, MCC, and country. To obtain more information about the merchant, open the **Merchant Details** page in a different tab using the **External Link** icon.
+
+### Activity Logâ
+
+The **Activity Log** widget includes all the updates made to the event, such as information about the date and time the system ran a merchant monitoring assessment, or a file has been attached to the event. These updates are listed in descending chronological order.
+
+### Merchant Rulesâ
+
+The **Merchant Rules** widget shows all the merchant rules triggered during the assessment window (i.e. last 24 hours).
+
+Merchant rules 
+
+Merchant rules help acquirers and PSPs detect risky activities occurring on their merchant portfolio, and thus prevent them from being victims of fraudulent merchants.
+
+Learn the [risk scenarios](/rmpsp/2.8/docs/common/rmpsp/mm/about/risk-scenarios) in which acquirers and PSPs become victims of their own merchants.
+
+### Payment Rulesâ
+
+The **Payment Rules** widget shows all the rules triggered by payments processed by the merchant during the merchant monitoring assessment period (e.g. the previous 24 hours). The widget shows the system decision (`approve`, `review`, `decline`). It is also possible to use the **magnifying glass** icon to search for the payments that triggered a specific rule.
+
+Payment rules
+
+Payment rules help acquirers and PSPs confirm if a particular merchant is being a victim of fraudulent customers.
+
+Learn about the possible [fraud scenarios](/rmpsp/2.8/docs/common/rmpsp/tfp/about/fraud-scenarios) carried out by merchants' customers.
+
+### Transaction Historyâ
+
+The **Transaction History** widget shows a complete overview of both merchant monitoring and payment events.
+
+  * The **Payments** tab lists in descending chronological order all the alerted payments processed by the merchant under analysis.
+  * The **Merchant Monitoring** tab lists in descending chronological order all the alerted merchant monitoring events over a specified time period. 
+
+
+
+Note that, by default, the **Merchant Monitoring** channel is selected and filtered by `Merchant ID` and `Alerted` to refine the results by the current merchant under analysis. 
+
+You can also narrow down results based on time periods such as "Last week" by selecting the date options filter.
+
+#### Related transactionsâ
+
+Related transactions are transactions that contributed to a merchant monitoring rule, e.g. merchant Acme is alerted if the number of transactions with an amount greater than $500 over the past 24 hours is above a threshold of 10. The related transactions for this rule are the transactions greater than $500 over the past 24 hours processed by merchant Acme.
+
+To see related transactions, follow the instructions below.
+
+  1. By default, the `Merchant ID` and `Alerted` filters are defined, and no rules are selected.
+
+  2. Use the `Related Transactions` filter. Optionally, to refine your results by a specific rule, select a rule in the related transactions options menu.
+
+  3. Related transactions filter payments that made a rule trigger. To see them, switch to the **Payments** tab.
+
+  4. Check the **Payments** channel to see which payments triggered the selected rule. Optionally, add another rule to the related transactions options menu.
+
+
+
+
+### Notesâ
+
+The **Notes** widget shows any notes made under a given merchant, such as "merchant being investigated due to suspicious activity" or "information requested".
+
+You can create notes about:
+
+  1. An **Event** in the **Merchant Monitoring Event Details** page.
+  2. A **Merchant** both in the **Merchant Monitoring Event Details** and **Merchant Details** pages. Note that, in the **Merchant Details** page, you can only create notes about **Merchant**.
+
+
+
+### Attached Filesâ
+
+The **Attached Files** widget allows you to add files that support your investigation.
+
+## Analyze merchantsâ
+
+Fraud prevention agents need to closely monitor merchants to understand the risk they represent. The Merchant Details page displays the merchantâs relevant data and risk insights over the last 30 days.
+
+The **Merchant Details** page displays the following information:
+
+  * **Merchant Overview** : Breaks down information into several visualizations, as follows:
+    * **Merchant Details** : Contains relevant information about the merchant, such as ID, Merchant Category Code (MCC) or tax identification number, as well as contact details.
+    * **Location** : Contains information related to the merchant's location, i.e. registration country and Ultimate Beneficiary Owner (UBO) names.
+    * **Account** : Includes information about the merchant's account status (i.e. whether it's active or not) and bank account.
+    * **Total Transactions** : Shows the ratio of approved vs. declined transactions over the last 30 days.
+    * **Timeline of merchant risk assessments** : Displays a timeline with the number of times the merchant has been alerted in the last 30 days, presenting the evolution of the merchant's risk in a visual way. Other important indicators such as chargebacks, approved transactions, average transaction value, top locations and the number of refunds are key metrics for ongoing management of merchants' risk.
+    * **Top location history** : Displays the top transaction distribution (in percentage) per market.
+    * **Transaction Amounts** : Shows the minimum, median, and maximum transaction amounts received by the merchant over the last 30 days.
+    * **Top Chargebacks** : Displays the total number of chargebacks and chargebacks to sales as well as the total amount of chargebacks over the last 30 days.
+    * **Top Refunds** : Displays the total number and amount of refunds over the last 30 days.
+  * **Merchant Monitoring Assessments** : Shows the previous daily assessments including rules triggered, investigation status, and agents' decisions.
+  * **Payment History** : Displays all the transactions associated with the merchant under investigation.
+  * **Notes** : Shows any notes made under a given merchant.
+  * **Attached Files** : Allows you to add files that are useful for subsequent investigation steps.
+
+
+
+## Review casesâ
+
+The main purpose of cases is to link events when there is a common element that suggests a connection. By aggregating events into a case, you save time in your investigation.
+
+info
+
+Cases can be omnichannel. This means that you can aggregate events from **Payments** and **Merchant Monitoring**.
+
+The Cases / Case Details page header displays the following information:
+
+  * **Name** : Displays the case's name.
+  * **ID** : Provides the case's alphanumerical ID.
+  * **Status** : Displays the case's state: "New", "Review in progress", "Closed" and "Closed with SAR".
+  * **Source Type** : Provides the case's use case, e.g. Fraud or AML.
+  * **Queue** : Specifies the queue the case is stored in.
+  * **Source type** : Identifies what originated the investigation (e.g. Referrals from customer-facing employees).
+  * **Assignee** : Identifies the user assigned to the case.
+
+
+
+The header also displays several action buttons, according to the case's state: **To be reviewed** / **In analysis** / **Waiting for info** / **Closed**.
+
+Below this header, contextual information is provided as follows:
+
+  * **Linked Events** : Presents events associated with the case under investigation.
+  * **Attached Files** : This widget allows you to add files that support your investigation.
+  * **Notes** : This widget shows any notes made under a given case.
+  * **Activity Log** : This widget displays the different actions performed in the case, namely regarding linked events, attached files, and notes.
+
+

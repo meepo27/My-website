@@ -1,0 +1,292 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/operators/map_operator/
+Title: map_operator - DS API
+============================================================
+
+#  `` map_operator Â¶
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` ProjectionFeature `module-attribute` Â¶
+    
+    
+    ProjectionFeature = autoclass([DS_API_CLASSPATH](../../../#ds_api.DS_API_CLASSPATH "            DS_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.DS_API_CLASSPATH\)") + 'plan.features.ProjectionFeature')
+    
+
+##  `` MapOperator Â¶
+    
+    
+    MapOperator(pyjnius_java)
+    
+
+Bases: `[BaseFeaturesOperator](../operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")`
+
+Represents a Map Operator in Pulse.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` add_feature Â¶
+    
+    
+    add_feature(feature: [BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)"), logger: bool = True) -> [BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")
+    
+
+Adds a new Feature to this Operator.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `[BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")` |  New Feature. |  _required_  
+  
+####  `logger` Â¶
+
+|  `bool` |  Whether to log info message or not. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")` |  New Feature.  
+  
+###  `` add_fields_to_remove Â¶
+    
+    
+    add_fields_to_remove(fields=Set[str])
+    
+
+Sets the fields to be removed in the Operator.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `fields` Â¶
+
+|  `set of str` |  Names of the fields, by default Set[str]. |  `Set[str]`  
+  
+###  `` diff Â¶
+    
+    
+    diff(other: [BaseFeaturesOperator](../operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)"), only_diff: bool = True)
+    
+
+Display the differences between the features from this Operator and another Operator.
+
+Features are compared based on their feature name. The order of the features in the Operator is not taken into account.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `other` Â¶
+
+|  `[BaseFeaturesOperator](../operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")` |  BaseFeaturesOperator to compare against. |  _required_  
+  
+####  `only_diff` Â¶
+
+|  `bool` |  Show features with differences only. Defaults to 'true'. |  `True`  
+  
+Raises:
+
+Type | Description  
+---|---  
+`NotImplementedError` |  When not called from a Jupyter notebook.  
+  
+###  `` get_dependencies Â¶
+    
+    
+    get_dependencies() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Set[str]]
+    
+
+###  `` get_dependencies_by_type Â¶
+    
+    
+    get_dependencies_by_type() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Dict[str, List[str]]]
+    
+
+###  `` get_feature Â¶
+    
+    
+    get_feature(name: str) -> [MapFeature](../../features/map_feature/#ds_api.plans.features.map_feature.MapFeature "            MapFeature \(ds_api.plans.features.map_feature.MapFeature\)")
+    
+
+Gets a Feature by a given name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the feature. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[MapFeature](../../features/map_feature/#ds_api.plans.features.map_feature.MapFeature "            MapFeature \(ds_api.plans.features.map_feature.MapFeature\)")` |  MapFeature  
+  
+###  `` get_features Â¶
+    
+    
+    get_features() -> List[[MapFeature](../../features/map_feature/#ds_api.plans.features.map_feature.MapFeature "            MapFeature \(ds_api.plans.features.map_feature.MapFeature\)")]
+    
+
+Gets all the features in this Operator instance.
+
+Returns:
+
+Type | Description  
+---|---  
+`list of MapFeature` |  List of MapFeature  
+  
+###  `` get_fields_to_remove Â¶
+    
+    
+    get_fields_to_remove() -> Set[str]
+    
+
+Gets the fields to be removed on this Operator.
+
+Returns:
+
+Type | Description  
+---|---  
+`set of optional str` |  Names of the fields to be removed.  
+  
+###  `` get_type `staticmethod` Â¶
+    
+    
+    get_type() -> str
+    
+
+###  `` remove_feature Â¶
+    
+    
+    remove_feature(name: str) -> bool
+    
+
+Removes the features that match the name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the feature to remove. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`bool` |  If the feature is removed.  
+  
+###  `` rename_feature Â¶
+    
+    
+    rename_feature(old_name: str, new_name: str)
+    
+
+###  `` to_csv Â¶
+    
+    
+    to_csv(path: Union[Path, str])
+    
+
+Exports all the features in the operator as a csv file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `path` Â¶
+
+|  `Path or str` |  Path to where the csv will be written. |  _required_  
+  
+###  `` to_dict Â¶
+    
+    
+    to_dict() -> List[Dict]
+    
+
+###  `` to_pandas Â¶
+    
+    
+    to_pandas() -> DataFrame
+    
+
+Exports all the features in the operator as a pandas dataframe.
+
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas dataframe containing features and all their editable attributes.  
+  
+###  `` update_from_csv Â¶
+    
+    
+    update_from_csv(path: Union[Path, str])
+    
+
+Updates this Operator with the configuration from the csv file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `path` Â¶
+
+|  `Path or str` |  Path from where the csv will be read. |  _required_  
+See Also
+
+Plan.from_csv : For guidelines to input csv data in the right format.
+
+###  `` update_from_dict Â¶
+    
+    
+    update_from_dict(dict_feats: List[Dict])
+    
+
+###  `` update_from_pandas Â¶
+    
+    
+    update_from_pandas(pd_df: DataFrame)
+    
+
+Updates this Operator with the configuration from the pandas dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `pd_df` Â¶
+
+|  `DataFrame` |  Pandas dataframe with the operator features. |  _required_  
+See Also
+
+Plan.from_csv : For guidelines to input csv data in the right format.

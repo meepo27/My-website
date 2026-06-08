@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/admin-resources/overview
+Title: Admin Resources | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * Admin Resources
+
+
+
+# Admin Resources
+
+Was this page helpful?Â 
+
+### [Roles and permissionsLearn about the default roles and their associated permissions to understand how Transaction Fraud for Banking manages the access within Pulse, Case Manager, and dashboards](/tfrb/latest/docs/common/tfrb/roles-and-permissions)
+
+### [SSO AuthenticationLearn about the requirements and necessary steps to activate Single Sign-On (SSO) authentication](/tfrb/latest/docs/common/tfrb/admin-resources/activate-sso)

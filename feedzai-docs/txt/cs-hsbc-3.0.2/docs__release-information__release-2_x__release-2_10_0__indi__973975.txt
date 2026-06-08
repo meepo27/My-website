@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3138-Add-support-for-externally-created-PubSub-topics-for-DTP
+Title: HSBC-3138-Add-support-for-externally-created-PubSub-topics-for-DTP | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3138-Add-support-for-externally-created-PubSub-topics-for-DTP
+
+### Add support for externally created Pub/Sub topics for DTPâ
+
+FeatureFTMT-27152HSBC-3138
+
+Also In:2.8.12.9.0
+
+We've added support for the DTP to connect to Pub/Sub topics externally created in Google Cloud Platform. Three new Ansible variables control this behaviour:
+
+  * `dtp_pubsub_topic_enable_creation`: a boolean flag that determines if the DTP should create the Pub/Sub topics when starting (defaults to _false_)
+  * `dtp_pubsub_topic_id`: the topic id for the DTP to use
+    * This value is used only when the topic creation is **disabled**
+  * `dtp_inactivity_topic_enable_creation`: a boolean flag that determines if the DTP should create the Inactivity Service Pub/Sub topic when starting (defaults to _false_)
+
+
+
+Please refer to the [DTP Configuration page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp) and the [new GCP Setup page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup) for more details.
+
+##### warning
+
+The new boolean flags that determine if the DTP automatically creates the topics default to `false`. This means that if not explicitly configured otherwise, the DTP will expect the topics to already exist in GCP. This is a departure from the previous behaviour which always created the topics on start.

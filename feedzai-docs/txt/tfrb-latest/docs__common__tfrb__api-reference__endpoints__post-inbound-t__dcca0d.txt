@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-info
+Title: Scorable Info | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Inbound PaymentsÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/inbound-payments)
+  * Scorable Info
+
+
+
+Was this page helpful?Â 
+
+# Scorable Info
+    
+    
+    POST 
+    
+    ## /api/inbound-transfers/:lifecycle_id
+
+The Inbound Transfer Scorable Info endpoint allows you to leverage Feedzai's data science capabilities to score a transaction according to its risk.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

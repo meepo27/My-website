@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-sandbox-evaluation
+Title: Creating a Sandbox Evaluation for Rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Creating a Sandbox Evaluation for Rules
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating a Sandbox Evaluation for Rules
+
+By creating a sandbox evaluation, you will be able to test and evaluate your rules on a transaction level, i.e. the overall decision of the rules project for a particular transaction.
+
+## How toâ
+
+To create a sandbox evaluation, execute the following actions:
+
+  1. In the **Data Science** tab, add  a sandbox evaluation.
+
+  2. **Name** the sandbox evaluation.
+
+  3. Specify the **Data Source** , i.e. the data on which rules will be tested.
+
+  4. If you choose to use **Partitioning Fields** , transactions will be partitioned by the selected fields. That means that if you select _Card_ as a partition field, all transactions from that card will be processed together. Therefore, the node in charge of processing it will not have visibility of the transactions not associated to that card. This is typically what happens in production environments.
+
+  5. Select the **Outcome Variable** , i.e. the value against which the evaluation will process its results.
+
+  6. Choose the **Resources to Analyze**. You can add many rules, from different rules projects. For each rule you want to include, select the following:
+
+     * **Resource Type** : Rules Project.
+
+     * **Resource Parent** : the name of the rules project that includes rules you want to test.
+
+     * **Resource to Evaluate** : the rule itself.
+
+You can reorder the resources so that your sandbox evaluations simulate a production workflow as close as possible. The sandbox evaluation will apply rules to the events in the defined order.
+
+  7. Choose your **Reporting** configuration. In this step, you will choose how the results of the evaluation will be presented.
+
+     * By selecting no **Additional Cost** and no **Breakdowns** , you will see all metrics in general.
+
+If you add an additional cost field, the system will collect all those metrics that are also weighed by a data source field (e.g. making events with higher values of the field impact the metrics more).
+
+     * You can also choose **Breakdowns** to analyze metrics according to the possible values of a categorical field in the data source.
+
+Breakdowns allow users to understand the impact of rules and models as segmented by the particular values of the breakdown fields that are selected, similarly to rule and model evaluations.
+
+     * In the **Output Result** area, configure the new data source that will be created with the evaluation results.
+
+  8. After running the sandbox evaluation, a new data source is created with the name you configured for the output result. Open the data source, and observe the new columns:
+
+     1. In the first new column, you can find the outcome per transaction.
+
+     2. In the second new column, you can find the score distribution per transaction. This will only be relevant if your rules contribute with a score for the final outcome.
+
+
+

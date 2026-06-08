@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/designing-a-runtime-workflow
+Title: Designing a Runtime Workflow | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Designing a Runtime Workflow
+
+
+
+# Designing a Runtime Workflow
+
+Was this page helpful?Â 
+
+Now that all is set up, combine the previously created resources in a [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows). This workflow will be ready to be applied in the Production environment, to process events.
+
+Before starting the following steps, get in touch with your contact person at Feedzai to make sure that you have an Input Adapter set up in the test environment where you are working. In the following steps, we will use an Input Adapter that is named _file-injector_. In addition, make sure that the sample data files mentioned at the beginning of this tutorial are downloaded to the Pulse server.
+
+Then, go ahead and design your workflow as follows:
+
+  1. In the **Workflows** tab, add a new workflow named _Workflow_.
+
+  2. Set the **Origin Schema** to be the same as RawTransactions. In a real application, the schema would likely not contain the field you are trying to predict. In this case, it would have neither _Fraud_ nor _FraudStatusDate_.
+
+  3. Represent the final decision of the workflow by adding an **Outcome** named _isFraud_ with a **Default Value** of _false_.
+
+  4. Add an **Input Adapter** as follows:
+
+     1. Name it _Input Adapter_.
+     2. Under **Custom Service** , set it to use the _file-injector_ custom service.
+     3. Select **Properties** to confirm that the _filepath_ is properly set. You can use a CSV with the same format as the workflow input schema. If you downloaded the sample data as suggested at the beginning of the tutorial, you can use the input.csv file under the `PULSE_SERVER_HOME/var/datasources/` path.
+  5. Add a **Plan** service as follows:
+
+     1. Name it _Features_.
+
+     2. Configure it to run the _Features_ plan with the plan execution you generated when you first ran it.
+
+     3. Connect it to the _Input Adapter_.
+
+  6. Add a **Rules** service as follows:
+
+     1. Name it _Rules_.
+
+     2. Set it to contribute to the _isFraud_ outcome.
+
+     3. Configure it to use the _Rules_ rules project and the _Rules Snapshot_ snapshot that you created of the rules.
+
+     4. Connect it to the _Features_ plan service.
+
+  7. Add a **Scoring** service as follows:
+
+     1. Name it _FZRF Scoring_.
+     2. Set it to contribute to the _isFraud_ outcome.
+     3. Configure it to use the model project named _Models_ , and the _FeaturesData_ model.
+     4. Connect it to the _Rules_.
+  8. Finally, add a **Custom Workflow Element** to the end of the workflow that uses the _sink-logger_ custom service.
+
+Connect it to the _FZRF Scoring_ service.
+
+
+

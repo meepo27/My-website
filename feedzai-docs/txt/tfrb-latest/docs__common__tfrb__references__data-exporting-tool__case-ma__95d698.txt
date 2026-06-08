@@ -1,0 +1,151 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-cards
+Title: Case Manager Event - Cards | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Case Manager
+  * Case Manager Event - Cards
+
+
+
+# Case Manager Event - Cards
+
+Was this page helpful?Â 
+
+The **Case Manager Event - Cards** entity stores all events from the Cards channel.
+
+It comprises the [Case Manager Event - Base Schema](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event) and the following fields:
+
+Name| Type| Description| Example  
+---|---|---|---  
+`event_payload`| json| The event payload for the cards event.| { "merchant_city": "New York", "merchant_country_code": "US", "merchant_legal_name": "Merchant Legal Name", "merchant_id": "1234567890", "merchant_mastercard_risk": 1 }  
+âââ`merchant_city`| string| |   
+âââ`merchant_country_code`| string| |   
+âââ`merchant_legal_name`| string| |   
+âââ`merchant_id`| string| |   
+âââ`merchant_mastercard_risk`| integer| |   
+âââ`merchant_name`| string| |   
+âââ`merchant_open_date`| bigint| |   
+âââ`merchant_risk`| integer| |   
+âââ`merchant_risky_flag`| boolean| |   
+âââ`merchant_street_addr`| string| |   
+âââ`merchant_visa_risk`| integer| |   
+âââ`merchant_zip`| string| |   
+âââ`account_available_credit`| bigint| |   
+âââ`account_balance`| bigint| |   
+âââ`account_bic`| string| |   
+âââ`account_credit_limit`| bigint| |   
+âââ`account_iban`| string| |   
+âââ`account_id`| string| |   
+âââ`account_last_activity`| bigint| |   
+âââ`account_number_of_cards`| integer| |   
+âââ`account_open_date`| bigint| |   
+âââ`account_status`| string| |   
+âââ`acquirer_id`| string| |   
+âââ`action_code`| string| |   
+âââ`amount`| bigint| |   
+âââ`atc1`| string| |   
+âââ`atc2`| string| |   
+âââ`card_bin`| string| |   
+âââ`card_brand`| string| |   
+âââ`card_category`| string| |   
+âââ`card_credit_limit`| bigint| |   
+âââ`card_effective_date`| string| |   
+âââ`card_expiration_date`| string| |   
+âââ`card_id`| string| |   
+âââ`card_last4`| string| |   
+âââ`card_pan`| string| |   
+âââ`card_presence_flag`| boolean| |   
+âââ`card_status`| string| |   
+âââ`card_type`| string| |   
+âââ`cardholder_bill_amount`| bigint| |   
+âââ`currency_code`| string| |   
+âââ`customer_city`| string| |   
+âââ`customer_country_code`| string| |   
+âââ`customer_email`| string| |   
+âââ`customer_id`| string| |   
+âââ`customer_name`| string| |   
+âââ`customer_phone`| string| |   
+âââ`customer_region`| string| |   
+âââ`customer_street_addr`| string| |   
+âââ`customer_zip`| string| |   
+âââ`device_id`| string| |   
+âââ`event_occurred_at`| bigint| |   
+âââ`last_sca_at`| bigint| |   
+âââ`lifecycle_id`| string| |   
+âââ`mcc`| string| |   
+âââ`pos_card_capture_cap`| string| |   
+âââ`pos_cardholder_ver_cap`| string| |   
+âââ`pos_read_cap`| string| |   
+âââ`secure_3d_val_code`| string| |   
+âââ`session_id`| string| |   
+âââ`sic_code`| string| |   
+âââ`terminal_city`| string| |   
+âââ`terminal_country_code`| string| |   
+âââ`terminal_id`| string| |   
+âââ`terminal_latitude`| double| |   
+âââ`terminal_longitude`| double| |   
+âââ`terminal_poc_flag`| string| |   
+âââ`terminal_region`| string| |   
+âââ`terminal_street_addr`| string| |   
+âââ`terminal_zip`| string| |   
+âââ`ttc`| string| |   
+âââ`capture_date`| string| |   
+âââ`transaction_status`| string| |   
+âââ`dispute_end_date`| string| |   
+âââ`dispute_feedback_notes`| string| |   
+âââ`dispute_refunded`| string| |   
+âââ`feedback_type`| string| |   
+âââ`oob_end_date`| bigint| |   
+âââ`oob_feedback_notes`| string| |   
+âââ`oob_response_type`| string| |   
+âââ`dispute_notes`| string| |   
+âââ`dispute_reason`| string| |   
+âââ`dispute_start_date`| bigint| |   
+âââ`dispute_submitted_by`| string| |   
+âââ`info_type`| string| |   
+âââ`oob_comm_type`| string| |   
+âââ`oob_notes`| string| |   
+âââ`oob_start_date`| bigint| |   
+âââ`action_alert`| boolean| |   
+âââ`action_auto_approve_card`| boolean| |   
+âââ`action_auto_decline_card`| boolean| |   
+âââ`action_limit_review_card`| boolean| |   
+âââ`channelId`| string| |   
+âââ`curated_explanations`| json| |   
+âââ`device_ip`| string| |   
+âââ`event_type`| string| |   
+âââ`fraud_score`| double| |   
+âââ`outcome_decision`| string| |   
+âââ`sca_required`| boolean| |   
+âââ`tenant`| string| The tenant of the event.| feedzai  
+âââ`account_currency`| string| |   
+âââ`account_type`| string| |   
+âââ`cardholder_bill_conv_rate`| double| |   
+âââ`customer_dob`| string| |   
+âââ`customer_occupation`| string| |   
+âââ`fields_customer_segment`| string| |   
+âââ`event_external_id`| string| |   
+âââ`event_subtype`| string| |   
+âââ`payment_sub_type`| string| |   
+âââ`payment_type`| string| |   
+âââ`terminal_ip`| string| |   
+âââ`transaction_notes`| string| |   
+âââ`sanctions_alert`| boolean| |   
+âââ`sanctions_outcome_decision`| string| |   
+âââ`card_format`| string| |   
+âââ`mc_service_indicator`| string| |   
+âââ`mc_service_indicator_value`| string| |   
+âââ`mc_rule_score`| string| |   
+âââ`mc_rule_score_reason1`| string| |   
+âââ`mc_rule_score_reason2`| string| |   
+âââ`mc_final_autho_indicator`| string| |   
+âââ`mc_trace_id`| string| |   
+âââ`mc_transaction_type_identifier`| string| |   
+âââ`mc_authentication_flag`| string| |   
+âââ`mc_card_ver_result`| string| |   
+âââ`mc_terminal_ver_result`| string| |   
+âââ`mc_service_data`| string| |   
+âââ`mc_trx_initiate_indicator`| string| | 

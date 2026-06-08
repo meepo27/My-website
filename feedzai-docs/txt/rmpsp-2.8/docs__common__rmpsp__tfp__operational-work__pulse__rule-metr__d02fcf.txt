@@ -1,0 +1,99 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/rule-metrics
+Title: Rule Metrics | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Pulse Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/pulse-guide)
+  * Rule Metrics
+
+
+
+# Rule Metrics
+
+The following table lists the schema fields that are required for the PSP Rules Plan: 
+
+**Field Name**| **Field Type**| **Description**  
+---|---|---  
+amount| LONG| The total transaction amount, in cents. For currencies that don't have cents representation, multiply the value by 100 in order to guarantee processing consistency.  
+amount_unified_currency| LONG| Amount converted to cents for a given unified currency.  
+billing_email| STRING| The email from the billing information associated with this transaction.  
+card_presence_flag| BOOLEAN| Indicates if the transaction is CP or CNP.  
+customer_email| STRING| The email address of the end customer.  
+customer_id| STRING| ID of the end customer initiating the operation in the client's system.  
+device_id| STRING| Customer's device unique ID.  
+device_ip| STRING| The IP of the device used to perform the transaction. Typically from the end customer.  
+event_occurred_at| TIMESTAMP| Timestamp corresponding to the moment the current event occurred (i.e. not the original event in Info and Settlement events, with the exception of Pre-decided Info events; in milliseconds since the Unix epoch).  
+event_type| STRING| N/A  
+info_type| STRING| Indicates the sub-type of the info event. Possible values: dispute, refund, capture, void, not_honor, pre_decided, additional_info.  
+merchant_id| STRING| The ID of the transaction's recipient in the client's system.  
+payment_auth_status| STRING| The status of the authorization for post-authorization scoring. Pending only applied to 3D Secure payments.  
+payment_card_bin| STRING| The BIN (first 6 digits) of the card number.  
+payment_card_country_code| STRING| The country (ISO 3166 alpha-2 code) of the card's issuer.  
+payment_card_expiration| STRING| Specifies the card's expiration date (YYMM).  
+payment_card_id| STRING| A best effort identifier of this card.  
+payment_method_id| STRING| The ID of this payment method within the transaction. E.g. Klarna, PayPal, ApplePay, GPay.  
+payment_method_type| STRING| The payment method registered for the transaction at the time of the event. E.g. card, apm.  
+shipping_addr_line1| STRING| The first line of this shipping address.  
+shipping_addr_line2| STRING| The second line of this shipping address.  
+shipping_city| STRING| The city of this shipping address.  
+shipping_country_code| STRING| The country (ISO 3166 alpha-2 code) of this shipping address.  
+shipping_region| STRING| The region of this shipping address.  
+shipping_zip| STRING| The ZIP code of this shipping address.  
+terminal_id| STRING| Unique ID of the terminal that processed the transaction.  
+  
+The following table shows the features in the standard plan together with the fields needed to calculate each of them:
+
+**Plan Field**| **Field Type**| **Schema fields used**| **Description**  
+---|---|---|---  
+amount_as_str| STRING| amount| Payment amount written as a string.  
+full_shipping_address| STRING| shipping_addr_line1shipping_addr_line2shipping_city shipping_country_codeshipping_regionÂ shipping_zip| Concatenation of all the fields composing the shipping address in a single string.  
+card_days_to_expire| LONG| event_occurred_at payment_card_expiration| Number of remaining days for the card to expire until the event date.  
+norm_shipp_addr_line| STRING| shipping_addr_line1shipping_addr_line2| Concatenation of the first and second line of the shipping address in a single string.  
+sign_count| LONG| event_typeinfo_type payment_auth_status|   
+  
+posneg_card_value| STRING| payment_card_id| Value defined by a Posneg list indicating the action to be taken by the rules according to the payment_card_id used in the payment.  
+posneg_device_ip_value| STRING| device_ip| Value defined by a Posneg list indicating the action to be taken by the rules according to the device_ip used in the payment.  
+posneg_customer_email_value| STRING| customer_email| Value defined by a Posneg list indicating the action to be taken by the rules according to the customer_email used in the payment.  
+posneg_mid_value| STRING| merchant_id| Value defined by a Posneg list indicating the action to be taken by the rules according to the merchant_id involved in the payment.  
+posneg_terminal_id_value| STRING| terminal_id| Value defined by a Posneg list indicating the action to be taken by the rules according to the terminal_id used in the payment.  
+posneg_device_id_value| STRING| device_id| Value defined by a Posneg list indicating the action to be taken by the rules according to the device_id used in the payment.  
+posneg_card_country_value| STRING| payment_card_country_code| Value defined by a Posneg list indicating the action to be taken by the rules according to the payment_card_country_code.  
+posneg_card_bin_value| STRING| payment_card_bin| Value defined by a Posneg list indicating the action to be taken by the rules according to the payment_card_bin used in the payment.  
+posneg_full_ship_addr_value| STRING| full_shipping_address| Value defined by a Posneg list indicating the action to be taken by the rules according to the full_shipping_address used in the payment.  
+posneg_norm_shipp_addr_line| STRING| norm_shipp_addr_line| Value defined by a Posneg list indicating the action to be taken by the rules according to the norm_shipp_addr_line used in the payment.  
+small_amount_trn_value| DOUBLE| -| Small amount transaction value defined in the Global Default - Rules Thresholds.  
+email_merch_sum_amt_7d| LONG| amount_unified_currencycustomer_emailevent_typemerchant_id| Sum amount involved in payments performed by a given customer_email to a merchant_id over the last 7 days.  
+email_merch_cnt_7d| LONG| customer_emailevent_typemerchant_id| Number of payments performed by a customer_email to a merchant_id over the last 7 days.  
+fail_email_merch_dist_card_7d| LONG| customer_emailevent_typemerchant_idpayment_auth_statuspayment_card_id| Number of distinct payment_card_ids involved in failed payment attempts performed by a given customer_email to a given merchant_id over the last 7 days.  
+email_merch_sum_amt_1d| LONG| amount_unified_currencycustomer_emailevent_typemerchant_id| Sum amount involved in payments performed by a given customer_email to a merchant_id over the past day.  
+email_merch_cnt_1d| LONG| customer_emailevent_typemerchant_id| Number of payments performed by a customer_email to a merchant_id over the past day.  
+fail_email_dist_card_7d| LONG| event_typecustomer_emailpayment_auth_statuspayment_card_id| Number of distinct payment_card_ids involved in failed payment attempts performed by a given customer_email over the last 7 days.  
+cust_merch_sum_amt_7d| LONG| amount_unified_currencycustomer_idevent_typemerchant_id| Sum amount involved in payments performed by a given customer_id to a merchant_id over the last 7 days.  
+cust_merch_cnt_7d| LONG| customer_idevent_typemerchant_id| Number of payments performed by a customer_id to a merchant_id over the last 7 days.  
+cust_merch_sum_amt_1d| LONG| amount_unified_currencycustomer_idevent_typemerchant_id| Sum amount involved in payments performed by a given customer_id to a merchant_id over the past day.  
+cust_merch_cnt_1d| LONG| customer_idevent_typemerchant_id| Number of payments performed by a customer_id to a merchant_id over the past day.  
+devip_merch_cnt_1d| LONG| device_ipevent_typemerchant_id| Number of payments performed through a device_ip to a merchant_id over the past day.  
+fail_ip_dist_card_1d| LONG| device_ipevent_typemerchant_idpayment_auth_statuspayment_card_id| Number of distinct payment_card_ids involved in failed payment attempts performed by a given device_ip over the past day.  
+shipaddr_merch_cnt_7d| LONG| event_typefull_shipping_addressmerchant_id| Number of payments to a merchant_id having the same full_shipping_address over the last 7 days.  
+shipaddr_merch_cnt_1d| LONG| event_typefull_shipping_addressmerchant_id| Number of payments to a merchant_id having the same full_shipping_address over the past day.  
+merch_bill_email_dist_card_1d| LONG| billing_emailevent_typemerchant_idpayment_card_id| Number of distinct payment_card_ids used by a billling_email in payments to merchant_id over the past day.  
+merch_device_dist_card_1d| LONG| device_idevent_typemerchant_idpayment_card_id| Number of distinct payment_card_ids used by a device_id in payments to merchant_id over the past day.  
+merch_cardbin_cntDist_cardExpD| LONG| card_days_to_expiremerchant_idpayment_card_binpayment_card_expirationpayment_card_id| Number of distinct payment_card_expirations associated to events involving a given merchant_id and a payment_card_bin over the last 10 minutes.  
+merch_cardbin_cntDist_card_10m| LONG| card_days_to_expiremerchant_idpayment_card_binpayment_card_expirationpayment_card_id| Number of distinct payment_card_ids associated with events involving a given merchant_id and a payment_card_bin over the last 10 minutes.  
+card_merch_sum_amt_1d| LONG| amount_unified_currencyevent_typemerchant_idpayment_card_id| Sum amount involved in payments performed by a given payment_card_id to a merchant_id over the past day.  
+fail_dist_card_merch_1min| LONG| event_typemerchant_idpayment_auth_statuspayment_card_id| Number of distinct payment_card_ids involved in failed payment attempts to a given merchant_id over the past minute.  
+merch_small_amt_cnt_15min| LONG| amount_unified_currencyevent_typemerchant_idpayment_method_type| Number of card payments associated with a merchant_id having the amount_unified_currency <=Â small_amount_trn_value over the last 15 minutes.  
+appr_card_merch_amtstr_cnt_1d| LONG| amount_as_strevent_typeinfo_typepayment_auth_statuspayment_card_idmerchant_id|   
+  
+card_merch_dist_email_1d| LONG| customer_emailevent_typemerchant_idpayment_card_id| Number of distinct customer_emails associated with payment events involving a given merchant_id and a payment_card_id over the past day.  
+card_merch_cnt_1d| LONG| event_typemerchant_idpayment_card_id| Number payment events involving a given merchant_id and a payment_card_id over the past day.  
+fail_card_cnt_1d| LONG| event_typepayment_auth_statuspayment_card_id| Number of failed attempts involving a given payment_card_id.  
+cnp_card_dist_merch_5min| LONG| card_presence_flagevent_typemerchant_idpayment_card_id| Number distinct merchant_ids involved in CP payment events performed with the same payment_card_id.  
+apm_merch_cust_email_sum_24h| LONG| customer_emailevent_typemerchant_idpayment_method_idpayment_method_type| Sum amount involved in APM payments performed by a given customer_email to a merchant_id using a given payment_method_id over the last 24 hours.  
+apm_merch_cust_email_cnt_24h| LONG| customer_emailevent_typemerchant_idpayment_method_idpayment_method_type| Number of APM payments performed by a given customer_email to a merchant_id using a given payment_method_id over the last 24 hours.  
+merch_cardbin_cur7|   
+| merch_cardbin_cntDist_cardExpDmerch_cardbin_cntDist_card_10m  
+  
+|   
+

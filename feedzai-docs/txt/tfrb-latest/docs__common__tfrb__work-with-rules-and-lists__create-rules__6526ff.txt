@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/understand-workflow
+Title: Understand the Workflow | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * Understand the Workflow
+
+
+
+On this page
+
+# Understand the Workflow
+
+Was this page helpful?Â 
+
+For clarity, this page uses the example of Cards API's workflow to explain the fundamentals of how it works.
+
+tip
+
+Make sure you read Pulse's [core concepts](https://cam.feedzai.com/pulse/25.0.0/docs/common/understanding-pulse/core-concepts) to get a better picture of how Pulse works.
+
+Note that all Authorization, Info, Clearing, and Feedback events pass through this workflow. However, not all events are needed for scoring. Therefore, this workflow contains two filters that discard events that aren't needed. Filters are displayed as blue-dashed lines between the blocks.
+
+  1. When any event first arrives, Feedzai applies the first filter, discarding all Clearing events.
+  2. The events will go through the Plan, which is where data is enriched / processed (i.e. where metrics / fields are created to be later used by rules).
+  3. Any feedback event resulting from fraud analysts' "fraud" or "not fraud" decisions, will pass through Feedback Rules.
+     1. These events' entities (cards) will trigger the List Management Service, which will list them to be approved or declined.
+  4. The second filter is applied in PosNeg Rules to discard all entities listed to be declined.
+  5. Filtered events (i.e. Authorization events) will go through the remaining rules projects (and model).
+
+
+
+## Nextâ
+
+Go to the next building block in the rule creation process:
+
+* [Change the Plan](/docs/common/tfrb/work-with-rules-and-lists/create-rules/change-plan)

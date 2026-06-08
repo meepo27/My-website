@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/about/overview
+Title: Transaction Fraud for Banking | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * Transaction Fraud for Banking
+
+
+
+# Transaction Fraud for Banking
+
+Was this page helpful?Â 
+
+### [About Transaction Fraud for BankingLearn the basics to have a solid understanding of how the solution works](/tfrb/latest/docs/common/tfrb/overview)
+
+### [Operational workExplore TFB's practical guides to help data scientists, analysts, and managers use the software](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+
+### [API resourcesLearn all the operations you can do with Feedzai's API and how to communicate with its multiple endpoints](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+
+### [ReferencesLearn about rules projects, lists, schemas, schema mappings, among other topics](/tfrb/latest/docs/common/tfrb/references/overview)
+
+### [Admin resourcesLearn about the default roles and permissions](/tfrb/latest/docs/common/tfrb/admin-resources/overview)

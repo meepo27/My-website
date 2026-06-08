@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/custom-fields
+Title: Custom Fields | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [API Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/overview)
+  * [Additional Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/additional-resources)
+  * Custom Fields
+
+
+
+On this page
+
+# Custom Fields
+
+The `custom_fields` is a complex field that allows you to use custom fields without making changes to Pulse and Case Manager's schemas. This field is a JSON object that supports key values of type string.
+
+info
+
+Only the `custom_fields` field is under a strict interface as an optional JSON object with optional properties of type string. The internal properties won't be under a strict interface and only the type string will be validated. Note that all the integrations must be carefully done and should respect the defined names for the custom fields.
+
+The following example helps you understand how you can add two custom fields (`risk_score` and `risk_level`) to the message payload:
+    
+    
+    (...)  
+    "custom_fields": {  
+        "risk_score": "7.3",  
+        "risk_level": "high"  
+    },  
+    (...)  
+    
+
+Note that, even though the `risk_score` is a number, it must be sent as a string and handled as such when needed in the workflow.
+
+These custom fields can be easily used in rules or displayed in Case Manager. User-Defined Functions (UDFs) allow you to use custom fields in rules. You can extract the desired value from the custom field and convert it to the desired type. The following image shows you an example of the aforementioned custom fields:
+
+You can add them to Case Manager by using the **Edit** button from the Event page. Type the `event.fields.custom_fields` prefix (e.g. `event.fields.custom_fields.risk_score`) as follows:
+
+## Configurationâ
+
+Custom fields support the following configurations:
+
+  * Limit: maximum number of custom fields in a single event.
+    * Optional with default value `10`.
+    * The affected endpoints have the `customFields.limit` configuration with value `10`
+  * Allowed fields list: if defined, only fields present in the list can be sent.
+    * Optional and without default value.
+    * The affected endpoints don't have the `customFields.allowedFieldsList` configuration defined.
+
+
+
+## Restrictionsâ
+
+  * The limit of custom fields must be defined and greater than `0`.
+  * The name field must be between 1 and 30 characters.
+  * The name field allows only lowercase letters, numbers, underscore and dash.
+
+

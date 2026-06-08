@@ -1,0 +1,113 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/test-scenario-example-with-postman-collection
+Title: Test Scenario Example with Postman Collection | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/overview)
+  * [Rule Testing](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/overview)
+  * Test Scenario Example with Postman Collection
+
+
+
+On this page
+
+# Test Scenario Example with Postman Collection
+
+This section contains an example on how to design test cases for rules. Different data and details are evaluated in order to create a scenario that will lead to the rule being triggered upon the specified conditions.
+
+The test specification example was designed to test the rule `Failed-3DS-Count-Rate-FR1`. This section contains the test description and the test data to be injected into the system for the given merchant monitoring rule. Only the set of fields that contribute to the metric calculation and rule conditions evaluation are indicated. For other fields, default values can be used.
+
+## Rule detailsâ
+
+#### Rule nameâ
+
+`Failed-3DS-Count-Rate-FR1`: Failed 3ds count rate, over the last month, is equal to or above a set threshold.
+
+#### Rule propertiesâ
+
+Property| Description| Value  
+---|---|---  
+Rule Alerting Frequency| The frequency at which the rule will be evaluated and alerts generated for this rule| Everyday  
+Historical Period| Historical period that applies to the Rule being tested| N/A  
+Lookback Period| Look-back period that applied to the Rule being tested| 1 month  
+  
+#### Client risk rating parametersâ
+
+Parameter| Default Value  
+---|---  
+count_3ds_limit_1m| 0.6  
+min_avg_amount| 1  
+min_trx_count| 1  
+  
+## Test specification example for `Failed-3DS-Count-Rate-FR1`â
+
+#### Test scenarioâ
+
+The fraud rule `Failed-3DS-Count-Rate-FR1` verifies that the failed 3ds payments over the total number of payments, over the last month, is equal to or above a set threshold.
+
+To trigger this rule, the following requests are needed with the same `merchant_id`:
+
+  * 1 payment request
+  * 1 info request with `payment_3ds_status_code`: `F`
+  * 1 merchant monitoring request
+
+
+
+#### Payment workflow dataâ
+
+Timestamp| Merchant Id| Request  
+---|---|---  
+T+0| merchant_id_fr1| payment  
+T+1| merchant_id_fr1| info  
+T+2| dummy_event*| payment  
+T+3| dummy_event*| merchant monitoring  
+T+4| merchant_id_fr1| merchant monitoring  
+  
+Dummy events are used to move workflow clocks forward.
+
+## Postman Collectionâ
+
+Feedzai offers an out-of-the-box postman collection that enables you to test the `Failed-3DS-Count-Rate-FR1` rule.
+
+For more details on the rules scope, check the official documentation provided by Feedzai in [Rules Projects](/rmpsp/2.8/docs/common/rmpsp/mm//oob-resources/rules-projects/mm-bankrupcy-risk-rules).
+
+The postman collection is available for download [here](/rmpsp/2.8/postman-psp-collection.tar.gz).
+
+#### General descriptionâ
+
+Postman Execution Order| Description  
+---|---  
+0 - Setup| Load postman collection  
+1 - Inject payments| Run requests 1 and 2  
+2 - Move clocks| Run requests 3 and 4 with dummy data  
+3 - Run SMJs| Triggers the Scheduled Metric Job that calculates the metrics usin the injected transactions and customers/accounts  
+4 - Run merchant monitoring| Run request 5 with the merchant monitoring request  
+5 - Verify data in CM| Run request 5 with the merchant monitoring request  
+  
+## Detailed descriptionâ
+
+  1. **Setup**
+
+     * Load both the collection (`RMPSP MM Test Guide.postman_collection.json`) and the environment (`Local RMPSP.postman_environment.json`) in your Postman instance.
+  2. **Inject payments**
+
+     * Inject payment transactions (requests 1 and 2).
+  3. **Move workflow clocks**
+
+     * Inject dummy payment and merchant monitoring transactions. These transactions are used to advance the workflow clock to the desired timestamp to be used by the Scheduled Metric Job to calculate the metrics' windows from (requests 3 and 4).
+  4. **Run SMJs**
+
+     * Log into Pulse.
+     * Go to `/pulseviews/management/#apps/mm/jobs`.
+     * Run both Scheduled Metrics Jobs from the Registered Jobs section.
+     * Wait for the Scheduled Metrics Jobs to finish.
+  5. **Inject merchant monitoring**
+
+     * Inject merchant monitoring transactions (request 5).
+  6. **Verify rules triggered in Case Manager**
+
+     * Open the merchant monitoring event in Case Manager, where the `Failed-3DS-Count-Rate-FR1` rule will appear in the Rules Triggered widget.
+
+

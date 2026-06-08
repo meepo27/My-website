@@ -1,0 +1,113 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3100-HSBC-3443-Add-new-fields-to-Cards
+Title: HSBC-3100-HSBC-3443-Add-new-fields-to-Cards | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3100-HSBC-3443-Add-new-fields-to-Cards
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-25618FTMT-29492HSBC-3100HSBC-3443
+
+Also In:2.9.0
+
+We have added the below fields to the Cards API schema:
+
+**Field Name**| **Datatype**| **Also In 2.9.0**  
+---|---|---  
+transaction_priority| String| X  
+global_customer_identifier| String| X  
+on_us_flag| String| X  
+auth_tran_type| String| X  
+cardholder_bill_currency_code| String| X  
+card_account_pre_tran_cash_bal| Double|   
+card_account_cash_limit| Double|   
+card_account_client_def_limit| Double|   
+card_delinquency_days| Integer|   
+card_currency_conv_rate| Double|   
+card_account_txn_count_limit| Long|   
+card_limit_currency_conv_rate| Double|   
+card_account_limit_type| String|   
+card_entity_usage| String|   
+card_pb_user_id_usage| String|   
+card_channel_level_count_limit| Long|   
+card_channel_currency_conv_rate| Double|   
+card_phone_banking_user_id| String|   
+card_previous_action_info| String|   
+card_action_until_timestamp| Long|   
+card_customer_type_indicator| String|   
+card_clnt_def_tran_exp_date| Long|   
+card_utc_indicator| String|   
+card_multi_events| String|   
+card_auth_cust_old_address| String|   
+card_hub_guid_customer_id| String|   
+digital_wallet_token_txn_new| String|   
+card_clring_cheque_mail_cntry| String|   
+card_unique_id| String|   
+card_account_sending_fund| String|   
+card_stip_reason_cde_changes| String|   
+card_expiry_date_val_result| String|   
+card_cnp_tran_not_thresh_amt| Double|   
+card_upstream_fraud_score| Double|   
+card_upstream_fraud_reason_code| String|   
+card_update_pass_wallet_date| Long|   
+card_activity_comp_detl_1| String|   
+card_activity_comp_detl_2| String|   
+card_activity_comp_detl_3| String|   
+card_client_transaction_type| String|   
+card_message_destination_name| String|   
+card_transaction_component_type| String|   
+card_instant_credit_indicator| String|   
+card_biometric_verify_ind| String|   
+card_customer_present_details| String|   
+card_message_expiry_date| Long|   
+card_termnl_pan_entry_capblty| String|   
+card_customer_type| String|   
+card_customer_language| String|   
+card_customer_level_limit_amt| Double|   
+card_customer_level_limit_cnt| Long|   
+card_customer_level_conv_rate| Double|   
+card_current_action_code| String|   
+card_travel_indicator| String|   
+card_cnp_tran_notification| String|   
+card_mobile_match| String|   
+card_atm_transaction_type| String|   
+card_auth_system_warning_code| String|   
+card_acc_last_txn_date| Long|   
+card_active_flag| String|   
+card_frst_use_flag| String|   
+card_pri_first_use_flag| String|   
+card_cnp_threshold_amount| Double|   
+card_cycles_over_limit| Integer|   
+card_dispatch_branch_sortcode| String|   
+card_last_auth_date| Long|   
+card_last_exp_cmf_date| Long|   
+card_ond_vec_value| Integer|   
+card_san_account_number| String|   
+card_address_home_pc| String|   
+card_customer_income| Double|   
+card_held_dob| String|   
+card_staff_member_indicator| String|   
+card_vip_indicator| String|   
+created_at| Long|   
+sender_initiated_at| Long|   
+sender_initiated_at_local| String|   
+event_created_at| Long|   
+event_received_at| Long|   
+local_datetime_alt| String|   
+card_latitude_longitude| String|   
+card_c_type_atm_debit| String|   
+card_account_change| String|   
+card_hcc_box| String|   
+card_last_expiry_date| Long|   
+card_ond_vec_status| String|   
+card_p_ac_t_atm_debit| String|   
+card_code_card_type| String|   
+card_account_new_status| String|   
+crypto_transaction_info| String|   
+card_transaction_ref_number| String|   
+lifecycle_id_alt| String|   
+saf_ind| String|   
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.

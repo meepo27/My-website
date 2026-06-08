@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/ad-hoc-investigations/overview
+Title: Ad-Hoc Investigations (with add-on) | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Agent](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/case-manager-guide)
+  * Add-Hoc Investigations (with add-on)
+
+
+
+# Ad-Hoc Investigations (with add-on)
+
+Ad-hoc investigations allow fraud prevention agents to initiate an investigation for a specific merchant from an external source (e.g. a regulator requesting a specific merchant assessment) or on an ad-hoc basis. 
+
+This channel also leverages the Merchant Monitoring workflow by incorporating insights from ad-hoc investigation events. This is accomplished through cross-channel metrics, which allow the Merchant Monitoring workflow score to consider relevant events or data from this channel.
+
+This guide provides you with the following information:
+
+  * [Event flow](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/ad-hoc-investigations/event-flow)
+  * [Investigate merchants on an ad-hoc basis](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/ad-hoc-investigations/investigate-merchants)
+
+

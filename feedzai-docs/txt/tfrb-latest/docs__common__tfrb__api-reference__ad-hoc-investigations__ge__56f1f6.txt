@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/ad-hoc-investigations/generated-fields
+Title: Generated Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Ad-hoc Investigations
+  * Generated Fields
+
+
+
+On this page
+
+# Generated Fields
+
+Was this page helpful?Â 
+
+The Ad-hoc Investigations API generates some fields which will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Investigation| investigation  
+Info| info  
+Feedback| feedback  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Ad-hoc Investigations API as a timestamp, in milliseconds.

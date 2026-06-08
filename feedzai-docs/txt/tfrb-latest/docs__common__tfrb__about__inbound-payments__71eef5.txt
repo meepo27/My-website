@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/about/inbound-payments
+Title: Inbound Payments | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * Inbound Payments
+
+
+
+# Inbound Payments
+
+Was this page helpful?Â 
+
+In response to regulatory requirements and the rise of Authorized Push Payment (APP) scams, Transaction Fraud for Banking (TFB) includes a risk strategy for Inbound Payments. This addition also allows Feedzai to use the inbound payment data for subsequent outbound transactional decisions, especially in scenarios where fraudsters attempt to move the money out of that account to evade detection.
+
+TFB includes a dedicated Inbound Payments channel that operates independently from Outbound transfers. This separation enables the scoring of inbound events and the development of a dedicated risk strategy tailored specifically for inbound transactions.
+
+This channel allows to make decisions at an inbound-event level, as well as investigate other inbound payment events within the transaction history widgets across all payment types.
+
+Moreover, the Inbound Payments API follows the same definition as the Transfers API, ensuring a seamless integration process for clients. This API allows to segregate the strategy for inbound payments and leverage inbound payment data to make risk decisions not only on the legitimacy of received funds but also on any associated risks if these funds are subsequently used for outbound transactions.
+
+Take a look at the available information on Inbound Payments:
+
+### [Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/inbound-payments/transaction-life-cycle)
+
+### [Fraud Scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/inbound-payments)
+
+### [API](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/inbound-payments)
+
+### [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/inbound-payments-rules)
+
+### [Pulse Schemas](/tfrb/latest/docs/common/tfrb/references/pulse-schemas#Inbound-Payments-API-Schema)

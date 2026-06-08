@@ -1,0 +1,42 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle
+Title: Cards | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * Cards
+
+
+
+On this page
+
+# Cards
+
+Was this page helpful?Â 
+
+Learn about the transaction life cycle and understand how the Cards API is used in the different stages of a transaction, e.g. authorizations, disputes, and clearings.
+
+## Transaction life cycleâ
+
+This provides various endpoints to process transactions - Authorization, Info, Clearing, and Feedback - designed to map directly with version 3 of the ISO 8583. The following diagram shows how these endpoints come into play within a typical transaction use case:
+
+These endpoints allow users to send information at different stages of a transaction life cycle as follows:
+
+  * **Authorization (x1xx and x2xx messages):** Allows Feedzai's customers to leverage Feedzai's data science capabilities to score a transaction according to its risk. The x1xx messages refer to the transaction authorization, and the x2xx messages refer to funds requests.
+  * **Info (x1xx and x2xx messages):** Allows Feedzai's customers to update and add new information to an existing transaction, as well as to notify Feedzai about transactions processed upstream. The x1xx messages refer to the transaction authorization, and the x2xx messages refer to funds requests.
+  * **Clearing (x5xx messages):** Allows Feedzai's customers to inform Feedzai when a transaction is settled. Note that this endpoint is non-scorable, i.e. it does not flow through rules in order to generate a decision. However, the information is used by the Feedzai's risk engine platform to calculate metrics and profiles, and thus, impacts subsequent transfers associated with the same customer. It is also shown in the fraud analyst interface (Case Manager) as a new event to support the alert investigation. The x5xx messages communicate clearing information.
+  * **Feedback (x4xx messages):** Allows Feedzai's customers to label a transaction using pre-configured options that classify the transfer according to its risk. The labeling of an event is highly recommended since it gives feedback to Feedzai's platform enabling it to learn or consolidate illegal activity patterns. The x4xx messages refer to the dispute cases and reverse the action of a previous authorization.
+
+
+
+## Learn moreâ
+
+Learn more about the detailed life cycle of each endpoint within a transaction:
+
+  * [Authorization](/tfrb/latest/docs/common/tfrb/life-cycles/cards/authorization)
+  * [Info](/tfrb/latest/docs/common/tfrb/life-cycles/cards/info)
+  * [Clearing](/tfrb/latest/docs/common/tfrb/life-cycles/cards/clearing)
+  * [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback)
+
+

@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3399-Fix-Case-Manager-partial-updates-on-Digital-Activity-events
+Title: HSBC-3399-Fix-Case-Manager-partial-updates-on-Digital-Activity-events | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3399-Fix-Case-Manager-partial-updates-on-Digital-Activity-events
+
+### Fix Case Manager partial updates on Digital Activity eventsâ
+
+Bug FixFTMT-31199HSBC-3399
+
+We've fixed an issue where Digital Activity feedback events where processed as full updates of the original event. This would cause some fields, e.g. `decision`, to be updated although that is not the intended behaviour.

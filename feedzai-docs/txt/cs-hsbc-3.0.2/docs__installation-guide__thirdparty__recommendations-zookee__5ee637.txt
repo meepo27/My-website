@@ -1,0 +1,9 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-zookeeper
+Title: Recommendations for ZooKeeper | Feedzai Documentation
+============================================================
+
+# Recommendations for ZooKeeper
+
+##### info
+
+There are no configuration recommendations for this service besides the ones already described in the guide.

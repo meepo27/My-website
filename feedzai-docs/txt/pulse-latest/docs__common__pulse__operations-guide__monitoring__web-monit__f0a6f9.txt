@@ -1,0 +1,95 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/web-monitoring
+Title: Web Monitoring | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)  
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * Web Monitoring
+
+
+
+On this page
+
+# Web Monitoring
+
+Was this page helpful?Â 
+
+Pulse provides ways of managing and accessing information through the UI. This section describes what can be done and how it can be done regarding fine tuning your Pulse server via UI.
+
+## What Can Be Controlled?â
+
+Using the Pulse web interface it's possible to perform the following tasks:
+
+  * **Monitor and control** Pulse services
+  * **Manage** Pulse's configuration attributes
+  * **View** Pulse's log and general information
+
+
+
+## Manage Pulse Servicesâ
+
+Pulse Server is organized in services that handle each task comprised in it separately. In this section you will learn how to check what services are started and how they can be controlled. Below is an image of the UI to monitor Pulse services as well as a small description about each component:
+
+Beware
+
+Do not stop or restart services if you don't understand the service dependencies of Pulse Server.
+
+Switch between server node and application view
+
+By default this tab shows the services information for the whole Pulse Server node. You can choose an application to manage its resources in the top right corner of the tab.
+
+### Coreâ
+
+The core services are the base components of the Pulse Server. You cannot restart them because they are required for the correct operation of other Pulse services. You can, however, view their state.
+
+### Modulesâ
+
+Modules are components that provide advanced features such as KPIs and Baselines. These services can be fully administered using the UI, just make sure you know the implications of restarting them.
+
+### Adaptersâ
+
+In the adapters section you can check the input and output adapters available in the system. This table will list all the adapters in action currently as well as their state.
+
+### Standaloneâ
+
+This section contains the services that were uploaded using the custom services interface.
+
+### Webâ
+
+Availability
+
+Web services listing is only available for the whole server node view.
+
+The web section shows all the applications running in Pulse Web Server. There are two types of applications:
+
+  * **Core Service** \- these are the applications deployed with Pulse.
+  * **Web App** \- applications deployed by the users.
+
+
+
+## Infoâ
+
+This tab provides us with an overview of the system running the Pulse Server along with a few other interesting details. It also shows how many services are running, applications deployed and statistics about Kpis, Baselines and PKernel objects. It is also possible to check the Cluster information where all the nodes are listed along with their types, status and IP addresses.
+
+If your application is already running, you can choose it in the list of applications (Application Statistics sub-section) and pull charts that plot the CPU Usage and JVM Heap.
+
+## Logâ
+
+Feedzai Pulse logs all the operations being executed in the server in files. For ease of use the UI also allows you to access the last operations logged in your Pulse Server as well as download its log files.
+
+To change the level of the logger being used in the web console go to your **PULSE_HOME/conf/logger.xml** file and search for the **BUFFER** appender section.
+
+## Configurationâ
+
+Internally Feedzai Pulse uses a _properties file_ to save its configuration, but connecting to the server and editing a file isn't always a feasible option.
+
+This tab allows you to configure your Pulse Server using solely the UI.
+
+Restart Pulse Server
+
+All changes in configuration will need a restart of the service or even a full restart of Pulse Server.
+
+## What's Next?â
+
+Head over to [this section](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/) and learn how to secure your application resources.

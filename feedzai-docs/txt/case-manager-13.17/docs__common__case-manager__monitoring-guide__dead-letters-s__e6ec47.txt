@@ -1,0 +1,174 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/monitoring-guide/dead-letters-system
+Title: Dead Letters System | Case Manager
+============================================================
+
+On this page
+
+# Dead Letters System
+
+Dead letter message loggers
+
+To refer to the old dead letter system, see [Dead letter messages logger](/case-manager/13.17/docs/common/case-manager/monitoring-guide/dead-letter-messages-logger).
+
+## Introductionâ
+
+It's possible to configure different dead letters systems for the different features of Case Manager. These dead letters are used to make sure CM doesn't lose important information, such as getting an event from the queue and encountering an error that prevents the event from being properly processed and persisted in Case Manager.
+
+This dead letter system supports encryption, so that confidential data remains protected. It also has auto-recovery, in order to recover dead letters without any human intervention.
+
+There are several dead letters in Case Manager. The following list displays the available dead letters that can be configured according to the needs of the system. Note that some share the same configuration since they are very similar (e.g.: batches dead letters):
+
+  * **EVENT_QUEUES** , for errors during event ingestion.
+  * **PULSE_FEEDBACKS** , for errors while sending status change outcomes (feedback) to Pulse.
+  * **AUTOMATION_MANAGER** , for automation rules errors (e.g. failure to execute an automation due to an event not being persisted yet by the event storage batch).
+  * **EVENT_STORAGE** , for errors while persisting events to the AM_EVENT_STORAGE table.
+  * **EXPLANATIONS_STORAGE** , for errors while persisting events to the AM_EVENT_EXPLANATION table.
+  * **AUTOMATION_STORAGES** , for errors while persisting the results of automation rule actions to the different tables.
+  * **EVENT_COMMON_STORAGE** , for errors while persisting events to the AM_EVENT_COMMON table.
+
+
+
+## Core Configurationâ
+
+To enable this feature, add it to the configuration as displayed in the following example:
+
+config.json
+    
+    
+    ...  
+    "deadletter": {  
+      "confs" {  
+          "event_queues": {  
+            "enabled": true,  
+            "dump_directory": "/some-directory",  
+            "flushing_interval": 5000,  
+            "max_recovery_attempts": 3,  
+            "queue_size": 1000,  
+            "recovery_cron_expression": "0 0 * ? * * *",  
+            "rate_limiter": 0,  
+            "fatal_failure_regex": ".*IllegalStateException.*",  
+            "encryption_dump_config": {  
+              "enabled": false,  
+              "secret": "815a829f2a918959822dc33080a8a58c",  
+              "cipher_mode": "AES/GCM/NoPadding"  
+            }  
+            "recovery_job_timeout": 7200000  
+          },  
+          "feedback": {  
+            // Same as "event_queues".  
+          },  
+          "triggers": {  
+            // Same as "event_queues".  
+          },  
+          "storage_batches": {  
+            // Same as "event_queues".  
+          }  
+        }  
+    },  
+    ...  
+    
+
+There are 4 main groups of configurations:
+
+  * **event_queues** : Applies to the **EVENT_QUEUES** dead letter.
+  * **feedback** : Applies to the **PULSE_FEEDBACKS** dead letter.
+  * **triggers** : Applies to the **AUTOMATION_MANAGER** dead letter.
+  * **storage_batches** : Applies to all the batch storage related dead letters, namely, **EVENT_STORAGE** , **EXPLANATIONS_STORAGE** , **AUTOMATION_STORAGES** and **EVENT_COMMON_STORAGE**.
+
+
+
+The configuration for each of the groups is exactly the same, but must be done separately.
+
+### Dead Letter Configurationâ
+
+Configuration Key| Description| Default| Restrictions  
+---|---|---|---  
+enabled| Whether the dead letter system is enabled.| false| true, false  
+dump_directory| The directory where the dead letter folders will be created.| var/dead-letters| String  
+flushing_interval| The flush interval _in milliseconds_ used to flush the writers to disk.| 1000 (1 second)| > 0  
+max_recovery_attempts| The maximum number of times that a dead letter can be reprocessed.| 3| >= 0 (0 means no recovery)  
+queue_size| The maximum size for the in memory queues where dead letters are persisted before being written to disk.| 1000| > 0  
+recovery_cron_expression| The recovery cron expression that defines when the auto-recovery will run.| 0 0 * ? * * * (every 1 hour)| Any valid cron expression  
+rate_limiter| The amount of entries that can be recovered per second.| 0 (unlimited)| >= 0  
+fatal_failure_regex| The regex to detect fatal failures which will mark an entry as non-recoverable.| _empty string_|  Any valid regex  
+encryption_dump_config| The configurations necessary to provide encryption support to the dead letter files.| Check encryption table| Disabled by default  
+recovery_job_timeout| The timeout (maximum amount of time) that the recovery job can take _in milliseconds_ before being aborted.| 7200000 (2 hours)| > 0  
+  
+### Dead Letter Encryption Configurationâ
+
+Configuration Key| Description| Default| Restrictions  
+---|---|---|---  
+enabled| Whether the encryption is enabled.| false| true, false  
+secret| The secret key encrypted and encoded in hexadecimal.| _empty string_|  String  
+cipher_mode| The cipher mode to be used.| "AES/GCM/NoPadding"| [Valid Cipher Mode](https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Cipher)  
+  
+### Cluster Configurationâ
+
+Configuration Key| Description| Default| Restrictions  
+---|---|---|---  
+enabled| Whether the cluster-mode is enabled.| false| true, false  
+database_driver| The JDBC Driver class name.| "org.postgresql.Driver"| String  
+validation_query| Query used to validate the connection each 50s.| _empty string_|  String  
+  
+## Auto-Recoveryâ
+
+The auto-recovery executes based on the _recovery_cron_expression_. For each of the contexts, it performs a different recovery action, namely:
+
+  * **EVENT_QUEUES** : events are re-injected into the RabbitMQ queue.
+  * **PULSE_FEEDBACKS** : feedbacks are re-sent to Pulse.
+  * **AUTOMATION_MANAGER** : triggers are re-processed by the Automation Manager.
+  * **EVENT_STORAGE** , **EXPLANATIONS_STORAGE** and **EVENT_COMMON_STORAGE** : models are re-added to the batch.
+  * **AUTOMATION_STORAGES** : if it fails to be persisted, it will be re-added to the batch. If it fails after being persisted, it will re-run the post flush actions.
+
+
+
+## Monitoring Metricsâ
+
+The dead letter system contains multiple metrics to monitor what is happening. The metrics are the same for all the contexts but are prefixed differently depending on the context.
+
+All the metrics start with `cm.<context-metric-prefix>`, whether _context-metric-prefix_ changes depending on the context:
+
+  * **EVENT_QUEUES** : `event_queues`
+  * **PULSE_FEEDBACKS** : `feedback`
+  * **AUTOMATION_MANAGER** : `automation_manager`
+  * **EVENT_STORAGE** : `event_storage`
+  * **EXPLANATIONS_STORAGE** : `explanations_storage`
+  * **AUTOMATION_STORAGES** : `automation_storage`
+  * **EVENT_COMMON_STORAGE** : `event_common_storage`
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+cm.<context-metric-prefix>.dump.storage.retry.queue.size| The total number of dead letters that are present in the in-memory queue to be written to the dump file in the retry folder.  
+| appType=CASE_MANAGERmetricType=APPLICATIONbatch={BATCH_NAME} _(only applies to AUTOMATION_STORAGES metrics)_ channel={QUEUE_NAME} _(only applies to EVENT_QUEUES metrics)_|  Gauge  
+cm.<context-metric-prefix>.dump.storage.failed.queue.size| The total number of dead letters that are present in the in-memory queue to be written to the dump file in the failed folder.  
+| appType=CASE_MANAGERmetricType=APPLICATIONbatch={BATCH_NAME} _(only applies to AUTOMATION_STORAGES metrics)_ channel={QUEUE_NAME} _(only applies to EVENT_QUEUES metrics)_|  Gauge  
+cm.<context-metric-prefix>.dump.storage.recovery.job| Whether the auto recovery job, which reprocesses dead letters dumped into the retry folder, is running or not.  
+| appType=CASE_MANAGERmetricType=APPLICATIONbatch={BATCH_NAME} _(only applies to AUTOMATION_STORAGES metrics)_ channel={QUEUE_NAME} _(only applies to EVENT_QUEUES metrics)_|  Gauge  
+cm.<context-metric-prefix>.dump.storage.dump.entries.retry.counter| The total number of dead letters that are currently stored in the disk to be retried by the auto recovery job.  
+| appType=CASE_MANAGERmetricType=APPLICATIONbatch={BATCH_NAME} _(only applies to AUTOMATION_STORAGES metrics)_ channel={QUEUE_NAME} _(only applies to EVENT_QUEUES metrics)_|  Counter  
+cm.<context-metric-prefix>.dump.storage.dump.entries.failed.counter| The total number of dead letters that are currently stored in the disk but already reached the maximum amounts of retry. These dead letters are no longer reprocessed and need to be recovered manually.  
+| appType=CASE_MANAGERmetricType=APPLICATIONbatch={BATCH_NAME} _(only applies to AUTOMATION_STORAGES metrics)_ channel={QUEUE_NAME} _(only applies to EVENT_QUEUES metrics)_|  Counter  
+  
+## Clusteringâ
+
+If enabled, the dead letter system creates a cluster with all Case Manager instances, which means that the instances are able to recover dead letters from other instances. This mode is important for deployments that need external persisted volumes (e.g.: kubernetes).
+
+caution
+
+To make sure that all dead letters can be recovered, it is important to have a shared filesystem where the dead letter can be written.
+
+To enable cluster-mode, add the following configuration to the `config.json` file:
+    
+    
+    "deadletter": {  
+      "confs" {  
+        ...  
+        ...    
+        },  
+      "clustering": {  
+        "enabled": "true",  
+        "database_driver": "org.database.TheDriver";  
+        "validation_query": "select * from TABLE limit 1;  
+        }  
+    },  
+    

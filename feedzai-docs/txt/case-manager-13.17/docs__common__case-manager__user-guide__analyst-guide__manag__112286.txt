@@ -1,0 +1,169 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/
+Title: Manage Self-Service Rules | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * Manage Self-Service Rules
+
+
+
+On this page
+
+# Manage Self-Service Rules
+
+[Self-Service Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules) (SSRs) allow financial institutions to quickly create a rule, test, and publish it directly in production without the need of specialized support by Feedzai. This page helps you to understand how to manage SSRs - create, view, edit, delete, and use the audit capabilities to have a clear understanding of all changes made.
+
+## Creating SSRsâ
+
+To create SSRs, perform the following steps:
+
+  1. Enter the **Self-Service Rules** page using the **Settings** option in the main menu.
+
+  2. Select the  button to open the SSR's creation form.
+
+
+
+
+As an example, imagine that you want to create a rule that blocks all transactions above $1000. The following steps show you how you can complete the form to create a rule accordingly.
+
+### Basic informationâ
+
+Start by adding the rule's basic information:
+
+  * **Name** : Rule identification. For example: _Transactions over $1000_
+
+  * **Explanations** : Explanation of the rule's purpose. For example: _Blocks transactions if the amount is over $1000_
+
+  * **Channel** : Defines the events that should be considered in the rule. For example: _Online banking_
+
+
+
+
+info
+
+The channel field is only visible if Case Manager is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+  * **Tenant** : In a multi-tenancy environment, this field allows to restrict the rule's visibility to a specific tenant or not. For example: _Global_
+
+  * **Rule Block** : Defines the rule block where the new rule will be added. Note that the available options depend on the **Tenant** field.
+
+
+
+
+### Conditions and Decisionâ
+
+Now that you have completed the rule's basic information, define how it will work including the conditions that must be met for the rule to trigger and the action that follows it.
+
+  * **Define** the **Conditions** that will trigger the rule by specifying the data source, field, [operator](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/operators-in-rule-writing), and value. In this example, the rule checks if the _amount_ field is _over 1000_.
+
+    * If needed, you can add multiple conditions according to your use case. Taking the example one step further, you can define, for example, to trigger the rule only when the transaction is made by specific customers. To add a condition, select the  button and then add a condition or a group condition.
+  
+
+    * **Group Conditions** help you to create rules more efficiently by allowing to use both **AND** and **OR** operators. In this example, you can create a Group Condition for each customer that you want the rule to check.
+  
+
+  * **Define** the **Decisions** that the rule will execute if the conditions are met by specifying the outcome and action to be performed.
+
+info
+
+The values displayed in the outcome and action fields depend on the **Rule Block** selected for the new rule.
+
+Using the same example, if the conditions are true, the transaction should be blocked, as shown in the following image:
+
+  * Lastly, **Define** the **Status** to indicate if the rule should go into effect immediately or not.
+
+Once you finish the rule configuration, select the **Create** button. Before the rule is created, you can test how it will impact the system and whether or not it will achieve the goal it was created for by quickly testing it against previous events.
+
+
+
+
+Learn more about [testing SSRs](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/testing-self-service-rules). If you prefer to test the rule later, select the  button. The SSR list is then updated and the new rule is added and highlighted. This means that your rule will only take effect when you publish the changes.
+
+## Viewing SSRsâ
+
+To view the full list of SSRs, access the **Self-Service Rules** page using the Settings  option in the main menu.
+
+info
+
+The channel tabs are only visible if Case Manager is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+### Filtering SSRsâ
+
+Use filters to refine the rules displayed on the list. This could be helpful to, for example, see all published rules.
+
+  * **All Publishing States** : Lists rules according to their publishing status: all, published, or unpublished rules.
+  * **Global Rules:** List only global rules or rules for the selected tenant.
+  * **Global Rules Block:** List only rules with the selected rules block.
+
+
+
+### Ordering SSRsâ
+
+When rules are created, they are saved at the bottom of the SSR list, meaning they will have the lowest priority in the rule set during their execution. To change the order of the rules, drag a rule and drop it into its new position. The SSR list is updated and the rule is highlighted. This means that your changes will only take effect when you publish the changes.
+
+## Editing SSRsâ
+
+After creating and testing your rule, you may want to, for example, tune its conditions to achieve a better result. To edit the rule, perform the following steps:
+
+  1. In the SSRs list, hover over the rule you want to edit and select the **Edit** option to open the Edit Rule page.
+
+
+
+  2. Make the necessary changes.
+
+  3. Select the **Save** button to save the changes. The SSR list is updated and the edited rule is highlighted. This means that your changes will only take effect when you publish the changes.
+
+
+
+
+## Publishing SSRsâ
+
+After you tested and tuned your rule, you can publish it in the production environment. To publish your rule:
+
+  1. Select the  button. Since this is a sensitive operation, Case Manager displays a window to confirm the its publishing.
+
+
+
+  2. Select the **Save** button to proceed with the publishing. Once the changes are published, the SSR list is updated and no rule is highlighted.
+
+
+
+## Deleting SSRsâ
+
+If you no longer want a certain rule in your system, you can delete it from the list. To delete a rule:
+
+  1. Hover over the rule you want to delete and select to **Delete** option. Since this is a sensitive operation, Case Manager will display a dialog for you to confirm its deletion.
+
+
+
+  2. Select the **Delete** button. The delete process varies according to the rule's publishing status, namely:
+
+     * Unpublished rules are automatically removed from the list.
+
+     * Published rules are kept on the list with an highlight and an indication that it was deleted. This means that your deletion will only take effect when you publish the changes.
+
+
+
+
+## Auditing SSRsâ
+
+Case Manager also provides auditing capabilities by easily displaying all changes made to a rule. To view a rule's audit trail, perform the following steps:
+
+  1. In the SSRs list, hover over the rule you want to audit and select to **View** the details of the rule.
+
+
+
+  2. In the rule details, select **Audit Trail** to change the view to the audit trail of the rule.
+
+
+
+## Learn Moreâ
+
+Learn more about Self-Service Rules and their configuration:
+
+  * [Self-Service Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules): Learn the basics about Self-Service Rules.
+  * [Testing Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/testing-self-service-rules): Have a complete understanding of how to test the rules you create so that you make the most out of them.
+  * [Operators in Rule Writing](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/operators-in-rule-writing): Learn more about the different operators used to write SSRs.
+
+

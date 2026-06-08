@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/workflow-services-properties
+Title: Workflow services properties | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/)
+  * [Designing a workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/)
+  * Workflow services properties
+
+
+
+On this page
+
+# Workflow services properties
+
+Was this page helpful?Â 
+
+It is possible to specify the configuration properties of any [Workflow Service](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows#workflow-elements) (**Input Adapter** , **Plan** , **Scoring** , **Rules** and **Custom**) in several ways. Any configuration property has the following components:
+
+  * **Identifier** : All **Workflow Services** have this property (which is `empty` by default). You can assign the same properties to a group of **Workflow Services** that share the same **Identifier** value.
+  * **Property Base** : All **Workflow Services** have this immutable attribute that defines which is the type of service. For example, a **Plan Workflow Service** has a property base of `services.rte.workflow` whereas **Input Adapters** and **Custom Workflow Elements** have a different **Property Base** depending on how the underlying Custom Service was configured:
+    * **Synthetic Generator:** Has the property base `services.rte.workflow.syntheticgenerator`.
+    * **Custom Services:** Specified using the `@PropertyBase("services.modules.mycustomservice")` annotation in your service's `Configurator` class.
+
+
+
+## Using Pulse UIâ
+
+Pulse allows you to manually configure property values and helps you by displaying the following indications:
+
+  * **Manually overriden values:**
+  * **Values inherited from Pulse configuration:**
+
+

@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/technical-concepts-overview
+Title: Technical Concepts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Technical Concepts
+
+
+
+# Technical Concepts
+
+The **Technical Concepts** section deals with concepts and processes that while not essential to understand how to use Case Manager provide an extra layer of information that provides a wider view of Case Manager's potential.
+
+In this section, you will be able to improve your knowledge of the following concepts:
+
+[Single Sign-On](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/single-sign-on)| [Two-Factor Authentication](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/two-factor-authentication)  
+---|---  
+SSO is a centralized system to which a set of related applications delegate the authentication management of their users.| Two-Factor Authentication (2FA) is a functionality that improves security by requiring users to sign in with two pieces of information, also referred to as factors, to verify user identity.  
+[Entities](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/entities)| [Extensions](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/extensions)  
+Any event that arrives to the system (e.g. a transaction) contains a set of fields. When any of these fields represents a business context, it is considered an entity.| Case Manager Extensions allow custom code from third parties to be run whenever a custom action is performed.  
+[Scalable Storage](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/scalable-storage)  
+In order to expand CM's storage limitations, it's possible to have different channels being supported by dedicated database clusters, thus providing per-channel horizontal storage capabilities. This feature allows to split the storage of different event channels across multiple databases, allowing the channels that require more storage to be supported by their own database.

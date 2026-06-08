@@ -1,0 +1,204 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/cm-queue-cleanup/cleanup-alerts
+Title: Case Manager Alert Queue Cleanup | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Case Manager Alert Queue Cleanup
+
+In this page you can find the Case Manager alert cleanup process definition, how to configure and run it.
+
+## Alert queue cleanupâ
+
+The Case Manager queue cleanup is a process that can be used to close all Case Manager alerted events that match a specific criteria with the intended reason. This is particularly useful before a go live so that Case Manager alert pages do not include any alerts that may have been already acted upon on a different platform.
+
+This process is essentially a Python script that loads a set of events based on a given criteria, removes the queues from those events and closes them with a given reason. It also supports a mode in which it simply closes open alerts that are not assigned to any queue.
+
+## Requirementsâ
+
+The script execution has the following requirements:
+
+  * Connection between the machine where the script is being run and the Case Manager load balancer
+  * A service account credentials
+  * Python version 3.8+ installed
+  * `requests` Python library installed
+
+
+
+##### warning
+
+This script was tested against Python version 3.8. If this specific version is not available, the script can be tested against the available one but take into account it may be unsupported.
+
+## Resourcesâ
+
+The cleanup script can be downloaded from [cleanup-alerts-queues.txt](/cs-hsbc-rma/0.2.0/download/imported/cleanup-alerts-queues/cleanup-alerts-queues.txt). The extension must be changed from `.txt` to `.py.` after downloading. The rest of the documentation below assumes the script has been renamed to `cleanup-alerts-queues.py`.
+
+The corresponding dependency requirements file for the script can be downloaded from [requirements.txt](/cs-hsbc-rma/0.2.0/download/imported/cleanup-alerts-queues/requirements.txt).
+
+## Configurationâ
+
+In this section you can find the configuration reference for the script.
+
+Variable| Mandatory| Default Value| Description  
+---|---|---|---  
+`-h, --help`| | | Show an help message.  
+`-c, --url`| X| | The Case Manager load balancer URL.  
+`-e, --exec-mode`| | | Flag indicating if the script should make any change. If not specific it will do a test run.  
+`-sk, --skip-ssl`| | `False`| Flag indicating if SSL certificate validation should be skipped when making HTTPS requests  
+`-u, --username`| | `pulse`| Username of the service account.  
+`-p, --password`| X| | Password of the service account (will prompt if not specified).  
+`-s, --status-reason`| X| | Status reason name to add when closing an event that will be used to fetch the reason id as shown in the UI.  
+`-ch, --channel`| | `transfers`| Channel to search for events.  
+`-mints, --min_timestamp`| | `1688169600000`| The minimum timestamp to fetch events in milliseconds.  
+`-mints, --max_timestamp`| | `1688169600000`| The maximum timestamp to fetch events in milliseconds.  
+`-wq, --without_queue`| | `1688169600000`| Flag indicating if the script should close only alerts not assigned to any queue.  
+`-t, --threshold`| | `100`| Threshold to apply to the search filter.  
+`-r, --retries`| | `3`| Number of retries when making HTTP requests.  
+`-b, --backoff`| | `1`| Backoff factor for the HTTP requests.  
+`-tk, --tenant-keys`| | | The tenant keys (one or more) used to filter events. Should be used without `-ats, --all-tenants`.  
+`-ats, --all-tenants`| | | Include all tenants when filtering events. Should be used without `-tk, --tenant-keys`.  
+  
+Running the script with the help flag (`-h`) will output the script information and available configuration:
+    
+    
+    $ python3 cleanup-alerts-queues.py -h  
+    usage: cleanup-alerts-queues.py [-h] -c CM_URL [-e] [-sk] [-u USERNAME] [-p PASSWORD] -s STATUS_REASON  
+                                    [-ch CHANNEL] [-mints MIN_TIMESTAMP] [-maxts MAX_TIMESTAMP] [-wq] [-t THRESHOLD]  
+                                    [-r NUMBER_RETRIES] [-b BACKOFF_FACTOR] (-tk TENANT_KEYS [TENANT_KEYS ...] | -ats)  
+      
+    This script cleanups Case Manager queued alerts by closing them with the given status reason.  
+      
+    optional arguments:  
+      -h, --help            show this help message and exit  
+      -tk, --tenant-keys TENANT_KEYS [TENANT_KEYS ...]  
+                            The tenant keys (one or more) used to filter events. Should be used without `-ats, --all-tenants`.  
+      -ats, --all-tenants   Include all tenants when filtering events. Should be used without `-tk, --tenant-keys`.  
+      
+      -c CM_URL, --url CM_URL  
+                            Case Manager URL  
+      -e, --exec-mode       Run in change mode. If not specific will do a dry run.  
+      -sk, --skip-ssl       Skip SSL validation when making HTTPS requests.  
+      -u USERNAME, --username USERNAME  
+                            Username of the service account (default: pulse)  
+      -p PASSWORD, --password PASSWORD  
+                            Password of the service account (will prompt if not specified)  
+      -s STATUS_REASON, --status-reason STATUS_REASON  
+                            Status reason name to add when closing an event that will be used to fetch the reason id.  
+      -ch CHANNEL, --channel CHANNEL  
+                            Channel to search for events (default: transfers)  
+      -mints MIN_TIMESTAMP, --min_timestamp MIN_TIMESTAMP  
+                            The minimum timestamp to fetch events in milliseconds (default: 1688169600000)  
+      -maxts MAX_TIMESTAMP, --max_timestamp MAX_TIMESTAMP  
+                            The maximum timestamp to fetch events in milliseconds (default: 1688169600000)  
+      -wq, --without_queue  Close only alerts not assigned to any queue. If not specified, will close alerts not assigned  
+                            to a queue, clearing all queues.  
+      -t THRESHOLD, --threshold THRESHOLD  
+                            Threshold to apply to the search filter (default: 100)  
+      -r NUMBER_RETRIES, --retries NUMBER_RETRIES  
+                            Number of retries when making HTTP requests (default: 3)  
+      -b BACKOFF_FACTOR, --backoff BACKOFF_FACTOR  
+                            Backoff factor for the HTTP requests (default: 1)  
+    
+
+Copy
+
+## Executionâ
+
+The bare minimum execution only requires the fields that are define as being mandatory. All other fields will use their default values but take note that they might need to be adjusted.
+
+##### info
+
+When targeting a HTTPS endpoint, SSL certificate validation can fail if the certificate is not available in the machine or if it is not correctly configured.
+
+To skip SSL certificate validation the `-sk/--skip-ssl` flag should be passed to the script:
+
+`$ python3 cleanup-alerts-queues.py -c https://localhost:8090/ -sk [Other Options]`
+
+It is suggested to execute the script without the `-e` flag to understand if all parameters are correctly set. Running in this mode will output the number of events it would try to update.
+    
+    
+    $ python3 cleanup-alerts-queues.py -c http://localhost:8090/ -s "Alert not investigated"  
+    Service account password:  
+    Running in test mode...  
+    Found reason Alert not investigated with id d84ad2d1-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+    Would try to close 11 events.  
+    Finished running cleanup.  
+    
+
+Copy
+
+Once validated in test mode the script can be run in execution mode by passing the `-e/--exec-mode` flag:
+    
+    
+    $ python3 cleanup-alerts-queues.py -c http://localhost:8090/ -s "Alert not investigated" -e  
+    Service account password:  
+    Running in change mode...  
+    Found reason Alert not investigated with id d84ad2d1-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+    Clean queue executed for events: [{'id': '55f3cf56-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533728533, 'channelId': 'transfers'}, {'id': '6ec36930-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533729218, 'channelId': 'transfers'}, {'id': '9735dfbf-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533730087, 'channelId': 'transfers'}, {'id': '9ad7ab9e-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533730728, 'channelId': 'transfers'}, {'id': '9fdd9fb4-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537566308, 'channelId': 'transfers'}, {'id': '4d844905-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537672724, 'channelId': 'transfers'}, {'id': '98067255-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537673556, 'channelId': 'transfers'}, {'id': '2064b6c7-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537674340, 'channelId': 'transfers'}, {'id': 'a4df2a90-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537700312, 'channelId': 'transfers'}, {'id': '756e260b-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537701173, 'channelId': 'transfers'}, {'id': '6729e208-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537701825, 'channelId': 'transfers'}]  
+    Move to close executed for transactions: [{'id': '55f3cf56-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533728533, 'channelId': 'transfers'}, {'id': '6ec36930-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533729218, 'channelId': 'transfers'}, {'id': '9735dfbf-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533730087, 'channelId': 'transfers'}, {'id': '9ad7ab9e-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732533730728, 'channelId': 'transfers'}, {'id': '9fdd9fb4-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537566308, 'channelId': 'transfers'}, {'id': '4d844905-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537672724, 'channelId': 'transfers'}, {'id': '98067255-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537673556, 'channelId': 'transfers'}, {'id': '2064b6c7-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537674340, 'channelId': 'transfers'}, {'id': 'a4df2a90-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537700312, 'channelId': 'transfers'}, {'id': '756e260b-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537701173, 'channelId': 'transfers'}, {'id': '6729e208-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'timestamp': 1732537701825, 'channelId': 'transfers'}]  
+    There are no more events to update that matches the condition  
+    Finished running cleanup.  
+    
+
+Copy
+
+As you can see, when running in execution mode, the script will output the ids of the events it was able to close, which can be used for validation purposes.
+
+### Filtering eventsâ
+
+There are some filtering options that can be used to better determine the amount of events to close.
+
+#### Queuesâ
+
+To filter events by assigned queue the `-wq, --without_queue` flag can be used. If provided, the script will only search for events that are not assigned to any queue and therefore will not try to clear any queues.
+
+If not provided, the script will search for all events that are assigned or not to queues. Take into consideration the script will remove the queue from events meaning that in case of a re-run the output may not be consistent.
+
+#### Tenantsâ
+
+In multi tenancy setups the options `-ats, --all-tenants` and `-tk, --tenant-keys` can be used to filter events based on all or only the provided tenants. The second option supports one or more tenant ids, where `tenant id` is the Tenant's Unique ID as shown in the Pulse configuration page.
+
+As an example, consider a multi tenant setup where:
+
+  * Tenant 1 has the Unique ID `tenant_1`
+  * Tenant 2 has the Unique ID `tenant_2`
+  * Tenant 3 has the Unique ID `tenant_3`
+
+
+
+And the following cases:
+
+  * Clear events from all tenants
+  * Clear events from tenants 1 and 2
+  * Clear events from tenant 3
+
+
+
+This would require running the script as follows:
+    
+    
+    # Case 1  
+    $ python3 cleanup-alerts-queues.py -c http://localhost:8090/ (...) -ats  
+      
+    # Case 2  
+    $ python3 cleanup-alerts-queues.py -c http://localhost:8090/ (...) -tk "tenant_1" "tenant_2"  
+      
+    # Case 3  
+    $ python3 cleanup-alerts-queues.py -c http://localhost:8090/ (...) -tk "tenant_3"  
+    
+
+Copy
+
+##### warning
+
+Please note that these options are mutually exclusive but still required.
+
+Also note that `-ats, --all-tenants` should be used carefully in multi tenancy setups to prevent closing events wrongfully. Consider running the script in test mode prior to execution mode.
+
+## Validationâ
+
+Validation can also be done in the UI by searching for events that fall in the same criteria. If the script processed every event correctly the search should bear no results.
+
+To validate a subset of events one can check the operation status, close reason and queue in the event details of the events, as illustrated below.
+
+Every operation done by the script is audited and can be seen in the event details page as well.

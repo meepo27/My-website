@@ -1,0 +1,9 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/keycloak/requirements-keycloak
+Title: Requirements | Feedzai Documentation
+============================================================
+
+# Requirements  
+  
+##### tip
+
+For a complete list of Keycloak requirements, please refer to the official product documentation.

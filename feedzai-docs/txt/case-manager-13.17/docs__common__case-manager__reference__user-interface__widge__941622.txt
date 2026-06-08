@@ -1,0 +1,122 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/widgets-overview
+Title: Widgets | Case Manager
+============================================================
+
+On this page  
+  
+# Widgets
+
+In this section, you will have a better understanding of Case Manager widgets, its properties and configuration.
+
+## Summaryâ
+
+Widget| Purpose  
+---|---  
+toplevel| top bar  
+box| box  
+map|   
+table|   
+list-box|   
+container| include other widgets  
+entity-history|   
+activity|   
+iframe|   
+paginated-widget|   
+notes|   
+genome| Display details from Genome's link analysis  
+  
+Common properties that are shared between all widgets:
+
+## matchingFieldsâ
+
+When present, this property will be used to check whether the widget should be displayed or not. In order the widget to be displayed, all the fields are compared with the page main data object and should match its conditions.
+
+Each field object must have the following properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+key| String| No| Path in the page main data object to fetch the value.  
+op| String| No| Operator that should be used when comparing the two values. Can be of one: 
+
+  * eq (Equal)
+  * neq (Not Equal)
+  * gt (Greater Than)
+  * gte (Greater Than or Equal)
+  * lt (Lesser Than)
+  * lte (Lesser Than or Equal)
+
+  
+value| Any| No| The value that will be compared with the value from the page main data object.  
+  
+If this property is not present, then the widget will always be displayed.
+
+info
+
+You can use the "null" or "undefined" values in the **value** property. The first one should be used when the value of the object data field is null and the second one can be used to test the absent of an object data field.
+
+## Condensed Widgetsâ
+
+When present, this property fixes the number of columns on a `BoxWidget`. If unexistent, enables the "auto-layout", where the number of columns is decided by its content.
+
+Property| Type| Optional| Description  
+---|---|---|---  
+fieldsPerRow| Number| Yes| Fixes the number of fields per row on a `BoxWidget`  
+  
+## Page Anchorsâ
+
+When present on a widget object, the `id` and `anchored` properties:
+
+  * Adds it to the list of anchor tabs on the top bar.
+  * Makes it detectable by the browser as active or inactive by its percentage on the screen.
+
+Property| Type| Optional| Description  
+---|---|---|---  
+id| String| Yes| Unique widget identifier  
+anchored| Boolean| Yes| Adds the widget to the list of anchors  
+  
+## headerActionsâ
+
+When present, this property adds actions to the header. Currently the supported actions are the copy to clipboard and add to list functionalities.
+
+### Copy to clipboardâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+key| String| No| Path in the page's main data object to fetch the value.  
+type| String| No| Should be copy-to-clipboard.  
+title| String| No| I18n key to appear on the action tooltip. Note that this key will be concatened with the respective action type. Example: key is "Customer ID" and the action is "copy-to-clipboard", the tooltip to be show would be something like "Copy Customer ID".  
+icon| String| Yes| The icon to represent this action on the widget header.  
+  
+info
+
+In order for the **title** property to render correctly, the `tooltip.copy-id` has to be similar to "Copy %s", where `%s` is replaced by the value defined for **title**.
+
+### Add to listâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+key| String| No| Path of the entity to add to a list.  
+type| String| No| Should be add-to-list.  
+title| String| No| Tooltip that should be shown when the user hovers the icon  
+  
+### Link Toâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+url| String| No| The URL to where the user is redirected when the action is clicked.  
+type| String| No| Should be `link`.  
+newPage| Boolean| Yes| Opens a new tab or redirects the user to a page inside Case Manager.  
+  
+## Collapsible Widgetâ
+
+When present on a widget's object, this property enables/disables the `collapsible` widget functionality. This allows the users to collapse the widget information when it is not needed for the investigation.
+
+This feature is enabled by default since version **Case Manager 11.2** but it can be disabled per widget if necessary.
+
+Note
+
+Make sure that you configure the height of the [Iframe](/docs/common/case-manager/reference/user-interface/widgets/iframe) and [Map](/docs/common/case-manager/reference/user-interface/widgets/map) widgets.
+
+Property| Type| Optional| Description  
+---|---|---|---  
+collapsible| Boolean| Yes| Enables or disables the collapsible widget functionality.

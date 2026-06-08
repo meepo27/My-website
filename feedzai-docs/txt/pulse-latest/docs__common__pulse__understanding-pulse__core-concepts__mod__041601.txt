@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/custom-evaluation-metrics
+Title: Custom Evaluation Metrics | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * [Model Evaluation](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation)
+  * Custom Evaluation Metrics
+
+
+
+Was this page helpful?Â 
+
+# Custom Evaluation Metrics
+
+An **evaluation metric** is a function that can be applied to the data obtained during a model validation or rule validation.
+
+In a data science project, an evaluation metric allows you to inject business logic into an objective model or rule evaluation. This allows you to evaluate trained models and rules based on the business value they deliver.
+
+You can add an evaluation metric to your project by defining a function that receives:
+
+  * The number of True Positives (TP), True Negatives (TN), False Positives (FP) and False Negatives (FN), and outputs a number in an open domain.
+  * The cost-TP, -TN, -FP and -FN. The cost fields variants are based on the weight a data field in the instance, typically the transaction amount in a fraud detection scenario, rather than using a count-based approach.
+
+
+
+The following image depicts where you can create a new evaluation metric. Check the User Guide to see how you can [define evaluation metrics](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#using-custom-evaluation-metrics), for example, in a model evaluation.
+
+You can apply a custom evaluation metric, written by you and adjusted to your use case, to any existing model or rule evaluation.
+
+Availability
+
+Since custom evaluation metrics can be built from both count and cost based way, they are available to model evaluations or rule evaluations only if you define a [cost field](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/cost-fields) for the evaluation.
+
+If you do not define a cost field for an evaluation, then Pulse will not be able to compute your custom evaluation metrics and you will not have access to them.
+
+The following image shows how you can add a custom evaluation metric to a model evaluation.

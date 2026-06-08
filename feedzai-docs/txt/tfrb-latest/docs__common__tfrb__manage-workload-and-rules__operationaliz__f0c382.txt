@@ -1,0 +1,64 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview
+Title: Operationalize Fraud Teams | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * Operationalize Fraud Teams
+
+
+
+On this page
+
+# Operationalize Fraud Teams
+
+Was this page helpful?Â 
+
+Learn how to automate the workload management in Case Manager, helping fraud teams to review alerts efficiently.
+
+## Operational strategyâ
+
+Different events might need to be reviewed with different priorities and might require analysts with a specific skill set depending on the complexity of the situation. The high flux of events constantly reaching Case Manager make it virtually impossible to manually distribute events by priority and fraud analyst in an prompt and efficient way. Therefore, Case Manager has various tools that allow you to automate the way events are organized to build useful workloads.
+
+The strategy to automate workload management may vary with the business specificity. However, you can find a list of recommendations below:
+
+  * Organize queues with different priorities to assign to the team members.
+  * Add events to queues automatically.
+  * Inside queues, assign events to team members automatically.
+  * Configure Service Level Agreements (SLAs) to add events to queues based on a time period.
+
+
+
+These recommendations can be implemented in Case Manager using a combination of queues, automation rules, and SLAs.
+
+## Queues, automation rules and SLAsâ
+
+To configure Case Manager autonomously, it is important to understand the following concepts:
+
+**Queues:** Bundles of cases and events, which may or may not include alerts, grouped according to a business context to make workload access and distribution simpler (learn more about [events, alerts, and cases](/tfrb/latest/docs/common/tfrb/investigate-alerts/access-workload)). As an example, you can create a queue to group all the alerts that added a card ID to a cards PosNeg list, in Pulse. in Pulse. Fraud analysts can then use queues in the alerts and cases pages as filters to quickly find their workload.
+
+Events and cases are associated to queues either manually or through automation processes. The automation processes are configured using a combination of queues and automation rules, and queues and SLAs. The following figure shows how queues can be used:
+
+**Automation Rules:** Perform automatic tasks using a when-if-then structure, i.e. when something occurs, if certain conditions apply to that event, then an action is taken. You can use automation rules to add events to a queue automatically. For example, when an event arrives at Case Manager, if a transaction is declined and the card is on the PosNeg listed cards with the value declined (i.e. the card is blacklisted), then add the event to a specific queue.
+
+**SLAs (Service Level Agreements):** Work similarly to automation rules, but follow an if-then structure. The SLAs are generally used to create automation that requires a condition with a time period. For example, if an event has not been reviewed for over two hours, then add the event to a queue.
+
+## User journeyâ
+
+The following user journey shows the different steps to fully configure Case Manager with the operational strategy described above. Each step is further described in separate pages using practical examples to ensure that, after completing this journey, you have a standard setup in place to help the daily work of fraud teams.
+
+## Next stepsâ
+
+If you don't already have the necessary queues in place to configure automation rules and SLAs, start with the queues [Queues](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-queues) step to configure part of your standard setup using practical examples. These queues will be used in the subsequent steps of the user journey.
+
+If you already have queues in place that you want to use to configure automation rules and SLAs, proceed to the next steps:
+
+  * [Automation Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-automation-rules): Automate the organization of events in Case Manager, including:
+  * Add events to a queue - e.g. add an alert to a queue every time that the transaction is declined and card ID is added to a PosNeg list.
+  * Assign users to queues - e.g. assign an event that has been declined to a certain user.
+  * Create [cases](/tfrb/latest/docs/common/tfrb/investigate-alerts/manage-cases) \- e.g. create a case every time that an alert with different card ID arrives at Case Manager.
+  * [SLAs](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-slas): Automate the organization of events into queues based on a time period (e.g. add to queue all the events that are without analysis for over two hours).
+
+

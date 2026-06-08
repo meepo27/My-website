@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/validating-the-data-schema
+Title: Validating the data schema | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Cleaning and loading your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/)
+  * Validating the data schema
+
+
+
+On this page
+
+# Validating the data schema
+
+Was this page helpful?Â 
+
+Your project's data schema often does not match the data schema you receive from the client. Pulse lets you convert each field in the raw data and define how it should be converted to match your project's data schema.
+
+You must look into the data schema of the [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) containing your raw data, and define how to convert each field to a Data Source that makes sense in your Data Science project.
+
+This task represents solving a common data quality issue, focusing on fixing the structure and formatting of your dataset. Similarly, the next task in this guide â[Cleaning up the data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/cleaning-up-the-data)â handles data quality from the perspective of the value and correctness of information contained in the dataset.
+
+## How toâ
+
+To convert the original dataset into the internal schema of your Data Science project, compose a [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) as follows. For example, to perform a direct conversion from a raw data field to an identical field with a different name:
+
+  1. In the **Data Science** tab , add  a new Plan.
+  2. Set the Plan to [Non-Deployable](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans#non-deployable-plans).
+  3. Design your schema validation Plan as displayed in the following image:
+  4. Configure the elements as follows:
+     1. Edit  the **Source** element and specify the **Origin Schema**. For example, select the _Transactions_ Data Source to copy and use its data schema in the Plan.
+     2. Edit  the **Map** element to:
+        1. Add a field and set the **Output Field Name** as the target name for the field in your project, for example, _TransactionAmount_. Set the name and type from the original raw data field as the **Expression** (for example, _trAmnt_) and **Type**. Confirm that you added the new field.
+        2. Remove the original raw data field from the Data Source.
+     3. Repeat step 4. b. to convert each data field, using the appropriate **Expression** and **Type** according to your schema validation requirements.
+  5. Run the plan to execute all actions on the original Data Source and generate an improved one.
+     1. Define the **Data Source with ID 1** as the original Data Source. For example, _Transactions_.
+
+     2. Configure the **Data Sink with ID 3** as the new and validated Data Source. For example, _Validated Schema_.
+
+     3. Use the  button to run the Plan and to generate a new Data Source in Pulse, named _Validated Schema_. Pulse also saves an output file with the transformed data to your filesystem.
+
+  6. [Analyze](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data) the Validated Schema Data Source to confirm that the raw data was converted to the target schema for your Data Science project.
+
+
+
+No mapping
+
+When there is no mapping from the raw data to your target schema, you can use the Map operator in a Plan to add a new output field with an empty Expression. Run the Plan to fill in this field with the Missing Value you configured for the Sink.
+
+## Next stepsâ
+
+Once you have mapped the raw data to your project's schema, you may need to address quality issues and [clean up your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/cleaning-up-the-data).

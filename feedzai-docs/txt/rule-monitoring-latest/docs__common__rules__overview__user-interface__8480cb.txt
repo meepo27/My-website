@@ -1,0 +1,77 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/user-interface
+Title: RiskOps Studio | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * RiskOps Studio
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# RiskOps Studio
+
+The **RiskOps Studio** is a unified platform incorporating different Feedzai products. This platform wrapps these components in a common interface for you to navigate across the various environments and use cases, as well as to manage users and permissions across all the integrated components.
+
+available components
+
+Note that [Rule Monitoring](/rules/latest/docs/common/rules/overview) is the component that the RiskOps Studio currently provides you with.
+
+## Navigation menusâ
+
+RiskOps Studio provides a picker that allows you to choose from the different environments available, such as the Production and Testing environments.
+
+Selecting **Feedzai Apps** opens a dropdown menu where you can navigate between applications, going from RiskOps Studio, to Case Manager or Pulse.
+
+You can also switch among the Feedzai solutions that are available within the RiskOps Studio, thus providing you convenient access to use cases such as Transaction Fraud for Banking (TFB) or Anti-Money Laundering Transaction Monitoring (AML TM).
+
+WLM PS
+
+Although the Watch List Management Payment Screening (WLM PS) use case is not listed for selection, you can still access its rules within the TFB use case.
+
+Check [Analyse the rules table](/rules/latest/docs/common/rules/user-guide#analyze-the-rules-table) for more information on this.
+
+## Administration areaâ
+
+The **RiskOps Studio** platform provides an administration feature for Feedzai products. But note that only users with the relevant permissions can access the **Administration** area.
+
+By selecing  in the header, you access **User Management** within the **Administration** area.
+
+### User Managementâ
+
+In **User Management** , you view a table listing all registered users, as well as information such as their email details and roles assigned to them.
+
+This table can be filtered by various search criteria, allowing to narrow down the list by role, or locate a user by name or email.
+
+The **User Management** area in RiskOps Studio also allows you to manage user roles and permissions, provided the users have been created in Feedzai Pulse. For scenarios when SSO (Single Sign-On) is configured, users are created through an external Identity Provider (IdP) and the process to manage roles and permissions is different altogether.
+
+Check the following sections for details on how user roles and permissions are managed in the scenarios previously described.
+
+#### User Management in RiskOps Studioâ
+
+Provided you have the necessary permissions, you can control the users' access grants by assigning new roles to them, or modifying existing ones. To do so, select  in the **Actions** column.
+
+These roles are specific to **RiskOps Studio** , i.e. they are available only for Studio features, and can be added to users created on Pulse.
+
+The interface also provides an in-product panel with role descriptions to further explain what each role allows the user to do.
+
+#### User management when SSO (Single Sign-On) is configuredâ
+
+When SSO is configured, user roles and permissions are managed through your Identity Provider (IdP). RiskOps Studio automatically grants you authorization to access Rule Monitoring, matching the OOTB (Out-of-the-Box) user roles that are configured for your solution, without any need to set up this access in your IdP.
+
+Refer to the relevant solution documentation for more information on the roles and permissions that are available OOTB:
+
+  * [Transaction Fraud for Banking (TFB)](https://documentation.feedzai.com/tfrb/latest/docs/common/tfrb/roles-and-permissions)
+  * [Risk Management for Acquirers (RMA)](https://cam.feedzai.com/rma/latest/docs/common/rma/admin-reference/roles-and-permissions)
+  * [Anti-Money Laundering Transaction Monitoring (AML-TM)](https://documentation.feedzai.com/aml/latest/docs/common/aml/references/roles-permissions)
+  * [Know Your Customer/Customer Due Diligence (KYC/CDD)](https://documentation.feedzai.com/cdd/latest/docs/common/cdd/references/roles)
+  * [Watchlist Management Customer Screening (WLM CS)](https://cam.feedzai.com/cdd/latest/docs/common/cdd/references/roles-cs)
+  * [Watchlist Management Payment Screening (WLM PS)](https://documentation.feedzai.com/transaction-screening/latest/docs/common/transaction-screening/references/roles-and-permissions)
+
+
+
+custom roles
+
+Note that if you have custom roles, you must reach out to your Feedzai contact point to define what custom roles should have access to Rule Monitoring.

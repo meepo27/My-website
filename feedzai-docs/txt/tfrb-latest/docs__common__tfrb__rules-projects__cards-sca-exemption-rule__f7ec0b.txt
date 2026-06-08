@@ -1,0 +1,440 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-sca-exemption-rules
+Title: Cards - SCA Exemption Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - SCA Exemption Rules
+
+
+
+On this page
+
+# Cards - SCA Exemption Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+This rules project is part of the [PSD2 compliance](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance) strategy offered by TFB. If this regulation does not apply to the customer's jurisdiction, this rules project can be removed from the Pulse workflow without the risk of compromising the fraud detection rate.
+
+The _Cards - SCA Exemption_ rules project provides a recommendation on whether Feedzai's customers should request SCA to a consumer performing a card payment.
+
+Rules within **Cards - SCA Exemption** implement the conditions defined by PSD2's Exemption Articles (i.e. Articles 11 to 18) that exempt card payments from SCA. [Download the compliance matrix](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance#compliance-matrix---download) to learn more about these articles.
+
+It is worth highlighting that the Cards-SCA-11-1 and Cards-SCA-11-2 rules consider VISA's codes in the `field pos_card_read_method` field, but other codes may be used if the transaction does not belong to a VISA card.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ sca_required
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-SCA11-1
+
+### Comment
+
+> PSD2 Article 11 - Contactless Payments at point of sale (sum amount)
+
+### Actions
+
+  * PSD2-Article-11
+  * [Cards-SCA11-1]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = cards__rules_thresholds["psd2_art11_amount_limit"].threshold;
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["psd2_art11_sum_amount_limit"].threshold;
+    METRIC_IS_EXPIRED = event.appr_auth_contactless_last_sca == null;
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0) and (event.pos_card_read_method ?? '' != '')
+      and !METRIC_IS_EXPIRED
+      and event.cardholder_bill_amount <= AMOUNT_LIMIT
+      and (event.appr_auth_contactless_last_sca + event.appr_auth_contactless_last_str <= SUM_AMOUNT_LIMIT)
+      and (event.pos_card_read_method == '91' or event.pos_card_read_method == '07') // contactless - according to VISA's Pan Entry Mode Codes
+
+### Explanation
+
+> [Cards-SCA11-1] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 11
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA11-2
+
+### Comment
+
+> PSD2 Article 11 - Contactless Payments at point of sale (count transactions)
+
+### Actions
+
+  * PSD2-Article-11
+  * [Cards-SCA11-2]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = cards__rules_thresholds["psd2_art11_amount_limit"].threshold;
+    COUNT_LIMIT = cards__rules_thresholds["psd2_art11_count_limit"].threshold;
+    METRIC_IS_EXPIRED = event.appr_auth_contactless_last_ssr == null;
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0) and (event.pos_card_read_method ?? '' != '')
+      and !METRIC_IS_EXPIRED
+      and event.cardholder_bill_amount <= AMOUNT_LIMIT
+      and (event.appr_auth_contactless_last_ssr + event.appr_auth_contactless_last_sur <= COUNT_LIMIT)
+      and (event.pos_card_read_method == '91' or event.pos_card_read_method == '07') // contactless - according to VISA's Pan Entry Mode Codes
+
+### Explanation
+
+> [Cards-SCA11-2] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 11
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA12
+
+### Comment
+
+> PSD2 Article 12 - Unattended terminals for transport fares and parking fees
+
+### Actions
+
+  * PSD2-Article-12
+  * [Cards-SCA12]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.mcc ?? '' != '')
+    and
+    sca_exempted_mccs.contains(event.mcc) 
+
+### Explanation
+
+> [Cards-SCA12] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 12
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA13
+
+### Comment
+
+> PSD2 Article 13 - Trusted beneficiaries
+
+### Actions
+
+  * [Cards-SCA13]
+  * PSD2-Article-13
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.trusted_acceptor ?? false
+
+### Explanation
+
+> [Cards-SCA13] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 13
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA14
+
+### Comment
+
+> PSD2 Article 14 - Recurring transactions
+
+### Actions
+
+  * PSD2-Article-14
+  * [Cards-SCA14]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.first_recurring_payment ?? false == false)
+      and (event.recurring_payment ?? false)
+
+### Explanation
+
+> [Cards-SCA14] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 14
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA16-1
+
+### Comment
+
+> PSD2 Article 16 - Low-value transactions (sum amount)
+
+### Actions
+
+  * [Cards-SCA16-1]
+  * PSD2-Article-16
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = cards__rules_thresholds["psd2_art16_amount_limit"].threshold;
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["psd2_art16_sum_amount_limit"].threshold;
+    METRIC_IS_EXPIRED = event.appr_auth_last_sca_at_cardid_s == null;
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0)
+      and !METRIC_IS_EXPIRED
+      and event.cardholder_bill_amount <= AMOUNT_LIMIT
+      and (event.appr_auth_last_sca_at_cardid_s + event.appr_auth_last_sca_at_cardidsr <= SUM_AMOUNT_LIMIT)
+
+### Explanation
+
+> [Cards-SCA16-1] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 16
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA16-2
+
+### Comment
+
+> PSD2 Article 16 - Low-value transactions (count transactions)
+
+### Actions
+
+  * [Cards-SCA16-2]
+  * PSD2-Article-16
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = cards__rules_thresholds["psd2_art16_amount_limit"].threshold;
+    COUNT_LIMIT = cards__rules_thresholds["psd2_art16_count_limit"].threshold;
+    METRIC_IS_EXPIRED = event.appr_auth_last_sca_at_cardid_c == null;
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0)
+      and !METRIC_IS_EXPIRED
+      and event.cardholder_bill_amount <= AMOUNT_LIMIT
+      and (event.appr_auth_last_sca_at_cardid_c + event.appr_auth_last_sca_at_cardidtr <= COUNT_LIMIT)
+
+### Explanation
+
+> [Cards-SCA16-2] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 16
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA17
+
+### Comment
+
+> PSD2 Article 17 - Secure corporate payment processes and protocols
+
+### Actions
+
+  * [Cards-SCA17]
+  * PSD2-Article-17
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.card_category ?? '' != '') 
+    and 
+    StringUtils.lowerCase(event.card_category) == 'business'
+      // if available use channel_type (or another field) instead of card category
+      // if you use only card category field, it needs to include all corporate cards
+     
+      
+
+### Explanation
+
+> [Cards-SCA17] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 17
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA18-ETV1
+
+### Comment
+
+> PSD2 Article 18 - Transaction Risk Analysis for Exemption Threshold Value 100
+
+### Actions
+
+  * PSD2-Article-18
+  * [Cards-SCA18-ETV1]
+
+
+
+### Variables
+    
+    
+    fraud_rate = event.reference_fraud_rate ?? fraud_rates["cards"].value ?? 0;
+    
+    AMOUNT_LIMIT = cards__rules_thresholds["psd2_art18_etv1_amount_limit"].threshold;
+    
+    FRAUD_RATE_LIMIT = cards__rules_thresholds["psd2_art18_etv1_fraud_rate_limit"].threshold;
+    
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["psd2_art18_etv1_sum_amount_limit"].threshold;
+    
+    
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0) 
+    and
+    event.cardholder_bill_amount <= AMOUNT_LIMIT
+      and fraud_rate <= FRAUD_RATE_LIMIT
+      and event.decision == 'approve'
+      and event.auth_cnp_cardid_sum_amount_24h <= SUM_AMOUNT_LIMIT
+      
+
+### Explanation
+
+> [Cards-SCA18-ETV1] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 18
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA18-ETV2
+
+### Comment
+
+> PSD2 Article 18 - Transaction Risk Analysis for Exemption Threshold Value 100-250
+
+### Actions
+
+  * PSD2-Article-18
+  * [Cards-SCA18-ETV2]
+
+
+
+### Variables
+    
+    
+    fraud_rate = event.reference_fraud_rate ?? fraud_rates["cards"].value ?? 0;
+    
+    AMOUNT_MIN = cards__rules_thresholds["psd2_art18_etv2_amount_min"].threshold;
+    AMOUNT_MAX = cards__rules_thresholds["psd2_art18_etv2_amount_max"].threshold;
+    
+    FRAUD_RATE_LIMIT = cards__rules_thresholds["psd2_art18_etv2_fraud_rate_limit"].threshold;
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["psd2_art18_etv2_sum_amount_limit"].threshold;
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0) 
+    and
+    (event.cardholder_bill_amount > AMOUNT_MIN and event.cardholder_bill_amount <= AMOUNT_MAX)
+      and fraud_rate <= FRAUD_RATE_LIMIT
+      and event.decision == 'approve'
+      and event.auth_cnp_cardid_sum_amount_24h <= SUM_AMOUNT_LIMIT
+      
+
+### Explanation
+
+> [Cards-SCA18-ETV2] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 18
+
+### Mark As
+
+The outcome of this rule is: **false**
+
+## Cards-SCA18-ETV3
+
+### Comment
+
+> PSD2 Article 18 - Transaction Risk Analysis for Exemption Threshold Value 250-500
+
+### Actions
+
+  * [Cards-SCA18-ETV3]
+  * PSD2-Article-18
+
+
+
+### Variables
+    
+    
+    fraud_rate = event.reference_fraud_rate ?? fraud_rates["cards"].value ?? 0;
+    
+    AMOUNT_MIN = cards__rules_thresholds["psd2_art18_etv3_amount_min"].threshold;
+    AMOUNT_MAX = cards__rules_thresholds["psd2_art18_etv3_amount_max"].threshold;
+    
+    FRAUD_RATE_LIMIT = cards__rules_thresholds["psd2_art18_etv3_fraud_rate_limit"].threshold;
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["psd2_art18_etv3_sum_amount_limit"].threshold;
+
+### Condition
+    
+    
+    (event.cardholder_bill_amount ?? 0 != 0) 
+    and
+    (event.cardholder_bill_amount > AMOUNT_MIN and event.cardholder_bill_amount <= AMOUNT_MAX)
+      and fraud_rate <= FRAUD_RATE_LIMIT
+      and event.decision == 'approve'
+      and event.auth_cnp_cardid_sum_amount_24h <= SUM_AMOUNT_LIMIT
+
+### Explanation
+
+> [Cards-SCA18-ETV3] - Not SCA Required - This transaction is exempted from Strong Customer Authentication according to Article 18
+
+### Mark As
+
+The outcome of this rule is: **false**

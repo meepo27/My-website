@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/cards/additional-resources/non-mon-endpoint
+Title: Non-Mon Endpoint | Feedzai Documentation
+============================================================
+
+On this page
+
+# Non-Mon Endpoint
+
+As of version 2.11.0 we have introduced a new Non-Mon (Non-Monetary) endpoint to allow Feedzai to receive and register non-monetary events.
+
+In this page one can find the schema and event type specificity of these endpoints.
+
+## Schemaâ
+
+The Non-Mon endpoint utilizes the same schema that is used for Cards events.
+
+Given the endpoint is deployed in the Cards application and to keep the same consistency as all other applications (mainly Outbound), the schema of the endpoint is the same of all Cards endpoints.
+
+Please find the API specification in [Non-Mon API documentation](/cs-hsbc/3.0.2/api#tag/nonmon).
+
+## Generated fieldsâ
+
+The Non-Mon API generates fields that will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+Unlike all other existing endpoints, the non-mon endpoint has a different way of generating the `event_type` field. When receiving an event the endpoint will look for an existing `event_type` value in the payload. If the field does not exist or if it is an empty string then the endpoint will use the default value of `nonmon`.
+
+This field can then be used to differentiate between various categories of non-monetary events (such as 3DS or Digital Wallet) directly in the event storage tables or in ETL extractions.
+
+Please find below some examples:
+
+Upstream `event_type`| Event actual `event_type` value  
+---|---  
+`empty` or `null`| `nonmon`  
+`nonmon`| `nonmon`  
+`digitalwallet`| `digitalwallet`  
+`3ds`| `3ds`  
+  
+##### note
+
+In the Case Manager UI the original type of the non-monetary event is always available as `schema.event_type`, while `event.fields.event_type` can be updated to `Info` or `Feedback` if the event receives an Info or a Feedback respectively.
+
+## fdz_channelâ
+
+The `fdz_channel` field for Non-Mon requests will be set to `NON-MON`, which adds support for:
+
+  * Forwarding the requests to their own Case Manager channel
+  * Differentiating channel data in ETL exports
+  * Recovering messages from Pulse to Case Manager
+
+

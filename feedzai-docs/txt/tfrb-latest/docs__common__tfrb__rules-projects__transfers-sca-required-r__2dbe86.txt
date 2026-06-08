@@ -1,0 +1,304 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-sca-required-rules
+Title: Transfers - SCA Required Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - SCA Required Rules
+
+
+
+On this page
+
+# Transfers - SCA Required Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+This rules project is part of the [PSD2 compliance](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance) strategy offered by TFB. If this regulation does not apply to the customer's jurisdiction, this rules project can be removed from the Pulse workflow without the risk of compromising the fraud detection rate.
+
+The _Transfer - SCA Required_ rules project provides a recommendation on whether Feedzai's customers should request SCA to a transfer originator.
+
+The rules within this rules project focus on transaction risk analysis defined in the PSD2 Article 18 ([download the compliance matrix](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance#compliance-matrix---download) to learn more about this article). This article establishes that issuer banks are allowed to exempt SCA when the payer initiates a remote electronic payment transaction identified by the payment service provider as low risk level. Therefore, these rules evaluate risk factors defined in Article 18 and generate the `sca_required = true` outcome when the transaction is considered risky.
+
+Note that when a rule within this rules project is triggered, the remaining rules are not evaluated (i.e. the workflow is stopped). This also includes rules within the _Transfer - SCA Exemption_ rules project - the rules project that follows the _Transfer - SCA Required_ block in the Pulse workflow. This mechanism prevents exemption rules to trigger on top of an SCA-required rule since the SCA exemption cannot be granted anyway.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ sca_required
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Transfers-SCAR1
+
+### Comment
+
+> Mismatch between sender and receiver country code and receiver is new (6 months)
+
+### Actions
+
+  * [Transfers-SCAR1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    ((event.sender_country_code ?? '' != '') and (event.receiver_country_code ?? '' != ''))
+    and (event.count_sender_receiver_6m == 0) 
+    and (event.sender_country_code != event.receiver_country_code)
+
+### Explanation
+
+> [Transfers-SCAR1] - SCA Required - There's a mismatch between the Sender country ({event.sender_country_code}) and the Receiver country ({event.receiver_country_code}) and Receiver is new
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR2
+
+### Comment
+
+> Sender country changed
+
+### Actions
+
+  * [Transfers-SCAR2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.sender_country_code_change_fla ?? false
+
+### Explanation
+
+> [Transfers-SCAR2] - SCA Required - Sender country changed
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR3
+
+### Comment
+
+> Sender email changed
+
+### Actions
+
+  * [Transfers-SCAR3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.sender_email_change_flag ?? false
+
+### Explanation
+
+> [Transfers-SCAR3] - SCA Required - Sender email changed
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR4
+
+### Comment
+
+> Sender phone changed
+
+### Actions
+
+  * [Transfers-SCAR4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.sender_phone_change_flag ?? false
+
+### Explanation
+
+> [Transfers-SCAR4] - SCAR Required - Sender phone changed
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR5
+
+### Comment
+
+> Transaction amount is higher than 90% of the account balance
+
+### Actions
+
+  * [Transfers-SCAR5]
+
+
+
+### Variables
+    
+    
+    RATIO_AMOUNT_BALANCE_LIMIT = transfers__rules_thresholds["max_sca_ratio_amount_balance"].threshold;
+    
+    formatted_ratio = RATIO_AMOUNT_BALANCE_LIMIT * 100;
+
+### Condition
+    
+    
+    event.sender_transaction_amount ?? 0 != 0 
+      and event.sender_account_balance ?? 0 != 0 and
+    Maths.safeDivision(event.sender_transaction_amount,event.sender_account_balance) >= RATIO_AMOUNT_BALANCE_LIMIT
+
+### Explanation
+
+> [Transfers-SCAR5] - SCA Required - This transaction exhausted {localvar.formatted_ratio} % or more of the available account balance.
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR6
+
+### Comment
+
+> Password changed 3 or more times (24hours)
+
+### Actions
+
+  * [Transfers-SCAR6]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = transfers__rules_thresholds["max_sender_count_pw_changed_24h"].threshold;
+
+### Condition
+    
+    
+    event.count_sender_pw_change_24h >= COUNT_LIMIT
+
+### Explanation
+
+> [Transfers-SCAR6] - SCA Required - The password changed {localvar.COUNT_LIMIT} or more times in the last 24 hours
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR7
+
+### Comment
+
+> Device language changed and IP country code or device id are new (6 months)
+
+### Actions
+
+  * [Transfers-SCAR7]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.sender_device_language_changed == 1 and (event.count_sender_device_ip_country == 0 or event.count_sender_device_id_6m == 0)
+
+### Explanation
+
+> [Transfers-SCAR7] - SCA Required - In the last 24 hours, device language changed and device ip country or device id are new
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR8
+
+### Comment
+
+> Authentication type and login session id changed and receiver is new (6 months)
+
+### Actions
+
+  * [Transfers-SCAR8]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.auth_type_changed_24h == 1 and event.login_session_id_changed_24h == 1 and event.count_sender_receiver_6m == 0
+
+### Explanation
+
+> [Transfers-SCAR8] - SCA Required - Authentication type and login session id changed and receiver is new (6 months)
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Transfers-SCAR9
+
+### Comment
+
+> Proxy has been detected 
+
+### Actions
+
+  * [Transfers-SCAR9]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.proxy_flag ?? false
+
+### Explanation
+
+> [Transfers-SCAR9] - SCA Required - Proxy has been detected
+
+### Mark As
+
+The outcome of this rule is: **true**

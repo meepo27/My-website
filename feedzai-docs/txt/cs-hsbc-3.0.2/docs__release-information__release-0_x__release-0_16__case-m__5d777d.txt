@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-workflow-mvp/workflow-changes
+Title: Case Manager Workflow MVP | Feedzai Documentation
+============================================================
+
+On this page
+
+# Case Manager Workflow MVP
+
+## Add new operational status statesâ
+
+Rework
+
+Operational status now includes 2 new states:
+
+  * Wait to contact Customer
+  * Contact Customer
+
+
+
+These 2 new states are core to the [Case Manager Workflow MVP](/cs-hsbc/3.0.2/docs/guides/casemanager/overview).
+
+## Update Alerts Page and Get Nextâ
+
+Rework
+
+Updated Alerts Page and Get Next so that only "Unreviewed" alerts are considered.
+
+## Update Assign and Lock Criteriaâ
+
+Rework
+
+Change on Assign and lock transfers schema in order to make the linking criteria to be the customer id like requested
+
+## Implement integration between Pulse and Case Manager regarding treatment strategyâ
+
+Feature
+
+Add new _outcome_ to Workflow - `treatment_strategy` \- defaulting to `none` (manual). This outcome is core to the [Case Manager Workflow MVP](/cs-hsbc/3.0.2/docs/guides/casemanager/overview).
+
+## Replace Status Reasonsâ
+
+Rework
+
+Changed existing Case Manager Status Reasons according to HSBC request. Note that, since there's no Status Reason for Digital Activity and one is mandatory to mark as Fraud / Not Fraud, currently it's not possible to mark digital activity events.
+
+With that in mind, a _Fraud Prevention Manager_ can add new Status Reasons to allow the previous behavior.
+
+## Implement core SLA's and Automation Rulesâ
+
+Rework
+
+We've implemented the core SLA's and Automation Rules to implement [Case Manager Workflow MVP](/cs-hsbc/3.0.2/docs/guides/casemanager/overview).

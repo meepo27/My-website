@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/add-cards-reference-data
+Title: Reference Data: cards | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Reference Data: cards
+
+
+
+Was this page helpful?Â 
+
+# Reference Data: cards
+    
+    
+    PUT 
+    
+    ## /api/referenceData/cards/:key
+
+The Reference Data Provisioning endpoint allows you to send 'cards' data to Feedzai that will enrich the real time scoring events.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+
+
+
+OK
+
+Unauthorized

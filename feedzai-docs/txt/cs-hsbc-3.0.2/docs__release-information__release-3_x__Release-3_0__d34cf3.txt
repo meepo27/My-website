@@ -1,0 +1,1129 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/Release-3.0
+Title: Release 3.0 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `3.0.2`â
+
+### Add support for adding IPv6 addresses to `PosNeg Listed IP Addresses` from Case Managerâ
+
+FeatureFTMT-36830HSBC-4427
+
+We've enabled the ability to add IPv6 addresses (`device_ip_address_v6`) entries to the `PosNeg Listed IP Addresses` list directly from the event details page in Case Manager. This is the same list already used by IPv4 addresses (`device_ip_address`).
+
+### Add columns to Digital Activity Transaction Historyâ
+
+FeatureFTMT-36748HSBC-4426
+
+We've added the following columns to the Transaction History widget in the Event Details page, for the Digital Activity channel:
+
+Column Name| Field Name  
+---|---  
+IP Country| device_ip_country_code  
+IP/Device ISP| device_geo_ip_isp  
+  
+Additionally, the following columns specific to HSBCNet were added: 
+
+Column Name| Field Name  
+---|---  
+IP Address v6| device_ip_address_v6  
+Device User-Agent| device_user_agent  
+Malware Score| pinpoint_risk_score  
+  
+### Add columns to Transfers Transaction Historyâ
+
+FeatureFTMT-36746HSBC-4425
+
+We've added the following HSBCNet columns to the Transaction History widget in the Event Details page, for the Transfers channel:
+
+Column Name| Field Name  
+---|---  
+User ID| user_id  
+Customer Country Code| customer_country_code  
+Sender Bank Country Code| sender_bank_country_code  
+Receiver Bank Name| receiver_bank_name  
+Receiver Bank Country Code| receiver_bank_country_code  
+Receiver Account Bank ID| receiver_account_bank_id  
+Payment Held Indicator| sender_transaction_held  
+Transaction Sign Status| sender_transaction_sign_status  
+Payment Message Source| payment_message_source  
+Transaction Notes| text_for_receiver  
+Customer Business Type| customer_business_type  
+  
+* * *
+
+## Release `3.0.1`â
+
+### Fix block code expiration value not computing with offsetâ
+
+Bug FixFTMT-37370HSBC-4407
+
+We've fixed an issue where the fields `cm_transaction_block_date` and `cm_transaction_block_expiration` in Case Manager extension payloads were not computed using the configured offset days (default `5`).
+
+### Revert `bioc` nested fields orderâ
+
+Bug FixHSBC-4382
+
+Also In:2.11.3
+
+We've fixed an issue where the `bioc` nested fields order introduced in version 2.11 caused replica ingestion failures during cluster upgrades.
+
+The field order has been reverted to its pre-2.11 state to prevent similar issues in future upgrades.
+
+##### info
+
+This issue only affected Outbound, as the field order did not change for other channels.
+
+### Fix Reasons dropdown options becoming unavailableâ
+
+Bug FixFTMT-36949HSBC-4366
+
+We've fixed an issue which, under certain conditions, caused all options to disappear from the Reasons dropdown when trying to set an event's Block Code or Operational Status.
+
+### Fix database error preventing SLAs from breachingâ
+
+Bug FixFTMT-36820HSBC-4358
+
+Also In:2.11.3
+
+We've fixed an inconsistency between database column sizes that prevented SLAs from breaching when Case Manager was deployed on machines with very long hostnames (70 or more characters).
+
+### Fix `Move to Unresolved` option visibility for Cards channelâ
+
+Bug FixHSBC-4354
+
+The `Move to Unresolved` action in the Cards channel's dropdown menu was previously restricted by the `cm:resource:alert:status-bulk:*` permission. We have removed this permission requirement, allowing users to see the "Move to Unresolved" option regardless of their permissions.
+
+### Add network configuration for DTPâ
+
+FeatureHSBC-4353
+
+We've added support to configure the network and subnetwork in which DTP Dataflow worker nodes are created. This can be configured during deployment using the following Ansible variables:
+
+  * `dtp_dataflow_network`: sets the Dataflow job network
+  * `dtp_dataflow_subnetwork`: sets the Dataflow job subnetwork
+
+
+
+##### warning
+
+Note that the two parameters are not required to be set at the same time. For example, when setting `subnetwork` the `network` can be omitted and GCP will determine the network automatically.
+
+For more details on Dataflow networking refer to [Specify a network and subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks).
+
+We've also added a new property to configure if worker pool machines should be created with public IP addresses. This is available via the `dtp_dataflow_use_public_ips` variable and defaults to `false`.
+
+Please refer to [DTP Network Configuration](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup#network) and to the [DTP Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp) for more information.
+
+* * *
+
+## Release `3.0.0`â
+
+### Upgrade Case Manager to version 13.31.0â
+
+FeatureFTMT-27426HSBC-4280
+
+We've upgraded Case Manager version to 13.31.0.
+
+Case Manager now supports RabbitMQ 4.2. As part of this upgrade, it is now possible to configure Case Manage to use RabbitMQ `QUORUM` queues.
+
+This is configurable using the `rabbitmq_casemanager_use_quorum_queues` Ansible variable. To ensure backwards compatibility, the default value of the variable is `False`.
+
+For more information please refer to the [Case Manager Configuration Page](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).
+
+##### note
+
+Although classic queues are still supported in RabbitMQ 4.2 please note they aren't mirrored which removes high availability. The default value is only meant as an upgrade point from 3.X versions.
+
+### Upgrade Data Extraction Pipelines to version 2.2.0â
+
+FeatureFTMT-27426HSBC-4280
+
+We've upgraded the Data Extraction Pipelines to version 2.2.0. As part of this upgrade, it is now possible to configure the Data Extraction Pipelines to use RabbitMQ `QUORUM` queues.
+
+This is configurable using the following Ansible variables:
+
+  * `rabbitmq_casemanager_queue_type_green`
+  * `rabbitmq_casemanager_queue_type_blue`
+
+
+
+To ensure backwards compatibility, the default value of both variables is `CLASSIC`.
+
+For more information please refer to the [Data Extraction Pipelines Configuration Page](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/configuration-dep).
+
+### Upgrade ETL Tool to version 18.3.0â
+
+FeatureFTMT-27426HSBC-4280
+
+We've upgraded the ETL extraction tool to version `18.3.0`. As part of this upgrade, it is now possible to configure the ETL tool to use RabbitMQ `QUORUM` queues. Please note, this does not have an impact on the regular ETL extractions used to extract events to GCS buckets for analytics. This will only be applicable to the recovery of events from Pulse to Case Manager.
+
+This is configurable using the `etl_cm_rabbitmq_queue_type` Ansible variable.
+
+To ensure backwards compatibility, the default value of both variables is `CLASSIC`.
+
+For more information please refer to the [ETL Configuration Guide](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).
+
+### Upgrade Pulse to version 25.1.9â
+
+We've upgraded Pulse to version 25.1.9.
+
+This upgrade include the following changes:
+
+HSBC-3866
+
+Bug FixHSBC-3866
+
+Also In:2.11.2
+
+Fixes an issue where SMJs did not retrieve values from the secondary channel when different event storages were configured.
+
+HSBC-3998
+
+Bug FixHSBC-3998
+
+Also In:2.11.2
+
+Fixes an issue where SMJs did not retrieve values from the secondary channel when the workflow partition keys are incompatible or the second channel has a different number of partitions.
+
+This upgrade also adds new monitoring metrics. For more information, please consult [Workflow Validation metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#workflow-validation), [App Lifecycle Operations metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#app-lifecycle-operations), and [Pulse Publish metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#pulse-publish).
+
+HSBC-4156
+
+FeatureHSBC-4156
+
+Also In:2.11.2
+
+Includes additional logging to help identify the root cause of an error that occurs when deleting datasources in the Data Science environment.
+
+For these logs to be available, the following classes must be set to the `DEBUG` level:
+
+  * com.feedzai.pulse.service.apps.manager.datascience.AppDataScienceDataSourceManagerImpl
+  * com.feedzai.pulse.service.apps.manager.AbstractModelManager
+  * com.feedzai.pulse.service.apps.manager.AppSchemaManagerImpl
+
+
+
+This can be done during deployment by using the `pulse_loggers` Ansible variable.
+
+##### warning
+
+After replicating the issue with the above log levels enabled, the loggers should be disabled to avoid excessive logging.
+
+FTMT-26214 / HSBC-4218
+
+FeatureFTMT-26214HSBC-4218
+
+Also In:2.11.2
+
+Includes extended support for real-time cross-channel metrics. Cross-channel metrics now have a messaging-based implementation which adds support for partitioned PKernel and workflow partitioning. The new implementation can be enabled by setting the following Ansible variable to `false`:
+
+  * `cross_channel_metrics_rmi_based_lookup` (default: `true`)
+
+
+
+Please check [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more information.
+
+HSBC-4259
+
+FeatureHSBC-4259
+
+Also In:2.11.2
+
+Upgrades pac4j from version `4.5.7` to `4.5.9` to address critical CVE-2026-29000.
+
+FTMT-27426 / HSBC-4126
+
+FeatureFTMT-27426HSBC-4126
+
+Pulse now supports RabbitMQ `4.2`. As part of this upgrade, it is now possible to configure Pulse to use RabbitMQ `QUORUM` queues.
+
+This is configurable using the `rabbitmq_queue_type` Ansible variable. To ensure backwards compatibility, the default value of the variable is `CLASSIC`.
+
+For more information please refer to the [Pulse Configuration Page](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+##### note
+
+Although classic queues are still supported in RabbitMQ 4.2 please note they aren't mirrored which removes high availability. The default value is only meant as an upgrade point from 3.X versions.
+
+### Upgrade Reference Data Service to version 3.7.12â
+
+FeatureHSBC-4244
+
+Also In:2.11.2
+
+We've upgraded the Reference Data Service to version 3.7.12, which addresses the `pac4j` CVE-2026-29000 vulnerability.
+
+### Add Transaction Block Code to Cardsâ
+
+FeatureFTMT-30641FTMT-34449HSBC-3667
+
+FeatureFTMT-34504FTMT-34504HSBC-3984HSBC-4044
+
+FeatureFTMT-32330HSBC-4031
+
+FeatureFTMT-29506FTMT-34942HSBC-4120
+
+FeatureFTMT-32330HSBC-4143
+
+FeatureFTMT-27481HSBC-4212
+
+We've added a set of changes for both Pulse and Case Manager to introduce the Transaction Block Code feature, for Cards event.
+
+Given this work has been done in multiple tasks, we've outlined the major changes in [Transaction Block Page](/cs-hsbc/3.0.2/docs/concepts/transaction-block).
+
+### Fix Digital Activity status and reasons bulk actionsâ
+
+Bug FixFTMT-34940HSBC-4223
+
+We've fixed an issue with the bulk actions for Digital Activity events in the Transaction History widget, which did not update the correct state machine when labelling alerts as Fraud or Not Fraud.
+
+Labelling Digital Activity events through bulk actions now correctly triggers Automated Rules based on the Digital Activity State Machine and its Reasons can be updated.
+
+### Add `alert_number` to Cards and Non-Monâ
+
+FeatureFTMT-35849HSBC-4206
+
+We've added a new `alert_number` field to Cards and Non-Mon, containing the Alert ID for these channels. The Alert ID generation follows the same approach used for the other channels: it's generated by hashing the full lifecycle ID using SHA-256, encoding the hash with Base64, removing any non-alphanumeric characters, and then taking the last 8 characters of the result.
+
+We've also extended the Alert ID search box in Case Manager to search for `alert_id` and `alert_number` and added both fields to the Cards/Non-Mon Event Details page baseline.
+
+### Add `customer_country_code` to Cards, Token and Account Reference Data entitiesâ
+
+FeatureFTMT-34393FTMT-34969HSBC-4205
+
+We've added the `customer_country_code` field to the Cards, Token and Account Reference Data entities.
+
+This changes ensures that all entities have a common field where the tenant can be specified and allow the enrichment of events in multi-tenanted environments.
+
+The default value of the variable `reference_data_tenant_api_payload_field` has been changed to `customer_country_code`.
+
+For more information, refer to the [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Update Case Manager to version 13.30.0â
+
+FeatureFTMT-35919HSBC-4201
+
+We've upgraded Case Manager to version 13.30.0.
+
+The Case Manager's SLA scheduler now performs a graceful shutdown, which ensures its resources are safely and consistently released when the system stops. This fixes an issue where SLAs would not trigger due to a database lock.
+
+### Add fdz_channel to the Payment Fulfillment extensionâ
+
+FeatureFTMT-33848HSBC-4178
+
+The following field was added to Case Manager Payment Fulfillment extension:
+
+Field Name| Datatype| Channels  
+---|---|---  
+fdz_channel| String| Transfers, Inbound Payments  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) for more details.
+
+### Fix `Transaction Sub-Type` field inconsistent mappings in Case Managerâ
+
+Bug FixFTMT-32085HSBC-4177
+
+We've fixed inconsistent mappings in Case Manager regarding the `Transaction Sub-Type` field. Previously, the column in the transaction history widget was getting its value from `sender_transaction_code`. We have changed it to get its value from `cmd_payment_sub_type` to keep it consistent with the Search and Alerts pages.
+
+### Add new fields to Cards and Non-Monâ
+
+FeatureFTMT-35019HSBC-4175
+
+We've added the following fields to the Cards and Non-Mon endpoints and workflow schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+digital_wallet_tar_ref_num| String  
+digital_wallet_tcn_ref_num| String  
+account_other_balances_2| Object  
+account_other_balances_2.amount| Number  
+account_other_balances_2.type| String  
+card_ond_vec_value_new| String  
+  
+### Add support for RabbitMQ 3.13.7â
+
+FeatureFTMT-27426HSBC-4154
+
+Feedzai components now support and have been tested against RabbitMQ `3.13.7`. The RabbitMQ `3.13` branch is still under extended commercial support through December 2027.
+
+### Add Session ID column to Transaction History and Search Pagesâ
+
+FeatureFTMT-34971HSBC-4152
+
+We've added the `Session ID` column (mapped to `session_id) in the following pages:
+
+  * Event Search Page: Transfers tab, between `Beneficiary Account` and `Assignee`
+  * Alerts Page: Transfers tab, between `Beneficiary Account` and `Assignee`
+  * Event Details Transaction History: Transfers tab, between `Device ID` and `Assignee`
+  * Customer Details Transaction History: Transfers tab, between `Beneficiary Account` and `Assignee`
+
+
+
+### Add previous transactions to Cards `Send 2-WAY SMS` extensionâ
+
+FeatureFTMT-34477HSBC-4146
+
+We've added the `previous_transactions` field to the Cards `Send 2-WAY SMS` extension. This field will be populated by listing the last transaction that fall under the following criteria:
+
+  * Same `card_pan` value
+  * Same `customer_id` value
+  * Happened in the last 24 hours (calculated from the time the extension was triggered)
+  * Is not the event that triggered the extension
+
+
+
+For more details please refer to [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions).
+
+### Add Breach Status option to Cards and Non-Mon SLAsâ
+
+FeatureFTMT-34982HSBC-4145
+
+We've enabled the `Set Breach Status` and `Set Initial Breach Status` options in Breach Actions for SLAs in the Cards and Non-Mon channels.
+
+### Change fields required by the Cards Info endpointâ
+
+FeatureFTMT-34893HSBC-4133
+
+We've changed the mandatory fields of the Cards Info endpoint. When calling this endpoint, only the following fields are now required:
+
+  * `card_pan`
+  * `lifecycle_id`
+  * `event_occurred_at`
+  * `customer_id`
+
+
+
+For more information, please refer to the [API reference](/cs-hsbc/3.0.2/api#tag/cards/operation/putCardInfo).
+
+### Add new fields to Cards and Non-Monâ
+
+FeatureFTMT-34892HSBC-4045
+
+We've added the following fields to the Cards and Non-Mon endpoints and workflow schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+customer_id_number| String  
+customer_id_global| String  
+dw_auth_mthd| String  
+  
+### Add new enrichers for Cards and Non-Mon eventsâ
+
+FeatureFTMT-28255HSBC-4034
+
+We've added the following enrichers to be used in Cards and Non-Mon events:
+
+**Field Name**| **Enricher Name**  
+---|---  
+sic| sicEnrich  
+trans_reversal_ind| transReversalIndEnrich  
+digital_wallet_token_type| digitalWalletTokenTypeEnrich  
+card_customer_present_details| cardCustomerPresentDetailsEnrich  
+pos_cardholder_ver_method| posCardholderVerMethodEnrich  
+  
+For more details on the available values and configuration please refer to the [Case Manager Enrichers page](/cs-hsbc/3.0.2/docs/operations-guide/how-to/use-enrichers-in-case-manager).
+
+### Add new fields to Outbound Payments and Digital Activityâ
+
+FeatureFTMT-32720FTMT-34654HSBC-4030
+
+We have added the below elements to the `bioc` tuple in Outbound Payments and Digital Activity API schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+trust_score| Integer  
+mule_account_score| Integer  
+max_30_day_score| Integer  
+chall_risk_score| Double  
+chall_voice_scam_score| Double  
+  
+The `Payments` and `Payments + Outcomes` schemas were updated with all the above fields.
+
+### Add Reference Data fields to the Outbound workflow schemasâ
+
+FeatureFTMT-34648HSBC-4029
+
+We've added the following fields to Transfers and Digital Activity to be enriched with Account Reference Data information:
+
+New Transfers and Digital Activity Fields
+
+Field Name| Datatype| Entity  
+---|---|---  
+sender_business_start_date| Long| Accounts  
+sender_customer_occupation_status| String| Accounts  
+sender_customer_reported_income_dbl| Double| Accounts  
+sender_line_of_business| String| Accounts  
+sender_product_type| String| Accounts  
+receiver_business_start_date| Long| Accounts  
+receiver_customer_occupation_status| String| Accounts  
+receiver_customer_reported_income_dbl| Double| Accounts  
+receiver_line_of_business| String| Accounts  
+receiver_product_type| String| Accounts  
+  
+We've added the following fields to the Account Reference Data API:
+
+New Fields
+
+Field Name| Datatype| Entity  
+---|---|---  
+business_start_date| Long| Accounts  
+customer_occupation_status| String| Accounts  
+customer_reported_income_dbl| Double| Accounts  
+line_of_business| String| Accounts  
+product_type| String| Accounts  
+  
+### Add new fields to the Mobile Outbound extensionâ
+
+FeatureFTMT-34647HSBC-4028
+
+The following fields were added to Case Manager `Mobile Payment Push` extensions for the Outbound Payments channel:
+
+Field Name| Datatype| Description  
+---|---|---  
+sender_account_type| String| Type of sender account  
+receiver_account_type| String| Type of receiver account  
+customer_account_type| String| Type of customer account  
+account_type| String| Account type  
+product_code| String| The code of the product offered by the bank that was used to initiate the transfer  
+sender_product_type| String| Type of product held  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.
+
+### Add new schema fields to Outbound and Inbound Paymentsâ
+
+FeatureFTMT-32720HSBC-4027
+
+We've added the following fields to the Outbound (Transfers and Digital) API and workflow schemas:
+
+Field Name| Datatype| Description  
+---|---|---  
+tmx.digital_id_trust_score| Number| Digital ID Trust Score  
+tmx.chall_reason_code| String| Challenger Risk Reason Code  
+  
+The following field was also added to Outbound and Inbound Payments:
+
+Field Name| Datatype| Description  
+---|---|---  
+vocalink.vocalink_chall_score| Number| Challenge Vocalink Score  
+  
+### Add new Token reference data entityâ
+
+FeatureFTMT-34393FTMT-34969HSBC-4024
+
+We've added a new Token reference data entity to the Reference Data API. The entity key is `ref_digital_wallet_token` and its schema is the following:
+
+New Token fields
+
+**Field Name**| **Datatype**  
+---|---  
+tar_unique_refernce_number| String  
+tcn_unique_refernce_number| String  
+ref_customer_id| String  
+ref_card_pan| String  
+ref_tar_local_datetime| String  
+ref_tcn_local_datetime| String  
+ref_tar_local_datetime_alt| String  
+ref_tcn_local_datetime_alt| String  
+ref_digital_wallet_secu_elem_id| String  
+ref_digital_wallet_eligible_path| String  
+ref_digital_wallet_locale_lang| String  
+ref_card_mobile_match| String  
+ref_digital_wallet_source_pan| String  
+ref_digital_wallet_token_device_type| String  
+ref_digital_wallet_token| String  
+ref_digital_wallet_provider_reason| String  
+ref_digital_wallet_provider_risk| String  
+ref_digital_wallet_token_source| String  
+ref_digital_wallet_pan_source| String  
+ref_digital_wallet_provider_acc_score| String  
+ref_digital_wallet_provider_device_score| String  
+ref_avs_code| String  
+  
+We've also added support for Cards enrichment in the Cards workflow by adding all of the Token entity fields to the Cards API and workflow schemas. By default Cards enrichment will be done using `ref_digital_wallet_token` but the field can be changed during deployment using the Ansible variable `cards_token_enrichment_key`.
+
+Please refer to the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) and to the [Reference Data Tokens API](/cs-hsbc/3.0.2/api#tag/referencedata) for more details.
+
+### Make DTP Dataflow worker service account configurableâ
+
+FeatureHSBC-3997
+
+We've made the service account for Data Transfer Pipeline Dataflow worker instances configurable during deployment using the `dtp_dataflow_worker_service_account` Ansible variable.
+
+We've also updated the documentation to include the specific permissions this account requires. Please refer to the [GCP Permissions page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup#gcp-permissions) for more details.
+
+### Add Card Pan transaction grouping option in Case Managerâ
+
+FeatureFTMT-34471HSBC-3978
+
+We've added the option of grouping events by Card Pan (`card_pan` field) in the transaction history. When selected, the transaction history is filtered to show all transactions that have taken place on the card with the same number.
+
+We've also fixed some inconsistencies on how `card_pan` was showing in the Case Manager UI. The `Card Pan` label will now show the exact value sent in `card_pan` on Event Details and tables, instead of being computed from `card_bin` and `card_last4`.
+
+### Add new extensions for the Cards and Non-Mon channelsâ
+
+FeatureFTMT-34467FTMT-34477FTMT-34482HSBC-3977HSBC-4147
+
+We've created the following extensions to be used for the Cards channel via automation rules and SLA rules:
+
+**Extension Name**| **Notification Type**  
+---|---  
+`Send 2-WAY SMS`| `cards_2_way_sms`  
+`Send 1-WAY SMS`| `cards_1_way_sms`  
+`Send Reminder SMS`| `cards_reminder_sms`  
+  
+The extensions `Send 1-WAY SMS` and `Send Reminder SMS` have also been enabled for the Non-Mon channel, with the same notification types.
+
+Additionally, `Send Mobile Payment Push` has been enabled for Cards to send notifications with the type `cards_mobile_push`.
+
+These extensions are enabled by default, but can be disabled by setting the following to `false`:
+
+  * `send_2_way_sms_extension_enabled`
+  * `send_1_way_sms_extension_enabled`
+  * `send_reminder_sms_extension_enabled`
+
+
+
+For more details please refer to the [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) and the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.
+
+### Add new fields to Cards and Non-Monâ
+
+FeatureFTMT-34453HSBC-3975
+
+We've added the following fields to the Cards and Non-Mon endpoints and workflow schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+info_type| String  
+dispute_start_date| Timestamp  
+dispute_reason| String  
+dispute_notes| String  
+dispute_submitted_by| String  
+dispute_end_date| Timestamp  
+dispute_feedback_notes| String  
+dispute_refunded| String  
+oob_start_date| Timestamp  
+oob_comm_type| String  
+oob_notes| String  
+oob_end_date| Timestamp  
+oob_feedback_notes| String  
+oob_response_type| String  
+feedback_type| String  
+feedback_label| String  
+  
+### Document slack Ansible variablesâ
+
+DocsFTMT-34140HSBC-3920
+
+We have documented all the past and future slack Ansible variables.
+
+Please refer to [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more details.
+
+### Fix mismatch in field formats in Cardsâ
+
+Bug FixFTMT-34154HSBC-3918
+
+Also In:2.11.1
+
+We've fixed a mismatch in the Cards API and Workflow schemas where the following fields had a different data type from the requirement.
+
+**Field Name**| **Previous Datatype**| **New Datatype**  
+---|---|---  
+user_amount| Double| List<Double>  
+user_indicator| String| List<String>  
+user_string| String| List<String>  
+  
+The field types have been corrected in the API specification, Cards and Cards + Outcomes schemas, and database.
+
+##### warning
+
+The database columns corresponding to the updated fields will be dropped during the deployment pipeline. Until the deployment completes and the column is re-added, any Cards events that contain these fields will fail to be stored in event storage and won't be recovered.
+
+### Add new Cards outcome to API specificationâ
+
+DocsFTMT-33585HSBC-3911
+
+We've updated the API specification to include the `wallet_decision` outcome in the Cards response.
+
+We've also updated the API titles to be more readable.
+
+Please refer to [Non-Mon](/cs-hsbc/3.0.2/api#tag/nonmon/operation/postNonMon) and [Cards Authorization](/cs-hsbc/3.0.2/api#tag/cards/operation/postCardAuthorization) for more details.
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-33679HSBC-3884
+
+We have added the below fields to the Pulse Cards API schema:
+
+**Field Name**| **Datatype**  
+---|---  
+card_relay_attk_code| String  
+dw_token_msg_rsn_cde_des| String  
+card_customer_instruction| String  
+card_customer_instruction_desc| String  
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.
+
+### Add _Card Status Update_ Case Manager extensionâ
+
+FeatureFTMT-33602HSBC-3883
+
+FeatureFTMT-36284HSBC-4249
+
+We've added a new Case Manager extension named _Card Status Update_ that is able to send notifications to AFIS from Cards (and Non-mon) status update automation rules.
+
+The behaviour of this extension is identical to the Mobile/SMS extensions for Outbound Payments, and to the Inbound Payment Notification extension for Inbound Payments, but with a much simpler schema in the API call made to AFIS.
+
+An example of the schema sent for this extension is as below:
+    
+    
+    {  
+      "notification_type" : "card_status_update",  
+      "account_number" : "1005103001044120",  
+      "operational_status" : "closed",  
+      "fdz_channel" : "cards",  
+      "source" : "MSC",  
+      "trans_message_type" : "TypeA",  
+      "customer_portfolio_channel" : "portfoliochannel",  
+      "customer_portfolio_country" : "feedzai",  
+      "event_occurred_at" : "1773684342216",  
+      "event_type" : "feedback",  
+      "customer_portfolio_type" : "portfoliotype",  
+      "treatment_strategy" : "none",  
+      "alert_id" : "6e684d92-49ec-309a-9112-4ebc70e8d3ad",  
+      "customer_portfolio" : "EU_PC_CR_MS_GNRL",  
+      "customer_portfolio_class" : "elite",  
+      "self_serve_strategy" : "none",  
+      "customer_id_global" : "HK",  
+      "card_transaction_ref_number" : "card_1",  
+      "card_pan" : "card_1",  
+      "lifecycle_id" : "ad3c8300-8d7d-40ac-8c2a-9db15e1feef5",  
+      "customer_portfolio_region" : "US-EAST",  
+      "system_decision" : "approve",  
+      "lifecycle_id_alt" : "9e00eeba-daa7-48ed-9c92-c2125108d94e",  
+      "account_id" : "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+      "card_transaction_component_type" : "TRX",  
+      "smh_source" : "",  
+      "customer_id" : "cutomer_1",  
+      "wallet_decision" : "none",  
+      "card_txn_sub_type" : "TypeB",  
+      "customer_id_number" : "0HKHSXXXXXX796256",  
+      "customer_portfolio_product" : "product"  
+    }  
+    
+
+Copy
+
+By default the extension is enabled, but it can be disabled by setting `card_status_update_extension_enabled` to `false`. For more details please refer to the [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) and the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.
+
+### Add operational status filter to the Cards Fulfillment extensionâ
+
+FeatureFTMT-33601HSBC-3882
+
+We've extended the Fulfillment extension to accept the `operational_status` state machine in addition to the `status` state machine.
+
+We have also updated the filter logic to support specific statuses. By default, the extension executes for all `status` changes, but limits `operational_status` changes to `On Hold` or `Unresolved`. This behavior can be configured during deployment using the Ansible variable `fulfillment_channels_state_machines`. Please refer to [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information.
+
+### Add new fields to the Case Manager Cards/Non-Mon external notificationsâ
+
+FeatureFTMT-27481FTMT-34765HSBC-3880HSBC-4032
+
+We've added the following fields to the Case Manager Cards and Non-Mon external notifications payload:
+
+New Fields
+
+**Field Name**| **Datatype**  
+---|---  
+lifecycle_id_alt| String  
+card_transaction_ref_number| String  
+card_transaction_component_type| String  
+source| String  
+customer_portfolio_region| String  
+customer_portfolio_country| String  
+customer_portfolio_channel| String  
+customer_portfolio_product| String  
+customer_portfolio_type| String  
+customer_portfolio_class| String  
+customer_portfolio| String  
+account_id| String  
+account_number| String  
+card_phone_banking_user_id| String  
+customer_id| String  
+customer_email| String  
+customer_name| String  
+customer_id_personal| String  
+customer_id_business| String  
+customer_id_number| String  
+customer_id_global| String  
+card_txn_sub_type| String  
+trans_message_type| String  
+acquirer_id| String  
+amount_dbl| Number  
+trans_model_amt| Number  
+cardholder_bill_amount| Number  
+cardholder_bill_currency_code| String  
+trans_currency_code| String  
+currency_code| String  
+treatment_strategy| String  
+oob_comm_type| String  
+oob_notes| String  
+oob_feedback_notes| String  
+oob_response_type| String  
+feedback_type| String  
+feedback_label| String  
+external_status_reason| String  
+channel_type| String  
+card_pan| String  
+saf_ind| String  
+sender_initiated_at| Timestamp  
+sender_initiated_at_local| String  
+local_datetime| String  
+event_occurred_at| Timestamp  
+crypto_transaction_info| String  
+card_type| String  
+outcome_decision| String  
+wallet_decision| String  
+  
+For more details please refer to the [Notifications Schema page](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/notifications-schema).
+
+### Add scheduled metrics Cassandra table migration guideâ
+
+DocsHSBC-3860
+
+We've added a guide for migrating scheduled metrics Cassandra keyspaces/tables. This can be used to decouple the existing setup and reduce the possibility of metrics collisions in multi-channel deployments.
+
+For more information please refer to [Cassandra Profiles Migration](/cs-hsbc/3.0.2/docs/operations-guide/how-to/cassandra-profiles-migration).
+
+### Add Spanish (Mexico) language to Case Managerâ
+
+FeatureFTMT-29151HSBC-3858
+
+Spanish (Mexico) is now available in Case Manager, enabling users to work in Mexican Spanish across the application.
+
+All translations are available in the Manage Messages page, introduced in [Update Case Manager to version 13.28.0](/cs-hsbc/3.0.2/docs/release-information/release-3.x/Release-3.0#update-case-manager-to-version-13280).
+
+### Upgrade Ansible Roles to version 34.1.0â
+
+FeatureHSBC-3850
+
+We've upgraded Ansible Roles to version 34.1.0. This version updates the Case Manager pipeline to accept the `SELF_HEALING` Pulse application state, in addition to `STARTED` and `STARTING`.
+
+We also fixed an issue where the pipeline waited for an application that did not always exist. Case Manager will now correctly identify the available applications and wait for them to reach their desired states.
+
+### Fix Case Manager logger configuration via Ansibleâ
+
+Bug FixFTMT-27146HSBC-3842
+
+Also In:2.10.32.11.12.8.62.9.7
+
+We have fixed an issue in which some logging levels were not correctly being updated via the `cm_loggers` Ansible variable due to a logger XML formatting issue.
+
+### Add new search field to Case Managerâ
+
+FeatureFTMT-28258HSBC-3806
+
+We've added the `Card Number` search field to the common filters in Case Manager's search page. The new search field maps to the `card_pan` event field.
+
+### Add Wallet Decision outcome to Cards and Non-Monâ
+
+FeatureFTMT-33585HSBC-3804
+
+We've added the `wallet_decision` outcome to the **Cards** workflow. The field was also added to the **Cards + Outcomes** schema and is included in the real-time response for requests to the Authorization and Non-Mon endpoints.
+
+This outcome can have the following values by default:
+
+  * `RED`
+  * `YLW`
+  * `GRN`
+  * `none`
+
+
+
+### Enable the `External Status Reason Updater` extension for Cardsâ
+
+FeatureFTMT-28948HSBC-3802
+
+We have updated the `External Status Reason Updater` extension to allow Cards events.
+
+The extension will now set the event's status reason based on the `external_status_reason` field value sent in the feedback event if it matches any Case Manager configured reasons.
+
+### Add the Non-Monetary channel to Pulse and Case Managerâ
+
+FeatureFTMT-30076HSBC-3689
+
+FeatureFTMT-27453FTMT-29259FTMT-30076HSBC-3690
+
+FeatureFTMT-28765HSBC-3805
+
+FeatureFTMT-27479HSBC-3803
+
+FeatureFTMT-27453FTMT-30076HSBC-3798
+
+We've added the Non-Monetary (Non-Mon) channel to Pulse and Case Manager. Given this work has been done in multiple tasks, we've outlined the major changes in [Non-Mon Channel](/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/non-mon-channel/non-mon-channel).
+
+### Update database retention scriptsâ
+
+FeatureHSBC-3789
+
+We've updated the database retention scripts to include the following tables:
+
+  * AM_EVENT_AUTOMATION
+  * AM_CASE_FILE
+  * AM_CASE_SOURCE_TYPE
+  * AM_EVENT_FILE
+  * AM_EXTENSION_LOG
+  * AM_FILE
+  * AM_EVENT_ACCESS_GROUP
+
+
+
+See [Retention Scripts](/cs-hsbc/3.0.2/docs/installation-guide/database/retention-scripts) for more information.
+
+### Add support for Zookeeper version 3.9â
+
+FeatureFTMT-30224HSBC-3786
+
+This release officially adds support for Zookeeper 3.9.
+
+### Update Case Manager to version 13.28.0â
+
+FeatureFTMT-29151HSBC-3777
+
+We've upgraded Case Manager to version 13.28.0.
+
+This release introduces the Manage Messages feature, giving HSBC direct control over message translations in Case Manager.
+
+This change also introduces a new set of permissions to control which users can access and manage Case Manager messages:
+
+**Messages Permission**| **Description**  
+---|---  
+`cm:section:settings-message:read:*`| Lets the user see the Manager Messages page in the Settings section.  
+`cm:resource:message:read:*`| Lets the user read messages.  
+`cm:action:settings-message:create:*`| Lets the user create messages in the Settings section.  
+`cm:resource:message:create:*`| Lets the user create messages.  
+`cm:action:settings-message:update:*`| Lets the user update messages in the Settings section.  
+`cm:resource:message:update:*`| Lets the user update messages.  
+`cm:action:settings-message:delete:*`| Lets the user delete messages in the Settings section.  
+`cm:resource:message:delete:*`| Lets the user delete messages.  
+  
+Please refer to [Case Manager Documentation](https://cam.feedzai.com/case-manager/latest/docs/common/case-manager/user-guide/manager-guide/manage-message-translations) for more information and to the [Permissions Guide](/cs-hsbc/3.0.2/docs/operations-guide/permissions) for the full permissions list.
+
+### Add Reference Data fields to the Cards workflow schemasâ
+
+FeatureFTMT-32500HSBC-3745
+
+FeatureFTMT-34761HSBC-3993
+
+We've added the following fields to the `Cards` and `Cards + Outcomes` schemas:
+
+New Fields
+
+Field Name| Datatype| Entity  
+---|---|---  
+account_closed_date| Long| Accounts  
+account_customers| List<String>| Accounts  
+product_type| String| Accounts  
+account_iban| String| Accounts  
+app_fraud_bio_is_bot| String| Customers  
+app_fraud_bio_is_emulator| String| Customers  
+app_fraud_bio_is_rat| String| Customers  
+app_fraud_bio_reason_code| String| Customers  
+app_fraud_bio_risk_level| String| Customers  
+app_fraud_bio_score| Double| Customers  
+app_fraud_overall_decision| String| Customers  
+app_fraud_overall_decision_text| String| Customers  
+app_fraud_session_id| String| Customers  
+app_fraud_source| String| Customers  
+app_fraud_timestamp| Long| Customers  
+app_fraud_tmx_device_id| String| Customers  
+app_fraud_tmx_digital_id_trust_score| Double| Customers  
+app_fraud_tmx_first_party_score| Double| Customers  
+app_fraud_tmx_fuzzy_device_id| String| Customers  
+app_fraud_tmx_fuzzy_device_id_confidence| Integer| Customers  
+app_fraud_tmx_policy_score| Double| Customers  
+app_fraud_tmx_proxy_ip| String| Customers  
+app_fraud_tmx_risk_rating| String| Customers  
+app_fraud_tmx_summary_reason_codes| String| Customers  
+app_fraud_tmx_true_ip| String| Customers  
+business_start_date| Long| Customers  
+customer_age| String| Customers  
+customer_alias_last_update_time| Long| Customers  
+customer_annual_turnover| Double| Customers  
+customer_annual_turnover_last_update_date| Timestamp| Customers  
+customer_branch_id| String| Customers  
+customer_business_type| String| Customers  
+customer_business_type_last_update_date| Timestamp| Customers  
+customer_businessphone_last_update_at| Timestamp| Customers  
+customer_corresp_address_last_update_at| Timestamp| Customers  
+customer_daytime_work_phone| String| Customers  
+customer_fiv_marker_last_updated_at| Timestamp| Customers  
+customer_fiv_markers| String| Customers  
+customer_hmphone_last_update_at| Timestamp| Customers  
+customer_home_address_last_update_at| Timestamp| Customers  
+customer_mbphone_last_update_at| Timestamp| Customers  
+customer_mobile_phone| String| Customers  
+customer_number_of_accounts| Integer| Customers  
+customer_occupation_status| String| Customers  
+customer_occupation_status_last_update_at| Timestamp| Customers  
+customer_portfolio_segment| String| Customers  
+customer_portfolio_segment_last_update_date| Timestamp| Customers  
+customer_reported_income_last_update_date| Timestamp| Customers  
+customer_voice_id| String| Customers  
+customer_voice_id_last_change_date| Timestamp| Customers  
+customer_wrkphone_last_update_at| Timestamp| Customers  
+delivery| String| Customers  
+employer_name| String| Customers  
+employer_name_last_update_date| Long| Customers  
+employer_start_date| Long| Customers  
+line_of_business| String| Customers  
+  
+Note also that the following fields are new to the Customer Reference Data API:
+
+  * `customer_age`
+  * `delivery`
+
+
+
+These can now be used to enrich Cards events via Reference Data.
+
+### Fix an issue with the ETL extraction MULTICHANNEL strategyâ
+
+Bug FixHSBC-3696
+
+We've fixed an issue with the ETL extraction tool using the MULTICHANNEL routing strategy, where the extraction to Case Manager would fail if it found events whose channel was not mapped in `etl_cm_channel_queue_mappings`.
+
+The MULTICHANNEL strategy can now be used to recover the events of a single channel from a multichannel workflow (e.g. recover only Digital Activity events).
+
+We've also upgraded ETL to version 18.2.2 which reduces the amount of logging when a channel-queue mapping is missing.
+
+### Add model information to Cards and Non Mon responseâ
+
+FeatureFTMT-29505HSBC-3668
+
+We've updated the response object from the Cards authorization and Non Mon endpoint, to include the model information that was used to reach an outcome. The `model` field includes the following structured information:
+    
+    
+        "model": [  
+            {  
+                "modelId": "6f41c74c7d491cd8",  
+                "modelVersionId": "53d00a6cc43347f7",  
+                "modelName": "dummy_model_test",  
+                "outcome": "isfraud",  
+                "score": [  
+                    0.9340874776977786,  
+                    0.0659125223022215  
+                ]  
+            }  
+        ]  
+    
+
+Copy
+
+See up-to-date API documentation and Swagger definition at [Cards Authorization Endpoints](/cs-hsbc/3.0.2/api#tag/cards/operation/postCardAuthorization) and [Non Mon](/cs-hsbc/3.0.2/api#tag/nonmon/operation/postNonMon).
+
+### Add Operational Status 'Unresolved'â
+
+FeatureFTMT-31854HSBC-3663
+
+We've added a new Operational status `Unresolved`, with the same functionality as `On-Hold`. It can be selected by clicking on the drop-down option `Move to Unresolved`, which is available in Alert Details and as a bulk action in Transaction History.
+
+### Improve the Case Manager `External Status Reason Updater` extensionâ
+
+FeatureFTMT-27146FTMT-27219HSBC-3396HSBC-3620
+
+We've improved the Case Manager `External Status Reason Updater` extension by eliminating the need for a database call to load the event's context. This improvement ensures that the extension runs with the exact event context that triggered it.
+
+### Extend improved currency to all amount and currency columnsâ
+
+FeatureWPB-349833HSBC-3412
+
+We've standardized the event tables across Case Manager using a single Amount column to represent currency amounts along with the respective currency symbol. This change uses the improved currency support added in [Improve currency display in Case Manager](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.10#improve-currency-display-in-case-manager).
+
+##### warning
+
+Please note that the Currency table column no longer exists in any event tables.
+
+### Extend the PaymentFulfillment extension to work for Cards and Non-Mon channelsâ
+
+FeatureFTMT-29506HSBC-3391HSBC-3999
+
+We've updated the PaymentFulfillment extension to support Cards and Non-Mon channel events. On the back of this support we've also configured the fulfillment Cards and Non-Mon schemas, which can be found in [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions).
+
+Additionally, the state machines that may trigger PaymentFulfillment are now configurable during deployment by using the Ansible variable `fulfillment_channels_state_machines`. For more information regarding this feature please refer to the [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).
+
+### Add `customer_id_number` to the Case Manager `Customer ID` search filterâ
+
+FeatureWPB-349829HSBC-3132
+
+We've added the `customer_id_number` field to the Case Manager `Customer ID` search filter, which now includes this field plus `customer_id` and `customer_citizen_id_number`.
+
+### Add support for multiple applications of the same typeâ
+
+FeatureHSBC-3095
+
+We've added support for deployments with multiple applications of the same type.
+
+The changes address two limitations:
+
+  * Allow overriding Liquibase database configurations: Liquibase now supports database configuration overrides per application, similar to what is supported for other configurations. For example, to use a different database for an equal portfolio application, the database override can be set as `<app_slug>_database_pulse_outbound_payments_eventstorage_hostname`
+  * Allow overriding the API ports for Outbound and Reference Data Service (RDS): this change introduces two new Ansible variables to configure in which port the Pulse and RDS APIs will listen for requests:
+    * `api_port`: configure the API port for Outbound Payments
+    * `rds_api_port`: configure the API port for RDS
+
+
+
+Please refer to [Cluster with same portfolio applications](/cs-hsbc/3.0.2/docs/installation-guide/pulse/multi-app-cluster) for a detailed explanation of the changes and to the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) for deployment information.
+
+### Remove unused Pulse binariesâ
+
+ReworkHSBC-2122
+
+We've removed a set of Pulse binaries related to the following unused services:
+
+  * workflow-list-manager-workflow-service
+  * expired-metrics-pulse-service
+  * fraudforce-workflow-service
+  * revelock-workflow-service
+  * revelock-udfs
+  * data-migration-service
+  * outcome-priority-enforcer-service
+  * enrichment-framework-lib
+
+
+
+Along with the removal of these binaries, we have also removed the `import_solutions_udfs` Ansible variable given the binaries it imported are no longer available.
+
+This change should not impact upgrades unless the current deployed version has a very early version installed (e.g. 1.6). In these versions the services were still part of the applications and Pulse required the binaries to be available before the more recent version could remove their reference.
+
+If any deployment from the outlined early versions is planned, there are some steps that are required prior to the update:
+
+  * Keep only the following services from each application and removing all remaining using the Pulse UI:
+    * Alert Storage Service
+    * Data Transfer Pipeline Service
+    * HTTP Input Service
+    * Historic Events Service
+    * Logging Admin Service
+    * Workflow List Manager Service
+    * Workflow Monitoring Service
+  * Remove the following properties:
+    * `*.services.modules.fraudmodel.import.ListedKeywords`
+    * `*.services.modules.datascience.context.import.ListedKeywords`
+    * `*.services.modules.datascience.context.rules.import.ListedKeywords`
+    * `*.services.modules.fraudrules.import.ListedKeywords`
+    * `*.services.modules.fraudmodel.import.ValueFormatTools`
+    * `*.services.modules.datascience.context.import.ValueFormatTools`
+    * `*.services.modules.datascience.context.rules.import.ValueFormatTools`
+    * `*.services.modules.fraudrules.import.ValueFormatTools`
+    * `*.services.modules.fraudmodel.import.DateConversionTools`
+    * `*.services.modules.datascience.context.import.DateConversionTools`
+    * `*.services.modules.datascience.context.rules.import.DateConversionTools`
+    * `*.services.modules.fraudrules.import.DateConversionTools`
+    * `*.services.modules.fraudmodel.import.Revelock`
+    * `*.services.modules.fraudrules.import.Revelock`
+    * `*.services.modules.datascience.context.import.Revelock`
+    * `*.services.modules.datascience.context.rules.import.Revelock`
+
+

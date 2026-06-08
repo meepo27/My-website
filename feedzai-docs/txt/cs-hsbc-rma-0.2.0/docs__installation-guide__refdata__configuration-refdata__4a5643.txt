@@ -1,0 +1,71 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/configuration-refdata
+Title: Configuration Recommendations | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+### Ansibleâ
+
+##### info
+
+Available ansible variables for running the ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+reference_data_install_path| "/opt/feedzai"| Reference Data Service (RDS) install path  
+reference_data_home_path| "{{ reference_data_install_path }}/reference-data-{{ reference_data_version }}"| RDS home path  
+reference_data_app_port| 8080| RDS connection port  
+reference_data_admin_port| 8081| RDS administration connection port  
+cassandra_rds_username| "rds"| RDS username in Cassandra  
+cassandra_rds_password| "secret"| RDS user password in Cassandra  
+cassandra_cluster_name| "project-hsbc cluster"| Profile store cluster name in Cassandra  
+cassandra_rds_consistency| "LOCAL_ONE"| Profile store consistency level in Cassandra  
+cassandra_rds_keyspace_replication| "'class':'NetworkTopologyStrategy', 'dc1': {{ groups['cassandra']| length }}"  
+reference_data_cassandra.tableName| feedzai_reference_data| Cassandra profile store table name  
+reference_data_cassandra.keyspaceName| hsbc| Cassandra profile store keyspace name  
+reference_data_cassandra.username| {{ cassandra_rds_username }}| Cassandra RDS username  
+reference_data_cassandra.password| {{ cassandra_rds_password_encrypted }}| Cassandra RDS user password  
+reference_data_cassandra.cluster| {{ cassandra_cluster_name }}| Cassandra cluster name  
+reference_data_cassandra.contactPoints| {{ groups['cassandra'] }}| Cassandra contact points  
+reference_data_cassandra.consistencyLevel| {{ cassandra_rds_consistency }}| Cassandra consistency level  
+reference_data_cassandra.replicationStrategy| {{ cassandra_rds_keyspace_replication }}| Cassandra replication strategy  
+reference_data_jwt_secret| "0jd40327td208347t02k3487t23k40t87320t"| JWT secret, needs to be set  
+reference_data_use_https| false| When `true` RDS will use https for connection  
+reference_data_app_keystore_path| "{{ reference_data_home_path }}/conf/keystore.jks"| Keystore path, needs to be set when reference_data_use_https is `true`  
+reference_data_app_keystore_password| N/A| Keystore password, needs to be set when reference_data_use_https is `true`  
+reference_data_app_keystore_type| "JKS"| Key store type, needs to be set when reference_data_use_https is `true`  
+reference_data_app_keymanager_password| N/A| Key manager password, needs to be set when reference_data_use_https is `true`  
+reference_data_admin_keystore_path| "{{ reference_data_home_path }}/conf/keystore.jks"| Keystore path, needs to be set when reference_data_use_https is `true`  
+reference_data_admin_keystore_password| N/A| Keystore password, needs to be set when reference_data_use_https is `true`  
+reference_data_admin_keystore_type| "JKS"| Key store type, needs to be set when reference_data_use_https is `true`  
+reference_data_admin_keymanager_password| N/A| Key manager password, needs to be set when reference_data_use_https is `true`  
+reference_data_validate_certs| true| Set to validate certificates, needs to be set when reference_data_use_https is `true`  
+reference_data_validate_peers| true| Set to validate peers, needs to be set when reference_data_use_https is `true`  
+reference_data_allow_renegotiation| true| Set to allow renegotiation, needs to be set when reference_data_use_https is `true`  
+supportedProtocols| [TLSv1.2]| Set supported protocols, needs to be set when reference_data_use_https is `true`  
+supportedCipherSuites| [TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256]| Set supported ciphers, needs to be set when reference_data_use_https is `true`  
+reference_data_secret_value| "830ebea1212f74040dbab3506cad4ec3"| Value used to encrypt sensitive properties  
+reference_data_properties_to_encrypt| [cassandra_rds_password]| List of properties to encrypt. Encrypted properties can be used by adding the suffix `_encrypted` to the original property name, i.e `<PROPERTY_NAME>_encrypted`. Doesn't support dictionary variables  
+reference_data_log_level| INFO| Default log level for all components in RDS. Please note that changing this value may impact the amount of produced logs.  
+reference_data_loggers| {}| Controls extra loggers in RDS, allowing to override the default value per logger. Keys in this dictionary are the loggers and the values the log level for that logger.  
+  
+* * *
+
+### RDS Service configurationâ
+
+In addition to the above Ansible variables, some properties can be directly changed on the Reference Data Service's configuration file, configuration.yml.
+
+Please find below a description of each of the available configurations.
+
+Property| Default Value| Description  
+---|---|---  
+server.applicationConnectors.supportedProtocols| [TLSv1.2]| Set supported protocols, needs to be set when reference_data_use_https is `true`  
+server.applicationConnectors.supportedCipherSuites| [TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256]| Set supported ciphers, needs to be set when reference_data_use_https is `true`  
+server.adminConnectors.supportedProtocols| [TLSv1.2]| Set supported protocols, needs to be set when reference_data_use_https is `true`  
+server.adminConnectors.supportedCipherSuites| [TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256]| Set supported ciphers, needs to be set when reference_data_use_https is `true`  
+  
+##### info
+
+There are no configuration recommendations for this service besides the ones already described in the guide.

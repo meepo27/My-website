@@ -1,0 +1,95 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/creating-features-and-models-automatically
+Title: Creating Features and Models Automatically | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * Creating Features and Models Automatically
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating Features and Models Automatically
+
+You can use [AutoML](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/automl) to create features and train models in an automated way. In addition, AutoML evaluates the models and recommends the most performant one. This saves you time to focus on more complex tasks.
+
+The following sections explain how to create an AutoML run to reach those goals.
+
+## How to create an AutoML runâ
+
+To create an AutoML run that finds features and train models, execute the following actions:
+
+  1. In the **Data Science** tab, expand the AutoML section if it is collapsed, using the  button on the top of the page.
+
+  2. Select the  â or the  button to start a new AutoML run.
+
+  3. Configure the training properties for your new models:
+
+     1. Select the **Data Source** you will use to create features and train models.
+
+     2. Upload the **Semantic File** , which contains the AutoML tags for the data fields. The tags link the fields to their meaning. To create the semantic file for your data source, you can download a template by using the **Download template file** option in the Semantic File field. Then simply add the tags to the fields. Learn more about [how to create a semantic file for a data source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/automl/semantic-file#creating-the-semantic-file).
+
+     3. Select the **Timestamp Field** from the list of available fields. Pulse uses the timestamp field to aggregate the data by time windows for the calculation of metrics.
+
+     4. Select a categorical data field for the **Target Variable**. This is the variable that the models will predict.
+
+     5. Select the Target Value, which is the value of the Target Variable that you want to detect.
+
+For example, in the fraud detection scenario the Target Variable would be the _Fraud_ field, and the possible Target Values would be _True_ and _False_. Given that you want to detect fraud, select _True_ for the Target Value.
+
+     6. Enable an **Additional Cost Field** to be available for the model evaluations. Select a field that represents the transaction amount, to have metrics such as the _Money Recall_ and _Money FPR_.
+
+     7. Optionally, you can filter which events are taken into consideration when AutoML processes them to train the model.
+
+        1. If you define a **profile filter** , AutoML will create metrics that consider events filtered by the defined expression. Example: you might want to filter for only transaction submissions and payment updates â `event_type = "transaction_submission" OR event_type = "transaction_payment_status_update"`
+
+        2. If you define a **scorable filter** , AutoML will train the models based on events that satisfy the expression of this filter. Example: you might want to filter for only transaction submissions â `event_type = "transaction_submission"`
+
+  4. Split the data source into smaller data sets for training, validation and evaluation. To do so, define the following:
+
+     1. **Time range for training -** The training data set will be used for training models during the hyperparameter tuning phase of the AutoML run.
+
+     2. **Time range for validation** \- The validation data set will be used for evaluating the models during the hyperparameter tuning phase, to find the best model.
+
+     3. Use the **Enable test dataset** switch to define the time range for the dataset that will be used for the final evaluation of the best model found. If you don't define a test data set, Pulse will use the validation data set for this purpose.
+
+In the time ranges the beginning timestamp is inclusive, while the ending timestamp is exclusive.
+
+Planning the training, validation and test data sets
+
+To avoid under- or overfitting, ensure that the selected time ranges don't result in empty data sets, or in data sets with too few data. A typical split ratio is 50% for training, 30% for validation and 20% for evaluation, as long as the data source size is sufficient for that.
+
+  5. Select the **Metric to optimize** , and a fixed metric value that you want to achieve. For example, you want to optimize _Recall_ , while ensuring that the _FPR_ stays around 1%.
+
+  6. You can configure **Advanced options** as follows:
+
+     1. Set the **Number of Models** you want to train in this AutoML run. Note that this value heavily influences the run time of the AutoML job. We recommend that you test the run time with a few models first.
+
+     2. Select the **Path to generated data source** , if you want to save the data in a specific path.
+
+     3. Select the **Window sizes** for the [metrics](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#metric). If the window size of a metric is 1 hour, it means that the metric calculated for a certain point in time is based on the data of the last hour before that given time. Each defined window size will generate another metric.
+
+        * Metrics with **Real-time Updates** will be updated at every event.
+
+        * Metrics with **Scheduled Updates** will be updated at the start of each day.
+
+
+
+
+After setting up the AutoML process, you can follow up on its status on the top of the **Data Science** tab. When the AutoML job is finished, you can view the results in the same place:
+
+  * The **Best Model** trained in the last AutoML run.
+  * The **Features Plan** that created a data source with features based on Feedzai's experience in fraud detection.
+  * **Details** about the job that executed the last AutoML run. In case of a failed AutoML run, you can start investigating here.
+
+
+
+## Next stepsâ
+
+  * Dive into the created model project, and use the [Exploration Mode view](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/exploring-hyperparameter-tuning-results) to understand the best model.
+  * Open the job details and go through the textual reporting that has details on the trained models.
+
+

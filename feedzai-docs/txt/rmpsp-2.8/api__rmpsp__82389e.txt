@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/api/rmpsp
+Title: Risk Management for Payment Service Providers | Risk Management for PSPs
+============================================================
+
+  * monitoring
+    * getHealth Check
+  * payments
+    * postPayment
+    * getResponses
+    * getPayment
+    * postInfo
+    * putInfo
+    * putFeedback
+    * putSettlement
+  * Ad-Hoc Investigation API
+    * postInvestigation
+    * putFeedback
+    * putInfo
+  * Merchant Provisioning API
+    * putMerchant Provisioning
+    * patchMerchant Provisioning
+
+
+
+[API docs by Redocly](https://redocly.com/redoc/)

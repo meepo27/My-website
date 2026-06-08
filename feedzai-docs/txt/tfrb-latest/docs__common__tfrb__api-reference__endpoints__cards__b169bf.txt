@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/cards
+Title: Cards | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * CardsÂ 
+
+
+
+# Cards
+
+Was this page helpful?Â 
+
+The Cards API provides various endpoints to allow you to send information during the whole transaction's life cycle. You can send data related to authorization, transaction updates, clearings, and fraud feedback actions, corresponding to API requests to the Authorization, Info, Clearing and Fraud-Feedback endpoints, respectively.
+
+## [ðï¸ FeedbackThe Feedback Endpoint allows you to label a transaction, for example as 'Fraud' or 'Not Fraud'.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-card-feedback)## [ðï¸ ResponsesThe Responses Get Endpoint allows you to retrieve the result of events that were processed asynchronously.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-responses)## [ðï¸ AuthorizationAn Authorization request allows you to leverage Feedzai's data science capabilities to score a transaction according to its fraud risk.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-card-authorization)## [ðï¸ TransactionThe Transaction Get Endpoint allows you to retrieve a transaction previously sent to Feedzai.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-transactions)## [ðï¸ Scorable InfoThe Info Endpoint enables you to update and add new information to an existing transaction, as well as to notify Feedzai about transactions processed upstream.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-card-info)## [ðï¸ InfoThe Info Endpoint enables you to update and add new information to an existing transaction, as well as to notify Feedzai about transactions processed upstream.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-card-info)## [ðï¸ ClearingThe Clearing Endpoint allows you to inform Feedzai when a transaction is settled.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-card-clearing)

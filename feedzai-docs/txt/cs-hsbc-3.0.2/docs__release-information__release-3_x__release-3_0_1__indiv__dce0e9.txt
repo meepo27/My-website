@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.1/individual-release-notes/HSBC-4354
+Title: HSBC-4354 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4354
+
+### Fix `Move to Unresolved` option visibility for Cards channelâ
+
+Bug FixHSBC-4354
+
+The `Move to Unresolved` action in the Cards channel's dropdown menu was previously restricted by the `cm:resource:alert:status-bulk:*` permission. We have removed this permission requirement, allowing users to see the "Move to Unresolved" option regardless of their permissions.

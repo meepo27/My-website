@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/queues
+Title: Queues | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Queues
+
+
+
+On this page
+
+# Queues
+
+Queues help you to manage and track alerts and cases. You can think of queues as containers in which you can store alerts or cases and assign them to analysts.
+
+You can use queuesÂ to segregate events by country of origin, continent, channel, etc. For example, you can group all the transactions carried out in **â¬** (EUR) togetherÂ or group those happening in the USA. That way, it will be easier to assign the different events to be reviewed to different analysts, according to different attributes (currency, continent, country, etc).
+
+This page also allows you to monitor the volume and status of the alerts allocated to queues.
+
+## Queues Automationâ
+
+You can add events and cases to queues manually or configure automation rulesÂ toÂ do it automatically. For example, when an alert arrives, it can be automatically sent, for example, to an _Urgent_ queue.
+
+## Learn moreÂ â
+
+Now that you know what queues are, learn how to:
+
+  * [Move alerts to queues](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#move-alerts-to-queues) manually.
+  * [Manage queues](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-queues): create, edit, and delete.
+  * Create [automation rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules) to automatically send events and cases to queues.
+
+

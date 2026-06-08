@@ -1,0 +1,80 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/cleaning-up-the-data
+Title: Cleaning up the data | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Cleaning and loading your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/)
+  * Cleaning up the data
+
+
+
+On this page
+
+# Cleaning up the data
+
+Was this page helpful?Â 
+
+You'll often receive raw data with problems, limitations, inconsistencies and all-around quality issues. Once you have matched the raw data to your internal schema, you must make sure that you only work with relevant and high-quality data.
+
+To clean up your data, and address data quality issues, you need to design and create a [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans). This generates a new and clean [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources).
+
+While this task is very similar in nature to the previous task in this guide â[Validating the schema](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/validating-the-data-schema)â its purpose is not the same. This task handles data quality from the perspective of the value and correctness of information contained in the dataset, while the previous one rather focuses on fixing the structure and formatting of your dataset.
+
+## How toâ
+
+For example, to clean up your data and remove negative values from numerical fields, such as the _TransactionAmount_ , execute the following actions:
+
+  1. In the **Data Science** tab , add  a new Plan.
+
+  2. Set the Plan as [Non-Deployable](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans).
+
+  3. Design your data cleansing Plan as displayed in the following image.
+
+
+
+
+Configure the elements as follows:
+
+  1. Edit  the Source element and specify the Data Source. For example, _Transactions_.
+
+  2. Edit  the Map element to correct the negative values, as follows:
+
+Clipboard
+
+You can also copy  Operators to the clipboard in order to paste them in other Plans. This helps you save time by allowing you to create plans more efficiently without the need of specifying all their fields each time you create a new plan, letting you use the operators you have already configured.
+
+     1. Select the **Fields to Update** tab and specify which is the field to be cleaned. For example, _TransactionAmount_.
+
+     2. Write the update expression for the field. For example:
+            
+            if (TransactionAmount < 0) then 0 else TransactionAmount  
+            
+
+     3. Add the field to the list of fields to be updated.
+
+
+
+
+Finally:
+
+  1. the plan to execute all actions on the original Data Source and generate an improved one.
+
+     1. Define the **Data Source with ID 1** as the original, lower quality, Data Source. For example, _Transactions_.
+
+     2. Configure the **Data Sink with ID 3** as the new and clean Data Source. For example, _Cleaned Transactions_.
+
+Job Profiles
+
+You can select a Job Profile by expanding the  menu. This is helpful because Plans are executed by Spark Jobs, and by using this option you can select a profile with a set of Spark properties that best fulfil the needs of the task that you want to execute. Learn more about [Job Profiles](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/jobs-and-job-profiles#job-profiles) in Pulse, how to [create](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/creating-a-job-profile), [select](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles), and [edit their properties on-demand](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/editing-properties-on-demand).
+
+     3. Execute the Plan to generate a new Data Source, in Pulse, named _Cleaned Transactions_. Pulse also saves an output file with the transformed data to your filesystem.
+
+  2. [Analyze](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-source-analysis) the _Cleaned Transactions_ Data Source to confirm that there are no negative values for the _TransactionAmount_ field.
+
+
+
+
+## Next Stepsâ
+
+Once you have a clean and valid dataset, you are ready to [design advanced Plans](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data), [analyze your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data) and [generate features for your models](/pulse/latest/docs/common/pulse/users-guide/feature-engineering).

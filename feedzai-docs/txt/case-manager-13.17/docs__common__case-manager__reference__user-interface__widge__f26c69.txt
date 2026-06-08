@@ -1,0 +1,126 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/table
+Title: Table | Case Manager
+============================================================
+
+On this page  
+  
+# Table
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| No| I18n key to the table title.  
+key| String| No| Path in the data object to fetch the values to populate the table.  
+cssClass| String| Yes| Custom CSS classes, separated by space, to be added to the table container element.  
+columns| Array<Object>| No| List of columns that should appear in the Table. Each column is represented by an object that can have these properties.  
+selectConfiguration| Array<Object>| Yes| Select to filter the data in the table. This object that can contain these properties.  
+showPagination| Boolean| Yes| Whether the table has pagination or not. Default: false  
+showPaginationInfo| Boolean| Yes| Whether the Table shows the pagination info or not. A pagination info is a string that shows things like the current page, the total number of pages, ... Default: false  
+resultsPerPageList| Array| Yes| Sets the number of items displayed per page when using table pagination.  
+Default Values: [10, 20, 50, 100]NoteSetting the items per page to high values may lead to **slower page performance**.  
+sortable| Boolean| Yes| Whether each column can be sortable or not. Default: false  
+linkTo| String| Yes| Specifies the first route level where one should be redirected when clicking in a table row. For example: `event/&#123;{id}}?timestamp=&#123;{timestamp}}&channelId=&#123;{channelId}}`  
+name| String| Yes1| A unique identifier representing the widget.  
+resource| String| Yes| Resource name that points to the endpoint that populates the widget. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+filter| String OR object| Yes| Filter for the external resource. If you require a POST request a filter with an Object is supported. For Event requests on Omnichannel it is needed an object, example:
+    
+    
+      {
+          filter: {
+              {
+    
+                  "COMMON": "'alert' eqb 'true' AND 'schema.customer_id' eq '{{{{id}}}}'"
+    
+                  "legacy": "'eventStates.status.stateId' eq 'suspicious'"
+    
+              }
+          ]
+      }
+    
+
+The channel filters and the string filter bouth support [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderBy| String| Yes| OrderBy for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderByFallback| Array| Yes| The fallbacks of the orderBy. Please check the full documentation below in this page.  
+limit| Number| Yes| Limits the number of results for the external resource  
+totalThreshold| Integer| Yes| When present, enables the [Best Effort Count](/docs/internal/case-manager/configuration-guide/database-performance/events-count-overhead).  
+exportButton (since **v8.1.0**)| Object| Yes| Object to configure the export button. Please check the [Export Resources](/docs/internal/case-manager/configuration-guide/user-interface-configuration/export-resources) page for more details about this configuration.  
+listInsertion| Boolean| Yes| When enabled, it's possible to insert table cell values to a specific configurable list. To learn how to configure the column look to the **listKey** column property.  
+  
+1 Mandatory if **resource** is present.
+
+### Columnsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| No| I18n key to the column header label.  
+cssClass| String| Yes| Custom class names, separated by spaces.  
+headerClassName| String| Yes| Custom class names to be applied only to the table column header.  
+cellCssClass| String| Yes| Custom class names, separated by spaces, to be added to each column cell.  
+type| String| Yes| The type of data for each column cells. Please check the [Data Types](/docs/common/case-manager/reference/user-interface/data-types) section to see the available properties.  
+key| String| Yes| Path to fetch the field value from the data object. Whenever configuring a column that has a template type or a custom type, it is not required to pass a string that points to a property that exists in the data object, it can any string you like.  
+fallbackKey| String| Yes| Path to fetch the field value from the data object, if `key` value returns null or an undefined value. This property is only available if column type is equal to `text`.  
+sortable| Boolean| Yes| Whether the column is sortable or not.  
+dynamicCssClassKey| String| Yes| Contains a key to the data object. If present, it will add a CSS class with the cell key and the value of the key passed in this property. The CSS class will have the following template: `fdz-css-{key}-{data[dynamicCssClassKey]}`.  
+cellAttributes| Object| Yes| HTML attributes to be added to each <td> element. E.g. {title: "Title"} will be produce the following HTML attributes: <td title="Title"></td>  
+headerTooltip| String| Yes| I18n key to the column header tooltip message.  
+cellTooltip| Object| Yes| Configures a tooltip to appear in each column cell. This object must contain the following properties: 
+* **key** (String) - Path to the data object to fetch the tooltip value
+* **type** (String) - Tooltip content data type. Please check the [Data Types](/docs/common/case-manager/reference/user-interface/data-types) section to see the available properties.  
+linkTo| String| Yes| Specifies a link for each cell of the column. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL. For example: `event/&#123;{id}}?timestamp=&#123;{timestamp}}&channelId=&#123;{channelId}}`  
+permissions| string Array<string>| Yes| Specifies the necessary user permissions to view this column. When passing a list of permissions, the user must have **all** the permissions in order to view the column.  
+multiTenancyCheck| Boolean| Yes| If you're configuring a MT environment (cm.multi_tenancy is set to true in the configuration), you can add the property `multiTenancyCheck: true` to a field (widget, field, column, etc). This will tell the CM that the field must only be shown if: 
+* The user has the landlord permission OR
+* The user is not a landlord, but he has more than 1 tenant
+This verification does not replace the permissions verifications, it's only added to those verifications. In a non Multi-tenancy environment, this condition is ignored.  
+listKey| string| Yes| The list key where the cell value will be linked to a list. The table needs the **listInsertion** property set to true.  
+fixed| String| Yes| Possible values are: "left" and "right". It is recommended to add the "left" flag on the first columns and the "right" flag on last columns of the table.  
+  
+### selectConfigurationâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+renderType| String| Yes| Defines which text should appear in the select options. The possible values for this property are: "label", "value" or "label-value".  
+values| Array| Yes| List of initial values. Each item must be an object with the following properties:
+
+  * **value** (string) - Value of one of the select options
+
+  
+options| array| Yes| List of options. Each item must be an object with the following properties:
+
+  * **label** (string) - Option label.
+  * **value** (string) - Option value.
+
+  
+multi| bool| Yes| Whether the select allows multiple values or not.  
+  
+### orderByFallbackâ
+
+This accepts an array of order rules to be considered along with the orderBy value.
+
+Please check the table below to better understand the behaviour of this property:
+
+orderBy value| orderByFallback value| Sort result| Obs.  
+---|---|---|---  
+timestamp asc| timestamp asc| timestamp asc| Same keys and directions, use any  
+timestamp asc| timestamp desc| timestamp asc| Same keys but different directions, use the orderBy value  
+status asc| timestamp desc| status asc, timestamp desc| Different keys, use both  
+status asc| timestamp asc, score desc| status asc, timestamp asc, score desc| Use all (different keys)  
+status asc| timestamp asc, status desc| status asc, timestamp asc| Use the "status" from the orderBy, ignore the fallback for that key, and use the other fallback (timestamp)  
+  
+Here's an example of a configuration using the `orderByFallback` property:
+    
+    
+    "tableConfiguration": {  
+       "inlineActions": [ ... ],  
+       "columns": [...],  
+       "orderBy": "schema.fields.timestamp desc",  
+       "orderByFallback": ["schema.fields.timestamp desc"],  
+       "showPagination": true,  
+       "sortable": true  
+    }  
+    
+
+Expected Result: when the page is loaded, the results will be sorted by "schema.fields.timestamp desc" . If the user clicks in other columns (schema.fields.score asc), the results will be sorted by schema.fields.score asc , schema.fields.timestamp desc . Only the score column will be highlighted (the fallback is transparent to the user).
+
+This is useful when the user is sorting by a column other than timestamp, i.e. not ensuring a deterministic sorting of the results.

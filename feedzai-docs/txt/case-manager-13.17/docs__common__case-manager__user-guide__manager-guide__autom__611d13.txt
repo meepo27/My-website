@@ -1,0 +1,109 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/automation-rule-examples
+Title: Examples of Automation Rules | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * [Manage Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules)
+  * Examples of Automation Rules
+
+
+
+On this page
+
+# Examples of Automation Rules
+
+[Automation rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules) allow to automatically perform actions on events and cases based on certain conditions. For example, these rules allow to automatically move alerts to queues, assign alerts to analysts, link alerts to cases, or even change the alert status.
+
+This page includes some examples of how you can use automation rules to take care of commonly occurring simple decisions or administrative tasks. To learn how to create and operate automation rules, see [Managing Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules).
+
+## Reassign alertsâ
+
+### When alert arrivesâ
+
+When an alert arrives to the investigation tool, it can be automatically assigned to a specific analyst.
+
+### When alert status changesâ
+
+When an alert's status changes, it can be automatically assigned to a specific analyst. For example, if an alert's status changes to _Suspicious_ , it can be assigned to another analyst or manager for further review.
+
+### When alert queue changesâ
+
+When an alert is moved to a queue, it can be automatically assigned to a specific analyst. For example, if an alert is moved to an _Urgent_ queue, it can be automatically assigned to a manager.
+
+## Move alerts to queuesâ
+
+### When alert arrivesâ
+
+When an alert arrives, it can be automatically sent to a specific queue, for example, an _Urgent_ queue.
+
+### When alert status changesâ
+
+When an alert's status changes, it can be automatically sent to a specific queue. For example, if an alert's status changes to _Suspicious_ , it can be automatically sent to an _Investigation_ queue.
+
+## Change access groupâ
+
+### When alert arrivesâ
+
+When an alert arrives from a specific country, its access group can be automatically changed. For example, if an alert is from the _UK_ , it can be automatically added to the _Europe_ access group.
+
+### When alert status changesâ
+
+When an alert's status changes, its access group can be automatically changed. For example, if an alert's status changes to _Suspicious_ , it can be automatically added to the _Managers_ access group.
+
+## Create casesâ
+
+Automation Rules also allow you to create new cases or update existing ones. This way, analysts have a more organized workflow based on cases that group all the related transactions in need of further review. For example, you can create an automation rule that creates or updates a case when an event arrives to the investigation system.
+
+  * **Creation prefix:** Refers to the case name prefix. This field can be configured in two different ways:
+
+    * If the automatic case name configuration is disabled, the case name consists of the value inserted on this field + 5 first digits of the Case ID. For example, _Urgent_aacd2._
+
+    * If the automatic case name configuration is enabled, users can include fields from the event's schema using a specific syntax. For example, if the **Creation prefix** field is _Case with customer ${schema.fields.customer_id}_ and _merchant ${schema.fields.merchant_id}_ , then the case name will be _Case with customer 123 and merchant 456._
+
+caution
+
+For the case name to display the schema fields inserted on the **Creation prefix** field, those same fields have to be selected on the **Key fields** field.
+
+info
+
+In addition to the schema fields, you can also use the following fields:
+
+    * **createdAt:** refers to the case creation date in a default format.
+    * **createdAtMillis:** refers to the case creation date in milliseconds.
+    * **caseIdShort** : refers to the five first characters of the case ID.
+    * **caseId:** refers to the case ID in whole.
+
+  * **Type:** Classifies cases according to their type (i.e. _Fraud_ or _AML_ ), when using a FRAML (Fraud and AML) configuration.
+
+  * **Description:** Defines the case's description.
+
+  * **Key fields (All):** Refers to the fields of the events schema that are common to all events on the case. For example, if the fields selected are _Customer_ and _Merchant_ , then all events that are automatically linked to the case must have the same _Customer_ and _Merchant_.
+
+  * **States (Any):** Lists the case state requirements to automatically link events to a case. Imagine an automation rule defining that events with the same customer and merchant must be grouped in an _Open_ case. When an event with the same customer and merchant arrives and the matching case is closed, a new case will be created (with the Open state) to add the incoming event.
+
+  * **Case Age:** Lists the case age requirements to automatically link events to a case. Imagine an automation rule defining that events with the same customer and merchant must be grouped in a case that has been created less than _24 hours_ ago. When an event with the same customer and merchant arrives and the matching case has more than 24 hours, a new case will be created to add the incoming event.
+
+  * **Queue:** Queue to which the case is sent.
+
+  * **Tenancy Type:** Whether the case is _Tenanted_ or _Public_. Tenanted cases created by automation rules will have the same tenant as the event that triggered the automation.
+
+
+
+
+## Classify all events linked to a caseâ
+
+When a case's status changes, all events linked to that case can be automatically classified with a specific status. For example, when a case is _Closed as Suspicious_ , all events linked to that case can be classified as _Suspicious_.
+
+## Move cases to queuesâ
+
+### When cases are createdâ
+
+When a case is created, it can be automatically moved to a queue. For example, new cases with an _Open_ status can be added to an _Investigation_ queue.
+
+## Assign casesâ
+
+### When case status changesâ
+
+When a case status changes, it can be automatically assigned to a specific analyst. For example, when a case is _Closed as Suspicious_ , it can be assigned to a senior analyst for a deeper analysis.

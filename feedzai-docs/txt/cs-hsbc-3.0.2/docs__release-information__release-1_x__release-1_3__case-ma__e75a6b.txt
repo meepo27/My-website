@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-digital-activity-ui-changes/digital-activity-cop-details-rework
+Title: Digital Activity - Confirmation of Payee Details | Feedzai Documentation
+============================================================
+
+# Digital Activity - Confirmation of Payee Details  
+  
+**Event: Digital Activity**
+
+**Widget: Confirmation of Payee Details**
+
+Before:
+
+After:
+
+Action| Field| UI  
+---|---|---  
+Rename Section| COP Details| Confirmation of Payee Details  
+Rename| Result of the Payment COP| Result of the Payment CoP  
+Rename| Payment Bene Create Date| Payment Beneficiary Created Date

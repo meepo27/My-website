@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3997
+Title: HSBC-3997 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3997
+
+### Make DTP Dataflow worker service account configurableâ
+
+FeatureHSBC-3997
+
+We've made the service account for Data Transfer Pipeline Dataflow worker instances configurable during deployment using the `dtp_dataflow_worker_service_account` Ansible variable.
+
+We've also updated the documentation to include the specific permissions this account requires. Please refer to the [GCP Permissions page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup#gcp-permissions) for more details.

@@ -1,0 +1,300 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/overview
+Title: Rules Projects | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Rules Projects
+
+
+
+On this page
+
+# Rules Projects
+
+Was this page helpful?Â 
+
+Learn how rules are organized in your Pulse application and find out which rules come out of the box.
+
+## Rules project organizationâ
+
+In TFB, rules are organized in a "folder-like system" referred to as rules projects. This allows you to keep your application tidy and apply filter conditions in the workflow so that certain events flow through certain rules projects. TFB includes rules that cover the following use cases:
+
+  * **Cards** : Card-present and card-not-present transactions.
+  * **Digital Activity** : Non-financial digital events, such as login attempts, changes to profile data (e.g. email, phone number) happening in an online banking session.
+  * **Transfers** : Traditional credit transfers (also called bank transfers or credit transfers), direct debits, and instant transfers (also known as instant payments or real-time payments).
+
+
+
+Rules projects are not organized by fraud scenarios because most of the rules apply to more than one fraud scenario (learn more about [fraud scenarios and detection](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview)). Instead, the out-of-the-box rules are organized by:
+
+  * **Payment type specificities** : Some payment types inherit unique fraud patterns. For example, for direct debits, a mismatch between the countries of the sender and receiver bank can be considered suspicious. As another example, in instant transfers, the thresholds on the transfer amount need to be more strict to prevent fraud more efficiently. Separating these rules into different rules projects provides you a logical way of keeping the application clean, making it easier to maintain.
+  * **Fraud traces and functional purpose** : There are common fraud traces that are present in both card payments and transfers. Examples include velocity rules and repeated transactions. In this case, these rules are organized under _Fraud Rules_. Also, it is common to define rules that trigger when the transaction amount or the number of transactions is above a certain threshold. In this case, these rules are organized under _Entity Limit Rules_.
+  * **Risk engine processing** : Another organization strategy is to place all the rules that perform certain logic under the same rules project. For example, rules that trigger when the analysts make a decision in Case Manager are under the _Feedback Rules_ project, whereas rules that trigger when a certain entity is within a Pulse list are under the _PosNeg Rules_ project.
+
+
+
+These are just a few examples; the key take away is that a rules project gives you full flexibility to organize rules according to your business needs.
+
+## Rules project order and self-serviceabilityâ
+
+The order of the rules projects in the workflow and the order of the rules in a rules project impact how the risk engine generates the final recommendation. This is described in more detail in the [How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) page.
+
+For Cards, Transfers, and Digital Activity workflows, the self-service rules project - the block that contains a snapshot of the rules written in Case Manager - is placed before other standard rules project elements. The following workflow belongs to Cards:
+
+With this rules projects' order, only the _Feedback Rules_ and _PosNeg Rules_ rules projects take precedence over the self-service rules project because they contain rules with a high certainty of risk detection. This allows users to define rules in Case Manager that take precedence over the remaining rules projects, thus promoting self-serviceability. Check the [Create Self-Service Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/create-ssr) page to learn about creating rules in Case Manager.
+
+## Naming conventionâ
+
+Rules project names follow the naming convention:
+
+< payment type > \- < rules project name >
+
+where the payment type is replaced by Cards or Transfers and the rules project name corresponds to the logic explained in the previous section.
+
+## Mapping rules to fraud scenariosâ
+
+The following section helps you understand which rules detect each [fraud scenario](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview).
+
+### Card paymentsâ
+
+Rule Project| Rule| ATO| Card Testing| Carding| CNP (bot/velocity)| CNP fraud| Lost & Stolen| Phishing| Skimming  
+---|---|---|---|---|---|---|---|---|---  
+[Entity Limit Rules](/docs/common/tfrb/rules-projects/cards-entity-limit-rules)| Cards-EL1| x|   
+|   
+|   
+|   
+|   
+|   
+|   
+  
+Cards-EL2| x|   
+|   
+|   
+|   
+|   
+|   
+|   
+  
+[Fraud Rules](/docs/common/tfrb/rules-projects/cards-fraud-rules)| Cards-Behavior-1|   
+| x|   
+|   
+|   
+|   
+|   
+|   
+  
+Cards-Behavior-2|   
+|   
+|   
+|   
+|   
+| x|   
+|   
+  
+Cards-Behavior-3| x|   
+|   
+|   
+|   
+|   
+|   
+|   
+  
+Cards-Behavior-4|   
+|   
+|   
+|   
+|   
+|   
+| x| x  
+Cards-CNP-1|   
+|   
+|   
+| x| x|   
+|   
+|   
+  
+Cards-CNP-2|   
+|   
+|   
+|   
+|   
+|   
+| x|   
+  
+Cards-Threshold-1|   
+|   
+|   
+|   
+| x|   
+|   
+|   
+  
+Cards-Threshold-2|   
+|   
+|   
+|   
+|   
+| x| x|   
+  
+Cards-Threshold-3|   
+|   
+|   
+|   
+|   
+| x| x|   
+  
+Cards-Threshold-4|   
+|   
+| x|   
+|   
+|   
+|   
+|   
+  
+Cards-Threshold-5|   
+|   
+| x|   
+|   
+|   
+| x|   
+  
+Cards-Threshold-6| x|   
+|   
+|   
+|   
+| x| x| x  
+Cards-Velocity-1|   
+|   
+|   
+| x|   
+|   
+|   
+| x  
+Cards-Velocity-2|   
+|   
+|   
+|   
+| x|   
+|   
+|   
+  
+Cards-Velocity-3|   
+|   
+|   
+| x|   
+|   
+|   
+|   
+  
+Cards-Velocity-4|   
+|   
+|   
+| x|   
+|   
+|   
+|   
+  
+Cards-Velocity-5| x|   
+|   
+|   
+|   
+|   
+|   
+| x  
+Cards-Velocity-6|   
+| x|   
+|   
+|   
+|   
+|   
+|   
+  
+Cards-Velocity-7|   
+| x|   
+|   
+|   
+|   
+|   
+|   
+  
+  
+## Nomenclature in rules project pagesâ
+
+This section describes the naming convention that is used within each rules project page. Each page begins with a general section that is common to all the rules within the rules project, and then provides a list of rules with detailed information. The nomenclature used in the rules project pages is the following:
+
+Information that applies to all the rules:
+
+  * **Description** : Rules project description providing details that are common to all the rules within the project.
+  * **Rules project metadata** : The outcome to which the rules contribute (i.e. the **Target Variable**), and the Tenancy type with the possible values single tenant and multi-tenancy.
+
+
+
+Information that applies to each rule:
+
+  * **Comment** : Rule description.
+  * **Condition** : The condition expression must return a boolean value, and that dictates whether the event triggers a rule.
+  * **Explanation** : Allows you to understand why a rule is triggered in a human-readable way. The explanation is displayed in Case Manager if an event triggers the rule giving extra insights to fraud analysts.
+  * **Actions** : Operations that are performed when the rule is triggered.
+  * **Mark As** : The rule outcome value that is written into the field defined by the target variable within the rules project metadata. See the [How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) page to understand the logic behind outcome generation.
+
+
+
+See an example of how a rule is written in Pulse:
+
+## Remarks on rule outcomes and recommendation generationâ
+
+For card payments, all the rules contribute to the `decision` outcome. The first rule triggering sets the final value. Learn more about the default [rule precedence](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules-projects#rules-precedence).
+
+For transfers, all the rules but those in the _Transfers - Decision Rules_ project contribute the `risk_level` outcome. This outcome is used as an intermediate outcome which is then evaluated by the _Transfers - Decision Rules_. The decision rules evaluate the risk level and write a final recommendation to the `decision` outcome.
+
+Scorable events retrieve an API response with the `decision` outcome so that financial institutions can take an informed decision on whether to decline or accept the transaction. See the [How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) page for more information about this logic.
+
+## Learn moreâ
+
+Check the list of out-of-the-box rules for each rules project:
+
+  * Cards
+    * [Feedback Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-feedback-rules)
+    * [Posneg Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-posneg-rules)
+    * [Entity Limit Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-entity-limit-rules)
+    * [Fraud Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules)
+    * [Self-Service Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-self-service-rules)
+    * [Decision Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-decision-rules)
+    * [SCA Required Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-sca-required-rules)
+    * [SCA Exemption Rules](/tfrb/latest/docs/common/tfrb/rules-projects/cards-sca-exemption-rules)
+  * Digital Activity
+    * [Feedback Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-feedback-rules)
+    * [Posneg Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-posneg-rules)
+    * [Device and Network Intelligence Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-device-and-network-intelligence-rules)
+    * [Fraud Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-fraud-rules)
+    * [Self-Service Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-self-service-rules)
+    * [Decision Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-decision-rules)
+  * Inbound Payments
+    * [Inbound Payments Rules](/tfrb/latest/docs/common/tfrb/rules-projects/inbound-payments-rules)
+  * Transfers
+    * [Feedback Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-feedback-rules)
+    * [Posneg Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-posneg-rules)
+    * [Entity Limit Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-entity-limit-rules)
+    * [Fraud Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules)
+    * [Instant Transfers Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-instant-transfers-rules)
+    * [Bill Payments](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-bill-payments-rules)
+    * [Direct Debit Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-direct-debit-rules)
+    * [Self-Service Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-self-service-rules)
+    * [Decision Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-decision-rules)
+    * [Device and Network Intelligence Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-device-and-network-intelligence-rules)
+    * [SCA Required](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-sca-required-rules)
+    * [SCA Exemption](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-sca-exemption-rules)
+
+
+
+info
+
+A rules project named Sanctions Rules Project may also be included. Note that it is only relevant and active if you have Feedzai's Watchlist Transaction Screening solution enabled. Otherwise, this rules project is disabled, even if visible in the interface.
+
+Additionally, the following pages have rules-related information to help fight fraud more efficiently:
+
+  * [Fraud Scenarios and Detection](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview) page contains information about the TFB's strategy to fight different fraud schemes using default rules that are provided out of the box.
+  * [Work with Rules and Lists](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview) guide helps you manage and create new rules. In particular, check the [How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) to understand how the Pulse generates a final recommendation.
+
+

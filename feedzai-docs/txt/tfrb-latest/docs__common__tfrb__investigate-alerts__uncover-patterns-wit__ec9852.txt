@@ -1,0 +1,120 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/uncover-patterns-with-genome
+Title: Uncover Patterns with Genome | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Uncover Patterns with Genome
+
+
+
+On this page
+
+# Uncover Patterns with Genome
+
+Was this page helpful?Â 
+
+Feedzai Genome enables analysts to find and visualize complex financial crime patterns using link analysis and graph technology.
+
+The powerful link analysis technology underlying Feedzai Genome, along with the tool's visual capabilities, help analysts make decisions faster and with greater accuracy, thus lowering false positives in manual detection that harm loyal customers. Genome helps fraud analyst to understand the relationship between all the entities participating in a transaction, such as the originator and beneficiary, the bank accounts and the device involved, including the direction of the money flows between them. This enables fraud analysts to detect complex fraud scenarios such as Account Takeover or Authorized Push Payment Fraud, for example, when a customer is transacting from multiple new devices or unusual beneficiaries.
+
+## Access Genomeâ
+
+To access Genome, open an event or alert in the Alerts page. The [Event Details](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#genome) page displays the Genome widget as follows:
+
+To better understand how you should analyze the links, consider the following examples:
+
+**Card transaction**
+
+  * A user makes a transaction in a merchant. That transaction typically consists of the following entities:
+  * User
+  * Device
+  * Card
+
+
+
+Genome displays each of these entities as nodes and the relationship between them as the edges that connect the nodes.
+
+**Transfer between originator and beneficiary**
+
+A sender (i.e. originator) makes a transfer to the receiver (i.e. beneficiary). That transfer consists of the following entities:
+
+  * Originator and beneficiary
+  * Device (if present)
+  * Originator and beneficiary banks
+  * Originator and beneficiary bank accounts
+
+
+
+Genome displays each of these entities as nodes and the relationship between them as the edges that connect the nodes. **Nodes (1)** represent entities and **edges (2)** represent the connection between nodes.
+
+info
+
+**Genome** displays only the nodes that are related to an alert under analysis.
+
+## Read Genome graphsâ
+
+Now that you understand what nodes and edges are, read this section to learn how to properly read a Genome graph. Consider the following core concepts:
+
+  * Node entities
+  * Node and edge colors
+  * Edge gradient and how it affects the money flow direction
+
+
+
+**Node entities**
+
+  * Customer  corresponds to the sender and/or receiver customers.
+  * Account  corresponds to the sender and/or receiver accounts.
+  * Device  corresponds to the sender and/or receiver devices.
+  * Phone  corresponds to the sender and/or receiver phones.
+  * Email  corresponds to the sender and/or receiver emails.
+
+
+
+**Node and edge colors**
+
+The graph's node and edge colors are visible on the **Genome** lens and correspond to the state of events associated with those nodes and edges:
+
+  * Yellow \- At least one event in pending state.
+  * Red \- At least one confirmed fraud event.
+  * Purple \- At least one declined event.
+  * Green \- All events are accepted.
+
+
+
+**Edge gradient**
+
+The edge gradient is directly connected to the money flows' functionality. This gradient indicates the money flow direction through the edges' color as follows:
+
+  * Grey, with a gradient on the edge's color, indicates who sends and who receives the money. The edge displays a lighter color next to the sender node and darker color next to the receiver node. The money flows from the lightest to the darkest side of the edge.
+  * Purple is used to indicate that there are transfers in both directions between two entities. For instance, consider two account entities A and B, respectively, where the money would flow from account A to B, as well as from B to A. When there is a history of fraud, the edge displays red instead of purple. Note that bidirectional flows are only displayed in the Genome's default view. To see this gradient color, select the **Expand** icon at the top right corner of Genome's widget on the Event Details page.
+  * Red indicates that there is a history of fraud from at least one transaction.
+
+
+
+info
+
+Note that, when opening a graph, the **Review** lens is displayed by default. To see the edge gradients with the aforementioned colors, move to the **Genome** view.
+
+Read the following fraud use cases, which provide you with step-by-step graph descriptions.
+
+### Genuine eventâ
+
+The following event displays a genuine transfer. The nodes that represent the sender (1), email (2), phone (2), and device (2) entities are involved in one transfer. The money settles from the sender's bank account (3) to the receiver's (5) bank account (4). Note that the money flows from the lightest to the darkest side of the edge. This is why the edge connecting to the receiver's bank account is darker. In this case, you should read the graph from left to right.
+
+### Fraudulent eventâ
+
+The following event displays a fraudulent transfer. Two senders (1 and 2) share the same phone, device, email, and bank account (3). One of the senders (2) settles money from a second bank account (4) to the receiver's (7) bank account (5). In addition, money is settling from the bank account (3) shared by both senders (1 and 2) to another bank account (6) owned by the same receiver (7). Note that the edges connecting the sender (2) and the phone, device, email and bank account (3) are thicker. This means that multiple transactions occurred. The thicker the edge, the higher the number of transactions. Furthermore, note that the rules explanation indicates that all these transactions occurred in a short period (less than 90 minutes), which is not a usual behavior.
+
+## Learn moreâ
+
+Read the following documentation to learn how to interact with Genome:
+
+  * [Navigating Genome](https://cam.feedzai.com/genome/2.0.9/pages/user_guide/navigate/genome_ui.html)
+  * [Operations](https://cam.feedzai.com/genome/2.0.9/pages/user_guide/navigate/operations.html)
+  * [Genome and CM Integration](https://cam.feedzai.com/genome/2.0.9/pages/user_guide/genome_cm.html)
+
+

@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview
+Title: Work with Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * Work with Rules
+
+
+
+On this page
+
+# Work with Rules
+
+Was this page helpful?Â 
+
+Learn how to fully manage your rules, including:
+
+  * Understanding how rules work.
+  * Writing rules specific to your business.
+  * Configuring your work in the runtime workflow.
+  * Testing rules using the Transaction Fraud for Banking API.
+
+
+
+## User journeyâ
+
+As a data scientist or a fraud analyst, you can leverage rules to detect and mitigate fraud events at scale in real time. The following user journey shows the different stages required to set up your rules and test their behavior with transaction requests:
+
+## Next stepsâ
+
+Start by understanding **[how rules work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work)** to learn the basic concepts behind this functionality. If you are already familiar with rules in Pulse, proceed to the user journey steps:
+
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * [Migrate Pulse Resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview)
+  * [Publish Rules to Workflow](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/publish-rules/overview)
+  * [Send Test Transactions via API](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview)
+
+

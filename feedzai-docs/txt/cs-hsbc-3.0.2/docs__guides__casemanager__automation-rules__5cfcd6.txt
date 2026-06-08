@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/guides/casemanager/automation-rules
+Title: Automation Rules | Feedzai Documentation
+============================================================
+
+On this page
+
+# Automation Rules
+
+Automation rules are used to automatically handle the distribution of workload in Case Manager. This page provides you with the first version of HSBC operations flows with the corresponding Automation Rules.
+
+##### note
+
+[Download Full Diagram](/cs-hsbc/3.0.2/img/Feedzai/excalidraw/cm-sla-workflow.excalidraw)
+
+## Event arrival workflowâ
+
+### Wait to Contact Customerâ
+
+This rule is triggered when an alert arrives to Case Manager with a customer contact strategy defined, for example to send a push notification. The rule starts the [Delay to Send Customer Notification](/cs-hsbc/3.0.2/docs/guides/casemanager/slas#delay-to-send-customer-notification) to send a push notification to the customer when the SLA is breached.
+
+### Reviewâ
+
+This rule is triggered when an alert arrives to Case Manager without customer contact strategy defined. The event is moved to the Manual queue to be reviewed by a Fraud Analyst.
+
+* * *
+
+## Event contact update workflowâ
+
+### Unable to Send Push Notificationâ
+
+When an event receives a feedback code `E82`, meaning that the external service was unable to send a push notification to the customer, this rule sets the event breach status to _Not Breached_ and adds a 24 hour SLA.
+
+### Customer Notification - Fraudâ
+
+When the workflow receives an alert feedback with code `E85`, meaning that the customer marked the transaction as Fraud, this rule sets the event to hold and moves it to the Manual Queue to be reviewed by a Fraud Analyst.
+
+### Customer Notification - Genuineâ
+
+When the workflow receives an alert feedback with code `E84`, meaning that the customer marked the transaction as Genuine, this rule marks the event as Not Fraud and closes it.
+
+* * *
+
+## Event update workflowâ
+
+### Handle new assigneeâ
+
+This rule sets an event status to _In Progress_ when an Analyst starts working on the transaction.
+
+### Mark Fraudâ
+
+This rule removes an alert from its queue, closes and marks it as Fraud when an Analyst marks the event as Fraud. An external notification with the status update is also sent to the customer.
+
+### Mark Not Fraudâ
+
+This rule removes an alert from its queue, closes and marks it as Not Fraud when an Analyst marks the event as Not Fraud. An external notification with the status update is also sent to the customer.
+
+### Set event on Holdâ
+
+This rule adds a [2 hours SLA](/cs-hsbc/3.0.2/docs/guides/casemanager/slas#2h-on-hold) when an event is set to On Hold by a Fraud Analyst.
+
+### Manual Queue Set SLAâ
+
+This rule adds a [24 hours SLA](/cs-hsbc/3.0.2/docs/guides/casemanager/slas#24h-to-review) when an event is moved to the Manual Queue.

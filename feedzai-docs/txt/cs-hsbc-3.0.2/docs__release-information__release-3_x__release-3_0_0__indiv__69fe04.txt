@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4028
+Title: HSBC-4028 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-4028
+
+### Add new fields to the Mobile Outbound extensionâ
+
+FeatureFTMT-34647HSBC-4028
+
+The following fields were added to Case Manager `Mobile Payment Push` extensions for the Outbound Payments channel:
+
+Field Name| Datatype| Description  
+---|---|---  
+sender_account_type| String| Type of sender account  
+receiver_account_type| String| Type of receiver account  
+customer_account_type| String| Type of customer account  
+account_type| String| Account type  
+product_code| String| The code of the product offered by the bank that was used to initiate the transfer  
+sender_product_type| String| Type of product held  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.

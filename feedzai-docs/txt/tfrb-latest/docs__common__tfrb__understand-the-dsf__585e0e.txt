@@ -1,0 +1,279 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/understand-the-dsf
+Title: Understand the Data Science Framework (DSF) | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * Understand the Data Science Framework (DSF)
+
+
+
+On this page
+
+# Understand the Data Science Framework (DSF)
+
+Was this page helpful?Â 
+
+The Data Science Framework (DSF), also known as the Data Science Studio, is a dedicated environment used in risk assessment strategies for building, testing, and evaluating rules and models according to the [Data Science Loop](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop):
+
+Its main capabilities include:
+
+  * **Data preparation** : Read production data or ingest historical data, clean it, and analyze its quality and statistics to ensure it fits your schema. This is crucial to work with Rules, Models and/or ad-hoc analysis.
+  * **Feature engineering and plan execution** : Create and test new features using Plans, which can then be deployed to production. Plans allow the application of generic data computations, typically to transform it or extend it to a new file output.
+  * **Model and rule development** : Train Machine Learning (ML) models and create rule sets, and evaluate their performance against historical data to identify if further improvements are needed.
+  * **Ad-hoc analysis** : Study and request ad-hoc reports or analysis via the DSF.
+  * **Sandbox Evaluations** : Test a sequence of a Model and Rule project in the Data Science application.
+
+
+
+## What are Data Science jobs?â
+
+Data Science (DS) jobs are jobs initiated in the DSF environment, either via Pulse or JupyterLab, and processed through the Pulse application. While Pulse manages the job lifecycle, the heavy computational workload is shifted to the cluster, which allocates **executors** (i.e. processing units) throughout its **task nodes** (i.e. the actual machines that compose the cluster) to perform the computations as a Spark job.
+
+Refer to [Spark's documentation](https://spark.apache.org/docs/latest/cluster-overview.html) to further understand its core functionality.
+
+The resources allocated to each job are guided by the job configuration and workload, and bounded by the cluster configuration (i.e. size and number of task nodes, as well as the executors per node).
+
+Pulse provides one default job profile that applies to all DS jobs, but _it is recommended that you adapt this default profile to better fit the jobs you'll be executing_. The default job profile is, essentially, a starting point to create other profiles.
+
+## What are executors?â
+
+Executors represent the **main processing unit** that do the actual work in your job (i.e. reading data, transforming it, caching it, and writing results).
+
+When a job is launched/scheduled, the cluster allocates executors on the task nodes (i.e. machines). These executors borrow resources (i.e. cores and memory) from the task nodes to perform the computations and execute DS jobs.
+
+When sizing the executors, _be mindful of this to avoid setting unrealistic bounds on the amount and/or size of your executors_.
+
+Practical example
+
+If you consider a task node with 16 cores and 128GB of memory, configuring executors to have nine cores and 50GB of memory would represent poor cluster resource usage, which would, ultimately, lead to poor performance. Here's why:
+
+After allocating one executor (with nine cores), the cluster is left with seven available. As each executor borrows nine cores, the cluster is not able to allocate any more executors for that job.  
+This way, it would only be possible to fit one executor, leaving seven cores unutilized.
+
+Note that the remaining seven cores could still be used by other jobs, as long as the executors fit in the task nodes.
+
+Dynamic executor allocation
+
+Note that while you can explicitly define how many executors to run, the **general rule-of-thumb favors dynamic allocation of executors**. This lets the cluster decide how many executors to run depending on the workload.
+
+## Why tune DS jobs?â
+
+Tuning DS jobs is the process of optimizing Spark configurations used by the cluster to handle specific workloads efficiently. This helps prevent:
+
+  * Executions from hanging due to the lack of requested resources.
+  * Executions crashing due to cheap job configurations.
+  * Resource starvation caused by greedy job configurations.
+
+
+
+tip
+
+Choosing the appropriate configuration is **trade-off between whatâs available and whatâs needed**.
+
+Note that there isnât a "one-size-fits-all" configuration. Heavier jobs will take advantage of more generous configurations, while lighter jobs will perform well with more sensible ones.
+
+Additionally, clusters are shared by all team members, so guaranteeing that everyone is mindful of their job configurations is key to avoid concurrency issues and leverage the resources appropriately.
+
+Jobs can be tuned either within Pulse (using Job Profiles) or in JupyterLab (by providing the Spark configuration when opening a session).
+
+### Impact of tuning in the DS job life cycleâ
+
+To better understand how job configurations affect the life cycle of a DS job, it is important to consider the scaling capacity and how resources are allocated and shared.
+
+#### Scaling capacityâ
+
+Scaling refers to the cluster's capacity to add and remove task nodes from the pool of resources at any time depending on workload. It occurs automatically based on demand given by the number of executors that are waiting to be allocated.
+
+The scale-up strategy follows a tiered approach: the higher the demand (i.e. jobs pending/waiting for allocation), the more capacity is allocated. These tiers can be classified based on how fast more capacity is added (e.g., light, moderate, high, very high).
+
+Capacity limits
+
+There is an upper bound to the maximum capacity attributed to you based on your contract with Feedzai.
+
+#### Resource allocation and sharingâ
+
+Choosing adequate capacity for a job is important to allow for optimal execution times and sharing that capacity with other people in the team. To better understand how resources are allocated and shared within the cluster, it's important to know how jobs allocate capacity and what it means to have running Spark sessions.
+
+##### How do jobs allocate capacity?â
+
+When you submit a Pulse job or open a Spark session, the EMR (Elastic MapReduce) cluster registers the request and allocates resources dynamically depending on the workload. This means that if you request a job with a minimum of 1 and a maximum of 8 executors, the job begins executing as soon as the cluster is able to allocate 1 executor. If during the job execution more cluster resources become available (e.g., because other jobs have finished or the cluster has scaled up), the cluster allocates additional executors, up to a maximum of 8.
+
+info
+
+Note that executors are main processing units for jobs and are indivisible. This means that while executors for the same job can potentially âliveâ in a different cluster node, each executor alone must fit entirely in a given cluster node.
+
+Refer to the [What are executors?](/tfrb/latest/docs/common/tfrb/understand-the-dsf/#what-are-executors) section for more details on these processing units.
+
+On the other hand, if dynamic allocation is disabled, the job only begins executing when the cluster is able to allocate all the executors requested in the job configurations. For example, if you request a job with 8 executors (each with 12GB and 4 cores), the job will start once the cluster is able to fit those 8 executors within the pool of cluster resources available at that moment.
+
+Refer to Applying configurations in JupyterLab and Applying configurations in Pulse for details on how to configure jobs/sessions, respectively.
+
+warning
+
+Disabling dynamic allocation is only recommended when debugging issues with the cluster.
+
+Depending on the number of executors being requested by all the jobs registered in the cluster at a given moment (including jobs waiting for resources to begin execution, and dynamic allocation jobs already executing and requesting more executors), the cluster can scale up and add more nodes to its pool of resources.
+
+In contrast, if the cluster resources are idle for a certain amount of time (e.g., because there are few jobs running) it can scale down and remove cluster nodes from the pool of resources.
+
+What does this mean?
+
+Both the cluster resource usage (i.e. all jobs from all users using the cluster at the same time) and the cluster total pool of resources (i.e. if the cluster is scaled up or scaled down) have an impact on the duration of your job. Therefore, _the exact same job might take a different amount of time to complete on separate occasions_.
+
+When you submit your job, you can check its status (i.e. if it's running or waiting for resources) in the **YARN Web UI**. There, you can also find the total and available pool of cluster resources. These metrics can help you understand why your job hasnât started yet (e.g., if there isn't enough memory or cores to satisfy your job configurations).
+
+You can also use the **YARN Web UI** to check the resource usage of your running jobs to make sure they aren't exhausting most of the cluster resources and adhere to fair cluster usage.
+
+##### What does it mean to have running Spark sessions?â
+
+Spark sessions are created in JupyterLab and represent the connection between your notebook and the cluster. Refer to Pulse's documentation to learn about [Interacting with Pulse via JupyterLab](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/interacting-with-pulse-via-jupyterlab), including a list of available notebooks.
+
+Note that once created, Spark sessions remain active until you either:
+
+  * Close them using `spark_session.stop()`.  
+OR  
+
+  * Kill the notebook kernel.
+
+
+
+warning
+
+Be mindful of your active Spark sessions, and make sure you manually stop them if they're no longer needed. _Hanging (idle) sessions can occupy cluster resources and impact the other cluster users' experience_.
+
+In some cases, Spark sessions that are idle for a long period are automatically closed, but this depends on the cluster's configuration.
+
+### Common scenariosâ
+
+Here are some scenarios where tuning Spark configurations is most commonly needed and what changes they require:
+
+info
+
+The following table provides guidance in terms of how different parameters could be configured, but choosing the appropriate configuration is **trade-off between whatâs available and whatâs needed**. Be mindful of job configurations to avoid concurrency issues and leverage the resources appropriately.
+
+There isnât a "one-size-fits-all" configuration. Heavier jobs will take advantage of more generous configurations, while lighter jobs can be executed in an acceptable timeframe with less demanding configurations, and without compromising other user's jobs.
+
+Scenario| Considerations  
+---|---  
+**Dataset analysis and rule evaluations**|  This scenario doesn't require you to limit the number of executors.  
+**Model training**|  This is a _single-task/executor_ job, so:
+
+  * The number of cores per executor equals the number of cores per task.
+  * The rule-of-thumb for job memory and cores per executor is 1/4 of the task node size for both. This allows for running four models in parallel in just one task node, which complies with the default HPT notebooks (that launch four model training jobs simultaneously).
+
+noteEven though model training jobs are single-task/executor jobs, you must **allocate more than one CPU per task using`spark.task.cpus`**. This is set by default to `1`. However, if you don't override this default, you're essentially running a job with X executors but only `1` will be used (which is a waste of resources). Since model training is a single-task/executor job, **make sure the task gets all the executor cores** by matching the `spark.task.cpus` to the `spark.executors.cores`.  
+  
+Essentially, this allows you to increase the number of cores per executor in order to leverage model training multi-threading (as long as that property remains aligned with the number of CPUs per task).  
+**Plan executions**|  In this scenario:
+
+  * Memory-heavy jobs benefit from parallelization.
+  * Both the cores and memory per executor should be maximized.
+
+  
+**Data exploration/manipulation**|  In this scenario:
+
+  * The necessary configurations vary depending on the data and type of exploration/manipulation that will be performed.
+  * A _mixture of approaches_ is recommended.
+
+  
+  
+## Applying configurations in JupyterLabâ
+
+When creating Spark sessions via JupyterLab (e.g., when using notebooks), you need to provide the Spark configuration at the beginning:
+    
+    
+    # Spark Session Parameters  
+    SPARK_PARAMETERS = {  
+        "spark.executor.cores": "7",  
+        "spark.executor.memory": "8g",  
+        "spark.executor.memoryOverhead": "5g",  
+        "spark.dynamicAllocation.enabled": True,  
+        "spark.dynamicAllocation.initialExecutors": "2",  
+        "spark.dynamicAllocation.minExecutors": "1",  
+        "spark.dynamicAllocation.maxExecutors": "6",  
+        "spark.dynamicAllocation.executorIdleTimeout": "300s",  
+    }  
+      
+    # Get SparkSession with default Pulse's configuration  
+    spark = feedzai.get_spark_session(SPARK_PARAMETERS)  
+    
+
+The configuration examples below can be used to configure your Spark jobs:
+
+note
+
+Ensure you replace the values for each as needed.
+
+Configuration aspect| Example| Cores per executor| 
+    
+    
+    SPARK_PARAMETERS = {  
+        "spark.executor.cores": "7",  
+    }  
+      
+  
+---|---  
+Memory per executor| 
+    
+    
+    SPARK_PARAMETERS = {  
+        "spark.executor.memory": "8g",  
+        "spark.executor.memoryOverhead": "5g",  
+    }  
+      
+  
+Dynamic allocation| 
+    
+    
+    SPARK_PARAMETERS = {  
+        "spark.dynamicAllocation.enabled": True,  
+        "spark.dynamicAllocation.initialExecutors": "2",  
+        "spark.dynamicAllocation.minExecutors": "1",  
+        "spark.dynamicAllocation.maxExecutors": "6",  
+        "spark.dynamicAllocation.executorIdleTimeout": "300s",  
+    }  
+      
+  
+### Validating Spark session configurationsâ
+
+Once you've completed the configuration and before running a full job, verify jobs are behaving as expected. This helps spot issues early on, before committing to executing real jobs.
+
+To do this, run the following test job:
+    
+    
+    spark.range(100_000_000).count()  
+    
+
+Then, via the **YARN Web UI** :
+
+  * Confirm the Spark session is in the list of **Applications**.
+  * Monitor the Spark session **State** (running sessions should have `State = RUNNING`, while sessions that are waiting for resources should have `State = ACCEPTED`).
+
+
+
+Additionally, check the **Spark History Server** to confirm that your Spark session configurations were correctly set. This can be accessed in the full list of configurations via the **Environment** tab.
+
+## Applying configurations in Pulseâ
+
+For DS jobs triggered in Pulse (e.g., plan executions, model training, rule evaluations, etc.), you can use [Job Profiles](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/jobs-and-job-profiles#job-profiles) to provide a Spark configuration.
+
+Refer to Pulse's documentation to read all about [Tuning Job executions with Job Profiles](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/) and learn how to:
+
+  * [Create a Job Profile](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/creating-a-job-profile) to apply a set of property configurations when running jobs.
+  * [Select the profile](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles) that is more suitable for the Spark job that you want to run.
+  * [Edit Spark properties on demand](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/editing-properties-on-demand) to control the configuration of the Spark job that performs the calculations for a specific Data Science resource.
+
+
+
+Jobs triggered via the DS-API
+
+You can also trigger Pulse jobs from JupyterLab using the **DS-API**. In these cases, the job spark configurations are managed through a combination of:
+
+  * Parameters sent through the DS-API method calls.
+  * Pulse Job Profiles (**not** through `SPARK_PARAMETERS`).
+
+
+
+As an example, refer to the [plan execution DS-API method documentation](https://documentation.feedzai.com/ds-studio-ds-api/25.0/reference/plan/#ds_api.plan.Plan.run) (see the `job_profile` and `job_properties` arguments).

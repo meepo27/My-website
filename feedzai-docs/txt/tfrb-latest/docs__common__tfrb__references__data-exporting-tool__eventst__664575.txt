@@ -1,0 +1,428 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-transfers
+Title: Event Storage - Transfers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Event Storage
+  * Event Storage - Transfers
+
+
+
+# Event Storage - Transfers
+
+Was this page helpful?Â 
+
+The **Event Storage - Transfers** entity stores transfer related events, such as transfer initiations, information and settlements.
+
+A new record becomes available for this entity for every transfer processed by the risk engine.
+
+Name| Type| Description| Example  
+---|---|---|---  
+`receiver_account_limits`| array<row>| The receiver account limits.|   
+âââ`event_type`| string| The type of events associated with this limit.|   
+âââ`day_amount`| bigint| Total amount on the account day period| 123  
+âââ`daily_amount`| bigint| Total daily amount| 100  
+âââ`night_amount`| bigint| Total amount on the account night period| 123  
+âââ`single_day_amount`| bigint| Single transaction amount limit on the day period.| 333  
+âââ`single_night_amount`| bigint| Single transaction amount limit on the night period.| 222  
+âââ`start_day_hour`| bigint| Used to compare the event date and the period transaction limit specified for the client.|   
+âââ`start_night_hour`| bigint| Used to compare the event date and the period transaction limit specified for the client.|   
+`sender_account_limits`| array<row>| The sender account limits.|   
+âââ`event_type`| string| The type of events associated with this limit.|   
+âââ`day_amount`| bigint| Total amount on the account day period| 123  
+âââ`daily_amount`| bigint| Total daily amount| 100  
+âââ`night_amount`| bigint| Total amount on the account night period| 123  
+âââ`single_day_amount`| bigint| Single transaction amount limit on the day period.| 333  
+âââ`single_night_amount`| bigint| Single transaction amount limit on the night period.| 222  
+âââ`start_day_hour`| bigint| Used to compare the event date and the period transaction limit specified for the client.|   
+âââ`start_night_hour`| bigint| Used to compare the event date and the period transaction limit specified for the client.|   
+`external_fraud_service`| row| External fraud service score.|   
+âââ`external_score`| string| |   
+âââ`external_score_reason`| string| |   
+âââ`external_score_recommendation`| string| |   
+âââ`sender_fraud_date`| bigint| |   
+âââ`sender_fraud_involvement`| string| |   
+âââ`sender_fraud_reason_code`| string| |   
+âââ`sender_fraud_reason_desc`| string| |   
+âââ`sender_fraud_source`| string| |   
+âââ`sender_fraud_channel`| string| |   
+âââ`sender_fraud_product`| string| |   
+âââ`sender_fraud_flag`| boolean| |   
+âââ`receiver_fraud_date`| bigint| |   
+âââ`receiver_fraud_involvement`| string| |   
+âââ`receiver_fraud_reason_code`| string| |   
+âââ`receiver_fraud_reason_desc`| string| |   
+âââ`receiver_fraud_source`| string| |   
+âââ`receiver_fraud_channel`| string| |   
+âââ`receiver_fraud_product`| string| |   
+âââ`receiver_fraud_flag`| boolean| |   
+`rules_explanations`| string| Explanation of rules triggered in text format.| Rule X triggered because X amount surpasse the Y limit.  
+`rules_ids`| string| Identifier of the rules.|   
+`uuid`| string| UUID.| 2bf75ff1-0b6f-48fd-bdf2-cf458243eaf2  
+`direction`| string| Payment direction flow. Possible values are incoming (or outgoing in legacy systems)| incoming  
+`decision`| string| Output decision from the system.| approve  
+`action_names`| string| |   
+`fdz_partition_index`| integer| Partition index.| 79  
+`fdz_tenant_key`| string| Tenant key from Feedzai perspective.| sample_value  
+`fdz_timestamp`| bigint| Unix timestamp.| 1756463007000  
+`fdz_uuid`| string| UUID from Feedzai perspective.| d392378a-f4b2-49b5-8814-e3ea65543420  
+`is_alert`| string| Identifies whether the event is an alert.| True  
+`approval_current_number`| integer| Number of current approvals.|Approval information|   
+`approval_final_approval`| boolean| Identifies whether the final approval has been reached so that the transfer can continue according with its life cycle.|Approval information|   
+`approval_primary_admin`| boolean| Identifies whether the transaction contains the approval of the primary administrator or not.|Approval information|   
+`approval_signatures_applied`| integer| Number of physical signatures applied to this transaction.|Approval information|   
+`approval_status`| string| Approval status of the transaction. The values of this field depend on the `approval_type` field.|Approval information| pending  
+`approval_submitted_at`| integer| Date at which the approval was submitted (in milliseconds since the Unix epoch).|Approval information|   
+`approval_total_approves`| integer| Total number of necessary approvals for the payment to be completed.|Approval information|   
+`approval_type`| string| Each institution might have a different combination of approvals and an associated nomenclature. This field enables the institutions to explicitly qualify the group of approvals present on this transaction.|Approval information| type 1  
+`approver_customer_id`| string| Unique customer ID.|Approver information| 29298w9askajakjsk  
+`approver_login_id`| string| Customer internet banking ID.|Approver information| 2l209wms209029w  
+`approver_type`| string| Each institution might have a different combination of approvals and an associated nomenclature. This field enables the institutions to explicitly qualify the group of approvals present on this transaction. This field is related to `approval_type` and `approval_status` fields.|Approver information| type 1  
+`auth_type`| string| Authentication option used by the consumer during the payment process.|Transfer information| fingerprint  
+`bulk_id`| string| Unique reference ID that refers to the bulk transaction. This can be used by banks for internal control.|Transfer information| b398a9e1-3900-4753-ad45-8310ea583724  
+`challenge_risk_flag`| boolean| Identifies whether the transfer has an authentication challenge or not.|Authentication information|   
+`challenge_risk_score`| integer| Quantifies the risk associated with automatic challenges sent to the clients to allow authentication.|Authentication information|   
+`channel_type`| string| Channel through which the transaction occurred. For example, possible values are `branch`, `telephone`, `atm`, `online`/`web`, `mobile` and `other`. | Transfer information| branch  
+`created_at`| integer| Timestamp corresponding to the moment when the payment is created (in milliseconds since the Unix epoch). Note that the payment can be created, saved and then sent later. | Transfer information|   
+`cutoff_at`| integer| Specified cut-off date and time for the payment consent (in milliseconds since the Unix epoch).|Transfer information|   
+`dd_mandate_name`| string| The name of the direct debit mandate initiator.|Transfer information| Mandate name  
+`dd_mandate_number`| string| The direct debit mandate identification number.|Transfer information| Mandate number 123  
+`device_android_id`| string| The device Android ID| 723dc71eec6ccb31  
+`device_app_version`| string| App version of the device. This field is only requested if the transfer is originated from a mobile app.|Device information| 2.10.1  
+`device_browser`| string| The browser used by the device| Chrome  
+`device_browser_language`| string| The device browser language| es-ES  
+`device_browser_no_tracking`| boolean| Whether the device browser has no tracking enabled|   
+`device_browser_private_mode`| boolean| Whether the device browser has private mode enabled|   
+`device_browser_version`| string| The browser version this device is using| 89.0.4389.72  
+`device_cbf`| string| The device CBF| 723dc71eec6ccb31  
+`device_cookies`| boolean| Whether the cookies are enabled on the web browser. Sending this information is optional because it's not always available to the Feedzai's client.|Device information|   
+`device_fingerprint`| string| Information collected about the software and hardware of the device used to perform the transaction. Could be encrypted information used for device enrichment.|Feedzai| 0400YbjucgPeDpqN9ZBLUITS+9VZ4/+YT+qYutCN/R8/6uxqb6W7w==  
+`device_first_seen`| integer| Timestamp corresponding to the first time the device is used for the transaction (in milliseconds since the Unix epoch).|Device information|   
+`device_id`| string| Unique identifier of the device.|Device information| d5e8c80119a87f4c  
+`device_imei_number`| string| International Mobile Equipment Identity (IMEI). This field is only requested if the transfer is originated from a mobile device.|Device information| 447292738273482  
+`device_ip_address`| string| IP address of the device used to conduct the transaction. | Device information| 219.6.112.233  
+`device_ip_address_location`| string| Address location derived from the device's IP address. | Device information| Manchester  
+`device_ip_country_code`| string| The country code derived from the device's IP (in accordance with ISO 3166, Alpha-2). | Transfer information| US  
+`device_ip_region`| string| The device IP's region| CA  
+`device_is_new`| boolean| Whether the device has never been seen before.|   
+`device_isp`| string| The Internet Service Provider used by the device| Verizon  
+`device_language`| string| Device language code.|Transfer information| US  
+`device_latitude`| string| Geographic latitude of the device where the transfer originated. | Device information| 53.48  
+`device_longitude`| string| Geographic longitude of the device where the transfer originated. | Device information| -2.24  
+`device_mac_address`| string| The device Mac Address| 20:f4:78:dd:33:9b  
+`device_model`| string| The end user's device model name (empty for desktop)| iPhone6  
+`device_network_type`| string| The device network type| STD  
+`device_operating_system`| string| 'Device''s operating system. Examples include: `MacOS`, `Windows 10`, `Linux`.|Device information'| MacOS  
+`device_os_version`| string| The device's operating system version| 10.10.3  
+`device_registration_date`| integer| Device registration's timestamp (in milliseconds since the Unix epoch)|   
+`device_screen_height`| integer| The device screen's total height in pixels|   
+`device_screen_width`| integer| The device screen's total width in pixels|   
+`device_serial_id`| string| The device serial ID| 12345678  
+`device_session_duration`| integer| The device session duration in milliseconds|   
+`device_tor_mode`| boolean| Whether the request is coming from a TOR enabled network. Sending this information is optional because it's not always available to the Feedzai's client.|Device information|   
+`device_type`| string| 'Examples include: `Android`, `IOS`, `Windows Mobile`.|Device information'| android  
+`device_user_agent`| string| The user agent string from the browser used to initiate the transfer. This field is only requested if the transfer is originated from a web browser.|Device information| Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36  
+`dispute_end_date`| integer| Timestamp corresponding to the moment when the dispute was closed (in milliseconds since the Unix epoch).|Transfer information|   
+`dispute_feedback_notes`| string| Contextual information associated with the dispute communication.|Transfer information| The account holder opened a dispute about a recent transaction.  
+`dispute_notes`| string| Contextual information left by the analyst at the time of the dispute opening.|Transfer information| The device information seems suspicious.  
+`dispute_reason`| string| Why the dispute was opened.|Transfer information| The payroll shows an unauthorized transaction.  
+`dispute_refunded`| string| 'Whether the funds were refunded to the cardholder. Possible values: `no_refund`, `partial_refund`, `total_refund`.|Transfer information'| partial_refund  
+`dispute_start_date`| integer| Timestamp that corresponds to the time when the dispute was opened (in milliseconds since the Unix epoch).|Transfer information|   
+`dispute_submitted_by`| string| Who submitted the dispute.|Transfer information| Joe Dow  
+`end_to_end_identification`| string| Unique reference to unambiguously refer to the payment transaction across systems. This can be used by banks for internal control.|Transfer information| a2d311ac-c9c3-4ea7-9537-1db8dea0534c  
+`event_external_id`| string| Unique identifier on the client's side, typically used for the client to cross-reference it back into their own systems. For example, you can copy this field from Case Manager and look for it in another CRM used by your organization. | Transfer information| 4048611b295e993d1b561d9030c53424bbf2b95e  
+`event_occurred_at`| integer| Timestamp corresponding to the moment when the current event occurred (in milliseconds since the Unix epoch).|   
+`execution_at`| integer| Timestamp corresponding to the moment when the payment is settled (in milliseconds since the Unix epoch). This can be in the past or in the future. | Transfer information|   
+`fake_location`| string| Includes information when the geolocation is fake| Geolocation is fake  
+`feedback_type`| string| 'Identifies the different types of feedback. Possible values: `out_of_band` for conclusions of out-of-band communication and `chargeback` for closing disputes. Note that, in TFB, for the feedback endpoint, if `feedback_type`, if equals `out_of_band`, the required fields are `oob_response_type`, `oob_end_date, and `oob_feedback_notes`.|Transfer information'| out_of_band  
+`feedback_value`| boolean| This field only applies to the Feedback endpoint. The value that should be associated with the `feedback_label`. E.g. if the label is `fraud`, the value `true` labels the transaction as fraudulent and the value `false` labels as non-fraudulent. | Transfer information|   
+`first_recurring_payment`| boolean| Whether the payment is the first occurrence of a series of recurring payments with the same amount and with the same payee.|Transfer information|   
+`frequency`| string| Recurrent scheduled transfer. Expected values include `weekly`, `each 15 days`, `monthly`, `quarter`, `bi-annual`, `annual` and `every two years`.|Transfer information| weekly  
+`geographic_scope`| string| 'Possible values are: `domestic` \- Between the same country and the same currency. `one_leg_out` \- Between the same country and different currency. `cross_border` \- Between different countries and different currencies.|Transfer information'| domestic  
+`info_type`| string| 'Indicates the type of the info event. Possible values: `dispute`, `out_of_band`, `pre_decided`, `not_honor` and `additional_info`. Note that, in TFB, for the info endpoint, if `info_type` equals `out_of_band`, the required fields are `oob_comm_type` and `oob_start_date`.|Transfer information'| out_of_band  
+`instant_transfer_processing_method`| string| Method used to process the instant transfer between the sender and the receiver as defined by their profiles both in the instant transfer and in the initiation payment methods (e.g. App vs Home banking). Possible values are `account_to_account`, `account_to_card`, `card_to_account` and `card_to_card`.|Transfer information| account_to_account  
+`instant_transfer_type`| string| Type of instant transfer. Possible values are `purchase`, `purchase_with_change`, `withdrawal`.|Transfer information| purchase  
+`is_domestic`| boolean| Indicates if the current transaction is domestic.|   
+`last_sca_at`| integer| Timestamp, in milliseconds since the Unix epoch, corresponding to the last time that the customer performed Strong Customer Authentication (SCA) when SCA is enabled (mandatory within the European Union; optional outside the EU). | Transfer information|   
+`lifecycle_id`| string| Identifier of the transfer sent to Feedzai. Each new Info or Settlement request share the same life cycle ID as the original transfer.|Transfer information| 1df7a7qg78vd7fs  
+`login_session_id`| string| Deprecated - Use 'session_id' instead.| fb2e77d  
+`malware_flag`| boolean| Indicates whether the device is infected with malware.|Transfer information|   
+`max_number_of_authentications`| integer| Number of max attempts authentications allowed for this client.|Authentication information|   
+`network_bssid`| string| 'Basic Server Set Identifier '| router  
+`network_ssid`| string| Service Set Identifier - the wifi network name| network_name  
+`number_of_authentications`| integer| Number of attempts to authenticate.|Authentication information|   
+`number_of_payments`| integer| Specifies the number of payments from the same order.|Transfer information|   
+`oob_comm_type`| string| 'The type of communication made with the client. Possible values: `sms`, `call`, `email`.|Transfer information'| sms  
+`oob_end_date`| integer| Timestamp corresponding to the moment when the client responded to the out-of-band communication (in milliseconds since the Unix epoch).|Transfer information|   
+`oob_feedback_notes`| string| Contextual information associated with the out-of-band communication.|Transfer information| The account holder denied the authenticity of the transaction.  
+`oob_notes`| string| Notes related to the out of band communication.|Transfer information| The customer has been already called.  
+`oob_response_type`| string| 'The type of out-of-band response made by the client. Possible values: `call`, `sms`, `email`, `branch`. **Note that this field is required if the`feedback_type` field has the value `out_of_band`**|Transfer information'| call  
+`oob_start_date`| integer| Timestamp that corresponds to the moment when the client was contacted (in milliseconds since the Unix epoch).|Transfer information|   
+`pass_reset`| boolean| If a password reset has been recently initiated by the sender.|Authentication information|   
+`payment_reference`| string| Unique reference to unambiguously refer to the payment transaction. This can be used by banks for internal control.|Transfer information| bb3fd51c-049e-4bfb-8a22-36e6143da4a8  
+`payment_status`| string| 'Life cycle status of the transfer. The following stage status may occur with the associated values: 1st stage status - `entered`, `approval pending`, `bank received`. 2nd stage status - `processing`, `accepted`, `rejected`, `return`, `recall`, `request for recall`, `waiting for recall`, `recall accepted`, `recall rejected`.|Transfer information'| entered  
+`payment_sub_type`| string| Specific service inside each payment type. Possible values are `instant_transfer`, `direct_debit`, `direct_deposit`, `credit_transfer`, `internal_transfer` and `bill_payment`.|Transfer information| instant_transfer  
+`payment_type`| string| Payment type. Possible values are `sepa`, `bacs`, `chaps`, `wire`, `swift`, `ach`, `fps`, `npp`, `bpay`, `pix`, `boleto`, `zelle`, `emt`, `rtp_tch`, `ted`, `tef`, `doc`, `internal`, and `other`.|Transfer information| sepa  
+`product_code`| string| The code of the product offered by the bank that was used to initiate the transfer.|Transfer information| 68002  
+`proxy_flag`| boolean| Whether the device IP is a proxy.|Transfer information|   
+`purchased_amount`| integer| Purchase amount in cents (e.g. 1000 represents $10.00).|Transfer information|   
+`receiver_account_atc1`| string| Describes the account type affected for debits and inquiries and the âfromâ account for transfers.|Receiver's account| atc1  
+`receiver_account_atc2`| string| Describes the account type affected for credits and the âtoâ account for transfers.|Receiver's account| atc2  
+`receiver_account_available_credit`| integer| Available credit within the credit limit provided by the bank (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Receiver's account|   
+`receiver_account_balance`| integer| Current account balance of the person receiving the request (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Receiver's account|   
+`receiver_account_bic`| string| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code.|Receiver's account| PTCDG  
+`receiver_account_cash_advance_balance`| integer| Debt amount in an account due to cash advance (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Receiver's account|   
+`receiver_account_credit_limit`| integer| Account credit limit (in cents or equivalent). Not relevant for debit. For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Sender's account|   
+`receiver_account_currency`| string| Currency associated to the receiver's account (in accordance with ISO 4217, Alpha-3). | Receiver's account| GBP  
+`receiver_account_debt_balance`| integer| Accountâs debt balance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Receiver's account|   
+`receiver_account_debt_payment_method`| string| Payment method of outstanding balance on the account.|Receiver's account| card  
+`receiver_account_fraud_30d`| integer| Number of account's confirmed frauds on the last 30 days|   
+`receiver_account_fraud_3d`| integer| Number of account's confirmed frauds on the last 3 days|   
+`receiver_account_fraud_6m`| integer| Number of account's confirmed fraudson the last 6 months|   
+`receiver_account_iban`| string| International Bank Account Number (IBAN) in ISO 13616:2020 format or any bank account unique identifier. This field should be sent as a token or hash.|Receiver's account| PT50 1234 5678 90  
+`receiver_account_id`| string| Banking App account id. This field should be sent as a token or hash.|Receiver's account| 26574591-19c5-4ad6-9d22-e966cbcf2df7  
+`receiver_account_last_activity`| integer| Identifies the timestamp of the last activity registered at the account (in milliseconds since the Unix epoch).|Receiver's account|   
+`receiver_account_last_payment_amount`| integer| Amount of the last payment made on the account (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Receiver's account|   
+`receiver_account_last_payment_date`| integer| Date when the receiver pays off the balance on the account (in milliseconds since the Unix epoch).|Receiver's account|   
+`receiver_account_number_of_cards`| integer| Number of cards associated with the account.|Receiver's account|   
+`receiver_account_open_date`| integer| Opening date of the account (in milliseconds since the Unix epoch).|Receiver's account|   
+`receiver_account_otb_limit`| integer| Account open to buy limit is the available amount between the account balance and unused credit limit (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Receiver's account|   
+`receiver_account_pw_change_flag`| boolean| Whether the receiver changed the password on the account.|Receiver's account|   
+`receiver_account_rejected_30d`| integer| Number of account's rejected transactions on the last 30 days|   
+`receiver_account_rejected_3d`| integer| Number of account's rejected transactions on the last 3 days|   
+`receiver_account_rejected_6m`| integer| Number of account's rejected transactions on the last 6 months|   
+`receiver_account_rep_fraud_30d`| integer| Number of account's reported frauds on the last 30 days|   
+`receiver_account_rep_fraud_3d`| integer| Number of account's reported frauds on the last 3 days|   
+`receiver_account_rep_fraud_6m`| integer| Number of account's reported fraudson the last 6 months|   
+`receiver_account_rewards_used_count`| integer| The number of times that the receiver used the rewards.|Receiver's account|   
+`receiver_account_settle_30d`| integer| Number of account's settlements on the last 30 days|   
+`receiver_account_settle_3d`| integer| Number of account's settlements on the last 3 days|   
+`receiver_account_settle_6m`| integer| Number of account's settlementson the last 6 months|   
+`receiver_account_status`| string| 'Status of the account. Possible values: `open`, `blocked`, `closed`, `waiting_for_kyc`.|Receiver''s account'| open  
+`receiver_account_type`| string| Type of the account. For example, savings or main account.|Receiver's account| credit  
+`receiver_alias`| string| Receiver's alias value. This field only applies when the payment is made with an alias, such as using email or phone number as the key to transfer the funds. An alias is mostly used in instant payments, such as PayPal or Venmo. | Receiver general information| [[email protected]](/cdn-cgi/l/email-protection#86ece9eee8d5ebeff2eec6e1ebe7efeaa8e5e9eb)  
+`receiver_alias_dict_reg_date`| integer| Date of registry on DICT (DiretÃ³rio de Identificadores de Contas Transacionais)|   
+`receiver_alias_fraud_30d`| integer| Number of alias' confirmed frauds on the last 30 days|   
+`receiver_alias_fraud_3d`| integer| Number of alias' confirmed frauds on the last 3 days|   
+`receiver_alias_fraud_6m`| integer| Number of alias' confirmed fraudson the last 6 months|   
+`receiver_alias_last_update_time`| integer| Identifies the timestamp of the date the receiver's alias is updated (in milliseconds since the Unix epoch).|Receiver general information|   
+`receiver_alias_portab_date`| integer| Start date of the portability or ownership claim process|   
+`receiver_alias_registration_time`| integer| Identifies the timestamp of the date the receiver's alias is registered (in milliseconds since the Unix epoch).|Receiver general information|   
+`receiver_alias_rejected_30d`| integer| Number of alias' rejected transactions on the last 30 days|   
+`receiver_alias_rejected_3d`| integer| Number of alias' rejected transactions on the last 3 days|   
+`receiver_alias_rejected_6m`| integer| Number of alias' rejected transactionson the last 6 months|   
+`receiver_alias_rep_fraud_30d`| integer| Number of alias' reported frauds on the last 30 days|   
+`receiver_alias_rep_fraud_3d`| integer| Number of alias' reported frauds on the last 3 days|   
+`receiver_alias_rep_fraud_6m`| integer| Number of alias' reported fraudson the last 6 months|   
+`receiver_alias_settle_30d`| integer| Number of alias' settlements on the last 30 days|   
+`receiver_alias_settle_3d`| integer| Number of alias' settlements on the last 3 days|   
+`receiver_alias_settle_6m`| integer| Number of alias' settlements on the last 6 months|   
+`receiver_alias_status`| string| The status of the receiver's alias. The possible values are `active` and `deleted`.|Receiver general information| active  
+`receiver_alias_type`| string| Receiver's alias type. This field only applies when the payment is made with an alias.|Receiver general information| email  
+`receiver_bank_address`| string| Address of the receiver's bank.|Receiver's bank| Newton Avenue 77  
+`receiver_bank_bic`| string| Bank Identifier Code (BIC) in SWIFT format. | Receiver's bank| HBUKGB4BXXX  
+`receiver_bank_branch_id`| string| Account bank branch id.|Receiver's bank| 12-20-99  
+`receiver_bank_city`| string| City in which the receiver's bank is located.|Receiver's bank| Manchester  
+`receiver_bank_country_code`| string| The country code of where the receiver's bank is based (in accordance with ISO 3166, Alpha-2). | Receiver's bank| US  
+`receiver_bank_currency`| string| Currency of the receiver's bank (in accordance with ISO 4217, Alpha-3).|Receiver's bank| GBP  
+`receiver_bank_fee_amount`| integer| Fee that is applied to the receiver's bank included in the `sender_transaction_amount` field, in cents (e.g. 1000 to represent $10.00).|Receiver's bank|   
+`receiver_bank_fee_currency`| string| Defines the currency of the `receiver_bank_fee_amount` field (in accordance with ISO 4217, Alpha-3).|Receiver's bank| GBP  
+`receiver_bank_fee_type`| string| 'Defines the method that is used to handle the payment charges or payment fees. Expected values include: - `OUR`: The sender of the payment will bear all of the payment transaction fees. The recipient of the payment will not pay any payment fees. - `SHA`(SHAred): The sender of the payment will pay all fees charged by the sending bank. The recipient of the payment will pay all fees charged by the receiving bank. - `BEN` (BENeficiary): The recipient of the payment will incur all of the payment transaction fees. The sender of the payment will not pay any payment fees. NOTE: Fees can happen at any stage of the transaction, it will depend on the Bilateral or multilateral agreements.|Receiver''s bank'| SHA  
+`receiver_bank_foreign_exchange_rate`| double| Foreign exchange rate, defined by the sender and receiver currencies.|Receiver's bank|   
+`receiver_bank_name`| string| Name of the receiver's bank.|Receiver's bank| Receiver Bank  
+`receiver_bank_postal_code`| string| Postal code of the receiver's bank.|Receiver's bank| WC7N 7EW  
+`receiver_bank_routing_number`| string| Account bank routing number.|Receiver's bank| 201-192-111  
+`receiver_bank_sort_code`| string| Account bank sort code.|Receiver's bank| 09-01-31  
+`receiver_citizen_id_number`| string| Identification number defined in the citizen identity document associated with the receiver's home country.|Receiver general information| 12345678901234  
+`receiver_city`| string| Receiver's city.|Receiver general information| Manchester  
+`receiver_company_id`| string| Receiver company ID.|Receiver general information| 852814c8-a24f-4269-a566-a1d10364b3cb  
+`receiver_correspondent_bank_address`| string| Bank address.|Receiver correspondent's bank| River Street 54  
+`receiver_correspondent_bank_bic`| string| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code.|Receiver correspondent's bank| 0ed7c577-b503-448a-95c8-b92342e0051e  
+`receiver_correspondent_bank_city`| string| City in which the bank is located.|Receiver correspondent's bank| London  
+`receiver_correspondent_bank_country_code`| string| The country code of the correspondent's bank (in accordance with ISO 3166, Alpha-2). | Receiver correspondent's bank| US  
+`receiver_correspondent_bank_currency`| string| Currency used by the Bank (in accordance with ISO 4217, Alpha-3).|Receiver correspondent's bank| GBP  
+`receiver_correspondent_bank_fee_amount`| integer| Fee that is applied to the sender's bank included in the `sender_transaction_amount` field, in cents (e.g. 1000 to represent $10.00).|Receiver correspondent's bank|   
+`receiver_correspondent_bank_fee_currency`| string| Defines the currency of the `fee_amount` field (in accordance with ISO 4217, Alpha-3).|Receiver correspondent's bank| GBP  
+`receiver_correspondent_bank_fee_type`| string| 'Defines the method that is used to handle the payment charges or payment fees. Expected values include: - `OUR`: The sender of the payment will bear all of the payment transaction fees. The recipient of the payment will not pay any payment fees. - `SHA`(SHAred): The sender of the payment will pay all fees charged by the sending bank. The recipient of the payment will pay all fees charged by the receiving bank. - `BEN` (BENeficiary): The recipient of the payment will incur all of the payment transaction fees. The sender of the payment will not pay any payment fees. NOTE: Fees can happen at any stage of the transaction, it will depend on the Bilateral or multilateral agreements.|Receiver correspondent''s bank'| SHA  
+`receiver_correspondent_bank_foreign_exchange_rate`| double| Foreign exchange rate defined by the sender and receiver currencies.|Receiver correspondent's bank|   
+`receiver_correspondent_bank_name`| string| Bank name.|Receiver correspondent's bank| Receiver's Correspondent Bank SA  
+`receiver_correspondent_bank_postal_code`| string| Postal code of the bank.|Receiver correspondent's bank| AWB3 7Y3  
+`receiver_country_code`| string| The country code of the receiver / beneficiary (in accordance with ISO 3166, Alpha-2). | Receiver general information| US  
+`receiver_currency`| string| Currency associated to the receiver. Refers to receivers' total balance and credit limit.|Receiver general information| GBP  
+`receiver_dob`| string| Receiver's date of birth (YYYYMMDD).|Receiver general information| 19900101  
+`receiver_driver_license`| string| Receiver driver's license.|Receiver general information| 1234567  
+`receiver_email`| string| Receiver's main email contact. | Receiver general information| [[email protected]](/cdn-cgi/l/email-protection#402a2f282e132d29342800272d21292c6e232f2d)  
+`receiver_fraud_30d`| integer| Number of customer's confirmed frauds on the last 30 days|   
+`receiver_fraud_3d`| integer| Number of customer's confirmed frauds on the last 3 days|   
+`receiver_fraud_6m`| integer| Number of customer's confirmed fraudson the last 6 months|   
+`receiver_id`| string| Receiver ID generated by the receiver's bank.|Receiver general information| ADG13421  
+`receiver_kyc_lvl`| string| Know your receiver (KYC) level.|Receiver general information| A  
+`receiver_name`| string| The name of the individual receiving the payment. | Receiver general information| John Smith  
+`receiver_number_of_accounts`| integer| Number of accounts associated with the receiver.|Receiver general information|   
+`receiver_number_of_cards`| integer| Number of cards associated with the receiver.|Receiver general information|   
+`receiver_occupation`| string| Receiver's main professional activity.|Receiver general information| engineer  
+`receiver_occupation_status`| string| Receiver's current occupation status.|Receiver general information| employee  
+`receiver_passport_number`| string| Receiver passport number.|Receiver general information| PT-019796bb-783c-4020-8110-780e2900515b  
+`receiver_phone`| string| Receiver's main telephone contact. | Receiver general information| 001122334455  
+`receiver_phone_val_code`| string| Indicates whether the receiver phone number is valid.|Receiver general information| 001122  
+`receiver_region`| string| Receiver's region.|Receiver general information| Noth West  
+`receiver_registration_date`| integer| Receiver registration date (in milliseconds since the Unix epoch).|Receiver general information|   
+`receiver_rejected_30d`| integer| Number of customer's rejected transactions on the last 30 days|   
+`receiver_rejected_3d`| integer| Number of customer's rejected transactions on the last 3 days|   
+`receiver_rejected_6m`| integer| Number of customer's rejected transactions on the last 6 months|   
+`receiver_rep_fraud_30d`| integer| Number of customer's reported frauds on the last 30 days|   
+`receiver_rep_fraud_3d`| integer| Number of customer's reported frauds on the last 3 days|   
+`receiver_rep_fraud_6m`| integer| Number of customer's reported fraudson the last 6 months|   
+`receiver_risk_rating`| string| Receiver's risk rating.|Receiver general information| B  
+`receiver_segment`| string| Receiver's segment within the banks' segmentation.|Receiver general information| retail  
+`receiver_settle_30d`| integer| Number of customer's settlements on the last 30 days|   
+`receiver_settle_3d`| integer| Number of customer's settlements on the last 3 days|   
+`receiver_settle_6m`| integer| Number of customer's settlements on the last 6 months|   
+`receiver_settlement_at`| integer| States the settlement date for the transfer (in milliseconds since the Unix epoch).|Receiver general information|   
+`receiver_ssn`| string| Receiver social security number.|Receiver general information| 123456789  
+`receiver_street_addr`| string| The address of the individual receiving the payment. | Receiver general information| Lincoln Avenue 77  
+`receiver_tax_number`| string| Receiver tax number.|Receiver general information| 987654321  
+`receiver_total_balance`| integer| Sum of the balances on all receiver's accounts (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Receiver general information|   
+`receiver_total_credit_limit`| integer| Sum of the credit limit on all receiver's accounts (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Receiver general information|   
+`receiver_transaction_amount`| integer| Transaction amount received by the receiver.|Receiver transaction information|   
+`receiver_transaction_bank_account_number`| string| The bank account number of the receiver.|Receiver transaction information| 9a08f316-df1f-4096-9a2d-a904a82bb65e  
+`receiver_transaction_currency`| string| Defines the currency of the `receiver_transaction_amount` field (in accordance with ISO 4217, Alpha-3).|Receiver transaction information| GBP  
+`receiver_transaction_fee_amount`| integer| Fee that is applied to the sender's bank included in the `sender_transaction_amount` field, in cents (e.g. 1000 to represent $10.00).|Receiver transaction information|   
+`receiver_transaction_fee_currency`| string| Defines the currency of the `receiver_bank_fee_currency` field (in accordance with ISO 4217, Alpha-3).|Receiver transaction information| GBP  
+`receiver_transaction_fee_type`| string| 'Defines the method that is used to handle the payment charges or payment fees. Expected values include: - `OUR`: The sender of the payment will bear all of the payment transaction fees. The recipient of the payment will not pay any payment fees. - `SHA`(SHAred): The sender of the payment will pay all fees charged by the sending bank. The recipient of the payment will pay all fees charged by the receiving bank. - `BEN` (BENeficiary): The recipient of the payment will incur all of the payment transaction fees. The sender of the payment will not pay any payment fees. NOTE: Fees can happen at any stage of the transaction, it will depend on the Bilateral or multilateral agreements.|Receiver transaction information'| SHA  
+`receiver_transaction_foreign_exchange_rate`| double| Foreign exchange rate, defined by the sender and receiver currencies.|Receiver transaction information|   
+`receiver_transaction_notes`| string| Notes added by the receiver.|Receiver transaction information| The receiver notes.  
+`receiver_transaction_original_amount`| integer| Transaction amount on the receiver's end. This amount is in the receiver's account currency in cents (e.g. 1000 represents $10.00), and includes fees.|Receiver transaction information|   
+`receiver_transaction_original_currency`| string| Defines the currency of the `receiver_transaction_original_amount` field (in accordance with ISO 4217, Alpha-3).|Receiver transaction information| GBP  
+`receiver_zip`| string| Receiver's postal code.|Receiver general information| WC7N 7EW  
+`recurring_payment`| boolean| Whether the payment is part of a series of recurring payments with the same amount and with the same payee.|Transfer information|   
+`recurring_payment_day`| integer| 'Defines the concrete date of the recurring payment. For example: true the 15th day of each month, or on the on the 1st day of each month (i.e. value 15 or 1 in this example).|Transfer information'|   
+`recurring_payment_hour`| integer| Defines the hour of the expected recurring day to initiate a transfer.|Transfer information|   
+`reference_fraud_rate`| double| Fraud rate for transfers. Calculated as the total value of unauthorized or fraudulent remote transfers, divided by the total value of all remote transfers, in the previous calendar quarter (i.e. three-month window).|Transfer information|   
+`reference_number`| string| Numeric representation of payment ID.|Transfer information| Boleto ID  
+`reference_number_entry_mode`| string| The entry mode of the payment ID. Possible values are `manual`, `barcode` and `qr_code`.|Transfer information| manual  
+`requested_execution_at`| integer| Date at which the initiating party requests the settlement agent to process the payment. The sender in this field will be able to specify the expected due date (in milliseconds since the Unix epoch).|Transfer information|   
+`sca_risk_flag`| boolean| Identifies whether the transfer has strong customer authentication (SCA) or not.|Authentication information|   
+`sca_risk_score`| integer| Quantifies the risk associated with automatic strong customer authentication (SCA) sent to the clients to allow authentication.|Authentication information|   
+`segment_channel_type`| string| Specifies the transaction payment channel. Supported values are `retail_banking`, `business_banking`, `commercial_banking`, `treasury`, and `cash_management`. | Transfer information| retail_banking  
+`sender_account_atc1`| string| Describes the account type affected for debits and inquiries and the âfromâ account for transfers.|Sender's account| atc1  
+`sender_account_atc2`| string| Describes the account type affected for credits and the âtoâ account for transfers.|Sender's account| atc2  
+`sender_account_available_credit`| integer| Available credit within the credit limit provided by the bank (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender's account|   
+`sender_account_balance`| integer| Current account balance (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender's account|   
+`sender_account_bic`| string| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code.|Sender's account| NWBK  
+`sender_account_cash_advance_balance`| integer| Debt amount in an account due to cash advance (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender's account|   
+`sender_account_credit_limit`| integer| Account credit limit (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender's account|   
+`sender_account_currency`| string| Currency associated to the sender's account (in accordance with ISO 4217, Alpha-3). | Sender's account| GBP  
+`sender_account_debt_balance`| integer| Accountâs debt balance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Sender's account|   
+`sender_account_debt_payment_method`| string| Payment method of outstanding balance on the account.|Sender's account| card  
+`sender_account_iban`| string| International Bank Account Number (IBAN) in ISO 13616:2020 format or any bank account unique identifier. This field should be sent as a token or hash.|Sender's account| GB98 MIDL 0700 9312 3456 78  
+`sender_account_id`| string| Banking App account id. This field should be sent as a token or hash.|Sender's account| 6edd8107-f24f-4bdd-ba86-4baf21f27c1b  
+`sender_account_last_activity`| integer| Identifies the timestamp of the last activity registered at the account (in milliseconds since the Unix epoch).|Sender's account|   
+`sender_account_last_payment_amount`| integer| Amount of the last payment made on the account (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender's account|   
+`sender_account_last_payment_date`| integer| Date when the sender pays off the balance on the account (in milliseconds since the Unix epoch).|Sender's account|   
+`sender_account_number_of_cards`| integer| Number of cards associated with the account.|Sender's account|   
+`sender_account_open_date`| integer| Opening date of the account (in milliseconds since the Unix epoch).|Sender's account|   
+`sender_account_otb_limit`| integer| Account open to buy limit is the available amount between the account balance and unused credit limit (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender's account|   
+`sender_account_pw_change_flag`| boolean| For deployments that do not include Digital Activity, you can use this field to detect if the customer changed the password on the account. This refers to if the password is changed over the last day or within a single session. | Sender's account|   
+`sender_account_rewards_used_count`| integer| The number of times that the sender used the rewards.|Sender's account|   
+`sender_account_status`| string| 'Status of the account. Possible values: `open`, `blocked`, `closed`, `waiting_for_kyc`.|Sender''s account'| open  
+`sender_account_type`| string| Type of the account. For example, savings or main account.|Sender's account| credit  
+`sender_alias`| string| Sender's alias value. This field only applies when the payment is made with an alias, such as using email or phone number as the key to transfer the funds. An alias is mostly used in instant payments, such as PayPal or Venmo. | Sender general information| [[email protected]](/cdn-cgi/l/email-protection#03696c6b6d2d676c6643646e626a6f2d606c6e)  
+`sender_alias_last_update_time`| integer| Identifies the timestamp of the date the sender's alias is updated (in milliseconds since the Unix epoch).|Sender general information|   
+`sender_alias_registration_time`| integer| Identifies the timestamp of the date the sender's alias is registered (in milliseconds since the Unix epoch).|Sender general information|   
+`sender_alias_status`| string| The status of the sender's alias. The possible values are `active` and `deleted`.|Sender general information| active  
+`sender_alias_type`| string| Sender's alias type. This field only applies when the payment is made with an alias.|Sender general information| email  
+`sender_bank_address`| string| Sender's bank address.|Sender's bank| Diagon Alley 33  
+`sender_bank_bic`| string| Bank Identifier Code (BIC) in SWIFT format. | Sender's bank| HBUKGB4BXXX  
+`sender_bank_branch_id`| string| Account bank branch id.|Sender's bank| 77-71-13  
+`sender_bank_city`| string| Sender's bank city.|Sender's bank| London  
+`sender_bank_country_code`| string| The country code of where the sender's bank is based (in accordance with ISO 3166, Alpha-2). | Sender's bank| UK  
+`sender_bank_currency`| string| Sender's bank currency (in accordance with ISO 4217, Alpha-3).|Sender's bank| GBP  
+`sender_bank_fee_amount`| integer| Fee that is applied to the sender's bank included in the `sender_transaction_amount` field, in cents (e.g. 1000 to represent $10.00).|Sender's bank|   
+`sender_bank_fee_currency`| string| Defines the currency of the `sender_bank_fee_amount` field (in accordance with ISO 4217, Alpha-3).|Sender's bank| GBP  
+`sender_bank_fee_type`| string| 'Defines the method that is used to handle the payment charges or payment fees. Expected values include: - `OUR`: The sender of the payment will bear all of the payment transaction fees. The recipient of the payment will not pay any payment fees. - `SHA`(SHAred): The sender of the payment will pay all fees charged by the sending bank. The recipient of the payment will pay all fees charged by the receiving bank. - `BEN` (BENeficiary): The recipient of the payment will incur all of the payment transaction fees. The sender of the payment will not pay any payment fees. NOTE: Fees can happen at any stage of the transaction, it will depend on the Bilateral or multilateral agreements.|Sender''s bank'| SHA  
+`sender_bank_foreign_exchange_rate`| double| Foreign exchange rate, defined by the sender and receiving currency.|Sender's bank|   
+`sender_bank_name`| string| Sender's bank name.|Sender's bank| Gringotts  
+`sender_bank_postal_code`| string| Sender's bank postal code.|Sender's bank| WC2N 5DU  
+`sender_bank_routing_number`| string| Account bank routing number.|Sender's bank| 192-211-329  
+`sender_bank_sort_code`| string| Account bank sort code.|Sender's bank| 09-01-31  
+`sender_citizen_id_number`| string| Identification number defined in the citizen identity document associated with the sender's home country.|Sender general information| 12345678901234  
+`sender_city`| string| Sender's city.|Sender general information| Edinburgh  
+`sender_company_id`| string| Sender company ID.|Sender general information| 1af402d5-ea3b-4f81-acae-80934a325daf  
+`sender_correspondent_bank_address`| string| Bank address.|Sender correspondent's bank| River Street 55  
+`sender_correspondent_bank_bic`| string| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code.|Sender correspondent's bank| 0ed7c577-b503-448a-95c8-b92342e0051e  
+`sender_correspondent_bank_city`| string| City in which the bank is located.|Sender correspondent's bank| London  
+`sender_correspondent_bank_country_code`| string| The country code of the correspondent's bank (in accordance with ISO 3166, Alpha-2). | Sender correspondent's bank| US  
+`sender_correspondent_bank_currency`| string| Currency used by the Bank (in accordance with ISO 4217, Alpha-3).|Sender correspondent's bank| GBP  
+`sender_correspondent_bank_fee_amount`| integer| Fee that is applied to the sender's bank included in the `sender_transaction_amount` field, in cents (e.g. 1000 to represent $10.00).|Sender correspondent's bank|   
+`sender_correspondent_bank_fee_currency`| string| Defines the currency of the `fee_amount` field (in accordance with ISO 4217, Alpha-3).|Sender correspondent's bank| GBP  
+`sender_correspondent_bank_fee_type`| string| 'Defines the method that is used to handle the payment charges or payment fees. Expected values include: - `OUR`: The sender of the payment will bear all of the payment transaction fees. The recipient of the payment will not pay any payment fees. - `SHA`(SHAred): The sender of the payment will pay all fees charged by the sending bank. The recipient of the payment will pay all fees charged by the receiving bank. - `BEN` (BENeficiary): The recipient of the payment will incur all of the payment transaction fees. The sender of the payment will not pay any payment fees. NOTE: Fees can happen at any stage of the transaction, it will depend on the Bilateral or multilateral agreements.|Sender correspondent''s bank'| SHA  
+`sender_correspondent_bank_foreign_exchange_rate`| double| Foreign exchange rate defined by the sender and receiver currencies.|Sender correspondent's bank|   
+`sender_correspondent_bank_name`| string| Bank name.|Sender correspondent's bank| Correspondent Bank SA  
+`sender_correspondent_bank_postal_code`| string| Postal code of the bank.|Sender correspondent's bank| YEB3 UD3  
+`sender_country_code`| string| The country code of the sender / originator (in accordance with ISO 3166, Alpha-2). | Sender general information| US  
+`sender_country_code_change_flag`| boolean| Whether the sender is perfoming the first payment after changing country in their address. | Transfer information|   
+`sender_currency`| string| Currency associated to the sender. Refers to senders' total balance and credit limit.|Sender general information| GBP  
+`sender_dob`| string| Sender's date of birth (YYYYMMDD).|Sender general information| 19900101  
+`sender_driver_license`| string| Sender driver's license.|Sender general information| 1234567  
+`sender_email`| string| Sender's main email contact. | Sender general information| [[email protected]](/cdn-cgi/l/email-protection#c9a3a6a1a7e7ada6ac89aea4a8a0a5e7aaa6a4)  
+`sender_email_change_flag`| boolean| Whether the sender is perfoming the first payment after changing email.|Transfer information|   
+`sender_id`| string| Sender ID generated by the sender's bank.|Transfer information| MSG12345  
+`sender_initiated_at`| integer| Time at which the sender makes the transfer (in milliseconds since the Unix epoch). This happens after the payment creation. Both events can happen in sync or independently.|Transfer information|   
+`sender_kyc_lvl`| string| Know your sender (KYC) level.|Sender general information| A  
+`sender_name`| string| The name of the individual sending the payment. | Sender general information| Joe Dow  
+`sender_number_of_accounts`| integer| Number of accounts associated with the sender.|Sender general information|   
+`sender_number_of_cards`| integer| Number of cards associated with the sender.|Sender general information|   
+`sender_occupation`| string| Sender's main professional activity.|Sender general information| actor  
+`sender_occupation_status`| string| Sender's current occupation status.|Sender general information| employee  
+`sender_passport_number`| string| Sender passport number.|Sender general information| PT-019796bb-783c-4020-8110-780e2900515b  
+`sender_phone`| string| Sender phone number.|Sender general information| 001122334455  
+`sender_phone_change_flag`| boolean| Whether the sender is perfoming the first payment after changing phone number.|Transfer information|   
+`sender_phone_val_code`| string| Indicates whether the sender phone number is valid.|Sender general information| 001122  
+`sender_region`| string| Sender's region.|Sender general information| Edinburgh  
+`sender_registration_date`| integer| Sender registration date (in milliseconds since the Unix epoch).|Sender general information|   
+`sender_risk_rating`| string| Sender's risk rating.|Sender general information| B  
+`sender_segment`| string| Sender's segment within the banks' segmentation.|Transfer information| retail  
+`sender_ssn`| string| Sender social security number.|Sender general information| 123456789  
+`sender_street_addr`| string| The address of the individual sending the payment. | Sender general information| 94 Morningside Rd, Edinburgh, EH10 4BY  
+`sender_tax_number`| string| Sender tax number.|Sender general information| 987654321  
+`sender_total_balance`| integer| Sum of the balances on all sender's accounts (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender general information|   
+`sender_total_credit_limit`| integer| Sum of the credit limit on all sender's accounts (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Sender general information|   
+`sender_transaction_amount`| integer| Amount of the transaction performed by the sender. This amount is in the sender's account currency in cents or equivalent (e.g. 1000 represents $10.00), and includes fees. It should be consistent across all transactions as this value is used to calculate profiles in a unified currency. | Sender transaction information|   
+`sender_transaction_bank_account_number`| string| Sender's bank account number.|Sender transaction information| 5a800244-325a-4086-ab8a-23ecbb927be5  
+`sender_transaction_category_purpose`| string| Category of the purpose of the transaction (ISO 20022).|Sender transaction information| cash_management  
+`sender_transaction_currency`| string| This field defines the currency of the `sender_transaction_amount` field (in accordance with ISO 4217, Alpha-3) and should be consistent across all transactions. This should also be the bank's official currency. | Sender transaction information| GBP  
+`sender_transaction_fee_amount`| integer| Fee that is applied to the sender included in the `sender_transaction_amount` field, in cents (e.g. 1000 to represent $10.00).|Sender transaction information|   
+`sender_transaction_fee_currency`| string| Defines the currency of the `sender_transaction_fee_amount` field (in accordance with ISO 4217, Alpha-3).|Sender transaction information| GBP  
+`sender_transaction_fee_type`| string| 'Defines the method that is used to handle the payment charges or payment fees. Expected values include: - `OUR`: The sender of the payment will bear all of the payment transaction fees. The recipient of the payment will not pay any payment fees. - `SHA`(SHAred): The sender of the payment will pay all fees charged by the sending bank. The recipient of the payment will pay all fees charged by the receiving bank. - `BEN` (BENeficiary): The recipient of the payment will incur all of the payment transaction fees. The sender of the payment will not pay any payment fees. NOTE: Fees can happen at any stage of the transaction, it will depend on the Bilateral or multilateral agreements.|Sender transaction information'| SHA  
+`sender_transaction_foreign_exchange_rate`| double| Foreign exchange rate, defined by the sender and receiving currencies.|Sender transaction information|   
+`sender_transaction_notes`| string| Notes added by the sender, when performing the transfer, including note to self. | Sender transaction information| my last rent installment  
+`sender_transaction_original_amount`| integer| Amount of the transaction performed by the sender, in the original currency, in cents or equivalent (e.g. 1000 to represent $10.00). This amount includes the fees. | Sender transaction information|   
+`sender_transaction_original_currency`| string| Defines the currency of the `sender_transaction_original_amount` field (in accordance with ISO 4217, Alpha-3).|Sender transaction information| GBP  
+`sender_transaction_purpose`| string| Purpose of the transaction (ISO 20022).|Sender transaction information| cash  
+`sender_urgency`| boolean| Identifies whether a transfer should be processed as urgent or not.|Transfer information|   
+`sender_zip`| string| Sender's postal code.|Sender general information| EH10 4BY  
+`session_id`| string| Id of the session that the user logged into. This should be consistent across all events within the same banking session, including payment initiations as it will be used to associate events to a session.|Authentication information| 9be65da3-ec5d-45c0-93c0-03afc5f7633b  
+`session_register_date`| integer| Session first seen timestamp, (in milliseconds since the Unix epoch)|   
+`text_for_receiver`| string| Free text message from the sender to the receiver. If the sender does not provide a message, this field is populated with the value `NOTPROVIDED`.|Receiver transaction information| Transfer associated with the last rent installment. Please let me know once you receive the payment.  
+`transaction_goal`| string| Goal of the transfer. Each institution might have specific goals for certain types of transactions. These goals can be, for instance, the payment of taxes, bills or deposit.|Transfer information|   
+`transaction_method`| string| Method of the transfer. Each institution might have specific payment methods for certain types of transactions. These methods can be, for instance, balance in the account or credit card.|Transfer information|   
+`trusted_receiver`| boolean| Whether the receiver is included in the customer's list of trusted receivers.|Transfer information|   
+`ultimate_creditor_country_code`| string| Ultimate Creditor's country code (in accordance with ISO 3166, Alpha-2).|Sender general information| US  
+`ultimate_creditor_dob`| string| Ultimate creditor's date of birth (YYYYMMDD).|Sender general information| 19900101  
+`ultimate_creditor_name`| string| The transfer ultimate creditor name| John Doe  
+`ultimate_debtor_country_code`| string| Ultimate Debtor's country code (in accordance with ISO 3166, Alpha-2).|Sender general information| US  
+`ultimate_debtor_dob`| string| Ultimate debtor's date of birth (YYYYMMDD).|Sender general information| 19900101  
+`ultimate_debtor_name`| string| The transfer ultimate debtor name| John Doe  
+`user_email_address`| string| Email associated with the bank's user. | Authentication information| [[email protected]](/cdn-cgi/l/email-protection#86ece9eee8c6e1ebe7efeaa8e5e9eb)  
+`user_id`| string| The ID of the user that is working on a banking session on behalf of a main account, that could be joint or business and can be different from the customer ID.| 3b74891a-04f2-43a0-9519-8e0c2d841986  
+`user_name`| string| The name of the user that is working on a banking session on behalf of a main account, that could be joint or business and can be different from the customer name.| John Doe  
+`user_phone_number`| string| Phone number associated with the bank user. | Authentication information| 447292738273482  
+`user_phone_number_country_code`| string| Country code associated with the bank user's phone number (in accordance with ISO 3166, Alpha-2). | Authentication information| US  
+`withdrawal_amount`| integer| Withdrawal amount in cents (e.g. 1000 represents $10.00).|Transfer information|   
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

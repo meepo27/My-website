@@ -1,0 +1,155 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/installation-guide/requirements
+Title: Requirements | Case Manager
+============================================================
+
+On this page
+
+# Requirements
+
+In this page, you will learn about **minimal** and **high available** setups, and Case Manager's **software** and **hardware** requirements.
+
+## Deployment Typesâ
+
+The next picture explains the services involved in a Pulse + Case Manager deployment. The number of services running will constrain the type of the deployment.
+
+### Minimal Deploymentâ
+
+Only one of each component is required:
+
+  * 1x Pulse
+  * 1x RabbitMQ
+  * 1x Case Manager
+  * 1x RDBMS
+
+
+
+### Minimal Highly Available Deploymentâ
+
+A minimal high available deployment consists of:
+
+  * 2x Pulse
+  * 3x RabbitMQ
+  * 2x Case Manager
+  * 2x Load Balancer (one for Pulse and other for CM)
+  * 2x RDBMS (depends on database vendor)
+
+
+
+### Highly Available Deploymentâ
+
+Based on the minimal HA deployment. You can add new instances to it according to each client's requirements.
+
+## Base Requirementsâ
+
+In this section, you can see which are the basic requirements to run Case Manager.
+
+### Operating Systemâ
+
+Feedzai deployments officially support the following operating systems:
+
+  * Red Hat Enterprise Linux 9.1 (64 bit)
+  * CentOS 7.9 (64 bit)
+
+
+
+info
+
+This is valid for all deployed machines, regardless of whether they are running Feedzai software or not.
+
+### Web Browserâ
+
+Case Manager officially supports the following browsers:
+
+  * Chrome (the latest version, currently 124)
+  * Firefox (the latest version, currently 125)
+  * Edge (the latest version, currently 124)
+
+
+
+Other Browsers
+
+However, although a correct functioning is not guaranteed, Case Manager may also work in Safari (the latest version, currently 16.5).
+
+## Service Requirementsâ
+
+Each service should run on its own machine (virtual or not). Nevertheless, each project can opt to run multiple services on the same machine or even use docker.
+
+Next, independently of the deployment, we will present both software and hardware requirements for each service.
+
+### Feedzai Pulseâ
+
+Case Manager retrieves data from Pulse. Currently, only Pulse **25.X** is tested and supported.
+
+danger
+
+`y.X` means that only the latest version of `y` is supported. A setup with Pulse 24.0 might need to update to the latest Pulse 24.X version in order to ensure latest CM compatibility.
+
+### RabbitMQâ
+
+Learn more about the requirements for RabbitMQ in Pulse's documentation.
+
+### Load Balancerâ
+
+Both Pulse and Case Manager require being served by a Load Balancer if they have more than 1 instance running. Load balancers can be hardware or software-based:
+
+  * If they are hardware-based, Feedzai will be in charge of providing and deploying on-the-shelf specialized hardware.
+  * For software-based Load Balancers, you will need to check which are the recommended specs.
+
+
+
+If using HAProxy (as used in this guide for explanatory purposes) please check its [supported platforms](http://www.haproxy.org/#plat) and [performance](http://www.haproxy.org/#perf) sections. Refer to its [official website](http://www.haproxy.org/) to learn more about it.
+
+### RDBMSâ
+
+danger
+
+Before using the database, make sure you read this [page](https://github.com/feedzai/pdb/wiki/Quirks-specific-to-some-Database-systems), which contains information on quirks that are specific to some database systems.
+
+Case Manager uses [PulseDB](https://github.com/feedzai/pdb) for database access, meaning that Case Manager can be deployed on top of:
+
+  * Oracle 19.3 (or higher)
+  * PostgreSQL 10.1 (or higher) - driver version 42.5.0 should be used.
+  * SQL Server 2017 GA (or higher)
+  * H2 2.2.224 (or higher) - only for test/evaluation purposes.
+
+
+
+However, note that currently we only test against H2 and PostgresSQL.
+
+### Case Managerâ
+
+The Case Manager service requires the following software to run.
+
+#### Java Environmentâ
+
+OpenJDK SE Development Kit version 1.8, with the following vendors (with their latest hotfix versions):
+
+  * Azul Zulu
+  * Amazon Corretto
+  * Oracle
+  * Zing 22.02 (containerized) - Zing 21 (containerized) has been validated up to version 21.06
+
+
+
+However, note that we currently only test against zulu.
+
+The following are **not** supported, and are known to have problems:
+
+  * 1.8.0u242
+  * 1.8.0u121
+  * 1.8.0u60
+  * 1.8.0u45 **and earlier**
+
+
+
+Non-listed releases are either not supported or haven't been put to extensive testing.
+
+## Next Stepsâ
+
+Keep learning about how to start running Case Manager in the following pages:
+
+  * [Installing Case Manager](/case-manager/13.17/docs/internal/case-manager/installation-guide/installing-case-manager)
+  * [Configuring Firewalls](/case-manager/13.17/docs/common/case-manager/installation-guide/configuring-firewalls)
+  * [Configuration Guide](/case-manager/13.17/docs/internal/case-manager/configuration-guide/configuration-guide-overview)
+
+

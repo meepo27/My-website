@@ -1,0 +1,48 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/limits
+Title: Limits | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * Limits
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Limits
+
+Within Pulse, **limits** (also referred to as **quotas**) are upper bounds on the number or size of resources that can be configured in an [application](/pulse/latest/docs/common/pulse/users-guide/working-with-applications).
+
+Limits act as guardrails to guide users towards recommended usage patterns and best practices, with the goal of helping ensure optimal runtime performance, and preventing issues such as degraded stability in production environments.
+
+Pulse limits are defined individually for each environment, allowing flexible setups while maintaining control over resource usage. Specifically, they are primarily targeted at runtime environments, where performance and stability are critical.
+
+Limit adjustments
+
+Pulse limits are performance safeguards, not rigid constraints.  
+If your usage requires higher limits, reach out to the Feedzai Customer Service to request the necessary adjustments.
+
+## Limits on Metrics operators in Plansâ
+
+Pulse limits the number of [Metrics operators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference#metrics) that can be included in a [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans). By default, the limit is set to two Metrics operators per Plan, which allows common use cases such as cascading metrics.
+
+The [Create/Edit Plan page](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/#createedit-plan-page) displays the usage of the Metrics operators quota above the plan data flow diagram. The indicator shows how many Metrics operators are currently used out of the allowed limit, e.g., "Metrics operators in use: 1 of 2":
+
+When the limit is reached, the **Metrics** operator becomes disabled, so that no more operators can be dragged onto the plan diagram:
+
+Additionally, dragging Metrics operators from the clipboard pop-up into the plan diagram is blocked if it would exceed the limit:
+
+### Existing Plans exceeding the limitâ
+
+If an existing Plan already had more than the allowed number of Metrics operators before this limit was introduced, it can still be opened and edited as usual. However, no new Metrics operators can be added until the total number is reduced below the limit.
+
+Importing Plans exceeding the limit
+
+Support for existing Plans exceeding the Metrics operators limit only applies to Plans currently in the application. [Importing resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) that include Plans with more than the allowed number of Metrics operators will fail with an error message indicating that the Metrics operators limit has been exceeded.
+
+## Learn Moreâ
+
+For more detailed information about organizing metrics across multiple operators, see [Best Practices for Plans](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/best-practices-for-plans).

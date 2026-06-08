@@ -1,0 +1,111 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/alerting-pulse
+Title: Alerting in Pulse | Feedzai Documentation
+============================================================
+
+# Alerting in Pulse
+
+In this page you can find a set of alerts that can be added to the monitoring solution in order to improve awareness over Pulse stability.
+
+##### info
+
+Note that these alerts are solemnly suggestions that might require new dashboards or alert adjustments based on HSBC specific environments.
+
+Alert| Configuration| Description  
+---|---|---  
+Workflow Throughput| alert Level: Critical  
+for alert: 1m  
+frequency: 1m  
+threshold value: 0.00001 (messages per second)| Measures the overall application workflow throughput per message type(normal, recovery, replica).  
+Workflow Errors| alert Level: High  
+for alert: 10m  
+frequency: 10s  
+threshold value: 0 (events)| Measures the overall application workflow errors, considering all message types(normal, recovery and replica).  
+Events Dumped to Disk| alert Level: Critical  
+for alert: 1m  
+frequency: 1m  
+threshold value: 0 (events)| Measures the overall application events spilled to disk. An event is spilled to disk when Pulse cannot write it on the event storage.  
+Auto Recovery Job| alert Level: Moderate  
+for alert: 0s  
+frequency: 5m  
+threshold value: 0 (events)| Measures the overall number of events that are present in the in-memory queue to be written to the dump file in the failed folder, application and workflow.  
+Profile Fetches Latencies| alert Level: High  
+for alert: 10m  
+frequency: 1m  
+threshold value: 0.4 (seconds)| Measures the overall max latency to fetch the profiles at percentile 99, per application, workflow and plan.  
+Pulse Application States| alert Level: Critical  
+for alert: 12h  
+frequency: 30s  
+threshold value: 6 (STARTED)| Monitors the state of applications across all Pulse instances. If the application state is not STARTED (state < 6), an alert is triggered.  
+Pulse JVM GC Time| alert Level: High  
+for alert: 10m  
+frequency: 5m  
+threshold value: 1 (seconds)| Measures maximum JVM GC duration. Long garbage collection pause durations indicate that the heap size is not adjusted for the actual usage.  
+App JVM GC Time| alert Level: High  
+for alert: 10m  
+frequency: 15m  
+threshold value: 1 (seconds)| Measures maximum JVM GC duration for young and old gen per application and host, indicating heap size adjustment needs.  
+Pulse JVM Heap Usage| alert Level: Critical  
+for alert: 5m  
+frequency: 1m  
+threshold value: 0.95 (percentage)| Measures JVM heap usage per Pulse instance, indicating high memory utilization.  
+App JVM Heap Usage| alert Level: Critical  
+for alert: 5m  
+frequency: 1m  
+threshold value: 0.99 (percentage)| Measures JVM heap usage per application and host, indicating high memory utilization.  
+Pulse Threads Count| alert Level: Moderate  
+for alert: 30m  
+frequency: 10s  
+threshold value: 2500 (threads)| Measures the current number of active threads in the JVM per Pulse instance.  
+App Threads Count| alert Level: Moderate  
+for alert: 30m  
+frequency: 10s  
+threshold value: 3000 (threads)| Measures the current number of active threads in the JVM per application and host.  
+Pulse Heap Usage After GC| alert Level: High  
+for alert: 15m  
+frequency: 10s  
+threshold value: 0.90 (percentage)| Measures the JVM heap usage after garbage collection per Pulse instance.  
+App Heap Usage After GC| alert Level: High  
+for alert: 15m  
+frequency: 10s  
+threshold value: 0.9 (percentage)| Measures the JVM heap usage after garbage collection per application and host.  
+Pulse JVM File Descriptors Ratio| alert Level: High  
+for alert: 10m  
+frequency: 10s  
+threshold value: 0.85 (percentage)| Measures the JVM file descriptors usage ratio per Pulse instance.  
+App JVM File Descriptors Ratio| alert Level: High  
+for alert: 10m  
+frequency: 10s  
+threshold value: 0.85 (percentage)| Measures the JVM file descriptors usage ratio per application and host.  
+Pulse JVM Code Cache Usage| alert Level: Critical  
+for alert: 10m  
+frequency: 10s  
+threshold value: 0.90 (percentage)| Measures the JVM code cache usage per Pulse instance.  
+App JVM Code Cache Usage| alert Level: Critical  
+for alert: 10m  
+frequency: 10s  
+threshold value: 0.95 (percentage)| Measures the JVM code cache usage per application and host.  
+Messaging Healthcheck| alert Level: High  
+for alert: 5m  
+frequency: 2m  
+threshold value: 1 (event)| Monitors the Pulse healthcheck for messaging communication with the messaging server.  
+Zookeeper Healthcheck| alert Level: High  
+for alert: 5m  
+frequency: 2m  
+threshold value: 1 (event)| Monitors the Pulse healthcheck for Zookeeper communication.  
+Metadata DB Connection Pool| alert Level: Low  
+for alert: 30m  
+frequency: 1m  
+threshold value: 0.9 (percentage)| Monitors the metadata DB connection pool usage.  
+Metadata DB Connection Pool Per App| alert Level: Low  
+for alert: 30m  
+frequency: 1m  
+threshold value: 0.9 (percentage)| Monitors the metadata connection pools usage per application.  
+  
+##### note
+
+  * alert Level : The severity of the alert (Low, Moderate, High, Critical).
+  * for alert : The duration for which the alert condition must persist before an alert is triggered.
+  * frequency : The interval at which the monitoring system checks the specified metrics or conditions.
+  * threshold value : A predefined limit or value that, when exceeded, triggers an alert.
+
+

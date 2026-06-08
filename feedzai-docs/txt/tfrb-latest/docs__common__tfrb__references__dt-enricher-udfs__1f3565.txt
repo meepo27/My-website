@@ -1,0 +1,251 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/dt-enricher-udfs
+Title: Digital Trust Enricher's UDFs | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Digital Trust Enricher's UDFs
+
+
+
+On this page
+
+# Digital Trust Enricher's UDFs
+
+Was this page helpful?Â 
+
+The Digital Trust Enricher supplies out-of-the box User Defined Functions (UDFs) to ensure richer usage of Digital Trust data. The following sections describe the various UDFs and examples on how to use them.
+
+## User Defined Functionsâ
+
+### Alert of type X existsâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and checks if there is an alert of a given type (not case sensitive). It returns `true` if there is an alert of a given type, `false` otherwise.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Boolean| Returns true if there is an alert of the given type, false otherwise.  
+  
+#### Exampleâ
+    
+    
+    Revelock.existsAlertOfType(event.revelock_alerts ,'Fraudster Behavior') ?? false  
+    
+
+### Get risk of alert of type Xâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets the risk factor from an alert of a given type (not case sensitive). If multiple alerts with the same type are found, the highest risk is returned.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Double| Returns the highest risk value for the given alert type.  
+  
+#### Exampleâ
+    
+    
+    Revelock.getRiskOfAlertType(event.revelock_alerts ,'Fraudster Behavior') ?? 0.0  
+    
+
+### Get date of alert of type Xâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets the risk factor from an alert of a given type (not case sensitive). If multiple alerts with the same type are found, the most recent alert date is returned.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Long| Returns the most recent alert date value for the alert type given. Null if none is found.  
+  
+#### Exampleâ
+    
+    
+    Revelock.getDateOfAlertType(event.revelock_alerts ,'Fraudster Behavior') ?? 0  
+    
+
+### Exists view X of alert of type Yâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and checks if there is an alert of a given type for a given view (not case sensitive).
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+`view`| String| The alert view to search for.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Boolean| Returns true if there is an alert of a given type for a given view.  
+  
+#### Exampleâ
+    
+    
+    Revelock.existsViewOfAlertType(event.revelock_alerts ,'Fraudster Behavior', 'account-details-view') ?? false  
+    
+
+### Get minimum double value of property X from alert of type Yâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets a property value from an alert of a given type (not case sensitive). If multiple alerts with the same type are found, the minimum value is returned.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+`property`| String| The alert property name.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Double| Returns the smallest property value for the alert type given. Null if none is found.  
+  
+#### Exampleâ
+    
+    
+    Revelock.getAlertOfTypeDoublePropertyMin(event.revelock_alerts ,'Fraudster Behavior', 'similarity') ?? 0.0  
+    
+
+### Get maximum double value of property X from alert of type Yâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets a property value from an alert of a given type (not case sensitive). If multiple alerts with the same type are found, the maximum value is returned.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+`property`| String| The alert property name.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Double| Returns the biggest property value for the alert type given. Null if none is found.  
+  
+#### Exampleâ
+    
+    
+    Revelock.getAlertOfTypeDoublePropertyMax(event.revelock_alerts ,'Fraudster Behavior', 'similarity') ?? 1.0  
+    
+
+### Get minimum long value of property X from alert of type Yâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets a property value from an alert of a given type (not case sensitive). If multiple alerts with the same type are found, the minimum is returned.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+`property`| String| The alert property name.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Long| Returns smallest property value for the alert type given. Null if none is found.  
+  
+#### Exampleâ
+    
+    
+    Revelock.getAlertOfTypeLongPropertyMin(event.revelock_alerts ,'Fraudster Behavior', 'alert_date') ?? 0  
+    
+
+### Get maximum double value of property X from alert of type Yâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets a property value from an alert of a given type (not case sensitive). If multiple alerts with the same type are found, the maximum is returned.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+`property`| String| The alert property name.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Long| Returns biggest property value for the alert type given. Null if none is found.  
+  
+#### Exampleâ
+    
+    
+    Revelock.getAlertOfTypeLongPropertyMax(event.revelock_alerts ,'Fraudster Behavior', 'alert_date') ?? 0  
+    
+
+### Property X with value Y of alert of type Z existsâ
+
+#### Descriptionâ
+
+The UDF parses the list of Digital Trust alerts and gets a property value from an alert of a given type (not case sensitive). Then, it checks if that property value is the same as the value given by the `propertyValue` parameter.
+
+#### Parametersâ
+
+Name| Type| Description  
+---|---|---  
+`alerts`| Object| The list of Digital Trust alerts.  
+`alertType`| String| The type of the alert to search for.  
+`property`| String| The alert property name.  
+`propertyValue`| String| The alert property value to compare.  
+  
+#### Responseâ
+
+Type| Description  
+---|---  
+Boolean| Returns `true` if there is an alert both with a given type and property value.  
+  
+#### Exampleâ
+    
+    
+    Revelock.existsAlertOfTypeAndPropertyValue(event.revelock_alerts ,'Fraudster Behavior', 'family_name', 'fraud') ?? false  
+    

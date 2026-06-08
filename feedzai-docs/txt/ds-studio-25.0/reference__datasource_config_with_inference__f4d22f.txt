@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/datasource_config_with_inference/
+Title: datasource_config_with_inference - DS API
+============================================================
+
+#  `` datasource_config_with_inference Â¶
+
+##  `` DataSourceConfigWithInference Â¶
+    
+    
+    DataSourceConfigWithInference(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+A configuration builder used for DataSource imports.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` builder `classmethod` Â¶
+    
+    
+    builder()
+    

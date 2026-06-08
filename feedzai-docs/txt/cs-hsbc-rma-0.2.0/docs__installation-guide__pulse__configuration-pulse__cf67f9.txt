@@ -1,0 +1,184 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/configuration-pulse
+Title: Configuration Recommendations | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+##### tip
+
+For the full Pulse configuration refer to the official [Configuration Reference](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=1272) and the recommended [Production Setup](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=926).
+
+### Setting up the JVM DNS cache TTLâ
+
+A couple of security properties should be set up. This can be achieved by:
+
+  1. Making sure that the `security.overridePropertiesFile` property is set to true in the `$JAVA_HOME/jre/lib/security/java.security` file.
+  2. Creating a new file (e.g. `/opt/feedzai/pulse/conf/java.security.properties) with the following content`:
+
+
+    
+    
+    # conf/java.security.properties  
+    networkaddress.cache.ttl=1  
+    networkaddress.cache.negative.ttl=3  
+    
+
+Copy
+
+  3. Using the previously created file to set up the security properties on Pulse by adding `-Djava.security.properties=conf/java.security.properties` to the `JVM_OPTS` variable on `/opt/feedzai/pulse/bin/startup.sh`:
+
+
+    
+    
+    # /opt/feedzai/pulse/bin/startup.sh snippet  
+    JVM_OPTS="(...) -Djava.security.properties=conf/java.security.properties"  
+    
+
+Copy
+
+  4. Using the previously created file to set up the security properties on App engines by adding `-Djava.security.properties=conf/java.security.properties` to the `pulse.global.appengine.jvmopts` property on Pulse properties.
+
+
+    
+    
+    # /opt/feedzai/pulse/conf/pulse.properties snippet  
+    pulse.global.appengine.jvmopts=(...) -Djava.security.properties=conf/java.security.properties  
+    
+
+Copy
+
+##### warning
+
+Setting up these properties affects the cache behavior of all network address name resolutions for both Pulse server and App engine processes.
+
+From the `java.security` file, next to the `networkaddress.cache.ttl` property on, for example, Zulu JDK:
+
+> "NOTE: setting this to anything other than the default value can have serious security implications. Do not set it unless you are sure you are not exposed to DNS spoofing attack."
+
+### Ansibleâ
+
+##### info
+
+Available ansible variables for running the ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+ansible_user| feedzai| User for ansible execution  
+ansible_local_user| {{ ansible_user }}| User that will be the owner of the unpacked Pulse assembly, should be the same as `ansible_user`  
+pulse_install_path| "/opt/feedzai"| Pulse install path  
+pulse_home_path| "{{ pulse_install_path }}/product-pulse-{{ pulse_version }}"| Pulse home path  
+pulse_license_src_path| "{{ basesoftware_path }}/pulse-licenses/dev"| Source path to Pulse licenses  
+pulse_spark_dist_archive_src_path| "{{ basesoftware_path }}/{{ spark_dist_archive }}"| Source path to the Spark Dist archive  
+pulse_sso_idp_cert| | Pulse SSO IdP certificate  
+pulse_sso_private_key| | Pulse SSO private key  
+pulse_sso_public_key| | Pulse SSO public key  
+pulse_sso_force_https| false| Force Pulse to use HTTPS when it is behind a proxy. Only required when SSO is enabled.  
+pulse_api_url| "{{ jwk_service_host }}"| URL for the Pulse API, in the format `<scheme>://<hostname>:<port>` (explicit port is mandatory). When multiple nodes are available, this should point to the Load Balancer.  
+cm_sso_private_key| | Case Manager SSO private key  
+cm_sso_public_key| | Case Manager SSO public key  
+reference_data_servers| reference-data| Reference Data server host  
+reference_data_port| "{{ reference_data_app_port }}"| Reference Data server port - must correspond to the port exposed on RDS using `reference_data_app_port`  
+zookeeper_nodes| zookeeper| Zookeeper Nodes  
+cassandra_nodes| "{{ groups['cassandra']| join(',') }}"  
+messaging_brokers| "rabbitmq:5672"| Messaging brokers  
+keycloak_url| "http://{{ keycloak_hostname }}:{{ keycloak_port }}"| Keycloak URL  
+keycloak_hostname| "{{ groups['keycloak'][0] }}"| Keycloak hostname  
+keycloak_port| 8080| Keycloak port  
+cassandra_pulse_keyspace_replication| "{ 'class'\: 'NetworkTopologyStrategy', 'dc1'\: 1 }"| Cassandra replication strategy  
+cassandra_cluster_name| "{{ inventory }} cluster"| Cassandra cluster name  
+cassandra_pulse_keyspace| "profiles"| Cassandra profiles store keyspace name  
+cassandra_pulse_username| "pulse"| Pulse username in Cassandra  
+cassandra_pulse_password| "secret"| Pulse user password in Cassandra  
+database_pulse_eventstorage_hostname| "postgres"| Default Postgres Pulse Event Storage host name  
+database_pulse_eventstorage_port| "5432"| Default Postgres Pulse Event Storage port  
+database_pulse_eventstorage_database_name| "feedzai"| Default Postgres Pulse Event Storage Database name  
+database_pulse_metadata_hostname| "postgres"| Postgres Pulse Metadata host name  
+database_pulse_metadata_port| "5432"| Postgres Pulse Metadata port  
+database_pulse_metadata_database_name| "feedzai"| Postgres Pulse Metadata Database name  
+database_pulse_eventstorage_read_only_hostname| "{{ database_pulse_eventstorage_hostname }}"| Default Postgres Pulse Event Storage Read Only host name  
+database_pulse_eventstorage_read_only_port| "{{ database_pulse_eventstorage_port }}"| Postgres Pulse Event Storage Read Only port  
+database_pulse_eventstorage_read_only_database_name| "{{ database_pulse_eventstorage_port }}"| Postgres Pulse Event Storage Read Only Database name  
+database_pulse_metadata_jdbc| "jdbc:postgresql://{{ database_pulse_metadata_hostname }}:{{ database_pulse_metadata_port }}/{{ database_pulse_metadata_database_name }}?{{ database_pulse_metadata_jdbc_opts| join('&') }}"  
+database_pulse_eventstorage_jdbc| "jdbc:postgresql://{{ database_pulse_eventstorage_hostname }}:{{ database_pulse_eventstorage_port }}/{{database_pulse_eventstorage_database_name }}?{{ database_pulse_eventstorage_jdbc_opts| join('&') }}"  
+database_pulse_eventstorage_jdbc_read_only| "jdbc:postgresql://{{ database_pulse_eventstorage_read_only_hostname }}:{{ database_pulse_eventstorage_read_only_port }}/{{database_pulse_eventstorage_read_only_database_name }}?{{ database_pulse_eventstorage_jdbc_opts_read_only| join('&') }}"  
+database_pulse_eventstorage_jdbc_opts| [currentSchema={{ database_pulse_eventstorage_schema }}, cancelSignalTimeout=2, connectTimeout=2, loadBalanceHosts=true, loginTimeout=10, socketTimeout=60, tcpKeepAlive=true, targetServerType=master, reWriteBatchedInserts=true]| Postgres Event Storage Read-Only Database JDBC options  
+database_pulse_eventstorage_jdbc_opts_read_only| [currentSchema={{ database_pulse_eventstorage_schema }}, cancelSignalTimeout=2, connectTimeout=2, loadBalanceHosts=true, loginTimeout=10, socketTimeout=60, tcpKeepAlive=true, targetServerType={{ database_pulse_eventstorage_target_server_type_read_only }}]| Postgres Event Storage Read-Only Database JDBC options  
+database_pulse_eventstorage_target_server_type_read_only| master| Postgres Pulse Event Storage Read-Only Database JDBC target server type  
+jwk_service_db_jdbc| jdbc:postgresql://postgres:5432/feedzai?currentSchema=jwkservice| JDBC for JWK service  
+jwk_service_db_schema| jwkservice| Schema for JWK service  
+jwk_service_db_username| jwkservice| Username for JWK service  
+jwk_service_db_password| secret| Password for JWK service  
+jwk_service_host| "http://localhost:8080"| JWK API base url. When Pulse has more than one node this variable should point to the leader node or UI load balancer hostname  
+rabbitmq_brokers| "{{ messaging_brokers }}"| RabbitMQ messaging brokers  
+rabbitmq_queue_type| "QUORUM"| Sets the RabbitMQ queue type (possible values are CLASSIC and QUORUM)  
+rabbitmq_pulse_username| "pulse"| RabbitMQ Pulse username  
+rabbitmq_pulse_password| "secret"| RabbitMQ Pulse password  
+rabbitmq_pulse_vhost| "pulse{{ deployment_color }}"| RabbitMQ Pulse vhost  
+rabbitmq_pulse_queue_type| "QUORUM"| RabbitMQ Pulse Queue type uses the variable rabbitmq_queue_type variable  
+rabbitmq_feedback_storage_service_vhost| "feedback-storage"| RabbitMQ Feedback Storage vhost  
+rabbitmq_casemanager_brokers| "{{ rabbitmq_brokers }}"| RabbitMQ messaging brokers for the cluster used by the Alert Storage Service to send events to Case Manager  
+rabbitmq_casemanager_username| "cm"| RabbitMQ Pulse username for the cluster used by the Alert Storage Service to send events to Case Manager  
+rabbitmq_casemanager_password| "secret"| RabbitMQ Pulse password for the cluster used by the Alert Storage Service to send events to Case Manager  
+rabbitmq_casemanager_vhost| "cm"| RabbitMQ Pulse vhost for the cluster used by the Alert Storage Service to send events to Case Manager  
+database_pulse_metadata_username| "pulse"| Pulse Metadata username  
+database_pulse_metadata_password| "secret"| Pulse Metadata password  
+database_pulse_metadata_schema| "pulse"| Pulse Metadata schema  
+database_pulse_eventstorage_username| "eventstorage"| Pulse Event Storage username  
+database_pulse_eventstorage_password| "secret"| Pulse Event Storage password  
+database_pulse_eventstorage_schema| "eventstorage"| Pulse Event Storage schema  
+pulse_casemanager_username| casemanager| Case Manager username in Pulse  
+pulse_casemanager_password| Secret1!| Case Manager password in Pulse  
+pulse_batchprocessor_username| batchprocessor| Batch Processor username in Pulse  
+pulse_batchprocessor_password| Secret1!| Batch Processor password in Pulse  
+pull_hadoop_files_from_bucket| true| Pull dataproc configuration from GCS bucket (*)  
+hadoop_files_download_dir| "/tmp"| Temporary destination location for the downloaded file  
+gcp_bucket_name| "pulse-dataproc-config"| The name of the bucket.  
+gcp_hadoop_conf_file| "hadoop-files.tar.gz"| Hadoop configuration archive name.  
+model_training_directory| "hdfs:///user/pulse/models"| The directory location where trained models should be saved. This directory can be a local or distributed (HDFS) filesystem.  
+model_storage_directory| "hdfs:///user/pulse/models"| The directory location where imported models through App Collaboration should be saved. This directory can be a local or distributed (HDFS) filesystem  
+model_hpt_directory| "hdfs:///user/pulse/hpt-models"| The directory location where the hyperparameter tuning models should be saved between model training and evaluation. This directory can be a local or distributed (HDFS) filesystem.  
+number_threads_workflow_recovery| 1| Number of threads used for workflow recovery  
+pulse_spark_eventlog_enabled| false| Enables or disables logging for Spark applications.  
+pulse_spark_eventlog_dir| "hdfs:///var/log/spark/apps"| Specifies the directory where Spark event logs will be stored.  
+pulse_secret_value| 6edf6aaf214a3b94b4536d1f5388d7ca| Value used to encrypt sensitive properties  
+pulse_properties_to_encrypt| [rabbitmq_pulse_password, rabbitmq_casemanager_password, database_pulse_metadata_password, database_pulse_eventstorage_password, jwk_service_db_password, cassandra_pulse_password, pulse_sso_private_key, cm_sso_private_key, pulse_user_password, dummy_token, jwk_service_client_password, reference_data_pulse_jwt_token, tokenizer_pulse_jwt_token]| List of properties to encrypt. Encrypted properties can be used by adding the suffix `_encrypted` to the original property name, i.e `<PROPERTY_NAME>_encrypted`. Doesn't support dictionary variables  
+pulse_loggers| {}| Controls extra loggers to be enabled in Pulse. Keys in this dictionary are the loggers and the values the log level for that logger.  
+spark_datascience_jdk_home| | Sets the `JAVA_HOME` for Data Science jobs executed in Dataproc, e.g. datasource analysis. If omitted the default Java version will be used.  
+spark_distributed_jdk_home| | Sets the `JAVA_HOME` for other jobs executed in Dataproc, e.g. scheduled Metrics Jobs. If omitted the default Java version will be used.  
+  
+(*) The configuration files should be stored on a bucket in tar.gz format. The list of files inside the tar.gz should be:
+
+  * core-site.xml
+  * hdfs-site.xml
+  * mapred-site.xml
+  * yarn-site.xml
+
+
+
+The service account used to fetch the configuration files from the bucket should have read permissions for that bucket (`storage.buckets.get` and `storage.buckets.list`).
+
+* * *
+
+### Quartz Cron Schedulingâ
+
+##### tip
+
+For more details on Quartz Cron Scheduling expressions, refer to the [official Quartz CronTrigger Tutorial](https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html).
+
+Field| Mandatory| Allowed Values| Description  
+---|---|---|---  
+Seconds| X| 0-59| The cron expression for `second`  
+Minutes| X| 0-59| The cron expression for `minute`  
+Hours| X| 0-23| The cron expression for `hour`  
+Day of Month| X| 1-31| The cron expression for `day of month` (**)  
+Month| X| 1-12 or JAN-DEC| The cron expression for `month`  
+Day of Week| X| 1-7 (1=SUN, 7=SAT) or SUN-SAT| The cron expression for `day of week` (**)  
+Year| | blank, 1970-2099| The cron expression for `year`  
+  
+##### note
+
+(**) In Quartz, you must use the `?` character in either the Day of Month or Day of Week field to indicate "no specific value". You cannot specify both fields simultaneously, as they conflict!
+
+* * *

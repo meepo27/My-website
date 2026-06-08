@@ -1,0 +1,132 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.15
+Title: Release 0.15 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.15.1`â
+
+### Allow configuration of JVM Opts per environmentâ
+
+Rework
+
+We need JVM Opts to be set on the per each environment - i.e.: we don't expect DEV environments to require as much memory as Prod environments.
+
+Previously, the service environment variables were set in the `<component>.install` ansible tags only, and since tasks with this tag are used to generate environment agnostic base images, service environment variables were not overridden per environment.
+
+### Fix "Load Historical Data by ETL" task tagsâ
+
+Bug Fix
+
+The task that actually launched the ETL tool was mistakenly tagged as `etl.install`. This actually meant ETL started when building the base images through Packer, which naturally fails.
+
+We've changed the tag to `etl.configure`, which is actually the tag that runs when an instance starts - allowing for environment specific configurations and to actually run our services.
+
+### Add Project ETL configurations artifact to documentationâ
+
+Docs
+
+Adds Project ETL Configurations to our [artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) page. Even though this artifact already existed it wasn't clearly listed as one of the installation dependencies.
+
+## Release `0.15.0`â
+
+### Allow Ansible Role to call RabbitMQ federation API without SSHâ
+
+Feature
+
+There was an outstanding item from our Blue-Green proposal that, while it wasn't a blocker, it would mean real-time metrics could become inaccurate in that operation.
+
+There was already a playbook to setup federation for the blue-green but the playbook assumed an SSH connection to a RabbitMQ Server host and running `rabbitmqctl` there.
+
+With this new change `rabbitmqctl` can be used from a remote instance without SSH access. [Blue-Green Documentation](/cs-hsbc/3.0.2/docs/installation-guide/pulse/blue-green-deployments) has been updated accordingly.
+
+### Add guardrails to avoid submission of events too far in the past or futureâ
+
+Feature
+
+In order to avoid future occurrences of the current production issue, we're deploying guardrails so that our API rejects events too far in the past or future - in our case, 30 minutes.
+
+We want to reject events too far in the past since those would effectively induce errors in the current metrics (e.g.: an event sent with timestamp of "2 days before" has to be rejected so that it doesn't increase the count of events in the last day).
+
+We also want to reject events too far in the future to avoid the current production issue.
+
+Opposite to what we initially thought, this can already be deployed. **Additionally** we recommend to make a publish without recovery after deploying this version so that Pulse clock is effectively reset to "current time".
+
+### Performance improvement on Pulse Event Storage table accessâ
+
+Feature
+
+From now on Pulse Event Storage table is partitioned by timestamp in order to improve performance on read access. For now, it's implemented as monthly partition.
+
+### Fix Reference Data Service ansible roles tagâ
+
+Bug Fix
+
+Before change:
+    
+    
+        - reference_data.415  
+        - reference_data.configure  
+    
+
+Copy
+
+After change:
+    
+    
+        - reference-data.415  
+        - reference-data.configure  
+    
+
+Copy
+
+### Set JupyterLab memory limitâ
+
+Rework
+
+Set JupyterLab memory limit to 8GB (`--ResourceUseDisplay.mem_limit=$((8*1024*1024*1024))`). We find this limit helpful to avoid unbounded memory usage by a single user. It is set to a fairly high value since, in our experience, it is uncommon that multiple users reach this maximum at the same time.
+
+Bound the JupyterLab memory instead of the container in order to allow the software to self-manage its memory and give it a chance to optimize accordingly.
+
+### Ensure past events are considered by new plans real time and scheduled metricsâ
+
+Rework
+
+By default a plan ignores past events that were already processed by the workflow. We've changed this default to account for our specific case, where we expect to deploy a plan soon and we want that plan to account for the data that is currently sent to Feedzai Pulse.
+
+### Fix duplicate feedback updatesâ
+
+Bug Fix
+
+Fixed an issue that caused multiple feedback updates to be created when marking an event as Fraud / Not Fraud in Case Manager.
+
+### Include `Pulse Validation Tool`â
+
+Feature
+
+The tool is able to validate that a Pulse Data Science Environment is configured as expected, by running common commands / jobs.
+
+Run the tool using the `pulse-validation-tool.yml` playbook, present in `installer-assembly`. The playbook requires `Pulse Validation Tool`, present in [artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) page.
+
+See Pulse Validation Tool Configurations for more information (later note: deprecated and removed in release `2.7.0`).
+
+### Ansible Roles Upgradeâ
+
+Feature
+
+Task "[921] create default users" has been moved to "[925] create default users", and task "[921] deploy security roles" has been added. Currently, this new task is not enabled.
+
+**Before:**
+
+  * [921] create default users
+
+
+
+**After:**
+
+  * [921] deploy security roles (currently skipped)
+  * [925] create default users
+
+

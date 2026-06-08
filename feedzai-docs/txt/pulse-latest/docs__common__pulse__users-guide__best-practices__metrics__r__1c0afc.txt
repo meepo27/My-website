@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/reproducibility-notes
+Title: Reproducibility Notes | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Best Practices
+  * [Metrics](/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/)
+  * Reproducibility Notes
+
+
+
+Was this page helpful?Â 
+
+# Reproducibility Notes
+
+Even though the feature definition from Data Science is exported to Runtime as-is, there are a few reproducibility caveats. These are mostly due to the natural difference between processing historical data versus real time streaming.
+
+When comparing feature values from both environments, be aware of:
+
+  * **Repeated timestamps**. If the timestamp precision is seconds, then with 100,000 events per day, you're guaranteed to have different events occurring at "the same time". With a millisecond precision, note that, while unlikely, it's also possible to have events with the same timestamp during peaks (think about >500 TPS). The consequence of this is that some of these simultaneous events might have their features computed in a different order in DS vs Runtime.
+  * **SMJs running time**. SMJs are "simulated" in Data Science by computing the metrics with the same schedule (CRON expression). However, at runtime the result of the SMJ will only be available **after the metrics are computed**. In the meantime, some events were already processed through the workflow and were using the result from the previous SMJ. In Data Science, because we are batching these jobs, the metrics are available to all events happening after the schedule.
+
+

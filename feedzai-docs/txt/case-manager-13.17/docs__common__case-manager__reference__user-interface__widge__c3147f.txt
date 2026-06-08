@@ -1,0 +1,329 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/notes
+Title: Notes | Case Manager
+============================================================
+
+On this page  
+  
+# Notes
+
+The `notes` widget is a Table widget preconfigured to display notes on a details page.
+
+## Propertiesâ
+
+The `notes` widget follows the [Table](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/table#properties) widget properties.
+
+Notes visibility
+
+Notes visibility can be configured according to the [`tenanted_notes`](/case-manager/13.17/docs/internal/case-manager/reference/core-config-json#cm) property.
+
+Info
+
+All properties can be overwritten.
+
+## Default configurationâ
+
+The default configuration for each details page is the following:
+
+**Case Details page**
+    
+    
+        {  
+          "type": "table",  
+          "name": "notes",  
+          "width": "100%",  
+          "title": "widget.note-listing.title",  
+          "key": "items",  
+          "showPagination": true,  
+          "selectable": false,  
+          "sortable": true,  
+          "orderBy": "createdAt asc",  
+          "iconCssClass": "icon-add_note",  
+          "cssClass": "fdz-css-note-listing-widget",  
+          "resource": "/api/case-note/{{id}}?timestamp={{createdAt}}",  
+          "permissions": [  
+              "cm:action:case-note:read:*"  
+          ],  
+          "columns": [  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+                  "sortable": true,  
+                  "title": "widget.note.timestamp",  
+                  "type": "timestamp",  
+                  "key": "createdAt"  
+              },  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+                  "sortable": true,  
+                  "title": "widget.note.type",  
+                  "type": "i18n",  
+                  "key": "noteType.name",  
+                  "sortKey": "noteTypeId"  
+              },  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-note-listing--note",  
+                  "sortable": true,  
+                  "title": "widget.note.note",  
+                  "type": "text",  
+                  "key": "note"  
+              },  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+                  "sortable": true,  
+                  "title": "widget.note.user",  
+                  "type": "text",  
+                  "key": "createdByUsername",  
+                  "sortKey": "createdBy"  
+              }  
+          ],  
+          "quickFilters": [  
+              {  
+                  "filter": "in",  
+                  "cssClass": "fdz-js-alerts-table-notes-filter fdz-css-alerts-table-notes-filter",  
+                  "resource": "noteType",  
+                  "placeholder": "placeholder.note-types",  
+                  "renderType": "label",  
+                  "i18n": true,  
+                  "type": "select",  
+                  "key": "noteTypeId",  
+                  "multi": true,  
+                  "clearable": true,  
+                  "options": [  
+                      {  
+                          "id": "30c9dc38-f058-45fe-aa86-3bc57bac1ba4",  
+                          "key": "alert.review",  
+                          "name": "note-type.alert.review",  
+                          "target": "case",  
+                          "value": "30c9dc38-f058-45fe-aa86-3bc57bac1ba4",  
+                          "label": "Alert Review"  
+                      },  
+                      {  
+                          "id": "519ac6a8-5d0f-4af4-ae77-a8cda66ed113",  
+                          "key": "key.findings",  
+                          "name": "note-type.key.findings",  
+                          "target": "case",  
+                          "value": "519ac6a8-5d0f-4af4-ae77-a8cda66ed113",  
+                          "label": "Key Findings"  
+                      }  
+                  ],  
+                  "aria-label": "aria-label.notes.note-type"  
+              }  
+          ],  
+          "bulkActionsConfig": {  
+              "numberVisibleActions": 1,  
+              "actions": [  
+                  {  
+                      "iconCssClass": "icon-add_round",  
+                      "title": "case.actions.add-note",  
+                      "type": "note-case",  
+                      "kind": "primary",  
+                      "disabled": false  
+                  }  
+              ]  
+          },  
+          "inlineActions": [  
+              {  
+                  "kind": "danger",  
+                  "iconCssClass": "icon-deny",  
+                  "type": "case-note-delete"  
+              },  
+              {  
+                  "kind": "primary",  
+                  "iconCssClass": "icon-note",  
+                  "type": "case-note-duplicate"  
+              }  
+          ]  
+      }  
+    
+
+**Event Details page**
+    
+    
+      {  
+          "type": "table",  
+          "name": "notes",  
+          "width": "100%",  
+          "title": "widget.note-listing.title",  
+          "key": "items",  
+          "showPagination": false,  
+          "selectable": false,  
+          "sortable": true,  
+          "orderBy": "timestamp asc",  
+          "iconCssClass": "icon-add_note",  
+          "cssClass": "fdz-css-note-listing-widget",  
+          "resource": "/api/event-note/{{id}}?timestamp={{timestamp}}&channelId={{channelId}}",  
+          "permissions": [  
+              "cm:action:event-note:read:*"  
+          ],  
+          "columns": [  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+                  "sortable": false,  
+                  "title": "widget.note.timestamp",  
+                  "type": "timestamp",  
+                  "key": "timestamp"  
+              },  
+              {  
+                  "cssClass": "fdz-css-nowrap fdz-css-note-about",  
+                  "sortable": false,  
+                  "title": "note.form.about",  
+                  "type": "text",  
+                  "key": "originType"  
+              },  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+                  "sortable": false,  
+                  "title": "widget.note.type",  
+                  "type": "i18n",  
+                  "key": "noteType.name",  
+                  "sortKey": "noteTypeId"  
+              },  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-note-listing--note",  
+                  "sortable": false,  
+                  "title": "widget.note.note",  
+                  "type": "text",  
+                  "key": "note"  
+              },  
+              {  
+                  "cssClass": "fdz-css-nowrap",  
+                  "sortable": false,  
+                  "title": "widget.note.origin",  
+                  "type": "entityNotesOrigin",  
+                  "key": "context.identifier"  
+              },  
+              {  
+                  "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+                  "sortable": false,  
+                  "title": "widget.note.user",  
+                  "type": "text",  
+                  "key": "userName",  
+                  "sortKey": "userId"  
+              }  
+          ],  
+          "quickFilters": [  
+            {  
+                "filter": "in",  
+                "cssClass": "fdz-js-alerts-table-notes-filter fdz-css-alerts-table-notes-filter",  
+                "resource": "noteType",  
+                "placeholder": "placeholder.note-types",  
+                "renderType": "label",  
+                "i18n": true,  
+                "type": "select",  
+                "key": "noteTypeId",  
+                "multi": true,  
+                "clearable": true,  
+                "aria-label": "aria-label.notes.note-type",  
+                "options": [  
+                    // ...  
+                ]  
+            }  
+          ],  
+          "bulkActionsConfig": {  
+              "numberVisibleActions": 1,  
+              "actions": [  
+                  {  
+                      "iconCssClass": "icon-add_round",  
+                      "title": "event.actions.add-note",  
+                      "type": "note",  
+                      "kind": "primary",  
+                      "disabled": false  
+                  }  
+              ]  
+          },  
+          "inlineActions": []  
+      }  
+    
+
+**Entity Details page**
+
+info
+
+<ENTITY_NAME> is replaced with the current entity name. (e.g. **customer** for a Customer details page, as long as it follows the mapping described in [Entities mapping](/case-manager/13.17/docs/internal/case-manager/configuration-guide/user-interface-configuration/entity-notes#entities-mapping))
+    
+    
+      {  
+        "type": "table",  
+        "name": "notes",  
+        "width": "100%",  
+        "title": "widget.note-listing.title",  
+        "key": "items",  
+        "showPagination": true,  
+        "selectable": false,  
+        "sortable": true,  
+        "orderBy": "createdAt asc",  
+        "iconCssClass": "icon-add_note",  
+        "cssClass": "fdz-css-note-listing-widget",  
+        "resource": "/api/entity-note/<ENTITY_NAME>?entityId={{id}}",  
+        "permissions": ["cm:action:entity-note:read:*"],  
+        "columns": [  
+          {  
+            "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+            "sortable": true,  
+            "title": "widget.note.timestamp",  
+            "type": "timestamp",  
+            "key": "createdAt"  
+          },  
+          {  
+            "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+            "sortable": true,  
+            "title": "widget.note.type",  
+            "type": "i18n",  
+            "key": "noteType.name",  
+            "sortKey": "noteTypeId"  
+          },  
+          {  
+            "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-note-listing--note",  
+            "sortable": true,  
+            "title": "widget.note.note",  
+            "type": "text",  
+            "key": "note"  
+          },  
+          {  
+            "cssClass": "fdz-css-nowrap",  
+            "sortable": true,  
+            "title": "widget.note.origin",  
+            "type": "entityNotesOrigin",  
+            "key": "context.identifier"  
+          },  
+          {  
+            "cssClass": "fdz-css-text--xsmall fdz-css-align-left fdz-css-nowrap",  
+            "sortable": true,  
+            "title": "widget.note.user",  
+            "type": "text",  
+            "key": "createdByUsername",  
+            "sortKey": "createdBy"  
+          }  
+        ],  
+        "quickFilters": [  
+          {  
+            "filter": "in",  
+            "cssClass": "fdz-js-alerts-table-notes-filter fdz-css-alerts-table-notes-filter",  
+            "resource": "noteType",  
+            "placeholder": "placeholder.note-types",  
+            "renderType": "label",  
+            "i18n": true,  
+            "type": "select",  
+            "key": "noteTypeId",  
+            "multi": true,  
+            "clearable": true,  
+            "options": [  
+              // ...  
+            ],  
+            "aria-label": "aria-label.notes.note-type"  
+          }  
+        ],  
+        "bulkActionsConfig": {  
+          "numberVisibleActions": 1,  
+          "actions": [  
+            {  
+              "iconCssClass": "fal fa-user-tag",  
+              "title": "<ENTITY_NAME>.actions.add-note",  
+              "type": "note-entity",  
+              "kind": "primary",  
+              "disabled": false  
+            }  
+          ]  
+        },  
+        "inlineActions": []  
+      }  
+    

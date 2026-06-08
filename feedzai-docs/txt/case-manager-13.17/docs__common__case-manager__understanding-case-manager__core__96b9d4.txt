@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/states-and-outcomes
+Title: States and Outcomes | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * States and Outcomes
+
+
+
+On this page
+
+# States and Outcomes
+
+Analysts can review events, alerts, or cases looking for any suspicious activity. The results of that analysis are recorded as **states** , the values of **state machines**.
+
+The product can include one or multiple state machines. This means that the analysis may be limited to a simple binary choice (for example, _fraud/not fraud_ or _suspicious/not suspicious_) or cover extra decisions such as the review status or what action to take next.
+
+When the product includes multiple states, analysts don't need to define them all at once. In addition, it's possible to configure automation rules to automatically define specific states.
+
+State machines may also be configured to generate **outcomes**. Outcomes provide feedback to the machine learning engine to improve the processing of future events.
+
+info
+
+The outcomes used in Case Manager must match the configuration defined in Pulse.Â 
+
+## Examplesâ
+
+To better illustrate how states and outcomes can be used, consider the following examples for different use cases.
+
+For a banking use case, have two state machines:
+
+  * Await contact / Hold / Resolve.
+  * Fraud / Not Fraud.
+
+
+
+Then, have an automation rule to check the reasons for "Hold" or "Resolve" and automatically define a state for the other state machine.
+
+For a merchant use case, have three state machines, all mapping to different outcomes:
+
+  * Fraud / Not Fraud.
+  * Accept / Review / Decline.
+  * Chargeback: True or False.
+
+
+
+Then, have different automation rules with the following conditions:
+
+  * If the reason for selecting "Accept" is "Verified", automatically set the "Not Fraud" state.
+  * If the reason for selecting "Decline" is "Verified", automatically set the "Fraud" state.
+  * If the Chargeback state machine is "True", automatically set the "Fraud" state.
+
+
+
+## Learn moreâ
+
+Now that you understand what are states and outcomes, learn how to [classify alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#classify-alerts).

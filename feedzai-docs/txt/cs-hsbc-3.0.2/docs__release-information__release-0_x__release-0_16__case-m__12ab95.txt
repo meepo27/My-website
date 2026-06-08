@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-beneficiary-bank
+Title: Transfers - Beneficiary Bank | Feedzai Documentation
+============================================================
+
+# Transfers - Beneficiary Bank  
+  
+Below you can find screenshots of how this widget will look like after all the required modifications:
+
+**Field Modifications**
+
+Change| Field  
+---|---  
+Fixed| Name  
+Fixed| Beneficiary Bank Address  
+Fixed| Bank City

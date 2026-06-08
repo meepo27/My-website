@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/group/
+Title: group - DS API
+============================================================
+
+#  `` group Â¶
+
+##  `` get_group Â¶
+    
+    
+    get_group(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)"), group_name: Optional[str] = None)
+    
+
+Pulls Pulse job profiles that match a given name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `pulse` Â¶
+
+|  `[Server](../server/#ds_api.server.Server "            Server \(ds_api.Server\)")` |  The ds_api.Server used to communicate with Pulse. |  _required_  
+  
+###  `group_name` Â¶
+
+|  `str` |  Desc name of the Pulse group model, by default None |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`([JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)"), optional)` |  A wrapper of 'com.feedzai.pulse.api.security.model.GroupModel', or None if it was not able to find a group model with a given name.

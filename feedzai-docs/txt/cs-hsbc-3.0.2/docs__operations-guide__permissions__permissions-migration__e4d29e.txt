@@ -1,0 +1,149 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/permissions/permissions-migration
+Title: Permissions Migration Tool | Feedzai Documentation
+============================================================
+
+On this page
+
+# Permissions Migration Tool
+
+In this page you can find the documentation on the permissions migration tool, how to configure and run it.
+
+## Overviewâ
+
+The `fdz-permissions-migrator` tool is designed to export and import Pulse permissions and their associated roles. This process can be used to promote/migrate permissions and their associated roles between environments.
+
+## Requirementsâ
+
+The tool execution has the following requirements:
+
+  * A `bash` shell
+  * `jq` installed in the machine where the script is being run (tested with version 1.7.1)
+  * `curl installed in the machine where the script is being run (tested with version 7.68.0)
+  * The file must have execution permissions (`chmod u+x fdz-permissions-migrator`)
+  * Connection between the machine where the script is being run and the Pulse load balancer
+  * A service account credentials
+
+
+
+## Resourcesâ
+
+The tool can be downloaded here: [fdz-permissions-migrator](/cs-hsbc/3.0.2/download/imported/sh/permission-migration/fdz-permissions-migrator).
+
+## Configurationâ
+
+Running `./fdz-permissions-migrator help` will show the help message for the tool. It lists the available commands and options:
+    
+    
+    â¯ ./fdz-permissions-migrator help  
+    fdz-permissions-migrator [v1.0.0] - commandline tool to export and import Pulse permissions and roles between environments  
+      
+    usage: fdz-permissions-migrator <command> <options>  
+      
+    command:  
+      help                             Show this help message  
+      export                           Export permissions to stdout, in JSON format  
+      import                           Import all permissions and all roles from stdin, in JSON format  
+      import-role <role>               Import all permissions and the specified role from stdin, in JSON format  
+      
+    options:  
+      -u, --username USERNAME          The username of the service account (default: pulse)  
+      -p, --password PASSWORD          The password of the service account (default: pulse)  
+      -h, --hostname HOSTNAME          The Pulse Load Balancer URL (default: http://127.0.0.1:8080)  
+      -k, --insecure                   Sets the --insecure flag in the underlying cURL requests  
+      -q, --quiet                      Limit the output of skipped operations  
+      -nc, --no-cleanup                Preserve folder with temporary files generated during execution  
+      
+    Example:  
+      $ ./fdz-permissions-migrator export --username pulse --hostname http://localhost:8080  
+    
+
+Copy
+
+## Executionâ
+
+Running the tool will usually require the user to specify `--hostname`, `--username` and `--password` as the default values are only useful for development environments. Besides that, the user should select one of the available commands: `export`, `import` or `import-role`.
+
+Assume the following example:
+
+  * Permissions and roles are to be migrated from `Environment A` to `Environment B`
+  * `Environment A` is running under URL `http://env_a:8080/` and `Environment B` under `http://env_b:8080/`
+  * The default service account will be used (i.e. the default username and password)
+
+
+
+The first step would be to export the permissions from `Environment A`:
+    
+    
+    $ ./fdz-permissions-migrator export --hostname http://env_a:8080  
+    [  
+      {  
+        "name": "security:tenants:read",  
+        "roles": [  
+          "admin",  
+          "Fraud Prevention Agents - L1"  
+        ]  
+      },  
+      {  
+        "name": "security:tenants:write",  
+        "roles": [  
+          "admin"  
+        ]  
+      }  
+      ...  
+    ]  
+    
+
+Copy
+
+Export will always output the result to stdout but it can instead be redirected to a file:
+
+##### Using HTTPS
+
+This tool uses cURL to make HTTP requests to the remote servers and accepts HTTPS URLs. If there are any problems with certificate validation, the `--insecure` flag can be passed 
+    
+    
+    $ ./fdz-permissions-migrator export --hostname http://env_a:8080 > permissions.json  
+    
+
+Copy
+
+From this point it depends whether all extracted roles should be import or not.
+
+If yes, we would simply import all roles into `Environment B` by running:
+    
+    
+    $ ./fdz-permissions-migrator import --hostname http://env_b:8080 < permissions.json  
+    
+
+Copy
+
+If instead we want to import a single role, we can use the `import-role` command:
+    
+    
+    $ ./fdz-permissions-migrator import-role "Fraud Prevention Agents - L1" --hostname http://env_b:8080 < permissions.json  
+    
+
+Copy
+
+This way all permissions will be added to Pulse, but only the "Fraud Prevention Agents - L1" role will have its permissions modified.
+
+##### Tip: Make it more quiet!
+
+When dealing with production environments, the amount of roles and permissions being imported can be quite big. The tool will output one line for each permission being imported, even the environment already has that permission.
+
+If you want to avoid logging operations that were skipped because the role/permission already existed, add the `--quiet` flag.
+
+##### Dealing with passwords
+
+Given that during export the script can not output anything so that stdout redirection does not break, the service account password cannot be prompted.
+
+To make the execution more secure, the password can be passed onto the script by prompting it without printing its value:
+    
+    
+    $ read -sp "Password: " PASSWORD  
+    $ ./fdz-permissions-migrator export --password $PASSWORD  
+    
+
+Copy
+
+Validation can be done in the Pulse UI by going to `Administration -> Security` and checking if the roles have the correct permissions.

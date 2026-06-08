@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3709
+Title: HSBC-3709 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3709
+
+### Add Digital Activity channel to Mobile Outbound extensionsâ
+
+Bug FixFTMT-32724HSBC-3709
+
+Also In:2.10.12.9.3
+
+We have added the Digital Activity channel to the Mobile Outbound extensions. The base schema of the notifications is the same as for Outbound Payments. Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.

@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3093-Add-Ansible-variable-to-control-Reference-Data-Service-loggers
+Title: HSBC-3093-Add-Ansible-variable-to-control-Reference-Data-Service-loggers | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3093-Add-Ansible-variable-to-control-Reference-Data-Service-loggers
+
+### Add Ansible variable to control Reference Data Service loggersâ
+
+FeatureHSBC-3093
+
+Also In:2.4.92.5.72.7.32.8.12.9.0
+
+We've added Ansible variables that allow log levels to be configured for Reference Data Service:
+
+  * `reference_data_log_level` controls the log level for all components
+  * `reference_data_loggers` controls the log level for individual components
+
+
+
+The `reference_data_loggers` variable can be configured as a dictionary of loggers as keys and log level as values, for example:
+    
+    
+    reference_data_loggers:  
+        com.example: debug  
+    
+
+Copy
+
+More information can be found in the [Reference Data Service Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/refdata/configuration-refdata).

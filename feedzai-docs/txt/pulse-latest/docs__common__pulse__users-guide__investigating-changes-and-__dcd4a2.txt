@@ -1,0 +1,94 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/investigating-changes-and-user
+Title: Investigating Changes and User Actions | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * Investigating Changes and User Actions
+
+
+
+On this page
+
+# Investigating Changes and User Actions
+
+Was this page helpful?Â 
+
+Pulse provides audit logs of changes that were made via user interface or via REST API calls. This can be useful for example when investigating a change in the behavior of the system, or during a security audit.
+
+This topic describes how to view the audit logs.
+
+Audit capabilities
+
+Pulse audit can track what a certain user did or edited at a certain time.
+
+Note that more complex investigations may require the assistance of Feedzai experts. In those cases, turn to your Feedzai contact person.
+
+## Introductionâ
+
+**Audit entries** are records of user actions and resource changes. Each audit entry contains different data, depending on the type of action or the change that was made.
+
+Since the data contained in the audit entries covers a wide range of event types, Pulse adds **labels** to some specific data fields to make it easier to search the entries. For example, Pulse puts a label on the application name, so that users can filter entries by application name.
+
+You can read more about how audit works and stores data in the [Audit](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/audit) topic.
+
+## How toâ
+
+Select the **Audit** option in the top right corner of the menu bar to view the list of changes made in the Pulse environment.
+
+Each line in the displayed list is an audit entry, representing a specific user action or change.
+
+### Viewing an audit entry's detailsâ
+
+Select the audit entry line to expand its details. The details contain two sections: **Context** and **Labels**.
+
+The Context section shows the data that was included in the request of the Pulse UI or REST API that initiated the change.
+
+The Labels section shows the data fields of the audit entry to which Pulse added a label.
+
+### Viewing differences for update actionsâ
+
+For update actions, the Context section shows a comparison between the previous and updated version:
+
+### Searching by label valueâ
+
+Select any label value (highlighted in blue), to filter for all audit entries containing that label.
+
+Upon selecting a label value, the label value is shown in the search box, and the list is filtered to only show audit entries that have the same label value.
+
+### Filtering the listed audit entriesâ
+
+**Use the built-in filters** to filter the audit entries by time **Period** , by the type of **Action** , or by **User** .
+
+info
+
+Remember that changes made to resources may not always be automatically taken into consideration by other parts of the application.
+
+For example, if you change a rule, it is not automatically updated in a workflow. Workflows use a snapshot of the rules project, which include a certain version of the rule. Also, the application needs to be published after the changes, for the changes to be active.
+
+## Examplesâ
+
+### Identifying changes made to an application on a specific dayâ
+
+To find all the changes made on a specific day of the last two months, perform the following steps:
+
+  1. In Pulse, navigate to the **Audit** page.
+  2. In the **Period** filter, select _Last 2 months_.
+  3. Type the name of the application in the search box, and select **Search**.
+  4. Use the web browser's search to find the entries of the day you are looking for. Use the format YYYY-MM-DD.
+
+
+
+### Identifying actions taken by a specific userâ
+
+To find all the changes made by a specific user in the last two months, perform the following steps:
+
+  1. In Pulse, navigate to the **Audit** page.
+  2. In the **Period** filter, select _Last 2 months_.
+  3. Use the **User** filter to find changes and actions performed by the specific user in the last two months.
+
+
+
+## Learn moreâ
+
+Read [how to compare rules in two different snapshots](/pulse/latest/docs/common/pulse/users-guide/rule-guide/reviewing-rule-changes-in-a-snapshot).

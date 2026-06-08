@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview
+Title: Analytics Dashboards | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * Analytics Dashboards
+
+
+
+# Analytics Dashboards
+
+Was this page helpful?Â 
+
+The analytics dashboards include metrics that provide you with real-time charts with information about analyst performance, business overview, PSD2 reporting, and rule monitoring. Based on these insights, you can improve workload management, or write self-service rules to quickly block a fraudulent behavior.
+
+This guide provides you with the following information:
+
+  * [Analyst performance](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analyst-performance): Measures fraud prevention analysts' performance, such as alerts' average resolution time. It allows managers to make decisions that enhance their analysts' performance more efficiently.
+  * [Business overview](/tfrb/latest/docs/common/tfrb/analytics-dashboards/business-overview): Gives visibility on the business activity including information about transactions, i.e. processed, alerted, approved, declined, and in review, as well as loss avoided.
+  * [PSD2](/tfrb/latest/docs/common/tfrb/analytics-dashboards/psd2): Presents data associated with the second Payment Services Directive (PSD2), including information about fraud rate, transactions initiated through strong customer authentication (SCA), and transactions under each exemption. Check the [PSD Compliance](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance) page to learn more about this topic.
+  * [Rules monitoring](/tfrb/latest/docs/common/tfrb/analytics-dashboards/rules-monitoring): Displays rule performance. Based on this analysis, you can write self-service rules to block fraud quickly.
+
+
+
+tip
+
+Refer to the [Analytics Dashboards' Fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) page to see all the relevant fields you can use in each index-pattern to refine the scope of your analysis.

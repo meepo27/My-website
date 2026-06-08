@@ -1,0 +1,81 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles
+Title: Selecting profiles | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Tuning Job executions with Job Profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/)
+  * Selecting profiles
+
+
+
+On this page
+
+# Selecting profiles
+
+Was this page helpful?Â 
+
+Pulse allows you to choose the profile that is more suitable for the Spark job that you want to run using the options below:
+
+  * **Setting the default profile for the application** : allows you to set a profile that is used by default every time that you create any Data Science resource. You can look at this option as a global setting for the whole application.
+  * Setting a default profile for a Job type: allows you to associate a profile to a Pulse resource (e.g. [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance)). This option prevails over the application default.
+  * **Selecting a profile/editing properties on demand, for a specific job** : allows you to choose a profile or edit properties directly when creating a specific Pulse resource. This option prevails over the other two, but only for the current resource that you are creating.
+
+
+
+## Setting a profile as default for the Appâ
+
+To set a profile as default for the whole application, perform the following steps:
+
+  1. Select the **Jobs** tab to have access to the **Job Configuration Profile** list:
+
+tip
+
+By default, the **Jobs** tab is collapsed under the **Advanced Tabs** , and you need to use the  button to reach it.
+
+  2. Locate the target profile that you want to choose as default, and select the **Star** button.
+
+
+
+
+## Setting a profile as default for a Job typeâ
+
+Preference over by default option
+
+The option defining a profile by **Job type** prevails over the option Defining a profile by default.
+
+To associate a profile to a **Job type,** access your application and execute the following actions:
+
+  1. Select the **Jobs** tab to have access to the **Job Configuration Profile** table.
+
+  2. Select the  button to have access to a list of **Resource Type** and **Job Profiles**.
+
+  3. For each **Resource Type** choose a target **Job Profile**.
+
+  4. Use the  button to save your configurations.
+
+
+
+
+## Selecting or editing a profile on demandâ
+
+Editing properties on demand
+
+In addition to the selection on demand you can **edit the properties** on a selected profile for this Job Execution. Check the page [Editing properties on demand](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/editing-properties-on-demand) to learn more about this option.
+
+To choose a profile, access your application and execute the following actions:
+
+  1. In the task that you are setting up expand the Advanced Options using the  button. As an example, the following image shows the **Advanced Options** menu when you create a Data Source Analysis:
+
+  2. Select the Job Profile that you want to use to execute this task.
+
+tip
+
+You can open the profiles in separate windows to take a look at the properties by using the  button. This option also allows you to edit the properties in the **Job Profiles** , except for the "Pulse Properties Profile" (PPP), which is profile read-only.
+
+
+
+
+## Next stepsâ
+
+Check the page [Editing properties on demand](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/editing-properties-on-demand) to learn how to edit the properties in a **Job Profile** while setting up a Data Science task.

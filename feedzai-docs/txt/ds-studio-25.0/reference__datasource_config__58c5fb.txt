@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/datasource_config/
+Title: datasource_config - DS API
+============================================================
+
+#  `` datasource_config Â¶  
+  
+##  `` DataSourceConfig Â¶
+    
+    
+    DataSourceConfig(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+A Data Source Configuration representation.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` builder `classmethod` Â¶
+    
+    
+    builder()
+    
+
+###  `` fromPulseDataSource `classmethod` Â¶
+    
+    
+    fromPulseDataSource(datasource)
+    

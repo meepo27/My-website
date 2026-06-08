@@ -1,0 +1,71 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/managing-files-in-cases
+Title: Manage Files In Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/)
+  * [Review Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases)
+  * Manage Files In Cases
+
+
+
+On this page
+
+# Manage Files In Cases
+
+During the investigation, analysts may need to add extra information to support it. This information may be useful for subsequent investigation steps, legal action, or auditing. This widget also provides a convenient storage for any information that is not currently represented or supported by the interface.
+
+This page explains how to upload, download, update, or delete files.
+
+## Upload filesâ
+
+Upload files with information that facilitates the identification of financial crime.
+
+  1. Select the **Upload Files** button to display the following window:
+
+
+
+  2. Select **Add Files** and upload the files from your device.
+  3. Select **Submit** to add the file(s).
+
+
+
+## Download filesâ
+
+Download the current version of one or multiple files, for example, to continue the investigation offline.
+
+  1. Hover over a single file and select  in the action toolbar.
+  2. Optionally, select multiple files and then select **Download Files** to start the download.
+
+
+
+## Update filesâ
+
+Update attachments by uploading new versions of a file.
+
+  1. Hover over a single file and select  in the action toolbar to display the following window:
+
+
+
+  2. Select the new version of the file and add a small note describing the update.
+  3. Select **Submit** to complete the update.
+
+
+
+## Delete filesâ
+
+Delete files that are no longer relevant to the investigation.
+
+  1. Hover over a single file and select  in the action toolbar.
+  2. Optionally, select one or multiple files and then select the **Delete Files** button. To prevent any mistake, the page displays a dialog for you to confirm the deletion.
+
+
+
+  3. Select **Delete** to confirm the deletion.
+
+
+
+info
+
+This option is only available with a specific configuration.

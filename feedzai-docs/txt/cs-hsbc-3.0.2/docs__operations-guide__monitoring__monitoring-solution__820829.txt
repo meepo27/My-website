@@ -1,0 +1,37 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/monitoring-solution
+Title: Building a Monitoring Solution | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Building a Monitoring Solution
+
+Monitoring has become one of the most critical aspects of operating and maintaining a reliable system. There are numerous technologies that can be leveraged to implement real-time application and infrastructure monitoring according to the industry best practises. Different tools are more appropriate for different architectures, so _you must decide what fits best into your exising system_.
+
+Regardless of the technologies you use or plan to adopt, make sure your monitoring solution covers the following aspects:
+
+  * **Real-time feedback** : Regardless of whether you have push or pull-based architecture, knowing the state of your system in near real-time is critical to respond to incidents, or even preempt them.
+  * **Application state** : The applications are becoming progressively more complex, and being able to observe how the state of the applications change over time is key to pinpoint other issues in the system. For example, in the application system that implements quorum-based consistency (e.g. ZooKeeper), it is important to track the quorum state, as it can have adverse consequences on systems that depend on it.
+  * **Performance** : With systems growing in size and complexity, the performance of a healthy system should be considered - i.e. how much usable work can be accomplished by the system within a given period. If it varies a lot for a given system component, or degrades over time, that effect can propagate to other components as well, and impact the whole system. For that reason, it is really important that you track the latency of operations that sit in the critical path of your workload.
+  * **Availability** : This is the most crucial metric to monitor - whether a system or component is accessible and operate the way it is intended to.
+  * **Resource usage** : On specific architectures and workloads, the performance and availability of your system is closely coupled with the resources that are made available to the system to perform its task. For that reason, it is important to monitor the available capacity of the resources provisioned to your workload.
+
+
+
+##### tip
+
+**Feedzai uses the renowned TIG stack**
+
+One of the solutions Feedzai has implemented for monitoring is based on the TIG stack. This acronym refers to the following systems:
+
+**Telegraf** : A [server-based agent](https://www.influxdata.com/time-series-platform/telegraf/) used for collecting and sending metrics or events to a data sink.
+
+**InfluxDB** : A [scalable time series data platform](https://www.influxdata.com/) that is often used for real-time analytics through metrics or events.
+
+**Grafana** : A [data visualization and analytics platform](https://grafana.com/) that integrates a myriad of technologies to provide real-time data visualization and alerting.
+
+This stack implements a pull-based architecture, which deploys a telegraph agent on all VMs, containers, etc. It periodically collects operation metrics (i.e. CPU, RAM, disk, etc.) as well as application metrics (i.e. health-checks, internal state, etc.), and propagates them to InfluxDB. Grafana pulls data from InfluxDB both to feed its visualizations and to automatically trigger alerts based on the values or trends of specific metrics.
+
+## Next stepsâ
+
+Learn how to monitor Feedzai systems and how to integrate them in your preferred monitoring solution.

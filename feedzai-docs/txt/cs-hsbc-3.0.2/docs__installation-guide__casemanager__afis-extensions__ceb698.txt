@@ -1,0 +1,1707 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions
+Title: AFIS Extensions | Feedzai Documentation
+============================================================
+
+On this page
+
+# AFIS Extensions
+
+There are a few extensions in Case Manager able to send data to AFIS that have different triggers and channels with which they work.
+
+Extension| Trigger| Channels  
+---|---|---  
+ _Send Mobile Payment Push_|  when configured as an **Automation Rule action**|  _Transfers_ , _Digital Activity_ , _Cards_  
+ _Send 2 WAY / 1 WAY SMS_|  when configured as an **Automation Rule action**|  _Transfers_ , _Digital Activity_  
+ _Send 2-WAY SMS_|  when configured as an **Automation Rule action**|  _Cards_  
+ _Send 1-WAY SMS_|  when configured as an **Automation Rule action**|  _Cards_ , _Non-Mon_  
+ _Send Reminder SMS_|  when configured as an **Automation Rule action**|  _Cards_ , _Non-Mon_  
+ _Inbound Payment Notification_|  when configured as an **Automation Rule action**|  _Inbound Payments_  
+ _Card Status Update_|  when configured as an **Automation Rule action**|  _Cards_ , _Non-Mon_  
+ _Payment Fulfillment_|  automatically when there is an **Event Status update**|  _Transfers_ , _Inbound Payments_ , _Cards_ , _Non-Mon_  
+  
+Each extension has its own schema which can be seen below. The field `notification_type` is present in all extensions schemas and allows downstream systems to differentiate between the different extensions.
+
+### Example Payloadsâ
+
+  * Send Mobile Payment Push (Transfers)
+  * Send Mobile Payment Push (Digital Activity)
+  * Send Mobile Payment Push (Cards)
+  * Send 2 WAY / 1 WAY SMS
+  * Send 2-WAY SMS (Cards)
+  * Send 1-WAY SMS (Cards)
+  * Send 1-WAY SMS (Non-Mon)
+  * Send Reminder SMS (Cards)
+  * Send Reminder SMS (Non-Mon)
+  * Inbound Payment Notification
+  * Card Status Update
+  * Payment Fulfillment
+  * Cards Fulfillment
+
+
+    
+    
+    {  
+        "notification_type": "payment_mobile_push",  
+        "sender_transaction_amount": "15500.0",  
+        "sender_transaction_amount_dbl": "400.75",  
+        "sender_transaction_currency": "GPB",  
+        "sender_transaction_original_amount": "16600.0",  
+        "sender_transaction_original_currency": "EUR",  
+        "sender_transaction_bank_account_number": "4b5731a0-aca7-44a7-a641-cea50d32b633",  
+        "receiver_name": "Receiver Joe Doe",  
+        "text_for_receiver": "text_for_receiver_sms",  
+        "lifecycle_id": "7cf0e27f-db8c-4a96-b3e2-f345437b4366",  
+        "system_decision": "approve",  
+        "office_id": "",  
+        "customer_portfolio_country": "",  
+        "receiver_transaction_bank_account_number": "9a08f316-df1f-4096-9a2d-a904a82bb65e",  
+        "customer_portfolio_region": "",  
+        "sender_initiated_at": "1554196919000",  
+        "customer_id": "acc_10022917",  
+        "customer_portfolio_product": "",  
+        "customer_portfolio_channel": "",  
+        "customer_portfolio_type": "",  
+        "customer_portfolio_class": "",  
+        "operational_status": "remind_customer",  
+        "customer_id_number": "4be9074c-8018-4755-8776-5135b96e5d22",  
+        "alert_id": "437b4366",  
+        "treatment_strategy": "mobile_push_notification",  
+        "self_serve_strategy": "ivr_self_no",  
+        "customer_name": "Fraudulent Joe",  
+        "customer_surname": "Joe",  
+        "customer_mobile_phone": "0571265381238",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "customer_preferred_language": "en",  
+        "payment_message_source": "HK_CMOP" ,  
+        "payment_sub_type": "T-GTFF" ,  
+        "thailand_fps_ind": "MOBN",  
+        "customer_alias": "",  
+        "user_id": "jbu3470",  
+        "customer_id_global": "jbu3470",  
+        "channel_user_id": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "device_ip_address": "216.215.104.205",  
+        "tmx.ip_address": "8.8.8.8",  
+        "tmx.ip_city": "Wageningen",  
+        "tmx.ip_country": "Netherlands",  
+        "tmx.true_isp": "Hutchison Telephone Company Limited",  
+        "tmx.proxy_isp": "Packethub s.a",  
+        "tmx.dns_isp": "China Mobile hongkong company limited",  
+        "device_banking_type": "A",  
+        "device_os": "Windows",  
+        "device_user_agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1) AppleWebKit/532.0.2 (KHTML, like Gecko) Chrome/19.0.833.0 Safari/532.0.2",  
+        "receiver_account_bank_id": "ecf6f689-1317-4ed6-ab30-44d03298ab5e",  
+        "receiver_bank_bic": "4ad3fe88-317b-4b31-ad9b-9136424c17ad",  
+        "sender_account_type": "CREDIT",  
+        "receiver_account_type": "CREDIT",  
+        "customer_account_type": "CREDIT",  
+        "account_type": "CREDIT",  
+        "product_code": "ZPP",  
+        "sender_product_type": "UFAAE"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "payment_mobile_push",  
+        "sender_transaction_amount": "15500.0",  
+        "sender_transaction_amount_dbl": "400.75",  
+        "sender_transaction_currency": "GPB",  
+        "sender_transaction_original_currency": "EUR",  
+        "sender_transaction_bank_account_number": "4b5731a0-aca7-44a7-a641-cea50d32b633",  
+        "receiver_name": "Receiver Joe Doe",  
+        "text_for_receiver": "text_for_receiver_sms",  
+        "lifecycle_id": "7cf0e27f-db8c-4a96-b3e2-f345437b4366",  
+        "system_decision": "approve",  
+        "office_id": "",  
+        "customer_portfolio_country": "",  
+        "receiver_transaction_bank_account_number": "9a08f316-df1f-4096-9a2d-a904a82bb65e",  
+        "customer_portfolio_region": "",  
+        "sender_initiated_at": "1554196919000",  
+        "customer_id": "acc_10022917",  
+        "customer_portfolio_product": "",  
+        "customer_portfolio_channel": "",  
+        "customer_portfolio_type": "",  
+        "customer_portfolio_class": "",  
+        "operational_status": "remind_customer",  
+        "customer_id_number": "4be9074c-8018-4755-8776-5135b96e5d22",  
+        "alert_id": "437b4366",  
+        "treatment_strategy": "mobile_push_notification",  
+        "self_serve_strategy": "ivr_self_no",  
+        "customer_name": "Fraudulent Joe",  
+        "customer_surname": "Joe",  
+        "customer_mobile_phone": "0571265381238",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "customer_preferred_language": "en",  
+        "payment_message_source": "HK_CMOP" ,  
+        "payment_sub_type": "T-GTFF" ,  
+        "thailand_fps_ind": "MOBN",  
+        "customer_alias": "",  
+        "user_id": "jbu3470",  
+        "customer_id_global": "jbu3470",  
+        "channel_user_id": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "device_ip_address": "216.215.104.205",  
+        "tmx.ip_address": "8.8.8.8",  
+        "tmx.ip_city": "Wageningen",  
+        "tmx.ip_country": "Netherlands",  
+        "tmx.true_isp": "Hutchison Telephone Company Limited",  
+        "tmx.proxy_isp": "Packethub s.a",  
+        "tmx.dns_isp": "China Mobile hongkong company limited",  
+        "device_banking_type": "A",  
+        "device_os": "Windows",  
+        "device_user_agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1) AppleWebKit/532.0.2 (KHTML, like Gecko) Chrome/19.0.833.0 Safari/532.0.2",  
+        "receiver_account_bank_id": "ecf6f689-1317-4ed6-ab30-44d03298ab5e",  
+        "receiver_bank_bic": "4ad3fe88-317b-4b31-ad9b-9136424c17ad"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "cards_mobile_push",  
+        "operational_status": "unreviewed",  
+        "oob_feedback_notes": "The account holder denied the authenticity of the transaction.",  
+        "customer_business_phone": null,  
+        "oob_notes": "The customer has been already called.",  
+        "crypto_transaction_info": "",  
+        "source": "MSC",  
+        "cm_transaction_block": "sample_1",  
+        "cm_transaction_block_action": null,  
+        "trans_model_amt": "10.0",  
+        "score": "0.0",  
+        "customer_mobile_phone": null,  
+        "event_type": "authorization",  
+        "treatment_strategy": "sms",  
+        "alert_id": "ee9a7762-9e1f-353e-a371-5f4d0a481290",  
+        "card_phone_banking_user_id": "A5435454435",  
+        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+        "customer_portfolio_class": "elite",  
+        "cm_transaction_block_expiration": "1772638079711",  
+        "cm_transaction_block_timezone": "+0000",  
+        "customer_id_global": "HK",  
+        "oob_comm_type": "sms",  
+        "feedback_label": "",  
+        "customer_voice_id": "5671234",  
+        "customer_portfolio_region": "US-EAST",  
+        "trans_currency_code": "320",  
+        "lifecycle_id_alt": "",  
+        "customer_id_personal": "",  
+        "system_decision": "approve",  
+        "cardholder_bill_currency_code": "320",  
+        "external_status_reason": "",  
+        "acquirer_id": "12345678912",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "smh_source": "",  
+        "wallet_decision": "none",  
+        "customer_id_number": "HK109876567",  
+        "account_number": "1005103001044120",  
+        "saf_ind": "N",  
+        "fdz_channel": "cards",  
+        "local_datetime": "20110123",  
+        "analyst_id": "pulse",  
+        "trans_message_type": "",  
+        "cm_transaction_block_date": "2026-03-04T15:27:59",  
+        "customer_portfolio_channel": "portfoliochannel",  
+        "currency_code": "320",  
+        "event_occurred_at": "1772020788751",  
+        "customer_portfolio_country": "feedzai",  
+        "amount_dbl": "11000.0",  
+        "customer_portfolio_type": "portfoliotype",  
+        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+        "acceptor_name": "GOLFSTORE3DS",  
+        "channel_type": "mobile",  
+        "sender_initiated_at": "1752066662",  
+        "oob_response_type": "call",  
+        "cardholder_bill_amount": "11000",  
+        "self_serve_strategy": "none",  
+        "card_transaction_ref_number": "",  
+        "lifecycle_id": "e297d6a7-b2f6-4708-8022-23bd1785705a",  
+        "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+        "customer_id_business": "",  
+        "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+        "card_transaction_component_type": "TRX",  
+        "customer_name": "Fraudulent Sam",  
+        "customer_id": "cutomer_1",  
+        "card_txn_sub_type":"",  
+        "feedback_type": "out_of_band",  
+        "customer_portfolio_product": "product"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "2_way_1_way_sms",  
+        "sender_transaction_amount": "15500.0",  
+        "sender_transaction_amount_dbl": "400.75",  
+        "sender_transaction_currency": "GPB",  
+        "sender_transaction_original_amount": "16600.0",  
+        "sender_transaction_original_currency": "EUR",  
+        "sender_transaction_bank_account_number": "4b5731a0-aca7-44a7-a641-cea50d32b633",  
+        "receiver_name": "Receiver Joe Doe",  
+        "text_for_receiver": "text_for_receiver_sms",  
+        "lifecycle_id": "7cf0e27f-db8c-4a96-b3e2-f345437b4366",  
+        "system_decision": "approve",  
+        "office_id": "",  
+        "customer_portfolio_country": "",  
+        "receiver_transaction_bank_account_number": "9a08f316-df1f-4096-9a2d-a904a82bb65e",  
+        "customer_portfolio_region": "",  
+        "sender_initiated_at": "1554196919000",  
+        "customer_id": "acc_10022917",  
+        "customer_portfolio_product": "",  
+        "customer_portfolio_channel": "",  
+        "customer_portfolio_type": "",  
+        "customer_portfolio_class": "",  
+        "operational_status": "remind_customer",  
+        "customer_id_number": "4be9074c-8018-4755-8776-5135b96e5d22",  
+        "alert_id": "437b4366",  
+        "treatment_strategy": "mobile_push_notification",  
+        "self_serve_strategy": "ivr_self_no",  
+        "customer_name": "Fraudulent Joe",  
+        "customer_surname": "Joe",  
+        "customer_mobile_phone": "0571265381238",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "customer_preferred_language": "en",  
+        "payment_message_source": "HK_CMOP" ,  
+        "payment_sub_type": "T-GTFF" ,  
+        "thailand_fps_ind": "MOBN",  
+        "customer_alias": "",  
+        "user_id": "jbu3470",  
+        "customer_id_global": "jbu3470",  
+        "channel_user_id": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "device_ip_address": "216.215.104.205",  
+        "tmx.ip_address": "8.8.8.8",  
+        "tmx.ip_city": "Wageningen",  
+        "tmx.ip_country": "Netherlands",  
+        "tmx.true_isp": "Hutchison Telephone Company Limited",  
+        "tmx.proxy_isp": "Packethub s.a",  
+        "tmx.dns_isp": "China Mobile hongkong company limited",  
+        "device_banking_type": "A",  
+        "device_os": "Windows",  
+        "device_user_agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1) AppleWebKit/532.0.2 (KHTML, like Gecko) Chrome/19.0.833.0 Safari/532.0.2",  
+        "receiver_account_bank_id": "ecf6f689-1317-4ed6-ab30-44d03298ab5e",  
+        "receiver_bank_bic": "4ad3fe88-317b-4b31-ad9b-9136424c17ad"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "cards_2_way_sms",  
+        "operational_status": "unreviewed",  
+        "oob_feedback_notes": "The account holder denied the authenticity of the transaction.",  
+        "customer_business_phone": null,  
+        "oob_notes": "The customer has been already called.",  
+        "crypto_transaction_info": "",  
+        "source": "MSC",  
+        "cm_transaction_block": "sample_1",  
+        "cm_transaction_block_action": null,  
+        "trans_model_amt": "10.0",  
+        "score": "0.0",  
+        "customer_mobile_phone": null,  
+        "event_type": "authorization",  
+        "treatment_strategy": "sms",  
+        "alert_id": "ee9a7762-9e1f-353e-a371-5f4d0a481290",  
+        "card_phone_banking_user_id": "A5435454435",  
+        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+        "customer_portfolio_class": "elite",  
+        "cm_transaction_block_expiration": "1772638079711",  
+        "cm_transaction_block_timezone": "+0000",  
+        "customer_id_global": "HK",  
+        "oob_comm_type": "sms",  
+        "feedback_label": "",  
+        "customer_voice_id": "5671234",  
+        "customer_portfolio_region": "US-EAST",  
+        "trans_currency_code": "320",  
+        "lifecycle_id_alt": "",  
+        "customer_id_personal": "",  
+        "system_decision": "approve",  
+        "cardholder_bill_currency_code": "320",  
+        "external_status_reason": "",  
+        "acquirer_id": "12345678912",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "smh_source": "",  
+        "wallet_decision": "none",  
+        "customer_id_number": "HK109876567",  
+        "account_number": "1005103001044120",  
+        "saf_ind": "N",  
+        "fdz_channel": "cards",  
+        "local_datetime": "20110123",  
+        "analyst_id": "pulse",  
+        "trans_message_type": "",  
+        "cm_transaction_block_date": "2026-03-04T15:27:59",  
+        "customer_portfolio_channel": "portfoliochannel",  
+        "currency_code": "320",  
+        "event_occurred_at": "1772020788751",  
+        "customer_portfolio_country": "feedzai",  
+        "amount_dbl": "11000.0",  
+        "customer_portfolio_type": "portfoliotype",  
+        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+        "acceptor_name": "GOLFSTORE3DS",  
+        "channel_type": "mobile",  
+        "sender_initiated_at": "1752066662",  
+        "oob_response_type": "call",  
+        "cardholder_bill_amount": "11000",  
+        "self_serve_strategy": "none",  
+        "card_transaction_ref_number": "",  
+        "lifecycle_id": "e297d6a7-b2f6-4708-8022-23bd1785705a",  
+        "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+        "customer_id_business": "",  
+        "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+        "card_transaction_component_type": "TRX",  
+        "customer_name": "Fraudulent Sam",  
+        "customer_id": "cutomer_1",  
+        "card_txn_sub_type":"",  
+        "feedback_type": "out_of_band",  
+        "customer_portfolio_product": "product",  
+        "previous_transactions": [  
+            {  
+              "amount_dbl": "11000.0",  
+              "lifecycle_id": "9a3c955c-4add-4664-8954-818639e59b7e",  
+              "local_datetime": "20110123",  
+              "acceptor_name": "GOLFSTORE3DS",  
+              "currency_code": "634",  
+              "event_occurred_at": "1771927092140"  
+            }  
+        ]  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "cards_1_way_sms",  
+        "operational_status": "unreviewed",  
+        "oob_feedback_notes": "The account holder denied the authenticity of the transaction.",  
+        "customer_business_phone": null,  
+        "oob_notes": "The customer has been already called.",  
+        "crypto_transaction_info": "",  
+        "source": "MSC",  
+        "cm_transaction_block": "sample_1",  
+        "cm_transaction_block_action": null,  
+        "trans_model_amt": "10.0",  
+        "score": "0.0",  
+        "customer_mobile_phone": null,  
+        "event_type": "authorization",  
+        "treatment_strategy": "sms",  
+        "alert_id": "ee9a7762-9e1f-353e-a371-5f4d0a481290",  
+        "card_phone_banking_user_id": "A5435454435",  
+        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+        "customer_portfolio_class": "elite",  
+        "cm_transaction_block_expiration": "1772638079711",  
+        "cm_transaction_block_timezone": "+0000",  
+        "customer_id_global": "HK",  
+        "oob_comm_type": "sms",  
+        "feedback_label": "",  
+        "customer_voice_id": "5671234",  
+        "customer_portfolio_region": "US-EAST",  
+        "trans_currency_code": "320",  
+        "lifecycle_id_alt": "",  
+        "customer_id_personal": "",  
+        "system_decision": "approve",  
+        "cardholder_bill_currency_code": "320",  
+        "external_status_reason": "",  
+        "acquirer_id": "12345678912",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "smh_source": "",  
+        "wallet_decision": "none",  
+        "customer_id_number": "HK109876567",  
+        "account_number": "1005103001044120",  
+        "saf_ind": "N",  
+        "fdz_channel": "cards",  
+        "local_datetime": "20110123",  
+        "analyst_id": "pulse",  
+        "trans_message_type": "",  
+        "cm_transaction_block_date": "2026-03-04T15:27:59",  
+        "customer_portfolio_channel": "portfoliochannel",  
+        "currency_code": "320",  
+        "event_occurred_at": "1772020788751",  
+        "customer_portfolio_country": "feedzai",  
+        "amount_dbl": "11000.0",  
+        "customer_portfolio_type": "portfoliotype",  
+        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+        "acceptor_name": "GOLFSTORE3DS",  
+        "channel_type": "mobile",  
+        "sender_initiated_at": "1752066662",  
+        "oob_response_type": "call",  
+        "cardholder_bill_amount": "11000",  
+        "self_serve_strategy": "none",  
+        "card_transaction_ref_number": "",  
+        "lifecycle_id": "e297d6a7-b2f6-4708-8022-23bd1785705a",  
+        "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+        "customer_id_business": "",  
+        "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+        "card_transaction_component_type": "TRX",  
+        "customer_name": "Fraudulent Sam",  
+        "customer_id": "cutomer_1",  
+        "card_txn_sub_type":"",  
+        "feedback_type": "out_of_band",  
+        "customer_portfolio_product": "product"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "cards_1_way_sms",  
+        "operational_status": "unreviewed",  
+        "oob_feedback_notes": "The account holder denied the authenticity of the transaction.",  
+        "customer_business_phone": null,  
+        "oob_notes": "The customer has been already called.",  
+        "crypto_transaction_info": "",  
+        "source": "MSC",  
+        "trans_model_amt": "10.0",  
+        "score": "0.0",  
+        "customer_mobile_phone": null,  
+        "event_type": "authorization",  
+        "treatment_strategy": "sms",  
+        "alert_id": "ee9a7762-9e1f-353e-a371-5f4d0a481290",  
+        "card_phone_banking_user_id": "A5435454435",  
+        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+        "customer_portfolio_class": "elite",  
+        "customer_id_global": "HK",  
+        "oob_comm_type": "sms",  
+        "feedback_label": "",  
+        "customer_voice_id": "5671234",  
+        "customer_portfolio_region": "US-EAST",  
+        "trans_currency_code": "320",  
+        "lifecycle_id_alt": "",  
+        "customer_id_personal": "",  
+        "system_decision": "approve",  
+        "cardholder_bill_currency_code": "320",  
+        "external_status_reason": "",  
+        "acquirer_id": "12345678912",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "smh_source": "",  
+        "wallet_decision": "none",  
+        "customer_id_number": "HK109876567",  
+        "account_number": "1005103001044120",  
+        "saf_ind": "N",  
+        "fdz_channel": "non-mon",  
+        "local_datetime": "20110123",  
+        "analyst_id": "pulse",  
+        "trans_message_type": "",  
+        "customer_portfolio_channel": "portfoliochannel",  
+        "currency_code": "320",  
+        "event_occurred_at": "1772020788751",  
+        "customer_portfolio_country": "feedzai",  
+        "amount_dbl": "11000.0",  
+        "customer_portfolio_type": "portfoliotype",  
+        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+        "acceptor_name": "GOLFSTORE3DS",  
+        "channel_type": "mobile",  
+        "sender_initiated_at": "1752066662",  
+        "oob_response_type": "call",  
+        "cardholder_bill_amount": "11000",  
+        "self_serve_strategy": "none",  
+        "card_transaction_ref_number": "",  
+        "lifecycle_id": "e297d6a7-b2f6-4708-8022-23bd1785705a",  
+        "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+        "customer_id_business": "",  
+        "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+        "card_transaction_component_type": "TRX",  
+        "customer_name": "Fraudulent Sam",  
+        "customer_id": "cutomer_1",  
+        "card_txn_sub_type":"",  
+        "feedback_type": "out_of_band",  
+        "customer_portfolio_product": "product"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "cards_reminder_sms",  
+        "operational_status": "unreviewed",  
+        "oob_feedback_notes": "The account holder denied the authenticity of the transaction.",  
+        "customer_business_phone": null,  
+        "oob_notes": "The customer has been already called.",  
+        "crypto_transaction_info": "",  
+        "source": "MSC",  
+        "cm_transaction_block": "sample_1",  
+        "cm_transaction_block_action": null,  
+        "trans_model_amt": "10.0",  
+        "score": "0.0",  
+        "customer_mobile_phone": null,  
+        "event_type": "authorization",  
+        "treatment_strategy": "sms",  
+        "alert_id": "ee9a7762-9e1f-353e-a371-5f4d0a481290",  
+        "card_phone_banking_user_id": "A5435454435",  
+        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+        "customer_portfolio_class": "elite",  
+        "cm_transaction_block_expiration": "1772638079711",  
+        "cm_transaction_block_timezone": "+0000",  
+        "customer_id_global": "HK",  
+        "oob_comm_type": "sms",  
+        "feedback_label": "",  
+        "customer_voice_id": "5671234",  
+        "customer_portfolio_region": "US-EAST",  
+        "trans_currency_code": "320",  
+        "lifecycle_id_alt": "",  
+        "customer_id_personal": "",  
+        "system_decision": "approve",  
+        "cardholder_bill_currency_code": "320",  
+        "external_status_reason": "",  
+        "acquirer_id": "12345678912",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "smh_source": "",  
+        "wallet_decision": "none",  
+        "customer_id_number": "HK109876567",  
+        "account_number": "1005103001044120",  
+        "saf_ind": "N",  
+        "fdz_channel": "cards",  
+        "local_datetime": "20110123",  
+        "analyst_id": "pulse",  
+        "trans_message_type": "",  
+        "cm_transaction_block_date": "2026-03-04T15:27:59",  
+        "customer_portfolio_channel": "portfoliochannel",  
+        "currency_code": "320",  
+        "event_occurred_at": "1772020788751",  
+        "customer_portfolio_country": "feedzai",  
+        "amount_dbl": "11000.0",  
+        "customer_portfolio_type": "portfoliotype",  
+        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+        "acceptor_name": "GOLFSTORE3DS",  
+        "channel_type": "mobile",  
+        "sender_initiated_at": "1752066662",  
+        "oob_response_type": "call",  
+        "cardholder_bill_amount": "11000",  
+        "self_serve_strategy": "none",  
+        "card_transaction_ref_number": "",  
+        "lifecycle_id": "e297d6a7-b2f6-4708-8022-23bd1785705a",  
+        "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+        "customer_id_business": "",  
+        "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+        "card_transaction_component_type": "TRX",  
+        "customer_name": "Fraudulent Sam",  
+        "customer_id": "cutomer_1",  
+        "card_txn_sub_type":"",  
+        "feedback_type": "out_of_band",  
+        "customer_portfolio_product": "product"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "cards_reminder_sms",  
+        "operational_status": "unreviewed",  
+        "oob_feedback_notes": "The account holder denied the authenticity of the transaction.",  
+        "customer_business_phone": null,  
+        "oob_notes": "The customer has been already called.",  
+        "crypto_transaction_info": "",  
+        "source": "MSC",  
+        "trans_model_amt": "10.0",  
+        "score": "0.0",  
+        "customer_mobile_phone": null,  
+        "event_type": "authorization",  
+        "treatment_strategy": "sms",  
+        "alert_id": "ee9a7762-9e1f-353e-a371-5f4d0a481290",  
+        "card_phone_banking_user_id": "A5435454435",  
+        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+        "customer_portfolio_class": "elite",  
+        "customer_id_global": "HK",  
+        "oob_comm_type": "sms",  
+        "feedback_label": "",  
+        "customer_voice_id": "5671234",  
+        "customer_portfolio_region": "US-EAST",  
+        "trans_currency_code": "320",  
+        "lifecycle_id_alt": "",  
+        "customer_id_personal": "",  
+        "system_decision": "approve",  
+        "cardholder_bill_currency_code": "320",  
+        "external_status_reason": "",  
+        "acquirer_id": "12345678912",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "smh_source": "",  
+        "wallet_decision": "none",  
+        "customer_id_number": "HK109876567",  
+        "account_number": "1005103001044120",  
+        "saf_ind": "N",  
+        "fdz_channel": "non-mon",  
+        "local_datetime": "20110123",  
+        "analyst_id": "pulse",  
+        "trans_message_type": "",  
+        "customer_portfolio_channel": "portfoliochannel",  
+        "currency_code": "320",  
+        "event_occurred_at": "1772020788751",  
+        "customer_portfolio_country": "feedzai",  
+        "amount_dbl": "11000.0",  
+        "customer_portfolio_type": "portfoliotype",  
+        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+        "acceptor_name": "GOLFSTORE3DS",  
+        "channel_type": "mobile",  
+        "sender_initiated_at": "1752066662",  
+        "oob_response_type": "call",  
+        "cardholder_bill_amount": "11000",  
+        "self_serve_strategy": "none",  
+        "card_transaction_ref_number": "",  
+        "lifecycle_id": "e297d6a7-b2f6-4708-8022-23bd1785705a",  
+        "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+        "customer_id_business": "",  
+        "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+        "card_transaction_component_type": "TRX",  
+        "customer_name": "Fraudulent Sam",  
+        "customer_id": "cutomer_1",  
+        "card_txn_sub_type":"",  
+        "feedback_type": "out_of_band",  
+        "customer_portfolio_product": "product"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "inbound_mule_alert",  
+        "customer_market_segment": "",  
+        "operational_status": "unreviewed",  
+        "channel_user_id": "d28a6031-96c3-4514-96db-d4832713b9af",  
+        "sender_name": "Sender Joe Doe",  
+        "sender_bank_country_code": "862",  
+        "sender_transaction_ref": "",  
+        "sender_transaction_bank_account_number": "e519266d-7c14-4e12-8d35-0e8f55dbcc4c",  
+        "office_id": "",  
+        "customer_mobile_phone": "076128312838228712",  
+        "event_type": "inbound_payment_initiation",  
+        "customer_card_number": "",  
+        "sender_transaction_original_amount": "395.75",  
+        "treatment_strategy": "none",  
+        "alert_id": "ZYgCC2Yc",  
+        "sender_transaction_auth_type": "",  
+        "sender_transaction_original_currency": "760",  
+        "customer_portfolio_class": "",  
+        "requested_execution_at": "1554996919000",  
+        "text_for_receiver": "",  
+        "customer_id_global": "",  
+        "receiver_account_bank_id": "",  
+        "customer_portfolio_region": "",  
+        "receiver_bank_country_code": "862",  
+        "system_decision": "approve",  
+        "payment_type": "sepa",  
+        "line_of_business": "",  
+        "user_id": "",  
+        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+        "receiver_transaction_currency": "760",  
+        "sender_transaction_amount": "1550.0",  
+        "device_ip_address": "168.20.149.176",  
+        "customer_id_number": "0HKHSXXXXXX796256",  
+        "payment_message_source": "",  
+        "customer_portfolio_channel": "",  
+        "sender_transaction_type": "",  
+        "customer_portfolio_country": "feedzai",  
+        "payment_sub_type": "credit_transfer",  
+        "customer_portfolio_type": "",  
+        "sender_transaction_amount_dbl": "400.75",  
+        "receiver_name": "Receiver Joe Doe",  
+        "receiver_transaction_amount_dbl": "400.75",  
+        "customer_surname": "Doe",  
+        "sender_initiated_at": "1554196919000",  
+        "receiver_transaction_bank_account_number": "9a08f316-df1f-4096-9a2d-a904a82bb65e",  
+        "self_serve_strategy": "none",  
+        "lifecycle_id": "53db0d49-fe53-4eab-ae59-f4eb0bd1bbbc",  
+        "device_user_agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1) AppleWebKit/536.0.0 (KHTML, like Gecko) Chrome/31.0.862.0 Safari/536.0.0",  
+        "device_os": "Kali",  
+        "sender_transaction_currency": "760",  
+        "device_banking_type": "",  
+        "customer_name": "Fraudulent Joe",  
+        "customer_id": "cutomer_1",  
+        "sender_transaction_code": "",  
+        "receiver_bank_bic": "4ad3fe88-317b-4b31-ad9b-9136424c17ad",  
+        "customer_portfolio_product": "",  
+        "rule_explanations": {  
+            "Dummy": "Customer name is Fraudulent Joe"  
+        }  
+    }  
+    
+
+Copy
+    
+    
+    {  
+      "notification_type" : "card_status_update",  
+      "account_number" : "1005103001044120",  
+      "operational_status" : "closed",  
+      "fdz_channel" : "cards",  
+      "source" : "MSC",  
+      "trans_message_type" : "TypeA",  
+      "customer_portfolio_channel" : "portfoliochannel",  
+      "customer_portfolio_country" : "feedzai",  
+      "event_occurred_at" : "1773684342216",  
+      "event_type" : "feedback",  
+      "customer_portfolio_type" : "portfoliotype",  
+      "treatment_strategy" : "none",  
+      "alert_id" : "6e684d92-49ec-309a-9112-4ebc70e8d3ad",  
+      "customer_portfolio" : "EU_PC_CR_MS_GNRL",  
+      "customer_portfolio_class" : "elite",  
+      "self_serve_strategy" : "none",  
+      "customer_id_global" : "HK",  
+      "card_transaction_ref_number" : "card_1",  
+      "card_pan" : "card_1",  
+      "lifecycle_id" : "ad3c8300-8d7d-40ac-8c2a-9db15e1feef5",  
+      "customer_portfolio_region" : "US-EAST",  
+      "system_decision" : "approve",  
+      "lifecycle_id_alt" : "9e00eeba-daa7-48ed-9c92-c2125108d94e",  
+      "account_id" : "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+      "card_transaction_component_type" : "TRX",  
+      "smh_source" : "",  
+      "customer_id" : "cutomer_1",  
+      "wallet_decision" : "none",  
+      "card_txn_sub_type" : "TypeB",  
+      "customer_id_number" : "0HKHSXXXXXX796256",  
+      "customer_portfolio_product" : "product"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+        "notification_type": "payment_fulfilment",  
+        "fdz_channel": "outbound-payments",  
+        "decision_cm_rule": "",  
+        "closing_notes": "",  
+        "payment_message_source": "HK_CMOP",  
+        "lifecycle_id": "",  
+        "source": "",  
+        "sender_initiated_at": "1554196919000",  
+        "customer_id": "acc_10022917",  
+        "alert_id": "437b4366",  
+        "fraud_label": "",  
+        "fraud_label_reason": "",  
+        "system_decision": "fraud",  
+        "office_id": "",  
+        "customer_portfolio_country": "",  
+        "customer_portfolio_region": "",  
+        "customer_portfolio_product": "",  
+        "customer_portfolio_channel": "",  
+        "customer_portfolio_type": "",  
+        "customer_portfolio_class": "",  
+        "sender_transaction_bank_account_number": "9867545567788",  
+        "user_id": "John",  
+        "customer_id_global": "John_123",  
+        "sender_initiated_at_local": "Mr::",  
+        "lifecycle_id_alt": "abc",  
+        "customer_id_number": "0HKHSXXXXXX796256",  
+        "payment_sub_type": "credit_transfer",  
+        "receiver_transaction_bank_account_number": "7867512567778",  
+        "sender_transaction_ref_nr_alt": "Transction123",  
+        "sender_transaction_original_amount": "395.75",  
+        "sender_transaction_original_currency": "978",  
+        "operational_status":"",  
+        "treatment_strategy":"none",  
+        "self_serve_strategy":"none",  
+        "oob_notes":"Contacted John Doe to confirm.",  
+        "channel_name": "N"  
+    }  
+    
+
+Copy
+    
+    
+    {  
+      "notification_type": "cards_fulfilment",  
+      "operational_status": "in_progress",  
+      "oob_feedback_notes": null,  
+      "source": "MSC",  
+      "oob_notes": null,  
+      "crypto_transaction_info": "",  
+      "trans_model_amt": "10.0",  
+      "fraud_label": "Fraud",  
+      "score": "0.0",  
+      "event_type": "AX",  
+      "fraud_label_reason": "Non-Mon - Fraud",  
+      "treatment_strategy": "none",  
+      "alert_id": "f65f23fd-3225-3054-9c27-87d95595f424",  
+      "card_phone_banking_user_id": "A5435454435",  
+      "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+      "customer_portfolio_class": "elite",  
+      "closing_notes": "This is a note",  
+      "customer_id_global": null,  
+      "oob_comm_type": null,  
+      "feedback_label": "",  
+      "customer_portfolio_region": "US-EAST",  
+      "trans_currency_code": "068",  
+      "customer_id_personal": "id_personal",  
+      "lifecycle_id_alt": "",  
+      "system_decision": "approve",  
+      "cardholder_bill_currency_code": "068",  
+      "external_status_reason": "",  
+      "acquirer_id": "12345678912",  
+      "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+      "smh_source": "smh_source",  
+      "wallet_decision": "none",  
+      "customer_id_number": "cutomer_1",  
+      "decision_cm_rule": "decline",  
+      "account_number": "1005103001044120",  
+      "saf_ind": "N",  
+      "fdz_channel": "cards",  
+      "local_datetime": "20110123",  
+      "analyst_id": "pulse",  
+      "trans_message_type": "",  
+      "customer_portfolio_channel": "portfoliochannel",  
+      "currency_code": "068",  
+      "event_occurred_at": "1770633896704",  
+      "customer_portfolio_country": "feedzai",  
+      "amount_dbl": "11000.0",  
+      "customer_portfolio_type": "portfoliotype",  
+      "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+      "acceptor_name": "GOLFSTORE3DS",  
+      "channel_type": "web",  
+      "sender_initiated_at": "1752066662",  
+      "oob_response_type": null,  
+      "cardholder_bill_amount": "11000",  
+      "self_serve_strategy": "none",  
+      "card_transaction_ref_number": "",  
+      "lifecycle_id": "9296021c-7bea-4d31-bca7-68c2f004fbf4",  
+      "card_pan": "89550ee6060cd018266fe1f36262fa0a6a89f59c",  
+      "customer_id_business": null,  
+      "account_id": "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+      "card_transaction_component_type": "TRX",  
+      "customer_name": "Miss Maureen Haag",  
+      "customer_id": "cutomer_1",  
+      "card_txn_sub_type": "",  
+      "feedback_type": "out_of_band",  
+      "customer_portfolio_product": "product",  
+      "cm_transaction_block": "sample_1",  
+      "cm_transaction_block_action": null,  
+      "cm_transaction_block_expiration": "1772638079711",  
+      "cm_transaction_block_timezone": "+0000",  
+      "cm_transaction_block_date": "2026-03-04T15:27:59"  
+    }  
+    
+
+Copy
+
+### Schemasâ
+
+  * Send Mobile Payment Push (Transfers)
+  * Send Mobile Payment Push (Digital Activity)
+  * Send Mobile Payment Push (Cards)
+  * Send 2 WAY / 1 WAY SMS
+  * Send 2-WAY SMS (Cards)
+  * Send 1-WAY SMS (Cards)
+  * Send 1-WAY SMS (Non-Mon)
+  * Send Reminder SMS (Cards)
+  * Send Reminder SMS (Non-Mon)
+  * Inbound Payment Notification
+  * Card Status Update
+  * Payment Fulfillment
+  * Cards Fulfillment
+
+
+
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `payment_mobile_push` in this extension  
+text_for_receiver| String| Payment description, destination narrative (payment ref included)  
+sender_transaction_amount| String| Transaction amount in transaction currency and in scientific notation. This should always be a positive number  
+sender_transaction_amount_dbl| String| Transaction amount in transaction currency and in scientific notation based on the new payload amount field. This should always be a positive number  
+sender_transaction_currency| String| Three-digit numeric ISO code of transaction currency (Do not truncate leading zeroes.)  
+sender_transaction_original_amount| String| Transaction original amount in transaction original currency and in scientific notation. This should always be a positive number  
+sender_transaction_original_currency| String| Three-digit numeric ISO code of transaction original currency (Do not truncate leading zeroes.)  
+sender_transaction_bank_account_number| String| Account number of the primary interest e.g. The transacting account for payment card transactions  
+receiver_name| String| Beneficiary name in non-latin characters  
+system_decision| String| The original decision provided by the fraud decision system  
+office_id| String| The RPS/CONDOR queue name sent as part of the payment initiation API  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S  
+receiver_transaction_bank_account_number| String| Customer (beneficiary) Account number  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards  
+customer_id| String| Customer number  
+customer_id_number| String| Customer ID number  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc)  
+treatment_strategy| String| Treatment Strategy  
+self_serve_strategy| String| Self Serve Strategy  
+customer_name| String| Customer Name  
+customer_surname| String| Customer Surname  
+customer_mobile_phone| String| Mobile Phone  
+customer_email| String| Email Address  
+customer_preferred_language| String| customerPreferredLanguage  
+payment_message_source| String| Unique identifier of the source system sending data  
+payment_sub_type| String| Payment Sub Type  
+thailand_fps_ind| String| Payment FPS Indicator  
+customer_alias| String| Customer Chinese Name  
+user_id| String| Online Banking User ID  
+customer_id_global| String| Global Customer ID  
+channel_user_id| String| Online/Internet Banking User ID  
+device_ip_address| String| IP address  
+tmx.ip_address| String| True IP Address  
+tmx.ip_city| String| True IP City  
+tmx.ip_country| String| True IP Country  
+tmx.true_isp| String| The legitimate Internet Service Provider that assigned the original IP address used by an end-user to access the internet. This ISP is tied directly to the user's physical location or device - without any intermediate.  
+tmx.proxy_isp| String| It is the service provider offering proxy IP addresses that mask the user's actual IP address. These includes VPNs, residential proxies, datacenter proxies, and anonymizers. In essence, the ISP visible to the internet is that of the proxy provider, not the user's real ISP.  
+tmx.dns_isp| String| It refers to the ISP seen during Domain Name System (DNS) resolution - the process of converting human-readable domain names into IP addresses. This is typically the ISP of the DSN resolver the user is.  
+device_banking_type| String| Online Banking device  
+device_os| String| Operating System Version  
+device_user_agent| String| User Agent HTTP Header  
+sender_account_type| String| Type of sender account  
+receiver_account_type| String| Type of receiver account  
+customer_account_type| String| Type of customer account  
+account_type| String| Account type  
+product_code| String| The code of the product offered by the bank that was used to initiate the transfer  
+sender_product_type| String| Type of product held  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `payment_mobile_push` in this extension  
+text_for_receiver| String| Payment description, destination narrative (payment ref included)  
+sender_transaction_amount| String| Transaction amount in transaction currency and in scientific notation. This should always be a positive number  
+sender_transaction_amount_dbl| String| Transaction amount in transaction currency and in scientific notation based on the new payload amount field. This should always be a positive number  
+sender_transaction_currency| String| Three-digit numeric ISO code of transaction currency (Do not truncate leading zeroes.)  
+sender_transaction_original_currency| String| Three-digit numeric ISO code of transaction original currency (Do not truncate leading zeroes.)  
+sender_transaction_bank_account_number| String| Account number of the primary interest e.g. The transacting account for payment card transactions  
+receiver_name| String| Beneficiary name in non-latin characters  
+system_decision| String| The original decision provided by the fraud decision system  
+office_id| String| The RPS/CONDOR queue name sent as part of the payment initiation API  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S  
+receiver_transaction_bank_account_number| String| Customer (beneficiary) Account number  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards  
+customer_id| String| Customer number  
+customer_id_number| String| Customer ID number  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc)  
+treatment_strategy| String| Treatment Strategy  
+self_serve_strategy| String| Self Serve Strategy  
+customer_name| String| Customer Name  
+customer_surname| String| Customer Surname  
+customer_mobile_phone| String| Mobile Phone  
+customer_email| String| Email Address  
+customer_preferred_language| String| customerPreferredLanguage  
+payment_message_source| String| Unique identifier of the source system sending data  
+payment_sub_type| String| Payment Sub Type  
+thailand_fps_ind| String| Payment FPS Indicator  
+customer_alias| String| Customer Chinese Name  
+user_id| String| Online Banking User ID  
+customer_id_global| String| Global Customer ID  
+channel_user_id| String| Online/Internet Banking User ID  
+device_ip_address| String| IP address  
+tmx.ip_address| String| True IP Address  
+tmx.ip_city| String| True IP City  
+tmx.ip_country| String| True IP Country  
+tmx.true_isp| String| The legitimate Internet Service Provider that assigned the original IP address used by an end-user to access the internet. This ISP is tied directly to the user's physical location or device - without any intermediate.  
+tmx.proxy_isp| String| It is the service provider offering proxy IP addresses that mask the user's actual IP address. These includes VPNs, residential proxies, datacenter proxies, and anonymizers. In essence, the ISP visible to the internet is that of the proxy provider, not the user's real ISP.  
+tmx.dns_isp| String| It refers to the ISP seen during Domain Name System (DNS) resolution - the process of converting human-readable domain names into IP addresses. This is typically the ISP of the DSN resolver the user is.  
+device_banking_type| String| Online Banking device  
+device_os| String| Operating System Version  
+device_user_agent| String| User Agent HTTP Header  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `cards_2_way_sms` in this extension.  
+fdz_channel| String| The Case Manager channel of the event.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+cm_transaction_block| String| The transaction block assigned by the analyst.  
+cm_transaction_block_action| String| The transaction block action assigned by the analyst.  
+cm_transaction_block_date| String| Date when the transaction block was filled by the analyst.  
+cm_transaction_block_timezone| String| Timezone where the transaction block was filled by the analyst.  
+cm_transaction_block_expiration| String| The transaction block expiration date.  
+smh_source| String| System feeding that information into SAS.  
+source| String| Source.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_txn_sub_type| String| Card transaction sub type.  
+trans_message_type| String| Trans message type field.  
+event_type| String| Event type.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+sender_initiated_at_local| String| Transactions Timestamp local.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| String| Timestamp when the event occurred.  
+wallet_decision| String| Wallet decision field.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+acquirer_id| String| Acquirer identifier.  
+customer_id| String| Customer number.  
+customer_id_global| String| Global Customer ID.  
+customer_id_number| String| Customer ID number.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_email| String| Email Address.  
+customer_name| String| Customer Name.  
+customer_mobile_phone| String| Mobile Phone.  
+customer_business_phone| String| Business Phone.  
+customer_voice_id| String| Customer Voice ID.  
+amount_dbl| String| Transaction amount.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| OOB notes.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+external_status_reason| String| External status reason identifier.  
+channel_type| String| Channel type.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc).  
+system_decision| String| The original decision provided by the fraud decision system.  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `2_way_1_way_sms` in this extension  
+text_for_receiver| String| Payment description, destination narrative (payment ref included)  
+sender_transaction_amount| String| Transaction amount in transaction currency and in scientific notation. This should always be a positive number  
+sender_transaction_amount_dbl| String| Transaction amount in transaction currency and in scientific notation based on the new payload amount field. This should always be a positive number  
+sender_transaction_currency| String| Three-digit numeric ISO code of transaction currency (Do not truncate leading zeroes.)  
+sender_transaction_original_amount| String| Transaction original amount in transaction original currency and in scientific notation. This should always be a positive number  
+sender_transaction_original_currency| String| Three-digit numeric ISO code of transaction original currency (Do not truncate leading zeroes.)  
+sender_transaction_bank_account_number| String| Account number of the primary interest e.g. The transacting account for payment card transactions  
+receiver_name| String| Beneficiary name in non-latin characters  
+system_decision| String| The original decision provided by the fraud decision system  
+office_id| String| The RPS/CONDOR queue name sent as part of the payment initiation API  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S  
+receiver_transaction_bank_account_number| String| Customer (beneficiary) Account number  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards  
+customer_id| String| Customer number  
+customer_id_number| String| Customer ID number  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc)  
+treatment_strategy| String| Treatment Strategy  
+self_serve_strategy| String| Self Serve Strategy  
+customer_name| String| Customer Name  
+customer_surname| String| Customer Surname  
+customer_mobile_phone| String| Mobile Phone  
+customer_email| String| Email Address  
+customer_preferred_language| String| customerPreferredLanguage  
+payment_message_source| String| Unique identifier of the source system sending data  
+payment_sub_type| String| Payment Sub Type  
+thailand_fps_ind| String| Payment FPS Indicator  
+customer_alias| String| Customer Chinese Name  
+user_id| String| Online Banking User ID  
+customer_id_global| String| Global Customer ID  
+channel_user_id| String| Online/Internet Banking User ID  
+device_ip_address| String| IP address  
+tmx.ip_address| String| True IP Address  
+tmx.ip_city| String| True IP City  
+tmx.ip_country| String| True IP Country  
+tmx.true_isp| String| The legitimate Internet Service Provider that assigned the original IP address used by an end-user to access the internet. This ISP is tied directly to the user's physical location or device - without any intermediate.  
+tmx.proxy_isp| String| It is the service provider offering proxy IP addresses that mask the user's actual IP address. These includes VPNs, residential proxies, datacenter proxies, and anonymizers. In essence, the ISP visible to the internet is that of the proxy provider, not the user's real ISP.  
+tmx.dns_isp| String| It refers to the ISP seen during Domain Name System (DNS) resolution - the process of converting human-readable domain names into IP addresses. This is typically the ISP of the DSN resolver the user is.  
+device_banking_type| String| Online Banking device  
+device_os| String| Operating System Version  
+device_user_agent| String| User Agent HTTP Header  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `cards_2_way_sms` in this extension.  
+fdz_channel| String| The Case Manager channel of the event.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+cm_transaction_block| String| The transaction block assigned by the analyst.  
+cm_transaction_block_action| String| The transaction block action assigned by the analyst.  
+cm_transaction_block_date| String| Date when the transaction block was filled by the analyst.  
+cm_transaction_block_timezone| String| Timezone where the transaction block was filled by the analyst.  
+cm_transaction_block_expiration| String| The transaction block expiration date.  
+smh_source| String| System feeding that information into SAS.  
+source| String| Source.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_txn_sub_type| String| Card transaction sub type.  
+trans_message_type| String| Trans message type field.  
+event_type| String| Event type.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+sender_initiated_at_local| String| Transactions Timestamp local.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| String| Timestamp when the event occurred.  
+wallet_decision| String| Wallet decision field.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+acquirer_id| String| Acquirer identifier.  
+customer_id| String| Customer number.  
+customer_id_global| String| Global Customer ID.  
+customer_id_number| String| Customer ID number.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_email| String| Email Address.  
+customer_name| String| Customer Name.  
+customer_mobile_phone| String| Mobile Phone.  
+customer_business_phone| String| Business Phone.  
+customer_voice_id| String| Customer Voice ID.  
+amount_dbl| String| Transaction amount.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| OOB notes.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+external_status_reason| String| External status reason identifier.  
+channel_type| String| Channel type.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc).  
+system_decision| String| The original decision provided by the fraud decision system.  
+previous_transactions| Object| Previous related transactions. See Previous Transactions for more information.  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `cards_1_way_sms` in this extension.  
+fdz_channel| String| The Case Manager channel of the event.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+cm_transaction_block| String| The transaction block assigned by the analyst.  
+cm_transaction_block_action| String| The transaction block action assigned by the analyst.  
+cm_transaction_block_date| String| Date when the transaction block was filled by the analyst.  
+cm_transaction_block_timezone| String| Timezone where the transaction block was filled by the analyst.  
+cm_transaction_block_expiration| String| The transaction block expiration date.  
+smh_source| String| System feeding that information into SAS.  
+source| String| Source.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_txn_sub_type| String| Card transaction sub type.  
+trans_message_type| String| Trans message type field.  
+event_type| String| Event type.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+sender_initiated_at_local| String| Transactions Timestamp local.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| String| Timestamp when the event occurred.  
+wallet_decision| String| Wallet decision field.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+acquirer_id| String| Acquirer identifier.  
+customer_id| String| Customer number.  
+customer_id_global| String| Global Customer ID.  
+customer_id_number| String| Customer ID number.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_email| String| Email Address.  
+customer_name| String| Customer Name.  
+customer_mobile_phone| String| Mobile Phone.  
+customer_business_phone| String| Business Phone.  
+customer_voice_id| String| Customer Voice ID.  
+amount_dbl| String| Transaction amount.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| OOB notes.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+external_status_reason| String| External status reason identifier.  
+channel_type| String| Channel type.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc).  
+system_decision| String| The original decision provided by the fraud decision system.  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `cards_1_way_sms` in this extension.  
+fdz_channel| String| The Case Manager channel of the event.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+smh_source| String| System feeding that information into SAS.  
+source| String| Source.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_txn_sub_type| String| Card transaction sub type.  
+trans_message_type| String| Trans message type field.  
+event_type| String| Event type.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+sender_initiated_at_local| String| Transactions Timestamp local.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| String| Timestamp when the event occurred.  
+wallet_decision| String| Wallet decision field.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+acquirer_id| String| Acquirer identifier.  
+customer_id| String| Customer number.  
+customer_id_global| String| Global Customer ID.  
+customer_id_number| String| Customer ID number.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_email| String| Email Address.  
+customer_name| String| Customer Name.  
+customer_mobile_phone| String| Mobile Phone.  
+customer_business_phone| String| Business Phone.  
+customer_voice_id| String| Customer Voice ID.  
+amount_dbl| String| Transaction amount.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| OOB notes.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+external_status_reason| String| External status reason identifier.  
+channel_type| String| Channel type.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc).  
+system_decision| String| The original decision provided by the fraud decision system.  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `cards_reminder_sms` in this extension.  
+fdz_channel| String| The Case Manager channel of the event.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+cm_transaction_block| String| The transaction block assigned by the analyst.  
+cm_transaction_block_action| String| The transaction block action assigned by the analyst.  
+cm_transaction_block_date| String| Date when the transaction block was filled by the analyst.  
+cm_transaction_block_timezone| String| Timezone where the transaction block was filled by the analyst.  
+cm_transaction_block_expiration| String| The transaction block expiration date.  
+smh_source| String| System feeding that information into SAS.  
+source| String| Source.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_txn_sub_type| String| Card transaction sub type.  
+trans_message_type| String| Trans message type field.  
+event_type| String| Event type.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+sender_initiated_at_local| String| Transactions Timestamp local.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| String| Timestamp when the event occurred.  
+wallet_decision| String| Wallet decision field.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+acquirer_id| String| Acquirer identifier.  
+customer_id| String| Customer number.  
+customer_id_global| String| Global Customer ID.  
+customer_id_number| String| Customer ID number.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_email| String| Email Address.  
+customer_name| String| Customer Name.  
+customer_mobile_phone| String| Mobile Phone.  
+customer_business_phone| String| Business Phone.  
+customer_voice_id| String| Customer Voice ID.  
+amount_dbl| String| Transaction amount.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| OOB notes.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+external_status_reason| String| External status reason identifier.  
+channel_type| String| Channel type.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc)  
+system_decision| String| The original decision provided by the fraud decision system  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `cards_reminder_sms` in this extension  
+fdz_channel| String| The Case Manager channel of the event.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+smh_source| String| System feeding that information into SAS.  
+source| String| Source.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_txn_sub_type| String| Card transaction sub type.  
+trans_message_type| String| Trans message type field.  
+event_type| String| Event type.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+sender_initiated_at_local| String| Transactions Timestamp local.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| String| Timestamp when the event occurred.  
+wallet_decision| String| Wallet decision field.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+acquirer_id| String| Acquirer identifier.  
+customer_id| String| Customer number.  
+customer_id_global| String| Global Customer ID.  
+customer_id_number| String| Customer ID number.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_email| String| Email Address.  
+customer_name| String| Customer Name.  
+customer_mobile_phone| String| Mobile Phone.  
+customer_business_phone| String| Business Phone.  
+customer_voice_id| String| Customer Voice ID.  
+amount_dbl| String| Transaction amount.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| OOB notes.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+external_status_reason| String| External status reason identifier.  
+channel_type| String| Channel type.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc)  
+system_decision| String| The original decision provided by the fraud decision system  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `inbound_mule_alert` in this extension  
+customer_market_segment| String| Customer market segment  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc)  
+channel_user_id| String| Online/Internet Banking User ID  
+sender_name| String| Sender name  
+sender_bank_country_code| String| Sender's bank country code  
+sender_transaction_ref| String| Payment Sender Reference  
+sender_transaction_bank_account_number| String| Account number of the primary interest e.g. The transacting account for payment card transactions  
+office_id| String| The RPS/CONDOR queue name sent as part of the payment initiation API  
+customer_mobile_phone| String| Mobile Phone  
+event_type| String| Event type  
+customer_card_number| String| Card Number associated with non-monetary transaction  
+sender_transaction_original_amount| String| Transaction original amount in transaction original currency and in scientific notation. This should always be a positive number  
+treatment_strategy| String| Treatment Strategy  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+sender_transaction_auth_type| String| Authentication Method  
+sender_transaction_original_currency| String| Three-digit numeric ISO code of transaction original currency (Do not truncate leading zeroes.)  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A  
+requested_execution_at| String| Date at which the initiating party requests the clearing agent to process the payment  
+text_for_receiver| String| Payment description, destination narrative (payment ref included)  
+customer_id_global| String| Global Customer ID  
+receiver_account_bank_id| String| Account bank number  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America  
+system_decision| String| The original decision provided by the fraud decision system  
+receiver_bank_country_code| String| Country code of the receiver's bank  
+payment_type| String| Transaction type, Convention: B: Bill Payment T: Fund Transfer  
+line_of_business| String| Line of business  
+user_id| String| Online Banking User ID  
+customer_email| String| Email Address  
+receiver_transaction_currency| String| Defines the currency of the `receiver_transaction_amount` field  
+sender_transaction_amount| String| Transaction amount in transaction currency and in scientific notation. This should always be a positive number  
+device_ip_address| String| IP address  
+customer_id_number| String| Customer ID number  
+payment_message_source| String| Unique identifier of the source system sending data  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown  
+sender_transaction_type| String| Type of Activity  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S  
+payment_sub_type| String| Payment Sub Type  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+sender_transaction_amount_dbl| String| Transaction amount in transaction currency and in scientific notation based on the new payload amount field. This should always be a positive number  
+receiver_name| String| Beneficiary name in non-latin characters  
+receiver_transaction_amount_dbl| String| Transaction amount received by the receiver  
+customer_surname| String| Customer Surname  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+receiver_transaction_bank_account_number| String| Customer (beneficiary) Account number  
+self_serve_strategy| String| Self Serve Strategy  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+device_user_agent| String| User Agent HTTP Header  
+device_os| String| Operating System Version  
+sender_transaction_currency| String| Three-digit numeric ISO code of transaction currency (Do not truncate leading zeroes.)  
+device_banking_type| String| Online Banking device  
+customer_name| String| Customer Name  
+customer_id| String| Customer number  
+sender_transaction_code| String| Non Monetary Transaction type  
+receiver_bank_bic| String| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards  
+rule_explanations| Map[String, String]| A map of rule names to their explanations  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| This field always takes the value `card_status_update` in this extension.  
+account_number| String| Account number.  
+operational_status| String| Operational Status of the Event (Possible values Contact Customer, Unreviewed Etc Etc).  
+fdz_channel| String| The Case Manager channel of the event.  
+source| String| Source.  
+trans_message_type| String| Trans message type field.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+event_occurred_at| String| Timestamp when the event occurred.  
+event_type| String| Event type.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+treatment_strategy| String| Treatment Strategy.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+customer_portfolio| String| Customer Portfolio identifier.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+self_serve_strategy| String| Self Serve Strategy.  
+customer_id_global| String| Global Customer ID.  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_pan| String| Primary Account Number.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+system_decision| String| The original decision provided by the fraud decision system.  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank.  
+account_id| String| Account identifier.  
+card_transaction_component_type| String| Customer Type, Convention.  
+smh_source| String| System feeding that information into SAS.  
+customer_id| String| Customer number.  
+wallet_decision| String| Wallet decision field.  
+card_txn_sub_type| String| Card transaction sub type.  
+customer_id_number| String| Customer ID number.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| The notification type. For this particular extension it will always be `payment_fulfilment`  
+fdz_channel| String| The Case Manager channel of the event.  
+decision_cm_rule| String| Decision CM Rule  
+closing_notes| String| Closing Notes  
+payment_message_source| String| Unique identifier of the source system sending data  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank  
+source| String| Source  
+sender_initiated_at| String| Effective date of the transaction (in UTC format when known). Payment Card Transactions: This date reflects when the transaction first entered the issuer's system. This should be derived from the issuer's own timestamp. Payments via online banking payment application: This date reflects when the payment is released from payment application for payment processing.  
+customer_id| String| Customer number  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction  
+fraud_label| String| Fraud Label  
+fraud_label_reason| String| Fraud Label Reason  
+system_decision| String| The original decision provided by the fraud decision system  
+office_id| String| The RPS/CONDOR queue name sent as part of the payment initiation API  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+sender_transaction_bank_account_number| String| Account number of the primary interest e.g. The transacting account for payment card transactions  
+user_id| String| Online/Internet Banking Id  
+customer_id_global| String| Can be used to map GUCI or another global customer identifier  
+sender_initiated_at_local| String| Transactions Timestamp local  
+lifecycle_id_alt| String| Identification number of transaction Unique ID / Reference Generated for Payment by Bank  
+customer_id_number| String| Hong Kong Identification Number  
+payment_sub_type| String| Segment code of the transaction (Type of Payments)  
+receiver_transaction_bank_account_number| String| Account number for Receiving Party  
+sender_transaction_ref_nr_alt| String| Reference number of the transaction  
+sender_transaction_original_amount| String| Transaction amount in transaction currency and in scientific notation. This should always be a positive number  
+sender_transaction_original_currency| String| Three digit numeric ISO code of transaction currency (Do not truncate leading zeroes)  
+operational_status| String| Event Operational Status  
+oob_notes| String| OOB notes  
+treatment_strategy| String| Treatment Strategy  
+self_serve_strategy| String| Self Serve Strategy  
+channel_name| String| Channel Name  
+  
+Field| Type| Description  
+---|---|---  
+notification_type| String| The notification type. For this extension, it will always be `cards_fulfilment`.  
+decision_cm_rule| String| Decision CM Rule.  
+closing_notes| String| Closing Notes.  
+source| String| Source identifier of the system sending data.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+event_type| String| Type of card event.  
+lifecycle_id_alt| String| Alternative transaction reference number.  
+sender_initiated_at| String| Effective date of the transaction.  
+sender_initiated_at_local| String| Transaction timestamp in local timezone.  
+event_occurred_at| String| Timestamp when the event occurred.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+fraud_label| String| Fraud Label.  
+fraud_label_reason| String| Fraud Label Reason.  
+system_decision| String| The original decision provided by the fraud decision system.  
+score| String| Fraud score from the decision system.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_portfolio| String| Customer Portfolio identifier.  
+account_id| String| Account identifier.  
+account_number| String| Account number.  
+customer_id| String| Customer number.  
+customer_id_number| String| Customer ID number.  
+customer_id_global| String| Global Customer ID.  
+customer_email| String| Customer email address.  
+customer_name| String| Customer name.  
+acquirer_id| String| Acquirer identifier.  
+amount_dbl| String| Transaction amount.  
+cardholder_bill_amount| String| Cardholder billing amount.  
+cardholder_bill_currency_code| String| Three-digit numeric ISO code of cardholder billing currency.  
+currency_code| String| Three-digit numeric ISO code of transaction currency.  
+acceptor_name| String| Merchant/Acceptor name.  
+operational_status| String| Event Operational Status.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+oob_notes| String| Out-of-band notes.  
+external_status_reason| String| External status reason identifier.  
+card_pan| String| Primary Account Number.  
+saf_ind| String| Store and Forward indicator.  
+oob_feedback_notes| String| Out Of Band Feedback Notes.  
+oob_comm_type| String| Out Of Band Communication Type.  
+oob_response_type| String| Out Of Band Response Type.  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_transaction_component_type| String| Customer Type, Convention.  
+card_txn_sub_type| String| Card transaction sub type.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+channel_type| String| Channel type.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+feedback_label| String| Feedback label.  
+feedback_type| String| Feedback Type.  
+fdz_channel| String| The Case Manager channel of the event.  
+local_datetime| String| Time and date for when payment originated.  
+cm_transaction_block| String| The transaction block assigned by the analyst.  
+cm_transaction_block_action| String| The transaction block action assigned by the analyst.  
+cm_transaction_block_date| String| Date when the transaction block was filled by the analyst.  
+cm_transaction_block_timezone| String| Timezone where the transaction block was filled by the analyst.  
+cm_transaction_block_expiration| String| The transaction block expiration date.  
+trans_model_amt| String| Trans model amount field.  
+trans_currency_code| String| Three digit numeric ISO currency code for transaction.  
+trans_message_type| String| Trans message type field.  
+smh_source| String| System feeding that information into SAS.  
+wallet_decision| String| Wallet decision field.  
+analyst_id| String| The analyst user name as configured in Pulse. In case the extension triggers without user interaction (e.g. `feedback event`) this value will be sent as `null`.  
+  
+#### Previous Transactionsâ
+
+The `previous_transactions` field is a special field that contains information about previous transactions that relate to the event that triggered an extension.
+
+The default criteria to list related transactions is the following:
+
+  * Same `card_pan` value
+  * Same `customer_id` value
+  * Happened in the last 24 hours (calculate from the time the extension was triggered)
+  * Is not the event that triggered the extension
+
+
+
+If a transaction is found, its information is then added to the extension payload, e.g:
+    
+    
+    {  
+      "notification_type": "2_way_1_way_sms",  
+      ...  
+      "previous_transactions": [  
+        {  
+          "amount_dbl": "11000.0",  
+          "lifecycle_id": "9a3c955c-4add-4664-8954-818639e59b7e",  
+          "local_datetime": "20110123",  
+          "acceptor_name": "GOLFSTORE3DS",  
+          "currency_code": "634",  
+          "event_occurred_at": "1771927092140"  
+        }  
+      ]  
+    }  
+    
+
+Copy

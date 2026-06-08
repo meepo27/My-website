@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3884
+Title: HSBC-3884 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3884
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-33679HSBC-3884
+
+We have added the below fields to the Pulse Cards API schema:
+
+**Field Name**| **Datatype**  
+---|---  
+card_relay_attk_code| String  
+dw_token_msg_rsn_cde_des| String  
+card_customer_instruction| String  
+card_customer_instruction_desc| String  
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.

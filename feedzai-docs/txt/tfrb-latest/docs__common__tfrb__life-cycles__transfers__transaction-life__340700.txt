@@ -1,0 +1,156 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle
+Title: Outbound Transfers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * Outbound Transfers
+
+
+
+On this page
+
+# Outbound Transfers
+
+Was this page helpful?Â 
+
+Learn about the transaction life cycle and understand how the transfers API is used in the different stages of a transaction, e.g. transfer initiation, disputes, and settlements.
+
+## Transaction life cycleâ
+
+The following diagram shows how the transfers API endpoints come into play in the course of a typical transaction life cycle:
+
+tip
+
+**Step nuances:** The steps illustrated in the diagram above and the endpoint evocations represent a scenario in which the API is used to score individual transactions. A different use case might undergo different steps. For example, in AML transaction monitoring, the identification of suspicious activity is performed by conducting a behavioral analysis of the customer activity. Since the transactions have been settled already, the first API call might be done directly via the settlement endpoint, replacing the transfer initiation request.
+
+The diagram above represents an integration between the sender's bank and Feedzai. For inbound transfers at the receiver's end, see [Inbound Payments' Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/inbound-payments/transaction-life-cycle). The following steps describe the integration at the sender's bank-end as depicted in the diagram. Refer to the [Transfer Initiation](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transfer-initiation) page to request a decision for an incoming transfer.
+
+  1. **Sender initiates transfer** : The sender, also referred to as **originator** , initiates the transfer using any available channel - for example, mobile, internet banking, phone, bank branch, contact center, email, file transfer system.
+
+  2. **Sender's bank invokes the Transfers API** : The sender's bank or the payment service provider (PSP) receives the transfer instructions and debits the sender's account, also referred to as **originator**. The sender's bank invokes the Transfer Initiation endpoint with the payload related to the given transfer. In some situations, the Info endpoint is also used at this point, for example, to communicate pre-decided transfers. Transfers sent via the Info endpoint are not scored.
+
+info
+
+For transactions that occur between customers from the same bank, two events should be sent to Feedzai, one via **[Inbound Payments API](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-initiation)** , and another one via **[Outbound Transfers](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-transfer-initiation)** API.
+
+  3. **Feedzai conducts real-time data analysis and scores** : The transfer is processed by the risk engine platform with rules and/or models. As a result, the risk engine generates a recommendation that the transfer is either **legitimate** or **suspicious**. The recommendation is configured at the risk engine level and may vary according to the use case. It may also have intrinsic logic to respond to the type of transfers. For example, instant transfers may only result in recommendations that indicate legitimate or suspicious activity. On the other hand, transfers that are subject to longer processing times - credit transfers and direct debit - may generate a Pending for Review recommendation to indicate that the transaction is being investigated by a fraud analyst.
+
+  4. **Analysts perform alert manual revision** : Fraud analysts perform manual investigation on alerts raised by the risk engine. This step only applies to credit transfers and direct debit since these are bank payments subject to longer processing times. For instant transfers, the alert investigation is a post-mortem-like analysis because the payment is processed in real time.
+
+info
+
+**Customer notification:** When an analyst decides that a transfer is fraudulent or legitimate, Feedzai sends the information to the customer through a webhook notification. The client receives a `lifecyle_id` that they can use by invoking the Transfers Get endpoint to obtain more information about a specific event. Customers can benefit from this notification service by implementing mechanisms that act upon the analyst's decision. This notification is **particularly important for non-instant transfers** , where analysts can manually review the payment before deciding whether to include it or not in the batch of transfers. For example, the bank can leverage this information when creating the file that is sent to the clearing mechanism via batch (i.e. a bulk message with multiple transfer instructions). The bank can either include the transfer only when the analyst confirms the event as not fraud, or include all the transfers by default and then exclude the ones marked as fraudulent. Read more about [webhooks](/tfrb/latest/docs/common/tfrb/about/how-it-works#5-webhooks).
+
+  5. **Sender's bank makes an automated decision based on Feedzai's recommendation** : The sender's system makes an automated decision based on Feedzai's recommendation and optionally notifies Feedzai about this decision via Info or Feedback endpoints. The bank sends the transfer instructions to the receiver's bank following the processing model that applies to the given transfer.
+
+  6. **Transfer is processed by the given payment model** : The transfer is processed by the processing model. Common models are **Automated Clearing House** (ACH), **Correspondent Banking** , and **Real-time Gross Transfer** (RTGT). Peer-to-peer, a model that is being rapidly adopted, is also covered by the Transfers Connector integration; however, the life cycle has to be adjusted to this processing model. Check [Peer-to-Peer](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/peer-to-peer) for more information.
+
+tip
+
+**Processing model:** This communication between the sender's bank, processing model, and receiver's bank contains extra details that are not included in the diagram for simplicity. Check the [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details) to learn more about these details.
+
+  7. **Receiver's bank receives the transfer instructions** : The receiver's bank receives the instructions to credit the receiver's account.
+
+  8. **Receiver's account is updated with the funds** : The receiver's account is updated with the funds and the sender's bank informs Feedzai about the transfer settlement.
+
+  9. **Analysts perform alert manual revision** : At any point after the real-time event processing, a fraud analyst can investigate the event. The information is sent back to the risk engine and can be leveraged by rules and models.
+
+
+
+
+### Endpoint summaryâ
+
+These endpoints allow users to send information at different stages of a transaction life cycle as follows:
+
+  * **Transfer Initiation:** Allows Feedzai's customers to leverage data science capabilities to score a transaction according to its risk.
+  * **Info:** Allows Feedzai's customers to update and add new information to an existing transaction, as well as to notify Feedzai about transactions processed upstream.
+  * **Get:** Allows the client to obtain the current payment status, including all the details of the event, i.e. the information sent through the endpoints during a transfer's life cycle.
+  * **Settlement:** Allows Feedzai's customers to inform Feedzai when a transaction is settled. Note that this endpoint is non-scorable, i.e. it does not flow through rules in order to generate a decision. However, the information is used by the Feedzai's risk engine platform to calculate metrics and profiles, and thus, impacts subsequent transfers associated with the same customer. It is also shown in the fraud analyst interface (Case Manager) as a new event to support the alert investigation.
+  * **Feedback:** Allows Feedzai's customers to label a transaction using pre-configured options that classify the transfer according to its risk. The labeling of an event is highly recommended since it gives feedback to Feedzai's platform enabling it to learn or consolidate illegal activity patterns. The x4xx messages refer to the dispute cases and reverse the action of the previous transfer initiation.
+
+
+
+## Integrating with transfer typesâ
+
+The Feedzai API endpoints can be invoked at different times in the different transfer types (credit transfer, instant credit transfer or direct debit). Also, not all transfer types are supported by each processing model.
+
+The following table shows the supported transfer types for each processing model:
+
+Processing model| Instant Transfer| Direct Debit| Direct Deposit| Credit Transfer (cut-off time)| Internal Transfer| Bill Payment| Other transfers types  
+---|---|---|---|---|---|---|---  
+SEPA| Yes| Yes| N/A| Yes (1 business day)| Yes| N/A| N/A  
+BACS| N/A| Yes| N/A| Yes (3 working days)| Yes| N/A| N/A  
+CHAPS| N/A| N/A| N/A| Yes| Yes| N/A| N/A  
+WIRE| N/A| N/A| N/A| Yes (Only available on business days)| Yes| N/A| N/A  
+SWIFT| N/A| N/A| N/A| Yes| Yes| N/A| N/A  
+ACH| N/A| Yes| N/A| Yes (After a certain hour, a transfer wonât be processed until the next business day)| Yes| N/A| Direct deposits*  
+Faster Payments| Yes| N/A| N/A| Yes| Yes| N/A| Forward-dated Payments**, Standing Orders**  
+NPP| Yes| N/A| N/A| Yes (depends on the connection hub)| Yes| N/A| N/A  
+BPAY| N/A| N/A| N/A| N/A| N/A| Yes| N/A  
+PIX| Yes| N/A| N/A| Yes (depends on the connection hub)| Yes| N/A| N/A  
+BOLETO| N/A| N/A| N/A| N/A| N/A| Yes| E-Commerce  
+Zelle| Yes| N/A| N/A| Yes (depends on the connection hub)| Yes| N/A| N/A  
+EMT| Yes| N/A| N/A| Yes (depends on the connection hub)| Yes| N/A| N/A  
+RTP TCH| Yes| N/A| N/A| Yes (depends on the connection hub)| Yes| N/A| N/A  
+  
+*Direct deposits are considered as normal credit transfers.
+
+**Forward-dated Payments and Standing Orders are scheduled in the sender bank. After they are initiated, they are handled in the same way as credit transfers.
+
+info
+
+**Batch files:** One characteristic of the ACH model is to process transactions in batches. Note that, in this case, batch files need to be parsed and converted into individual transactions before sending them to Feedzai.
+
+## Endpoints and event typesâ
+
+The available endpoints allow you to integrate with the Transfers Connector API at the key stages of the transfer life cycle. This ensures that all the information is used to detect and prevent suspicious activity efficiently. Since each endpoint is used to accomplish a different goal, the following table summarizes the key information for each of them:
+
+Endpoint/event type| Event subtype| Mandatory (M), Recommended (R), Optional (O)| Is the event scored?| Recommendation (approve/decline)| Ability to inform Feedzai about final decision (accepted/rejected)| Ability to label the transfer  
+---|---|---|---|---|---|---  
+Transfer Initiation| NA| M| Yes| Yes| No| No  
+Info| Additional information| O| No| No| Yes| No  
+Pre-decided| R| No| No| Yes| No  
+Not-honor| R| No| No| Yes| No  
+Out of band (sms/call)| O| No| No| Yes| No  
+Dispute| R| No| No| Yes| No  
+Settlement| NA| M| No| No| No| No  
+  
+Feedback| Dispute| -Â M, for Info with subtype dispute\- R, all other cases| No| No| No| Yes  
+Out of band| Only used in combination with Info - out of band. In this case is mandatory| No| No| No| Yes  
+  
+This table gives you the following information:
+
+  * **Mandatory (M), Recommended (R), Optional (O):** These options relate to the message request. Messages specified as recommended are used by the risk engine platform to improve the system's accuracy to monitor transfers.
+  * **Is the event scored?** An event can be scored by the data science models with a number ranging between 0-1000, where 1000 represents the highest probability of being illegitimate. The scoring is only generated if you have models configured in the risk engine platform.
+
+
+
+info
+
+**Events being scored:** The endpoints and event subtypes marked as scorable are the ones that have the `score` field in the API response. However, the actual event scoring depends on whether:
+
+  * The platform has a model configured in the runtime workflow.
+  * The filter conditions defined in the runtime workflow allow the event to reach the scoring operator.
+
+
+
+  * **Recommendation (approve/decline):** Generated by the risk engine rules with the possible values 'approve' or 'decline'.
+  * **Ability to inform Feedzai about final decision (accepted/rejected):** Final decision made by your system, i.e. transaction accepted or declined.
+  * **Ability to label the transfer:** The feedback_value field is populated with the value 'true' or 'false' representing an illegitimate or a legitimate transfer, respectively. This is used to improve the accuracy of the data science models, and to calculate metrics such as precision and false positive rate.
+
+
+
+## Learn moreâ
+
+Learn how each endpoint is used along the transaction life cycle:
+
+  * [Transfer Initiation](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transfer-initiation)
+  * [Info](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/info)
+  * [Settlement](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/settlement)
+  * [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/feedback)
+
+
+
+Additionally, as described above, the communication between the sender's bank, processing model, and the receiver's bank have extra details that are not covered in the overall life cycle diagram. Check the [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details) page to understand how Feedzai covers each processing model: Automated Clearing House (ACH), Correspondent Banking, Real-Time Gross Transfers, and Peer-to-Peer.

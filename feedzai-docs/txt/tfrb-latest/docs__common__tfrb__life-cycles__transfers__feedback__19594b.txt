@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/feedback
+Title: Feedback Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * Feedback Endpoint
+
+
+
+On this page
+
+# Feedback Endpoint
+
+Was this page helpful?Â 
+
+The Feedback endpoint allows you to send label information about the transfer. The feedback might come from the following sources:
+
+  * **Analyst:** Using the analyst interface to mark alerts as being legitimate or not.
+  * **Feedzai customers:** This scenario occurs after the info - out of band and info - dispute use cases to communicate the final decision.
+
+
+
+The following diagram shows the end-to-end process for feedback as a result of the out of band use case:
+
+Steps 1-7 are the same as the in the [Info Out of band](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/info#out-of-band) scenario, and then:
+
+  * **Step 8:** The account holder confirms or denies the transfer authenticity.
+  * **Step 9:** The sender bank sends an API request via the **Feedback** endpoint to inform Feedzai about the final label.
+
+
+
+The following diagram shows the end-to-end process for feedback as a result of the dispute use case:
+
+Steps 1-6 are the same as the in the [Info Dispute](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/info#dispute) scenario, and then:
+
+  * **Step 7:** The account holder confirms or denies the transfer authenticity.
+  * **Step 8:** The sender bank sends an API request via the **Feedback** endpoint to inform Feedzai about the final label.
+
+
+
+## Learn moreâ
+
+The communication between the sender's bank, processing model, and the receiver's bank have extra details that are not covered in the life cycles included in each endpoint page. Check the [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details) page to understand how Feedzai covers each processing model: Automated Clearing House (ACH), Correspondent Banking, Real-Time Gross Transfers, and Peer-to-Peer.

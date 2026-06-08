@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/investigation-flow
+Title: Investigation Flow | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Agent](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/case-manager-guide)
+  * [Daily Monitoring (standard)](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/overview)
+  * Investigation Flow
+
+
+
+On this page
+
+# Investigation Flow
+
+As an agent, when you log into Case Manager, you land on the **Search by Event** page, which displays all âOpenâ events in Case Manager. The **Search by Event** page comes preconfigured to display alerted events only, but you can apply additional filters such as date, assignee (e.g. âUnassignedâ to exclude already assigned events), or system decision (e.g. "Decline").
+
+  1. Select the **Merchant Monitoring** channel and open the highest priority event from the list by selecting the event's "Created Date". You will be redirected to the **Merchant Monitoring Event Details** page.
+
+  2. In the **Merchant Monitoring Event Details** page, assign the event to yourself. The event is set to âIn Progressâ.
+
+  3. Open the **Merchant Details** page in a different tab using the **External Link** icon from the **Merchant Details** widget. The **Merchant Details** page offers supplementary historical information for the following purposes:
+
+     * Review merchant KPIs.
+     * Review alert and note history.
+  4. Go back to the **Merchant Monitoring Event Details** page and check the triggered rules in the **Rules Triggered** widget. Look for related transactions (i.e. transactions triggered by the same rules), by scrolling to the **Transaction History** widget. To check for related transactions, apply filters based on triggered rules, if any.
+
+  5. If there are related transactions, select one of the payment events. You will be redirected to the **Payment Event Details** page. This page provides the following information relevant to your investigation:
+
+     * Rules triggered.
+     * Customer and card details.
+     * Notes and attachments.
+     * Other event details related to the transaction.
+
+tip
+
+Make sure to keep both the **Merchant Monitoring Event Details** and **Merchant Details** pages open in different tabs to keep reviewing other details.
+
+  6. If there aren't any related transactions, you may want to review other merchant monitoring event details. For instance, you can use the **Transaction History** widget to verify if a merchant's previous orders are unusually high, which could be an indication of the merchant selling unauthorized goods.
+
+  7. Add notes, as needed.
+
+  8. If you need additional information, use the **Hold** button to put the investigation on hold. The event status is set to "On Hold".
+
+  9. When you have the necessary information, use the **Resume** button to go back to your investigation. The event status is set to âIn Progressâ.
+
+  10. Whether you need or not additional information, if there's evidence of fraud, use the button **Take Action**. The agent's decision is set to "Action Taken". After submitting the reasons, the agent's decision is set to âAction Takenâ and the event status is set to "Closed".
+
+  11. If there isn't any evidence of fraud, use the **Drop** button. After submitting the reasons, the agent's decision is set to âDroppedâ and the event status is set to âClosedâ.
+
+Automation rules and queues
+
+Note that the out-of-the-box automation rules and queues play a role in the event status transitions. This means that they are responsible for moving an event's status from "In Progress" to "Closed".
+
+
+
+
+## Next stepsâ
+
+At this point, you've acquired the essential knowledge to start an alert investigation. Go to [Investigate Alerts](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/investigate-alerts) to initiate your investigations.

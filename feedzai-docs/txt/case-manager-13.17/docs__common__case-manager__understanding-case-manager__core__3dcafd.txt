@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules
+Title: Self-Service Rules | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Self-Service Rules
+
+
+
+On this page
+
+# Self-Service Rules
+
+Self-Service Rules (SSRs) allow financial institutions to quickly create a rule, test, and publish it directly in production without the need of specialized support by Feedzai.
+
+Feedzai's risk engine platform has a set of standard rules that are used in combination with lists to detect fraud or money laundering scenarios. However, fraudsters are constantly coming up with new ways to trick the detection systems. Counteracting new waves of fraud might require tweaking a rule or even create a new one.
+
+Case Manager's SSRs allow you to quickly write, test, and publish rules using an intuitive interface directly into production. As an example, you can use SSRs to create a rule with a different threshold and publish in production to have it live with zero downtime. This way, you can implement completely new processes and achieve higher operational efficiencies while managing the ever-changing dynamics of fraud.
+
+Once a rule is created, analysts can test it with previous events and check how the rule will perform to understand if the rule achieves the goal it was created for. If needed, analysts can tune the rule and repeat the test. The results of all previous tests are also available, thus allowing analysts to compare different versions of the rule and select the most efficient.
+
+Additionally, Case Manager provides audit capabilities by displaying all changes made to a rule.
+
+## Learn Moreâ
+
+Now that you have the basic knowledge on SSRs, you can start learning [how to work with SSRs ](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules) to improve your detection system.

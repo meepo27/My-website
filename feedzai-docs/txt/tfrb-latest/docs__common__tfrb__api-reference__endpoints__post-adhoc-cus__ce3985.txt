@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-adhoc-customer-investigation
+Title: Ad-hoc Customer Investigation | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Ad-Hoc Customer InvestigationsÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/ad-hoc-customer-investigations)
+  * Ad-hoc Customer Investigation
+
+
+
+Was this page helpful?Â 
+
+# Ad-hoc Customer Investigation
+    
+    
+    POST 
+    
+    ## /api/customers/investigations
+
+Creates a new investigation event. This event will be the investigation unit in Case Manager.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

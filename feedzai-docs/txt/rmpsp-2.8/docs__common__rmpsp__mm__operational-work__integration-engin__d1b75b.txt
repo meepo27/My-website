@@ -1,0 +1,84 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/testing-endpoints
+Title: Testing Endpoints | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/overview)
+  * [Rule Testing](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/overview)
+  * Testing Endpoints
+
+
+
+On this page
+
+# Testing Endpoints
+
+This section contains a set of REST endpoints that can be used in order to test the system, and the necessary steps to achieve some actions when performing manual interactions with Pulse and Case Manager pages.
+
+This page includes a Postman Collection containing some of the described endpoints. For more details on how to use the collection, check the [Test Scenario Example with Postman Collection](/rmpsp/2.8/docs/common/rmpsp/mm//operational-work/integration-engineer/integration-guide/rule-testing/test-scenario-example-with-postman-collection) page.
+
+## Paymentsâ
+
+#### Payment endpointâ
+
+Post| `/api/payments`  
+---|---  
+  
+**Example body** _See postman collection_
+
+#### Info endpointâ
+
+Put| `/api/payments/[lifecycle_id]`  
+---|---  
+  
+**Example body** _See postman collection_
+
+#### Feedback endpointâ
+
+Put| `/api/payments/[lifecycle_id]/feedback/[feedback_label]`  
+---|---  
+  
+**Example body** _See postman collection_
+
+#### Settlement endpointâ
+
+Put| `/api/payments/[lifecycle_id]/settlement`  
+---|---  
+  
+**Example body** _See postman collection_
+
+## Merchant monitoringâ
+
+#### Merchant monitoring endpointâ
+
+Post| `/api/merchant`  
+---|---  
+  
+**Example body** _See postman collection_
+
+## Check registered Schedule Metrics Jobsâ
+
+### User interfaceâ
+
+  1. Access `/pulseviews/management/#apps/mm/jobs`.
+  2. Verify the list of jobs that can be triggered for the different workflows under the Registered Jobs table.
+
+
+
+## Trigger Schedule Metrics Job for profile metric calculationsâ
+
+### User interfaceâ
+
+  1. Access `/pulseviews/management/#apps/mm/jobs`.
+  2. Select the Schedule Metrics Job with the name `mm-merchant_monitoring_workflow-Merchant Monitoring Plan-ScheduledMetrics-0 0 0 * * ?-OnDemand`.
+  3. Select the Schedule Metrics Job `mm-merchant_monitoring_workflow-Merchant Monitoring Plan-ScheduledMetrics-0 0 0 ? * 1-OnDemand`.
+  4. Confirm that a new job is executed in the Job Execution table.
+  5. Ensure that the job reached the Finished state.
+
+
+
+info
+
+The same steps apply to the Schedule Metrics Jobs from the Transfers workflow.

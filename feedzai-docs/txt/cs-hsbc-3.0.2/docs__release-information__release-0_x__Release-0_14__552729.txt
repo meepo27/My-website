@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.14
+Title: Release 0.14 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.14.0`â
+
+### New Playbook for Historical data loading into Pulse Runtime through ETLâ
+
+Feature
+
+Release of a new playbook for [Historical data loading](/cs-hsbc/3.0.2/docs/installation-guide/etl/historical-etl).
+
+With this playbook we're able to load historical data from a CSV to a Pulse Runtime environment.

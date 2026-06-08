@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/
+Title: Schema Migrator | Feedzai Documentation
+============================================================
+
+# Schema Migrator
+
+Welcome to the Schema Migrator Guide.
+
+In this section you will find a set of pages with information about the Schema Migrator process:
+
+  * [Schema Migrator overview](/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/schema-migrator-tool)
+  * [Fix Pulse Clock](/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/fix-pulse-clock)
+  * [Drop database index](/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/drop-db-index)
+
+

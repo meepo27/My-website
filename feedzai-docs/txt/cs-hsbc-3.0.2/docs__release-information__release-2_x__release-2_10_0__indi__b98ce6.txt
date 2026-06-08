@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3358-Allow-concurrent-Pulse-application-publishes
+Title: HSBC-3358-Allow-concurrent-Pulse-application-publishes | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-3358-Allow-concurrent-Pulse-application-publishes
+
+### Allow concurrent Pulse application publishesâ
+
+FeatureFTMT-29333HSBC-3358
+
+The number of concurrent application publishes in Pulse will now be set to the number of applications configured in the `apps_enabled` variable, so that for instance inbound and outbound can be published concurrently. Specifically, this change sets the `pulse.global.services.core.apps.operationThreadPoolNumberOfThreads` property in Pulse.

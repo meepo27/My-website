@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3084-HSBC-3375-Upgrade-JupyterLab-version-to-25-0-46
+Title: HSBC-3084-HSBC-3375-Upgrade-JupyterLab-version-to-25-0-46 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3084-HSBC-3375-Upgrade-JupyterLab-version-to-25-0-46
+
+### Upgrade JupyterLab version to 25.0.46â
+
+FeatureFTMT-27382HSBC-3084HSBC-3375
+
+We have upgraded JupyterLab to version 25.0.46 to fix the missing `timestampField` dependencies in List operators when duplicating a plan using the `ds-api`, as well as including the SHAP Python package.
+
+The new Docker image will have to be loaded in existing environments. Please find it in the [Installation Guide](/cs-hsbc/3.0.2/docs/installation-guide/overview).

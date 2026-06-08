@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.12
+Title: Release 0.12 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.12.0`â
+
+### Analysts see information about channel and authenticationâ
+
+FeatureFTMT-348
+
+Case Manager now shows the description in place of the "machine code" (`channel_type`) to simplify its usage.
+
+Code| Description  
+---|---  
+C| Payment Card at Card Reader Terminal (including online purchase and ATM)  
+D| Payment Card or Number with Online Details and Device Fingerprint Information  
+E| Payment Card or Number with Online Details  
+O| Online Banking (internet, mobile phone)  
+W| Online Banking with device fingerprint information  
+P| Phone Banking  
+H| Self Bank Branch  
+M| Correspondence(for non-mon and check deposit)  
+B| Bank Processing(include bank initiated non-mon maintenance, ACH debit, EFT processing)  
+F| Financial Consultant  
+R| Other  
+S| Merchant - Acquirer Processing with Device Fingerprint  
+T| Merchant - Acquirer Processing  
+U| Unknown  
+N| Not Applicable  
+  
+* This mapping is controlled by Feedzai Engineering team and changes to it require a new client requirement and release.
+
+### Fix JupyterLab unable to startâ
+
+Bug Fix
+
+Our default configurations had a duplicate by mistake:
+    
+    
+    pulse.global.services.modules.jupyterlab.docker.image=source activate feedzai  
+    pulse.global.services.modules.jupyterlab.docker.image=docker.feedzai.com/feedzai/jupyterlab:{{ pulse_version }}  
+    
+
+Copy
+
+This was effectively ignoring the first configuration, which was necessary but with the key:
+    
+    
+    pulse.global.services.modules.jupyterlab.preStartCmd  
+    
+
+Copy
+
+We fixed our default configurations. As long as DSF deployments clean the Database configuration such that they're reloaded from the release bundle this shouldn't require any change.
+
+### Improve credentials handling in ETL toolâ
+
+Internal
+
+Previously, the lookup plugin `fdz_encrypt_tool` was explicitly called for the `_encrypted` variable since the encryption task assumed ETL would run in the same host as Pulse and would have its binaries to run the encryption tool (which isn't the case).
+
+Since then, we've actually overridden all encrypt tasks to use this plugin by default instead (with the goal of improving error logging without leaking actual credentials). As such, we can simply go back to using the standard task.

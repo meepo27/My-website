@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/final-recommendation-for-transfers
+Title: final-recommendation-for-transfers | Transaction Fraud for Banking
+============================================================
+
+# final-recommendation-for-transfers
+
+Was this page helpful?Â 
+
+If| Then  
+---|---  
+`enforced_risk_level` is `high` OR `enforced_risk_level` is `medium` AND `payment_sub_type` is `instant_transfer`| `decision` field is set as `decline`  
+`enforced_risk_level` is `medium`| `decision` field is set as `review`. The event is displayed on the alerts page in Case Manager  
+`enforced_risk_level` is `low`| `decision` field is set as `approve`

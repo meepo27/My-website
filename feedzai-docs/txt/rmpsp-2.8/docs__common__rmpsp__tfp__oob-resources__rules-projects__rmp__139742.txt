@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-card-present-rules
+Title: Card Present Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * Card Present Rules
+
+
+
+On this page
+
+# Card Present Rules
+
+### Descriptionâ
+
+Contains rule(s) specific to fraud patterns happening in Card Present transactions, and using data elements related to cardsâ magnetic stripe or chip+PIN attempts.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## MagStripe-Fallback-CP1
+
+### Comment
+
+> Decline a magstripe fallback payment to signature if the amount is above a set threshold
+
+### Actions
+
+  * [MagStripe-Fallback-CP1]
+
+
+
+### Variables
+    
+    
+    magstripe_amt_threshold = global_default__rules_thresholds['magstripe_fallback_cp1_amount'].threshold ?? 0; 
+
+### Condition
+    
+    
+    //Filters
+    magstripe_amt_threshold > 0 
+    and (event.card_entry_mode == 'magstripe' or event.card_entry_mode == 'contactless-magstripe')
+    and event.authentication_mode == 'pin_bypassed'
+    //Limits
+    and event.amount_unified_currency ?? 0 >= magstripe_amt_threshold 
+
+### Explanation
+
+> Magstripe ({event.card_entry_mode}) and PIN Bypassed payment ({event.authentication_mode}) with amount ({event.amount_unified_currency}) equal or above limit [ {localvar.magstripe_amt_threshold} ]
+
+### Mark As
+
+The outcome of this rule is: **decline**

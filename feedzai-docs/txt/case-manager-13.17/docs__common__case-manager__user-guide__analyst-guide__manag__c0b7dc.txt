@@ -1,0 +1,78 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/testing-self-service-rules
+Title: Test Self-Service Rules | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Manage Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/)
+  * Test Self-Service Rules
+
+
+
+On this page
+
+# Test Self-Service Rules
+
+By testing Self-Service Rules, you can check the impact a rule will have when applied to previous events, thus discovering whether the rule achieves the goal it was created for.
+
+## Introductionâ
+
+With Self-Service rules, you can create custom-made rules that allow you to tackle specific flaws in your fraud-prevention application. Once a rule is created, you can test its accuracy in spotting the flaws it was created to notice.
+
+Therefore, analysts can test the rules they have created, adjust the time frame in relation to which the rules will be tested and compare different tests in order to improve the creation of rules.
+
+## Testing Rulesâ
+
+Once you finish [creating a new rule](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules), you can run a test to assess its efficiency.
+
+To test the rules:
+
+  1. Choose the time frame within which to test the rule. You can do it in two ways:
+
+     1. By choosing a predefined test run:
+  
+
+     2. Or by specifying the time frame for the test.
+  
+
+  2. the rule.
+
+Once you have chosen to test the rule, you will be redirected to the Self-Service Rules list.
+
+
+
+
+### Analyzing Rules Testsâ
+
+From the Rule List, you can view the test performed for a given rule. In order to do so:
+
+  1. Select a rule in the list to view its details.
+
+  2. If the test is still running, you can either stop it or wait for the test to finish.
+
+  3. Once the test run has ended, you can analyze its results.
+
+
+
+
+The results of all previous tests are also available, so the analyst can compare different versions of the rule and select the most efficient. Select **All Tests** to compare the results of all the tests that were run for the Self-Service Rule:
+
+These are the metrics you can analyze to grasp whether the rule fulfills its purpose:
+
+  * **Hitrate** : Percentage of events processed that triggered the rule tested.
+  * **Hitrate Count** : Absolute number of events processed that triggered the rule tested.
+  * **Hitrate Amount** : Sum of the amount captured by the rule in the events processed.
+  * **False-Positive Rate (FPR)** : Percentage of the events that triggered the tested rule but that should not have triggered it.
+  * **Precision** : Percentage of the events that were triggered the tested rule and that should have triggered it.
+
+
+
+## Learn Moreâ
+
+Learn more about Self-Service Rules and their configuration:
+
+  * [Self-Service Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules): Learn what Self-Service Rules are and how they work.
+  * [Automation Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules): Learn more about the concept of Automation Rules and why they are helpful.
+  * [Managing Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules): Understand the process of Self-Service Rules creation.
+
+

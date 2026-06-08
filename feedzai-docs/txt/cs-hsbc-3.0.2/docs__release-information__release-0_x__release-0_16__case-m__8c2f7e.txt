@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-beneficiary-account-details
+Title: Transfers - Beneficiary Account Details | Feedzai Documentation
+============================================================
+
+# Transfers - Beneficiary Account Details  
+  
+Before:
+
+After:
+
+**Field Modifications**
+
+Change| Field  
+---|---  
+Enriched| Currency  
+Fixed| Type  
+Fixed| BIC  
+Renamed| Beneficiary Bank Account Number -> Bene Account Number  
+Removed| ID  
+Removed| IBAN  
+Removed| Open Date  
+Removed| Balance  
+Removed| Credit Limit  
+Removed| Debt Balance  
+Removed| Status  
+Removed| Last Activity  
+Removed| Number of Cards

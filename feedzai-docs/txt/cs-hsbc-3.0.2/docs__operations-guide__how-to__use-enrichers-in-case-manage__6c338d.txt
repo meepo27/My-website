@@ -1,0 +1,1320 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/how-to/use-enrichers-in-case-manager
+Title: Use Enrichers in Case Manager | Feedzai Documentation
+============================================================
+
+On this page
+
+# Use Enrichers in Case Manager
+
+This guide outlines the process for configuring enrichers within Case Manager. Enrichers allow you to map raw data values from an event to more user-friendly names, enhancing clarity and readability for analysts. While the initial setup of enrichers requires assistance from the project team, once configured in the application, you can independently apply them to any field within Case Manager using the Self-Service UI functionality.
+
+## How to use an enricherâ
+
+Using the Self-Service UI functionality from Case Manager, custom enricher types can be configured. Follow these steps to configure a field to use an enricher:
+
+  1. Within the Self-Service UI mode, edit an existing field or create a new one.
+  2. Fill the _Label_ and _Field_ form elements as usual.
+  3. Click on _Advanced_ to expand the advanced configuration text box where the field JSON can be modified.
+  4. Edit the `type` field in the JSON to use the intended enricher type.
+
+
+
+The following screenshot depicts the configuration of the field `event.fields.receiver_transaction_currency` using the `currencyEnrich` enricher which converts a numeric currency code to a human-readable format.
+
+##### info
+
+Case Manager will underline the type in red and say _"The code snippet is invalid. It can, however, still be submitted."_. This is normal as Case Manager is not capable of validating custom enricher types.
+
+The _Preview_ section can be used to confirm that the enricher is working as expected. In the example image, we can see the currency being displayed as `GBP`, confirming the enricher is properly mapping the source value (`826` in this case).
+
+## Available enrichersâ
+
+The following enrichers are available:
+
+Enricher Type| Enricher Description  
+---|---  
+`authMethodEnrich`| Enricher for the Authentication Method.  
+`cardCustomerPresentDetailsEnrich`| Enricher for the Card customer present details.  
+`countryEnrich`| Enricher for the Countries sent as 3-digit codes (ISO 3166-1 numeric).  
+`currencyEnrich`| Enricher for the Currencies sent as 3-digit codes (ISO 4217 numeric).  
+`deviceBankingType`| Enricher for the Device Banking Type.  
+`digitalWalletTokenTypeEnrich`| Enricher for the Digital Wallet token type.  
+`eventDescription`| Enricher for the Event Description.  
+`inboundPaymentTypeEnrich`| Enricher for the Inbound Payment Type.  
+`isBatchEnrich`| Enricher for the Batch flag.  
+`paymentStatusEnrich`| Enricher for the Payment Status.  
+`paymentTypeEnrich`| Enricher for the Payment Type.  
+`posCardholderVerMethodEnrich`| Enricher for the Cardholder verification method (Ecomm).  
+`senderTransactionCodeEnrich`| Enricher for the Sender Transaction Code.  
+`sicEnrich`| Enricher for the POS Code (sic).  
+`transReversalIndEnrich`| Enricher for the Transaction reversal indicator.  
+`transactionStatusEnrich`| Enricher for the Transaction Status Enrich.  
+  
+## Mappingsâ
+
+This section includes the full mapping for each enricher.
+
+**Show the mapping for`authMethodEnrich`**Source Value| Enriched Value  
+---|---  
+1| One Time Password/SecureID Token  
+L| Login Password Verification  
+P| Pin Verification  
+I| ID verification  
+A| Address verification  
+Q| Secret Q and A  
+N| Pass Phase/Memorable Name  
+D| Digital Certificate  
+O| Others  
+U| unknown  
+V| Voice Recognition  
+F| Facial Recognition  
+E| Iris Recognition  
+G| Fingerprint Recognition  
+B| Biometric verification  
+**Show the mapping for`cardCustomerPresentDetailsEnrich`**Source Value| Enriched Value  
+---|---  
+0| Cardholder was present  
+1| Cardholder was not present, unspecified  
+2| Cardholder was not present, mail/facsimile order  
+3| Cardholder was not present, phone/ARU order  
+4| Cardholder was not present, standing order/recurring transaction  
+5| Electronic order  
+**Show the mapping for`countryEnrich`**Source Value| Enriched Value  
+---|---  
+100| Bulgaria  
+104| Myanmar  
+108| Burundi  
+112| Belarus  
+116| Cambodia  
+120| Cameroon  
+124| Canada  
+132| Cabo Verde  
+136| Cayman Islands (the)  
+140| Central African Republic (the)  
+144| Sri Lanka  
+148| Chad  
+152| Chile  
+156| China  
+158| Taiwan (Province of China)  
+162| Christmas Island  
+166| Cocos (Keeling) Islands (the)  
+170| Colombia  
+174| Comoros (the)  
+175| Mayotte  
+178| Congo (the)  
+180| Congo (the Democratic Republic of the)  
+184| Cook Islands (the)  
+188| Costa Rica  
+191| Croatia  
+192| Cuba  
+196| Cyprus  
+203| Czechia  
+204| Benin  
+208| Denmark  
+212| Dominica  
+214| Dominican Republic (the)  
+218| Ecuador  
+222| El Salvador  
+226| Equatorial Guinea  
+231| Ethiopia  
+232| Eritrea  
+233| Estonia  
+234| Faroe Islands (the)  
+238| Falkland Islands (the) [Malvinas]  
+239| South Georgia and the South Sandwich Islands  
+242| Fiji  
+246| Finland  
+248| Ã land Islands  
+250| France  
+254| French Guiana  
+258| French Polynesia  
+260| French Southern Territories (the)  
+262| Djibouti  
+266| Gabon  
+268| Georgia  
+270| Gambia (the)  
+275| Palestine, State of  
+276| Germany  
+288| Ghana  
+292| Gibraltar  
+296| Kiribati  
+300| Greece  
+304| Greenland  
+308| Grenada  
+312| Guadeloupe  
+316| Guam  
+320| Guatemala  
+324| Guinea  
+328| Guyana  
+332| Haiti  
+334| Heard Island and McDonald Islands  
+336| Holy See (the)  
+340| Honduras  
+344| Hong Kong  
+348| Hungary  
+352| Iceland  
+356| India  
+360| Indonesia  
+364| Iran (Islamic Republic of)  
+368| Iraq  
+372| Ireland  
+376| Israel  
+380| Italy  
+384| CÃ´te d'Ivoire  
+388| Jamaica  
+392| Japan  
+398| Kazakhstan  
+400| Jordan  
+404| Kenya  
+408| Korea (the Democratic People's Republic of)  
+410| Korea (the Republic of)  
+414| Kuwait  
+417| Kyrgyzstan  
+418| Lao People's Democratic Republic (the)  
+422| Lebanon  
+426| Lesotho  
+428| Latvia  
+430| Liberia  
+434| Libya  
+438| Liechtenstein  
+440| Lithuania  
+442| Luxembourg  
+446| Macao  
+450| Madagascar  
+454| Malawi  
+458| Malaysia  
+462| Maldives  
+466| Mali  
+470| Malta  
+474| Martinique  
+478| Mauritania  
+480| Mauritius  
+484| Mexico  
+492| Monaco  
+496| Mongolia  
+498| Moldova (the Republic of)  
+499| Montenegro  
+500| Montserrat  
+504| Morocco  
+508| Mozambique  
+512| Oman  
+516| Namibia  
+520| Nauru  
+524| Nepal  
+528| Netherlands (the)  
+531| CuraÃ§ao  
+533| Aruba  
+535| Bonaire, Sint Eustatius and Saba  
+540| New Caledonia  
+548| Vanuatu  
+554| New Zealand  
+558| Nicaragua  
+562| Niger (the)  
+566| Nigeria  
+570| Niue  
+574| Norfolk Island  
+578| Norway  
+580| Northern Mariana Islands (the)  
+581| United States Minor Outlying Islands (the)  
+583| Micronesia (Federated States of)  
+584| Marshall Islands (the)  
+585| Palau  
+586| Pakistan  
+591| Panama  
+598| Papua New Guinea  
+600| Paraguay  
+604| Peru  
+608| Philippines (the)  
+612| Pitcairn  
+616| Poland  
+620| Portugal  
+624| Guinea-Bissau  
+626| Timor-Leste  
+630| Puerto Rico  
+634| Qatar  
+638| RÃ©union  
+642| Romania  
+643| Russian Federation (the)  
+646| Rwanda  
+652| Saint BarthÃ©lemy  
+654| Saint Helena, Ascension and Tristan da Cunha  
+659| Saint Kitts and Nevis  
+660| Anguilla  
+662| Saint Lucia  
+663| Saint Martin (French part)  
+666| Saint Pierre and Miquelon  
+670| Saint Vincent and the Grenadines  
+674| San Marino  
+678| Sao Tome and Principe  
+682| Saudi Arabia  
+686| Senegal  
+688| Serbia  
+690| Seychelles  
+694| Sierra Leone  
+702| Singapore  
+703| Slovakia  
+704| Viet Nam  
+705| Slovenia  
+706| Somalia  
+710| South Africa  
+716| Zimbabwe  
+724| Spain  
+728| South Sudan  
+729| Sudan (the)  
+732| Western Sahara  
+740| Suriname  
+744| Svalbard and Jan Mayen  
+748| Eswatini  
+752| Sweden  
+756| Switzerland  
+760| Syrian Arab Republic  
+762| Tajikistan  
+764| Thailand  
+768| Togo  
+772| Tokelau  
+776| Tonga  
+780| Trinidad and Tobago  
+784| United Arab Emirates (the)  
+788| Tunisia  
+792| Turkey  
+795| Turkmenistan  
+796| Turks and Caicos Islands (the)  
+798| Tuvalu  
+800| Uganda  
+804| Ukraine  
+818| Egypt  
+826| United Kingdom of Great Britain and Northern Ireland (the)  
+831| Guernsey  
+832| Jersey  
+833| Isle of Man  
+834| Tanzania, United Republic of  
+840| United States of America  
+850| Virgin Islands (U.S.)  
+854| Burkina Faso  
+858| Uruguay  
+860| Uzbekistan  
+862| Venezuela (Bolivarian Republic of)  
+876| Wallis and Futuna  
+882| Samoa  
+887| Yemen  
+892| Virgin Islands (British)  
+894| Zambia  
+004| Afghanistan  
+008| Albania  
+012| Algeria  
+016| American Samoa  
+020| Andorra  
+024| Angola  
+010| Antarctica  
+028| Antigua and Barbuda  
+032| Argentina  
+051| Armenia  
+036| Australia  
+040| Austria  
+031| Azerbaijan  
+044| Bahamas (the)  
+048| Bahrain  
+050| Bangladesh  
+052| Barbados  
+056| Belgium  
+084| Belize  
+060| Bermuda  
+064| Bhutan  
+068| Bolivia (Plurinational State of)  
+070| Bosnia and Herzegovina  
+072| Botswana  
+074| Bouvet Island  
+076| Brazil  
+086| British Indian Ocean Territory (the)  
+096| Brunei Darussalam  
+090| Solomon Islands  
+**Show the mapping for`currencyEnrich`**Source Value| Enriched Value  
+---|---  
+104| MMK  
+108| BIF  
+116| KHR  
+124| CAD  
+132| CVE  
+136| KYD  
+144| LKR  
+152| CLP  
+156| CNY  
+170| COP  
+174| KMF  
+188| CRC  
+191| HRK  
+192| CUP  
+203| CZK  
+208| DKK  
+214| DOP  
+222| SVC  
+230| ETB  
+232| ERN  
+238| FKP  
+242| FJD  
+262| DJF  
+270| GMD  
+292| GIP  
+320| GTQ  
+324| GNF  
+328| GYD  
+332| HTG  
+340| HNL  
+344| HKD  
+348| HUF  
+352| ISK  
+356| INR  
+360| IDR  
+364| IRR  
+368| IQD  
+376| ILS  
+388| JMD  
+392| JPY  
+398| KZT  
+400| JOD  
+404| KES  
+408| KPW  
+410| KRW  
+414| KWD  
+417| KGS  
+418| LAK  
+422| LBP  
+426| LSL  
+430| LRD  
+434| LYD  
+446| MOP  
+454| MWK  
+458| MYR  
+462| MVR  
+480| MUR  
+484| MXN  
+496| MNT  
+498| MDL  
+504| MAD  
+512| OMR  
+516| NAD  
+524| NPR  
+532| ANG  
+533| AWG  
+548| VUV  
+554| NZD  
+558| NIO  
+566| NGN  
+578| NOK  
+586| PKR  
+590| PAB  
+598| PGK  
+600| PYG  
+604| PEN  
+608| PHP  
+634| QAR  
+643| RUB  
+646| RWF  
+654| SHP  
+682| SAR  
+690| SCR  
+702| SGD  
+704| VND  
+706| SOS  
+710| ZAR  
+728| SSP  
+748| SZL  
+752| SEK  
+756| CHF  
+760| SYP  
+764| THB  
+776| TOP  
+780| TTD  
+784| AED  
+788| TND  
+800| UGX  
+807| MKD  
+818| EGP  
+826| GBP  
+834| TZS  
+840| USD  
+858| UYU  
+860| UZS  
+882| WST  
+886| YER  
+901| TWD  
+925| SLE  
+926| VED  
+929| MRU  
+930| STN  
+931| CUC  
+932| ZWL  
+933| BYN  
+934| TMT  
+936| GHS  
+937| VEF  
+938| SDG  
+940| UYI  
+941| RSD  
+943| MZN  
+944| AZN  
+946| RON  
+947| CHE  
+948| CHW  
+949| TRY  
+950| XAF  
+951| XCD  
+952| XOF  
+953| XPF  
+960| XDR  
+965| XUA  
+967| ZMW  
+968| SRD  
+969| MGA  
+970| COU  
+971| AFN  
+972| TJS  
+973| AOA  
+975| BGN  
+976| CDF  
+977| BAM  
+978| EUR  
+979| MXV  
+980| UAH  
+981| GEL  
+984| BOV  
+985| PLN  
+986| BRL  
+990| CLF  
+994| XSU  
+997| USN  
+008| ALL  
+012| DZD  
+032| ARS  
+036| AUD  
+044| BSD  
+048| BHD  
+050| BDT  
+051| AMD  
+052| BBD  
+060| BMD  
+064| BTN  
+068| BOB  
+072| BWP  
+084| BZD  
+090| SBD  
+096| BND  
+**Show the mapping for`deviceBankingType`**Source Value| Enriched Value  
+---|---  
+A| Mobile Phone App  
+C| Computer  
+M| Mobile Phone Browser  
+**Show the mapping for`digitalWalletTokenTypeEnrich`**Source Value| Enriched Value  
+---|---  
+0| Not a token transaction  
+1| Apple Pay  
+2| Samsung Pay  
+3| Google Pay  
+F| Card on file token  
+**Show the mapping for`eventDescription`**Source Value| Enriched Value  
+---|---  
+NTB| NTB Customer via Digital Flow to become a Customer  
+RRC| Mobile Registration Confirmation  
+RNO| On Token Selection Page - Chosing No Token Option  
+RST| On Token Selection Page - Chosing Soft Token Option  
+RHT| On Token Selection Page - Chosing Hard Token Option  
+ROT| Migration from CAM30 to Soft Token DSK CAM40  
+ROB| On Token Selection Page - Chosing Hard Token Option  
+RTC| CAM 30 Credentials Set up  
+RNA| Register Account to new Business Profile  
+RSX| Removal of Device (Handset) / De-Provisioning  
+AHT| Activation of m2FA CAM40 Hard Token Code PIN Activated  
+ARD| Hard Token Activation - Activate your Secure Key  
+ARF| Failure During Replacement Security Device Journey  
+ADE| Token Deactivation  
+ASA| Start Soft Token Activation process - Mobile app  
+ARA| Resend Activation Code (BIB)  
+APE| Activation of m2FA CAM30 Pass+EMAIL OTP+PIN Activated  
+ACB| New browser identified for the customer session  
+LSC| Logon Blocked due to Sanction Location  
+LLA| CAM10 Successful Entry of UserName  
+LLG| Logon Process Successful - Can now view accounts  
+LFX| Failed Attempt at Logon - CAM20  
+LFC| Failed Attempt at Logon - CAM40  
+LFB| Failed Attempt at Logon-CAM40 (PIN or Fingerprint)  
+LFO| Failed and Locked Logon after multiple CAM20 Failed  
+LFN| Failed and Locked Logon after multiple CAM30 Failed  
+LFM| Failed and Permanent Locked CAM40 multiple failed OTP  
+LFD| Failed Attempt at Logon - CAM20 Already Locked  
+LFF| Failed Attempt at Logon - CAM30 Already Locked  
+LFE| Failed Attempt at Logon - CAM40 Already Locked  
+LUI| Forgot User ID  
+LOF| Mobile App Logoff  
+LPN| Logon PosNeg Check for SaaS > FraudNet  
+LPE| Customer has logged and selected Brokerage Account  
+PSS| Successful Step up From CAM30 to CAM40 - HARD Token  
+PSF| Failed Step up from CAM30 to CAM40 - HARD Token  
+PSX| Locked Step up from from CAM30 to CAM40 - HARD Token  
+PMS| Successful Step up From CAM30 to CAM40 - SOFT Token  
+PMF| Failed Step up from CAM30 to CAM40 - SOFT Token  
+PMX| Locked Step up from CAM30 to CAM40 - SOFT Token  
+PSU| Successful Step up From CAM30 to CAM40  
+PMU| Failed Step up From CAM30 to CAM40 - Unknown Token  
+COL| Failed OLR process prior to credential resets  
+CMQ| Reset Security Credentials - Reset Memorable Questions  
+CSQ| Reset Security Credentials - Reset Security Questions  
+CPW| Password Reset - Successful  
+CCF| Full Credentials Reset Successful  
+COF| Reset Security Credentials - Off-line  
+CDU| Reset Security Credentials Hard Token Unlock Code  
+CPS| Passcode Reset - Code passcode Reset successful  
+CTH| Switch Token Type - Soft Token to Hard Token  
+CTS| Switch Token Type - Hard Token to Soft Token  
+DMQ| Edit Details - Edit Memorable Questions (or EMQ)  
+DSQ| Edit Details - Edit Security Questions (or ESQ)  
+DCP| Edit Details - Edit Password (or ECP)  
+DNU| New CAM10 Username / Change CAM10 Username  
+BBB| Balances Page Load Post Logon - Successful  
+OBC| Open Banking - Concent for Information Access  
+OBD| Open Banking Consent for Payment Creation  
+OBF| Open Banking Consent for Domestic Payment Creation  
+OBH| Open Banking Consent - International Payment Creation  
+OBE| Open Banking - Consent for Enduring Payment Creation  
+OBI| Open Banking, Open APIs - Consent for CBPII  
+OBS| Open Banking - Stop Sharing with TPP Confirmation  
+OSP| Open Banking - Stop Sharing with TPP Confirmation  
+OTA| Open Banking, Open APIs - AISP Usage  
+OBP| Open Banking, Open APIs - Make Payment  
+PL| Open Banking, Open APIs - Make International Payment  
+OPD| Open Banking, Open APIs - Make Domestic Payment  
+OBR| Open Banking Open APIs - Revoke direct from TPP for AISP  
+OBX| Open Banking Open APIs - Revoke direct from TPP for CBPII  
+URS| High Risk Transaction - Re-Auth OTP Successful  
+URF| High Risk Transaction - Re-Auth OTP Failed  
+URL| High Risk Transaction - Re-Auth OTP Locked  
+PPC| P2P Registration Complete  
+PPD| P2P De-Register Complete  
+PPA| P2P Amend Sending Details / Proxy  
+PPR| P2P Amend Recipient Details / Proxy  
+PPB| P2P Register Complete for Un-Banked customer  
+GTP| GTFF / P2P Payment Created / Sent  
+GTR| GTFF / P2P Payment Requested / Request Money  
+GTA| GTFF / P2P Payment Receive Accepted by Beneficiary  
+GTD| GTFF / P2P Payment Receive Declined by Beneficiary  
+TGB| Add new GTFF payee (GTFF equivalent of TNB)  
+TGE| Payment to existing GTFF Payee  
+TGN| Payment to new GTFF Payee (GTFF equivalent of TNI)  
+OAX| Opening Submission of Application - Accept  
+OAI| ICO CurrentAccountOpening Submission of Application  
+OAO| Current Account Opening Submission of Application  
+OAS| Savings Account Opening Submission of Application  
+OCR| Credit Card Limit Increase  
+OAL| Loan Account Opening Submission of Application  
+OAM| Mortgage Account Opening Submission of Application  
+OVD| Overdraft Submission of Application (New Limit)  
+OVA| Overdraft Submission of Application (Amending Limit)  
+OCL| Credit Card Limit Increase - Accept  
+OCC| Credit Card Application - Accept  
+OMU| Update Term Deposit Maturity Instruction  
+THA| ECW 1st Risk Score Check  
+THB| ECW 2nd Risk Score Check  
+THN| PaymentCreationEventforDomitic payment New bene  
+THD| PaymentCreationEventforDomitic paymentexitsingbene  
+THI| Payment CreationEvent for Intl payment New bene  
+THE| Payment CreationEvent for Intl paymentexitsingbene  
+TNB| New Beneficiary Creation  
+TNC| New Beneficiary Creation - Company (Me to Company)  
+TNE| Edit Beneficiary  
+TMM| Me to Me Payment/Transfer between AccountsMe to Me  
+TMX| Me to Not Me Payment - Domestic -Unknown Payee  
+TMI| Me to Not Me Payment International -Unknown Payee  
+TEB| Payment to Existing Beneficiary DomesticMetoNot Me  
+TND| Payment to New Beneficiary Domestic (Me to Not Me)  
+TEI| Payment to Existing Bene InternationalMe to Not Me  
+TNI| Payment to New Beneficiary InternationalMetoNot Me  
+TCE| Payment to Existing Beneficiary - (Me to Company)   
+TCN| Payment to New Beneficiary- Company(Me to Company)  
+TGV| Me to Me International/Global View/Global Transfer  
+TSN| Standing Order / Regular Payment Creation  
+TSA| Standing Order / Regular Payment Amend  
+TPP| P2P Make a Payment   
+TTD| Direct Debit Create / Amend Bene  
+TTS| Direct Debit Transfer - Change Send Account  
+TPA| Payment Authorisation(2nd Level Auth Post Creation  
+TUT| Payments - Saved Transfers Update Saved Transfers  
+TBT| Payments - Batch Payment to Multiple Beneficiaries  
+TPC| Payments - Make Payment to Credit Card Account  
+TUM| Modify Mandate (e.g. India UPI)  
+TTO| Make a Transfer - Cashiers Order  
+TBB| Launch Bank2Bank Service  
+TNP| P2P Make a Payment - New Beneficiary  
+DCT| Edit Details - New/Edit Telephone Number  
+DDT| Edit Details - New/Edit Telephone Number(BUSINESS)  
+DRT| Edit Details-Delete alltelephone numforthecustomer  
+DCE| Edit Details - New/Edit Email Address  
+DDE| Edit Details - New/Edit Email Address (BUSINESS)  
+DCD| Edit Details - New Address / Address Change  
+DDD| Edit Details-NewAddress / AddressChange (BUSINESS)  
+DMC| Edit Details - Edit Mobile Access Code (CMB)  
+DLT| Edit DetailsAdd,Amend,Remove Mobileor SMSor Email   
+DCJ| Edit Details - Occupation / Job Title  
+DCS| Edit Details - Salary Change  
+DPB| Edit Details Phone Banking-New / Reset Credentials  
+DPN| Edit Details -Request New Mobile PIN / Credentials  
+DSD| Edit Details - Add Secondary User  
+DSA| Edit Details - Amend Secondary User  
+DPE| Edit Details - Update Employer Name  
+DPF| Edit Details - Home Fax  
+DPX| Edit Details - Office Fax  
+DAN| Edit Details - Amend Account 'Display As' Name  
+QCQ| Request - Cheque Book - New or Replacement  
+QVQ| Request - Void Cheque  
+QCC| Request - Credit Card - New Card Request  
+QCV| Request - Credit Card-New Card Request VCProvided  
+QCY| Request - Credit Card - Replacement Card  
+QCZ| Request - Credit Card - Replacement Card - Damaged  
+QDC| Request - Debit Card - New Card Request  
+QDY| Request - Debit Card - Replacement Card  
+QDZ| Request - Debit Card - Replacement Card - Damaged  
+QRG| Request - Credit Card Activation Confirmation  
+QRH| Request - Debit Card Activation Confirmation  
+QIP| Request for cardcredit available into instantcash  
+QIC| Request for Card credit available into InstantCash  
+QZZ| Request - View PIN Online (Not Change)  
+QVV| Request - View CVV / CVC Online  
+QDV| Request - Generate Dynamic CVV / CVC  
+QCN| Request - Credit Card PIN Request  
+QDN| Request - Debit Card PIN Request  
+QCS| Request - Credit Card PIN Change STP  
+QDS| Request - Debit Card PIN Change STP  
+QZX| Request - Emergency Cash  
+QTB| Request - Block on Credit Card  
+QTD| Request - Block on Debit Card   
+QTR| Request - Block Removed from Credit Card  
+QTT| Request - Block Removed from Debit Card   
+QTN| Request - Travel Notification / Intent to Travel  
+QPS| Request - Paperless Statements  
+QVA| Register for a Virtual Account Digital Wallet  
+QPU| Request - 3DS Pin Update  
+QPV| Request - 3DS Pin View  
+IRA| IRA distribution form online request (US)  
+MML| Move Money Limit Change Confirmation -Daily Limit  
+BPL| Bill Payment Limit Change Confirmation -Master  
+LIP| International Payment limit Change Confirmation  
+LBA| BACS Payment Limit Change Confirmation  
+LCH| CHAPS Payment Limit Change Confirmation  
+LOD| Change Overall Daily Payment Limit  
+LIT| Internal transfer limit change confirmation  
+LND| New beneficiary payee limit change confirmation  
+LDP| Existing beneficiary payeelimit changeconfirmation  
+LAP| Autopay limit change confirmation  
+WER| Successful Registration for Chat Service - WeChat  
+WPM| Successful Registration for PayMe  
+WVV| Successful Registration for Verified by VISA  
+WCS| Link and Launch eCS Journey  
+CCP| Reset the CAM30 credentials online successfully.  
+ODM| Open Banking  
+TRP| Rejected Payment Creation  
+ODN| Bill Payment - Single Bene - New  
+ODE| Bill Payment - Single Bene - Existing  
+OLN| VRP - Consent for single bene - New  
+OLE| VRP - Consent for single bene - Existing  
+OLM| Variable Recurring Payments Consentfor - Me to Me  
+ODU| ACS- Payment Authorization Required  
+OAU| MULTI BILL PAYMENT -Payment Authorization Required  
+OMM| Payment Request - Single bene - Me-To-Me-Transfer  
+OIN| International Payment Request - New bene  
+OIM| INTERNATIONAL PAYMENTS - Payment Request -Me to Me  
+OIE| INTERNATIONALPAYMENTS Payment Reques-Existing bene  
+OFN| International Schedule Payments -Request-New bene  
+OFM| International Schedule Payments - Request-Me to Me  
+OFE| International Schedule PaymentRequest Existingbene  
+mRRX| Mobile Registration Cancelled  
+mRRF| Mobile Registration Failed  
+mAAA| Activation (not used anymore)  
+mAAC| Activation (not used anymore)  
+mAAE| Activation (not used anymore)  
+mAAF| Activation (not used anymore)  
+mAPS| Activation of m2FA CAM 30 Password+SMS OTP+PIN  
+mAPC| Cust success provisioned using CAM30+SMS+Email OTP  
+mAST| Soft Token Activation Complete Successful -2 AC  
+mASO| Soft Token Activation Complete Successful - one AC  
+mASP| Soft Token Activation usingUsernamePass and HToken  
+mASB| Soft Token Activation Complete with Mobile Back up  
+mASF| Soft token Activation failed  
+mRMC| Registration Activation/Provision App PIN Created  
+mRSC| Provisioned device with CAM40+soft tokenOTP/QR+SMS  
+mRRM| Provisioned device with CAM40+soft tokenOTP viaAPP  
+mRRV| Customermovedfrom SaaS to mAuthCAM40 on samedevice  
+mRRO| Customer migrated from SaaS DSK to mAuth CAM40  
+mRSZ| Switch of Trusted Device  
+mROH| Migration fromCAM40 Profile withHard Token to soft  
+mLHN| DSP iAuth Logon Authentication Fraud Check  
+mDTP| PushNotification to Mobile Device- Accepted  
+mDTD| PushNotification to Mobile Device- Declined  
+mDTF| PushNotification to Mobile Device- Fraud  
+mDTS| PushNotification to Mobile Device- Accepted(Setup)  
+mDCF| PushNotification to Mobile Device- Declined(Setup)  
+mDTG| PushNotification to Mobile Device- Fraud(Setup)  
+mDTT| PushNotification to Mobile Device- Accepted(TDS)  
+mDTC| PushNotification to Mobile Device- Declined(TDS)  
+mDTH| PushNotification to Mobile Device- Fraud(TDS)  
+mCDS| Deactivate SoftToken - Lost/ Stolen /Change device  
+mCPR| Passcode Reset - Code locked (or mLPR)  
+mCPO| Recover / Reset mPIN using CAM 30 Password  
+mCHT| Recover / Reset mPIN using CAM 40 Token  
+mCSW| Switch Soft OTP / DSK to a new Device  
+mTIE| TouchID / FaceID / Biometric ID - Enabled in App  
+mTID| TouchID / FaceID / Biometric ID - Disabled in App  
+mTIS| TouchID / FaceID / Biometric ID - Enabled in App  
+mTIL| TouchID /FaceID/ Logon failed Temp Lock  
+mFLC| Launch Call Connection  
+mUCA| 3DS Card Auth Attempt - Approved  
+mUCD| 3DS Card Auth Attempt - Declined  
+mBPR| Balance Peek - Registration Complete  
+mBPD| Balance Peek - DeRegistration Complete  
+mBPX| Alexa Registration for Balance Peek   
+mBPA| Alexa Balance Peek (Balance Peek Demised)  
+mPPE| P2P Register Complete for Visitor  
+mTUN| Create New Mandate (e.g. India UPI)  
+mTZA| Pay By Bank App Payment / ZAPP  
+mTLP| LocalPay featureotherthat current standard payment  
+mTAC| Payment as part of the account closure process   
+mDLO| Edit Details - Enable Location (GPS) Data Pull  
+mDLF| Edit Details - Disable Location (GPS) Data Pull  
+mRDC| Remote Chq Deposit Capture  
+mQVC| Request - Credit Card Provision to Mobile Wallet  
+mQVD| Request - Debit Card Provision to Mobile Wallet  
+mQIB| Balance Transfer - Payment to new Beneficiary  
+mQMS| Request - MasterCard 3D Secure Register  
+mQCL| Request - Contactless Enabled on Card  
+mQCO| Request - Contactless Disabled on Card  
+mQAE| Request - ATM Withdrawals Enabled on Card  
+mQAO| Request - ATM Withdrawals Disabled on Card  
+mQGB| Request - Gambling Block Enabled on Card  
+mQGO| Request - Gambling Block Disabled on Card  
+mQXE| Request -Online Transaction (eComm)Enabled On Card  
+mQXO| Request OnlineTransaction (eComm) Disabled On Card  
+mQSE| Request - POS Transaction Enabled On Card  
+mQSO| Request - POS Transaction Disabled On Card  
+mSLI| Library Injection Enabled  
+mSAM| App Mirroring Enabled  
+mSSD (ption| Screenshot Detected  
+mSSR (ption| Screenreader Detected  
+mMTL| Move Money Limit Change Confirmation   
+mWRR| Successful Registration for Chat Service - RMChat  
+mWRS| Successful Logon to RMChat  
+mWRF| Failed Logon to RMChat  
+mWRL| Failed & Locked Logon to RMChat  
+mWZE| Successful Zelle Enrollment  
+mWZS| Link and Launch Zelle Journey (SSO)  
+mNTB| NTB Customer via Digital Flow to become a Customer  
+mRRC| Mobile Registration Confirmation  
+mRTC| CAM 30 Credentials Set up  
+mAPE| Activation of m2FA CAM30Pass+EMAILOTP+PIN Activated  
+mAHT| Activation of m2FACAM40 HardTokenCode PIN Activated  
+mRSX| Removal of Device (Handset) / De-Provisioning  
+mROT| Migration from CAM30 to Soft Token DSK CAM40  
+mLSC| Logon Blocked due to Sanction Location  
+mLLA| CAM10 Successful Entry of UserName   
+mLLG| Logon Process Successful - Can now view accounts  
+mLFX| Failed Attempt at Logon - CAM20  
+mLFC| Failed Attempt at Logon - CAM40  
+mLFB| Failed Attempt at Logon-CAM40 (PIN or Fingerprint)  
+mLFO| Failed and Locked Logon after multiple CAM20Failed  
+mLFN| Failed and Locked Logon after multiple CAM30Failed  
+mLFM| Failed andPermanentLocked CAM40multiple failedOTP   
+mLFD| Failed Attempt at Logon - CAM20 Already Locked  
+mLFF| Failed Attempt at Logon - CAM30 Already Locked  
+mLFE| Failed Attempt at Logon - CAM40 Already Locked  
+mLOF| Mobile App Logoff  
+mLUI| Forgot User ID  
+mPSU| Successful Step up From CAM30 to CAM40  
+mPMU| Failed Step up From CAM30 to CAM40 - Unknown Token  
+mPSS| Successful Step up From CAM30 to CAM40 -HARD Token  
+mPSF| Failed Step up from CAM30 to CAM40 - HARD Token  
+mPSX| Locked Step up from from CAM30 toCAM40 -HARD Token  
+mPMS| Successful Step up From CAM30 to CAM40 -SOFT Token  
+mPMF| Failed Step up from CAM30 to CAM40 - SOFT Token  
+mPMX| Locked Step up from CAM30 to CAM40 - SOFT Token  
+mCPS| Passcode Reset - Code passcode Reset successful  
+mCTH| Switch Token Type - Soft Token to Hard Token  
+mCTS| Switch Token Type - Hard Token to Soft Token  
+mCPW| Password Reset - Successful  
+mCCF| Full Credentials Reset Successful  
+mDNU| New CAM10 Username / Change CAM10 Username  
+mBBB| Balances Page Load Post Logon - Successful  
+mOAI| ICO CurrentAccountOpening Submission ofApplication  
+mOAO| Current Account Opening Submission of Application  
+mOAS| Savings Account Opening Submission of Application  
+mOAL| Loan Account Opening Submission of Application  
+mOAM| Mortgage Account Opening Submission of Application  
+mOVD| Overdraft Submission of Application (New Limit)  
+mOVA| OverdraftSubmission of Application(Amending Limit)  
+mOCL| Credit Card Limit Increase - Accept  
+mOCR| Credit Card Limit Increase   
+mOCC| Credit Card Application - Accept  
+mOMU| Update Term Deposit Maturity Instruction  
+mOBC| Open Banking-Concent for Information Access  
+mOBD| Open BankinConsent for Payment Creation  
+mOBE| Open Banking-Consent for Enduring Payment Creation  
+mOBI| Confirmation of funds authorization  
+mOBS| Open Banking-Stop Sharing with TPP Confirmation  
+mOSP| Open Banking-Stop Sharing with TPP Confirmation  
+mURS| High Risk Transaction - Re-Auth OTP Successful  
+mURF| High Risk Transaction - Re-Auth OTP Failed  
+mURL| High Risk Transaction - Re-Auth OTP Locked  
+mPPA| P2P Amend Sending Details / Proxy  
+mPPB| P2P Register Complete for Un-Banked customer  
+mPPC| P2P Registration Complete  
+mPPD| P2P De-Register Complete  
+mPPR| P2P Amend Recipient Details / Proxy   
+mGTP| GTFF / P2P Payment Created / Sent  
+mGTR| GTFF / P2P Payment Requested / Request Money  
+mGTA| GTFF / P2P Payment Receive Accepted by Beneficiary  
+mGTD| GTFF / P2P Payment Receive Declined by Beneficiary  
+mTHA| ECW 1st Risk Score Check  
+mTHB| ECW 2nd Risk Score Check  
+mTHN| PaymentCreationEventforDomitic payment New bene  
+mTHD| PaymentCreationEventforDomitic paymentexitsingbene  
+mTHI| Payment CreationEvent for Intl payment New bene  
+mTHE| Payment CreationEvent for Intl paymentexitsingbene  
+mTNB| New Beneficiary Creation  
+mTNC| New Beneficiary Creation - Company (Me to Company)  
+mTNE| Edit Beneficiary  
+mTUM| Modify Mandate (e.g. India UPI)  
+mTMM| Me to Me Payment/Transfer between AccountsMe to Me  
+mTEB| Payment to Existing Beneficiary DomesticMetoNot Me  
+mTND| Payment to New Beneficiary Domestic (Me to Not Me)  
+mTEI| Payment to Existing Bene InternationalMe to Not Me  
+mTNI| Payment to New Beneficiary InternationalMetoNot Me  
+mTCE| Payment to Existing Beneficiary - (Me to Company)   
+mTCN| Payment to New Beneficiary- Company(Me to Company)  
+mTGV| Me to Me International/Global View/Global Transfer  
+mTSN| Standing Order / Regular Payment Creation  
+mTSA| Standing Order / Regular Payment Amend  
+mTPP| P2P Make a Payment   
+mTMX| Me to Not Me Payment - Domestic -Unknown Payee  
+mTMI| Me to Not Me Payment International -Unknown Payee  
+mTTD| Direct Debit Create / Amend Bene  
+mTTS| Direct Debit Transfer - Change Send Account  
+mTPA| Payment Authorisation(2nd Level Auth Post Creation  
+mTUT| Payments - Saved Transfers Update Saved Transfers  
+mTBT| Payments - Batch Payment to Multiple Beneficiaries  
+mTPC| Payments - Make Payment to Credit Card Account  
+mTBB| Launch Bank2Bank Service  
+mDCT| Edit Details - New/Edit Telephone Number  
+mDDT| Edit Details - New/Edit Telephone Number(BUSINESS)  
+mDRT| Edit Details-Delete alltelephone numforthecustomer  
+mDCE| Edit Details - New/Edit Email Address  
+mDDE| Edit Details - New/Edit Email Address (BUSINESS)  
+mDCD| Edit Details - New Address / Address Change  
+mDDD| Edit Details-NewAddress / AddressChange (BUSINESS)  
+mDLT| Edit DetailsAdd,Amend,Remove Mobileor SMSor Email   
+mDCJ| Edit Details - Occupation / Job Title  
+mDCS| Edit Details - Salary Change  
+mDPE| Edit Details - Update Employer Name  
+mDPB| Edit Details Phone Banking-New / Reset Credentials  
+mDPN| Edit Details -Request New Mobile PIN / Credentials  
+mDSD| Edit Details - Add Secondary User  
+mDSA| Edit Details - Amend Secondary User  
+mDAN| Edit Details - Amend Account 'Display As' Name  
+mQCQ| Request - Cheque Book - New or Replacement  
+mQCC| Request - Credit Card - New Card Request  
+mQCV| Request - Credit Card-New Card Request VCProvided  
+mQCY| Request - Credit Card - Replacement Card  
+mQCZ| Request - Credit Card - Replacement Card - Damaged  
+mQDC| Request - Debit Card - New Card Request  
+mQDY| Request - Debit Card - Replacement Card  
+mQDZ| Request - Debit Card - Replacement Card - Damaged  
+mQRG| Request - Credit Card Activation Confirmation  
+mQRH| Request - Debit Card Activation Confirmation  
+mQZZ| Request - View PIN Online (Not Change)  
+mQVV| Request - View CVV / CVC Online  
+mQDV| Request - Generate Dynamic CVV / CVC  
+mQCN| Request - Credit Card PIN Request  
+mQDN| Request - Debit Card PIN Request  
+mQCS| Request - Credit Card PIN Change STP  
+mQDS| Request - Debit Card PIN Change STP  
+mQIP| Request for cardcredit available into instantcash  
+mQIC| Request for Card credit available into InstantCash  
+mQZX| Request - Emergency Cash  
+mQTB| Request - Block on Credit Card  
+mQTD| Request - Block on Debit Card  
+mQTR| Request - Block Removed from Credit Card  
+mQTT| Request - Block Removed from Debit Card  
+mQTN| Request - Travel Notification / Intent to Travel  
+mQPS| Request - Paperless Statements  
+mQVA| Register for a Virtual Account Digital Wallet  
+mQPU| Request - 3DS Pin Update  
+mQPV| Request - 3DS Pin View  
+mMML| Move Money Limit Change Confirmation -Daily Limit  
+mBPL| Bill Payment Limit Change Confirmation -Master  
+mWER| Successful Registration for Chat Service - WeChat  
+mWPM| Successful Registration for PayMe  
+mWCS| Link and Launch eCS Journey  
+mPCS| change SOTP Password  
+mTRP| Rejected Payment Creation  
+mTRB| Rejected New Beneficiary Creation  
+mODM| Open Banking  
+mODN| Bill Payment - Single Bene - New  
+mODE| Bill Payment - Single Bene - Existing  
+mOLN| VRP - Consent for single bene - New  
+mOLE| VRP - Consent for single bene - Existing  
+mOLU| VRP - Consent for multiple bene - New or existing  
+mOSN| Standing Order - 1SCA - Payment request - New bene  
+mOIN| International Payment Request - New bene  
+mOLM| Variable Recurring Payments Consentfor - Me to Me  
+mMAD| Trusted Device -MobileApprove DeclinedNotification  
+mMAF| Trusted DeviceMobileApprove FailedFraudNotificatio  
+mMAL| Trusted Device -MobileApprove - LockedNotification  
+**Show the mapping for`inboundPaymentTypeEnrich`**Source Value| Enriched Value  
+---|---  
+10| Single Immediate Payment  
+20| Return  
+25| Scheme Return Payment  
+30| Standing Order  
+40| Forward Dated Payment  
+50| DCA Bulk Payment  
+74| FP RTP HSBC Connect Payment  
+75| ZAPP Bank Payment  
+76| Open Banking Bill Payment  
+77| Open Banking Deferred Bill Payment  
+79| Paym Realtime Faster Payment/ P2P payment  
+90| PODS Bill Payment  
+91| PODS Deferred Bill Payment  
+92| HSBC Net SIP  
+93| Swift SIP  
+94| Net/Connect Batch Payment  
+95| Standing Orders  
+97| RBP Payment  
+99| Internal Faster Payment with media required  
+01| HSBC Net IAT Payment  
+**Show the mapping for`isBatchEnrich`**Source Value| Enriched Value  
+---|---  
+R| Realtime  
+B| Batch  
+**Show the mapping for`paymentStatusEnrich`**Source Value| Enriched Value  
+---|---  
+A| Approved  
+R| Reviewed  
+**Show the mapping for`paymentTypeEnrich`**Source Value| Enriched Value  
+---|---  
+B| Bill Payment  
+T| Fund Transfer  
+K| Bulk Fund Transfer  
+W| Wire Transfer  
+P| Peer-to-Peer Payment  
+**Show the mapping for`posCardholderVerMethodEnrich`**Source Value| Enriched Value  
+---|---  
+1| Non-authenticated transaction at a 3D-secure/secure code merchant  
+2| Successful authentication  
+9| Not Applicable  
+**Show the mapping for`senderTransactionCodeEnrich`**Source Value| Enriched Value  
+---|---  
+510| Mastercard Other Credit  
+511| Mastercard UK Purchase Refund  
+512| Mastercard Intl Purchase Rev  
+513| Mastercard Intl Purchase Refund  
+514| Mastercard Intl ATM Reversal  
+515| Mastercard Recur Txn Rev  
+516| Mastercard UK Orig Credit  
+517| Mastercard Intl Orig Credit  
+519| Mastercard Credit Invalid PAN  
+522| Mastercard Cntctls UK Pur Rfnd  
+525| Mastercard Cntctls Intl Pur Rv  
+526| Mastercard Cntctls Intl Pur Rf  
+530| Mastercard NSTF CR  
+532| Mastercard UK IAP Pur Refund  
+535| Mastercard Intl IAP Pur Rev  
+536| Mastercard Intl IAP Pur Refnd  
+542| Mastercard UK Mob Cntct Pur Rf  
+545| Mastercard Intl Mob CntctPurRv  
+546| Mastercard Intl Mob CntctPurRf  
+549| Mastercard Contra Other Credit  
+550| Mastercard Default Credit  
+573| Mastercard UK Purc Refund Auth  
+574| MC Intl Purchase Refund Auth  
+575| MC Ctctless UK Purc Ref Auth  
+576| MC Ctctless Int Pur Ref Auth  
+577| MC Mobctct UK Purch Ref Auth  
+578| MC Mobctct IntlPrch Ref Auth  
+579| MC Post Office ATM Cash Depost  
+580| Mastercard UK Original Credit  
+581| Mastercard Intl Orig Credit  
+582| Mastercard IntOrig CR Tran Aut  
+583| Mastercard UKOrig CR Tran Auth  
+584| Mastercard UK Reversal Auth  
+602| TT BOI ONLINE CREDIT  
+604| TT BOI BATCH CREDIT  
+633| Positive Contra Credit  
+667| Mortgage Int Tax Relief  
+668| Supplementary List Total  
+670| Bank Giro/BACS Credit  
+671| Other Credit  
+672| Credit Branch Supp  
+673| Composite credit  
+674| Transfer  
+675| Automatic/ATM Transfer  
+676| Dividend  
+677| TCS Bancs Credit  
+679| Charges/Interest Credit  
+680| Comp Adj A/c Cr (not trunc)  
+682| Bureau Adj Contra Credit  
+684| Reversal of BACS Debit  
+688| Comp Adj Transaction  
+700| ATM Initiated Transfer  
+701| Customer Automatic Transfer  
+702| Repayment Automatic Transfer  
+703| Loan Protection Payment  
+704| Internal Automatic Transfer  
+705| Account Closure Auto Transfer  
+707| Accounting Entry Transaction  
+708| Personal Loan Interest Account  
+709| Personal Loan Int Susp Account  
+710| Structured Loan Drawdown  
+711| Structured Loan Closure  
+712| Unapplied Transaction  
+713| Amendment to Cash Balance  
+714| DSC Charges Exempt Adjustment  
+715| Inter Account Transfer  
+716| Real-time Cash only Credit  
+717| Credit to Exchange Account  
+718| Cash Out of Till  
+719| Cash Transfer to Safe  
+720| Intertill Cash Credit  
+721| Cash Transfer from Safe  
+725| Real-time Reversal of a Debit  
+726| Bill Payment  
+727| Telephone Banking Transfer  
+728| MPS Credit  
+729| Mortgage Drawdown Reversal  
+730| Returned Payment  
+731| Returned Payment Write-off  
+732| M/gage Drawdown Rev Deletion  
+733| Insurance Protection Refund  
+734| Insurance Protection Premium  
+735| Life/Pension Credit  
+736| Credit Card Cash Transfer  
+737| Credit Card Bill Payment  
+738| Credit Card Balance Transfer  
+739| Incentive Payment  
+740| Unrelated Account Transfer  
+741| Sundries  
+742| Credit Card Bill Pymt (Bureau)  
+743| Credit Card Bill Pymt (BACS)  
+744| Term Deposit Credit Transfer  
+745| Money Market Credit  
+747| CD Closing Credit  
+748| Money Market Opening (fixed)  
+749| Money Market Opening (notice)  
+750| Debit Authorisation Reversal  
+751| Maestro UK Purchse Refund Auth  
+752| Maestro UK Purchase Adj Auth  
+753| Maestro UK & Cashback Adj Auth  
+754| Solo Refund Authorisation  
+755| Solo Adjustment Authorisation  
+756| Solo with Cashback Adj Auth  
+757| Maestro Intl Purchase Ref Auth  
+758| Maestro Intl Purchase Adj Auth  
+759| Maestro Intl Cashback Adj Auth  
+760| Visa UK Purchase Refund Auth  
+761| Visa UK Purchase Adj Auth  
+762| Visa UK & Cashback Adj Auth  
+763| Visa Intl Purchase Refund Auth  
+764| Visa Intl Purchase Adj Auth  
+765| Visa Intl Cashback Adj Auth  
+766| Visa UK Reversal Auth  
+770| HSBC Republic Credit  
+771| CD Maturity Credit  
+772| Real-Time PIM Cash Credit  
+773| GENERIC PAYMENT CREDIT  
+774| PAPS Transfer  
+775| FP Incoming Standing Order CR  
+776| FP Returned Credit  
+777| FP Incoming Bill Payment CR  
+778| Media Incoming Bill Pay CR  
+779| GLE CR for Investment Sweep  
+780| Media In BP CR -no media setup  
+781| FP Corporate Re-credit  
+783| Internal standing order CR  
+784| Media standing order CR  
+790| Visa Intl Purchase Refund  
+791| Visa Intl Purchase Reversal  
+792| Visa Intl ATM Reversal  
+793| Visa UK Purchase Refund  
+794| Recurring Transaction Reversal  
+795| Visa Other Credit  
+796| Visa Credit Invalid PAN  
+798| ONUS SETTLEMENT CREDIT FUNDING  
+800| Me2Me Transfer - Credit  
+801| Credit Card Balance Transfer  
+803| Real-time Mixed Credit Cash  
+804| Mixed Credit Suspense Credit  
+805| HMS GP Retailer Credit  
+806| Account Opening Transfer  
+820| GIC Credit  
+821| Reversal of an GIC Debit  
+823| PSD D+1 RPS suspense credit  
+824| Visa Contactless Intl Purch Rf  
+825| Visa Contactless Intl Purch Rv  
+826| Visa Contactless UK Purch Ref  
+827| Visa Ctctless UK Purc Ref Auth  
+828| Visa Ctctless UK Purc Adj Auth  
+829| Visa Ctctless Int Pur Ref Auth  
+830| Visa Ctctless Int Pur Adj Auth  
+831| PSD D+1 RPS Fraud susp credit  
+832| Device Cash Account Credit  
+833| Branch Cash Transfer Credit  
+850| GIC Sell Credit  
+851| GIC Purchase Fee Credit  
+852| GIC Sell Debit Reversal  
+853| GIC Dividend  
+854| GIC Dividend FP Media  
+855| GIC Interest Distribution  
+856| GIC Interest Dist FP Media  
+857| GIC Property Income Dist  
+858| GIC Prop Income Dist FP Media  
+859| GIC Corporate Action  
+860| GIC Corporate Action FP Media  
+861| GIC Market Settlement  
+862| GIC Market Settlement FP Media  
+863| GIC Tax Credit  
+864| GIC Tax Debit  
+865| VisIntl Mob Cntct Purch Rfnd  
+866| VisIntl Mob Cntct Purch Rev  
+867| VisUK Mob Cntct Purch Rfnd  
+868| Visa MobCtct UK Purch Ref Auth  
+869| Visa MobCtct UK Purch Adj Auth  
+870| Visa MobCtct IntlPrch Ref Auth  
+871| Visa MobCtct IntlPrch Adj Auth  
+872| GIC Account Fee CR  
+874| Structured Loan Closure  
+875| ET ISA Payment  
+876| Post Office ATM Cash Deposit  
+877| PO ATM Cash Deposit Suspense  
+878| Visa Int Personal Payment Auth  
+879| Visa UK Personal Payment Auth  
+880| Non-Sterling Transaction Fee  
+881| Paym Incoming FP Credit  
+882| Paym FP Returned Credit  
+883| Visa UK Personal Payment  
+884| Visa Intl Personal Payment  
+885| Paym Incoming Link credit  
+886| Paym Link Suspense Credit  
+887| Lifepen Recredit  
+888| Lifepen Credit  
+889| Lifepen Credit FP Media  
+891| FP DCA ADJ CREDIT  
+893| FP FIM CREDIT  
+895| FP DA SIP CREDIT  
+897| FP DA Return Credit  
+898| FP DA SO CREDIT  
+900| FP DA FDP CREDIT  
+902| FP DA DCA Bulk Credit  
+904| FP DA Scheme Return Credit  
+905| FP DA Reversal Credit  
+906| GPS HSBCNet IAT  
+907| Visa UK Original Credit  
+908| Visa Intl Original Credit  
+911| Visa Intl Purchase Refund  
+912| Visa Intl Purchase Reversal  
+913| Visa UK Purchase Refund  
+914| Visa UK Purchase Refund Auth  
+915| Visa UK Purchase Adj Auth  
+916| Visa Intl Purchase Refund Auth  
+917| Visa Intl Purchase Adj Auth  
+918| Vaultex Cash Credit  
+919| VA Credit  
+920| JLP Card BT  
+921| JLP Card BT with media  
+922| M&S Card BT with media  
+923| Credit Card BT with media  
+924| JLP Card Credits  
+925| JLP Card Credits with media  
+926| GLE Automatic Transfer  
+928| HSBC SmartSave Credit  
+929| CHI Cheque Re-Credit  
+930| CHI Cheque Info only Credit  
+931| CHI Cheque Credit  
+932| CHI Credit  
+933| JLL Loan Disb  
+934| JLL Loan Disb with media  
+935| CHI Composite Re-Credit  
+936| CHI Composite Credit  
+937| CHI Cheque Credit Mobile  
+938| Visa Int Orig Credit Tran Auth  
+939| Visa Uk Orig Credit Tran Auth  
+940| OPEN BANKING TRANSFER CREDIT  
+941| OPEN BANKING INCOMING FP CR  
+942| OPEN BANKING FP RETURNED CR  
+943| DEBIT CARD DISPUTE CR ONLINE  
+944| CHI Cheque Credit Mobile  
+945| Adhoc Payment Cr  
+946| PBBA Refund Credit  
+947| CHI Cheque ADJ Credit  
+948| CHI Cheque REJ Credit  
+949| CHI Composite ADJ Credit  
+951| PBBA payout Credit  
+952| DEBIT CARD DISPUTE CR BATCH  
+955| CHI Bank Giro Credit  
+956| CHI Bank Giro Credit Incleared  
+957| CHI Bank Giro Credit Rescan  
+958| CHI Cheque Credit  
+960| CHI BGC RDC  
+961| CHI BGC BULK  
+962| OPEN BANKING BILL PAYMENT  
+963| VA CREDIT - FPS  
+965| CPR CLAIM - Credit  
+966| Charges/Interest Credit  
+967| CH 3000 CREDIT  
+968| Vaultex BPI Overs Credit  
+969| AT Cr Saving Acct Negative Bal  
+970| Generic Posting - Credit  
+971| Generic Posting - Credit  
+972| GENERIC POSTING MWS-CREDIT  
+973| GM SYSTEM - AUTO FX  
+974| GM INT ATM WITHDRAWAL  
+975| GM VISA UK PURCHASE  
+976| GM VISA INT PURCHASE  
+977| GM VISA UK CNTCTLS PURCHASE  
+978| GM VISA INT CNTCTLS PURCHASE  
+981| GM VISA PURCHASE REFUND  
+983| GM VISA OCT  
+984| GM VISA UK ATM WITHDRAWAL  
+985| GM DISPUTE REVERSAL  
+986| HSBC Pay MDR Credit  
+987| HSBC Pay customer refund  
+**Show the mapping for`sicEnrich`**Source Value| Enriched Value  
+---|---  
+79| Chip fell back to read Magnetic stripe - counterfeit  
+80| Chip cards fall back to magnetic stripe - Moto  
+81| Internet  
+90| Entire magnetic stripe read - Counterfeit  
+91| PAN auto-entry via contactless magnetic stripe - Counterfeit  
+95| Initiated by chip CVV and chip data unreliable  
+00| Unknown  
+01| Manual (key entered)  
+02| Magnetic stripe read  
+03| Bar Code read  
+04| Optical character recognition (OCR) coding read  
+05| Initiated by chip card verification value  
+06| Internet  
+07| PAN auto-entry via contactless  
+S| Internet  
+U| Internet  
+V| Internet  
+T| Internet  
+**Show the mapping for`transReversalIndEnrich`**Source Value| Enriched Value  
+---|---  
+A| Adjustment  
+F| Refund  
+D| Reversal (Derogatory)  
+R| Reversal (Non-Derogatory or Unknown)  
+N| Normal (not a reversal)  
+O| Other Reversal/refund/adjustment with a net increase to the open-to-buy/avail bal  
+P| Other Reversal/refund/adjustment with a net decrease to open-to-buy/avail bal  
+G| Chargeback  
+**Show the mapping for`transactionStatusEnrich`**Source Value| Enriched Value  
+---|---  
+A| Approved/Successful  
+B| Cancelled by Bank  
+C| Cancelled by Customer  
+D| Declined/Unsuccessful  
+P| Pending  
+R| Reversal

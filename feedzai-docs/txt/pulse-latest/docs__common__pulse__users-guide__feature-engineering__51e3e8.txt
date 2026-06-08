@@ -1,0 +1,57 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/
+Title: Feature Engineering | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Feature Engineering
+
+
+
+# Feature Engineering
+
+Was this page helpful?Â 
+
+This section shows how to transform your raw and cleaned data into information that correlates with fraud or any other target variable, and select only information that is useful as input to your models.
+
+Pulse supports the design of features and the selection of the relevant fields for your model with the following tasks.
+
+  1. [Selecting important fields directly from your dataset](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/selecting-important-data-for-your-model)
+
+If you want to create features to use them in models, it's useful to have initial statistics about which input fields are correlated with the target variable. In Pulse, you can generate statistics over your dataset to uncover correlations between data fields and the target variable you want to predict.
+
+  2. [Creating a plan for the features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-a-plan-for-features)
+
+In Pulse, a plan entity is a recipe of how to transform one data source into another. A plan contains map and metric operators that represent the new features. If you already have a plan for features, skip this step.
+
+  3. [Adding lists to the plan](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-lists-in-features)
+
+If you want to access list items of complex lists, you need to add them to the plan. For example, if you have a list with the information about the risk level each country has, you can add that list to the plan, and use it in your features and rules.
+
+  4. [Using string fields in models](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-string-indexing)
+
+If your string fields have indexers, you can use the indexer in the model to score events.
+
+  5. [Creating derived features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-derived-features)
+
+Apply complex expressions over your dataset's existing fields to extract new features.
+
+  6. [Creating metrics (historical profiles)](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics)
+
+Generate a large number of profiles and include time-based features.
+
+  7. [Using PQL in features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-pql-in-features)
+
+Learn how to use the Pulse Query Language (PQL) in map and metrics operators to define the "formula" of the new features.
+
+  8. [Following best practices for plans](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/best-practices-for-plans)
+
+Use best practices to organize map and metrics operators within a plan in a meaningful way.
+
+  9. [Creating a data source with the features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/generating-instance-features-dataset)
+
+Run the plan to create the data source that contains the new fields.
+
+
+
+
+The pages in this chapter walk you through these tasks.

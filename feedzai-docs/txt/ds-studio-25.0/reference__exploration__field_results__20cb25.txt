@@ -1,0 +1,1646 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/field_results/
+Title: field_results - DS API
+============================================================
+
+#  `` field_results Â¶  
+  
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` DatetimeFieldResults Â¶
+    
+    
+    DatetimeFieldResults(field_name, field_results, exploration_results)
+    
+
+Bases: `FieldResults`
+
+Class containing the results of the exploration compute_stats for a time field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  |  field name. |  _required_  
+  
+###  `field_results` Â¶
+
+|  |  dictionary-like results of the given field obtained from exploration.stats.compute_stats(). |  _required_  
+  
+###  `` constant_value `instance-attribute` Â¶
+    
+    
+    constant_value = _constant_value()
+    
+
+###  `` count `instance-attribute` Â¶
+    
+    
+    count = _stats['count']
+    
+
+###  `` field_type `instance-attribute` Â¶
+    
+    
+    field_type = field_results[[FIELD_TYPE_KEY](../constants/#ds_api.exploration.constants.FIELD_TYPE_KEY "            FIELD_TYPE_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.FIELD_TYPE_KEY\)")]
+    
+
+###  `` histogram `instance-attribute` Â¶
+    
+    
+    histogram = _histogram_df()
+    
+
+###  `` histogram_computed `instance-attribute` Â¶
+    
+    
+    histogram_computed = [HISTOGRAM_KEY](../constants/#ds_api.exploration.constants.HISTOGRAM_KEY "            HISTOGRAM_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.HISTOGRAM_KEY\)") in field_results
+    
+
+###  `` histogram_reduced `instance-attribute` Â¶
+    
+    
+    histogram_reduced = [reduce_histogram](../transformations/#ds_api.exploration.transformations.reduce_histogram "            reduce_histogram \(ds_api.exploration.transformations.reduce_histogram\)")(histogram, [result_type](../transformations/#ds_api.exploration.transformations.reduce_histogram\(result_type\) "result_type \(ds_api.exploration.transformations.reduce_histogram\(result_type\)\)")=field_type) if histogram_computed else None
+    
+
+###  `` is_constant `instance-attribute` Â¶
+    
+    
+    is_constant = _is_constant()
+    
+
+###  `` max `instance-attribute` Â¶
+    
+    
+    max = _stats['max']
+    
+
+###  `` min `instance-attribute` Â¶
+    
+    
+    min = _stats['min']
+    
+
+###  `` n_missing `instance-attribute` Â¶
+    
+    
+    n_missing = _stats['missing']
+    
+
+###  `` n_unhealthy `instance-attribute` Â¶
+    
+    
+    n_unhealthy = _n_unhealthy()
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name = field_name
+    
+
+###  `` semantic_tag `instance-attribute` Â¶
+    
+    
+    semantic_tag = get([SEMANTIC_TAG_KEY](../constants/#ds_api.exploration.constants.SEMANTIC_TAG_KEY "            SEMANTIC_TAG_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.SEMANTIC_TAG_KEY\)"))
+    
+
+###  `` stats `instance-attribute` Â¶
+    
+    
+    stats = Series(_stats)
+    
+
+###  `` validations `instance-attribute` Â¶
+    
+    
+    validations = from_dict(_validations, orient='index', columns=['value', 'alert']) if [VALIDS_KEY](../constants/#ds_api.exploration.constants.VALIDS_KEY "            VALIDS_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.VALIDS_KEY\)") in field_results else None
+    
+
+###  `` plot Â¶
+    
+    
+    plot(time_unit='yearmonthdate', time_type='T', breakdown_by=None, logy=False, interactive=None, mini=False)
+    
+
+Altair chart of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_unit` Â¶
+
+|  |  a time unit supported by Vega-Lite. Recommended: 'yearmonthdate' or 'yearmonthdatehours'. For more details: https://vega.github.io/vega-lite/docs/timeunit.html |  `'yearmonthdate'`  
+  
+####  `time_type` Â¶
+
+|  |  Vega Data Type for time variable (default: 'T'). Recommended 'T' (='temporal') for high granularity time resolution, and 'O' (='ordinal') for low cardinality time_unit like 'month'. For more details: https://vega.github.io/vega- lite/docs/type.html |  `'T'`  
+  
+####  `breakdown_by` Â¶
+
+|  |  str specifying field to breakdown histograms by. Default is None: no breakdown. |  `None`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool (or None) indicating whether to call the interactive() function on the Altair chart (default: None = False for ordinal time_type otherwise True). |  `None`  
+  
+####  `mini` Â¶
+
+|  |  bool indicating if this is a mini-histogram. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_calendar Â¶
+    
+    
+    plot_calendar(xaxis='date', yaxis='yearmonth', color='fr', size='freq', color_scheme=None)
+    
+
+Altair chart with calendar-like plot of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `xaxis` Â¶
+
+|  |  time unit of the xaxis. Default: 'hours'. Recommended combinations of units are (xaxis='date', yaxis='yearmonth') and (xaxis='hours', yaxis='yearmonthdate') |  `'date'`  
+  
+####  `yaxis` Â¶
+
+|  |  time unit of the yaxis. Default: 'yearmonthdate'. |  `'yearmonth'`  
+  
+####  `color` Â¶
+
+|  |  color encoding. It can be either 'freq' (for frequency counts) or 'fr' (for fraud rate). If set to 'fr' then parameters (target_field, target_value) must be given. |  `'fr'`  
+  
+####  `size` Â¶
+
+|  |  size encoding. It can be either 'freq' (for frequency counts) or 'fr' (for fraud rate). If set to 'fr' then parameters (target_field, target_value) must be given. |  `'freq'`  
+  
+####  `color_scheme` Â¶
+
+|  |  Vega color scheme to be used. Available schemes can be found here: https://vega.github.io/vega/docs/schemes/. Default is None, meaning 'blues' for 'freq' and diverging 'blueorange' centered at the overall fraud rate for 'fr'. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_fraud_rate Â¶
+    
+    
+    plot_fraud_rate(target=(None, None), time_unit='yearmonthdate', time_type='T', logy=False, interactive=None)
+    
+
+Altair fraud rate chart of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. The target_value will be used for the numerator of the fraud rate. Default: (None, None), meaning use the exploration_results.target_field/value if existing. |  `(None, None)`  
+  
+####  `time_unit` Â¶
+
+|  |  a time unit supported by Vega-Lite. Recommended: 'yearmonthdate' or 'yearmonthdatehours'. For more details: https://vega.github.io/vega-lite/docs/timeunit.html |  `'yearmonthdate'`  
+  
+####  `time_type` Â¶
+
+|  |  Vega Data Type for time variable (default: 'T'). Recommended 'T' (='temporal') for high granularity time resolution, and 'O' (='ordinal') for low cardinality time_unit like 'month'. For more details: https://vega.github.io/vega- lite/docs/type.html |  `'T'`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool (or None) indicating whether to call the interactive() function on the Altair chart (default: None = False for ordinal time_type otherwise True). |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_temporal Â¶
+    
+    
+    plot_temporal(chart_type, time_field=None, **kwargs)
+    
+
+Altair chart of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `chart_type` Â¶
+
+|  |  type of chart. Options are: '', 'boxplot', 'scatter' and 'missing_values'.  can be any of constants.SUPPORTED_AGGREGATIONS, or 'all' meaning that aggregations 'min', 'max' and 'avg' will be overlaid. |  _required_  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `**kwargs` Â¶
+
+|  |  plotting options. Look at dedicated plotting functions for reference. |  `{}`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_temporal_aggregation Â¶
+    
+    
+    plot_temporal_aggregation(aggregate, time_field=None, time_resolution='1D', show_points=False, interactive=True, zero_scale=False, logy=False)
+    
+
+Altair chart of the field aggregated with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `aggregate` Â¶
+
+|  |  aggregation function to be used. Can be any of constants.SUPPORTED_AGGREGATIONS. |  _required_  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: False). |  `False`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_temporal_boxplot Â¶
+    
+    
+    plot_temporal_boxplot(time_field=None, time_resolution=None, bar_size=10, interactive=True, zero_scale=False)
+    
+
+Altair boxplot of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: None, meaning that it will be dynamically chosen to divide the time range in 15 periods. |  `None`  
+  
+####  `bar_size` Â¶
+
+|  |  numeric value used to specify the width of the bars (default: 10). |  `10`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_temporal_missing_values Â¶
+    
+    
+    plot_temporal_missing_values(time_field=None, time_resolution='1D', show_points=False, interactive=True, zero_scale=True)
+    
+
+Altair chart of the missing values of the field of interest over time.
+
+Missing values are entries with value None or that are not of type datetime.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_temporal_scatter Â¶
+    
+    
+    plot_temporal_scatter(time_field=None, breakdown_field=None, interactive=True)
+    
+
+Altair scatter plot of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `breakdown_field` Â¶
+
+|  |  name of the field used as a breakdown field. The points will be color encoded by this field. |  `None`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` plot_with_fraud_rate Â¶
+    
+    
+    plot_with_fraud_rate(target=(None, None), **kwargs)
+    
+
+Altair chart of the field with the fraud rate overlaid.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. The target_value will be used for the numerator of the fraud rate. Default: (None, None), meaning use the exploration_results.target_field/value if existing. |  `(None, None)`  
+  
+####  `**kwargs` Â¶
+
+|  |  plotting options to pass to plot() method. |  `{}`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` to_dict Â¶
+    
+    
+    to_dict()
+    
+
+##  `` FieldResults Â¶
+    
+    
+    FieldResults(field_name, field_results, exploration_results)
+    
+
+Bases: `ABC`
+
+Generic class containing the results of the exploration compute_stats for a particular field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  |  field name. |  _required_  
+  
+###  `field_results` Â¶
+
+|  |  dictionary-like results of the given field obtained from [ds_api.exploration.stats.compute_stats](../stats/#ds_api.exploration.stats.compute_stats "            compute_stats"). |  _required_  
+  
+###  `` constant_value `instance-attribute` Â¶
+    
+    
+    constant_value = _constant_value()
+    
+
+###  `` count `instance-attribute` Â¶
+    
+    
+    count = _stats['count']
+    
+
+###  `` field_type `instance-attribute` Â¶
+    
+    
+    field_type = field_results[[FIELD_TYPE_KEY](../constants/#ds_api.exploration.constants.FIELD_TYPE_KEY "            FIELD_TYPE_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.FIELD_TYPE_KEY\)")]
+    
+
+###  `` histogram `instance-attribute` Â¶
+    
+    
+    histogram = _histogram_df()
+    
+
+###  `` histogram_computed `instance-attribute` Â¶
+    
+    
+    histogram_computed = [HISTOGRAM_KEY](../constants/#ds_api.exploration.constants.HISTOGRAM_KEY "            HISTOGRAM_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.HISTOGRAM_KEY\)") in field_results
+    
+
+###  `` histogram_reduced `instance-attribute` Â¶
+    
+    
+    histogram_reduced = [reduce_histogram](../transformations/#ds_api.exploration.transformations.reduce_histogram "            reduce_histogram \(ds_api.exploration.transformations.reduce_histogram\)")(histogram, [result_type](../transformations/#ds_api.exploration.transformations.reduce_histogram\(result_type\) "result_type \(ds_api.exploration.transformations.reduce_histogram\(result_type\)\)")=field_type) if histogram_computed else None
+    
+
+###  `` is_constant `instance-attribute` Â¶
+    
+    
+    is_constant = _is_constant()
+    
+
+###  `` n_missing `instance-attribute` Â¶
+    
+    
+    n_missing = _stats['missing']
+    
+
+###  `` n_unhealthy `instance-attribute` Â¶
+    
+    
+    n_unhealthy = _n_unhealthy()
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name = field_name
+    
+
+###  `` semantic_tag `instance-attribute` Â¶
+    
+    
+    semantic_tag = get([SEMANTIC_TAG_KEY](../constants/#ds_api.exploration.constants.SEMANTIC_TAG_KEY "            SEMANTIC_TAG_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.SEMANTIC_TAG_KEY\)"))
+    
+
+###  `` stats `instance-attribute` Â¶
+    
+    
+    stats = Series(_stats)
+    
+
+###  `` validations `instance-attribute` Â¶
+    
+    
+    validations = from_dict(_validations, orient='index', columns=['value', 'alert']) if [VALIDS_KEY](../constants/#ds_api.exploration.constants.VALIDS_KEY "            VALIDS_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.VALIDS_KEY\)") in field_results else None
+    
+
+###  `` plot `abstractmethod` Â¶
+    
+    
+    plot()
+    
+
+To be overridden. Altair chart of the field.
+
+###  `` plot_fraud_rate `abstractmethod` Â¶
+    
+    
+    plot_fraud_rate(target)
+    
+
+To be overridden. Altair fraud rate chart of the field.
+
+###  `` plot_temporal `abstractmethod` Â¶
+    
+    
+    plot_temporal(chart_type, time_field, **kwargs)
+    
+
+To be overridden. Altair chart of the field over time.
+
+###  `` plot_temporal_missing_values `abstractmethod` Â¶
+    
+    
+    plot_temporal_missing_values(time_field)
+    
+
+To be overridden. Altair chart of the missing values over time.
+
+###  `` plot_with_fraud_rate `abstractmethod` Â¶
+    
+    
+    plot_with_fraud_rate(target)
+    
+
+To be overridden. Altair chart of the field with the fraud rate overlaid.
+
+###  `` to_dict Â¶
+    
+    
+    to_dict()
+    
+
+##  `` NumericalFieldResults Â¶
+    
+    
+    NumericalFieldResults(field_name, field_results, exploration_results)
+    
+
+Bases: `FieldResults`
+
+Class containing the results of the exploration compute_stats for a numerical field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  |  field name. |  _required_  
+  
+###  `field_results` Â¶
+
+|  |  dictionary-like results of the given field obtained from exploration.stats.compute_stats(). |  _required_  
+  
+###  `` bin_width `instance-attribute` Â¶
+    
+    
+    bin_width = _bin_width()
+    
+
+###  `` constant_value `instance-attribute` Â¶
+    
+    
+    constant_value = _constant_value()
+    
+
+###  `` count `instance-attribute` Â¶
+    
+    
+    count = _stats['count']
+    
+
+###  `` field_type `instance-attribute` Â¶
+    
+    
+    field_type = field_results[[FIELD_TYPE_KEY](../constants/#ds_api.exploration.constants.FIELD_TYPE_KEY "            FIELD_TYPE_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.FIELD_TYPE_KEY\)")]
+    
+
+###  `` histogram `instance-attribute` Â¶
+    
+    
+    histogram = _histogram_df()
+    
+
+###  `` histogram_computed `instance-attribute` Â¶
+    
+    
+    histogram_computed = [HISTOGRAM_KEY](../constants/#ds_api.exploration.constants.HISTOGRAM_KEY "            HISTOGRAM_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.HISTOGRAM_KEY\)") in field_results
+    
+
+###  `` histogram_reduced `instance-attribute` Â¶
+    
+    
+    histogram_reduced = [reduce_histogram](../transformations/#ds_api.exploration.transformations.reduce_histogram "            reduce_histogram \(ds_api.exploration.transformations.reduce_histogram\)")(histogram, [result_type](../transformations/#ds_api.exploration.transformations.reduce_histogram\(result_type\) "result_type \(ds_api.exploration.transformations.reduce_histogram\(result_type\)\)")=field_type) if histogram_computed else None
+    
+
+###  `` is_constant `instance-attribute` Â¶
+    
+    
+    is_constant = _is_constant()
+    
+
+###  `` max `instance-attribute` Â¶
+    
+    
+    max = _stats['max']
+    
+
+###  `` mean `instance-attribute` Â¶
+    
+    
+    mean = _stats['mean']
+    
+
+###  `` min `instance-attribute` Â¶
+    
+    
+    min = _stats['min']
+    
+
+###  `` n_infinites `instance-attribute` Â¶
+    
+    
+    n_infinites = _stats['infinites']
+    
+
+###  `` n_missing `instance-attribute` Â¶
+    
+    
+    n_missing = _stats['missing']
+    
+
+###  `` n_nan `instance-attribute` Â¶
+    
+    
+    n_nan = _stats['nan']
+    
+
+###  `` n_unhealthy `instance-attribute` Â¶
+    
+    
+    n_unhealthy = _n_unhealthy()
+    
+
+###  `` n_zeros `instance-attribute` Â¶
+    
+    
+    n_zeros = _stats['zeros']
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name = field_name
+    
+
+###  `` semantic_tag `instance-attribute` Â¶
+    
+    
+    semantic_tag = get([SEMANTIC_TAG_KEY](../constants/#ds_api.exploration.constants.SEMANTIC_TAG_KEY "            SEMANTIC_TAG_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.SEMANTIC_TAG_KEY\)"))
+    
+
+###  `` stats `instance-attribute` Â¶
+    
+    
+    stats = Series(_stats)
+    
+
+###  `` std `instance-attribute` Â¶
+    
+    
+    std = _stats['stddev']
+    
+
+###  `` sum `instance-attribute` Â¶
+    
+    
+    sum = _stats['sum']
+    
+
+###  `` validations `instance-attribute` Â¶
+    
+    
+    validations = from_dict(_validations, orient='index', columns=['value', 'alert']) if [VALIDS_KEY](../constants/#ds_api.exploration.constants.VALIDS_KEY "            VALIDS_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.VALIDS_KEY\)") in field_results else None
+    
+
+###  `` plot Â¶
+    
+    
+    plot(nbins=50, fix_step=False, normalize=None, breakdown_by=None, stack=False, logy=False, interactive=True, mini=False)
+    
+
+Altair chart of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `nbins` Â¶
+
+|  |  approximate number of bins for the desired histogram visualization. Default: 50 |  `50`  
+  
+####  `fix_step` Â¶
+
+|  |  if True, constrain the bin width to be a multiple of the original bin width. This ensures that every visual bucket, except for the first and last ones, contain the same amount of original buckets. Otherwise, the binning is automatically decided by Vega (i.e., the binning is optimized to be more pleasing to the human eye). Fixing the step leads to having more control over the desired number of bins, while simultaneously removing undesired bin migration effects. However, it may end up with unpleasant visual bin ranges. If enough resolution was used to calculate the histograms, the mistakes resulting from not fixing the step are likely to be small enough to be safely ignored. Therefore, the option False is preferred. Default is False. |  `False`  
+  
+####  `normalize` Â¶
+
+|  |  bool (or None) indicating if the histogram is to be normalized. If set as True, the histogram is normalized to unity, otherwise the y-axis represents the actual counts. If set as True and breakdown_by is not None, the histogram of every breakdown value will be normalized to unity. Default is None: this means that the histogram will be normalized if breakdown_by is not None, otherwise it will not be normalized. |  `None`  
+  
+####  `breakdown_by` Â¶
+
+|  |  string specifying a field to breakdown histograms by. Default is None: no breakdown. |  `None`  
+  
+####  `stack` Â¶
+
+|  |  whether to stack histograms or not. Default: None. Only applies to the case where breakdown_by is not None. |  `False`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `mini` Â¶
+
+|  |  bool indicating if this is a mini-histogram. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_fraud_rate Â¶
+    
+    
+    plot_fraud_rate(target=(None, None), nbins=50, fix_step=False, bar=True, logy=False, interactive=True)
+    
+
+Altair fraud rate chart of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. The target_value will be used for the numerator of the fraud rate. Default: (None, None), meaning use the exploration_results.target_field/value if existing. |  `(None, None)`  
+  
+####  `nbins` Â¶
+
+|  |  approximate number of bins for the desired histogram visualization. Default: 50. |  `50`  
+  
+####  `fix_step` Â¶
+
+|  |  if True, constrain the bin width to be a multiple of the original bin width. This ensures that every visual bucket, except for the first and last ones, contain the same amount of original buckets. Otherwise, the binning is automatically decided by Vega (i.e., the binning is optimized to be more pleasing to the human eye). Fixing the step leads to having more control over the desired number of bins, while simultaneously removing undesired bin migration effects. However, it may end up with unpleasant visual bin ranges. If enough resolution was used to calculate the histograms, the mistakes resulting from not fixing the step are likely to be small enough to be safely ignored. Therefore, the option False is preferred. Default is False. |  `False`  
+  
+####  `bar` Â¶
+
+|  |  bool indicating whether to return a bar chart (True) or a line chart (False). Default: True. |  `True`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal Â¶
+    
+    
+    plot_temporal(chart_type, time_field=None, **kwargs)
+    
+
+Altair chart of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `chart_type` Â¶
+
+|  |  type of chart. Options are: '', 'boxplot', 'scatter' and 'missing_values'.  can be any of constants.SUPPORTED_AGGREGATIONS, or 'all' meaning that aggregations 'min', 'max' and 'avg' will be overlaid. |  _required_  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `**kwargs` Â¶
+
+|  |  plotting options. Look at dedicated plotting functions for reference. |  `{}`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_aggregation Â¶
+    
+    
+    plot_temporal_aggregation(aggregate, time_field=None, time_resolution='1D', show_points=False, interactive=True, zero_scale=False, logy=False)
+    
+
+Altair chart of the field aggregated with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `aggregate` Â¶
+
+|  |  aggregation function to be used. Can be any of constants.SUPPORTED_AGGREGATIONS. |  _required_  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: False). |  `False`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_boxplot Â¶
+    
+    
+    plot_temporal_boxplot(time_field=None, time_resolution=None, bar_size=10, interactive=True, zero_scale=False)
+    
+
+Altair boxplot of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: None, meaning that it will be dynamically chosen to divide the time range in 15 periods. |  `None`  
+  
+####  `bar_size` Â¶
+
+|  |  numeric value used to specify the width of the bars (default: 10). |  `10`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_missing_values Â¶
+    
+    
+    plot_temporal_missing_values(time_field=None, time_resolution='1D', show_points=False, interactive=True, zero_scale=True)
+    
+
+Altair chart of the missing values of the field of interest over time.
+
+Missing values are entries with value None or nan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details [here](https://pandas.pydata.org/pandas-
+docs/stable/user_guide/timeseries.html#offset-aliases). Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_scatter Â¶
+    
+    
+    plot_temporal_scatter(time_field=None, breakdown_field=None, interactive=True)
+    
+
+Altair scatter plot of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `breakdown_field` Â¶
+
+|  |  name of the field used as a breakdown field. The points will be color encoded by this field. |  `None`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_with_fraud_rate Â¶
+    
+    
+    plot_with_fraud_rate(target=(None, None), **kwargs)
+    
+
+Altair chart of the field with the fraud rate overlaid.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. The target_value will be used for the numerator of the fraud rate. Default: (None, None), meaning use the exploration_results.target_field/value if existing. |  `(None, None)`  
+  
+####  `**kwargs` Â¶
+
+|  |  plotting options to pass to plot() method. |  `{}`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` quantile Â¶
+    
+    
+    quantile(q=(0.0, 0.25, 0.5, 0.75, 1.0))
+    
+
+Return approximate value at the given quantile(s). Values are computed from the histograms, therefore the associated uncertainty is half the bin width of the histogram.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `q` Â¶
+
+|  |  float or list/tuple of floats with quantiles to compute. Values must be between 0 and 1. Default is (0.0, 0.25, 0.5, 0.75, 1.0). |  `(0.0, 0.25, 0.5, 0.75, 1.0)`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Pandas Series with the quantiles.` |   
+  
+###  `` to_dict Â¶
+    
+    
+    to_dict()
+    
+
+##  `` StringFieldResults Â¶
+    
+    
+    StringFieldResults(field_name, field_results, exploration_results)
+    
+
+Bases: `FieldResults`
+
+Class containing the results of the exploration compute_stats for a categorical field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  |  field name. |  _required_  
+  
+###  `field_results` Â¶
+
+|  |  dictinary-like results of the given field obtained from exploration.stats.compute_stats(). |  _required_  
+  
+###  `` cardinality `instance-attribute` Â¶
+    
+    
+    cardinality = _cardinality()
+    
+
+###  `` cardinality_error `instance-attribute` Â¶
+    
+    
+    cardinality_error = _stats['hll_error'] if is_approximate else 0
+    
+
+###  `` constant_value `instance-attribute` Â¶
+    
+    
+    constant_value = _constant_value()
+    
+
+###  `` count `instance-attribute` Â¶
+    
+    
+    count = _stats['count']
+    
+
+###  `` field_type `instance-attribute` Â¶
+    
+    
+    field_type = field_results[[FIELD_TYPE_KEY](../constants/#ds_api.exploration.constants.FIELD_TYPE_KEY "            FIELD_TYPE_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.FIELD_TYPE_KEY\)")]
+    
+
+###  `` histogram `instance-attribute` Â¶
+    
+    
+    histogram = _histogram_df()
+    
+
+###  `` histogram_computed `instance-attribute` Â¶
+    
+    
+    histogram_computed = [HISTOGRAM_KEY](../constants/#ds_api.exploration.constants.HISTOGRAM_KEY "            HISTOGRAM_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.HISTOGRAM_KEY\)") in field_results
+    
+
+###  `` histogram_reduced `instance-attribute` Â¶
+    
+    
+    histogram_reduced = [reduce_histogram](../transformations/#ds_api.exploration.transformations.reduce_histogram "            reduce_histogram \(ds_api.exploration.transformations.reduce_histogram\)")(histogram, [result_type](../transformations/#ds_api.exploration.transformations.reduce_histogram\(result_type\) "result_type \(ds_api.exploration.transformations.reduce_histogram\(result_type\)\)")=field_type) if histogram_computed else None
+    
+
+###  `` is_approximate `instance-attribute` Â¶
+    
+    
+    is_approximate = not histogram_computed or [OTHER_VAL](../constants/#ds_api.exploration.constants.OTHER_VAL "            OTHER_VAL
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.OTHER_VAL\)") in [(k[0]) for k in (_histogram)]
+    
+
+###  `` is_constant `instance-attribute` Â¶
+    
+    
+    is_constant = _is_constant()
+    
+
+###  `` n_empty `instance-attribute` Â¶
+    
+    
+    n_empty = _stats['empty']
+    
+
+###  `` n_missing `instance-attribute` Â¶
+    
+    
+    n_missing = _stats['missing']
+    
+
+###  `` n_unhealthy `instance-attribute` Â¶
+    
+    
+    n_unhealthy = _n_unhealthy()
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name = field_name
+    
+
+###  `` semantic_tag `instance-attribute` Â¶
+    
+    
+    semantic_tag = get([SEMANTIC_TAG_KEY](../constants/#ds_api.exploration.constants.SEMANTIC_TAG_KEY "            SEMANTIC_TAG_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.SEMANTIC_TAG_KEY\)"))
+    
+
+###  `` stats `instance-attribute` Â¶
+    
+    
+    stats = Series(_stats)
+    
+
+###  `` validations `instance-attribute` Â¶
+    
+    
+    validations = from_dict(_validations, orient='index', columns=['value', 'alert']) if [VALIDS_KEY](../constants/#ds_api.exploration.constants.VALIDS_KEY "            VALIDS_KEY
+    
+    
+      
+          module-attribute
+       \(ds_api.exploration.constants.VALIDS_KEY\)") in field_results else None
+    
+
+###  `` categories Â¶
+    
+    
+    categories(top_n=None)
+    
+
+List of top-n most frequent categories ordered by frequency.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `top_n` Â¶
+
+|  |  if given return only the top_n most frequent categories. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`list` |  list of top-n categories ordered by frequency.  
+  
+###  `` frequencies Â¶
+    
+    
+    frequencies(top_n: Optional[int] = None) -> Optional[Series]
+    
+
+Frequency table of top-n categories.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `top_n` Â¶
+
+|  `Optional[int]` |  if given return only the top_n most frequent categories. The rest of the categories will be merge into the '(other)' category. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Series` |  Table containing the frequency table of the top_n categories. Indices are category labels, values are frequencies. At most it will have a length of top_n + 2, including the other and the missing keys. If the field histogram was not computed it returns None.  
+  
+###  `` plot Â¶
+    
+    
+    plot(sort_by_freq=True, breakdown_by=None, cat_threshold=None, vertical=True, logy=False, interactive=True, mini=False)
+    
+
+Altair chart of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `sort_by_freq` Â¶
+
+|  |  bool indicating whether to sort by frequency, i.e. categories with higher frequency first. Otherwise, sort alphabetically (default: True). |  `True`  
+  
+####  `breakdown_by` Â¶
+
+|  |  str specifying field to breakdown histograms by. Default is None: no breakdown. |  `None`  
+  
+####  `cat_threshold` Â¶
+
+|  |  number of categories to keep. In case the underlying cardinality is larger, keep the cat_threshold-1 most frequent categories and create a new category 'other' as the aggregation of the rest of categories. Default is None: keep all categories. Only works for string histograms. |  `None`  
+  
+####  `vertical` Â¶
+
+|  |  bool indicating whether to produce a vertical or a a horizontal bar plot. Vertical means categories in the x-axis, counts on the y-axis. Horizontal only possible with no breakdowns. Default: vertical. |  `True`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart. Default: True. |  `True`  
+  
+####  `mini` Â¶
+
+|  |  bool indicating if this is a mini-histogram. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_fraud_rate Â¶
+    
+    
+    plot_fraud_rate(target=(None, None), sort_by='fr', cat_threshold=None, vertical=True, logy=False, interactive=True)
+    
+
+Altair fraud rate chart of the field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. The target_value will be used for the numerator of the fraud rate. Default: (None, None), meaning use the exploration_results.target_field/value if existing. |  `(None, None)`  
+  
+####  `sort_by` Â¶
+
+|  |  string indicating sorting type. Supported sorting are by frequency ('freq'), by fraud rate ('fr') and alphabetical ('alpha'). Default: 'fr'. |  `'fr'`  
+  
+####  `cat_threshold` Â¶
+
+|  |  number of categories to keep. In case the underlying cardinality is larger, keep the cat_threshold-1 most frequent categories and create a new category 'other' as the aggregation of the rest of categories. Default is None: keep all categories. Only works for string histograms. |  `None`  
+  
+####  `vertical` Â¶
+
+|  |  bool indicating whether to produce a vertical or a a horizontal bar plot. Vertical means categories in the x-axis, counts on the y-axis. Horizontal only possible with no breakdowns. Default: vertical. |  `True`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart. Default: True. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal Â¶
+    
+    
+    plot_temporal(chart_type, time_field=None, **kwargs)
+    
+
+Altair chart of the field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `chart_type` Â¶
+
+|  |  type of chart. Options are: 'categories', 'cardinality' and 'missing_values'. |  _required_  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `**kwargs` Â¶
+
+|  |  other options. Look at dedicated plotting functions for reference. |  `{}`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_cardinality Â¶
+    
+    
+    plot_temporal_cardinality(time_field=None, time_resolution='1D', show_points=False, interactive=True, zero_scale=True)
+    
+
+Altair chart of the field cardinality with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_categories Â¶
+    
+    
+    plot_temporal_categories(time_field=None, time_resolution='1D', top_n=5, show_points=False, interactive=True, zero_scale=True, logy=False)
+    
+
+Altair chart of the categories of a string field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `top_n` Â¶
+
+|  |  the number of categorical values, with highest count, that should be displayed. |  `5`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: True). |  `True`  
+  
+####  `logy` Â¶
+
+|  |  bool indicating whether to use a log10 scale for the y-axis (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_temporal_missing_values Â¶
+    
+    
+    plot_temporal_missing_values(time_field=None, time_resolution='1D', show_points=False, interactive=True, zero_scale=True)
+    
+
+Altair chart of the missing values of the field of interest over time.
+
+Missing values are entries with value None.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. If None, the special timestamp_field will be used, if available. Default: None. |  `None`  
+  
+####  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Note that 1) this resolution can not be lower than the intrinsic time resolution of the passed dataframe and 2) for optimal results this resolution should be a multiple of the intrinsic time resolution. The intrinsic resolution is typically specified during the call to `compute_stats`. Default: '1D'. |  `'1D'`  
+  
+####  `show_points` Â¶
+
+|  |  bool indicating whether to display the data points (default: False). |  `False`  
+  
+####  `interactive` Â¶
+
+|  |  bool indicating whether to call the function interactive() on the Altair chart (default: True). |  `True`  
+  
+####  `zero_scale` Â¶
+
+|  |  If true, ensures that a zero baseline value is included in the scale domain. (default: True). |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`An Altair chart.` |   
+  
+###  `` plot_with_fraud_rate Â¶
+    
+    
+    plot_with_fraud_rate(target=(None, None), **kwargs)
+    
+
+Altair chart of the field with the fraud rate overlaid.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. The target_value will be used for the numerator of the fraud rate. Default: (None, None), meaning use the exploration_results.target_field/value if existing. |  `(None, None)`  
+  
+####  `**kwargs` Â¶
+
+|  |  plotting options to pass to plot() method. |  `{}`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an Altair chart.  
+  
+###  `` to_dict Â¶
+    
+    
+    to_dict()
+    

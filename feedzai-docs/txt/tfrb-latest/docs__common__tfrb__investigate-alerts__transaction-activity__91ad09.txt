@@ -1,0 +1,37 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/transaction-activity-widgets
+Title: transaction-activity-widgets | Transaction Fraud for Banking
+============================================================
+
+On this page
+
+# transaction-activity-widgets
+
+Was this page helpful?Â 
+
+### Transaction Historyâ
+
+This widget displays the transactional events associated with the alert under investigation. It places alerts in a more general picture, thus allowing agents to act upon them in a more efficient way.
+
+Available data varies depending on the value or combination of values selected to fine-tune your results. For instance, by selecting _Customer Name_ , the list shows all transactions made by the same customer as the event under investigation.
+
+note
+
+Note that you must _select at least one value_ for transactional data to be displayed.
+
+Additionally, you can reduce the volume of information by selecting a time window, which allows you to choose the period appropriate to your analysis (e.g. Last year, Last day, Last month).
+
+It helps uncover fraud evidence such as:
+
+Description| Examples and details  
+---|---  
+Multiple same amount transactions within a small timeframe| Over 10 transactions of the same amount were alerted for the same Customer Name within 30 minutes.  
+High number of fraudulent past transactions| Customer has had over 15 transactions marked as **Fraud** in the past, indicating there's a high likelihood of suspicious behavior.  
+  
+tip
+
+On top of the information available on the **Transaction History** widget, you can refer to:
+
+  * The **Notes** widget to check if the parties involved were recently contacted and any other information previously left by other agents, for example, when investigating related alerts or the customer.
+  * Your internal systems to check for other transactions by the same customer that werenât alerted (as the information in this widget only refers to alerted transactions). This can help you uncover patterns that might otherwise not look fraudulent/suspicious.
+
+

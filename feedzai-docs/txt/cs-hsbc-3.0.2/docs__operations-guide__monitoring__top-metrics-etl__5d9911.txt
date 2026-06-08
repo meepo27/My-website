@@ -1,0 +1,65 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-etl
+Title: Top Metrics to Monitor in ETL | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Top Metrics to Monitor in ETL
+
+In this section, you will find which metrics are important to monitor in **ETL**.
+
+##### WARNING - ETL metrics
+
+ETL metrics are only exposed while the ETL process is executing. The process stays running for 20 seconds after the extraction finishes to allow fetching the metrics.
+
+##### info
+
+Note that the following list is simply a reference to the most important metrics, and should not be considered the single way of monitoring the system's health.
+
+## Execution metricsâ
+
+Metrics about the ETL process execution.
+
+### How to measure Execution metricsâ
+
+JVM metrics are available as `etl.execution`. You will find different metrics under this namespace, including number of events read and written, as well well errors.
+
+### What to monitor in Execution metricsâ
+
+The following metrics are the most useful when monitoring the ETL process:
+
+  * `etl.execution.extract.success`: reports the amount of successful reads performed
+  * `etl.execution.extract.error`: reports the amount of reads that resulted in an error
+  * `etl.execution.publish.success`: reports the amount of successful writes performed
+  * `etl.execution.publish.error`: reports the amount of writes that resulted in an error
+  * `etl.execution.publish-queue`: reports the size of the ETL publish queue
+  * `etl.execution.last-execution`: reports the status of the last execution
+  * `etl.execution.last-duration`: reports the duration of the last execution
+
+
+
+It is important to monitor any differences between successful reads and writes, as well as any errors that occur when reading or writing. Furthermore, alerts should be set up for when the last execution fails and the execution time should also be kept in check.
+
+## JVM metricsâ
+
+The ETL is a JVM process so the typicall metrics are available.
+
+### How to measure JVM metricsâ
+
+JVM metrics are available as `letmeknow.jvm`. Youâll find many different metrics under this namespace, from GC to Memory.
+
+### What to monitor in JVM metricsâ
+
+Look into at least GC, Memory and Threads metrics. These give you an idea of the healthiness of the process.
+
+## Logback metricsâ
+
+Metrics are available for the amount of logs produced by the ETL.
+
+### How to measure Logback metricsâ
+
+Logback metrics are available as `letmeknow.logback`. Youâll find many different metrics under this namespace, for each of the log levels.
+
+### What to monitor in Logback metricsâ
+
+Look into the number of log messages being generated, particularly spikes in ERROR logs.

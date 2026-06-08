@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-users
+Title: Pulse Audit - Users | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Pulse Audit
+  * Pulse Audit - Users
+
+
+
+# Pulse Audit - Users
+
+Was this page helpful?Â 
+
+The **Pulse Audit - Users** entity stores all audit events for Users. For every action in Pulse related to Users, this entity captures the audit trail.
+
+It comprises the [Pulse Audit - Base Schema](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-base) and the following fields:
+
+Name| Type| Description| Example  
+---|---|---|---  
+`audit_payload`| row| The audit payload associated with the users action.|   
+âââ`labels`| string| |   
+âââ`context`| string| | 

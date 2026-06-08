@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/admin-reference/overview
+Title: Admin Reference | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Admin Reference
+
+
+
+# Admin Reference
+
+This documentation is intended for:
+
+  * Fraud prevention managers, who need to understand the multi-tenancy gap between PSPs (landlord) and merchants (tenants) - read the [Multi-Tenancy in Case Manager](/rmpsp/2.8/docs/common/rmpsp/admin-reference/multi-tenancy) and [Manage Users](/rmpsp/2.8/docs/common/rmpsp/admin-reference/manage-users) to see the differences between these two entities in Case Manager, and to create users for merchants (to access Case Manager), respectively.
+  * System administrators, who provide and manage accesses to Pulse, Case Manager, and analytics dashboards - read the [Roles and Permissions](/rmpsp/2.8/docs/common/rmpsp/admin-reference/roles-and-permissions) page to understand each role's allowed actions to perform their work, and to quickly check each role's permissions.
+
+

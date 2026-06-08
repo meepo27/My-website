@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/configuration-dep
+Title: Data Extraction Pipelines Configurations | Feedzai Documentation
+============================================================
+
+On this page
+
+# Data Extraction Pipelines Configurations
+
+## Ansibleâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+rabbitmq_casemanager_brokers| STRING| X| | RabbitMQ host from where the pipelines will read the Case Manager notifications (same as configured in Case Manager)  
+rabbitmq_casemanager_username| STRING| X| | RabbitMQ user from where the pipelines will read the Case Manager notifications (same as configured in Case Manager)  
+rabbitmq_casemanager_password| STRING| X| | RabbitMQ password from where the pipelines will read the Case Manager notifications (same as configured in Case Manager)  
+rabbitmq_casemanager_vhost_blue| STRING| X| | RabbitMQ Blue vhost from where the pipelines will read the Case Manager notifications (same as configured in Case Manager)  
+rabbitmq_casemanager_vhost_green| STRING| X| | RabbitMQ Green vhost from where the pipelines will read the Case Manager notifications (same as configured in Case Manager)  
+rabbitmq_casemanager_queue_type_blue| STRING| | `CLASSIC`| RabbitMQ Blue Queue Type (can be one of `CLASSIC`/`QUORUM`  
+rabbitmq_casemanager_queue_type_green| STRING| | `CLASSIC`| RabbitMQ Green Queue Type (can be one of `CLASSIC`/`QUORUM`  
+pulse_elb| STRING| X| | Pulse host name (to be used in Rules Metadata pipeline) - in the format `http(s)://<host>:<port>`  
+pulse_app_id| STRING| | 599912dbf381eb06| Pulse Payments application identifier (to be used in Rules Metadata pipeline)  
+pulse_workflow_id| STRING| | daef64964ee3b9b9| Pulse Payments workflow identifier (to be used in Rules Metadata pipeline)  
+pulse_insights_logstash_username| STRING| X| | Pulse user name (to be used in Rules Metadata pipeline)  
+pulse_insights_logstash_password| STRING| X| | Pulse password (to be used in Rules Metadata pipeline)  
+gcs_tmp_directory| STRING| | /tmp/logstash/| Directory where temporary files are stored  
+case-manager-cases-case.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-cases-event.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-cases-queue.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-cases-status.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-cases-user.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-events-event.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-events-notes.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-events-queue.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-events-status.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+case-manager-events-user.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+rules-metadata.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+pulse-workflow-audit.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+pulse-workflow-audit-recovery.workers| NUMBER| | 1| Setting determines how many threads to run for filter and output processing for the specified pipeline  
+logstash_heap_size| STRING| | {{ (ansible_memtotal_mb * 0.5)| int  
+gcs_bucket_name| STRING| X| | Bucket to where the pipelines will export the data  
+gcs_bucket_name_cases_case| STRING| | {{ gcs_bucket_name }}| Bucket to where the New Case pipeline will export the data  
+gcs_bucket_name_cases_event| STRING| | {{ gcs_bucket_name }}| Bucket to where the Case events linked/unlinked pipeline will export the data  
+gcs_bucket_name_cases_queue| STRING| | {{ gcs_bucket_name }}| Bucket to where the Case queue changed pipeline will export the data  
+gcs_bucket_name_cases_status| STRING| | {{ gcs_bucket_name }}| Bucket to where the Case state change pipeline will export the data  
+gcs_bucket_name_cases_user| STRING| | {{ gcs_bucket_name }}| Bucket to where the Case assignee changed pipeline will export the data  
+gcs_bucket_name_events_event| STRING| | {{ gcs_bucket_name }}| Bucket to where the Event arrival pipeline will export the data  
+gcs_bucket_name_events_notes| STRING| | {{ gcs_bucket_name }}| Bucket to where the Add note pipeline will export the data  
+gcs_bucket_name_events_queue| STRING| | {{ gcs_bucket_name }}| Bucket to where the Event queue changed pipeline will export the data  
+gcs_bucket_name_events_status| STRING| | {{ gcs_bucket_name }}| Bucket to where the Event state changed pipeline will export the data  
+gcs_bucket_name_events_user| STRING| | {{ gcs_bucket_name }}| Bucket to where the Event assignee changed pipeline will export the data  
+gcs_bucket_name_rules_metadata| STRING| | {{ gcs_bucket_name }}| Bucket to where the rules metadata pipeline will export the data  
+gcs_bucket_name_pulse_workflow_audit| STRING| | {{ gcs_bucket_name }}| Bucket to where the pulse workflow audit pipeline will export the data  
+gcs_bucket_name_pulse_workflow_audit_recovery| STRING| | {{ gcs_bucket_name }}| Bucket to where the pulse workflow audit pipeline will export the data  
+max_file_size_kbytes| NUMBER| | 1024 (from defaults)| Sets max file size in kbytes. 0 disable max file check  
+uploader_interval_secs| NUMBER| | 60| Uploader interval when uploading new files to GCS. Adjust time based on your time pattern (for example, for hourly files, this interval can be around one hour)  
+logstash_pipelines_tmp_path| STRING| | /tmp/staging/logstash/pipelines| Source directory of the pipeline template files  
+dead_letter_queue_enable| BOOLEAN| | False| Enable Logstash Dead Letter Queueing System  
+allow_superuser_execution| BOOLEAN| | True| Allows superuser execution

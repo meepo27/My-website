@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4154
+Title: HSBC-4154 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4154
+
+### Add support for RabbitMQ 3.13.7â
+
+FeatureFTMT-27426HSBC-4154
+
+Feedzai components now support and have been tested against RabbitMQ `3.13.7`. The RabbitMQ `3.13` branch is still under extended commercial support through December 2027.

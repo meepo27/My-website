@@ -1,0 +1,262 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-posneg-rules
+Title: Digital Activity - PosNeg Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Digital Activity - PosNeg Rules
+
+
+
+On this page
+
+# Digital Activity - PosNeg Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_PosNeg Rules_ mark digital activities as `decline` or `accept` when the event has entities that are in [Pulse lists](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists). Examples of entities include IP, device ID, account ID, and Alias ID. PosNeg Rules act only on requests evoked by the Digital Activity endpoints.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Digital Activity - PN1
+
+### Comment
+
+> Digital activity from an IP that is listed to be auto declined.
+
+### Actions
+
+  * [DA-PN1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Filters
+    (event.device_ip_address ?? '' != '')
+    and
+    event.posneg_device_ip_value == 'decline'
+
+### Explanation
+
+> [DA-PN1] - Decline - IP address {{event.device_ip_address}} is listed to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - PN2
+
+### Comment
+
+> Digital activity from a Device Id that is listed to be auto declined.
+
+### Actions
+
+  * [DA-PN2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Filters
+    (event.device_id ?? '' != '')
+    and
+    event.posneg_device_id_value == 'decline' 
+
+### Explanation
+
+> [DA-PN2] - Decline - Device ID {{event.device_id}} is listed to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - PN3
+
+### Comment
+
+> Digital activity from an Account Id that is listed to be auto declined.
+
+### Actions
+
+  * [DA-PN3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '')
+    and
+    event.posneg_account_id_value == 'decline'
+
+### Explanation
+
+> [DA-PN3] - Decline - Account ID {{event.account_id}} is listed to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - PN4
+
+### Comment
+
+> Digital activity from an Account Id that is listed to be auto accepted.
+
+### Actions
+
+  * [DA-PN4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '')
+    and
+    event.posneg_account_id_value == 'approve'
+
+### Explanation
+
+> [DA-PN4] - Approve - Account ID {{event.account_id}} is listed to be auto accepted. 
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Digital Activity - PN5
+
+### Comment
+
+> Creating or changing an Alias Id to one that is listed to be auto declined.
+
+### Actions
+
+  * [DA-PN5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Endpoint
+    event.event_type == 'alias'
+    and
+    //Filters   
+    (event.new_alias_value ?? '' != '')
+    and
+    event.posneg_alias_value == 'decline' 
+
+### Explanation
+
+> [DA-PN5] - Decline - Alias {{event.new_alias_value}} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - PN6
+
+### Comment
+
+> Profile Update request to an email address or email domain that is listed to be auto declined.
+
+### Actions
+
+  * [DA-PN6]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Endpoint
+    event.event_type == 'profile_update'
+    and 
+    //Filters
+    ((event.new_customer_email_addr ?? '' != '') or (event.new_customer_email_domain ?? '' != '')) 
+     and
+    ((event.posneg_email_addr_value == 'decline') or (event.posneg_email_domain == 'decline'))   
+
+### Explanation
+
+> [DA-PN6] - Decline - Profile Update request to an email address {{event.new_customer_email_addr}} or email domain {{event.new_customer_email_addr}} listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - PN7
+
+### Comment
+
+> Profile Update request to a phone number that is listed to be auto declined.
+
+### Actions
+
+  * [DA-PN7]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Endpoint
+    event.event_type == 'profile_update'
+    and
+    //Filters  
+    (event.new_customer_phone_number ?? '' != '')
+    and 
+    event.posneg_phone_value == 'decline'
+
+### Explanation
+
+> [DA-PN7] - Decline - Profile Update request to a phone number {{event.new_customer_phone_number}} listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**

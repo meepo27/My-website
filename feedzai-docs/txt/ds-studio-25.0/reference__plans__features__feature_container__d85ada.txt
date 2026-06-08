@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/features/feature_container/
+Title: feature_container - DS API
+============================================================
+
+#  `` feature_container Â¶
+
+##  `` FeatureContainer Â¶
+    
+    
+    FeatureContainer(features: Iterable[[BaseFeature](../feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")] | None = None)
+    
+
+Holds a collection of features while retaining both their "individual" definition, and their definition within the context of a plan.
+
+This is similar to a dictionary that maps the individual feature definition (ie, without the operator context), with the "full feature" (ie with the operator).
+
+###  `` values `property` Â¶
+    
+    
+    values: List[[BaseFeature](../feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")]
+    
+
+###  `` add Â¶
+    
+    
+    add(feature: [BaseFeature](../feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")) -> FeatureContainer
+    
+
+###  `` remove Â¶
+    
+    
+    remove(feature: [BaseFeature](../feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")) -> FeatureContainer
+    
+
+##  `` HashableFeature `dataclass` Â¶
+    
+    
+    HashableFeature(name: str, feature: str)
+    
+
+Feature representation without its operator. This is useful to define the 'uniqueness' of a feature. A feature is considered unique based on its contents excluding the operator to which it is attached.
+
+###  `` feature `instance-attribute` Â¶
+    
+    
+    feature: str
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name: str
+    
+
+###  `` from_feature `classmethod` Â¶
+    
+    
+    from_feature(feature: [BaseFeature](../feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")) -> HashableFeature
+    
+
+Create a HashableFeature from a BaseFeature (Map, Metric, ...).
+
+For this purpose we only want to keep the feature name ("desc") and its definition without the link to the Operator.

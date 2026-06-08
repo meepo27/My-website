@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4045
+Title: HSBC-4045 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4045
+
+### Add new fields to Cards and Non-Monâ
+
+FeatureFTMT-34892HSBC-4045
+
+We've added the following fields to the Cards and Non-Mon endpoints and workflow schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+customer_id_number| String  
+customer_id_global| String  
+dw_auth_mthd| String

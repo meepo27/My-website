@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/entities
+Title: Entities | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Technical Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/technical-concepts-overview)
+  * Entities
+
+
+
+On this page
+
+# Entities
+
+Any event that arrives to the system (e.g. a transaction) contains a set of fields such as _Timestamp_ , _Amount_ , _Currency_ , _Card Number_ , _Customer Name_ , among many others. When any of these fields represents a business context, it is considered an entity.
+
+Imagine a transaction that includes the _Timestamp_ , _Customer Name_ and _Card Number_ fields. The _Timestamp_ field is an indication of when the transaction happened, whereas the _Customer Name_ and _Card Number_ fields represent the real customer and card used in the transaction. Therefore, the _Customer Name_ and _Card Number_ fields can be considered entities. Common entities are: Customer, Merchant, Card, or Account.
+
+Entities are used in multiple functionalities across the product. For example, when classifying an alert, users can define how the system should process transactions that have the same entities as the alert being classified.
+
+## Learn Moreâ
+
+Now that you understand what entities are, learn how to use them.
+
+  * Review [customer details](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-customers/reviewing-customers) to support your investigation.
+  * Use lists to [manage entities](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-lists).
+
+

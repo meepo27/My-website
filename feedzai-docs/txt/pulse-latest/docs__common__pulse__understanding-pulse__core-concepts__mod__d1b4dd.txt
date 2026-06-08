@@ -1,0 +1,105 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance
+Title: Feature Importance | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * Feature Importance
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Feature Importance
+
+Machine learning models rely on many features to learn how to predict patterns. To develop a model with high performance in the field of fraud prevention, data scientists might need to select hundreds of features to train the model. The process of selecting features is complex, and there is a risk of including features that have none or even negative contribution to the model.
+
+**Feature importance** is a functionality that can be used to determine the impact of each feature on a machine learning model.
+
+Data scientists can use this functionality to identify the subset of variables that contribute the most and the least to the model predictions. With this information, data scientists have more visibility on how the model is using the features to score transactions. Additionally, data scientists can remove features that have low contribution to the model without decreasing model performance (i.e. declining evaluation metrics). This allows reducing model complexity and computation time.
+
+Ultimately, with the help of the feature importance, data scientists can develop models that fight fraud more efficiently and that are easy to interpret.
+
+In Pulse, feature importance is calculated after training a model, during the evaluation stage. Check the [Evaluating a Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model) page to learn how to use this functionality in Pulse.
+
+## How Pulse calculates feature importanceâ
+
+In Pulse, the importance of a feature is calculated by replacing the feature with noise and measuring the impact on model performance.
+
+Pulse completes the following steps to compute feature importance:
+
+  1. Randomly samples the dataset using the _Sample Percentage_ and _Random Seed_ values defined by the user as input parameters.
+  2. Computes _Transaction Recall_ (and _Cost Recall_ , if an additional cost field is selected) at the closest False Positive Rate (FPR) value to the value defined by the user for the model with the original features.
+  3. For each feature used to train the model:
+     1. Randomly shuffles values of the feature between the different instances.
+
+     2. Computes _Transaction Recall_ (and _Cost Recall_ in case an additional cost field is selected) at the closest FPR value to the value defined by the user for the model with the feature shuffled.
+
+     3. Subtracts the _Transaction Recall_ (and _Cost Recall_ , if an additional cost field is selected) computed in Step 3.b. to the value computed in Step 2. This yields the absolute importance of each feature:
+
+_AbsoluteImportance i = Recall_baseline - Recall_shuffledi_
+
+where _Recall_baseline_ is the recall of the original evaluation, _Recall_shuffled i_ is the recall of the evaluation with featurei shuffled. As an example, considering the calculation of absolute importance for the feature Transaction Amount, the expression becomes:
+
+_AbsoluteImportance TransactionAmount = Recall_baseline - Recall_shuffledTransactionAmount_
+
+     4. For each feature, relative importance is calculated as follows:
+
+where N is the total number of features. As an example, considering the calculation of relative importance for the feature Transaction Amount, using an evaluation that has 100 features including MCC Code, the expression becomes:
+
+
+
+
+### Using Recall to calculate absolute importanceâ
+
+As presented in the step-by-step description of the algorithm, FPR (i.e. percentage of genuine transactions incorrectly classified as fraudulent) and Recall (i.e. percentage of fraudulent transactions correctly classified as fraud) are both used to calculate absolute importance in Pulse.
+
+This metric is calculated as the difference between Recall before and after shuffling the values of the feature between different instances at a selected FPR.
+
+Recall can be plotted against FPR, which is the so-called **ROC Curve** (see figure below).
+
+As shown in the figure, Recall after shuffling can be equal, higher or lower than the Recall before shuffling.
+
+This yields to an absolute importance approximately equal to zero, negative or positive, respectively. Therefore, the outcomes are the following:
+
+  * **Absolute importance approximately equal to zero** : for features that have no significant contribution to the model predictions.
+  * **Negative absolute importance** : for features that have a negative contribution to the model predictions.
+  * **Positive absolute importance** : for features that are important to the model predictions.
+
+
+
+There are different parameters that can be selected to compute feature importance which are described in the next subsection.
+
+## Parametersâ
+
+Feature importance is computed using the following parameters selected by the user:
+
+  * **Sample Percentage** : percentage of randomly sampled instances in the data. When selecting this parameter the user should take into account the trade-off between having a representative set of data to compute feature importance and runtime. Additionally, the user should take into account that all data is loaded into memory to compute feature importance, and thus, high sample percentage values may lead Pulse to run out of memory in the case of extremely large datasets. The default value of the sample percentage is 30%.
+
+  * **FPR** : value at which the Recall is calculated. The default value of FPR is 1.00%.
+
+  * **Random Seed** : value that affects both of these operations: the order to which the instances of the features are shuffled and the instances that are sampled to compute feature importance. Note that the percentage is defined by sample percentage. This value can be used by data scientists to check the stability of the results using different seeds and keeping all the other conditions the same.
+
+Check stability with random seeds
+
+If the results are similar using different random seeds it means that the user is likely using enough data to compute feature importance.
+
+
+
+
+The following parameter can be also optionally selected when computing feature importance:
+
+  * **Additional Cost Field** : a field that is used as a weight for the metrics of the evaluations (of both models and rules). In a typical fraud detection scenario, the selected feature for this field is the transaction amount. By adding an additional cost field, Recall is calculated based on the feature specified in this field (i.e. Cost Recall) in addition to be calculated based on the number of transactions (Transaction Recall).
+
+
+
+## Feature importance resultsâ
+
+A typical report with results of feature importance is illustrated in the following image.
+
+The features are ranked according to the level of importance. In this example, is easy to identify that the first four features impact the model whereas the remaining features have low impact on the outcome decisions of the model.
+
+Extra functionalities that data scientists can use to analyze the results of feature importance, including comparing results of two model evaluations, are described in the [evaluating a model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#analyzing-the-model-evaluation) page.

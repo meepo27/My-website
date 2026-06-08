@@ -1,0 +1,145 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview
+Title: Send Test Transactions Via API | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * Send Test Transactions via API
+
+
+
+On this page
+
+# Send Test Transactions Via API
+
+Was this page helpful?Â 
+
+Learn how to send test transactions via API to test your rules with a default Cards velocity rule from Fraud rules project.
+
+## Sending requestsâ
+
+tip
+
+**Tooling** : [Postman](https://www.getpostman.com/) is an open source tool recommended to send test transactions via API.
+
+Testing a rule via API using Postman assumes a [JWKS and subsequent JWT](/tfrb/latest/docs/common/tfrb/api-reference/authentication) have been generated, and requires the following:
+
+  1. Understand which environment and endpoint you want to submit the request to.
+  2. Create a payload including the fields that you want to test and the mandatory fields required by the endpoint.
+  3. Confirm that the sequence of test transactions that you would expect to trigger a rule is successful.
+
+
+
+### Choose the endpointâ
+
+To test a rule, you can send a POST request to the [Authorization endpoint](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-card-authorization). Each endpoint has recommended and mandatory fields. Make sure you use a payload with all the necessary fields. You can check the API Reference section to learn more about API fields.
+
+### Create a payloadâ
+
+As an example, consider that you want to trigger the rule Cards-Velocity-4: _Number of transactions performed by card in the last 3 minutes exceeds threshold_ , with a threshold equal to five transactions. Check the [Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules) page for more information about rule Cards-Velocity-4.
+
+You can trigger this rule by sending five POST requests within three minutes using the following payload:
+    
+    
+    {  
+        "event_occurred_at": {{nowTimestamp}},  
+        "lifecycle_id": "{{nowTimestamp}}",  
+        "card_pan": "fdz_testing_rules_1",  
+        "card_id": "fdz_testing_rules_1",  
+        "amount": 1,  
+        "cardholder_bill_amount": 10,  
+        "mti": "mti",  
+        "ttc": "ttc",  
+        "currency_code": "usd",  
+        "pos_card_read_method": "pos_card_read_method",  
+        "mcc": "MCC",  
+        "acceptor_id": "12",  
+        "action_code": "01",  
+        "account_iban": "ex1",  
+        "customer_id": "fdz_testing_rules_1",  
+        "card_presence_flag": false,  
+        "acceptor_country_code": "US",  
+        "acceptor_zip": "test1234",  
+        "card_bin": "test1234"  
+    }  
+      
+    
+
+Remember that the `event_occurred_at` field is the current timestamp. You can set an [environment variable](https://www.getpostman.com/docs/) to generate this timestamp using the following pre-request script:
+
+**Pre-request script to generate current timestamp automatically**
+    
+    
+     // The Date.now() method returns the number of milliseconds elapsed since January 1, 1970 00:00:00 UTC.  
+    pm.environment.set("nowTimestamp", Date.now());  
+    
+
+tip
+
+**Lifecycle id** : The `lifecycle_id` field should be different for each request that you submit. If you have an environment variable for `event_occurred_at`, you can use this variable in the `lifecycle_id` field to avoid manual change each time you submit a new request.
+
+info
+
+**First Request** : The first POST request after publishing your application might take longer (approximately one minute) than subsequent requests.
+
+### Check the API responseâ
+
+#### Response - rules not triggeredâ
+
+The first four POST requests with the payload provided in the previous section should not trigger the rule Cards-Velocity-4 because the number of test transactions is below the threshold. The API response should have the `decision` field as `approve`:
+    
+    
+    {  
+        "lifecycle_id": "12012018194035",  
+        "decision": "approve",  
+        "score": 0,  
+        "action_codes": [],  
+        "secondary_action_codes": [],  
+        "alert": false,  
+        "status": "ok"  
+    }  
+    
+
+#### Response - rules triggeredâ
+
+When fifth request with the same card ID is submitted within the threshold (i.e. 3 minutes), the API response should have the `decision` field as `decline`:
+    
+    
+    {  
+        "lifecycle_id": "12012018194148",  
+        "decision": "decline",  
+        "score": 0,  
+        "action_codes": [  
+            "Limit/Review Card",  
+            "[Cards-Velocity-4]"  
+        ],  
+        "secondary_action_codes": [],  
+        "alert": true,  
+        "status": "ok"  
+    }  
+      
+    
+
+  * `action_codes`: Populated with the actions of the first triggered rule, other than the alert action. In this example, the actions include:
+    * List the card to be reviewed.
+    * The name of the rule that was triggered for debugging purposes.
+  * `secondary_action_codes`: Populated with actions of every other triggered rule (i.e. excluding the first triggered rule), other than the alert action. In this example, only the first rule was triggered.
+
+tip
+
+**Secondary action codes and decision** : The decision is set only by the first rule that is triggered as explained in the [Rules Precedence](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules-projects#rules-precedence) section of the Rules Projects page.
+
+  * `alert`: In this example, the alert is displayed as `true`, and therefore, the event is sent to Case Manager.
+
+
+
+## Next stepsâ
+
+Now that you have triggered rule _Cards-Velocity-4_ as a test, learn how to confirm:
+
+  * The [response via Pulse](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/check-response-via-pulse): Check if the list transition was successful.
+  * The [response via Case Manager](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/check-response-via-cm): Check if the event is displayed in Case Manager.
+
+

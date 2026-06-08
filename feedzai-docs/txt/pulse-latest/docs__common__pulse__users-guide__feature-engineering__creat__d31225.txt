@@ -1,0 +1,94 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics/using-lookup-metrics
+Title: Using Lookup Metrics | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/)
+  * [Creating Metrics](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics)
+  * Using Lookup Metrics
+
+
+
+On this page
+
+# Using Lookup Metrics
+
+Was this page helpful?Â 
+
+Availability of Lookup Metrics
+
+The `Lookup By` operator is only available when using the [Railgun engine](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine), and when explicitly enabled via configuration. To activate this functionality, reach out to the Feedzai Customer Success (CS) team.
+
+[Lookup By metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/metrics#lookup-by) provide a powerful extension to standard Group By metrics, by allowing users to choose which group's aggregation to retrieve for an event, based on fields other than the groupBy fields.
+
+This page describes how to create a Lookup By metric in Pulse, and provides a practical example of how to combine it with standard Group By metrics to calculate new [derived fields](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/plans-in-workflows#features).
+
+## Creating Lookup By Metricsâ
+
+To create a Lookup By metric in Pulse, follow these steps:
+
+  1. In the **Data Science** tab, open the features plan.
+
+  2. Drag a  operator to the plan if there is none yet.
+
+  3. Edit  the Metrics operator:
+
+  4. Select the  button to add a new metric to the Metrics operator.
+
+  5. Select the **Group By** fields over which to calculate aggregated metrics. For example, _receiver_ID_ :
+
+  6. Select the  button to activate the **Lookup By** input field.
+
+  7. Select the appropriate look-up fields from the available options. For example, _sender_ID_ :
+
+warning
+
+The lookup fields must be in the same number and of the same data type as the group by fields, and arranged in the same order.
+
+  8. Define the remaining sections (Window, Aggregation, Description) as needed, according to the regular process for [Creating Metric](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics).
+
+  9. Save the Metrics operator with look-up configuration.
+
+  10. Save the Plan with new metrics.
+
+
+
+
+## Combining Lookup By with Group By Metricsâ
+
+Lookup By metrics are often useful when combined with standard Group By metrics. To do so, add both types of metrics to the same Metrics operator, and combine them with a [Map operator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference#map).
+
+The following example demonstrates how to set up such a combination of metrics for the use case of calculating an accountâs recent running balance at each transaction. It assumes that the input data stream contains at least the fields `sender_ID`, `receiver_ID`, and `amount` (in addition to the obligatory [timestamp](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/plans-in-workflows#timestamp)).
+
+  1. Create (if necessary) a **Metrics** operator as described above, and  edit it.
+
+  2. Select the  button and add the first metric to the Metrics operator. This will be a regular **Group By** metric, to get the total amount sent by the transaction's sender.
+
+     1. In the **Group By** section, select the _sender_ID_ field.
+     2. In the **Window** section, set the window to _7 days_.
+     3. In the **Aggregation** section, select the _sum_ function over the _amount_ field.
+     4. Set the **Name** of the metric to _total_sent_1w_.
+  3. Select the  button and add the second metric to the Metrics operator. This will be a **Lookup By** metric, to get the total amount received by the transaction's sender.
+
+     1. In the **Group By** section, select the _receiver_ID_ field; activate the Lookup By input area as described above, and add the _sender_ID_ field to it.
+     2. In the **Window** section, set the window to _7 days_.
+     3. In the **Aggregation** section, select the _sum_ function over the _amount_ field.
+     4. Set the **Name** of the metric to _total_received_1w_.
+  4. Review the **Metrics** operator with the two metrics. Confirm that the grouping and lookup fields are correctly set for each metric by hovering over the ð paperclip icon next to each field in the **Group By** column.
+
+Then,  the Metrics operator.
+
+  5. Add a **Map** operator to the plan by dragging the  button to the plan's diagram, after the Metrics operator.
+
+  6. Edit  the Map operator. In the **Fields To Add** tab, create a new field as follows:
+
+     1. Set the **Output Field Name** to _balance_1w_ ,
+     2. Set the **Expression** to `total_received_1w` \- `total_sent_1w`.
+     3. Leave the **Type** as the default _Numeric_.
+
+Finally,  the Map operator.
+
+
+
+
+By completing these steps, the plan will now add the _balance_1w_ field to each event, representing the account's running balance over the past week at the time of the transaction.

@@ -1,0 +1,109 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.13
+Title: Release 0.13 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.13.1`â
+
+### Autonomous model deploymentâ
+
+FeatureFTMT-100
+
+Configure Pulse to store _Models_ in _HDFS_ by default.
+
+With this new default:
+
+  * Data Science Environment stores Trained Models remotely, ensuring their persistence when a node is replaced.
+  * Pulse runtime Environment is able to deploy a model when running in multiple nodes.
+
+
+
+[Runtime](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) and [Data Science Environment](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse-dsf) configurations were updated with the new configurations. Nonetheless, the default values shouldn't require any change.
+
+See Pulse documentation on [training a model](https://cam.feedzai.com/pulse/24.4.1/docs/common/users-guide/creating-a-data-science/building-and-evaluating-your/training-a-model) and [app collaboration loop](https://cam.feedzai.com/pulse/24.4.1/docs/common/operations-guide/app-collaboration-loop) for more references.
+
+You might also want to check [importing an external model](https://cam.feedzai.com/pulse/24.4.1/docs/common/users-guide/creating-a-data-science/building-and-evaluating-your/training-a-model/importing-an-external-model).
+
+### Disable JupyterLab terminalâ
+
+Rework
+
+In order to reduce security risks, we've disabled the option to spawn terminal instances from JupyterLab as previously agreed.
+
+### Change Data Science Environment schema Policy so that Pulse creates its tables at startupâ
+
+Bug Fix
+
+In the latest release we've disabled Liquibase in Data Science Environment so that Liquibase wouldn't clean up application status.
+
+Unfortunately this change was tested with the legacy DS pipelines and wasn't working with the newer pipeline - used by HSBC - since `schemaPolicy` was set as default (`none`) in that pipeline.
+
+We've fixed this configuration and changed our testing script so it doesn't use the legacy pipeline anymore.
+
+### Increase default column size for configuration valuesâ
+
+Bug Fix
+
+Some configurations could have more than the 4000 character limit established previously. We've increased `valuecolumnsize` in order to accommodate these configurations.
+
+### Fix failure when importing Catboost models via App Collaboration to HDFSâ
+
+Bug FixFTMT-100
+
+Fixed an issue in Catboost adapter that prevented users from importing models via App Collaboration when Pulse is configured to store them in HDFS.
+
+This feature is necessary when importing a Model trained in the Data Science Environment to a Pulse runtime Environment with multiple nodes.
+
+### Fix "unable to create Spark session" when using JupyterLab on Dockerâ
+
+Bug Fix
+
+Changed default variables so that JupyterLab is able to connect to a remote Hadoop Cluster when running on Docker, leveraging the same configurations as Pulse.
+
+There's also a new version of JupyterLab Docker Image - `docker.feedzai.com/feedzai/jupyterlab:24.1.1-2` \- with an updated version of GCS connector.
+
+You can find it in our [artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) page.
+
+This version is now set by default, but can be configured, which is reflected in [Data Science Environment Configurations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse-dsf).
+
+### Removes unnecessary space (` `) prefix from encrypted secretsâ
+
+Bug Fix
+
+Detected by the project team even though no issue was reported. Affected the following roles: `pulse`, `case-manager`, `etl`, `reference-data`, `job-profile-tool`.
+
+## Release `0.13.0`â
+
+### Add additional fields to Feedback APIâ
+
+FeatureFTMT-1085
+
+Two new fields were added to the Feedback API:
+
+  * `external_status_reason`: optional field which represents the status of the transaction as manually reviewed by a fraud analyst. If absent the event will be updated with the remaining payload.
+  * `external_preliminary_decision`: field which represents the preliminary decision made by SAS-EFM. Should be one of `Accept`, `Reject`, `Refer`
+
+
+
+See additional information regarding this feature at [Feedback API status reason](/cs-hsbc/3.0.2/docs/features/hsbc_status_reason).
+
+See up-to-date API documentation and Swagger definition at [API Endpoints](/cs-hsbc/3.0.2/api#tag/transfers/operation/putTransferFeedback).
+
+### Move DataScience Environment Applications configurations to Global scopeâ
+
+Bug Fix
+
+A few configurations in Data Science environment were scoped to the application, which effectively meant they were ignored since Data Science has a different application.
+
+**Datasource statistics path fix** is the highlight since it caused an error during validation. It also fixes **UDFs properties** (`java.lang.Math` and `com.feedzai.commons.udfs.StringTools`) and removes unnecessary configurations.
+
+### Simplify DataScience startup by skipping Liquibaseâ
+
+Bug Fix
+
+In the DS environment, Liquibase is only used to clean up and copy the database (from blue to green). The former was downright harmful since it would clean the application status in every machine restart. The latter is completely unnecessary as we don't need to perform blue/green deployments in this environment.
+
+In order to ensure that the latest fixes are applied, this version of DataScience Environment should be deployed in a clean environment.

@@ -1,0 +1,337 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/utils/
+Title: utils - DS API
+============================================================
+
+#  `` utils Â¶  
+  
+##  `` friendly_type Â¶
+    
+    
+    friendly_type(datatype) -> str
+    
+
+Checks if the given pyspark datatype matches any of the supported types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pyspark dataType. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`str` |  friendly type ('numerical', 'timestamp', 'string', 'unsupported').  
+  
+##  `` get_pyspark_column_type Â¶
+    
+    
+    get_pyspark_column_type(df, column_name)
+    
+
+Returns the type of a column with a given name in a Pyspark dataframe
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  |  PySpark dataframe |  _required_  
+  
+###  `column_name` Â¶
+
+|  |  String containing the name of the column to get the type |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  a string with the data type of the column with column_name. If the column does not exist in the dataframe, does not return anything.  
+  
+##  `` is_finite_col Â¶
+    
+    
+    is_finite_col(c: Column) -> Column
+    
+
+Column expression: not null, not NaN, not infinite.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `c` Â¶
+
+|  `Column` |  The numerical column to evaluate. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Column` |  A BooleanType Column expression that evaluates to True only for finite, non-null numerical values.  
+  
+##  `` is_finite_number Â¶
+    
+    
+    is_finite_number(num)
+    
+
+Checks if num is a finite number.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `num` Â¶
+
+|  |  any object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if num is a finite number.  
+  
+##  `` is_number Â¶
+    
+    
+    is_number(num)
+    
+
+Checks if num is a number.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `num` Â¶
+
+|  |  any object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if num is a number (int, float).  
+  
+##  `` is_pandas_categorical Â¶
+    
+    
+    is_pandas_categorical(datatype)
+    
+
+Checks if the given pandas datatype matches our supported categorical types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pandas data type. This is a numpy.dtype and can be found with df[].dtype. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported categorical types, False otherwise.  
+  
+##  `` is_pandas_numerical Â¶
+    
+    
+    is_pandas_numerical(datatype)
+    
+
+Checks if the given pandas datatype matches our supported numerical types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pandas data type. This is a numpy.dtype and can be found with df[].dtype. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported numerical types, False otherwise.  
+  
+##  `` is_pandas_timestamp Â¶
+    
+    
+    is_pandas_timestamp(datatype)
+    
+
+Checks if the given pandas datatype matches our supported timestamp types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pandas data type. This is a numpy.dtype and can be found with df[].dtype. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported timestamp types, False otherwise.  
+  
+##  `` is_pyspark_numerical Â¶
+    
+    
+    is_pyspark_numerical(datatype)
+    
+
+Checks if the given pyspark datatype matches our supported numerical types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pyspark dataType. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported numerical types, False otherwise.  
+  
+##  `` is_pyspark_string Â¶
+    
+    
+    is_pyspark_string(datatype)
+    
+
+Checks if the given pyspark datatype matches our supported string types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pyspark dataType. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported string types, False otherwise.  
+  
+##  `` is_pyspark_supported_type Â¶
+    
+    
+    is_pyspark_supported_type(datatype)
+    
+
+Checks if the given pyspark datatype matches any of the supported types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pyspark dataType. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported types, False otherwise.  
+  
+##  `` is_pyspark_timestamp Â¶
+    
+    
+    is_pyspark_timestamp(datatype)
+    
+
+Checks if the given pyspark datatype matches our supported timestamp types.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `datatype` Â¶
+
+|  |  pyspark dataType. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if matches supported timestamp types, False otherwise.  
+  
+##  `` is_string Â¶
+    
+    
+    is_string(x)
+    
+
+Checks if x is a string.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `x` Â¶
+
+|  |  any object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if x is a string.  
+  
+##  `` is_string_pair Â¶
+    
+    
+    is_string_pair(x)
+    
+
+Checks if x is a pair of strings.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `x` Â¶
+
+|  |  any object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  True if x is a tuple (string, string).  
+  
+##  `` print_with_timestamp Â¶
+    
+    
+    print_with_timestamp(text)
+    

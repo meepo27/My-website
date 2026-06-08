@@ -1,0 +1,149 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/resource-versioning
+Title: Resource Versioning | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * Resource Versioning
+
+
+
+On this page
+
+# Resource Versioning
+
+Was this page helpful?Â 
+
+Versioning is an orthogonal concept to Pulse. Whenever a user creates, updates or deletes any of the application resources, Streams, Dimensions, etc. or the applications themselves, these operations are logged to persistence storage. There are three types of revert operations possible:
+
+  * Revert a specific resource to how it was before a given change occurred
+  * Revert all latest changes made to an application up to some point in time
+  * Revert the deletion of an application
+
+
+
+We will look at how each of these revert types work, their restrictions and implications.
+
+## Structure of the Operations Logâ
+
+Each visible row in the log depicts a change. A change maps to one or more operations. Most of the changes will have only one operation but others will be a group of related operations. An example of a change comprising several operations is creating a Schema. Each schema field marked as dimension will also trigger the creation of a Dimension Mapping. So a new schema with two dimension fields will insert three entries in the operations log. One create entry for the schema and one create entry for each new dimension mapping. When a change is comprised of several operations it is possible to see the individual operations.
+
+Change entries in operations log are always shown in descending time order, i.e. the newest change on top.
+
+## Querying the Operations Logâ
+
+The operations log is visible in several Pulseviews screens.
+
+Depending on where in Pulseviews you are viewing the operations log, the information presented therein will vary. All application resources edit screens show the operations log for that particular resource. To view the application log for a particular resource the user must have the `applications:history:resource:read` permission.
+
+A filterable in-application log is available in the History of the application. To view the global application log the user must have the `applications:history:global:read` permission.
+
+A log of deleted applications is also available to administrators and allows the administrator to recreate the application as it was before being deleted.
+
+## Reverting the Operationsâ
+
+This section details how the reverting works and the requirements for each case.
+
+### Reverting a specific resource operationâ
+
+The main use-case for this revert strategy is to enable a user to revert a specific resource to the way it was somewhere in the past without changing the other resources in the application. If two users are editing different rules in the same application each user can revert his rule without impacting the other user's rule.
+
+To revert a specific resource operation the user must have the `applications:history:resource:revert` permission.
+
+Note that operations are grouped in changes, so when a revert operation is requested all the operations in that particular change will be reverted. This is necessary to ensure consistency when handling dependent resources.
+
+This particular revert strategy is not always possible. If any resource that depends on this one or that this resource depends on has changed after the operation we want to revert, the revert will not be available. This limitation exists because it is not possible to guarantee that the resource would still have valid relationships with both the resources it depends on and the resources depending on them after the revert operation. In these cases, the only options left are reverting the changes by manually editing the resource or revert the application. See the next revert strategy.
+
+The revert operation itself can also be reverted leaving the resource as it was if no revert operation has occurred in the first place.
+
+#### Example of reverting a specific resourceâ
+
+Assuming the user actions are:
+
+  1. Create schema 1
+  2. Create workflow 1
+  3. Update workflow 1
+  4. Create rule 1
+  5. Update rule 1
+  6. Update rule 1 (again)
+  7. Create rule 2
+
+
+
+For these operations, the operations log is as follows (oldest operations at the bottom):
+
+Change| Resource| Operation  
+---|---|---  
+7| RULE 2| CREATE  
+6| RULE 1| UPDATE  
+5| RULE 1| UPDATE  
+4| RULE 1| CREATE  
+3| WORKFLOW 1| UPDATE  
+2| WORKFLOW 1| CREATE  
+1| SCHEMA 1| CREATE  
+  
+By reverting a single resource, it is possible to get the rule 1 as it was before change 5 (highlighted in red) without undoing the create of rule 2. This is achieved by reverting to the rule 1 as it was before change 5.
+
+After this revert, the operations log would have a new entry, the opposite operation of the one we are reverting:
+
+Change| Resource| Operation  
+---|---|---  
+8| RULE 1| UPDATE  
+7| RULE 2| CREATE  
+6| RULE 1| UPDATE  
+5| RULE 1| UPDATE  
+4| RULE 1| CREATE  
+3| WORKFLOW 1| UPDATE  
+2| WORKFLOW 1| CREATE  
+1| SCHEMA 1| CREATE  
+  
+info
+
+It is not possible to revert change 3 using this strategy because dependencies of that workflow (rules 1 and 2) have changed.
+
+### Reverting an Application to a specific point in timeâ
+
+This revert strategy is very simple and works by applying the contrary operation to each operation down to the chosen point. A
+
+s long as the user has permissions to do so, it should always be possible to apply this strategy. One possible downside of this revert strategy is that all changes made from that point on will be reverted.
+
+To revert an application the user must have the `applications:history:global:revert` permission.
+
+Note that reverting multiple changes will be grouped together as one single revert changed, composed of multiple operations. In this revert strategy, the revert operation can also be reverted itself in one step.
+
+#### Example of reverting an Applicationâ
+
+Assuming the user actions are:
+
+  1. Create schema 1
+  2. Create workflow 1
+  3. Update workflow 1
+  4. Create rule 1
+
+
+
+The operations log is:
+
+Change| Resource| Operation  
+---|---|---  
+4| RULE 1| CREATE  
+3| WORKFLOW 1| UPDATE  
+2| WORKFLOW 1| CREATE  
+1| SCHEMA 1| CREATE  
+  
+The user might want to revert the application state back to as it was _before_ change 3 (highlighted). This strategy would achieve this by reverting change by change down to change 3 (inclusive) so that in the end the operations log would be:
+
+Change| Resource| Operation  
+---|---|---  
+5| WORKFLOW 1| UPDATE  
+5| RULE 1| DELETE  
+4| RULE 1| CREATE  
+3| WORKFLOW 1| UPDATE  
+2| WORKFLOW 1| CREATE  
+1| SCHEMA 1| CREATE  
+  
+Notice that the change id is the same (5) in all the operations pertaining to this revert, so that this change can be undone in a single step, as the user expects.
+
+### Reverting a deleted Applicationâ
+
+The log of deleted applications shows all deleted applications that can be recovered to the state it was before being deleted. Applications that were deleted and then imported are excluded from the log since they currently exist. Only applications that don't currently exist are shown. To revert a deleted application the user must be an **administrator**. If the application was deleted multiple times, only the latest delete is shown. After reverting the delete, the application looks exactly as it was before being deleted.

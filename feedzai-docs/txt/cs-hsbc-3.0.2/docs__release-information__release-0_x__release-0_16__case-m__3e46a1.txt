@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/ui-changes
+Title: Case Manager UI MVP | Feedzai Documentation
+============================================================
+
+# Case Manager UI MVP  
+  
+Please find below a comprehensive list of the changes that have been applied to all widgets:
+
+  * [Transfers - Transaction](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-transaction)
+  * [Transfers - Originator Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-originator-details)
+  * [Transfers - Originator Account Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-originator-account-details)
+  * [Transfers - Beneficiary Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-beneficiary-details)
+  * [Transfers - Beneficiary Account Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-beneficiary-account-details)
+  * [Transfers - Originator Bank](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-originator-bank)
+  * [Transfers - Beneficiary Bank](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-beneficiary-bank)
+  * [Transfers - Network](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-network)
+  * [Transfers - Device](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-device)
+  * [Customer Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/customer-details)
+  * [Digital Activity - Event Summary](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-event-summary)
+  * [Digital Activity - Network](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-network)
+  * [Digital Activity - Session](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-session)
+  * [Digital Activity - Device](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-device)
+  * [Digital Activity - COP Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-cop-details)
+  * [Digital Activity - Vendor Risk Data](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-vendor-risk-data)
+  * [Digital Activity - Change Data Details](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-change-data-details)
+  * [Transaction History - Transfers](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transaction-history-transfers)
+  * [Transaction History - Digital Activity](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transaction-history-digital-activity)
+
+

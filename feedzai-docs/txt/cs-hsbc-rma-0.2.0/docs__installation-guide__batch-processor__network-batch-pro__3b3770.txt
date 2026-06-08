@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/network-batch-processor
+Title: Network and Connectivity | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Network and Connectivity
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+## Firewall Rulesâ
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+HTTP| TCP 5567| Batch Processor Service HTTP  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+RBDMS (PostgreSQL)| TCP 5432| Connection to the PostgreSQL database  
+Pulse| 8080| Communication with Pulse (via HTTP)  
+Pulse| 8443| Communication with Pulse (via HTTPS)  
+Reference Data Service| 8080-8081| Communication with Reference Data Service  
+  
+## Load Balancersâ
+
+For high available environments Load Balancers must be set as follow:
+
+Service| Description| Algorithm| Healthcheck URL| Response Codes| Policy Example  
+---|---|---|---|---|---  
+Batch Processor| Entry to access the Batch Processor service.| Least connections (or round robin)| `HTTP:5567/healthchecks`| 200 - Node is available| Checks should be performed every 30 seconds with a timeout of 5 seconds. Nodes should be removed after the second failure.

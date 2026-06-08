@@ -1,0 +1,385 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/notifications-schema
+Title: Notifications Schema | Feedzai Documentation
+============================================================
+
+# Notifications Schema  
+  
+In this page you can find the notification schema and examples for Case Manager external notifications feature.
+
+Please find below the notification schema for Outbound events.
+
+Field| Type| Description  
+---|---|---  
+self_serve_strategy| String| Self Serve Strategy field.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+customer_portfolio_region| String| Customer Account Level Region - Europe, Latin America, Middle East, Asia Pacific, and North America.  
+customer_portfolio_channel| String| Customer Account Level Channel - Debit Cards, Credit Cards, Digital Banking, Telephone Banking, Physical Banking, Manual Processing, Unknown.  
+customer_portfolio_country| String| Customer Account Level Country including markets e.g. UK FD, M&S.  
+event_type| String| Field that indicates the endpoint from which the event entered.  
+premier_marker| String| Premier Marker field.  
+customer_portfolio_type| String| Customer Account Level Type e.g. General, Jade, Prem, Basic, Advanced etc.  
+treatment_strategy| String| Treatment Strategy field.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+pib_suspended| String| PIB Suspended.  
+customer_portfolio_class| String| Customer Account Level Classification e.g. Mass, Premier, Business, and N/A.  
+customer_id| String| Customer number.  
+customer_id_number| String| Hong Kong Identification Number.  
+customer_portfolio_product| String| Customer Account Level Product - Plastic and Non-Plastic cards.  
+tenant| String| Tenant id field.  
+  
+An example of an event state update notification would be:
+    
+    
+    {  
+        "ids": [  
+            {  
+                "identifier": "lc_id_outbound_payments_3",  
+                "timestamp": 1736322305157,  
+                "channelId": "transfers",  
+                "payload": {  
+                    "schema": {  
+                        "self_serve_strategy": "ivr_self_no",  
+                        "lifecycle_id": "lc_id_outbound_payments_3",  
+                        "customer_portfolio_region": "Europe",  
+                        "customer_portfolio_channel": "Digital Banking",  
+                        "customer_portfolio_country": "UK",  
+                        "event_type": "transfer_initiation",  
+                        "premier_marker": "premier1",  
+                        "customer_portfolio_type": "GENERAL",  
+                        "treatment_strategy": "mobile_push_notification",  
+                        "alert_id": "yments_3",  
+                        "pib_suspended": "YESD",  
+                        "customer_portfolio_class": "PREMIER",  
+                        "customer_id": "customer_id_1",  
+                        "customer_id_number": "0HKHSXXXXXX796256",  
+                        "customer_portfolio_product": "Non-plastic",  
+                        "sender_transaction_extra_1": "Sender Transaction Additional Info 1",  
+                        "sender_transaction_extra_2": "Sender Transaction Additional Info 2",  
+                        "sender_transaction_extra_3": "Sender Transaction Additional Info 3",  
+                        "customer_additional_info_1": "Customer Additional Info 1",  
+                        "customer_additional_info_2": "Customer Additional Info 2",  
+                        "customer_additional_info_3": "Customer Additional Info 3"  
+                        "customer_additional_info_4": "Customer Additional Info 4",  
+                        "tenant": "feedzai"  
+                    }  
+                }  
+            }  
+        ],  
+        "notificationVersion": "1",  
+        "stateMachineId": "status",  
+        "state": {  
+            "id": "fraud"  
+        },  
+        "reasons": [  
+            {  
+                "id": "23f7348e-19f4-4f1d-8968-01862b1c5a44",  
+                "statusId": "fraud",  
+                "name": "Fraud - 1st Party Fraud"  
+            }  
+        ],  
+        "updatedAt": 1736322343970,  
+        "userId": "mWVznM0cV8dLzVXMXUVH_w",  
+        "username": "pulse",  
+        "note": "Outbound Payments 1st Party Fraud"  
+    }  
+    
+
+Copy
+
+Please find below the notification schema for Inbound events.
+
+Field| Type| Description  
+---|---|---  
+event_type| String| Field that indicates the endpoint from which the event entered.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+customer_id| String| Customer number.  
+customer_id_number| String| Hong Kong Identification Number.  
+treatment_strategy| String| Treatment Strategy.  
+self_serve_strategy| String| Self Serve Strategy.  
+pib_suspended| String| PIB Suspended.  
+tenant| String| Tenant id field.  
+  
+An example of an event state update notification would be:
+    
+    
+    {  
+        "ids": [  
+            {  
+                "identifier": "lc_id_inbound_payments_1",  
+                "timestamp": 1736332401699,  
+                "channelId": "inbound-payments",  
+                "payload": {  
+                    "schema": {  
+                        "self_serve_strategy": "none",  
+                        "event_type": "inbound_payment_initiation",  
+                        "treatment_strategy": "none",  
+                        "alert_id": "yments_1",  
+                        "pib_suspended": "YESD",  
+                        "lifecycle_id": "lc_id_inbound_payments_1",  
+                        "customer_id": "customer_id_1",  
+                        "customer_id_number": "0HKHSXXXXXX796256",  
+                        "tenant": "feedzai"  
+                    }  
+                }  
+            }  
+        ],  
+        "notificationVersion": "1",  
+        "stateMachineId": "status",  
+        "state": {  
+            "id": "fraud"  
+        },  
+        "reasons": [  
+            {  
+                "id": "b8b1c2dc-7b4b-43d9-bbb4-66c676f1498a",  
+                "statusId": "fraud",  
+                "name": "Inbound Fraud - 1st Party Fraud"  
+            }  
+        ],  
+        "updatedAt": 1736332720278,  
+        "userId": "mWVznM0cV8dLzVXMXUVH_w",  
+        "username": "pulse",  
+        "note": "Inbound Payments - 1st Party Fraud"  
+    }  
+    
+
+Copy
+
+Please find below the notification schema for Card events.
+
+Field| Type| Description  
+---|---|---  
+self_serve_strategy| String| Self Serve Strategy field.  
+event_type| String| Field that indicates the endpoint from which the event entered.  
+alert_id| String| Unique reference number generated whenever the system decides to generate an alert on a particular transaction.  
+lifecycle_id| String| Identification number of transaction Unique ID/Reference Generated for Payment by Bank.  
+tenant| String| Tenant ID field.  
+lifecycle_id_alt| String| SO Mandate ID + Schedule Number.  
+card_transaction_ref_number| String| Unique reference number received from source.  
+card_transaction_component_type| String| Customer Type, Convention.  
+source| String| Source field.  
+customer_portfolio_region| String| Customer Portfolio Region.  
+customer_portfolio_country| String| Customer Portfolio Country.  
+customer_portfolio_channel| String| Customer Portfolio Channel.  
+customer_portfolio_product| String| Customer Portfolio Product.  
+customer_portfolio_type| String| Customer Portfolio Type.  
+customer_portfolio_class| String| Customer Portfolio Class.  
+customer_portfolio| String| Customer Portfolio.  
+account_id| String| Bank account ID.  
+account_number| String| The International Bank Account Number (IBAN), or any other unique identifier used as bank account.  
+card_phone_banking_user_id| String| Phone Banking User ID.  
+customer_id| String| Customer ID.  
+customer_email| String| Customer email.  
+customer_name| String| Customer name.  
+customer_id_personal| String| Personal Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_business| String| Business Customer Identification Number (CIN) for HINV Business Debit Cards.  
+customer_id_number| String| Stores the unique Country ID that is issued to the customer as part of their National Identification.  
+customer_id_global| String| Can be used to map GUCI or another global customer identifier.  
+card_txn_sub_type| String| Card transaction sub type  
+trans_message_type| String| Trans message type field.  
+acquirer_id| String| Acquirer ID.  
+amount_dbl| Number| Amount field.  
+trans_model_amt| Number| Trans model amount field.  
+cardholder_bill_amount| Number| Cardholder bill amount field.  
+cardholder_bill_currency_code| String| Cardholder bill currency code.  
+trans_currency_code| String| Trans currency code field.  
+currency_code| String| Currency code field.  
+treatment_strategy| String| Treatment strategy.  
+oob_comm_type| String| The type of communication made with the client.  
+oob_notes| String| Notes related to the out-of-band communication.  
+oob_feedback_notes| String| Notes related to the out-of-band feedback event.  
+oob_response_type| String| The type of out-of-band response made by the client.  
+feedback_type| String| Identifies the different types of feedback.  
+feedback_label| String| The feedback label being provided for the transaction (e.g. 'fraud').  
+external_status_reason| String| The status of the transaction as manually reviewed by a fraud analyst.  
+channel_type| String| Channel type.  
+card_pan| String| Payment card number.  
+saf_ind| String| SAF Indicator.  
+sender_initiated_at| Timestamp| Timestamp for when the transaction is initiated by the user.  
+sender_initiated_at_local| String| Local timestamp for when the transaction is initiated by the user.  
+local_datetime| String| Time and date for when payment originated.  
+event_occurred_at| Timestamp| Timestamp corresponding to the moment when the current event occurred (in milliseconds since the Unix epoch).  
+crypto_transaction_info| String| Indicates if the transaction is being done to purchase crypto assets.  
+card_type| String| Specifies whether the card is black, platinum, gold, silver, etc.  
+outcome_decision| String| The original decision provided by the fraud decision system.  
+wallet_decision| String| Wallet decision field.  
+  
+An example of an event state update notification would be:
+    
+    
+    {  
+        "ids": [  
+            {  
+                "identifier": "lc_id_cards_1",  
+                "timestamp": 1736333077961,  
+                "channelId": "cards",  
+                "payload": {  
+                    "schema": {  
+                        "self_serve_strategy": "ivr_self_yes",  
+                        "event_type": "authorization",  
+                        "alert_id": "_cards_1",  
+                        "lifecycle_id": "lc_id_cards_1",  
+                        "tenant": "feedzai",  
+                        "lifecycle_id_alt": "",  
+                        "card_transaction_ref_number": "1234",  
+                        "card_transaction_component_type": "TRX",  
+                        "source": "MSC",  
+                        "customer_portfolio_region": "US-EAST",  
+                        "customer_portfolio_country": "feedzai",  
+                        "customer_portfolio_channel": "portfoliochannel",  
+                        "customer_portfolio_product": "product",  
+                        "customer_portfolio_type": "portfoliotype",  
+                        "customer_portfolio_class": "elite",  
+                        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+                        "account_id": "account_id",  
+                        "account_number": "1005103001044120",  
+                        "card_phone_banking_user_id": "A5435454435",  
+                        "customer_id": "customer_1",  
+                        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+                        "customer_name": "John Doe",  
+                        "customer_id_personal": "",  
+                        "customer_id_business": "",  
+                        "customer_id_number": "",  
+                        "customer_id_global": "",  
+                        "card_txn_sub_type": "",  
+                        "trans_message_type": "14",  
+                        "acquirer_id": "12345678912",  
+                        "amount_dbl": 245.0,  
+                        "trans_model_amt": 10.0,  
+                        "cardholder_bill_amount": 11000.0,  
+                        "cardholder_bill_currency_code": "951",  
+                        "trans_currency_code": "951",  
+                        "currency_code": "951",  
+                        "treatment_strategy": "none",  
+                        "oob_comm_type": "sms",  
+                        "oob_notes": "ContactedJohnDoetoconfirm.",  
+                        "oob_feedback_notes": "Theaccountholderdeniedtheauthenticityofthetransaction.",  
+                        "oob_response_type": "call",  
+                        "feedback_type": "out_of_band",  
+                        "feedback_label": "",  
+                        "external_status_reason": "",  
+                        "channel_type": "mobile",  
+                        "card_pan": "",  
+                        "saf_ind": "N",  
+                        "sender_initiated_at": 1752066662,  
+                        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+                        "local_datetime": "20110123",  
+                        "event_occurred_at": 1769686995757,  
+                        "crypto_transaction_info": "",  
+                        "card_type": "credit",  
+                        "outcome_decision": "fraud",  
+                        "wallet_decision": "RED"  
+                    }  
+                }  
+            }  
+        ],  
+        "notificationVersion": "1",  
+        "stateMachineId": "status_cards",  
+        "state": {  
+            "id": "fraud_cards"  
+        },  
+        "reasons": [  
+            {  
+                "id": "6e5fb943-febb-47dc-a460-dede19dae61a",  
+                "statusId": "fraud_cards",  
+                "name": "Cards Fraud - 1st Party Fraud"  
+            }  
+        ],  
+        "updatedAt": 1736333159273,  
+        "userId": "mWVznM0cV8dLzVXMXUVH_w",  
+        "username": "pulse",  
+        "note": "Cards - 1st Party Fraud"  
+    }  
+    
+
+Copy
+
+An example of a **transaction block** update would be:
+    
+    
+    {  
+        "ids": [  
+            {  
+                "identifier": "lc_id_cards_2",  
+                "timestamp": 1774006677854,  
+                "channelId": "cards",  
+                "payload": {  
+                    "schema": {  
+                        "self_serve_strategy": "ivr_self_yes",  
+                        "event_type": "authorization",  
+                        "alert_id": "_cards_1",  
+                        "lifecycle_id": "lc_id_cards_1",  
+                        "tenant": "feedzai",  
+                        "lifecycle_id_alt": "",  
+                        "card_transaction_ref_number": "1234",  
+                        "card_transaction_component_type": "TRX",  
+                        "source": "MSC",  
+                        "customer_portfolio_region": "US-EAST",  
+                        "customer_portfolio_country": "feedzai",  
+                        "customer_portfolio_channel": "portfoliochannel",  
+                        "customer_portfolio_product": "product",  
+                        "customer_portfolio_type": "portfoliotype",  
+                        "customer_portfolio_class": "elite",  
+                        "customer_portfolio": "EU_PC_CR_MS_GNRL",  
+                        "account_id": "account_id",  
+                        "account_number": "1005103001044120",  
+                        "card_phone_banking_user_id": "A5435454435",  
+                        "customer_id": "customer_1",  
+                        "customer_email": "[[email protected]](/cdn-cgi/l/email-protection)",  
+                        "customer_name": "John Doe",  
+                        "customer_id_personal": "",  
+                        "customer_id_business": "",  
+                        "customer_id_number": "",  
+                        "customer_id_global": "",  
+                        "card_txn_sub_type": "",  
+                        "trans_message_type": "14",  
+                        "acquirer_id": "12345678912",  
+                        "amount_dbl": 245.0,  
+                        "trans_model_amt": 10.0,  
+                        "cardholder_bill_amount": 11000.0,  
+                        "cardholder_bill_currency_code": "951",  
+                        "trans_currency_code": "951",  
+                        "currency_code": "951",  
+                        "treatment_strategy": "none",  
+                        "oob_comm_type": "sms",  
+                        "oob_notes": "ContactedJohnDoetoconfirm.",  
+                        "oob_feedback_notes": "Theaccountholderdeniedtheauthenticityofthetransaction.",  
+                        "oob_response_type": "call",  
+                        "feedback_type": "out_of_band",  
+                        "feedback_label": "",  
+                        "external_status_reason": "",  
+                        "channel_type": "mobile",  
+                        "card_pan": "",  
+                        "saf_ind": "N",  
+                        "sender_initiated_at": 1752066662,  
+                        "sender_initiated_at_local": "2025-07-12 00:00:00.000000 UTC",  
+                        "local_datetime": "20110123",  
+                        "event_occurred_at": 1769686995757,  
+                        "crypto_transaction_info": "",  
+                        "card_type": "credit",  
+                        "outcome_decision": "fraud",  
+                        "wallet_decision": "RED"  
+                    }  
+                }  
+            }  
+        ],  
+        "notificationVersion": "1",  
+        "stateMachineId": "block_code",  
+        "state": {  
+            "id": "sample_1"  
+        },  
+        "reasons": [  
+            {  
+                "id": "29989fc9-a3df-4e81-aed5-b587d079846e",  
+                "statusId": "sample_1",  
+                "name": "Block code - Sample 1"  
+            }  
+        ],  
+        "updatedAt": 1774006715513,  
+        "userId": "mWVznM0cV8dLzVXMXUVH_w",  
+        "username": "pulse",  
+        "note": null  
+    }  
+    
+
+Copy

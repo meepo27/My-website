@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/score
+Title: Score | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Score
+
+
+
+On this page
+
+# Score
+
+**Score** is an event field (like amount, card number, etc.). It will help you to have a quick overview on the likelihood of an event to be [Fraudulent](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/fraud), as the number ranges from 0 to 1000, being 1000 the most likely for the event to be fraudulent.
+
+Therefore, every event in Case Manager will be marked as **Fraud/Not Fraud** ; and a correlated numerical field called **Score** that defines the likelihood of fraud. Score is decided by Pulse and acts as a numerical and visual indicator about the [Alert](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/alerts), helping you with marking events as **Fraud**. This information will then be sent to Case Manager, where you will be able to see it as in the following image:
+
+This parameter will give you a first-sight help in the reviewing process of your alerts. By [performing actions](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts) on these events, you will also refine Pulse's machine-learning models, as the feedback loop will offer you more precise score for events as you use it.
+
+## Learn moreÂ â
+
+For a better grasp of the concept of score, check the following pages:
+
+  * [Fraud](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/fraud): A highly related concept to that ofÂ **Score.** TheÂ **Score** represents the likelihood of an event to be **Fraud**.
+  * [Reviewing Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-modern):Â Learn more about scores and its importance when deciding how to mark **Alerts**.
+
+

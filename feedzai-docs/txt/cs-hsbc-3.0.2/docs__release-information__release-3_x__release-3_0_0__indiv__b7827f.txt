@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3802
+Title: HSBC-3802 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3802
+
+### Enable the `External Status Reason Updater` extension for Cardsâ
+
+FeatureFTMT-28948HSBC-3802
+
+We have updated the `External Status Reason Updater` extension to allow Cards events.
+
+The extension will now set the event's status reason based on the `external_status_reason` field value sent in the feedback event if it matches any Case Manager configured reasons.

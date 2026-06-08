@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3842
+Title: HSBC-3842 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3842
+
+### Fix Case Manager logger configuration via Ansibleâ
+
+Bug FixFTMT-27146HSBC-3842
+
+Also In:2.10.32.11.12.8.62.9.7
+
+We have fixed an issue in which some logging levels were not correctly being updated via the `cm_loggers` Ansible variable due to a logger XML formatting issue.

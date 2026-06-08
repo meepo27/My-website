@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/
+Title: Cleaning and loading your data | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * Cleaning and loading your data
+
+
+
+On this page
+
+# Cleaning and loading your data
+
+Was this page helpful?Â 
+
+This topic gives you an overview on how to load and clean the input data that you want to use in Pulse.
+
+## Overviewâ
+
+To load and clean your data, perform the following steps:
+
+  1. Import the data into a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) of Pulse. Learn [how to import data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/importing-your-dataset-into-pulse) into Pulse.
+  2. Use a [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) to validate if the data schema of the input data is in the format that your Pulse project uses. If not, use the Plan to transform the data to your project's needs. Learn how to [validate and transform the input data schema](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/validating-the-data-schema).
+  3. Clean the data. Transform values that make no sense in your application into meaningful values using a Plan. Learn [how to clean up the data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/cleaning-up-the-data).
+
+
+
+## Learn moreâ
+
+  * [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources)
+  * [Data types](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types)
+  * [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/plans-in-workflows)
+
+

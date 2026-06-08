@@ -1,0 +1,109 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/importing-your-dataset-into-pulse
+Title: Importing your dataset into Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Cleaning and loading your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/)
+  * Importing your dataset into Pulse
+
+
+
+On this page
+
+# Importing your dataset into Pulse
+
+Was this page helpful?Â 
+
+This article describes how to make data that is stored in a CSV or Parquet file available in Pulse as a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources).
+
+info
+
+Alternatively, you can perform this action from the JupyterLab  user interface. Standard notebooks are available within [JupyterLab](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/interacting-with-pulse-via-jupyterlab) â in particular the Data Loading Standard Notebook, which demonstrates how to successfully load data into Pulse through Feedzai's Data Science API.
+
+## How toâ
+
+To import a dataset into your Pulse application and create a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources), execute the following steps:
+
+  1. Ensure that the data file contains valid values of the [Pulse data types](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types).
+
+  2. In the Data Science  tab, add  a new Data Source.
+
+  3. Select the **URL Path** from where to import the data. The data file can either be stored locally, or in a Hadoop Distributed File System (HDFS). Examples for the URL Path: `/opt/datasets/transactions.csv`, or `file:///opt/datasets/transactions.parquet`.
+
+  4. In the **Advanced Options** , you can configure who has access to the Data Source.
+
+  5. Check the **Data Source Preview** to see how your data will be imported.
+
+CSV-only
+
+For CSV files, you can adjust the **Includes Header** , **Delimiter** , **Quotes** , **Line Separator** and [**Missing Values**](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources#missing-values) fields to define how Pulse should interpret and import the raw data from your file.
+
+The Parquet format is more strictly defined, so these manual adjustments are not required.
+
+  6. Advance to the **Data Source Characterization** step, where you can review the **Type** and **Configuration** that Pulse assigned to the fields of the data source.
+
+CSV-only
+
+For CSV files, you can adjust the inferred characterization for the data fields. See the Inferred types and values for CSV files section for details.
+
+Parquet files contain explicit type specifications, which are [mapped directly to Pulse types](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types#mapping-of-data-types-from-parquet-files) and are not modifiable.
+
+  7. Select **Create Data Source** to make your dataset available in Pulse.
+
+
+
+
+### Inferred types and values for CSV filesâ
+
+CSV files don't support indicating the type of each field, which is required information for the Pulse data science loop.
+
+To accelerate the Data Source creation process, Pulse automatically looks at the first few thousand rows of your dataset file and infers what is the data type and possible values for each field.
+
+For example, Pulse can suggest that:
+
+  * A _Timestamp_ field should be of type _Timestamp_ , in milliseconds.
+  * A _code_ field is _Categorical_ and the possible categories are A, B, and C.
+
+
+
+caution
+
+Pulse infers the values for _Categorical_ fields based on the observed occurrences in the first few thousand rows of your dataset. However, those rows might not contain all possible values. If there are other possible values, you must add them manually.
+
+When importing a CSV file, you can verify the and change the data types for the fields, and configure  their possible values:
+
+Learn more about [data types](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types).
+
+## Fixing invalid instancesâ
+
+When importing a certain dataset for the first time, usually there are records that can not be imported. These failed records or data rows are also called **[invalid instances](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources#invalid-instances)**. The Pulse UI shows the number of invalid instances only after you run a [Data Source analysis](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-source-analysis), using the  button.
+
+To get information about the invalid instances during this import, use the invalid instances button  to display the list of fields that had values which couldn't be imported.
+
+Hover over the  icon to get more information about what is wrong with the data field values.
+
+To fix invalid instances, after investigating their cause in the UI, you can combine the following two approaches:
+
+  * Change the data: preprocess the dataset externally (e.g. using Python), to transform invalid values into valid ones. This approach helps when in the same data field, in different records there are different types or formats.
+  * Change the schema: duplicate the data source, and change the data type, or the configuration of the data type. This can help if there is only a categorical value missing, or if you picked the wrong setting when defining a data type.
+
+
+
+## Duplicating a Data Sourceâ
+
+Since data schemas in Data Sources are [immutable](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources), if you need to make changes to a Data Source, you must create a new one. However, if you need to fix or adjust it without having to restart from scratch, you can duplicate an existing Data Source as follows:
+
+  1. In the Data Science  tab, Duplicate and Change  an existing Data Source.
+  2. Specify the path from where to import the data. The data file can either be stored locally, for example, `/opt/datascience/transactions.csv` or in HDFS.
+  3. Preview how your data will be imported. The Delimiter, Quotes, Line Separator and Missing Values will be exactly the same as the original Data Source.
+  4. Change the Data Source Characterization, namely editing the [**Type** and **Configuration**](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types) of any field.
+  5. Create a new Data Source.
+
+
+
+## Next stepsâ
+
+Once you have your raw data configured in Pulse, follow up by making sure that your original dataset is correctly [converted into a valid data schema](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/validating-the-data-schema).
+
+Once you have a Data Source, you can then start analyzing and transforming your data with [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) and building [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) and [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules).

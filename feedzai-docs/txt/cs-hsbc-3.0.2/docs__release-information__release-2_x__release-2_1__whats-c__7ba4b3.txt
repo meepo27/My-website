@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.1/whats-changed
+Title: What's Changed | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.1.0`â
+
+### New Ansible task to create symbolic links for multiple appsâ
+
+Feature
+
+In order to support multiple regions and market deployments, we have created a new Ansible task that creates filesystem symbolic links for each app slug to the directories that store the various libraries for the papp.
+
+### Case Manager Version Upgraded to 13.13.2â
+
+Feature
+
+We've upgraded Case Manager Version to 13.13.2.
+
+### Improve Case Manager extension configuration cachingâ
+
+Rework
+
+Case Manager was reading the configuration file to obtain the custom action (mobile outbound, payment fulfillment) on every trigger of the extension (via automation rules, for instance) along with the secret to decrypt the configuration. This could lead to rare occurrences in which too many files were being opened at the operating system level. This configuration is now only being read once on the first trigger of the automation rule for each extension type, and reusing this for all subsequent triggers of the extension.
+
+### Enable pkernel eager compilationâ
+
+Feature
+
+We have enabled eager compilation of the realtime metrics backend during Pulse application publishes. Previously, this compilation was performed on the first event processed after a publish, which would result in longer Pulse response times and timeouts on each node in the first seconds immediately following a publish.
+
+### New variable added to enable multithreaded workflow recoveryâ
+
+Feature
+
+A new ansible variable `number_threads_workflow_recovery` has added to set the number of threads used by Pulse to recover windows for real-time metrics during a full rolling publish. Previously, Pulse was using only a single thread, and this will continue to be the default. However, this number is now configurable.
+
+### Control custom UDFs importâ
+
+Feature
+
+We have added the possibility of controlling if custom UDFs (TMX and FivMarkers) are imported during deployment with the following variables:
+
+  * `import_tmx_udf`
+  * `import_fiv_markers_udf`
+
+
+
+For more information regarding Pulse configuration options see [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Global Rollout Documentationâ
+
+Docs
+
+Initial support for multiple regions and multiple portfolios within individual regions has been added.
+
+Please check the detailed documentation in [Global Rollout Documentation](/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.1/global-rollout).
+
+### Change Mobile Outbound Payment to send double amount field instead of integerâ
+
+Feature
+
+We've changed the Mobile Outbound notification to have the amount as a decimal instead of an integer. For example, an amount of Â£5 would previously be shown as 500 (in pence) and is now shown as 5.0 (in pounds).

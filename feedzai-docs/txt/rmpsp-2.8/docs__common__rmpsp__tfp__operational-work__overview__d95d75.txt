@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview
+Title: Operational Work | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Operational Work
+
+
+
+# Operational Work
+
+### [Data Scientist & Fraud StrategistLearn how to fight fraud with rules and models in Pulse.](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/pulse-guide)
+
+### [Fraud Prevention AgentLearn how to work with alerts and/or cases using Case Manager.](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide)
+
+### [Fraud Prevention ManagerView real-time insights on agent performance and rule monitoring.](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/analytics-dashboards-guide)
+
+### [Integration EngineerLearn how to test rules, and ensure the system is properly tested / running properly.](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/integration-guide/overview)

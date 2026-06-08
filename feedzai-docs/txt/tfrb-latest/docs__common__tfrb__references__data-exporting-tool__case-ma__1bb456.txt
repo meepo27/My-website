@@ -1,0 +1,96 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-digital-activity
+Title: Case Manager Event - Digital Activity | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Case Manager
+  * Case Manager Event - Digital Activity
+
+
+
+# Case Manager Event - Digital Activity
+
+Was this page helpful?Â 
+
+The **Case Manager Event - Digital Activity** entity stores all events from the Digital Activity channel.
+
+It comprises the [Case Manager Event - Base Schema](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event) and the following fields:
+
+Name| Type| Description| Example  
+---|---|---|---  
+`event_payload`| json| The event payload for the digital activity event.| { "fraud_score": 0.5, "outcome_decision": "approved", "account_last_successful_login_at": 1719859200, "account_id": "1234567890", "account_login_first_seen": 1719859200}  
+âââ`fraud_score`| double| |   
+âââ`outcome_decision`| string| |   
+âââ`acc_last_successful_login_at`| bigint| |   
+âââ`account_id`| string| |   
+âââ`account_login_first_seen`| bigint| |   
+âââ`amount`| bigint| |   
+âââ`auth_level`| string| |   
+âââ`channel_type`| string| |   
+âââ`currency_code`| string| |   
+âââ`customer_dob`| string| |   
+âââ`customer_email`| string| |   
+âââ`customer_id`| string| |   
+âââ`customer_name`| string| |   
+âââ`customer_phone_number`| string| |   
+âââ`device_app_version`| string| |   
+âââ`device_brand`| string| |   
+âââ`device_browser`| string| |   
+âââ`device_browser_language`| string| |   
+âââ`device_browser_version`| string| |   
+âââ`device_city`| string| |   
+âââ`device_country_code`| string| |   
+âââ`device_email_addr`| string| |   
+âââ`device_first_seen`| bigint| |   
+âââ`device_id`| string| |   
+âââ`device_ip_address`| string| |   
+âââ`device_ip_city`| string| |   
+âââ`device_ip_country_code`| string| |   
+âââ`device_ip_first_seen`| bigint| |   
+âââ`device_ip_latitude`| bigint| |   
+âââ`device_ip_longitude`| bigint| |   
+âââ`device_ip_proxy`| boolean| |   
+âââ`device_ip_proxy_type`| string| |   
+âââ`device_ip_region`| string| |   
+âââ`device_isp`| string| |   
+âââ`device_isp_country_code`| string| |   
+âââ`device_isp_region`| string| |   
+âââ`device_language`| string| |   
+âââ`device_latitude`| bigint| |   
+âââ`device_longitude`| bigint| |   
+âââ`device_model`| string| |   
+âââ`device_os`| string| |   
+âââ`device_os_language`| string| |   
+âââ`device_os_version`| string| |   
+âââ`device_phone_number`| string| |   
+âââ`device_region`| string| |   
+âââ`device_registration_date`| bigint| |   
+âââ`device_risk_rating`| string| |   
+âââ`device_risk_reason`| string| |   
+âââ`device_risk_score`| bigint| |   
+âââ`device_screen_height`| bigint| |   
+âââ`device_screen_width`| bigint| |   
+âââ`device_timezone`| string| |   
+âââ`device_type`| string| |   
+âââ`event_external_id`| string| |   
+âââ`event_occurred_at`| bigint| |   
+âââ`event_status`| string| |   
+âââ`event_status_fail_reason`| string| |   
+âââ`event_sub_type`| string| |   
+âââ`session_id`| string| |   
+âââ`device_ip_latitude_double`| double| |   
+âââ`device_ip_longitude_double`| double| |   
+âââ`device_latitude_double`| double| |   
+âââ`device_longitude_double`| double| |   
+âââ`status_digital_activity_id`| string| |   
+âââ`event_status_digital_activity_id`| string| |   
+âââ`breach_status_id`| string| |   
+âââ`event_breach_status_id`| string| |   
+âââ`customer_address`| string| |   
+âââ`revelock_score`| integer| |   
+âââ`device_user_agent`| string| |   
+âââ`session_register_date`| bigint| |   
+âââ`enricher_revelock`| json| |   
+âââ`customer_segment`| string| | 

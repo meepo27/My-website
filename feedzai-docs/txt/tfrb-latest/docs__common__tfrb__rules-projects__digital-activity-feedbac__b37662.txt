@@ -1,0 +1,115 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-feedback-rules
+Title: Digital Activity - Feedback Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Digital Activity - Feedback Rules
+
+
+
+On this page
+
+# Digital Activity - Feedback Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Feedback Rules_ evaluate events that contain information on whether the digital event was marked as fraudulent or legitimate. This feedback comes from:
+
+  * The analyst decision in Case Manager (i.e. `feedback_type` field equal to `cm_feedback`).
+
+
+
+It is common to have rules with actions that are preconfigured in the List Management Service leveraging automatic list transitions. For example, this rules project contains a rule that triggers the Auto Decline Account action. It works as follows:
+
+  * The rule is triggered when the event is confirmed as fraud (i.e. the `feedback_value` field is equal to `true`). As a result, the action Auto Decline Account is applied. This action is configured in the [List Management Service](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service) and it adds the account associated with the event to a list of Accounts. Events with accounts within this list are automatically declined in future transactions by _PosNeg Rules_.
+
+
+
+Having this example as a reference, you can add rules that leverage different actions preconfigured in the List Management Service, or even write rule conditions that trigger for other feedback values.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Digital Activity - FB1
+
+### Comment
+
+> Flag account to be auto declined if customer does not acknowledge transaction or analyst marks as 'Fraud'. Depends on 'List Management Service' to put the account in the configured list.
+
+### Actions
+
+  * Auto Decline Account
+  * [DA-FB1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback'
+    and   
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == true
+    and 
+    // Filters
+    (event.account_id ?? '' != '') 
+
+### Explanation
+
+> [DA-FB1] - Customer does not acknowledge transaction or analyst marks as 'Fraud'. Account Id ({event.account_id}) flagged for auto decline. 
+
+### Mark As
+
+N/A
+
+## Digital Activity - FB2
+
+### Comment
+
+> Flag account to be auto-approved if customer acknowledges transaction or analyst marks as 'Not Fraud'. Depends on 'List Management Service' to put the account in the configured list.
+
+### Actions
+
+  * [DA-FB2]
+  * Auto Approve Account
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback'
+    and   
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == false 
+    and 
+    // Filters
+    (event.account_id ?? '' != '') 
+
+### Explanation
+
+> [DA-FB2] - Customer acknowledges transaction or analyst marks as 'Not Fraud'. Account Id ({event.account_id}) flagged for auto approve. 
+
+### Mark As
+
+N/A

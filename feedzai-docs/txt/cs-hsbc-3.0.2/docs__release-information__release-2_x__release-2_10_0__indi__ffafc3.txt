@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3359-Add--Originator-Details--and--Beneficiary-Details--tabs-in-Case-Manager-Event-Details-page
+Title: HSBC-3359-Add--Originator-Details--and--Beneficiary-Details--tabs-in-Case-Manager-Event-Details-page | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3359-Add--Originator-Details--and--Beneficiary-Details--tabs-in-Case-Manager-Event-Details-page
+
+### Add `Originator Details` and `Beneficiary Details` tabs in Case Manager Event Details pageâ
+
+FeatureFTMT-10124HSBC-3359
+
+The event details page for both **Inbound and Outbound Payments** now includes `Originator Details` and `Beneficiary Details` tabs for quick access to the corresponding widgets.

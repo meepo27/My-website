@@ -1,0 +1,89 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation
+Title: Model Evaluation | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * Model Evaluation
+
+
+
+On this page
+
+# Model Evaluation
+
+Was this page helpful?Â 
+
+Evaluating your model against a dataset means analyzing how it is performing, and how close you are to reaching the objectives of your data science project.
+
+The performance of models can be analyzed in **model evaluations**. A model evaluation first runs the model to score the possible values of the target variable in a specific data source.
+
+Then Pulse compares the scores with the actual labels of the target field. It calculates relevant model performance metrics, and displays them in an informative layout.
+
+Model evaluations can be created in two ways:
+
+  * Automatically, in the Validation step of the [model training process](/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model).
+  * Manually, by creating a new model evaluation for any existing model.
+
+
+
+## The evaluation data sourceâ
+
+The evaluation can be run against the data source of the model training, using cross-validation or split percentage strategies. Alternatively, when evaluating a model that has already been trained on a given data source, Pulse will execute the evaluation against a user-specified data source. Thus, no validation method is applicable as the entire dataset is used for testing. It's the user's responsibility to ensure that the data source provided for evaluation is not the same that was used during training.
+
+Compatible data sources
+
+You can evaluate the same model with any different data sources, as long as they contain all the fields that the model requires. This means that you must always evaluate a given model with [compatible data sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources#compatible-data-sources).
+
+## The evaluation target variableâ
+
+The evaluation can use the same target variable as the model, if it has any. Alternatively you can select another field as target variable for the evaluation. The format (type and possible values) of the evaluation target variable must match the format of the target variable used in the model training, if there was any.
+
+Also, the position of the specified target variable must correspond to the position of the target used for training. Learn more about [compatible data sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources#compatible-data-sources).
+
+## Model performance metricsâ
+
+When the model evaluation is finished, Pulse displays **model performance metrics** such as ROC curve, confusion matrix, cost-based metrics, etc.
+
+### ROC curveâ
+
+Most importantly, the **ROC curve** is a simple and visual way to assess a model's performance. ROC curve plots the Recall (Y axis) over the False Positive Rate (X axis).
+
+The best possible prediction method would yield a point in the upper left corner ('A' in the picture) or coordinate (0,100) of the ROC space, representing 100% Detection with 0% False Positives. The (0,100) point is also called a perfect classification. A completely random guess would give a point along the diagonal line 'C' (the so-called line of no-discrimination).
+
+Keep in mind that when the model's performance is sufficiently good, the difference between the curves might become unnoticeable. Analyze the computed metrics for more precise results.
+
+### Comparing modelsâ
+
+Model evaluations are useful in your data science project to perform easy comparisons over earlier versions of the model, with a different parameter configuration, different features, etc.
+
+Pulse allows you to compare the metrics of two different models, to evaluate their performance. For that, their target variables must have the same data type and possible values.
+
+### Breakdownsâ
+
+When you generate a model evaluation, in addition to generating overall performance metrics Pulse also calculates them over field combinations. This allows you to break them down by another categorical field and its values, and evaluate your model performance for each of those possible fields and value combinations. For example, checking the performance of your model segmented by each suspicious country.
+
+### Score distributionâ
+
+To analyze the model results, another useful information is the **score distribution**. The score distribution graph shows the distribution of scores predicted by the model for each value of the target variable.
+
+It allows to visually inspect the separation power of the evaluated model. In a good model, the values of the target variable are separated into different areas of the graph. In the following example, setting the Threshold between 50 and 100 will separate _False_ from _True_.
+
+## Learn moreâ
+
+To fully understand model evaluations, make sure you also go through the following concepts:
+
+  * [Cost Fields](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/cost-fields)
+  * [Custom Evaluation Metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/custom-evaluation-metrics)
+  * [Business Targets](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/business-targets)
+
+
+
+Check the following pages to learn how to put model evaluations into practice:
+
+  * [Evaluating a Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model)
+  * [Tuning Model Parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters)
+  * [Comparing Models](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models)
+
+

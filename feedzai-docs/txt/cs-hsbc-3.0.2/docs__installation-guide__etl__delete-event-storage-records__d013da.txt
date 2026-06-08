@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/etl/delete-event-storage-records
+Title: Deleting Event Storage Records | Feedzai Documentation
+============================================================
+
+On this page
+
+# Deleting Event Storage Records
+
+Playbook to ensure that _Event Storage_ won't have duplicate entries caused by multiple executions of Event Storage ETL for Historical Data Load over the same time range (e.g.: retries).
+
+### Configurationâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+database_pulse_eventstorage_host| String| X| The host of the events storage DB|   
+database_pulse_eventstorage_schema| String| X| The Schema of the events storage DB|   
+events_interval_start| Long| X| The start date of the interval that is required to delete it records in **Unix time** format| it has to be lower than the events_interval_end  
+events_interval_end| Long| X| The end date of the interval that is required to delete it records in **Unix time** format| it has to be greater than the events_interval_start  
+  
+## Running the Playbookâ
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        events-storage-records-deletion.yml  
+    
+
+Copy

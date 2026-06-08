@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/extended-map
+Title: Extended Map | Case Manager
+============================================================
+
+On this page
+
+# Extended Map
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+addresses| Array<Object>| No| List of addresses to be displayed in the Extended Map. Each item is an object that can have these properties.  
+title| String| Yes| I18n key to the message to show in the box title.  
+cssClass| String| Yes| Box custom CSS classes, separated by space.  
+width| String| No| ExtendedMap width  
+headerClassName| String| Yes| Box header custom classes, separated by space.  
+headerPill| Object| No| 
+
+  * **kind (string) -** Specifies the color of the Pill. Can be one of the following: `default`, `primary`, `success`, `warning`, `danger`
+  * **icon (string|number) -** The classname of the icon to be used: Please refer to [Font Awesome](https://fontawesome.com/v5/search) to see the available icons. Please note that Case Manager only imports the light version icons.
+  * **type (string|number) -** Field data type. Please check the [Data Types](/docs/common/case-manager/reference/user-interface/data-types) section for more info about the available data types.
+  * **matchingFields (string|number) -** Holds the list of fields that should match for the widget to appear. For more details about this property, read the following [matchingFields](/docs/common/case-manager/reference/user-interface/widgets/widgets-overview#matchingfields) section.
+
+  
+  
+### Addressesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| Yes| I18n key of the message that represents the field title.  
+countryKey| String| No| Country key that contains the address country, support ISO 2 names: i.e. PT, US, etc..  
+fields| Array<Object>| No| Each address is going to be displayed using a Box widget. To configure the fields, give a list of fields to be displayed. Each item is an object that can have [these properties](/docs/common/case-manager/reference/user-interface/widgets/box#fields).

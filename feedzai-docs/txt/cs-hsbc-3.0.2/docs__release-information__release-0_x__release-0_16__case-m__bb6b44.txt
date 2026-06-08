@@ -1,0 +1,9 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-vendor-risk-data
+Title: Digital Activity - Vendor Risk Data | Feedzai Documentation
+============================================================
+
+# Digital Activity - Vendor Risk Data  
+  
+New widget:
+
+As agreed, for fields that are booleans we will use the Yes(True)/No(False) annotation instead of 1/0, as it will be more user friendly to analysts.

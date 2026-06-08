@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/pulse-installation-guide
+Title: Pulse Installation Guide | Feedzai Documentation
+============================================================
+
+# Pulse Installation Guide
+
+Welcome to the Pulse Installation Guide.
+
+In this section you will find a set of pages with information about the Pulse installation process:
+
+  * [Requirements](/cs-hsbc/3.0.2/docs/installation-guide/pulse/requirements-pulse)
+  * [Network and Connectivity](/cs-hsbc/3.0.2/docs/installation-guide/pulse/network-pulse)
+  * [Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse)
+  * [Configuration Recommendations for Data Science Environment](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse-dsf)
+  * [GCP Resources Creation](/cs-hsbc/3.0.2/docs/installation-guide/pulse/gcp-resources-creation)
+  * [Blue-Green deployments](/cs-hsbc/3.0.2/docs/installation-guide/pulse/blue-green-deployments)
+  * [Azul Platform Prime](/cs-hsbc/3.0.2/docs/installation-guide/pulse/azul-platform-prime)
+  * [How to persist JupyterLab notebooks](/cs-hsbc/3.0.2/docs/installation-guide/pulse/jupyterlab-persistent-notebooks)
+  * [Topology-Aware Resource Scheduling](/cs-hsbc/3.0.2/docs/installation-guide/pulse/topology-aware-resource-scheduling)
+  * [How To](/cs-hsbc/3.0.2/docs/installation-guide/pulse/pulse-how-to)
+
+

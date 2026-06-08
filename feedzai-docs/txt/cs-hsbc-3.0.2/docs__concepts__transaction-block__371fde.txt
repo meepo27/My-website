@@ -1,0 +1,213 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/concepts/transaction-block
+Title: Transaction Block | Feedzai Documentation
+============================================================
+
+On this page
+
+# Transaction Block
+
+In version 3.0.0 we have introduced a set of changes to accommodate the Cards CCM use case requirements.
+
+This page focuses on explaining the changes made to both Pulse and Case Manager to support this feature.
+
+## Pulseâ
+
+In this section you can find the changes introduced in Pulse to support the use case.
+
+### Transaction Block Outcomeâ
+
+We've added the transaction block outcome to the Cards Authorization and Non-Mon endpoints.
+
+The new block includes two new fields, that were also added to the Cards workflow:
+
+  * `transaction_block_code_outcome`: the outcome value calculated in the workflow
+  * `transaction_block_computed_date`: calculated from the time of the response plus the amount of days configured based on the card's type
+
+
+
+##### info
+
+The `transaction_block_computed_date` field is only added to the response if the `card_type` is `debit` or `credit`.
+
+Find below some examples of API responses:
+
+Response that has card_type as credit 
+    
+    
+    {  
+        "lifecycle_id": "2498c54f-4731-4d2b-a955-87fecfca42da",  
+        "status": "ok",  
+        "action_codes": [],  
+        "secondary_action_codes": [],  
+        "alert": false,  
+        "score": 0,  
+        "decision": "approve",  
+        "sca_required": true,  
+        "wallet_decision": "none",  
+        "transaction_block_code_outcome": "none",  
+        "transaction_block_computed_date": 1774978027914  
+    }  
+    
+
+Copy
+
+Response that has a card_type that is not credit or debit 
+    
+    
+    {  
+        "lifecycle_id": "9b160255-5fa8-43b9-8682-d3dae28046a0",  
+        "status": "ok",  
+        "action_codes": [],  
+        "secondary_action_codes": [],  
+        "alert": false,  
+        "score": 0,  
+        "decision": "approve",  
+        "sca_required": true,  
+        "wallet_decision": "none",  
+        "transaction_block_code_outcome": "none"  
+    }  
+    
+
+Copy
+
+The offset can be configured via Ansible using the `cards_offset_days` variable, as shown below:
+    
+    
+    cards_offset_days:  
+      debit: 4  
+      credit: 5  
+    
+
+Copy
+
+### Schema Changesâ
+
+We've added the following fields to the Cards endpoints and workflow schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+system_block_code1| String  
+system_block_code1_datetime| Long  
+system_block_code2| String  
+system_block_code2_datetime| Long  
+transaction_block_code| String  
+transaction_block_code_datetime| Long  
+  
+The Cards Reference Data API was extended to include these new fields. Please refer to the [Cards Reference Data API](/cs-hsbc/3.0.2/api#tag/referencedata/operation/addCardsReferenceData) for more information.
+
+##### note
+
+We've also added support for Cards enrichment in the Cards workflow. By default Cards enrichment will be done using `card_pan` but the field can be changed during deployment using the Ansible variable `cards_card_enrichment_key`.
+
+* * *
+
+## Case Managerâ
+
+In this section you can find the changes introduced in Case Manager to support the use case.
+
+### Block Code actionsâ
+
+We've added a new set of Case Manager actions in the Cards channel to support the new Block Code state machine. The `Fraud`, `Not-Fraud`, `Move to Unresolved` and `Move to On-Hold` actions were adjusted to support the use case. Please find below the conditions in which the actions appear:
+
+Action| Previous Condition| New Condition  
+---|---|---  
+Set Block Code| N/A| `Assigned`  
+Skip Block Code| N/A| `Assigned` and Block Code is `Undefined`  
+Clear Block Code| N/A| `Assigned` and Block Code is not `Undefined/Skipped`  
+Fraud| `Assigned` and Operational Status is `In Progress/Unresolved/On Hold`| `Assigned` and Operational Status is `In Progress/Unresolved/On Hold` and Block Code is not `Undefined`  
+Not Fraud| `Assigned` and Operational Status is `In Progress/Unresolved/On Hold`| `Assigned` and Operational Status is `In Progress/Unresolved/On Hold` and Block Code is not `Undefined`  
+Move to Unresolved| N/A| Block Code is `Undefined`  
+Move to On-Hold| N/A| Block Code is `Undefined`  
+  
+Please find below an example:
+
+  * While the event is `Unassigned`, the option to select a Block Code is not available
+
+
+
+  * After the event is assigned to a user, the option to select a Block Code iss available (it meets the condition stated in the first row of the table above)
+
+
+
+##### info
+
+States added during deployment (using the Ansible variable `cm_block_code_machine_states`) will show if the event is `Assigned` and the user has the required permission.
+
+##### warning
+
+Bulk actions do not support this feature. Analysts will be able to mark events as Fraud/Not Fraud without setting the block code as long as they have the required permissions.
+
+### Extension Changesâ
+
+There is a set of changes to the Case Manager extensions that needs to be taken into consideration.
+
+Please find below a list of the fields added to the different extensions:
+
+Extension| Fields Added  
+---|---  
+Cards Fulfilment| `cm_transaction_block`  
+`cm_transaction_block_action`  
+`cm_transaction_block_date`  
+`cm_transaction_block_timezone`  
+`cm_transaction_block_expiration`  
+Cards 2-WAY SMS| `cm_transaction_block_date`  
+`cm_transaction_block_expiration`  
+Cards 1-WAY SMS| `cm_transaction_block_date`  
+`cm_transaction_block_expiration`  
+Send Reminder SMS| `cm_transaction_block_date`  
+`cm_transaction_block_expiration`  
+  
+Regarding `cm_transaction_block_date` and `cm_transaction_block_expiration`, both are calculated from the time the transaction block was set plus the configured offset (using `cm_transaction_block_date_offset_days`) with the following format:
+
+  * `cm_transaction_block_date`: date time string format (e.g. `2025-10-21T08:14:00`)
+  * `cm_transaction_block_expiration`: UNIX timestamp (e.g. `1772638079711`)
+
+
+
+Note that the base values should reflect the time when the analyst sets the block code. Consequently, if the block code status is undefined or clear, the date and expiration values won't be calculated.
+
+The offset can be set during deployment using the following Ansible variable:
+
+  * `cm_transaction_block_date_offset_days` (default: `5`)
+
+
+
+For more details on the fields description and examples of payloads please refer to the [AFIS extension documentation](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions).
+
+##### note
+
+The logic of `cm_transaction_block_action` is not yet implemented as of release 3.0.0, so the expected value for this field is always `null`.
+
+### Block Code State Machineâ
+
+We've added the `Block Code` state machine to Case Manager.
+
+By default this state machine is only available to Cards with the states `Undefined` (default value), `Clear` and `Skip`. In contrast with other state machines, the `Block Code` state machine is configurable during deployment using the Ansible variable `cm_block_code_machine_states`.
+
+For example, to add two extra states the variable would have to be configured as follows:
+    
+    
+    cm_block_code_machine_states:  
+     - sample_1  
+     - sample_2  
+    
+
+Copy
+
+After deploying Case Manager the new states will show in the Reasons configuration page:
+
+##### info
+
+UI translations for new states have to be managed in the self serviceable translations page.
+
+Similar to other state machines we've also created the corresponding permissions:
+
+  * `cm:state-machine:event-status:write:block_code`
+  * `cm:state-machine:event:read:block_code`
+  * `cm:state-machine:status-reason:delete:block_code`
+  * `cm:state-machine:status-reason:read:block_code`
+  * `cm:state-machine:status-reason:write:block_code`
+
+
+
+Please refer to the [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) and to the [Permissions Guide](/cs-hsbc/3.0.2/docs/operations-guide/permissions) for more details.

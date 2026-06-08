@@ -1,0 +1,231 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/cards/info
+Title: Info Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Cards](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle)
+  * Info Endpoint
+
+
+
+On this page
+
+# Info Endpoint
+
+Was this page helpful?Â 
+
+The Info endpoint enables you to update and add new information to an existing transaction, as well as to notify Feedzai about transactions processed upstream (see Pre-decided Auths).
+
+Sending information to Feedzai with this endpoint is important to:
+
+  * Enrich profiles that are used to build features for machine learning models.
+  * Write rules that test specific information.
+  * Enrich alerts so that fraud analysts have extra information, and thus, gain a holistic view of the alert and the case under investigation.
+
+
+
+info
+
+When you use the Info endpoint, you need to send the original fields (i.e. even if they are not being updated with new information) in addition to the fields containing new information.
+
+This endpoint applies to the use cases described below.
+
+## Additional Authorization Informationâ
+
+In this use case, you would typically call the Info endpoint to update information sent in a previous request.
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer may honor or not the decision recommendation: **reject** or **accept** transaction (with a reason code).
+  11. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  12. Authorization message response (ISO 8583 or network proprietary message).
+  13. Payment is **rejected** or **accepted**.
+  14. Info request (Additional Authorization Information).
+
+
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities (e.g. Card, Customer, or Account) have a match in the Reference Data Storage.
+
+info
+
+Note that any new data from card info events (e.g. new `card_category`) will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  15. Pulse receives the info request, and updates the transaction information in Case Manager:
+
+
+  * Key: Life cycle ID.
+  * Adds additional information.
+
+
+  16. Case Manager is updated with the field values sent via the Info endpoint.
+  17. Info response (Additional Authorization Information).
+  18. Message acknowledged.
+
+
+
+## Pre-decided Authsâ
+
+Pre-decided Auths are payments that have been either rejected or accepted before arriving to Feedzai. Typical use cases include a payment rejected at the network level before it arrives at the issuer, or a payment rejected on the issuer side for example for lack of account balance, or account blocked.
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  7. Authorization message response (ISO 8583 or network proprietary message).
+  8. Payment is **accepted** or **rejected**.
+  9. Info request (Pre-decided Auth): ISO 8583, additional info, decision (**accepted** or **rejected**) and reason.
+  10. Pulse receives the Info request, and updates the transaction information in Case Manager.
+  11. Case Manager is provided with the field values sent via the Info endpoint.
+  12. Info response (Pre-decided Auth).
+  13. Message acknowledged.
+
+
+
+## Not-honorâ
+
+The Not-honor use case occurs when you choose to take a different decision than the one recommended by Feedzai. For example, Feedzai's response is approve, and you decide to reject the transaction.
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation:
+
+
+  * **Decline** transaction.
+  * **Approve** transaction.
+
+
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**approve** or **decline**), actions and alert.
+  10. The issuer may honor or not the decision recommendation:
+
+
+  * **Accept** transaction (with a reason code): not honoring the **decline** recommendation.
+  * **Reject** transaction (with a reason code): not honoring the **approve** recommendation.
+
+
+  11. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  12. Authorization message response (ISO 8583 or network proprietary message).
+  13. Payment is **accepted** or **rejected**.
+  14. Info request (Not-honor): **accepted** or **rejected** (with reason code).
+  15. Pulse receives the info request, and updates the transaction information in Case Manager:
+
+
+  * Key: Life cycle ID.
+  * Adds not-honor information.
+
+
+  16. Case Manager is updated with the field values sent via the Info endpoint.
+  17. Info response (Not-honor).
+  18. Message acknowledged.
+
+
+
+## Out of Bandâ
+
+You can define policies for advising downstream systems to contact a cardholder (e.g. via SMS or Call) to validate a transaction. These policies can be defined, for example, based on the response provided by Feedzai's model score, another output parameter - an action triggered by a rule - or any external reason.
+
+This endpoint allows you to notify Feedzai that the cardholder is being contacted. If the response provided by the cardholder leads to a decision whether the transaction is fraud or legitimate, then this information is sent via the [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback) use case.
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer may honor or not the decision recommendation: **reject** or **accept** transaction (with a reason code).
+  11. SMS/Call from issuer to cardholder to verify the transaction authenticity.
+  12. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  13. Authorization message response (ISO 8583 or network proprietary message).
+  14. Payment is **rejected** or **accepted**.
+  15. Info request (Out of Band): e.g. with the type of contact made.
+  16. Pulse receives the Info request, and updates the transaction information in Case Manager.
+
+
+  * Key: Life cycle ID.
+  * Adds the contact Information.
+
+
+  17. Case Manager is updated with the field values sent via the Info endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Out of Band` functional block label).
+  18. Info response (Out of Band).
+  19. Message acknowledged.
+
+
+
+## Disputeâ
+
+A cardholder can contact a bank to file a complaint for different reasons, such as:
+
+  * **Payment related reasons:** Unauthorized payment.
+  * **Non-payment related reasons:** A purchased item that was not delivered.
+
+
+
+In this case, the bank and the cardholder may initiate a dispute. This endpoint can be used to inform Feedzai about the details of this process. If the process results in a chargeback, you can use the [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback) use case to inform Feedzai about fraud related reasons.
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer **accepts** the transaction (with a reason code).
+  11. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  12. Authorization message response (ISO 8583 or network proprietary message).
+  13. Payment is **accepted**.
+  14. Cardholder disputes the transaction authenticity.
+  15. Info request (Dispute): e.g. dispute related information is sent.
+  16. Pulse receives the Info request, and updates the transaction information in Case Manager.
+
+
+  * Key: Life cycle ID.
+  * Adds the dispute information.
+
+
+  17. Case Manager is updated with the field values sent via the Info endpoint (the fields that are specific to this scenario are marked in the endpoint specification with the `Dispute` functional block label).
+  18. Info response (Dispute).
+  19. Message acknowledged.
+
+
+
+## Learn moreâ
+
+Learn more about the detailed life cycle of other endpoints:
+
+  * [Authorization](/tfrb/latest/docs/common/tfrb/life-cycles/cards/authorization)
+  * [Clearing](/tfrb/latest/docs/common/tfrb/life-cycles/cards/clearing)
+  * [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback)
+
+

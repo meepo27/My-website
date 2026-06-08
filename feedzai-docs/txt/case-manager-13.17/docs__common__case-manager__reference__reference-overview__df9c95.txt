@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/reference-overview
+Title: Reference | Case Manager
+============================================================
+
+# Reference  
+  
+Get to know all the different parameters and properties to help you tune Case Manager's configuration.
+
+### [REST APIAccess all endpoints and associated fields.](/case-manager/13.17/api/)
+
+### [Performance TuningTune Case Manager to achieve better performance.](/case-manager/13.17/docs/common/case-manager/reference/performance-tuning-checklist)
+
+### [PermissionsAccess all permissions required the different Case Manager functionalities.](/case-manager/13.17/docs/common/case-manager/reference/permissions)
+
+### [Core ConfigurationAccess all properties and settings in the config.json file.](/case-manager/13.17/docs/internal/case-manager/reference/core-config-json)
+
+### [Security ConfigurationAccess all properties and settings in the security.json file.](/case-manager/13.17/docs/common/case-manager/reference/security-json)
+
+### [User Interface ConfigurationAccess all properties and settings in the gui-config.json file.](/case-manager/13.17/docs/common/case-manager/reference/user-interface/user-interface-overview)

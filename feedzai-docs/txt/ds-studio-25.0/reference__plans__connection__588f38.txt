@@ -1,0 +1,77 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/connection/
+Title: connection - DS API
+============================================================
+
+#  `` connection Â¶
+
+Class to represent the connection between Plan Operators.
+
+##  `` Connection Â¶
+    
+    
+    Connection(operator_in: [BaseOperator](../operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)"), operator_out: [BaseOperator](../operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)"))
+    
+
+Represents a connection between two plan operators.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `operator_in` Â¶
+
+|  `[BaseOperator](../operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)")` |  Operator to connect from |  _required_  
+  
+###  `operator_out` Â¶
+
+|  `[BaseOperator](../operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)")` |  Operator to connect to |  _required_  
+  
+###  `` operator_in `instance-attribute` Â¶
+    
+    
+    operator_in = require_type(operator_in, [BaseOperator](../operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)"))
+    
+
+###  `` operator_out `instance-attribute` Â¶
+    
+    
+    operator_out = require_type(operator_out, [BaseOperator](../operators/operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)"))
+    
+
+###  `` get_names Â¶
+    
+    
+    get_names() -> Tuple[str, str]
+    
+
+Gets the names of the connected operators.
+
+Returns:
+
+Type | Description  
+---|---  
+`tuple of str` |  Tuple with the operator names  
+  
+###  `` validate_op_exists Â¶
+    
+    
+    validate_op_exists(plan: [Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)"))
+    
+
+Validates the Connection operators existing in the plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `plan` Â¶
+
+|  `[Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")` |  Plan |  _required_  
+  
+Raises:
+
+Type | Description  
+---|---  
+`ValueError` |  If the plan does not contain the connection operators.

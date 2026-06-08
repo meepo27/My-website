@@ -1,0 +1,150 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/transaction-overview
+Title: Transaction Overview | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Manager](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview)
+  * [Analytics Dashboards Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/analytics-dashboards-guide)
+  * Transaction Overview
+
+
+
+On this page
+
+# Transaction Overview
+
+The transaction overview dashboard includes several visualizations that help fraud prevention managers analyze transactions, refunds, chargebacks, and original credit transactions (OCTs) over a defined period for a merchant or subset of merchants. It also includes visualizations for alerts, status codes, geographical and temporal trends.
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by fields. For instance, the `fields.merchant_id` field allows you to filter by a specific merchant ID. 
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [field](/rmpsp/2.8/docs/common/rmpsp/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. To finalize the creation of your condition, enter a value.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for. 
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most common used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+The **Transaction Overview** provides other filters to refine your search such as:
+
+  * **Merchant ID**
+  * **Merchant Name**
+  * **Merchant MCC**
+  * **Merchant URL**
+  * **Event Type** : `feedback`, `info`, `merchant monitoring`, `payment`
+  * **Payment Region**
+  * **Feedzai Channel** : `mmchannel` or `payments`
+  * **Lifecycle ID**
+
+
+
+## Totalâ
+
+  * **Total processed** : The aggregate transaction amount and corresponding number of transactions.
+  * **Total Feedzai approved** : The total transaction amount approved by Feedzai, along with the corresponding number of transactions from merchants, and the percentage of the total number of transactions.
+  * **Total Feedzai declined** : The total transaction amount declined by Feedzai, along with the corresponding number of transactions from merchants, and the percentage of the total number of transactions.
+  * **Number of transactions by amount interval** : Total transaction distribution based on different amount intervals (e.g. 2 transactions fall within the $25 - $50 interval).
+  * **Transaction amount by amount interval** : Total transaction amount distribution based on different amount intervals (e.g. $150 falls within the $100 - $250 interval).
+
+
+
+caution
+
+Note that selecting bars works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.
+
+* * *
+
+## Refunds, chargebacks and OCTsâ
+
+  * **Total refund** : The total transaction amount refunded, along with the corresponding number of refunded transactions, and the percentage of refunded transactions.
+  * **Total chargeback** : The total amount of chargeback transactions, along with the corresponding number, and the percentage of chargeback transactions.
+  * **Total OCT** : The total amount of OCTs, along with the corresponding number, and the percentage of OCTs.
+  * **Total Disputes** : The total amount of disputed transactions, along with the corresponding number, and the percentage of disputed transactions.
+
+
+
+* * *
+
+## Alertsâ
+
+  * **Total alerted** : The total transaction amount alerted, along with the corresponding number of alerted transactions, and the percentage of alerted transactions.
+  * **Total approved and alerted** : The total transaction amount approved and alerted by Feedzai, along with the corresponding number of approved and alerted transactions, and the percentage of approved and alerted transactions.
+  * **Total declined and alerted** : The total transaction amount declined and alerted by Feedzai, along with the corresponding number of declined and alerted transactions, and the percentage of declined and alerted transactions.
+  * **Distribution of transactions alerted and declined over the selected time range** : The number of alerted and declined transactions spread across a given period (e.g. over the last 7 days).
+
+
+
+caution
+
+Note that selecting bars works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.
+
+* * *
+
+## Status codesâ
+
+  * **CNP ratio** : The percentage of card-not-present transactions.
+  * **Distribution of 3DS authentication** : The percentage of transactions using 3-D Secure (3DS), and whose code used is `Y`.
+  * **Authorization status code** : The number of orders vs. the number of authorization codes used (e.g. 10000 authorization codes used in 5 orders).
+
+
+
+caution
+
+Note that selecting graph slices or bars works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.
+
+* * *
+
+## Geographical trendsâ
+
+  * **Card country analysis** : A geographical map that allows you to hover over any country to see the number of transactions by terminal IP country, device IP location, device IP country, or payment card country code. A complementary table gives you more detail, including the number of declined transactions, total transaction amount, and declined transaction amount per country.
+  * **Payment region analysis** : The number and corresponding percentage of payments per region.
+
+
+
+tip
+
+  * The table is sortable. You can arrange data into ascending or descending order according to a column.
+  * By hovering over each **terminal IP** or **payment card** , you can use the **magnifying glass** icon to either filter out or filter by those specific countries only.
+  * You can also export the table by selecting **Raw** or **Formatted**.
+
+
+
+caution
+
+Note that selecting graph slices or bars works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.
+
+## Temporal trendsâ
+
+  * **Processed** : Identifies abnormal behavior by comparing the current value (blue line) against the one-week offset (light blue line).
+  * **Declined** : Identifies abnormal behavior by comparing the current value (red line) with the one-week offset (light red line).
+
+

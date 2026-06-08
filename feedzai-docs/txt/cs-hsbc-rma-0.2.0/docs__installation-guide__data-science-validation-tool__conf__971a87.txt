@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/data-science-validation-tool/configuration-data-science-validation-tool
+Title: Pulse Validation Tool Configurations | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Data Science Environment validation tool Configuration
+
+  * This Tool allows to automatically validate a Data Science environment. It creates the most common data science resources and interact with them to verify their expected behaviours (e.g. execution of Spark Jobs, gathering of enrichment data, db's connection). Regardless of the final state of the validation task, this tool must be able to clean up the environment, to leave it in a similar state to that before its execution
+
+
+
+## Validation Tasksâ
+
+Order| Task| Description  
+---|---|---  
+1| data-set generation| Creates random data-sets in a temporary directory, according to the number of file-systems supported by the environment  
+2| data-set import| Copies the data-sets created in the previous task to the different file-systems supported by the environment  
+3| data source creation| Creates data sources on Pulse with the data-sets copied in the previous task. Then it executes data source analysis and validates their results  
+4| plan creation| Creates plans on Pulse with the data sources created in the previous task. Then it executes plan executions and validates their results  
+5| individual model creation| Creates two individual models, Feedzai (Random Forest) and H2O (Generalized Linear Modeling) using cross validation. Then it executes another model evaluation with feature importance and validates their results  
+6| hyperparameter tuning creation| Creates a Hyperparameter Tuning with a Feedzai (Random Forest) and H2O (XGBoost) and validates that they execute successfully in the cluster.  
+7| rule creation| Creates two/three rules and publishes the application. Then it creates a snapshot evaluation and validates its result  
+8| sandbox creation| Creates a sandbox evaluation with the models and snapshot created in the previous tasks and validates its result. By default it used the default outcome combinator but it is possible to configure it.  
+9| automl creation| Creates an AutoML and validates that it finds a best model successfully.  
+10| jupyterlab integration| Checks whether JupyterLab is configured. If so, then tries to start it via Pulse.  
+11| scheduled metrics job creation| Creates a Scheduled Metrics Job (SMJ) on Pulse using the resources created in the previous tasks. Then it executes a job execution and validates their results  
+  
+### Ansible variablesâ
+
+Variable| Type| Default Value| Description| task  
+---|---|---|---|---  
+tool_datascience_plan_enabled| boolean| true| Whether this validation should be skipped or not.| plan creation  
+tool_datascience_plan_deployable| boolean| true| Whether this validation should be skipped or not.| plan creation  
+tool_datascience_model_enabled| boolean| true| Whether this validation should be skipped or not.| individual model creation  
+tool_datascience_hyperparameter_enabled| boolean| true| Whether this validation should be skipped or not.| hyperparameter tuning creation  
+tool_datascience_rule_enabled| boolean| true| Whether this validation should be skipped or not.| rule creation  
+tool_datascience_sandbox_enabled| boolean| true| Whether this validation should be skipped or not.| sandbox creation  
+tool_datascience_jupyterlab_enabled| boolean| false| Whether this validation should be skipped or not.| jupyterlab integration  
+tool_datascience_automl_enabled| boolean| false| Whether this validation should be skipped or not.| automl creation  
+tool_rte_scheduledmetricsjob_enabled| boolean| true| Whether this validation should be skipped or not.| scheduled metrics job creation  
+tool_cleanup_resources_enable| boolean| true| Whether this validation should be skipped or not.|   
+tool_failure_cleanup_enable| boolean| true| Whether this validation should be skipped or not.|   
+  
+As an example, Data Science Environment validation tool tool default configuration includes the following execution task:
+    
+    
+    - name: "[900] Run Data science environment validation tool"  
+      become: yes  
+      become_user: "{{ pulse_validation_tool_unix_user }}"  
+      shell: "{{ run_command }}"  
+      when: enable_run_tool  
+    
+
+Copy

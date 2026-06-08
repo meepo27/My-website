@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/dashboards
+Title: Dashboards | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)  
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Dashboards
+
+
+
+On this page
+
+# Dashboards
+
+**Dashboards** consolidate and arrange data on a single screen in a visual and straightforward way. Dashboards are a powerful tool to observe and evaluate the performance of your system, as well as getting a quick grasp of the state of your application. This gives you the chance to measure efficiency and make informed decisions based on the collected data as well as instantly get total visibility of all events and identify trends.
+
+The analytics tools include the following dashboards:
+
+  * **Business Overview dashboard:** Gives visibility on your business activity including information about transactions: processed, approved, declined and alerted as well as loss avoided. Learn more about the [Business Overview dashboard](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/business-overview).
+  * **Rules Monitoring dashboard:** Identifies which rules are being triggered by the risk engine platform and which are not. It also provides information about rules hit rate and precision. Based on this information, you can write self-service rules to block fraud quickly. Learn more about the [Rules Monitoring dashboard](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/rules-monitoring).
+  * **Analyst Performance dashboard:** Allows to measure, compare and track each analyst and/or the whole team's workload performance. Learn more about the [Analyst Performance dashboard](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/analyst-performance).
+
+
+
+## Learn Moreâ
+
+To gain a practical knowledge on DashboardsÂ check the following sections in the User's Guide:
+
+  * [Navigating Case Manager](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview)
+  * [Analyzing Metrics](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics)
+
+

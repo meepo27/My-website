@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-pql-in-features/conditional-expressions-in-pql
+Title: Conditional Expressions in PQL | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/)
+  * [Using PQL in Features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-pql-in-features/)
+  * Conditional Expressions in PQL
+
+
+
+# Conditional Expressions in PQL
+
+Was this page helpful?Â 
+
+Conditional expressions of PQL return a value based on a condition.
+
+Syntax:
+    
+    
+    if <condition> then <then-case-expression> else <else-case-expression>  
+    
+
+Where:
+
+  * `<condition>` is a boolean expression.
+
+  * `<then-case-expression>` and `<else-case-expression>` are obligatory values.
+
+If the condition is true, the conditional expression returns the value of the then-case-expression, otherwise the value of the else-case-expression.
+
+
+
+
+Example:
+    
+    
+    if( POSEntryMode == 'Swiped' or POSEntryMode == 'Keyed' or POSEntryMode == 'Chip' )  
+      then 'Card Present'  
+      else POSEntryMode  
+    

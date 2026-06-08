@@ -1,0 +1,576 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-posneg-rules
+Title: PosNeg Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [ Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * PosNeg Rules
+
+
+
+On this page
+
+# PosNeg Rules
+
+### Descriptionâ
+
+PosNeg Rules allow you to mark transactions that have entities in PosNeg Lists as "fraud" or "not fraud". By default, the solution contains rules that mark transactions as âdeclinedâ . These rules act only on Payment Initiation events. For each rule, check the filter inside the condition code block to know which entities are being tested.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## Card-Decline-PN1
+
+### Comment
+
+> Decline payment if Card ID is listed to be auto declined globally or per MID
+
+### Actions
+
+  * [Card-Decline-PN1]
+
+
+
+### Variables
+    
+    
+    card_id_listed_value = (event.posneg_card_value ?? tenanted_posneg_listed_cards[event.payment_card_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    //Filters
+    (event.payment_card_id ?? '') != ''
+    and card_id_listed_value == 'decline' 
+
+### Explanation
+
+> Card ID {event.payment_card_id} is listed by the Landlord to be auto decline.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Card-Approve-PN2
+
+### Comment
+
+> Approve payment if Card ID is listed to be auto-approved globally or per MID.
+
+### Actions
+
+  * [Card-Approve-PN2]
+
+
+
+### Variables
+    
+    
+    card_id_listed_value = (event.posneg_card_value ?? tenanted_posneg_listed_cards[event.payment_card_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    //Filters
+    (event.payment_card_id ?? '') != ''
+    and card_id_listed_value == 'approve' 
+
+### Explanation
+
+> Card ID {event.payment_card_id} is listed by the Landlord to be auto-approve. 
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Card-Review-PN3
+
+### Comment
+
+> Alert payment if Card ID is listed to be limited globally or per MID.
+
+### Actions
+
+  * Alert
+  * [Card-Review-PN3]
+
+
+
+### Variables
+    
+    
+    card_id_listed_value = (event.posneg_card_value ?? tenanted_posneg_listed_cards[event.payment_card_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    //Filters
+    (event.payment_card_id ?? '') != ''
+    and
+    (card_id_listed_value ?? '') == 'review'
+
+### Explanation
+
+> Card ID {event.payment_card_id} is listed by the Landlord to be limited. 
+
+### Mark As
+
+N/A
+
+## Email-Decline-PN4
+
+### Comment
+
+> Decline payment if Customer Email is listed to be auto declined globally or per MID.
+
+### Actions
+
+  * [Email-Decline-PN4]
+
+
+
+### Variables
+    
+    
+    email_listed_value = (event.posneg_customer_email_value ?? tenanted_posneg_listed_customer_email[event.customer_email ?? ''].value) ?? '';  
+
+### Condition
+    
+    
+    //Filters
+    (event.customer_email ?? '') != ''
+    and 
+    email_listed_value == 'decline'
+
+### Explanation
+
+> Customer Email ({event.customer_email}) is listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Email-Approve-PN5
+
+### Comment
+
+> Approve payment if Customer Email is listed to be auto-approved globally or per MID.
+
+### Actions
+
+  * [Email-Approve-PN5]
+
+
+
+### Variables
+    
+    
+    email_listed_value = (event.posneg_customer_email_value ?? tenanted_posneg_listed_customer_email [event.customer_email ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    //Filters
+    (event.customer_email ?? '') != ''
+    and 
+    email_listed_value == 'approve' 
+
+### Explanation
+
+> Customer Email ({event.customer_email}) is listed by the Landlord to be auto-approved. 
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Device-IP-Decline-PN6
+
+### Comment
+
+> Decline payment if Device IP is listed to be auto declined globally or per MID.
+
+### Actions
+
+  * [Device-IP-Decline-PN6]
+
+
+
+### Variables
+    
+    
+    device_ip_listed_value = (event.posneg_device_ip_value ?? tenanted_posneg_listed_device_ip [event.device_ip ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.device_ip ?? '') != ''
+    and 
+    device_ip_listed_value == 'decline' 
+
+### Explanation
+
+> Device IP ({event.device_ip}) is listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## MID-Decline-PN7
+
+### Comment
+
+> Decline payment if Merchant ID is listed to be auto declined.
+
+### Actions
+
+  * [MID-Decline-PN7]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.merchant_id ?? '') != ''
+    and 
+    (event.posneg_mid_value ?? '') == 'decline'
+
+### Explanation
+
+> Merchant ID ({event.merchant_id}) is listed by the Landlord to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## MID-Approve-PN8
+
+### Comment
+
+> Approve payment if Merchant ID is listed to be auto-approved.
+
+### Actions
+
+  * [MID-Approve-PN8]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.merchant_id ?? '') != ''
+    and 
+    (event.posneg_mid_value ?? '') == 'approve'
+
+### Explanation
+
+> Merchant ID ({event.merchant_id}) is listed by the Landlord to be auto-approve.
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Terminal-ID-Decline-PN9
+
+### Comment
+
+> Decline payment if Terminal ID is listed to be auto declined globally or per MID. 
+
+### Actions
+
+  * [Terminal-ID-Decline-PN9]
+
+
+
+### Variables
+    
+    
+    terminal_id_listed_value = (event.posneg_terminal_id_value ?? tenanted_posneg_listed_terminals[event.terminal_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.terminal_id ?? '') != ''
+    and 
+    terminal_id_listed_value == 'decline' 
+
+### Explanation
+
+> Terminal ID ({event.terminal_id}) is listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Terminal-ID-Approve-PN10
+
+### Comment
+
+> Approve payment if Terminal ID is listed to be auto-approved globally or per MID.
+
+### Actions
+
+  * [Terminal-ID-Approve-PN10]
+
+
+
+### Variables
+    
+    
+    terminal_id_listed_value = (event.posneg_terminal_id_value ?? tenanted_posneg_listed_terminals [event.terminal_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.terminal_id ?? '') != ''
+    and 
+    terminal_id_listed_value == 'approve'
+
+### Explanation
+
+> Terminal ID ({event.terminal_id}) is listed by the Landlord to be auto-approve. 
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Device-ID-Decline-PN11
+
+### Comment
+
+> Decline payment if Device ID is listed to be auto declined globally or per MID.
+
+### Actions
+
+  * [Device-ID-Decline-PN11]
+
+
+
+### Variables
+    
+    
+    device_id_listed_value = (event.posneg_device_id_value ?? tenanted_posneg_listed_devices [event.device_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.device_id ?? '') != ''
+    and 
+    device_id_listed_value == 'decline'
+
+### Explanation
+
+> Device ID ({event.device_id}) is listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Device-ID-Approve-PN12
+
+### Comment
+
+> Approve payment if Device ID is listed to be auto-approved globally or per MID.
+
+### Actions
+
+  * [Device-ID-Approve-PN12]
+
+
+
+### Variables
+    
+    
+    device_id_listed_value = (event.posneg_device_id_value ?? tenanted_posneg_listed_devices [event.device_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.device_id ?? '') != ''
+    and 
+    device_id_listed_value == 'approve' 
+
+### Explanation
+
+> Device ID ({event.device_id}) is listed by the Landlord to be auto-approved.
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Device-ID-Review-PN13
+
+### Comment
+
+> Alert payment if Device ID is listed to be limited globally or per MID.
+
+### Actions
+
+  * [Device-ID-Review-PN13]
+  * Alert
+
+
+
+### Variables
+    
+    
+    device_id_listed_value = (event.posneg_device_id_value ?? tenanted_posneg_listed_devices [event.device_id ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.device_id ?? '') != ''
+    and 
+    device_id_listed_value == 'review' 
+
+### Explanation
+
+> Device ID ({event.device_id}) is listed by the Landlord to be limited. 
+
+### Mark As
+
+N/A
+
+## Card-Country-Decline-PN14
+
+### Comment
+
+> Decline payment if Card Country is listed to be auto declined globally or per MID.
+
+### Actions
+
+  * [Card-Country-Decline-PN14]
+
+
+
+### Variables
+    
+    
+    card_country_listed_value = (event.posneg_card_country_value ?? tenanted_posneg_listed_card_country [event.payment_card_country_code ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.payment_card_country_code ?? '') != ''
+    and 
+    card_country_listed_value == 'decline'
+
+### Explanation
+
+> Card Country ({event.payment_card_country_code}) is listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Card-BIN-Decline-PN15
+
+### Comment
+
+> Decline payment if Card BIN is listed to be auto declined globally or per MID.
+
+### Actions
+
+  * [Card-BIN-Decline-PN15]
+
+
+
+### Variables
+    
+    
+    card_bin_listed_value = (event.posneg_card_bin_value ?? tenanted_posneg_listed_card_bin [event.payment_card_bin ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    (event.payment_card_bin ?? '') != ''
+    and 
+    card_bin_listed_value == 'decline'
+
+### Explanation
+
+> Card BIN ({event.payment_card_bin}) is listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Ship-Addr-Decline-PN16
+
+### Comment
+
+> Decline payment if full Shipping Address is listed to be auto declined globally or per MID.
+
+### Actions
+
+  * [Ship-Addr-Decline-PN16]
+
+
+
+### Variables
+    
+    
+    norm_shipp_addr_listed_value = (event.posneg_norm_shipp_addr_line ?? tenanted_listed_posneg_shipping_address [event.norm_shipp_addr_line ?? ''].value) ?? ''; 
+    full_shipp_addr_listed_value = (event.posneg_full_ship_addr_value ?? tenanted_listed_posneg_shipping_address [event.full_shipping_address ?? ''].value) ?? '';
+
+### Condition
+    
+    
+    ((event.norm_shipp_addr_line != '') and norm_shipp_addr_listed_value == 'decline') // Norm Shipp Addr Line is equal to the following normalized and concateneted fields: addr_line1 and addr_line2
+    or 
+    ((event.full_shipping_address != '') and full_shipp_addr_listed_value == 'decline') // Full Shipping Address is equal to the following normalized and concateneted fields: addr_line1, addr_line2, ZIP, City, Region and Country
+     
+
+### Explanation
+
+> Normalized Shipp Addr Lines ({event.norm_shipp_addr_line}) or Full Ship Address ({event.full_shipping_address}) are listed by the Landlord to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## MID-Review-PN17
+
+### Comment
+
+> Alert payment if Merchant ID is listed to be limited.
+
+### Actions
+
+  * [MID-Review-PN17]
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.merchant_id ?? '') != ''
+    and 
+    (event.posneg_mid_value ?? '') == 'review'
+
+### Explanation
+
+> Merchant ID ({event.merchant_id}) is listed by the Landlord to be limited.
+
+### Mark As
+
+N/A

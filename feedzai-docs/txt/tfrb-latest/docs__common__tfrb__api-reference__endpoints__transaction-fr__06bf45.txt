@@ -1,0 +1,48 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/transaction-fraud-for-banking
+Title: Transaction Fraud for Banking | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * Introduction
+
+
+
+Was this page helpful?Â 
+
+Export
+
+  * [OpenAPI Spec](/tfrb/latest/tfrb.json)
+
+
+
+# Introduction
+
+  
+
+
+Feedzai's APIs are organized according to REST and follow the RESTful design. This means that their resource URLs focus on representing data as resources (e.g. cards, inbound payments) and using HTTP methods (e.g. `POST`, `PUT`) to perform operations on those resources. They also return JSON-encoded responses, and use standard HTTP response codes.
+
+## Use casesâ
+
+APIs such as Cards, Inbound Payments, Outbound Transfers, and Digital Activity help automate the risk strategy by scoring events (0 - 100) and providing real-time decisions (e.g. approve, decline) based on scoring models and rules, respectively.
+
+#### Scoring logicâ
+
+Method| Description  
+---|---  
+`POST`| Scores and returns a decision to the event  
+`PUT`| Does not score or return a decision to the event  
+  
+## Authenticationâ
+
+  * API Key: Authorization
+
+
+
+Security Scheme Type:| apiKey  
+---|---  
+Header parameter name:| Authorization  
+  
+Find all authentication-related information in the [Authentication](/tfrb/latest/docs/common/tfrb/api-reference/authentication) page.

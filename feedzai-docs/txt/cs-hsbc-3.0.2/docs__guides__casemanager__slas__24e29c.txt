@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/guides/casemanager/slas
+Title: SLAs | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# SLAs
+
+Service Level Agreements (SLAs) allow you to automate the organization of events into queues based on a time period. This page provides you with the first version of HSBC operations flows with the corresponding SLA's.
+
+### Delay to Send Customer Notificationâ
+
+This SLA delays a notification dispatch for 1 minute. Upon breach, the SLA sets the event status to `Contact Customer`, starts the [Wait for Customer Response](/cs-hsbc/3.0.2/docs/guides/casemanager/slas#wait-for-customer-response) SLA and sends an external notification to the customer. During this SLA if Case Manager receives a notification from Condor to not notify the customer this SLA will not be breached.
+
+### Wait for Customer Responseâ
+
+This SLA adds events to the Manual Queue when the customer fails to reply after 2 hours.
+
+### 24h to Reviewâ
+
+This SLA closes and marks as Not Fraud events that are currently assigned to an analyst but there was no decision made within a 24 hour period.
+
+### 2h on Holdâ
+
+This SLA sets events to an Unreviewed state after being on hold for a 2 hour period.

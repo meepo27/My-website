@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/idempotency
+Title: Idempotency | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Idempotency
+
+
+
+On this page
+
+# Idempotency
+
+Was this page helpful?Â 
+
+caution
+
+Note that idempotency is not enabled out of the box. To enable it, reach out to Feedzai.
+
+This page includes information about the idempotency key feature implemented in the Transaction Fraud for Banking (TFB) RESTful API. The idempotency key is a tool designed to ensure the safety and reliability of your API requests. It consists of a unique identifier that you can include in your API requests to prevent duplicate operations from being performed unintentionally. It allows you to retry requests without worrying about the same operation being executed multiple times. The feature design will enable you to accomplish this if the retry requests occur under short time windows. Consult Feedzai to validate the time window in place for your implementation.
+
+## How it worksâ
+
+When you include an idempotency key in your request header under the name "Idempotency-Key," TFB's API system checks if the same key has been used before within a time period. If the key is recognized, the system retrieves the previous response associated with that key and returns it to you without executing the request again.
+
+## Benefitsâ
+
+The idempotency key prevents duplicate operations. By using the idempotency key, you can ensure that the same operation is not performed multiple times, even if your request is retried or encounters network issues. You can safely retry them without worrying about duplicate data on metrics or duplicate events.
+
+## Guidelines for using idempotency keysâ
+
+  * **Unique identifier** : Each idempotency key should be unique for every distinct request you make. Feedzai recommends generating a Universally Unique Identifier (UUID) for each key to ensure uniqueness.
+
+
+
+## Example Usageâ
+
+To include the idempotency key in your API request, simply add a header named "Idempotency-Key" with a unique identifier for each request. Here's an example using cURL:
+    
+    
+    curl -X POST \  
+     -H "Content-Type: application/json" \  
+     -H "Idempotency-Key: YOUR_UNIQUE_ID_HERE" \  
+     -d '{"example": "data"}' \  
+     https://api.example.com/resource  
+    
+
+## Conclusionâ
+
+The idempotency key feature is a valuable addition to our API, providing you with the assurance of reliable and safe operations. By following the guidelines outlined in this documentation, you can leverage idempotency keys to enhance the resilience and efficiency of your API integrations.

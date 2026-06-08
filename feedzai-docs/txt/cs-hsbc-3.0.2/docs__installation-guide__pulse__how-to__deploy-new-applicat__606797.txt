@@ -1,0 +1,265 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications
+Title: Deploy new applications | Feedzai Documentation
+============================================================
+
+On this page
+
+# Deploy new applications
+
+In Pulse the entire process of controlling which applications are deployed is controlled during the deployment phase. In this guide you can find the necessary configurations and commons issues when deploying new channels.
+
+## Pulse application relation to Case Manager channelsâ
+
+Pulse does not need to know which channels are deployed in Case Manager since applications just publish events to their channel specific queue for Case Manager to consume. If Case Manager (or if a channel for a given application) is not deployed, events will still be published to the queues but will be left unconsumed.
+
+## Deploying applicationsâ
+
+##### note
+
+By default all variables for the entire UK market are already provided
+
+Application configuration in Pulse is done using the following variables:
+
+  * `apps_enabled`
+  * `app_slug`
+  * `<app>_market`
+  * `<app>_portfolio`
+
+
+
+By default `apps_enabled` in Pulse is configured to deploy the UK outbound application which includes Outbound Payments (Transfers) and Digital Activity, and also the Reference Data application:
+    
+    
+    apps_enabled:  
+      - uk_outbound_payments  
+      - uk_reference_data  
+    
+
+Copy
+
+Please find below three examples on how to deploy a new application for the UK market, one for a new market (HK) and one final one for a new market that is not configured by default.
+
+### Deploying a new application in the UKâ
+
+As stated previously all UK applications are supported by default, being the only requirement to override `apps_enabled`. This can be done by overriding the default variable, preferably in its own inventory, as follows:
+
+  1. Add a new base inventory for the portfolio/environment you are configuring, e.g. `project-qa/uk/group_vars`
+  2. Add a new host inventory for Pulse, e.g. `project-qa/uk/group_vars/pulse`
+  3. Inside a new variables file (`variables.yml`), under the inventory created previously, add the overrides for the specific portfolio/environment
+         
+         apps_enabled:  
+           - uk_outbound_payments  
+           - uk_reference_data  
+           - uk_inbound_payments  
+         # Other overrides  
+         
+
+Copy
+
+
+
+
+##### warning
+
+`apps_enabled` is incremental. This means that after an application is deployed, new applications should be added to the variable but the existing ones shouldn't be deleted.
+
+This applies to all deployments including [Topology-Aware Resource Scheduling](/cs-hsbc/3.0.2/docs/installation-guide/pulse/topology-aware-resource-scheduling).
+
+### Deploying in a new market (HK)â
+
+The HK market is configured by default except for the applications that should be deployed in it.
+
+Aside from `apps_enabled` every applications requires to have the following variables:
+
+  * `app_slug`
+  * `app_market`
+  * `app_portfolio`
+
+
+
+In the example we describe how to deploy `outbound`, `reference data` and `inbound` for the HK market:
+
+  1. Add a new base inventory as described in the first point of [Deploying a new application in the UK](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications#deploying-a-new-application-in-the-uk) for HK (`project-qa/hk/group_vars`)
+  2. Add a new inventory for all hosts, e.g. `project-qa/hk/group_vars/all`. This step is optional if this was already created to deploy a channel in Case Manager
+  3. Inside the previous folder create three files
+     1. `hk_outbound_payments.yml` which holds the configuration for the HK outbound application
+            
+            hk_outbound_payments_app_slug: hk_outbound_payments  
+            hk_outbound_payments_market: hk  
+            hk_outbound_payments_portfolio: outbound_payments  
+            
+
+Copy
+
+     2. `hk_reference_data.yml` which holds the configuration for the HK reference data application
+            
+            hk_reference_data_app_slug: hk_reference_data  
+            hk_reference_data_market: hk  
+            hk_reference_data_portfolio: reference_data  
+            
+
+Copy
+
+     3. `hk_inbound_payments.yml` which holds the configuration for the HK inbound application
+            
+            hk_inbound_payments_app_slug: hk_inbound_payments  
+            hk_inbound_payments_market: hk  
+            hk_inbound_payments_portfolio: inbound_payments  
+            
+
+Copy
+
+  4. In the end you should have a structure as follows
+         
+         .  
+         âââ project-default  
+         â   âââ group_vars  
+         â       âââ ...  
+         âââ project-hsbc  
+         â   âââ hosts.yml  
+         âââ gcp  
+         â   âââ group_vars  
+         â       âââ ...  
+         âââ project-qa # being qa what was defined previously  
+             âââ hk  
+                 âââ group_vars  
+                     âââ all  
+                     â   âââ hk_outbound_payments.yml  
+                     â   âââ hk_reference_data.yml  
+                     â   âââ hk_inbound_payments.yml  
+                     âââ pulse  
+                         âââ variables.yml  
+         
+
+Copy
+
+  5. In the `project-qa/hk/group_vars/pulse/variables.yml` set the applications to deploy
+         
+         apps_enabled:  
+           - hk_outbound_payments  
+           - hk_reference_data  
+           - hk_inbound_payments  
+         # Other overrides  
+         
+
+Copy
+
+  6. Finally during deployment pass your newly created inventory
+         
+         python3.6 ansible-playbook \  
+             -i project-default \  
+             -i project-hsbc \  
+             -i gcp \  
+             -i project-qa/hk \  
+             pulse.yml  
+             -e deployment_color=<color_to_deploy>  
+         
+
+Copy
+
+
+
+
+##### note
+
+The structure described in point 4 is optional. In this example we have segregated by environment and market but another approach could be applied, for example by segregating first by market and then by environment:
+    
+    
+    .  
+    âââ hk  
+        âââ project-qa  
+        â   âââ ...  
+        âââ project-preprod  
+            âââ ...  
+    
+
+Copy
+
+### Deploying in a new, non-default marketâ
+
+Deployments for new markets require the same steps described [Deploying in a new market (HK)](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications#deploying-in-a-new-market-hk) with a small addition. For the sake of this example we assume the new market to be New Market (NM).
+
+If you see the `markets` variable that is included in the assembly, you will notice there are two markets defined:
+    
+    
+    markets:  
+      uk: UK  
+      hk: Hong Kong  
+    
+
+Copy
+
+For any additional market deployment this variable will need to be overridden as follows:
+
+  1. Follow step one described in [Deploying a new application in the UK](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications#deploying-a-new-application-in-the-uk) for the new market (project-qa/nm/group_vars)
+  2. Add a new host inventory for Pulse, e.g. `project-qa/nm/group_vars/pulse`
+  3. Inside a new variables file (`variables.yml`), under the inventory created previously, add the overrides for the specific portfolio/environment
+         
+         markets:  
+           uk: UK  
+           hk: Hong Kong  
+           nm: New Market  
+         # Other overrides  
+         
+
+Copy
+
+
+
+
+##### tip
+
+To make this variable accessible in all deployments, it could be overridden in `project-qa/group_vars/all/variables.yml` instead
+
+After setting up the new market follow the remaining steps described in [Deploying a new application in the UK](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications#deploying-a-new-application-in-the-uk) to set up the applications to deploy.
+
+Application templates use the following structure:
+    
+    
+    <market>_<appName>_app_slug: <market>_<appName>  
+    <market>_<appName>_market: <market>  
+    <market>_<appName>_portfolio: <appName>  
+    
+
+Copy
+
+Where `market` is the market where the application belongs to (as defined in the `markets` variable) and `appName` the application name in Snake Case.
+
+As an example, the configuration for the NM Outbound application would be as follows:
+    
+    
+    # nm_outbound_payments.yml  
+    nm_outbound_payments_app_slug: nm_outbound_payments  
+    nm_outbound_payments_market: nm  
+    nm_outbound_payments_portfolio: outbound_payments  
+    
+
+Copy
+
+Correlating with the `apps_enabled` by the `<app>_app_slug` configuration:
+    
+    
+    apps_enabled:  
+      - nm_outbound_payments  
+    # Other overrides  
+    
+
+Copy
+
+To deploy the new application we would include the new inventory in the deployment command:
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-qa/nm \  
+        pulse.yml  
+        -e deployment_color=<color_to_deploy>  
+    
+
+Copy
+
+##### info
+
+Find a detailed description of all available configurations in [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse)

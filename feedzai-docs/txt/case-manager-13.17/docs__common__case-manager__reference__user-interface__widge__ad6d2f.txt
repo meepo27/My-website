@@ -1,0 +1,10 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/top-level-bar
+Title: Top Level Bar | Case Manager
+============================================================
+
+# Top Level Bar
+
+Property| Type| Optional| Description  
+---|---|---|---  
+fields| Array<Object>| No| Configures the list of fields to appear in the top level bar. The available properties are the same as the ones available for the **fields** property in the [Box](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/box) widget.  
+aggregations| Object| Yes| Configures the entity insights. See the configuration for this property in [Entity Insights](/case-manager/13.17/docs/internal/case-manager/configuration-guide/user-interface-configuration/entity-insights).

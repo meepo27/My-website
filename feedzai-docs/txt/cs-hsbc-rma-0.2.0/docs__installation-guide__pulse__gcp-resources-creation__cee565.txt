@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/gcp-resources-creation
+Title: GCP Resources Creation | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# GCP Resources Creation
+
+### GCP Resourcesâ
+
+##### INFO
+
+This section is reserved for future documentation on GCP resources that may need to be created manually as part of the Pulse installation process.
+
+Currently, **no GCP resources require manual creation**. All necessary infrastructure shold be provisioned automatically by deployment scripts.
+
+This page will be updated when manual steps are introduced.

@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4178
+Title: HSBC-4178 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4178
+
+### Add fdz_channel to the Payment Fulfillment extensionâ
+
+FeatureFTMT-33848HSBC-4178
+
+The following field was added to Case Manager Payment Fulfillment extension:
+
+Field Name| Datatype| Channels  
+---|---|---  
+fdz_channel| String| Transfers, Inbound Payments  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) for more details.

@@ -1,0 +1,14 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to-conf-installation
+Title: How To | Feedzai Documentation
+============================================================
+
+# How To  
+  
+Welcome to the Case Manager How To.
+
+In this section you will find the following set of tutorials with information on how to configure Case Manager to support global rollout:
+
+  * [Deploy new channel](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel)
+  * [Use channel specific databases](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/use-channel-databases)
+
+

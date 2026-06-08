@@ -1,0 +1,86 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle
+Title: Digital Activity | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * Digital Activity
+
+
+
+On this page
+
+# Digital Activity
+
+Was this page helpful?Â 
+
+Learn about the banking session life cycle and understand how the Digital Activity API is used in the different stages of a banking session. For example, when the customer changes their credentials, the bank invokes the Digital Activity's credentials update endpoint. Feedzai then receives all these events and analyzes them in order to generate highly-accurate profiles about the customer's digital behavior.
+
+## Banking session life cycleâ
+
+  1. The **customer** performs a digital action in a banking system via web home banking or mobile app.
+
+  2. The **issuer bank** invokes one of the Digital Activity connector's endpoints. The invoked endpoint depends on the digital action performed. For instance, if the customer has attempted to authenticate, the issuer bank will invoke the Authentication endpoint.
+
+  3. **Feedzai** conducts real-time data analysis and makes a decision on whether to approve, decline or challenge the event.
+
+  4. The **customer's bank** makes an automated decision based on Feedzai's recommendation.
+
+  5. The **customer** is or isn't allowed to perform the digital action.
+
+
+
+
+### Endpoint summaryâ
+
+The following endpoints allow users to send information at different stages of a banking session life cycle as follows:
+
+  * **Authentication** : The customer attempts to authenticate or log in to the banking system via web home banking or mobile app.
+
+  * **Alias** : The customer attempts to register or change the default account alias. In some payment methods (e.g. Zelle, PIX, NPP), an alias is the phone number, email or QR code associated with the bank account.
+
+  * **Account update** : Leverages account change attempts, such as account limits via homebanking or mobile app.
+
+  * **Card issuing** : The customer attempts to register a new payment card (i.e. credit card or debit card) with, for instance, a mobile wallet (e.g. Google Pay, Apple Pay), or a subscription service (e.g. Netflix).
+
+  * **Card update** : Leverages card change attempts, such as card PIN, transaction limits, or new card format as physical / virtual via homebanking or mobile app.
+
+  * **Credentials update** : The customer attempts to change their credentials, e.g. their username or password.
+
+  * **Device** : The customer attempts to register, change, or delete a device associated with the bank's platform.
+
+  * **New payee** : The customer attempts to add a new trusted payee to their account or attempts an alias resolution request. For instance, searching for random mobile phone numbers and adding them as a contact in the banking app.
+
+  * **Profile update** : The customer attempts to change their profile, e.g. their address.
+
+  * **Info endpoints** : Info endpoints send additional information for the last sent `POST` or `PUT` request for each aforementioned endpoint.
+
+
+
+
+## Scoring logicâ
+
+Digital Activity's scoring logic is as follows:
+
+  * `POST` events are scored.
+  * `PUT` events are not scored. This also applies to all Info endpoints.
+
+
+
+## Learn moreâ
+
+Learn how each endpoint is used along the banking session life cycle:
+
+  * [Authentication](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/authentication)
+  * [Alias](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/alias)
+  * [Account update](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/account-update)
+  * [Card issuing](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/card-issuing)
+  * [Card update](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/card-update)
+  * [Credentials update](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/credential-update)
+  * [Device endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/device)
+  * [New payee](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/new-payee)
+  * [Profile update](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/profile-update)
+  * [Info](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/info-endpoints)
+
+

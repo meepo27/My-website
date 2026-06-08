@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/rds-installation-guide
+Title: RDS Installation Guide | Feedzai RMA Documentation
+============================================================
+
+# RDS Installation Guide  
+  
+Welcome to the RDS Installation Guide.
+
+In this section you will find a set of pages with information about the RDS Installation process:
+
+  * [Requirements](/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/requirements-refdata)
+  * [Network and Connectivity](/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/network-refdata)
+  * [Configuration Recommendations](/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/configuration-refdata)
+
+

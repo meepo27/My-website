@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/
+Title: Index - DS API
+============================================================
+
+#  `` ds_api Â¶
+
+A pythonic interface to the Java DS-API. It provides tools to interact with Pulse in a programmatic way.
+
+##  `` DS_API_CLASSPATH `module-attribute` Â¶
+    
+    
+    DS_API_CLASSPATH: str = 'com.feedzai.commons.dsapi.'
+    
+
+##  `` MANAGED_LISTS_CLASSPATH `module-attribute` Â¶
+    
+    
+    MANAGED_LISTS_CLASSPATH: str = MODEL_CLASSPATH + 'managedlists.'
+    
+
+##  `` MODEL_CLASSPATH `module-attribute` Â¶
+    
+    
+    MODEL_CLASSPATH: str = PULSE_API_CLASSPATH + 'apps.model.'
+    
+
+##  `` PULSE_API_CLASSPATH `module-attribute` Â¶
+    
+    
+    PULSE_API_CLASSPATH: str = 'com.feedzai.pulse.api.'
+    
+
+##  `` PULSE_HOST_ENV `module-attribute` Â¶
+    
+    
+    PULSE_HOST_ENV = 'DS_API_PULSE_HOST'
+    
+
+##  `` PULSE_RMI_PORT_ENV `module-attribute` Â¶
+    
+    
+    PULSE_RMI_PORT_ENV = 'DS_API_PULSE_RMI_PORT'
+    
+
+##  `` USER_ID_ENV `module-attribute` Â¶
+    
+    
+    USER_ID_ENV = 'DS_API_USER'
+    
+
+##  `` USER_NAME_ENV `module-attribute` Â¶
+    
+    
+    USER_NAME_ENV = 'DS_API_USER_NAME'
+    

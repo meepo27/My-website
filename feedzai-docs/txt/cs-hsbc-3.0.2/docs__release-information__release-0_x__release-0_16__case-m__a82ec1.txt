@@ -1,0 +1,56 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-originator-details
+Title: Transfers - Originator Details | Feedzai Documentation
+============================================================
+
+# Transfers - Originator Details  
+  
+Before:
+
+After:
+
+**Field Modifications**
+
+ _Notes_ :
+
+Upon investigating the original request, we have concluded that allowing multiple phone numbers to be added to a customer under a single field could potentially pose a risk and cause issues with metrics. Therefore, we recommend a different approach to this field.
+
+One possible solution is to create separate fields for additional phone numbers, such as a "2nd Phone Number" field. This will allow for more flexibility while avoiding potential issues with metrics.
+
+Change| Field  
+---|---  
+Added| Phone Number Last Changed  
+Added| Work Phone 1 Last Change Date  
+Added| Work Phone 2 Last Change Date  
+Added| Home Phone 1 Last Change Date  
+Added| Home Phone 2 Last Change Date  
+Added| Mobile Phone 1 Last Change Date  
+Added| Mobile Phone 2 Last Change Date  
+Enriched| Currency  
+Enriched| Country  
+Fixed| Date of Birth  
+Fixed| Email Address  
+Fixed| Phone Number  
+Fixed| Address  
+Fixed| Region  
+Fixed| Total Balance  
+Renamed| Originator ID -> Customer ID  
+Renamed| Zip Code -> Customer Postcode  
+Removed| Joint Account CIN  
+Removed| Segment  
+Removed| Registration Date  
+Removed| Citizen ID Number  
+Removed| Passport Number  
+Removed| Social Security Number  
+Removed| Tax Number  
+Removed| City  
+Removed| Number of Cards  
+Removed| Number of Accounts  
+Removed| Total Credit Limit  
+Removed| KYC Level  
+Removed| Risk Rating  
+Removed| Occupation  
+Removed| Originator Alias  
+Removed| Originator Alias Type  
+Removed| Originator Alias Status  
+Removed| Originator Alias Registration Time  
+Removed| Originator Alias Last Update Time

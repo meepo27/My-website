@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/iframe
+Title: IFrame | Case Manager
+============================================================
+
+On this page
+
+# IFrame
+
+| Property| Type| Optional| Description  
+---|---|---|---  
+config| object| no| Holds a set of properties to be consumed by the widget. The available properties are described here.  
+  
+## Configâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+url| string| no| Holds the URL that points to the content that should be presented in the iframe. This URL can be a plain string, e.g., [template data type](/docs/common/case-manager/reference/user-interface/data-types).  
+height| string| yes| Iframe minimum height. It can be any valid CSS height value. Default value: "350px"  E.g. "100px", "20%", "calc(100%-20px)", ....

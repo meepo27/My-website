@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/resetting-2fa
+Title: Reset 2FA | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Sign in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/)
+  * [Sign in with 2FA](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-2fa)
+  * Reset 2FA
+
+
+
+# Reset 2FA
+
+If you want to add Two-Factor authentication (**2FA**) to one or more devices or if you lost the mobile device in which your **2FA** was configured, you can reset the **2FA** configuration with your reset key.
+
+To reset **2FA** execute the following steps:
+
+  1. In Case Manager's sign-in form, insert your Username and Password. Select the **Sign In** button to continue to the next authentication step.
+
+
+
+  2. In the 2FA validation form, enter the reset code provided when you first configured 2FA. Use the **Verify Code** button to finish the reset process.
+
+
+
+Reset key
+
+If you do not have your reset key, you will not be able to reset **2FA** using Case Manager's interface. Contact your administrator to reset your **2FA** configuration.
+
+After resetting 2FA, Case Manager displays a window for you to configure **2FA**. Learn more on how to [configure Two-Factor Authentication](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/configuring-2fa).

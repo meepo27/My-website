@@ -1,0 +1,214 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/constants/
+Title: constants - DS API
+============================================================
+
+#  `` constants Â¶
+
+A set of useful numerical, and categorical constants.
+
+## HyperLogLog constantsÂ¶
+
+We use $2^{12}$ registers for the HyperLogLog algorithm, equivalent to a cardinality error of 1.625%. The relative error can be estimated from
+
+$$ \frac{1.04}{\sqrt{m}}, $$
+
+with $m = 2^k$ the number of registers.
+
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`HLL_K` |  `int` |  Number of registries for HyperLogLog.  
+`HLL_ERROR_RATIO` |  `float` |  Cardinality relative error.  
+  
+##  `` AGGREGATION_MAPPER `module-attribute` Â¶
+    
+    
+    AGGREGATION_MAPPER = {'min': BIN_MIN_COL, 'max': BIN_MAX_COL, 'count': COUNT_COL, 'avg': MEAN_COL, 'sum': SUM_COL}
+    
+
+##  `` BD_COL `module-attribute` Â¶
+    
+    
+    BD_COL = 'breakdowns'
+    
+
+##  `` BIN_MAX_COL `module-attribute` Â¶
+    
+    
+    BIN_MAX_COL = 'fz$bmax'
+    
+
+##  `` BIN_MIN_COL `module-attribute` Â¶
+    
+    
+    BIN_MIN_COL = 'fz$bmin'
+    
+
+##  `` BIN_RANGE_COL `module-attribute` Â¶
+    
+    
+    BIN_RANGE_COL = 'fz$bin_range'
+    
+
+##  `` CAT_COL `module-attribute` Â¶
+    
+    
+    CAT_COL = 'fz$category'
+    
+
+##  `` COUNT_COL `module-attribute` Â¶
+    
+    
+    COUNT_COL = 'fz$counts'
+    
+
+##  `` FIELD_TYPE_KEY `module-attribute` Â¶
+    
+    
+    FIELD_TYPE_KEY = 'field_type'
+    
+
+##  `` FIRST_QTL_COL `module-attribute` Â¶
+    
+    
+    FIRST_QTL_COL = '25%'
+    
+
+##  `` FR_COL `module-attribute` Â¶
+    
+    
+    FR_COL = 'fraud_rate'
+    
+
+##  `` HISTOGRAM_KEY `module-attribute` Â¶
+    
+    
+    HISTOGRAM_KEY = 'histogram'
+    
+
+##  `` HLL_ERROR_RATIO `module-attribute` Â¶
+    
+    
+    HLL_ERROR_RATIO = 1.04 / sqrt(2 ** HLL_K)
+    
+
+##  `` HLL_K `module-attribute` Â¶
+    
+    
+    HLL_K = 12
+    
+
+##  `` MAX_COL `module-attribute` Â¶
+    
+    
+    MAX_COL = 'max'
+    
+
+##  `` MEAN_COL `module-attribute` Â¶
+    
+    
+    MEAN_COL = 'mean'
+    
+
+##  `` MEDIAN_COL `module-attribute` Â¶
+    
+    
+    MEDIAN_COL = 'median'
+    
+
+##  `` MIN_COL `module-attribute` Â¶
+    
+    
+    MIN_COL = 'min'
+    
+
+##  `` MISSING_COLOR `module-attribute` Â¶
+    
+    
+    MISSING_COLOR = '#990000'
+    
+
+##  `` MISSING_VAL `module-attribute` Â¶
+    
+    
+    MISSING_VAL = '(missing)'
+    
+
+##  `` NEG_COL `module-attribute` Â¶
+    
+    
+    NEG_COL = 'negatives'
+    
+
+##  `` OTHER_COLOR `module-attribute` Â¶
+    
+    
+    OTHER_COLOR = '#999'
+    
+
+##  `` OTHER_VAL `module-attribute` Â¶
+    
+    
+    OTHER_VAL = '(other)'
+    
+
+##  `` POS_COL `module-attribute` Â¶
+    
+    
+    POS_COL = 'positives'
+    
+
+##  `` SECONDARY_COLOR `module-attribute` Â¶
+    
+    
+    SECONDARY_COLOR = '#ff7f0e'
+    
+
+##  `` SEMANTIC_TAG_KEY `module-attribute` Â¶
+    
+    
+    SEMANTIC_TAG_KEY = 'semantic_tag'
+    
+
+##  `` STATS_KEY `module-attribute` Â¶
+    
+    
+    STATS_KEY = 'stats'
+    
+
+##  `` SUM_COL `module-attribute` Â¶
+    
+    
+    SUM_COL = 'sum'
+    
+
+##  `` SUPPORTED_AGGREGATIONS `module-attribute` Â¶
+    
+    
+    SUPPORTED_AGGREGATIONS = list(keys())
+    
+
+##  `` TERTIARY_COLOR `module-attribute` Â¶
+    
+    
+    TERTIARY_COLOR = '#2ca02c'
+    
+
+##  `` THIRD_QTL_COL `module-attribute` Â¶
+    
+    
+    THIRD_QTL_COL = '75%'
+    
+
+##  `` TIME_COL `module-attribute` Â¶
+    
+    
+    TIME_COL = 'fz$time'
+    
+
+##  `` VALIDS_KEY `module-attribute` Â¶
+    
+    
+    VALIDS_KEY = 'validations'
+    

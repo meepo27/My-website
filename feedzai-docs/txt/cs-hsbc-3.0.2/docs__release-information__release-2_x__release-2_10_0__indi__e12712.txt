@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3447-Make--minimizeShuffles--property-configurable-via-Ansible
+Title: HSBC-3447-Make--minimizeShuffles--property-configurable-via-Ansible | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3447-Make--minimizeShuffles--property-configurable-via-Ansible
+
+### Make `minimizeShuffles` property configurable via Ansibleâ
+
+FeatureFTMT-30345HSBC-3447
+
+We've added support to configure the property `services.modules.datascience.context.minimizeshuffles` via Ansible.
+
+The property can now be configured using the following Ansible variable:
+
+  * `minimize_shuffles_enabled`: a boolean flag that determines if the group by fields can be re-sorted in order to minimize shuffles (defaults to _true_)
+
+
+
+For more details please refer to the [Pulse Configuration](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) page.

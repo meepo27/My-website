@@ -1,0 +1,74 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/ad-hoc-investigations/event-flow
+Title: Event Flow | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Agent](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/case-manager-guide)
+  * [Add-Hoc Investigations (with add-on)](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/ad-hoc-investigations/overview)
+  * Event Flow
+
+
+
+On this page
+
+# Event Flow
+
+The ad-hoc investigation enables agents with a generic investigation page to log any intelligence gathered from investigations outside the normal merchant monitoring flow. This event allows agents to leave notes and attachments, track the status of the investigation and add it to a case. This page describes the main event life cycles and their associated logic:
+
+  * Ad-hoc investigation event header (i.e. sticky bar).
+  * Ad-hoc investigation event life cycle.
+
+
+
+## Ad-hoc investigation event's headerâ
+
+Case Manager displays the ad-hoc investigation event header in the **Ad-Hoc Investigation Event Details** page as follows:
+
+  * **Alerted** : Indicates whether the ad-hoc event comprises an alert (e.g. triggered one or more alerting rules).
+
+  * **Created At** : The date and time the ad-hoc investigation was generated for that merchant.
+
+  * **Merchant ID** : The unique ID number of the merchant under investigation.
+
+  * **Name** : The name of the merchant under investigation.
+
+  * **Status** : Indicates the ad-hoc investigation stage. Possible values are:
+
+    * **Unreviewed** : Has not undergone investigation.
+    * **In progress** : Under review by an agent.
+    * **On hold** : Temporarily paused while waiting for extra information.
+    * **Closed** : Final status after making a decision.
+  * **Analyst Decision** : The decision to either take action or drop the event. The possible values are:
+
+    * **Action taken**
+    * **Dropped**
+  * **Reasons** : Indicates the reasons why the agent considered the alert irrelevant (**Dropped**) or needed further investigation (**Action taken**).
+
+  * **Queue** : Indicates in which queue the ad-hoc investigation event is, based on the investigation priority. [Queues](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/case-manager/overview#queues) can be configured by a fraud prevention manager.
+
+  * **Assignee** : The current agent assigned to the ad-hoc investigation event.
+
+info
+
+Note that [reasons](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/case-manager/overview#reasons) are self-serviceable and can be configured by a fraud prevention manager or by a fraud prevention agent with such permissions.
+
+
+
+
+## Ad-hoc investigation event life cycleâ
+
+ad-hoc investigation event life cycle - step by step
+
+Take merchant Acme Inc as an example:
+
+  1. Send a [request] (link-to-endpoint) to create an ad-hoc investigation for merchant Acme Inc, after which the event is created in Case Manager within the Ad-Hoc Investigations channel.
+  2. Assign the event to yourself and start the investigation.
+  3. Consider the following status flow after the event has been assigned:
+
+
+
+## Next stepsâ
+
+Now that you understand the ad-hoc investigation event flow, you are ready to [investigate merchants](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/ad-hoc-investigations/investigate-merchants).

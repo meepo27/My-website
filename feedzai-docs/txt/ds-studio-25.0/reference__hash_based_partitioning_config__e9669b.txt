@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/hash_based_partitioning_config/
+Title: hash_based_partitioning_config - DS API
+============================================================
+
+#  `` hash_based_partitioning_config Â¶  
+  
+##  `` HashBasedPartitioningConfig Â¶
+    
+    
+    HashBasedPartitioningConfig()
+    
+
+Bases: `[PartitioningConfig](../partitioning_config/#ds_api.partitioning_config.PartitioningConfig "            PartitioningConfig \(ds_api.partitioning_config.PartitioningConfig\)")`
+
+Represents a Hash-Based Partitioning configuration.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    

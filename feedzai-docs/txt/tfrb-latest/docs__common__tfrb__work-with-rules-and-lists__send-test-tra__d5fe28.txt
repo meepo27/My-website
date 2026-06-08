@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/check-response-via-cm
+Title: Check the Response via Case Manager | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Send Test Transactions via API](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview)
+  * Check the Response via CM
+
+
+
+On this page
+
+# Check the Response via Case Manager
+
+Was this page helpful?Â 
+
+Consider the case in which you triggered the Cards-Velocity-4 rule with five transactions in less than three minutes using the Card ID _fdz_testing_rules_1_. This generated a [response](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview#response---rules-triggered) with the alert action which displays the event in the Case Manager's alert page.
+
+To check the result of this action, open Case Manager and execute the following actions:
+
+  1. Select the **Alerts** page.
+  2. Open the transaction that you have defined in the payload and check the following information:
+
+
+
+  * **System Decision** : Corresponds to the `decision` field.
+  * **Operational Status** : Corresponds to the analyst's decision (i.e. 'Fraud' or 'Not Fraud').
+  * **Rule Explanations** : Reasons why the rule has triggered. Note that this information is defined in the **Explanation** field in Pulse's [rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules) configuration.
+  * Other values defined in the request payload:
+  * **Amount** : Transaction amount expressed using the same currency as specified in currency, in cents.
+  * **Currency** : The amount's currency.
+  * **Card ID** : Persistent unique card ID used to test the rule.
+
+
+
+## Next stepsâ
+
+Check the response via [Pulse](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/check-response-via-pulse).

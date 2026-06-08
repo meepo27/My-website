@@ -1,0 +1,160 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing
+Title: Rule Writing | Rule Monitoring
+============================================================
+
+On this page
+
+# Rule Writing
+
+Was this page helpful?Â 
+
+The rule writing process is a fundamental part of your strategy assembly, as this is where you will create your rules with the necessary conditions and details. In this step, you can either create a rule from scratch or adjust the conditions and details for an existing rule in your strategy.
+
+## Create a ruleâ
+
+As an example, imagine that you want to create a rule that blocks all transactions above $1000. The following steps show how you can complete the form to create a rule accordingly:
+
+  1. In the **Strategy Builder** page, use the **Channels** navigation bar to select the channel in which you wish to add a new rule.
+
+
+
+  2. Select the **New rule** button of the desired decision group list to open the rule creation form.
+
+
+
+The rule creation form includes two main areas: **Rule writing** and **Details**. The following sections explain how to use these areas in more detail.
+
+info
+
+If, at any point in the form filling, you want to cancel the rule writing process, select the **Cancel** button.
+
+### Rule writingâ
+
+Here you will create **conditions** that must be met for the rule to trigger and run the action that follows it.
+
+In this page, you also have two important bits of information regarding your rule:
+
+  * In which channel the rule is located.
+  * The decision assigned to that rule, and therefore, in which decision group the rule is included.
+
+
+
+info
+
+If you want to change one or both of these parameters, you need to go back to the **Strategy Builder** page. Follow the two steps on the Create a rule section to learn how to choose the channel and decision group of your new rule.
+
+  
+
+
+To define the **conditions** that will trigger your new rule, perform the following steps:
+
+  1. Specify the first field for the comparison. You have three type of selectors in the field dropdown list: **lists** , **fields** and **profiles**. They are not categorized and are displayed by alphabetical order in the dropdown list.
+
+
+
+Here you have an overview of each selector type:
+
+  * **List** : Entity list with items tagged as approved, decline or review with a defined set of rules applied to the entities in the list.
+  * **Field** : Fields enable Feedzai to improve fraud detection performance (e.g. terminal latitude/longitude, device ID, and acceptor risk).
+  * **Profile** : Contains the field definition that represent the behaviour of a given entity, such as card or merchant, in a specific type frame (i.e. average amount spent by a given card in the last month, and number of transactions in the last month).
+
+
+
+info
+
+If you want to search for a specific selector, you can write the name of the selector in the box and all attributes that contain the search words will appear in the dropdown list.
+
+Let's say you want to search for a profile named `Count of transactions per mobile phone`. If you write `mobile` in the selector box, the dropdown list will display all attributes (lists, fields and profiles) that contain **mobile** in the name.
+
+  2. Assign an operator.
+
+
+
+info
+
+Depending on the specified selector in the left side field, you will find a dropdown list with the applicable operators. For example, if you choose a list field like `Acceptor Country`, you will find the applicable operators like **Contains** and is **Equal** , but if you choose a numerical field like `Amount` you will find operators like **Greater than** and **Less than**. For more information, see [Operators in Rule Writing](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing-pages/operators).
+
+  3. Choose your right side field type. There are two types of selectors: **Attribute** , pre-determined fields you can choose from, or **Value** , free range value you can enter manually.
+
+
+
+  4. Specify the second field for comparison.
+
+
+
+Depending on the type of selector you chose previously, you can either:
+
+  * Choose from a dropdown list, if you chose the `Attribute` type.
+
+
+
+info
+
+The attributes from the second field's dropdown list are the same as the dropdown list for the first field.
+
+  * Enter a custom value, if you chose the `Value` type, i.e. 1000.
+
+
+
+  5. If needed, you can add **multiple** conditions according to your use case. To add additional conditions, select the  button and then add an **AND** condition or an exception **OR** condition.
+
+
+
+  6. Once you finish adding all the required conditions, select the **Next** button.
+
+
+
+Info
+
+If the conditions are incomplete or set incorrectly, the **Next** button will be greyed-out. In case this happens, check your conditions before proceeding.
+
+### Detailsâ
+
+Here you can add details to your rule for better strategy management.
+
+  1. Fill in these fields with the correspondent information:
+
+
+  * **Name** : Add a name to your rule.
+  * **Description** : Add relevant information to your rule.
+  * **Explanation** : Explain the rule in detail to help the analyst better understand why it triggered. If needed, you can hover over the  tooltip to help you understand what sort of information is required.
+
+
+
+info
+
+The **Name** and **Explanation** fields are mandatory. The **Description** field is optional.
+
+  2. Select the **Create** button to finish the rule writing process.
+
+
+
+## Adjust a ruleâ
+
+As an example, imagine that you want to change the condition of your newly created rule that blocks all transactions above $1000, to block all transactions above $500.
+
+You can adjust an existing rule by following the same steps for creating a rule. Do the following steps to access the rule creation form and make the necessary changes:
+
+  1. Locate the rule inside the correspondent decision group table.
+
+  2. Select the  icon next to the rule.
+
+  3. Select **Edit**.
+
+  4. Follow the same steps for creating a rule, where you will make all the changes necessary to the rule instead of creating a rule from scratch.
+
+     * **Add** new conditions or **change** the existing ones.
+     * **Add** or **change** existing details.
+
+
+
+## Next stepsâ
+
+Once you're done with the rule writing process, you will be taken back to the [Strategy Builder](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder) page.
+
+In the Strategy Builder page:
+
+  * If you still want to make more changes, you can continue adjusting your strategy by creating new rules or adjusting existing rules.
+  * If you are happy with your strategy, you can publish it by selecting the **Publish** button.
+
+

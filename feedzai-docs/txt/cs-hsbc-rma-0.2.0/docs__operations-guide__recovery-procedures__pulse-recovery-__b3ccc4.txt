@@ -1,0 +1,111 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/recovery-procedures/pulse-recovery-procedure
+Title: Pulse Recovery Procedure | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Pulse Recovery Procedure
+
+This document outlines the available options to recover Pulse following a catastrophic event or outage that disrupts all Pulse nodes.  
+Recovery focuses on restoring the system to a state where Pulse can process and score real-time payments and digital events, ensuring both real-time and scheduled metrics are accurate so that the DS/rule/model performance is as expected.
+
+##### warning
+
+Please note, the timings in this guide are relative to the time it takes a Pulse node to publish. The figures used were accurate as of April 2024, but may vary over time.
+
+However, while the exact timings may differ, the principles remain the same.
+
+Pulse operates with a three-node setup, where a single node requires approximately **1h 45m** to complete a publish. The following recovery strategies detail how to handle such scenarios effectively.
+
+## Recovery Strategiesâ
+
+### Option 1: Abort Publish and Perform Manual Publishâ
+
+#### Process:â
+
+  1. Access the Pulse UI and abort the publish manually.
+  2. Ensure all three nodes are part of the cluster.
+  3. Initiate a parallel (non-rolling) publish for all nodes simultaneously.
+
+
+
+#### Recovery Timeline:â
+
+  * **First 1h 50m:** No processing or scoring occurs while the abort and re-publish steps are performed. The timeline includes an additional ~5 minutes required to abort and initiate the manual re-publish.
+  * **After 1h 50m:** Full service and redundancy are restored simultaneously.
+
+##### note
+
+Note that parallel publishing across all three nodes may take slightly longer if database performance becomes a bottleneck. Pre-production testing is recommended to validate this behavior.
+
+
+
+
+#### Considerations:â
+
+  * Events processed by the GCP load-balancer during the outage will likely have incorrect scores due to:
+    * **Real-time metrics** being absent or incorrect.
+    * **Workflow clock misalignment** , which could negatively affect model scores and alert rates.
+  * Despite these issues, previous testing has shown that the impact on scores and alert rates is manageable.
+
+
+
+### Manually publish with recovery skipped, then republishâ
+
+#### Process:â
+
+  1. Access the Pulse UI and abort the publish manually.
+  2. Ensure all 3 Pulse server nodes are part of the cluster, and perform a parallel (non-rolling) publish with "skip recovery" selected.
+  3. After the publish, save the workflow without changes.
+  4. Perform a rolling publish (with application restart selected, without **skip recovery**)
+
+
+
+#### Recovery Timeline:â
+
+  * **First 5â10 minutes:** Pulse will not be processing or scoring the events.
+  * **After 1h 45m:**
+    * Partial service and full redundancy are restored at the same time.
+    * Pulse will score events, but it will consider all real-time metrics as having the value zero.
+    * All scheduled metrics will be correctly updated.
+    * Model scores/performance and alert rates will be impacted.
+  * **After another 1h 45m (total 1h 55m from the start):**
+  * Half the transactions will have totally correct scores, and the other half will continue to have incorrect real-time metrics.  
+
+
+##### info
+
+This is because after the first node publishes, one of the remaining two will go down. This means there are two nodes scoring at this point - one that just finished publishing, fully correct, and one with correct SMJs but incorrect real-time metrics.
+
+  * **After another 1h 45m (total ~3h 40m from the start):**
+  * Full service recovery is complete with correct real-time and scheduled metrics.
+
+##### info
+
+Full redundancy has not yet been achieved as 2 of 3 nodes will be scoring, while the 3rd will go down to update itself.
+
+  * **After another 1h 45m (total ~5h 25m from the start):** Full redundancy is achieved.
+
+##### info
+
+All the nodes are up at this and correctly updated.
+
+
+
+
+#### Considerations:â
+
+  * This option ensures quicker partial service restoration compared to Option 1, with limited impact on metrics during the recovery process.
+  * Transactions processed during the initial phase may have incomplete real-time metrics, but overall service availability is restored sooner.
+  * Data Science (DS) team changes cannot be published during the recovery process.
+
+
+
+## Recommendationsâ
+
+**Feedzai recommends Option 2**. It is the standard approach followed in the Feedzai cloud. It tends to have the smallest negative impact overall
+
+  * The service is mostly restored (with just real-time metrics missing) very quickly
+  * Followed by full restoration in steps (half the nodes fully recovered after another 1h 45m, and full restoration after another 1h 45m)
+
+

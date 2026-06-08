@@ -1,0 +1,247 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manage-details-page
+Title: Manage Details | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage System Configurations
+  * Manage Details
+
+
+
+On this page
+
+# Manage Details
+
+Analysts spend most of their time reviewing alerts, cases, or customers. However, the out-of-the-box interface configuration of these pages doesn't always match the processes used by each financial institution which leads analysts to spend more time to make a decision.
+
+Managers can edit the configuration of the Details pages, thus optimizing their team's workflow. For example, managers may want to adjust a field's naming to ensure that all analysts work with company-compliant terminology, or change the order in which the fields are displayed.
+
+This page explains how managers can edit some of the information displayed in the Event, Case, and Customer Details pages.
+
+Start by selecting the **Edit** button to enable the edit mode.
+
+  
+
+
+The edit mode allows to add, edit, delete, and change the order of the fields in each widget. Note that some widgets cannot be edited, and therefore, are disabled.
+
+Let's take a look at the available actions using the Customer widget as example.
+
+## Change fields' orderâ
+
+To change the order of the fields, drag a field to the new position.
+
+## Add fieldsâ
+
+Add a field, for example, to show the customer's account number.
+
+  1. Select the **Add Field** button and use the **Add Field** window to configure the field.
+
+  2. Define the **Label** , for example, _Account IBAN_.
+
+  3. Configure the new field, namely by selecting the:
+
+     * **Field:** Select the field from the data source that corresponds to the information that you want to see, for example, _customer.account.number_.
+     * **Format:** Select the field format from the available options: Date, Number, Text, and Translation.
+  
+  
+
+
+Translation type
+
+Fields such as the customer ID, email, or IBAN are not translatable. However, fields such as the customer or alert status may have a different value according to the interface language.
+
+When adding translatable fields, select the **Translation** type so that the widget displays the value in the correct interface language.
+
+  4. Alternatively, select the **Advanced** option to create the field using a _json_ format. This option allows you to add a more complex configuration. Learn more about the advanced mode.
+
+
+
+
+info
+
+This option is only available to some users upon a specific permission.
+
+  5. **Preview** the field and then select the **Apply** button to finish the creation.
+
+
+
+## Edit fieldsâ
+
+Edit existing fields, for example, to change their name or type.
+
+To change a field's name, select the field and type the new name. To apply the changes, press ENTER on your keyboard or click anywhere outside the field.
+
+In addition, you can perform other changes, for example, to change the type of a transaction's **Review State** field from _Text_ to _Translation_. This way, analysts can see the state on their preferred language.
+
+  1. Hover over the field to display the inline actions.
+
+
+
+  2. Select the **Edit** option to open the **Edit Field** window.
+
+  3. Change the field schema or type.
+
+
+
+
+  4. Alternatively, select the **Advanced** option to edit the field using a _json_ format. This option allows you to add a more complex configuration.
+
+
+
+info
+
+This option is only available to some users upon a specific permission.
+
+  5. **Preview** the changes and **Apply** them.
+
+
+
+## Add actions to widgets or fieldsâ
+
+Add actions, such as copy to clipboard, to widgets or to specific fields.
+
+To add actions to **widgets** , perform the following steps:
+
+  1. In the widget's header, select the **actions** option.
+
+
+
+  2. Select the icons to be displayed on the widget header, namely copy, or add to list.
+
+
+
+  3. Use the windows displayed to select the fields that should be copied or added to list as well as the corresponding informative tooltip.
+
+
+
+info
+
+In the **Add to List** window, you can only select fields that can be added to lists.
+
+  4. **Apply** the changes.
+
+  5. In the widget's **actions** toolbar, select the **Apply** icon to save the changes.
+
+
+
+
+In addition, you can add actions to specific **fields** :
+
+  1. Hover over a field to display the inline actions.
+
+
+
+  2. Select the **actions** option.
+
+  3. Select the icons to be displayed next to the field, namely copy, tooltip with extra information, or links.
+
+
+
+
+  * When you add a tooltip, use the **Info Tooltip** window to define the corresponding text. Select **Insert** to save the text.
+
+
+
+  * When you add links, use the **Social Media** window to select one or multiple links from the available options. **Apply** the selection.
+
+
+
+These links redirect users to the website's search page with results matching the value defined for a field. For example, if you add a Facebook link next to the Customer Name field, it will redirect users to Facebook's search page with results matching that customer's name.
+
+  4. Select the **Apply** icon to save the changes.
+
+
+
+## Delete fieldsâ
+
+Delete fields that are no longer useful for analysts during their investigation.
+
+  1. Hover over the field to display the inline actions.
+
+
+
+  2. Select the **Delete** option.
+
+  3. In the confirmation window, select the **Delete** button to confirm the deletion.
+
+
+
+
+## Advanced modeâ
+
+Use the **Advanced** mode to adjust widgets or specific fields with a _.json_ format.
+
+info
+
+This option is only available to some users upon a specific permission.
+
+  1. In the widget's header, select the **Advanced** option.
+
+
+
+Alternatively, use the **Advanced** option while adding or editing specific fields.
+
+  2. In the **Advanced Widget** window, adjust information such as the widget's title or the icons that appear next to a field.
+
+
+
+Use the suggestions provided while typing to ensure that you are using the correct properties.
+
+info
+
+Some properties (i.e. `type`, `id` and `width`) are hidden and cannot be changed. If you save the configuration with these properties, they will be ignored. In addition, if you submit an invalid configuration (for example, with an invalid comma or character), the system will save the last valid configuration.
+
+  3. Preview the changes and **Apply** them.
+
+
+
+## Custom widgetsâ
+
+Case Manager can also be configured to adjust to your specific needs. To answer these needs, **custom widgets** can be created.
+
+Contact the Customer Success team to create a custom widget.
+
+## Save or discard changesâ
+
+Once you're happy with the changes, select the **Save all changes** button to save them and exit the edit mode.
+
+Alternatively, select the **Cancel** button to discard all changes made since you enabled the edit mode, or open the  options menu and select the **Restore Page Defaults** option so that all widgets go back to how they were initially configured by the system administrator.
+
+You can also discard only the changes made to specific widgets as follows:
+
+  1. Select the **Reset** button displayed in each widget.
+
+
+
+  2. In the **Reset Changes** window, select the **Reset** button to discard the changes made since you enabled the edit mode. Alternatively, select the **Restore Defaults** button so that the widget goes back to how it was initially configured by the system administrator.
+
+
+
+## Export and import configurationâ
+
+The edit mode allows you to export and import the page's configuration. This can be helpful, for example, to apply the same configuration between different environments (for example, from QA to Production).
+
+To export the current configuration, select the **Export Current Configuration** option under the more options dropdown menu.
+
+Unsaved changes
+
+If the current edit mode has unsaved changes, you need to save them before exporting.
+
+To import a previously exported configuration:
+
+  1. Select the **Import Page Configuration** option under the more options dropdown menu.
+
+  2. In the **Import Page Configuration** window, upload or drag the exported file to the **Add Files** area.
+
+
+
+
+  3. Select **Apply** to finish the import. The new configuration will replace the current one.
+
+
+
+## Learn moreâ
+
+Learn how to [manage the reasons](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reasons) used by analysts when [classifying alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts).

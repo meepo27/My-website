@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/list-box
+Title: List Box | Case Manager
+============================================================
+
+On this page
+
+# List Box
+
+Property| Type| Optional| Description  
+---|---|---|---  
+box| Object|Array<Object>| No| Can be one single box configuration (Object) or a multiple box configuration (Array<Object>). When using a single configuration, the schema is the same as [Box](/docs/common/case-manager/reference/user-interface/widgets/box) widget. When using multiple configurations, you should provide an extra field in each box schema, named **matchingFields** (please check the below description for more info about this property).  
+key| String| No| Path in the event object to get the value to populate this widget.  
+title| String| Yes| I18n message key to the list box title.  
+cssClass| String| Yes| Custom CSS classes, separated by space.  
+name| String| Yes1| A unique identifier representing the widget.  
+resource| String| Yes| Resource name that points to the endpoint that populates the widget. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+filter| String| Yes| Filter for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderBy| String| Yes| OrderBy for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+limit| Number| Yes| Limits the number of results for the external resource.  
+  
+1 Mandatory if **resource** is present.
+
+## matchingFieldsâ
+
+Type| Optional| Description  
+---|---|---  
+Array<Object>| Yes| This property should be added to the [Box](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/box) schema when providing multiple configurations to the List Box widget. The goal of providing multiple configurations is to give the possibility to conditionally configure boxes based on the data being presented.  
+  
+Each object in this property should have the properties **key** and **value** , where **key** is the path in the data object to fetch a value and the **value** is the value that should be in that path. In order to a box configuration to be applied, all the items in this property should match.  
+  
+If several box configurations are provided, the first that matches all the fields is the one that will be used.  
+  
+If this property is no present, then it will always evaluate to false when trying to match the fields.

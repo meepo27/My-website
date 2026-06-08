@@ -1,0 +1,83 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/building-and-evaluating-a-rule
+Title: Building Rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Building Rules
+
+
+
+On this page
+
+# Building Rules
+
+Was this page helpful?Â 
+
+[Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) are one way to contribute towards the score of a given decision, f _raud/not fraud_ in this case, while the other are rules.
+
+Rules add an extra layer of security on top of machine learning models by letting you define conditions that, when met, help you classify your events.
+
+This tutorial stage will help you define and evaluate simple rules. However, rules in Pulse are a very robust and complex feature that allows you to do much more. Don't forget to check the [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) page for further details.
+
+## Defining rulesâ
+
+To create rules in Pulse, execute the following actions:
+
+  1. Create a [list](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) for suspicious merchants as follows:
+     1. Name the list as _MerchantsAlert._ Leave all other fields with the default values.
+
+     2. **Save and add items** with the following values: _Royal Fitness_ , _WALGREENS_ and _value_5._
+
+  2. In the **Data Science** tab, under the Rules Projects section, add  a new rules project, and configure it as follows:
+     1. Name it _Rules_.
+
+     2. Copy the schema from _TransactionsFeatures._
+
+     3. Set the **Target** to the _Fraud_ field.
+
+     4. Add an **Action** named _MerchantsAlert_.
+
+  3. Add  a new rule named _MerchantsAlert_ to the rules project and define its behavior as follows:
+     1. In the **Variables** field, set an _isSuspicious_ variable that reflects if the _MerchantName_ of the transaction is contained in the _MerchantsAlert_ list.
+
+     2. In the **Condition** field, set the rule to trigger if the merchant is suspicious and the _TransactionAmount_ is greater than 50.
+
+     3. In the **Score Contribution** field, set the contribution to the _Fraud_ score as 200.
+
+     4. In the **Actions** field, select the _MerchantsAlert_ action. This means that the rule will trigger this action if the Condition is met.
+
+This rule is not very smart and serves as only as a demonstration of how you can configure a rule. This rule's behaviour defines that whenever a transaction with an amount above 50 was performed at a suspicious merchant, then Pulse should trigger an action and add 200 to the event's score. However, the rule does not mark the transaction as _Fraud_ since it this only a strong indication of fraud and not a certainty.
+
+  4. Add  a new rule to the rules project. This rule is simpler than the first one, but it actually marks transactions as _Fraud_ based on the observation that fraud is more prevalent in transactions with a higher amount. Configure it as follows:
+     1. Name it _TransactionAmount._
+
+     2. In the **Condition** field, trigger the rule when the _TransactionAmount_ is greater than 600.
+
+     3. Trigger the **Action** named _Block._
+
+     4. Mark the transaction as _Fraud_.
+
+
+
+
+## Exporting and evaluating rulesâ
+
+Now that you have defined a block of rules, you must create a [snapshot](/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-rules-using-a-snapshot) so that you can use them in a workflow. While you are configuring the snapshot, you can also evaluate the rules performance over a specific data source as follows:
+
+  1. Publish your application.
+  2. In the _Rules_ rules project, add  a new snapshot called _Snapshot_.
+     1. Include all your rules in the snapshot.
+
+     2. **Evaluate** it using the _TransactionsFeatures_ data source.
+
+  3. Once the evaluation finishes, open the snapshot and notice that there are 3 kinds of evaluations:
+     1. **Block Evaluation** : shows the evaluation regarding the target field (_Fraud_) after all rules are executed.
+
+     2. **Block Rule Evaluation** : similar to block evaluation, but instead of seeing all rules as a black box, you can drill down into the performance of each rule.
+
+     3. **Individual Rule Evaluation** : similar to block rule evaluation, however the rules are not evaluated in sequence, but rather in isolation. This means that the result of a rule does have an impact on the evaluation of the next one.
+
+In this scenario, you won't see any difference between individual rule evaluation and block rule evaluation because the first rule being applied does not mark events as _fraud_ or _not fraud_.
+
+
+

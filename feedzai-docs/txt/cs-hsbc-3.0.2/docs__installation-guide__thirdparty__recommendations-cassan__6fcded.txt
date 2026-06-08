@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/recommendations-cassandra
+Title: Recommendations for Cassandra | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Recommendations for Cassandra
+
+##### info
+
+The configurations listed below result from the experience Feedzai has running this system. Nonetheless, it is important to review the configurations in light of the workload requirements, and adjusted accordingly.
+
+## Cassandra Configurationâ
+
+The `cassandra.yaml` file is the main configuration file for Cassandra.
+
+Property| Recommended Value| Description  
+---|---|---  
+cluster_name| `Feedzai Cassandra Cluster`| This setting prevents nodes in one logical cluster from joining another. All nodes in a cluster must have the same value.  
+num_tokens| 256| Set this property for virtual node token architecture. Determines the number of token ranges to assign to this [vnode].  
+endpoint_snitch| `GossipingPropertyFileSnitch` (see note below)| The implementation used informs Cassandra about the network topology to route requests efficiently, and allows Cassandra to spread replicas around your cluster to avoid correlated failures.  
+concurrent_reads| `8 * #cores`|   
+concurrent_writes| `8 * #cores`|   
+trickle_fsync| true| Causes fsync to force the operating system to flush the dirty buffers at the set interval `trickle_fsync_interval_in_kb`, to prevent sudden flushes from impacting read latencies.  
+trickle_fsync_interval_in_kb| 4096| The size of the fsync in kilobytes.  
+concurrent_compactors| `#cores`| The number of concurrent compaction processes allowed to run simultaneously on a node.  
+compaction_throughput_mb_per_sec| 0| Throttles compaction to the specified Mb/second across the instance. Setting the value to 0 disables compaction throttling.  
+disk_failure_policy| stop| On disk failures, shuts down gossip and client transports, leaving the node effectively dead, but it still can be inspected with JMX.  
+commit_failure_policy| stop| On commit disk failures, shuts down gossip and client transports, leaving the node effectively dead, but it still can be inspected with JMX.  
+commitlog_sync| periodic| Ack writes immediately and sync the CommitLog every `commitlog_sync_period_in_ms`  
+commitlog_sync_period_in_ms| 10000| Frequency of the CommitLog sync when in `periodic` mode.  
+auto_bootstrap| true| It causes new (non-seed) nodes migrate the right data to themselves automatically.  
+  
+##### info
+
+**Endpoint Snitch**
+
+With the `GossipingPropertyFileSnitch` the rack and datacenter for the local node must be defined in `cassandra-rackdc.properties`.
+
+If you are installing Cassandra on AWS, the recommendation is to use [`Ec2Snitch`](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/architecture/archSnitchEC2.html). This will rely on the instances and the availability zones they are done to define a better and more reliable topology.
+
+If you are installing Cassandra on GCP, there is a [`GoogleCloudSnitch`](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/architecture/archSnitchGoogle.html) available.
+
+##### tip
+
+Make sure `ntp` is installed, and all Cassandra servers are in-sync.
+
+## Javaâ
+
+### Java Native Access (JNA)â
+
+Using JNA is one way to improve Cassandra memory usage, and, hence, performance. If JNA is not installed and enabled, Cassandra will not boot unless [`cassandra.boot_without_jna`](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/tools/toolsCUtility.html#toolsCUtility__toolsCutil-boot-without) is set to true.
+
+### JVM Optsâ
+
+It is advisable that the `-Xms` and `-Xmx` flags are set to the same value. Optionally, `-Xmn` could be set as well, according to the resources and workload.
+
+Make sure you define the most appropriate GC algorithm according to the workload and the heap size.

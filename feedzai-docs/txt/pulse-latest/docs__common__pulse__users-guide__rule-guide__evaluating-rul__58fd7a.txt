@@ -1,0 +1,109 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-rules-using-a-snapshot
+Title: Evaluating Rules Using a Snapshot | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Evaluating Rules Using a Snapshot
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Evaluating Rules Using a Snapshot
+
+You can evaluate your rules to assess their effectiveness, by analyzing a rule snapshot evaluation. This topic describes how to create an evaluation for a snapshot.
+
+Multi-tenant rules projects
+
+The snapshot evaluation is not available in multi-tenant rules projects.
+
+## Prerequisiteâ
+
+The following process presumes that you have a historical dataset where the feedback about the target variable's final value is saved in a separate field. This field is called the feedback field.
+
+## How toâ
+
+To run an evaluation of your rules over a historical dataset, execute the following actions:
+
+  1. In the **Data Science** tab, select the rules project that you want to evaluate.
+
+  2. The following step is to clone your rules project.
+
+The objective of this step is to ensure that changes that you do merely for the performance assessment do not affect the rules project that you want to deploy in production later on.
+
+To clone the rules project, execute the following steps:
+
+     1. If in your rules project you did not create a rule snapshot yet, [add a rule snapshot](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-rule-snapshot) now.
+
+     2. Create a new rules project from the rule snapshot using the  button in the list of snapshots. This new rules project is where you create and test your rules.
+
+     3. In the **Data Science** tab, in the Rules Projects area find the newly created rules project and use the  button to configure it.
+
+     4. Change the **Target Variable** from the outcome field to the feedback field. For example, the outcome field can be the _Decision_ field, with the possible values _Approve_ , _Block_ , _Review_. Change it to the feedback field, which is the one that gives the information on whether the transaction is Fraud (e.g. received a fraud chargeback or was marked as Fraud by analysts), or Not Fraud. **Save** the changes.
+
+     5. Open the rules project. Go to every enabled rule and edit the rule by updating the **Mark as** field. Change the field to mimic production. For example, if it is a block rule, select _Mark As_ , and select the value that the rule is supposed to act on, e. g. _Fraud_ , _Not Fraud_ , _Suspicious_ or _Legitimate_. This information is what allows the system to measure the performance of the rules.
+
+     6. **Save** the rules project.
+
+     7. [Create a new snapshot](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-rule-snapshot) for the cloned rules project. Enable and sort the rules for the snapshot according to the project preferences.
+
+  3. Open the rule snapshot of the cloned rules project, and use the  button to start creating an evaluation for the snapshot.
+
+Evaluation performance
+
+Evaluations run distributed in a Spark cluster, thus being able to efficiently process very large volumes of data in consistently short amounts of time.
+
+  4. Define the following configurations for the evaluation:
+
+     * Select the **Data Source** on which you want to test your rules.
+     * Define a **Filter**. During the evaluation, rules will be applied only to those instances that match the defined filter.
+     * Define an **Additional** **Cost Field** , such as _Amount_ , if it makes sense in your scenario.
+     * Define the **Breakdowns** of the charts that will show the evaluation: select **Fields** and **Values** for which you want Pulse to break down and explore the data. Pulse will calculate metrics for every combination of all selected values.
+     * In the **Output Results** field you can use the **Export Evaluation** checkbox to export the output into a file. The output file will contain the individual rule contribution.
+  5. Use the  button to start the job that calculates the metrics for the evaluation. The progress is shown next to the rule snapshot's name.
+
+  6. When Pulse finished to calculate the evaluation metrics (Recall, FPR, Precision, and so on), analyze the results in the snapshot, on the following tabs:
+
+     * **Block Evaluation** : shows the metrics calculated for the entire set of rules.
+     * **Block Rule Evaluation** : shows the metrics per rule, but taking into account the Control Flow field set for each rule (Stop Workflow, Continue Workflow, Next Workflow Element). For example, if the first rule applied to the data is set to Stop Workflow, none of the remaining rules will be evaluated against transactions that triggered the first rule.
+     * **Individual Rule Evaluation** : shows the metrics calculated for each rule individually, for each breakdown field combination (aka. series) of the evaluation. This tab presents evaluation results as if each rule runs individually, without taking into consideration the _Control Flow_ option and always assuming the _Continue Workflow_ option. By default, if more than one rule having the option _Mark As_ are triggered by the same transaction, then the first triggered rule's value prevails.
+  7. You can show different evaluation metrics. To do so, use the drop-downs next to X-Axis and Y-Axis below the graph. To show different evaluation metrics in the Results table, use the **Choose Metrics** button.
+
+
+
+
+## What to look for in the analysisâ
+
+Each business is different, and each scenario requires a different type of analysis. Still, there are some simple things that you can always check when looking at the metrics included in the snapshot evaluation:
+
+  * Does the current **block of rules** meet the expectations regarding metrics that are important to my business? The list of important metrics depends on the business scenario, but Recall, Precision, and FPR are good candidates to look at.
+
+  * Check the **Alert Rate** metric for the rule block and for the individual rules. Does it look healthy? Does a rule trigger too many times, compared to your experience on the field?
+
+  * If you exported the individual rule contribution into an output file (see Output Result field), you can check which rules triggered for each event.
+
+This can help you to understand why a rule is performing differently from what you expected. It's also useful for validating whether or not the rules are catching the attacks they are designed to catch, by checking if they triggered for the corresponding events.
+
+The output file is a .csv file stored in the path you defined in the Output Result option. For each event, the file contains a field called _Overall_ , which shows if the event triggered any rule.
+
+In addition it contains one field for each rule, which shows if the event triggered that particular rule. A value of 1 indicates that the rule triggered, and a value of 0 indicates the contrary.
+
+  * The **breakdown field** values can help you to identify when a threshold value needs to be fine-tuned. Does a certain value trigger too many alerts?
+
+
+
+
+## Adding custom evaluation metricsâ
+
+In addition to the metrics shown by default when assessing the rules performance, you can add your custom metrics. To do so, perform the following steps:
+
+  1. Select the options menu  in your Pulse application.
+  2. Select the **Evaluation Metrics** option.
+  3. Add an evaluation metric to your project by defining a function that receives the following data:
+     1. The number of True Positives (TP), True Negatives (TN), False Positives (FP) and False Negatives (FN).
+     2. The cost-TP, -TN, -FP and -FN. The cost field variants are based on a data field in the event that represents an amount, typically the transaction amount in a fraud detection scenario, rather than using a count-based approach.
+
+

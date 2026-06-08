@@ -1,0 +1,353 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-bankrupcy-risk-rules
+Title: Bankruptcy Risk Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Bankruptcy Risk Rules
+
+
+
+On this page
+
+# Bankruptcy Risk Rules
+
+### Descriptionâ
+
+Bankruptcy risk rules account for merchants who are at risk of or are concealing their inability to ensure payment of their debt.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## Monthly-Amount-Decrease-BR1
+
+### Comment
+
+> The decrease in monthly total transaction amount is equal to or below a set threshold
+
+### Actions
+
+  * Alert
+  * [Monthly-Amount-Decrease-BR1]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["amount_decrease_1m"].threshold ?? default_threshold_list["amount_decrease_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_amt_lastm_to_prevm * 100; 
+
+### Condition
+    
+    
+    // Filters: (event_type == "info") and (payment_auth_status == "accepted")
+    // Total payment amount last month over the previous month (delayed over 4w) 
+    event.rt_amt_lastm_to_prevm > 0 and event.rt_amt_lastm_to_prevm <= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) decrease in total transaction amount: last month is {localvar.formated_ratio} % of the previous month, which is equal/below the limit of{localvar.formated_threshold}%.
+
+### Mark As
+
+N/A
+
+## Monthly-Count-Decrease-BR2
+
+### Comment
+
+> The decrease in monthly total transaction count is equal to or below a set threshold
+
+### Actions
+
+  * Alert
+  * [Monthly-Count-Decrease-BR2]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["count_decrease_1m"].threshold ?? default_threshold_list["count_decrease_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_cnt_lastm_to_prevm * 100;  
+
+### Condition
+    
+    
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted")) 
+    // Total payment count last month over the previous month (delayed over 4w) 
+    event.rt_cnt_lastm_to_prevm > 0 and event.rt_cnt_lastm_to_prevm <= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) decrease in total transaction count: last month is {localvar.formated_ratio} % of the previous month, which is equal/below the limit of{localvar.formated_threshold}%).
+
+### Mark As
+
+N/A
+
+## BiMonthly-Amt-Decrease-BR3
+
+### Comment
+
+> The decrease in bi-monthly total transaction amount is equal to or below a set threshold
+
+### Actions
+
+  * [BiMonthly-Amt-Decrease-BR3]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["amount_decrease_2m"].threshold ?? default_threshold_list["amount_decrease_2m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_amt_last2m_to_prev2m * 100; 
+
+### Condition
+    
+    
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted")) 
+    // Total payment amount last 2 month over the previous 2 month (delayed over 8w) 
+    event.rt_amt_last2m_to_prev2m > 0 and event.rt_amt_last2m_to_prev2m <= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count 
+
+### Explanation
+
+> Merchant ({event.merchant_id}) decrease in total transaction amount: last 2 months are {localvar.formated_ratio} % of the previous 2 months, which is equal/below the limit of {localvar.formated_threshold}%).
+
+### Mark As
+
+N/A
+
+## BiMonthly-Count-Decrease-BR4
+
+### Comment
+
+> The decrease in bi-monthly total transaction count is equal to or below a set threshold
+
+### Actions
+
+  * Alert
+  * [BiMonthly-Count-Decrease-BR4]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["count_decrease_2m"].threshold ?? default_threshold_list["count_decrease_2m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_cnt_last2m_to_prev2m * 100; 
+
+### Condition
+    
+    
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted")) 
+    // Total payment count last 2 months over the previous 2 months (delayed over 8w)  
+    event.rt_cnt_last2m_to_prev2m > 0 and event.rt_cnt_last2m_to_prev2m <= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) decrease in total transaction amount: last 2 months are {localvar.formated_ratio} % of the previous 2 months, which is equal/below the limit of {localvar.formated_threshold}%).
+
+### Mark As
+
+N/A
+
+## Monthly-Refund-Amount-BR5
+
+### Comment
+
+> Refund amount rate, in 1 month, is equal to or above a set threshold
+
+### Actions
+
+  * [Monthly-Refund-Amount-BR5]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["refund_amount_limit_1m"].threshold ?? default_threshold_list["refund_amount_limit_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_rfnd_amt_4w * 100;  
+
+### Condition
+    
+    
+    // (Filters = (event_type == "info") and (info_type == "refund"))
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted"))
+    // Total refund amount over the total payment amount last month
+    event.rt_rfnd_amt_4w >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) refund rate of one month is {localvar.formated_ratio} %, which is equal/below the limit of {localvar.formated_threshold}%).
+
+### Mark As
+
+N/A
+
+## Monthly-Refund-Count-BR6
+
+### Comment
+
+> Refund count rate, in 1 month, is equal to or above a set threshold
+
+### Actions
+
+  * [Monthly-Refund-Count-BR6]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["refund_count_limit_1m"].threshold ?? default_threshold_list["refund_count_limit_1m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_ratio = event.rt_rfnd_cnt_4w * 100;  
+
+### Condition
+    
+    
+    // Total refund count over the total payment count last month
+    // (Filters = (event_type == "info") and (info_type == "refund"))
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted"))
+    event.rt_rfnd_cnt_4w >= threshold
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) refund count rate of one month is {localvar.formated_ratio} %, which is equal/below the limit of {localvar.formated_threshold}%).
+
+### Mark As
+
+N/A
+
+## Refund-Amount-Increase-BR7
+
+### Comment
+
+> Refund amount rate of 1 month over 3 months is equal or above a set threshold
+
+### Actions
+
+  * Alert
+  * [Refund-Amount-Increase-BR7]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["refund_amount_1m_3m_list"].threshold ?? default_threshold_list["refund_amount_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+
+### Condition
+    
+    
+    // Refund rate of one month over the refund rate of three months (delayed over 4w)
+    // (Filters = (event_type == "info") and (info_type == "refund"))
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted"))
+    event.rtcomp_rfnd_amt_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) refund amount rate of one month is event.rtcomp_rfnd_amt_1m_to_3m x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Refund-Count-Increase-BR8
+
+### Comment
+
+> Refund count rate of 1 month over 3 months is equal or above a set threshold
+
+### Actions
+
+  * [Refund-Count-Increase-BR8]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["refund_count_1m_3m_list"].threshold ?? default_threshold_list["refund_count_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+
+### Condition
+    
+    
+    // Refund count rate of one month over the refund rate of three months (delayed over 4w)
+    // (Filters = (event_type == "info") and (info_type == "refund"))
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted"))
+    event.rtcomp_rfnd_cnt_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount  
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) refund count rate of one month is {event.rtcomp_rfnd_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A

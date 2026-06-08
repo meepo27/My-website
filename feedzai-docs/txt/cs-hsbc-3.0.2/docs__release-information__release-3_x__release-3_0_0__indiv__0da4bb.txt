@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3095
+Title: HSBC-3095 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3095
+
+### Add support for multiple applications of the same typeâ
+
+FeatureHSBC-3095
+
+We've added support for deployments with multiple applications of the same type.
+
+The changes address two limitations:
+
+  * Allow overriding Liquibase database configurations: Liquibase now supports database configuration overrides per application, similar to what is supported for other configurations. For example, to use a different database for an equal portfolio application, the database override can be set as `<app_slug>_database_pulse_outbound_payments_eventstorage_hostname`
+  * Allow overriding the API ports for Outbound and Reference Data Service (RDS): this change introduces two new Ansible variables to configure in which port the Pulse and RDS APIs will listen for requests:
+    * `api_port`: configure the API port for Outbound Payments
+    * `rds_api_port`: configure the API port for RDS
+
+
+
+Please refer to [Cluster with same portfolio applications](/cs-hsbc/3.0.2/docs/installation-guide/pulse/multi-app-cluster) for a detailed explanation of the changes and to the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) for deployment information.

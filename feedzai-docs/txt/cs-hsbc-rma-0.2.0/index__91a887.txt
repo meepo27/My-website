@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/
+Title: Feedzai RMA Documentation | Feedzai RMA Documentation
+============================================================
+
+Skip to main content
+
+[**Feedzai RMA Documentation**](/cs-hsbc-rma/0.2.0/)[Release Notes](/cs-hsbc-rma/0.2.0/docs/release-information/overview)[Installation Guide](/cs-hsbc-rma/0.2.0/docs/installation-guide/overview)[Operations Guide](/cs-hsbc-rma/0.2.0/docs/operations-guide/overview)[Concepts](/cs-hsbc-rma/0.2.0/docs/concepts/overview)
+
+User Guide
+
+  * [Case Manager](/cs-hsbc-rma/0.2.0/docs/case-manager-guides/overview)
+
+
+
+[API](/cs-hsbc-rma/0.2.0/docs/api-reference/overview)
+
+Feedzai RMA Documentation
+
+# Feedzai Platform
+
+Feedzai is a platform for managing financial risk. It relies on a cutting-edge enterprise Data Science platform that integrates big data analytics and Machine Learning techniques with a native runtime production environment, and a Risk Operations platform focused on boosting the efficiency of financial crime prevention and increase detection accuracy.
+
+Follow these guides to learn how to install and operate the Feedzai platform.
+
+[Learn more about Feedzai platform](/cs-hsbc-rma/0.2.0/docs/operations-guide/overview)
+
+Copyright Â© 2026 Feedzai.

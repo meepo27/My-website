@@ -1,0 +1,135 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/analytics-dashboards/rules-monitoring
+Title: Rules Monitoring | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Analytics Dashboards](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview)
+  * Rules Monitoring
+
+
+
+On this page
+
+# Rules Monitoring
+
+Was this page helpful?Â 
+
+The rule monitoring dashboards show the rules that were triggered and therefore allows you to control and improve fraud performance. Understanding if rules behave as expected, or quickly discovering which rules need to be adjusted / deleted is critical for improving the fraud prevention system.
+
+Rule monitoring includes two dashboards, one with rule filters, and another one with transaction filters.
+
+Rule Monitoring in RiskOps Studio
+
+Feedzai provides you with the possibility to monitor your rules through the **Rule Monitoring** component in Feedzai RiskOps Studio platform. This platform offers you a centralized dashboard where you can also review and evaluate the performance of your rules.
+
+Check [Rule Monitoring](https://cam.feedzai.com/rules/latest/) to know more about this component.
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by creating queries.
+
+Confirm which [fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) you can use to create queries for the outputs you need.
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. A **Value** field appears after selecting the operator. Enter a value to finalize the creation of your condition.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for.
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most common used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+#### Rule filterâ
+
+The **Rule Monitoring (rule filter)** dashboard provides other filters to refine your search such as:
+
+  * **Rule block** : The rule project that contains the rule you want to filter by.
+  * **Rule owner** : The owner of the rule. In case of an out-of-the-box rule, the owner is Feedzai.
+  * **Rule type** : Whether it's a self-service rule (SSR) or an out-of-the-box rule (Non-SSR).
+  * **Rule name** : The name of the rule.
+
+
+
+#### Transaction filterâ
+
+The **Rule Monitoring (transaction filter)** dashboard provides other filters to refine your search such as:
+
+  * **Region** : The country where the transaction(s) you want to filter by was performed.
+  * **Channel** : The channel that contains the rule you want to filter by (e.g. cards).
+  * **Queue** : The different priority categories that each transaction event is assigned to.
+  * **Transaction type** : The categories that classify transactions (e.g. direct deposit, bill payment).
+  * **Payment type** : The payment method that was used (e.g. SEPA, internal).
+
+
+
+## Data visualizationâ
+
+Rule KPIs are available in the rules monitoring with the transaction filter and evaluate the performance of rules according to four possible outcomes - **False Positives (FP)** , **True Positives (TP)** , **False Negatives (FN)** , and **True Negatives (TN)**. Rule performance is measured against:
+
+  * **Value analysis** : Displays the transaction amounts grouping them into the FP, TP, FN, and TN categories. For instance, the **False Positive** category shows the percentage of transactions flagged as false positives relative to the total processed transaction amount, along with the corresponding transaction amounts.
+  * **Volume analysis** : Displays the number of transactions grouping them into the FP, TP, FN, and TN categories. For instance, the **True Positive** category shows the percentage of transactions flagged as true positives relative to the total processed number of transactions, along with the corresponding number of transactions.
+
+
+
+* * *
+
+  * **Transaction amount over time by triggered rule** : Shows transaction amounts over time (filtered by a specific date range) for each triggered rule. Each dot on the graph represents a rule that was triggered by a transaction amount at a specific timestamp.
+  * **Number of transactions over time by triggered rule** : Shows the number of transactions over time (filtered by a specific date range) for each triggered rule. Each dot on the graph represents a rule that was triggered by a number of transactions at a specific timestamp.
+
+
+
+Hover over each dot for more information regarding the rule's information and effectiveness:
+
+  * **Rule type** : Whether it's a self-service rule (SSR) or an out-of-the-box rule.
+  * **Rule owner** : The owner of the rule. In case of an out-of-the-box rule, the owner is Feedzai.
+  * **Hitrate count** : Absolute number of processed transactions that triggered the rule.
+  * **Affected amount** : The value of the transaction amount.
+  * **Precision** : The percentage of correctly triggered events in relation to all events that were predicted to trigger the rule.
+  * **Date** : The date the rule was triggered by a transaction of a certain amount.
+
+
+
+* * *
+
+  * **Top 10 rules triggered by transaction amount** : shows the top 10 triggered rules by transaction amount. Each bar corresponds to a specific rule and the transaction amount that triggered it.
+  * **Top 10 rules triggered by number of transactions** : shows the top 10 triggered rules by number of transactions. Each bar corresponds to a specific rule and the number of transactions that triggered it.
+  * **Bottom 10 rules triggered by transaction amount** : shows the bottom 10 triggered rules by transaction amount. Each bar corresponds to a specific rule and the transaction amount that triggered it.
+  * **Bottom 10 rules triggered by number of transactions** : shows the bottom 10 triggered rules by number of transactions. Each bar corresponds to a specific rule and the number of transactions that triggered it.
+
+
+
+Hover over each bar for more information regarding:
+
+  * **Rule type** : Whether it's a self-service rule (SSR) or an out-of-the-box rule.
+  * **Rule owner** : The owner of the rule. In case of an out-of-the-box rule, the owner is Feedzai.
+  * **Hit count** : Absolute number of processed transactions that triggered the rule.
+  * **Affected amount** : The value of the transaction amount.
+
+

@@ -1,0 +1,68 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/account-update
+Title: Account Update Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * Account Update Endpoint
+
+
+
+On this page
+
+# Account Update Endpoint
+
+Was this page helpful?Â 
+
+The Digital Activity's Account Update endpoint leverages account change attempts, such as account limits via homebanking or mobile app.
+
+The following image shows the Account Update endpoint's end-to-end process. Note that it applies to a simplified processing model.
+
+  1. The user attempts to make changes to their account, e.g., change account limit.
+
+  2. The issuer bank invokes Feedzai's Account Update endpoint.
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities have a match in the Reference Data Storage.
+
+data precedence in reference data storage
+
+Note that any new data from account update events will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  3. Feedzai conducts real-time data analysis and makes a decision on whether to approve, decline or challenge the account change event.
+
+  4. The customer's bank makes an automated decision based on Feedzai's recommendation.
+
+  5. The customer is or isn't allowed to change their account.
+
+
+
+
+## Reference Data updatesâ
+
+You can trigger updates to the Reference Data Storage via the Digital Activity API. These updates apply exclusively to fields starting with the `new_*` prefix as described in the following examples:
+
+  * The customer wants to update the status of his card. He opens the app and momentarily disables the card. The bank calls the Update Card endpoint in Digital Activity and sets `new_card_status` = `blocked`. If approved, this will update the `card_status` for the Card entity in the Reference Data Storage.
+  * The customer changes his phone number on the bank's app. The bank sends a Profile Update request to Feedzai with `new_customer_phone_number` = `1-970-664-2654`. If approved, this will update the `customer_phone_number` = `1-970-664-2654` for the Customer entity in the Reference Data Storage.
+
+
+
+Notice that updates from the Digital Activity API occur under the following conditions:
+
+  * `POST` events whose system decision is `approve`.
+
+  * `PUT` events regardless of the system decision.
+
+caution
+
+To amend information, you need to resend the entire entity data (i.e. populate all the `new_*` fields). If you want to update pieces of information instead of updating the entire entity, use the Reference Data API with the PATCH method. Refer to the [Reference Data Operations](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle#reference-data-operations) section to understand the difference between these methods.
+
+
+
+
+## Learn moreâ
+
+Read the [Device Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/device) page to continue learning about the endpoints' life cycles.

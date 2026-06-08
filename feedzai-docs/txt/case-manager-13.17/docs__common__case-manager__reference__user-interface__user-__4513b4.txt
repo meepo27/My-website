@@ -1,0 +1,169 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/user-interface-overview
+Title: User Interface | Case Manager
+============================================================
+
+On this page
+
+# User Interface
+
+## Root configurationâ
+
+This section lists all the properties that should be at the root of the User Interface configuration
+
+Property| Type| Optional| Description  
+---|---|---|---  
+externals| object| true| A set of external resources that can be loaded on Case Manager. Currently, only Case Manager Extension Project is supported. Please check the Externals section for more info about the available properties.   
+globals| object| Yes| A set of properties to be applied globally on the application.Â Please check the Globals section for more info about the available properties.  
+resources| object| Yes| This object contains the endpoints of the resources needed to fetch all kind of data from the server.There are a set of default resources that can be overridden. For more info about resources, please check the [Resources](/docs/common/case-manager/reference/user-interface/resources) section.  
+languages| array<object>| Yes| List of languages supported by the application. By default, if this property is not present, English will be assumed as the only available language. To override this behavior, a list of languages should be provided. Learn more atÂ Multi-language support. A language is configured through an object that should contain the following properties:
+
+  * **title** (string) - Holds the language title, e.g., "PortuguÃªs", "English".
+  * **locale** (string) - Holds the language locale, e.g., "pt", "en".
+  * **default** (bool) - Whether the language being configured should be the default one.
+
+  
+menu| array<object>| Yes| List of menu entries to appear in the application sidebar. By default, if this property is not present, the application sidebar will be empty. To add entries to the menu, a menu item object should be added to this list. For more info about the available properties for the menu object,Â please check the [Menu Entry](/docs/common/case-manager/reference/user-interface/menu-entry) section.  
+pages| object| Yes| Set of properties to configure several application views. For more info about entities, please check the [Pages](/docs/common/case-manager/reference/user-interface/pages) section.  
+routes| object| Yes| Set of key/value properties to configure dynamic routes and the correspondent pages. Please check the Routes section for more information about the object.  
+bugreport| object| Yes| Configuration object to display the JIRA bug report plugin in the Case Manager page. This object must have the following properties:
+
+  * **enabled** (bool) - (Optional) Whether the plugin is enabled or not.
+  * **endpoint** (string) - Plugin endpoint to fetch the plugin script. _Note: This property is optional if you set the enable property as false._
+  * **locale** (string) - Locale code. _Note: This property is optional if you set the enable property as false._
+  * **collectorId** (string) - Issue collector unique identifier. _Note: This property is optional if you set the enable property as false._
+
+  
+footer| array<object>| Yes| List of objects to configure the footer hyperlinks. Each object must have the following properties:
+
+  * **link** (string) - Hyperlink URL
+  * **title** (string) - I18n key that points to the hyperlink title
+  * **type** (string): "documentation"  Used to provide Case Manager's documentation version. Use this property alone, no need to provide the title and link.  The provided link will have "Documentation" as title and link to <https://documentation.feedzai.com/case-manager/cm_version>
+
+  
+timezone| string| Yes| Global timezone that will be used when formatting fields that will have data of type [timestamp](/docs/common/case-manager/reference/user-interface/data-types). The list of supported timezone strings are available [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not present, the user's browser timezone will be used to format those timestamps.  
+dialogs| object| Yes| Set of properties to configure several application dialogs. For more info about dialogs, please check the [Dialogs](/docs/common/case-manager/reference/user-interface/dialogs) section.  
+logoPath| string| Yes| Path to the logo image. It accepts both relative and absolute paths. Default: Feedzai logo.  
+loginLogoPath| string| Yes| Path to the login logo image. It accepts urls and relative/absolute paths. Default: Case Manager login logo.  
+reviewNext| object| Yes| Contains a set of properties needed to configure the Review Next feature. The object supports the following properties:
+
+  * **enabled** (bool) - (Optional) Whether the feature is enabled or not. By default the value is _false._
+  * **event** (object) - (Optional) Configuration for RN regarding events
+  * **case** (object) - (Optional) Configuration for RN regarding cases
+
+ _Please check the section "Review Next" below in this page to learn how to configure these objects._
+
+  * **defaultQueueType** (string) - (Required if both event and case are configured) Holds the default entity for which the RN feature will be enabled. Currently accepted types: "event", "case"
+
+E.g. if the defaultQueueType is "event", then when the user logs in, he will see the RN for events._Note: This is not required if only one entity is configured, because CM will automatically know which RN to use._
+
+  * **automaticReviewNext** Â (bool) - (Optional) Whether the automatic review next feature should be enabled or not. By default the value isÂ  _false._
+
+_  
+__Note: If this property is not present, the feature is disabled by default._  
+2FA| object| Yes| Contains a set of properties required to configure the Two Factor Authenticator. The object supports the following properties:
+
+  * **enabled** (bool) - (Optional) Whether the feature is enabled or not. By default the value is _false._
+
+  
+_Note: If this property is not present, the feature is disabled by default._  
+favicon| string| Yes| Path to the favicon image. It accepts urls and relative/absolute paths. Default: Case Manager favicon.  
+ssr| object| Yes| Set of properties to configure Self Service Rules specific features. For more info about the available properties, please check the [Self Service Rules Config](/docs/common/case-manager/reference/user-interface/self-service-rules-config) section.  
+automationRules| object| Yes| Set of properties to configure some parts of the automation rules feature. Please check the Automation Rules section for more info about the available properties.  
+supportEmail| string| Yes| The email for support to report a error/bug. This email will be used after clicking the message please contact our services in CM error fallback page.  
+  
+### Externalsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+endpoint| string| No| The endpoint where that code will be loaded from.  
+  
+### Globalsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+dateFormat| string| Yes| Custom date format (check [Moment.js](https://momentjs.com/docs/#/displaying/format/) supported formats)  
+timeFormat| string| Yes| Custom time format (check [Moment.js](https://momentjs.com/docs/#/displaying/format/) supported formats)  
+exportMappings| object| Yes| Holds the mapping for custom column types to valid export types to Export events. Learn more about this configuration on [Export Events](/docs/internal/case-manager/configuration-guide/user-interface-configuration/export-resources#column-types-mappings) page.  
+exportTimezone| string| Yes| Holds a string representing the timezone to be used on export. The list of supported timezone strings is available [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not present, the timezone set will be UTC. To use the user's browser timezone, set this property equal to "browser".  
+reasons| object| Yes| Holds the reasons configuration. Read more about this configuration on the [Status Reasons](/docs/internal/case-manager/configuration-guide/user-interface-configuration/status-reasons) page.  
+  
+### Review Nextâ
+
+A configuration for a RN entity will have these properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+route| string| No| Holds the entity route. It will be used to redirect the user when he requests the entity to review.  
+E.g. if the alert list is accessible through the _/event_ route or the event details is accessible through the _/event/123_ route, then you should use the "event" string as the value of this property.  
+queueLabel| string| No| Holds the i18n key for the label that will appear in the queue's select.  
+nextButtonLabel| string| No| Holds the i18n key for the Next Button label.  
+backButtonLabel| string| No| Holds the i18n key for the Back Button label.  
+  
+If you enable the Review Next feature, you must configure at least one entity, event or case. You can configure both, and, if that's the case, you'll have to specify which is the default one. CM will set that default when user logs in. For an example please check the [Review Next](/case-manager/13.17/docs/internal/case-manager/configuration-guide/review-next) configuration page.
+
+### Automation Rulesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+casesAge| object[]| Yes| Holds a set of objects where each represents an entry in the case age select. Each object can have the following properties:
+
+  * **label** (string) - holds the i18n key that points to the label that should be presented to the user.
+  * **unit** (string) - can be one of the following strings: ["years", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds"].
+  * **value** (number) - the value associated with the time unit.
+
+  
+Example:
+    
+    
+    {
+    	label: "last.24hours.label",
+    	unit: "hours",
+    	value: 24
+    }
+    
+
+  
+If this property isn't configured, the default values are:
+    
+    
+    [
+    	{
+    		label: "last.24hours.label",
+    		unit: "hours",
+    		value: 24
+    	},
+    	{
+    		label: "last.48hours.label",
+    		unit: "hours",
+    		value: 48
+    	},
+    	{
+    		label: "last.week.label",
+    		unit: "weeks",
+    		value: 1
+    	},
+    	{
+    		label: "last.month.label",
+    		unit: "months",
+    		value: 1
+    	}
+    ]
+      
+  
+## Learn Moreâ
+
+You can consult all of the UI Configuration Reference specifications in the pages of this section:
+
+  * [CSS Classes](/case-manager/13.17/docs/common/case-manager/reference/user-interface/css-classes)
+  * [Data Types](/case-manager/13.17/docs/common/case-manager/reference/user-interface/data-types)
+  * [Dialogs](/case-manager/13.17/docs/common/case-manager/reference/user-interface/dialogs)
+  * [Fields](/case-manager/13.17/docs/common/case-manager/reference/user-interface/fields)
+  * [Filters](/case-manager/13.17/docs/common/case-manager/reference/user-interface/filters)
+  * [Menu Entry](/case-manager/13.17/docs/common/case-manager/reference/user-interface/menu-entry)
+  * [Pages](/case-manager/13.17/docs/common/case-manager/reference/user-interface/pages)
+  * [Resources](/case-manager/13.17/docs/common/case-manager/reference/user-interface/resources)
+  * [Routes](/case-manager/13.17/docs/common/case-manager/reference/user-interface/routes)
+  * [Self-Service Rules Config](/case-manager/13.17/docs/common/case-manager/reference/user-interface/self-service-rules-config)
+  * [Widgets](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/widgets-overview)
+
+

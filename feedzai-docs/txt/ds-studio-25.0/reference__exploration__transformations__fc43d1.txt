@@ -1,0 +1,542 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/transformations/
+Title: transformations - DS API
+============================================================
+
+#  `` transformations Â¶  
+  
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` aggregate_function_over_time Â¶
+    
+    
+    aggregate_function_over_time(df, time_field, field_name, aggregate='avg', time_resolution='1 day')
+    
+
+Function to process a PySpark DataFrame, computing a given aggregate function on a given field over time windows defined by a time resolution.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  |  PySpark DataFrame. It should contain at least two columns, one with the value of time_field as column name and another with the value of field_name. |  _required_  
+  
+###  `time_field` Â¶
+
+|  |  name of the PySpark DataFrame column associated to the time field. |  _required_  
+  
+###  `field_name` Â¶
+
+|  |  name of the PySpark DataFrame column associated to the field used to calculate the aggregation over. |  _required_  
+  
+###  `aggregate` Â¶
+
+|  |  aggregation function to be used. The available functions are "avg", "max", "min", "sum", "count". UDF created with pyspark.sql.functions.pandas_udf() may also be used. See https:/ /spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspar k.sql.GroupedData for more details. (default: avg). |  `'avg'`  
+  
+###  `time_resolution` Â¶
+
+|  |  time resolution to be used is provided as a string containing a number and an interval or a combination of those. For example, '1 day 12 hours'. Valid intervals are 'week', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'. All valid values for the windowDuration parameter of pyspark.sql.functions.window are accepted. See http://spark.apac he.org/docs/latest/api/python/pyspark.sql.html?highlight=window# module-pyspark.sql.functions for more details. (default: 1 day). |  `'1 day'`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas DataFrame with two columns. One is the time field column, it has the value of time_field as the column name and contains the start datetime for each time window. The second column contains the values of the aggregation function and its name is the name of the aggregation function that was used.  
+  
+##  `` count_top_n_over_time Â¶
+    
+    
+    count_top_n_over_time(df, time_field, field_name, top_n=5, time_resolution='1 day')
+    
+
+Function to process a PySpark DataFrame, computing the counts of the top n most frequent categories of a given string field over a time windows defined by a time resolution.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  |  Pyspark DataFrame. It should contain at least two columns, one with the value of time_field as column name and another with the value of field_name. |  _required_  
+  
+###  `time_field` Â¶
+
+|  |  name of the PySpark DataFrame column associated to the time field. |  _required_  
+  
+###  `field_name` Â¶
+
+|  |  name of the PySpark DataFrame column associated to the string field used to calculate the top N values aggregation over time. |  _required_  
+  
+###  `top_n` Â¶
+
+|  |  the number of the top most frequent categorical values to be drawn. |  `5`  
+  
+###  `time_resolution` Â¶
+
+|  |  time resolution to be used is provided as a string containing a number and an interval or a combination of those. For example, '1 day 12 hours'. Valid intervals are 'week', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'. All valid values for the windowDuration parameter of pyspark.sql.functions.window are accepted. See http://spark.apac he.org/docs/latest/api/python/pyspark.sql.html?highlight=window# module-pyspark.sql.functions for more details. (default: 1 day). |  `'1 day'`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas Dataframe with three columns. One is the time field column, it has the value of time_field as the column name and contains the start datetime for each time window. The second contains the frequency counts of the top n values of the string field, over that time window, and is called "count". Lastly, the third contains the name of that categorical value, and the column name is the value of field_name.  
+  
+##  `` datetime_to_unix_epoch_int Â¶
+    
+    
+    datetime_to_unix_epoch_int(df, col=None)
+    
+
+##  `` fix_out_of_bounds_timestamp Â¶
+    
+    
+    fix_out_of_bounds_timestamp(time_series)
+    
+
+Fixes the time series to be within bounds.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `time_series` Â¶
+
+|  `Series` |  Pandas.Series representing time. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Series` |  series where out of bounds values are fixed to the bound limits.  
+  
+##  `` get_quantiles Â¶
+    
+    
+    get_quantiles(df_hist, q=(0.0, 0.25, 0.5, 0.75, 1.0), half_bin_width=0, is_timestamp_field=False) -> Optional[DataFrame]
+    
+
+Computes approximate quantiles from a histogram in its DataFrame representation.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df_hist` Â¶
+
+|  |  histogram as a pandas DataFrame. |  _required_  
+  
+###  `q` Â¶
+
+|  |  float or tuple/list of floats with quantiles to compute. Values must be between 0 and 1. Default is (0.0, 0.25, 0.5, 0.75, 1.0). |  `(0.0, 0.25, 0.5, 0.75, 1.0)`  
+  
+###  `half_bin_width` Â¶
+
+|  |  half of the bin width. It will be used to correct the quantile approximation to give the center of the bin. Default: 0 (no correction). |  `0`  
+  
+###  `is_timestamp_field` Â¶
+
+|  |  boolean indicating if it is a datetime field (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  DataFrame with a single row containing the quantiles.  
+  
+##  `` get_sampled_df Â¶
+    
+    
+    get_sampled_df(data, n_sample=500, balance=True, target=(None, None))
+    
+
+Returns a subsample of a PySpark/Pandas dataframe as a Pandas dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data` Â¶
+
+|  |  Either a PySpark or a Pandas DataFrame. |  _required_  
+  
+###  `n_sample` Â¶
+
+|  |  number of rows to sample from the DataFrame. If negative, all instances will be sampled. Default: 500. |  `500`  
+  
+###  `balance` Â¶
+
+|  |  boolean indicating if the sampled dataframe should be balanced or not with respect to the target field, so as many positives as non-positives will be sampled. Only relevant if target attribute is set. Default: False. |  `True`  
+  
+###  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Element target_field is the name of the target field. Element target_value indicate the value to be considered as 'positives'. Default: (None, None). |  `(None, None)`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Sampled Pandas DataFrame.  
+  
+##  `` group_by_sum_with_missing Â¶
+    
+    
+    group_by_sum_with_missing(df, groupby_cols)
+    
+
+Applies a group-by sum keeping track of missing values in group-by columns
+
+##  `` histogram2df_fraud_rate Â¶
+    
+    
+    histogram2df_fraud_rate(histogram_df, field_type, target_field, target_value, cat_threshold=None, time_resolution=None)
+    
+
+Transforms the given histogram into a convenient Pandas DataFrame including a fraud rate column.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `histogram_df` Â¶
+
+|  |  Pandas DataFrame representation of a histogram. |  _required_  
+  
+###  `target_field` Â¶
+
+|  |  name of the target field. |  _required_  
+  
+###  `target_value` Â¶
+
+|  |  value to be considered as 'positives' labels. |  _required_  
+  
+###  `cat_threshold` Â¶
+
+|  |  number of categories to keep. In case the underlying cardinality is larger, keep the cat_threshold most frequent categories and create a new category 'other' as the aggregation of the rest of categories. The 'missing' category is always treated as a special category, meaning that it will not be merged into 'other' and it will be ignored when finding the cat_threshold most frequent categories. Default is None: keep all categories. Only relevant for string histograms. |  `None`  
+  
+###  `time_resolution` Â¶
+
+|  |  project time field to given time_resolution. Default is None: keep underlying time resolution. Only relevant for time histograms. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  pandas DataFrame representation of the histogram including a fraud rate column.  
+  
+##  `` histogram2df_numerical Â¶
+    
+    
+    histogram2df_numerical(histogram, breakdowns)
+    
+
+Transforms the numerical histogram into a convenient pandas DataFrame for plotting with Altair.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `histogram` Â¶
+
+|  `dict` |  dictionary representation of a histogram. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  `list` |  list of breakdown names. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  pandas DataFrame representation of the histogram.  
+  
+##  `` histogram2df_string Â¶
+    
+    
+    histogram2df_string(histogram, breakdowns)
+    
+
+Transforms the string histogram into a convenient pandas DataFrame for plotting with Altair.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `histogram` Â¶
+
+|  |  dictionary representation of a histogram. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  |  list of breakdown names. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  pandas DataFrame representation of the histogram.  
+  
+##  `` histogram2df_time Â¶
+    
+    
+    histogram2df_time(histogram, breakdowns)
+    
+
+Transforms the time histogram into a convenient pandas DataFrame for plotting with Altair.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `histogram` Â¶
+
+|  `dict` |  dictionary representation of a histogram. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  `list` |  list of breakdown names. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  pandas DataFrame representation of the histogram.  
+  
+##  `` normalize_histogram Â¶
+    
+    
+    normalize_histogram(df, breakdown_by=None)
+    
+
+Function to normalize the histogram to unity.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  `DataFrame` |  pandas DataFrame representation of a histogram. |  _required_  
+  
+###  `breakdown_by` Â¶
+
+|  `str` |  string that specifies the breakdown field. The histogram of every breakdown value will be normalized to unity. Default is None: normalize without breakdown. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Normalized DataFrame representation of the histogram.  
+  
+##  `` quantiles_over_time Â¶
+    
+    
+    quantiles_over_time(df, time_field, field_name, time_resolution='1 day')
+    
+
+Function to process a PySpark DataFrame, computing the min, max and quantiles of a given field over time windows defined by a time resolution. The quantiles are approximated, yielding a relative error of 0.01%. See https://spark.apache.org/docs/2.3.0/api/sql/index.html#percentile_approx for more details.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  |  PySpark DataFrame. It should contain at least two columns, one with the value of time_field as column name and another with the value of field_name. |  _required_  
+  
+###  `time_field` Â¶
+
+|  |  name of the PySpark DataFrame column associated to the time field. |  _required_  
+  
+###  `field_name` Â¶
+
+|  |  name of the PySpark DataFrame column associated to the field used to calculate the quantiles over. |  _required_  
+  
+###  `time_resolution` Â¶
+
+|  |  time resolution to be used is provided as a string containing a number and an interval or a combination of those. For example, '1 day 12 hours'. Valid intervals are 'week', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'. All valid values for the windowDuration parameter of pyspark.sql.functions.window are accepted. See http://spark.apac he.org/docs/latest/api/python/pyspark.sql.html?highlight=window# module-pyspark.sql.functions for more details. (default: 1 day). |  `'1 day'`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas DataFrame with six columns. One is the time field column, it has the value of time_field as the column name and contains the start datetime for each time window. The others contain the values of the min, max and the 25%, 50% and 75% quantiles. They are called min, 25%, median, 75% and max and appear in this order.  
+  
+##  `` reduce_categorical_histogram Â¶
+    
+    
+    reduce_categorical_histogram(histogram: DataFrame, breakdown_by: str | None = None, cat_threshold: int | None = None, **kwargs)
+    
+
+##  `` reduce_histogram Â¶
+    
+    
+    reduce_histogram(histogram: DataFrame, result_type: str, **kwargs) -> DataFrame
+    
+
+Function to reduce a histogram DataFrame to the minimal information to pass to Altair.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `histogram` Â¶
+
+|  `DataFrame` |  DataFrame representation of a histogram. |  _required_  
+  
+###  `result_type` Â¶
+
+|  `str` |  Type of histogram result. |  _required_  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`breakdown_by` |  `str` |  field to breakdown by. If None (default) then don't breakdown. If the original histogram has multiple breakdown fields, project all fields except the breakdown field of interest.  
+`cat_threshold` |  `int` |  number of categories to keep. In case the underlying cardinality is larger, keep the cat_threshold most frequent categories and create a new category 'other' as the aggregation of the rest of categories. The 'missing' category is always treated as a special category, meaning that it will not be merged into 'other' and it will be ignored when finding the cat_threshold most frequent categories. Default is None: keep all categories. Only relevant for string histograms.  
+`time_resolution` |  `str` |  project time field to given time_resolution. Default is None: keep underlying time resolution. Only relevant for time histograms.  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Reduced histogram.  
+  
+##  `` reduce_numerical_histogram Â¶
+    
+    
+    reduce_numerical_histogram(histogram: DataFrame, breakdown_by: str | None = None, **kwargs) -> DataFrame
+    
+
+##  `` reduce_temporal_histogram Â¶
+    
+    
+    reduce_temporal_histogram(histogram: DataFrame, breakdown_by: str | None = None, time_resolution: str | None = None, **kwargs) -> DataFrame
+    
+
+##  `` temporal_aggregation Â¶
+    
+    
+    temporal_aggregation(df, time_field, aggregate, time_resolution='1D', is_timestamp_field=False)
+    
+
+Aggregates a dataframe with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  |  dataframe. |  _required_  
+  
+###  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. |  _required_  
+  
+###  `aggregate` Â¶
+
+|  |  aggregation function to be used. Can be any of plots.SUPPORTED_AGGREGATIONS. |  _required_  
+  
+###  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Default: '1D'. |  `'1D'`  
+  
+###  `is_timestamp_field` Â¶
+
+|  |  boolean indicating if it is a datetime field (default: False). |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas DataFrame with two columns. One is the time field column, it has the value of time_field as the column name and contains the start datetime for each time window. The second column contains the values of the aggregation function and its name is the name of the aggregation function that was used.  
+  
+##  `` temporal_aggregation_all Â¶
+    
+    
+    temporal_aggregation_all(df, time_field, time_resolution='1D', is_timestamp_field=False)
+    
+
+##  `` temporal_quantiles Â¶
+    
+    
+    temporal_quantiles(df_hist, time_field, is_timestamp_field=False, time_resolution='1W', half_bin_width=0)
+    
+
+Estimates the quantiles of a field with respect to time.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df_hist` Â¶
+
+|  |  dataframe. |  _required_  
+  
+###  `time_field` Â¶
+
+|  |  name of the field associated with the temporal dimension. |  _required_  
+  
+###  `is_timestamp_field` Â¶
+
+|  |  boolean indicating if it is a datetime field (default: False). |  `False`  
+  
+###  `time_resolution` Â¶
+
+|  |  resolution of the time dimension. Available resolutions have to be compliant with the `Pandas.Grouper` `freq` parameter, more details `here <https://pandas.pydata.org/pandas- docs/stable/user_guide/timeseries.html#offset-aliases>`_. Default: '1W'. |  `'1W'`  
+  
+###  `half_bin_width` Â¶
+
+|  |  half of the bin width. It will be used to correct the quantile approximation to give the center of the bin. Default: 0 (no correction). |  `0`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas DataFrame with six columns. One is the time field column, it has the value of time_field as the column name and contains the start datetime for each time window. The others contain the values of the min, max and the 25%, 50% and 75% quantiles. They are called min, 25%, median, 75% and max and appear in this order.  
+  
+##  `` unpack_breakdowns Â¶
+    
+    
+    unpack_breakdowns(df, breakdowns)
+    
+
+Unpacks the DataFrame column 'breakdowns' into its components.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  `DataFrame` |  a pandas DataFrame with a column named 'breakdowns' containing a tuple with the breakdown values. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  `list` |  list of breakdown names. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  unpacked pandas DataFrame.

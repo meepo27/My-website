@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/database/retention-scripts
+Title: Retention Scripts | Feedzai Documentation
+============================================================
+
+On this page
+
+# Retention Scripts
+
+To enhance scalability, minimize contention, and optimize performance, it is advisable to partition the Pulse and Case Manager databases. Additionally, in accordance with Feedzai system requirements, data should not be retained for more than 6 months. All scripts enforcing the data retention period are developed and included in the installation bundle.
+
+## List of Retention Scriptsâ
+
+  * [create_drop_old_partition_function.sql](/cs-hsbc/3.0.2/download/imported/database-retention/create_drop_old_partition_function.sql)
+  * [create_drop_old_partitions_function.sql](/cs-hsbc/3.0.2/download/imported/database-retention/create_drop_old_partitions_function.sql)
+  * [drop_7_month_old_partitions.sql](/cs-hsbc/3.0.2/download/imported/database-retention/drop_7_month_old_partitions.sql)
+
+
+
+## How to execute the deletion scriptâ
+
+The deletion script `drop_old_partitions` only deletes one partition per execution. This means that in order to delete multiple partitions the script has to be run multiple times with a different value set in the parameter it takes.
+
+The script should be run as follows:
+    
+    
+    SELECT drop_old_partitions(MONTHS);  
+    
+
+Copy
+
+Where `MONTHS` indicates how far back the script will calculate the partition to delete, based on the formula `current month - MONTHS`.
+
+As an example and assuming the current month is June, to delete the previous month's partition (May) `MONTHS` would be set to `1`:
+    
+    
+    SELECT drop_old_partitions(1);  
+    
+
+Copy

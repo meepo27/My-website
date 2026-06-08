@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models
+Title: Models | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * Models
+
+
+
+On this page
+
+# Models
+
+Was this page helpful?Â 
+
+A **model** represents knowledge collected about the behavior of a **target variable** in a data source. You collect this knowledge by running a machine learning algorithm against a historical dataset, to investigate the data patterns in it. This process is called [training a model](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-training). You create a model in order to use it later in a [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) to predict the value of the target variable in live data.
+
+After training a model, you can evaluate its accuracy and compare it to other models. For this, Pulse generates statistics in a so-called [model evaluation](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation).
+
+Models and model evaluations are organized into **model projects**.
+
+## Model life cycleâ
+
+Models give your application an intelligent edge by allowing you to configure, train, fine tune and deploy a binary classifier which will score each instance. The model lifecycle is fully aligned with Pulse's [data science loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop).
+
+Before using a model to score a system's incoming transactions for fraud detection, it must be properly trained using representative and verified data labeled for your target variable, for example, both fraud and non-fraud cases.
+
+Model usage is separated into two distinct lifecycle phases:
+
+  * **Training and evaluation** (in the data science environment)
+
+Is an offline process that can be repeated with different settings and data until you are satisfied with the results. The performance of trained models is [evaluated](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model) using common performance metrics, such as F1-Measure, False Positive Rate, among others and by visualizing and comparing its ROC curve.
+
+  * **Scoring** (in the production environment)
+
+When model performance is good, meaning that it is achieving high detection and low false-positive rates, it is ready to be used in the fraud detection workflow of your application.
+
+
+
+
+## Learn moreâ
+
+To fully understand models, make sure you also go through the following concepts:
+
+  * [Model training](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-training)
+  * [Model evaluation](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation)
+  * [Feature importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance)
+  * [White-box explanations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/white-box-explanations)
+  * [Hyperparameter tuning](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/hyperparameter-tuning)
+  * [AutoML](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/automl)
+
+

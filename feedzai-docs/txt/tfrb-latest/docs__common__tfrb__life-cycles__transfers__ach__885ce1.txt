@@ -1,0 +1,70 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach
+Title: Automated Clearing House | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details)
+  * Automated Clearing House
+
+
+
+On this page
+
+# Automated Clearing House
+
+Was this page helpful?Â 
+
+Learn about the Automated Clearing House (ACH) end-to-end life cycle to smoothly integrate with the transfers API.
+
+## Transaction initiationâ
+
+The scenarios described in this section explain the transfer life cycle for both single counterparty and multiple counterparties. This page covers the end-to-end default scenario in which only the Transfer Initiation endpoint is called to process transfers.
+
+info
+
+**Endpoints Integration:** Check the [Transaction Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle) page to learn more about the life cycles for transfer updates, settlements, and feedback actions, corresponding to requests to the Info, Settlement and Feedback endpoints, respectively.
+
+### Single counterpartyâ
+
+The life cycle that involves a single counterparty applies to large financial institutions that communicate directly with a clearing mechanism. The following diagram depicts a typical flow:
+
+The steps depicted in the previous image are the following:
+
+  1. The sender, also referred to as originator, initiates the transfer using any available channel - for example, mobile, internet banking, phone, bank branch, contact center, email, file transfer system.
+  2. The sender bank or the payment service provider (PSP) - a direct participant in this scenario - receives the transfer instructions and debits the sender's account. The sender bank sends the transfer instructions corresponding to several senders to the clearing mechanism via batch (i.e. a bulk message with multiple transfers instructions).
+  3. The clearing mechanism processes the transfers instructions, and reconciles them. In some cases, it also confirms the payments orders or secures the transfers instructions prior to settlement, including the netting of instructions and the establishment of the final positions for settlement. After the netting of the instructions or at the end of the day, the clearing mechanism processes the settlement of funds between two or more parties.
+  4. The receiver bank - a direct participant in this scenario - receives the instructions to credit the receiver's account.
+  5. The receiver's account is updated with the funds.
+
+
+
+info
+
+**Integration with the transfers API:** The transfers API was designed to allow banks that operate at different points of the transfers life cycle to integrate with Feedzai. This flexible integration capability is shown in the previous figure with the API  label.
+
+### Multiple counterpartiesâ
+
+The scenario of multiple counterparties occurs when the sender's bank is an institution that does not communicate directly with the ACH mechanism. In this case, a third-party is required to establish the communication between the direct participant and a clearing mechanism:
+
+The steps depicted in the previous image are the following:
+
+  1. The sender, also referred to as originator, initiates the transfer using any available channel - for example, mobile, internet banking, phone, bank branch, contact center, email, file transfer system.
+  2. The sender bank or the PSP - an **indirect** participant in this scenario - receives the transfer instructions and debits the sender's account. This institution sends the transfer instructions to the corresponding financial institution that has the direct participance in this scenario.
+  3. The sender bank - a **direct** participant in this scenario - receives the transfer instructions. The direct sender bank sends the transfer instructions corresponding to several senders to the clearing mechanism via batch (i.e. bulk messages with multiple transfers instructions).
+  4. The clearing mechanism processes the transfers instructions, and reconciles them. In some cases, it also confirms the payments orders or secures the transfers instructions prior to settlement, including the netting of instructions and the establishment of the final positions for settlement. After the netting of the instructions or at the end of the day, the clearing mechanism processes the settlement of funds between two or more parties.
+  5. The receiver bank - a **direct** participant in this scenario - receives the instructions and sends it to the corresponding indirect participant.
+  6. The receiver bank - an **indirect** participant in this scenario - receives the transfer instructions and credits the receiver's account.
+  7. The receiver's account is updated with the funds.
+
+
+
+info
+
+**Integration with the transfers API:** The transfers API was designed to allow banks that operate at different points of the transfers life cycle to integrate with Feedzai. This flexible integration capability is shown in the previous figure with the API  label.
+
+## Learn moreâ
+
+Check the [Correspondent Banking](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/correspondent-banking) page to learn how to integrate with other transfer methods.

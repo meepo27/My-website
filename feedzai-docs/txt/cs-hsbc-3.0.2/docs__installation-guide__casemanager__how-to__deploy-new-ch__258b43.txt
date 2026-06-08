@@ -1,0 +1,229 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel
+Title: Deploy a new channel | Feedzai Documentation
+============================================================
+
+On this page
+
+# Deploy a new channel
+
+In Case Manager the entire process of controlling which channels are deployed is controlled during the deployment phase. In this guide you can find the necessary configurations and commons issues when deploying new channels.
+
+## Case Manager channel relation to Pulse applicationsâ
+
+Channel configuration in Case Manager is tightly coupled with the applications deployed in Pulse.
+
+While Pulse does not require that Case Manager deploys all channels related to existing Pulse applications, the other way around is different. Any Case Manager channel must have a matching Pulse application otherwise might fail to fetch metadata from the configured application during startup.
+
+## Configuring channelsâ
+
+##### note
+
+By default all variables for the entire UK market are already provided
+
+Channel configuration in Case Manager is done using the following variables:
+
+  * `apps_enabled`
+  * `app_slug`
+  * `app_portfolio`
+
+
+
+By default `apps_enabled` in Case Manager is configured to deploy the UK outbound channels which includes Outbound Payments (Transfers) and Digital Activity:
+    
+    
+    apps_enabled:  
+      - uk_outbound_payments  
+    
+
+Copy
+
+Please find below two examples on how to deploy a new channel for the UK market and for a new market.
+
+### Deploying a new channel in the UKâ
+
+As stated previously, all UK channel configurations are supported by default, being the only requirement to override `apps_enabled`. This can be done by overriding the default variable, preferably in its own inventory, as follows:
+
+  1. Add a new base inventory for the portfolio/environment you are configuring, e.g. `project-qa/uk/group_vars`
+  2. Add a new host inventory for Case Manager, e.g. `project-qa/uk/group_vars/case-manager`
+  3. Inside a new variables file (`variables.yml`), under the inventory created previously, add the overrides for the specific portfolio/environment
+         
+         apps_enabled:  
+           - uk_outbound_payments  
+           - uk_inbound_payments  
+         # Other overrides  
+         
+
+Copy
+
+
+
+
+### Deploying in a new marketâ
+
+Aside from `apps_enabled` any additional market needs to also configure `app_slug` and `app_portfolio`. In the following example we describe how to deploy `outbound` and `inbound` for the HK market:
+
+  1. Add a new base inventory as described in the first point of [Deploying a new channel in the UK](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel#deploying-a-new-channel-in-the-uk) for HK (`project-qa/hk/group_vars`)
+  2. Add a new inventory for all hosts, e.g. `project-qa/hk/group_vars/all`. This step is optional if this was already created to deploy an application in Pulse
+  3. Inside the previous folder create two files
+     1. `hk_outbound_payments.yml` which holds the configuration for the HK outbound application
+            
+            hk_outbound_payments_app_slug: hk_outbound_payments # should match the app_slug in Pulse  
+            hk_outbound_payments_market: hk  
+            hk_outbound_payments_portfolio: outbound_payments  
+            
+
+Copy
+
+     2. `hk_inbound_payments.yml` which holds the configuration for the HK inbound application
+            
+            hk_inbound_payments_app_slug: hk_inbound_payments # should match the app_slug in Pulse  
+            hk_inbound_payments_market: hk  
+            hk_inbound_payments_portfolio: inbound_payments  
+            
+
+Copy
+
+  4. In the end you should have a structure as follows
+         
+         .  
+         âââ project-default  
+         â   âââ group_vars  
+         â       âââ ...  
+         âââ project-hsbc  
+         â   âââ hosts.yml  
+         âââ gcp  
+         â   âââ group_vars  
+         â       âââ ...  
+         âââ project-qa # being qa what was defined previously  
+             âââ hk  
+                 âââ group_vars  
+                     âââ all  
+                     â   âââ hk_outbound_payments.yml  
+                     â   âââ hk_inbound_payments.yml  
+                     âââ case-manager  
+                         âââ variables.yml  
+         
+
+Copy
+
+  5. In the `project-qa/hk/group_vars/case-manager/variables.yml` set the channels to deploy
+         
+         apps_enabled:  
+           - hk_outbound_payments  
+           - hk_inbound_payments  
+         # Other overrides  
+         
+
+Copy
+
+  6. Finally during deployment pass your newly created inventory
+         
+         python3.6 ansible-playbook \  
+             -i project-default \  
+             -i project-hsbc \  
+             -i gcp \  
+             -i project-qa/hk \  
+             case-manager.yml  
+         
+
+Copy
+
+
+
+
+##### note
+
+The structure described in point 4 is optional. In this example we have segregated by environment and market but another approach could be applied, for example by segregating first by market and then by environment:
+    
+    
+    .  
+    âââ hk  
+        âââ project-qa  
+        â   âââ ...  
+        âââ project-preprod  
+            âââ ...  
+    
+
+Copy
+
+## Common Issuesâ
+
+Please find below a description of common deployment issues.
+
+### Deployments fails due to missing variablesâ
+
+This issue may occur if `app_slug` and `app_portfolio` are undefined as illustrated below.
+    
+    
+    AnsibleError: An unhandled exception occurred while templating '...' original message: An unhandled exception occurred while templating '{{ dict(app_slugs | zip(app_portfolios)) | dict2items(key_name='app_slug', value_name='app_portfolio') | list }}  
+    '. Error was a <class 'ansible.errors.AnsibleError'>, original message: An unhandled exception occurred while templating '{{ apps_enabled | map('regex_replace', '^(.*)$', '\1_app_slug') | map('extract', vars) | list }}  
+    '. Error was a <class 'KeyError'>, original message: 'hk_inbound_payments_app_slug'  
+    
+
+Copy
+
+As you can see, Ansible is telling us that `hk_inbound_payments_app_slug` is undefined but it is required to compute the channel configuration.
+
+While this should not occur for the UK market, since the project assembly includes are UK configurations, it can happen for other markets which in this case is the HK market.
+
+The fix in this case would be to create the file structure to support this market, as described in [Deploying in a new market](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel#deploying-in-a-new-market).
+
+### Case Manager fails to startâ
+
+During startup Case Manager can fail with the below error although the cause can be two different errors.
+    
+    
+    2024-08-22 16:02:30,490 [main] ERROR c.f.a.w.v.DefaultValidationStrategy - Validation errors detected.  
+    com.feedzai.am.api.metadata.ValidationException: The following errors were found while initializing Case Manager:  
+      
+    State Machines (4 errors)  
+    1) There was an error connecting to pulse to retrieve the configured outcomes.  
+    
+
+Copy
+
+This error indicates that at least one channel in Case Manager was unable to fetch the required information from Pulse. The root cause for this issue can be:
+
+  1. The application is not running/deployment in Pulse
+
+
+
+This issue can be fixed by deploying the application in Pulse and recreating/restarting Case Manager
+
+  2. The application id is wrongly configured and does not match any application running in Pulse
+
+
+
+For the second issue, see the following example:
+
+  * The `app_slug` for a Pulse inbound application is `hk_inbound_payments`
+  * In Case Manager we configured the `hk_inbound_payments_app_slug` to be `hk_inbound`
+
+
+
+As you can see the `app_slugs` do not match. During deployment Case Manager calculates the application id according to the configured `<market>_<channel>_app_slug` but in this case it will not match any application running in Pulse.
+
+To fix this issue you would have to change `hk_inbound_payments_app_slug` from `hk_inbound` to `hk_inbound_payments` and redeploy Case Manager.
+
+See [Deploying in a new market](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel#deploying-in-a-new-market) for more information.
+
+## Best Practicesâ
+
+To ensure a smooth deployment see the following set of best practices.
+
+### Double-check consistencyâ
+
+Before deploying always verify that:
+
+  * Case Manager `apps_enabled` matches the deployed applications in Pulse
+  * The channel configuration (`app_slug` and `app_portfolio`) match the corresponding application configuration in Pulse
+
+
+
+### Use environment specific configurationsâ
+
+Follow a inventory structure segregated by market and environment, for instance, as described in [Deploying in a new market](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel#deploying-in-a-new-market). With this structure you guarantee that a component has the correct configuration for its specific market and environment.
+
+##### info
+
+Find a detailed description of all available configurations in [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager)

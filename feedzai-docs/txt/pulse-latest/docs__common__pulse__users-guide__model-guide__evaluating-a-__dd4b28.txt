@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model/handling-feature-importance-errors
+Title: Handling Feature Importance errors | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * [Evaluating a Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model/)
+  * Handling Feature Importance errors
+
+
+
+On this page
+
+# Handling Feature Importance errors
+
+Was this page helpful?Â 
+
+## Whyâ
+
+When the computation of Feature Importance is not successfully executed, Pulse returns an error message. This can occur, for example, when the sample percentage is not low enough in a large dataset.
+
+To compute Feature Importance all data is loaded in memory, and thus, high Sample Percentage values may lead Pulse to run out of memory in the case of extremely large datasets.
+
+## How toâ
+
+When the computation of Feature Importance fails a label in the **Model Evaluation** list shows the status "FI:Error" as shown in the figure below:
+
+To solve the error execute the following actions:
+
+  1. In the **Model Project** window, select the **Model Evaluation** where you want to solve the error.
+
+  2. Select  to access the following view:
+
+  3. Use the button  to compute Feature Importance. Alternatively, you can  the computation of Feature Importance.
+
+     1. **Try again:** Set the [input parameters](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance#parameters) (i.e. False Positive Rate, Sample Percentage and Random Seed) to compute Feature Importance. By default these parameters are the same as chosen in the previous trial. One recommended approach is to choose a lower **Sample Percentage** to reduce the amount of data that is loaded in memory.
+     2. **Dismiss** : Remove the error label "FI:Error" displayed in the **Model Evaluation** list.
+
+
+
+## Learn Moreâ
+
+Once you learn how to handle Feature Importance errors, you can return to [evaluating a model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model).
+
+Ãou can also visit the page [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance) for more information about this functionality in Pulse.

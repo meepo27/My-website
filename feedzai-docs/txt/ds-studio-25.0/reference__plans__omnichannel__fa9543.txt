@@ -1,0 +1,107 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/omnichannel/
+Title: omnichannel - DS API
+============================================================
+
+#  `` omnichannel Â¶
+
+Module with specific Omnichannel tooling.
+
+New feature
+
+Omnichannel plan manipulation is a new feature of the ds-api.
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` PlanChannelConfig `module-attribute` Â¶
+    
+    
+    PlanChannelConfig = autoclass([MODEL_CLASSPATH](../../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'datascience.plan.PlanChannelConfig')
+    
+
+##  `` SchemaModel `module-attribute` Â¶
+    
+    
+    SchemaModel = autoclass([MODEL_CLASSPATH](../../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'SchemaModel')
+    
+
+##  `` Channel `dataclass` Â¶
+    
+    
+    Channel(name: str, schema_model: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.JavaWrapper\)"), timestamp_field: str, id: str | None = None)
+    
+
+Immutable representation of a Channel configuration for Omnichannel Plans.
+
+Note that this can be instantiated with a `SchemaModel` directly or with a `ds_api.schema.Schema`.
+
+Examples:
+    
+    
+    >>> from ds_api.plans.omnichannel import Channel
+    >>> app = ...
+    >>> schema = app.pullSchemaByDesc("Cards Schema")
+    >>> channel = Channel("cards", schema, "event_occurred_at")
+    
+
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`name` |  `str` |  Name of the channel.  
+`schema_model` |  `SchemaModel` |  Simple schema representation.  
+`timestamp_field` |  `str` |  The name of the timestamp field as it appears in the UI.  
+`id` |  `(str, optional)` |  Unique identifier for the channel. If none is passed, the ID is automatically generated when interacting with Pulse.  
+  
+###  `` id `class-attribute` `instance-attribute` Â¶
+    
+    
+    id: str | None = None
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name: str
+    
+
+###  `` schema_model `instance-attribute` Â¶
+    
+    
+    schema_model: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.JavaWrapper\)")
+    
+
+###  `` timestamp_field `instance-attribute` Â¶
+    
+    
+    timestamp_field: str
+    
+
+###  `` from_config `classmethod` Â¶
+    
+    
+    from_config(config: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.JavaWrapper\)")) -> Channel
+    
+
+Create a Channel from a Pulse `PlanChannelConfig`.
+
+###  `` to_config Â¶
+    
+    
+    to_config() -> [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.JavaWrapper\)")
+    
+
+Return this Channel as a Pulse `PlanChannelConfig`.

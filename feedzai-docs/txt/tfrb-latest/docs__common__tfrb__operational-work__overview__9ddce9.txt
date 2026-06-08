@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/operational-work/overview
+Title: Operational Work | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * Operational Work
+
+
+
+# Operational Work
+
+Was this page helpful?Â 
+
+### [Data Scientist & Fraud StrategistLearn how to fight fraud with rules and models in Pulse.](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+
+### [Fraud Prevention AgentLearn how to work with alerts and/or cases using Case Manager.](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+
+### [Fraud Prevention ManagerView real-time insights.](/tfrb/latest/docs/common/tfrb/user-guides-manager)

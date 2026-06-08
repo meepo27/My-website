@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3789
+Title: HSBC-3789 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3789
+
+### Update database retention scriptsâ
+
+FeatureHSBC-3789
+
+We've updated the database retention scripts to include the following tables:
+
+  * AM_EVENT_AUTOMATION
+  * AM_CASE_FILE
+  * AM_CASE_SOURCE_TYPE
+  * AM_EVENT_FILE
+  * AM_EXTENSION_LOG
+  * AM_FILE
+  * AM_EVENT_ACCESS_GROUP
+
+
+
+See [Retention Scripts](/cs-hsbc/3.0.2/docs/installation-guide/database/retention-scripts) for more information.

@@ -1,0 +1,14 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/reference-data-connector/snippet-reference-data-entity-ids
+Title: snippet-reference-data-entity-ids | Transaction Fraud for Banking
+============================================================
+
+# snippet-reference-data-entity-ids
+
+Was this page helpful?Â 
+
+  * **Card data:** `card_id`
+  * **Account data:** `account_iban`
+  * **Merchant data:** `acceptor_id`
+  * **Customer data:** `customer_id`
+
+

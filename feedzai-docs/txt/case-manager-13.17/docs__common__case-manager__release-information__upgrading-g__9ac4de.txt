@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/release-information/upgrading-guides/upgrading-from-13.17.2-to
+Title: Upgrading from 13.17.2 to 13.17.3 | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Upgrading Guide](/case-manager/13.17/docs/common/case-manager/release-information/upgrading-guides/upgrading-guide-overview)
+  * Upgrading from 13.17.2 to 13.17.3
+
+
+
+On this page
+
+# Upgrading from 13.17.2 to 13.17.3
+
+## Breaking changesâ
+
+No breaking changes on this version.
+
+## Added/modified propertiesâ
+
+No added or changed properties on this version.
+
+## Added featuresâ
+
+No added features on this version.
+
+## Deprecated codeâ
+
+No deprecated code on this version.

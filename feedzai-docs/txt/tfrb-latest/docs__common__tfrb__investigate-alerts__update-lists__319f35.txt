@@ -1,0 +1,51 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/update-lists
+Title: Update Lists | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Update Lists
+
+
+
+On this page
+
+# Update Lists
+
+Was this page helpful?Â 
+
+Lists allow Case Manager to automatically classify events by looking at specific entities in each event (e.g. credit card, customer ID) and checking if those entities are associated with a known fraud source or if they belong to a secure source.
+
+You can use the information acquired during your investigation of an event to update lists with the relevant entities.
+
+Implications
+
+Updating lists with new items is an advanced topic because it might have implications for your business. For example, if you add the MCC value of the current event to a PosNeg list with the value **Decline** and there's a specific rule to trigger against this condition, all upcoming transactions with this MCC will be declined.
+
+After [classifying an event](/tfrb/latest/docs/common/tfrb/investigate-alerts/classify-events) as  or , you are prompted to justify your decision. If you use the  button, you have access to the **Update Lists** menu:
+
+This window provides you with an indication of the decision made as the window title (i.e. _Mark as Fraud_ or _Mark as Not Fraud_) and allows you to add the available **Entities** to a list with a specific value (Approve, Decline or Limit/Review). For example, you can add the _Card ID_ to a list to be declined in future transactions.
+
+note
+
+Checkboxes in gray refer to the current value for each entity in lists.
+
+For each entity added to a list you can also:
+
+  * Define a time frame for the entity to remain in the list using the **Validity** columns.
+  * Add a **Note** (e.g. with extra information to support your decision).
+
+
+
+## Journey wrap-upâ
+
+The **Investigate Alerts** guide aims to get you up and running with Case Manager from day 1, and able to quickly analyze alerts. Here is a wrap-up of what comprises a typical journey:
+
+  1. Access a set of events either by using the **Alerts** or **Cases** pages. In both of these pages, you can further filter the events displayed by selecting queues or events assigned to you.
+  2. Select an event to analyze by looking at the event details including the header, explanations and other widgets that have information about transaction, account, card, merchant, etc.
+  3. Classify the event as **Fraud** or **Not Fraud** and justify your decision.
+  4. Update lists with new entities (advanced topic that might require special permissions or additional training).
+
+

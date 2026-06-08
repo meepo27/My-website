@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/about/overview
+Title: About Risk Management for PSPs | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * About Risk Management for PSPs
+
+
+
+# About Risk Management for PSPs
+
+Risk Management for Payment Service Providers (RMPSP) consists of an integration of two use cases - Transaction Fraud for Payment Service Providers (TFP) and Merchant Monitoring (MM) - and is used to prevent fraud at the merchant level. This solution is designed for acquirers, gateways, and Payments Service Providers (PSPs), which face the challenge of detecting abnormal payment behavior in order to build trust with their clients as well as to save costs.
+
+RMPSP entails the following use cases:
+
+  * **Transaction Fraud for PSPs:** a real-time fraud detection solution that detects different fraud scenarios related to card transactions and alternative payments initiated at the merchant's site/store.
+  * **Merchant Monitoring:** an account monitoring solution for acquirers and PSPs to prevent and detect fraud at the merchant level. By implementing a scheduled (batch) behavioral analysis over the merchant portfolio's transactional data, acquirers can spot abnormal merchant behavior, risk of bankruptcy or high chargeback levels, and thus act before further fraud and damages occur.
+
+

@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3883
+Title: HSBC-3883 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3883
+
+### Add _Card Status Update_ Case Manager extensionâ
+
+FeatureFTMT-33602HSBC-3883
+
+FeatureFTMT-36284HSBC-4249
+
+We've added a new Case Manager extension named _Card Status Update_ that is able to send notifications to AFIS from Cards (and Non-mon) status update automation rules.
+
+The behaviour of this extension is identical to the Mobile/SMS extensions for Outbound Payments, and to the Inbound Payment Notification extension for Inbound Payments, but with a much simpler schema in the API call made to AFIS.
+
+An example of the schema sent for this extension is as below:
+    
+    
+    {  
+      "notification_type" : "card_status_update",  
+      "account_number" : "1005103001044120",  
+      "operational_status" : "closed",  
+      "fdz_channel" : "cards",  
+      "source" : "MSC",  
+      "trans_message_type" : "TypeA",  
+      "customer_portfolio_channel" : "portfoliochannel",  
+      "customer_portfolio_country" : "feedzai",  
+      "event_occurred_at" : "1773684342216",  
+      "event_type" : "feedback",  
+      "customer_portfolio_type" : "portfoliotype",  
+      "treatment_strategy" : "none",  
+      "alert_id" : "6e684d92-49ec-309a-9112-4ebc70e8d3ad",  
+      "customer_portfolio" : "EU_PC_CR_MS_GNRL",  
+      "customer_portfolio_class" : "elite",  
+      "self_serve_strategy" : "none",  
+      "customer_id_global" : "HK",  
+      "card_transaction_ref_number" : "card_1",  
+      "card_pan" : "card_1",  
+      "lifecycle_id" : "ad3c8300-8d7d-40ac-8c2a-9db15e1feef5",  
+      "customer_portfolio_region" : "US-EAST",  
+      "system_decision" : "approve",  
+      "lifecycle_id_alt" : "9e00eeba-daa7-48ed-9c92-c2125108d94e",  
+      "account_id" : "c0e68e4e-215f-47cb-b3cd-0d67a9ad881f",  
+      "card_transaction_component_type" : "TRX",  
+      "smh_source" : "",  
+      "customer_id" : "cutomer_1",  
+      "wallet_decision" : "none",  
+      "card_txn_sub_type" : "TypeB",  
+      "customer_id_number" : "0HKHSXXXXXX796256",  
+      "customer_portfolio_product" : "product"  
+    }  
+    
+
+Copy
+
+By default the extension is enabled, but it can be disabled by setting `card_status_update_extension_enabled` to `false`. For more details please refer to the [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) and the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.

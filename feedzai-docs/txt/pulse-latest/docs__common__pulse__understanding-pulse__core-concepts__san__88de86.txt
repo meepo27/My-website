@@ -1,0 +1,56 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/sandbox-evaluations
+Title: Sandbox Evaluations | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * Sandbox Evaluations
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Sandbox Evaluations
+
+Sandbox Evaluations allow you to test a sequence of [Model](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) and [Rule projects](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) you have created in your Data Science application as if they were in production. By [creating](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment) and [analyzing the results](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/evaluating-your-sandbox-results) of **Sandbox Evaluations** , you will be able to have a clear picture of how your Data Science project is performing before actually deploying it.
+
+Sandboxing allows you to simulate and check the accuracy of your system before it is in production, so you can improve the performance of the metrics of your system in advance. For example, the fraud detection rate of the system is understood more precisely than by analyzing **Models** and **Rules** separately. This helps you have a broader understanding of your Data Science project and spot flaws that would be harder to detect just by analyzing resources in isolation.
+
+Although Models can be trained in order to understand their performance in a specific field, this does not reflect the reality of a deployed system. Sandboxing enables the analysis of the performance of all these resources in a simulated [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows), being able to recognize those weaknesses that do not offer any added value to your system. For example, by testing **Models** and **Rules** together, you can see whether the configuration of your **Rules** does offer a better tool for detecting fraud.
+
+Additionally, it allows you to see not only the performance by score, but also by decision, whilst testing rules only regard the decision itself.
+
+## Improving the visibility over your projectâ
+
+Sandboxing is also a way to validate [Lists](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) and [Outcome Combinators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator). The following image depicts a Sandbox that analyzes a **Model** followed by a set of **Rules,** combining the results with a weighed average.
+
+You can also get a clearer picture of how your system is doing by selecting partitioning fields: The Sandbox thus analyzes the different components of the workflow separately, the node only having visibility of that partition. Sandbox Evaluations also simulate the order in which events are processed.
+
+You can also select **Models** and **Rules** to be segmented by particular values of breakdown fields, allowing you to analyze the performance of Models and Rules at once.
+
+## Evaluating the Resultsâ
+
+Once that the parameters of your **Sandbox Evaluation** have been specified, you can evaluate its results in order to find points to improve, creating a more robust Data Science project. You can visualize the results by Score and by Outcome separately in order to see how the system behaves independently of the outcome decision that was specified on the outcome decision field. You will be able to analyze various metrics that will allow you to grasp the functioning of your set.
+
+The measured performance is therefore as accurate as when the system is deployed in production. With this, you can:
+
+  * Identify problems with recall/catch rate, false positive rate or risk workflow optimization.
+  * Use a system that runs past production traffic faster than a Production environment.
+  * Reduce the time needed to validate system results previous to the production environment in order to test the performance of **Models** and **Rules** as a single system.
+  * Simplify the testing of the entire system (**Model** , **Rules** and **Lists**).
+
+
+
+Evaluating your Sandbox results against a test dataset is crucial in understanding how it is performing, and how close you are to reaching the objectives of your Data Science project. With a complete set of metrics, you will be able to have a complete understanding of how all the components of your Data science project work together and identify the points to improve for your project to be as precise as possible.
+
+## Learn Moreâ
+
+Discover more related to Outcome Combinators in the following pages:
+
+  * [Outcome Combinator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator): Learn more about what it is and how it works.
+  * [Testing your work in a Sandbox environment](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment): Have a better grasp on how Sandboxing works.
+  * [Evaluating your Sandbox Results](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/evaluating-your-sandbox-results): Understand all the information that is shown after creating a Sandbox Evaluation.
+
+

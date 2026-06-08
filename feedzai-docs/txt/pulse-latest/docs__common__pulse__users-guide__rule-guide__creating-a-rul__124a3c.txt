@@ -1,0 +1,98 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-rule-snapshot
+Title: Creating a Rule Snapshot | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Creating a Rule Snapshot
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating a Rule Snapshot
+
+Snapshots capture the current state of the components in a rules project, namely the rules and the execution order. Snapshots are deployable to other environments. You can use snapshots to test rule performance, as they can include an evaluation of the rules.
+
+When working in a team, many colleagues may contribute to rules in Pulse, making various changes to rules at different times. When it's time to create a snapshot of the changes, it can be challenging to keep track of these changes. To ease this task, you can compare the current state of rules with an earlier snapshot's rules, and pick which versions you want to include in your new snapshot.
+
+Also, in multi-tenant environments, the snapshot creation is slightly different. The following sections describe each of these cases.
+
+## Creating a simple snapshotâ
+
+To include the newest version of rules in your snapshot, perform the following actions:
+
+  1. In the **Data Science** tab, select an existing rules project.
+
+  2. In the **Snapshots** area, add  a snapshot.
+
+  3. **Name** the rule snapshot.
+
+  4. You can enable or disable rules in the snapshot using the checkbox next to the rule's name.
+
+You can also choose the execution order by dragging rules into the right order.
+
+  5. Select the **Create Snapshot** button to create the rule snapshot with the selected name and configuration.
+
+
+
+
+## Combining rule versionsâ
+
+When working in teams, you may want to compare the current state of rules with an earlier snapshot's rule version, and combine the versions you want to include in your new snapshot. This option is available only for:
+
+  * Rules projects that are not stateful.
+  * Snapshots that were created in Pulse version 20.0 or later.
+
+
+
+To combine rule versions that you want to include in a new snapshot, perform the following actions:
+
+  1. In the **Data Science** tab, select an existing rules project.
+
+  2. In the **Snapshots** area, add  a snapshot.
+
+  3. **Name** the rule snapshot.
+
+  4. You can enable or disable rules in the snapshot by using the checkbox next to the rule's name. The rules you disable here won't be included in the snapshot. You can also choose the execution order by dragging rules into the right order. After selecting the rules and their order, select the **Compare** button to move forward.
+
+  5. In the **With** field, select a snapshot with which you want to compare the current state of rules.
+
+  6. In the **Snapshot Comparison** area, you can see the list of differences between the selected snapshot and the current status of the rules. The following statuses are possible:
+
+     1. **Deleted** : a rule that existed in the selected snapshot was either deleted, or you deactivated it at the beginning of the new snapshot creation.
+     2. **New** : a new rule that didn't exist in the selected snapshot.
+     3. **Edited** : a rule that is present in the selected snapshot, but has been edited since then.
+  7. Use the radio buttons in the **Rule Version** column to proceed with the new version or to roll back. Select **Accept** or **Reject** accordingly.
+
+  8. For a side-by-side comparison of both versions of an edited rule, select the rule.
+
+The pane below the Snapshot Comparison area displays both versions.
+
+  9. After selecting the versions you want to include in the new snapshot, you can go ahead and **create** the snapshot. Optionally, you can **preview** the new snapshot and create an evaluation for it. [Read how to configure a snapshot evaluation](/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-rules-using-a-snapshot).
+
+
+
+
+## Creating a multi-tenant snapshotâ
+
+When rules of a certain rules project apply only to a certain tenant, the steps to create a snapshot are slightly different. For each tenant, you need to select which rules you want to set enabled in the snapshot. To do so, execute the following steps:
+
+  1. In the **Data Science** tab, select the rules project.
+
+  2. On the **Tenants** tab, choose a tenant.
+
+  3. In the **Rules** area, use the  button to select which rules of the tenant will be active in the snapshot.
+
+  4. Repeat the previous steps for each tenant.
+
+  5. Go to the **Overall** menu and add  a snapshot.
+
+  6. **Name** your snapshot. Verify the information about the number of tenants with and without active rules.
+
+  7. **Create** the rule snapshot with the selected name and configuration.
+
+
+

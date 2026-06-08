@@ -1,0 +1,14 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-pulse
+Title: Pulse | Feedzai RMA Documentation
+============================================================
+
+# Pulse
+
+In this section you will find the key metrics to monitor and the relevant alerts in Pulse.
+
+In this guide you will find:
+
+  * Which [metrics are especially relevant for Pulse](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-pulse).
+  * Which [alerts are especially relevant for Pulse](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/alerting-pulse).
+
+

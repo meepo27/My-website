@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/generated-fields
+Title: Generated Fields | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [API Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/overview)
+  * [Additional Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/additional-resources)
+  * Generated Fields
+
+
+
+On this page
+
+# Generated Fields
+
+The Payments API generates fields that will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Payment| payment  
+Info| info  
+Settlement| settlement  
+Feedback| feedback  
+Reponses| responses  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Payments API as a timestamp, in milliseconds.

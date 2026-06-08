@@ -1,0 +1,85 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/building-and-evaluating-a-model
+Title: Building a Model | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Building a Model
+
+
+
+On this page
+
+# Building a Model
+
+Was this page helpful?Â 
+
+In this tutorial step, you will train and evaluate two models. They will be trained with the same parameters, and each will use a different training set:
+
+  * The original dataset
+  * The features dataset
+
+
+
+info
+
+In a real application, you would have to iterate further and try a greater number of models, varying not only the training data but also the model's parameters.
+
+## Training a modelâ
+
+To train a model in Pulse, execute the following actions:
+
+  1. In the **Data Science** tab, add  a **Model Project** named _Models_.
+
+  2. Add  a new model. On the New Model screen select **Train new model**. Name the model _RawData_ and set the data source and the features as follows*:*
+
+     1. Use _RawTransactions_ as the training **Data Source**.
+
+info
+
+At a later stage, you will be using the enhanced data set, with the features you generated with the Features plan, to train a second model and compare it with this one.
+
+     2. Use _Feedzai - Random Forest_ as Algorithm.
+
+     3. Set _Fraud_ as the **Target Variable**. This is the field you are trying to predict on this project.
+
+     4. Look for the _FraudStatusDate_ field in the **Fields to Select** table and remove it. This field indicates when a transaction has been marked as fraudulent. Like _Fraud,_ it would not be present in an input dataset. If you are predicting if fraud occurred, then you surely don't know when fraud has been detected. So, if you consider this field when training your model, results are completely useless.
+
+You should remove any fields that you have found that don't contribute to a decision. In this case, any fields that don't help discriminate between fraud and not fraud. Also, note that the target variable "Fraud" was automatically removed. It wouldn't make sense to try to predict a field that is served as input to the model.
+
+     5. Keep all other fields in the data source as input to train your model.
+
+     6. Change the **Sampling Type** to _Under Sampling_ with 10%. You should do this since the proportion of interesting transactions, in this case, fraudulent ones, is very reduced. You can check the documentation to learn more about [sampling strategies at model training](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-training).
+
+     7. Use the default configurations for the **Provider** and Machine Learning **Algorithm**. Pulse uses the Feedzai Random Forest (FZRF) algorithm by default.
+
+     8. Set the **Validation** to _Split Percentage_ with 80%. This means that only 80% of the dataset will be used for training the model. The remaining 20% are used to then test the performance of the model on unknown transactions and avoid [overfitting](https://en.wikipedia.org/wiki/Overfitting).
+
+     9. Add an **Additional Cost Field** for _TransactionAmount_. This will allow you to measure the performance of the model in terms of cost, in this case, generating metrics such as _money FPR_ and _money Recall_.
+
+     10. Configure your model to calculate **breakdowns** over all possible values for the _CardholderPresentCode_ field.
+
+     11. Finally, **train** your model.
+
+  3. Repeat the previous steps and create a second model with the same parameters as the previous one. Use _TransactionsFeatures_ as the input **Data Source** and name the model _FeaturesData._
+
+Note that Pulse automatically generated a model evaluation for each of the trained models. This happens when you specify a **Validation Method** when you train your model.
+
+
+
+
+## Evaluating and comparing your modelsâ
+
+To evaluate and compare your two models in Pulse, execute the following actions:
+
+  1. Select the _rawdata-trainEvaluation_ model evaluation and examine the information on the page.
+
+     * **ROC and X/Y curves:** Plot the relationship between two metrics on a bidimensional chart. The ROC curve plots the Recall against the False Positive Rate.
+     * **Recall:** Represents the percentage of _fraud_ instances that the model correctly identified, meaning that a recall of 50% tells you that if there are 10 fraudulent transactions, then the model identified 5 of them.
+     * **False Positive Rate (FPR):** Represents the percentage of cases that are *not fraud *that the model wrongly identified as _fraud_.
+     * **Threshold:** Feedzai score that represents fraudulent transactions. Try moving it to see how it affects the Recall, the FPR, and any other metrics. Basically, what you are doing by using the slider is traveling along the [ROC Curve](https://en.wikipedia.org/wiki/Receiver_operating_characteristic): the greater FPR you are willing to tolerate, the greater Recall you can achieve.
+  2. Assess which of the two models is more suitable given your project's requirements. Set the **Compare With** field to _featuresdata-trainEvaluation_ so you can analyze metrics and performance for both models side by side.
+
+Note that the _featuresdata-trainEvaluation_ is closer to the top-left corner of the chart (the ideal point), which is a strong indication that the Model usually performs better. For the same FPR (ideally low) it has higher Recall (as high as possible, since it identified a greater portion of _fraud_ cases). There are other metrics besides **Recall** and FPR and you can even [define your own metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/custom-evaluation-metrics).
+
+
+

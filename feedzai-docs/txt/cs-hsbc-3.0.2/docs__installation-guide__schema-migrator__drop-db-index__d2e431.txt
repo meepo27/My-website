@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/drop-db-index
+Title: Drop DB index | Feedzai Documentation
+============================================================
+
+On this page
+
+# Drop database index
+
+Playbook to drop index _idx_event_occurred_at_ from the _Event Storage_ created by the [Fix Pulse Clock](/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/fix-pulse-clock) playbook.
+
+## Configurationâ
+
+All the following variables are **mandatory**.
+
+Variable| Type| Default Value| Description  
+---|---|---|---  
+schema_migrator_database_username| string| lookup('gcp_secret_manager', secret='schema_migrator_database_username')| Database username  
+schema_migrator_database_password| string| lookup('gcp_secret_manager', secret='schema_migrator_database_password')| Database password  
+  
+## Running the Playbookâ
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        drop-db-index.yml  
+    
+
+Copy

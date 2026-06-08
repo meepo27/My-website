@@ -1,0 +1,206 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/action-button-list
+Title: Action Button List | Case Manager
+============================================================
+
+On this page
+
+# Action Button List
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+tooltipsPlacement| String| Yes| Tooltips placement. It can be one of: ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'].Default: "top"  
+numberVisibleActions| Number| Yes| Number of visible actions. If the number of visible actions is less than the total number of actions, the remaining ones will be inside a drop down list.Default: 1  
+actions| Object[]| Yes| List of actions that will be mapped to buttons, where each button can perform a certain action over a set of alerts. Each action must be an object with these properties.  
+dropDown| Object| Yes| Configures the drop down button. Check its available properties.  
+channels| Object| Yes| If available, the actions being configured here will only be available to the channels specified as key of this property. If this property isn't present, the actions will be visible to all events from all channels.For each key (that must match a channelId), the value should be an object. The object should be left empty if you want to keep the other properties already configured. If there is a need to override one of the other properties for that channel, you can add those properties to the object with the desired value.**Example 1** \- Actions that are only available for channels aml and open_banking
+    
+    
+    {
+    	"numberVisibleActions": 0,
+    
+    	"dropDown": {
+    
+    		"button": {
+    
+    			"iconCssClass": "icon-more",
+    
+    			"showIcon": true
+    
+    		},
+    
+    		"kind": "primary",
+    
+    		"position": "bottom right"
+    
+    	},
+    
+    	"actions": [...],
+    
+    	"channels": {
+    
+    		"aml": {},
+    
+    		"open_banking": {}
+    
+    	}
+    
+    }
+
+  
+**Example 2** \- Actions that are only available for channels aml and open_banking, but where only a small subset of actions is available to the channel aml.
+    
+    
+    {
+    	"numberVisibleActions": 0,
+    
+    	"dropDown": {
+    
+    		"button": {
+    
+    			"iconCssClass": "icon-more",
+    
+    			"showIcon": true
+    
+    		},
+    
+    		"kind": "primary",
+    
+    		"position": "bottom right"
+    
+    	},
+    
+    	"actions": [...],
+    
+    	"channels": {
+    
+    		"aml": {
+    
+    			"actions": [ ... ] // for this channel, this will be the final set of actions instead of the ones defined in the global scope
+    
+    		},
+    
+    		"open_banking": 
+    
+    	}
+    
+    }
+
+  
+If you are configuring a Case Manager without multiple channels, this property isn't required.   
+This property is only applied to the actions configured in the event details page, in the top bar.  
+  
+### Actionsâ
+
+Properties| Type| Optional| Description  
+---|---|---|---  
+title| String| No| Button label  
+type| String| No| The action type. Currently, we only support the following type of actions:
+
+  * state - Action to change the alert state
+  * move-to-queue - Action to move a set of alerts to a queue
+  * assign-to-user - Action to assign a user to a set of alerts
+  * assign-to-me - Action to assign an event to the logged user (only available in details page)
+  * change-reasons - Action to change the alerts reasons without changing its state
+  * extension - Custom action to be executed (requires an action property)
+  * note-case - Action to add a note to a case. This should only be added in the Case Details page.
+  * link-event-case - Action to link events to cases. This can be added to a table of Events, or to the Event Details page actions.
+  * unlink-event-case - Action to unlink events from a case. This can only be added in the Link Events table of the Case Details Page.
+  * upload-docs - Action to upload documents and link them to a case. This should only be added in the Case Details page.
+  * decision-score-card - Action to open the decision score card wizard.
+  * case-states - Action to change the state of a case. It required an extra config property. This should only be added in the Case Details page.
+  * change-access-group - Action to change the access group of the event.
+  * link-to - action to navigate to a custom link
+    * require permission : [cm:action:link-to](/docs/common/case-manager/reference/permissions)
+    * **resource** property is required to use this action
+  * reveal-all - Action that allows the users to unlock all fields for a given Event. **This action is only meant to be used in Event Tables and as an inline action.**
+
+  
+action| String| No| The name of the custom action to be executed.Note: This property is only required when defining an action of type "extension"  
+entityType| String| No| A string to be sent to the extension action representing the entity where it was triggered.Note: This property is only required when defining an action of type "extension"  
+statusId| String| No| The alert status unique identifier assigned to this action.Note: This property is only required when defining an action of type "state"  
+cssClass| String| Yes| Custom CSS classes, separated by space.  
+iconCssClass| String| Yes| Icon CSS class to give the action button an icon.  
+tooltip| String| Yes| I18n key to the message to appear in the tooltip for this action.  
+kind| String| Yes| Button kind [Â defaultÂ , primary, danger, warning, success, info ]  
+config| Object| Yes| Additional configuration, depending on the action type. Please check the section "config for Action buttons" below.  
+skipDialog| Boolean| Yes| Whether the dialog should be skipped when performing the action._Note: This property is only available for the action of typeÂ state and decision-score-card.Â By default, it is set to false._  
+permissions| Array<String>| Yes| Holds a set of permissions the user must have in order to see and act over the action being configured here. The permissions added in this property are a complement to the permission `"cm:action::create:*"`. This means that you don't need to add that permission to this set, because it will be evaluated anyway.**Example** For the following inline action configuration:
+    
+    
+    {
+    	type: "state",
+    
+    	statusId: "fraud",
+    
+    	permissions: ["cm:channels:aml:create:*"]
+    
+    },
+
+The user must have the following permissions in order to see that action: `"cm:action:state:create:*"`, `"cm:channels:aml:create:*"`  
+confirmationDialog(since 10.0.0)| Object| Yes| Holds the configuration for prompting a confirmation dialog before action execution.(This configuration is only available for custom actions, i.e. `action` property is defined)The object can have the following properties:
+
+  * **titleLabel** (String) - i18n key that represents the dialog title.
+  * **messageLabel** (String) - i18n key that represents the dialog message.
+  * **submitButtonLabel** (String) - i18n key that represents the submit button text.
+  * **cancelButtonLabel** (String) - i18n key that represents the cancel button text.
+
+All these properties are _optional_ and will fallback to the following i18n keys, if they were not configured:
+
+  * **titleLabel -Â** _dialog.confirmation.title_
+  * **messageLabel -Â** _dialog.confirmation.message_
+  * **submitButtonLabel -Â** _button.submit_
+  * **cancelButtonLabel -Â** _button.cancel_
+
+  
+newTab  
+(since 10.0.0)| Boolean| Yes. Defaults to _false_|  Â On `link-to`Â action type is possible to open a link to a new tab or in the current tabÂ 
+
+  * **true** \- will open the link in new tab
+  * **false** (_Default_)Â - will open in the current tab
+
+  
+resource(since 10.0.0)| String| No. (link-to action is required)| To open a new link inÂ `link-to` action-type define a template link in this property .**edit case example (link-to)** For the following inline link-to action configuration:
+    
+    
+    {
+        "type": "link-to",
+        "iconCssClass": "icon-note",
+        "kind": "primary",
+        "title": "edit-case",
+        "resource": "/case/{{id}}/edit?timestamp={{createdAt}}&channelId={{channelId}}",
+        "newTab": false
+    }
+      
+  
+#### Configuration for Action Buttonsâ
+
+##### Action type: "case-states"â
+
+Properties| Type| Optional| Description  
+---|---|---|---  
+states| Array<i18n keys>| No| Holds the possible states associated with the button. The states should be i18n keys.It should also be states that were configured in the [Core Configuration](/docs/internal/case-manager/reference/core-config-json). If you add a state that wasn't configured there, CM will ignore it.  
+alwaysOpenModal| Boolean| Yes. Defaults to _false_|  When there is only 1 possible state, this property indicates if the modal should still open or not. This allows the user to insert a note.If this property is set to false, when the user clicks on the button the state will be immediately changed, without opening the modal.This property is not needed when there are multiple states configured, because in that case the modal will always open, because the user is required to choose one state.  
+  
+### dropDownâ
+
+Properties| Type| Optional| Description  
+---|---|---|---  
+position| String| Yes| Defines the Dropdown content position when opened. It accepts both vertical (top, bottom) and horizontal (left, right) alignments and they must be separated by a space.E.g: "top left", "top", "left", ...  
+cssClass| String| Yes| Custom class names, separated by spaces  
+kind| String| Yes| Dropdown kind [ default , primary, danger, warning, success, info ]  
+button| Object| No| Defines the dropdown trigger button appearance. Check the properties within **button**.  
+showArrowIcon| Boolean| Yes| Whether to show an arrow icon on the right side of the dropdown trigger button.  
+  
+#### buttonâ
+
+Properties| Type| Description  
+---|---|---  
+title| String| (Optional) Trigger button title.  
+cssClass| String| (Optional) Custom CSS classes, separated by spaces.  
+iconCssClass| String| (Optional) Icon CSS class to give the trigger button an icon.  
+showIcon| Boolean| (Optional) Whether the trigger button shows an icon or not.  
+pullIconRight| Boolean| (Optional) Whether the trigger button icon appears on the right or not.  
+isDisabled| Boolean| (Optional) Whether the trigger button is disabled or not  
+kind| String| (Optional) Dropdown kind [ default , primary, danger, warning, success, info ]

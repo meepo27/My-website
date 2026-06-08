@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/add-accounts-reference-data
+Title: Reference Data: accounts | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Reference Data: accounts
+
+
+
+Was this page helpful?Â 
+
+# Reference Data: accounts
+    
+    
+    PUT 
+    
+    ## /api/referenceData/accounts/:key
+
+The Reference Data Provisioning endpoint allows you to send 'accounts' data to Feedzai that will enrich the real time scoring events.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+
+
+
+OK
+
+Unauthorized

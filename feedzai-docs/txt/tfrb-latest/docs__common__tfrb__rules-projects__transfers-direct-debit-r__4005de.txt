@@ -1,0 +1,251 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-direct-debit-rules
+Title: Transfers - Direct Debit Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - Direct Debit Rules
+
+
+
+On this page
+
+# Transfers - Direct Debit Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+TFB provides a **Direct Debit** rules project to fight fraud schemes that are associated with this payment type. This is important because this payment type has unique patterns that might be considered normal in other payment types. For example, a mismatch between the countries of the sender and receiver bank can be considered suspicious in direct debit, making it worth to send the event to review.
+
+In the workflow, this rule block is configured with a filter so that only events with `payment_sub_type` equal to `direct_debit` are evaluated by **Direct Debit** rules.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Transfers-DD1
+
+### Comment
+
+> Number of daily Direct Debits for a dormant account exceeds threshold
+
+### Actions
+
+  * [Transfers-DD1]
+
+
+
+### Variables
+    
+    
+    min_count_dd_sender_dormant_th =transfers__rules_thresholds["min_count_dd_sender_dormant_th"].threshold;
+    
+    account_age_months = ((event.created_at ?? 0) - (event.sender_account_open_date ?? 0)) / 2678400000.0; // 1000 * 60 * 60 * 24 * 31
+
+### Condition
+    
+    
+    event.count_activity_3m_delay_24h == 0 
+    and 
+    event.count_sender_dd_24h >= min_count_dd_sender_dormant_th   
+    and
+    account_age_months >= 3
+
+### Explanation
+
+> [Transfers-DD1] - High Risk - This sender has no associated transactions in the last 3 months, but in the last 24 hours it suddenly has ( {event.count_sender_dd_24h}) associated transactions.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-DD2
+
+### Comment
+
+> Direct debit is to a company which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-DD2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_transaction_bank_acco ?? '' != '')
+    and
+    event.posneg_dd_company_value == 'decline'
+
+### Explanation
+
+> [Transfers-DD2] - High Risk - Direct debit is to a company which is listed to be auto declined ({event.receiver_transaction_bank_acco}).
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-DD3
+
+### Comment
+
+> Direct debit is to a company which is listed to be auto approved.
+
+### Actions
+
+  * [Transfers-DD3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_transaction_bank_acco ?? '' != '')
+    and
+    event.posneg_dd_company_value == 'approve'
+
+### Explanation
+
+> [Transfers-DD3] - Low Risk - Direct debit is to a company which is listed to be auto approved ({event.receiver_transaction_bank_acco}).
+
+### Mark As
+
+The outcome of this rule is: **low**
+
+## Transfers-DD4
+
+### Comment
+
+> Mismatch between Sender bank's country and Receiver bank's country
+
+### Actions
+
+  * [Transfers-DD4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_bank_country_code ?? '' != '') and (event.receiver_bank_country_code ?? '' != '')
+    and
+    event.sender_bank_country_code != event.receiver_bank_country_code  
+
+### Explanation
+
+> [Transfers-DD4] - Medium Risk - There's a mismatch between the Sender's bank country ({event.sender_bank_country_code}) and the Receiver's bank country ({event.receiver_bank_country_code})
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Transfers-DD5
+
+### Comment
+
+> Mismatch between Sender's country and Receiver's country
+
+### Actions
+
+  * [Transfers-DD5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_country_code ?? '' != '') and (event.receiver_country_code ?? '' != '')
+      and
+    event.sender_country_code != event.receiver_country_code
+
+### Explanation
+
+> [Transfers-DD5] - Medium Risk - There's a mismatch between the Sender country ({event.sender_country_code}) and the Receiver country ({event.receiver_country_code})
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Transfers-DD7
+
+### Comment
+
+> Returned direct debits from this Sender in the last 3 months exceeds threshold
+
+### Actions
+
+  * [Transfers-DD7]
+
+
+
+### Variables
+    
+    
+    min_count_dd_return_per_sender_3m_th=transfers__rules_thresholds['min_count_dd_return_per_sender_3m_th'].threshold;
+
+### Condition
+    
+    
+    event.count_dd_return_per_sender_3m >= min_count_dd_return_per_sender_3m_th 
+
+### Explanation
+
+> [Transfers-DD7] - Medium Risk - Count of returned direct debits from this Sender in the last 3 months ({event.count_dd_return_per_sender_3m}) is above {localvar.min_count_dd_return_per_sender_3m_th}.
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Transfers-DD8
+
+### Comment
+
+> Daily returned direct debits from this Sender exceeds threshold
+
+### Actions
+
+  * [Transfers-DD8]
+
+
+
+### Variables
+    
+    
+    min_count_dd_return_per_sender_24h_th = transfers__rules_thresholds['min_count_dd_return_per_sender_24h_th'].threshold;
+
+### Condition
+    
+    
+    event.count_dd_return_per_sender_24h >= min_count_dd_return_per_sender_24h_th
+
+### Explanation
+
+> [Transfers-DD8] - Medium Risk - Count of returned direct debits from this Sender in the last 24 hours ({event.count_dd_return_per_sender_24h}) is above {localvar.min_count_dd_return_per_sender_24h_th}
+
+### Mark As
+
+The outcome of this rule is: **medium**

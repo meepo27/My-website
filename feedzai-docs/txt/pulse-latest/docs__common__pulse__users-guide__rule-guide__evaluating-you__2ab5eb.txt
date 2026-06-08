@@ -1,0 +1,65 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-your-rules-with-sandbox-evaluation
+Title: Evaluating Rules with Sandbox Evaluation | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Evaluating Rules with Sandbox Evaluation
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Evaluating Rules with Sandbox Evaluation
+
+This topic describes how to analyze rule performance using sandbox evaluation results.
+
+## How toâ
+
+To analyze the sandbox evaluation results, go to the **Data Science** tab. From the **Sandbox Evaluations** list select the sandbox evaluation that you want to analyze.
+
+## Result by Scoreâ
+
+The **Result by Score** tab focuses on the field of the **Outcome Score** and the real final label. Based on that particular field, this allows you to understand the performance of your sandbox evaluation. Therefore, you can understand how the system behaves independently of the outcome decision that was specified on the outcome decision field. For example, it will help you decide whether to change the score threshold for the final decision.
+
+In the **Result by Score** tab, you can perform the following actions:
+
+  1. Analyze the **ROC Curve** for the selected evaluation.
+
+Exact values
+
+Hover the mouse pointer over the plot line to inspect the exact values for the **Recall** and **FPR** metrics and the respective **Threshold**.
+
+Cost-based Metrics
+
+If you define a **Cost Field** , then the **ROC Curve** will also plot the values for _Cost-Recall_ vs _Cost-FPR_.
+
+  2. Configure the **X/Y Plot** to display a curve for any **X-Axis** and **Y-Axis**.
+
+Exact values
+
+Hover the mouse pointer over the plot line to inspect the exact values for the **X-Axis** and **Y-Axis** metrics and the respective **Threshold**.
+
+  3. During the creation of a sandbox evaluation, you can select the breakdown for the metrics. Therefore, here you can see all the values for the metrics of the segmentation and its combinations. You can also change the threshold.
+
+  4. Use the **View ROC curve** option to see which of the breakdown metrics can be seen in the ROC curve.
+
+  5. You can also see the metrics per service for all the resources the sandbox evaluation has. This is useful for understanding the performance computation times of the resources analyzed in the sandbox. It helps you to grasp the performance gains or losses you will experience in your live workflow and evaluate the trade-offs.
+
+For instance, you can identify whether a rules project takes too long (in the **Ind. Avg.**) whilst not adding much to the performance (by analyzing **Recall** and **FPR** metrics), therefore allowing you to consider whether to keep it.
+
+  6. Export the results to a CSV file, if desired.
+
+
+
+
+## Result by Outcomeâ
+
+By analyzing the **Result by Outcome** , you can understand how the system behaves regarding the outcome decision that was specified on the outcome decision field. It works similarly to the **Result by Score** , but it does not provide a movable threshold. You can learn more about the performance of your Sandbox evaluation by analyzing these results:
+
+  1. Select the outcome values to be shown either if _True_ or _False_.
+  2. You can export the results to a CSV, both **Per Breakdown** and **Per Services**.
+
+

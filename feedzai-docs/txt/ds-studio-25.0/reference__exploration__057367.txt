@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/
+Title: Index - DS API
+============================================================
+
+#  `` exploration Â¶  
+  
+Utilities for efficient exploratory data analysis via PySpark. If you want to perform EDA in an efficient way, then you've come to the right place.
+
+This package provides tools to:
+
+  * efficiently profile your data in a distributed way,
+  * easily generate a detailed report of your data,
+  * quickly explore the results of the profiled data via convenient visualizations and access to key statistics and validations,
+  * all this via a flexible and user-friendly interface, and providing a convenient plotting library.
+
+
+
+##  `` tooltips Â¶
+    
+    
+    tooltips()
+    

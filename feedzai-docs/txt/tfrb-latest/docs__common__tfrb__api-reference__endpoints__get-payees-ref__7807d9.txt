@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-payees-reference-data
+Title: Get Reference Data: payees | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Get Reference Data: payees
+
+
+
+Was this page helpful?Â 
+
+# Get Reference Data: payees
+    
+    
+    GET 
+    
+    ## /api/referenceData/payees/:key
+
+The Reference Data Get endpoint allows you to obtain 'payees' data from Feedzai.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+  * 404
+
+
+
+OK
+
+Unauthorized
+
+Not Found

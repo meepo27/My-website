@@ -1,0 +1,780 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/map-api-fields
+Title: Map API Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Map API Fields
+
+
+
+On this page
+
+# Map API Fields
+
+Was this page helpful?Â 
+
+This page helps you map the API fields used in Cards, Transfers, and Digital Activity rules, among other parameters. Note that the **API Fields** column includes both fields used directly in rules' conditions and fields that generate metrics.
+
+## Cardsâ
+
+**Rules Project** | **Rule Code** | **API Fields** | **Metrics and Derived Fields** | **Lists**  
+---|---|---|---|---  
+**Feedback Rules** | FB1 | feedback_type  
+feedback_label  
+feedback_value  
+card_id | n/a | PosNeg Listed Cards  
+FB2 | feedback_type  
+feedback_label  
+feedback_value  
+card_id | n/a | PosNeg Listed Cards  
+**Decision Rules** | DR1 | n/a | n/a | Cards - Rules Thresholds  
+**PosNeg Rules** | PN1 | card_id | posneg_card_value | PosNeg Listed Cards  
+PN2 | acceptor_zip | posneg_zip_value | PosNeg Listed Address ZIPs  
+PN3 | acceptor_country_code | posneg_country_value | PosNeg Listed Countries  
+PN4 | customer_id | posneg_customer_value | PosNeg Listed Customers  
+PN5 | mcc | posneg_mcc_value | PosNeg Listed MCCs  
+PN6 | acceptor_id | posneg_acceptor_value | PosNeg Listed Merchants  
+PN7 | terminal_id | posneg_terminal_value | PosNeg Listed Terminals  
+PN8 | device_id | posneg_device_id_value | PosNeg Listed Devices  
+PN9 | card_country_code | posneg_card_country_value | PosNeg Listed Countries  
+PN10 | device_ip | posneg_device_ip_value | PosNeg Listed IP Addresses  
+**Entity Limit Rules** | EL1 |  info_type  
+transaction_status  
+card_id  
+cardholder_bill_amount  
+currency_code  |  REVIEW_APPR_AUTH_cardId_sum_billAmount_1d  
+posneg_card_value  |  PosNeg Listed Cards  
+Cards - Rules Thresholds   
+EL2 |  info_type  
+transaction_status  
+card_id  |  REVIEW_APPR_AUTH_cardId_count_1d  
+posneg_card_value  |  PosNeg Listed Cards  
+Cards - Rules Thresholds   
+**Fraud Rules** | Velocity-1 | terminal_latitude  
+terminal_longitude  
+info_type  
+card_presence_flag  
+card_id |  CP_card_term_vel_1h  
+CP_card_prev_term_dist_1h  
+AUTH_CP_cardid_prev_term_lat_1h  
+AUTH_CP_cardid_prev_term_long_1h  
+AUTH_CP_cardid_prev_ts_1h  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Velocity-2 | card_id  
+info_type |  AUTH_cardid_count_1d  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Velocity-3 | info_type  
+transaction_status  
+card_id  
+cardholder_bill_amount  
+currency_code |  APPR_AUTH_cardId_count_1h  
+APPR_AUTH_cardId_sum_billAmount_1h  
+sign_cardholder_bill_amount  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Velocity-4 | info_type  
+transaction_status  
+card_id |  APPR_AUTH_cardId_count_3m  
+sign_count  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Velocity-5 | info_type  
+card_id  
+card_presence_flag  
+device_ip_latitude  
+device_ip_longitude |  AUTH_CNP_cardid_prev_device_ip_lat_1h  
+AUTH_CNP_cardid_prev_device_ip_long_1h  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Velocity-6 | card_id  
+card_bin  
+card_expiration_date  
+acceptor_id |  acceptorid_cardbin_cntDist_cardExpDate_10m  
+acceptorid_cardbin_cntDist_cardid_10m  
+acceptorid_cardbin_cur0  
+acceptorid_cardbin_cur1  
+acceptorid_cardbin_cur3  
+acceptorid_cardbin_cur5  
+acceptorid_cardbin_cntDist_cardid_10m  
+acceptorid_cardbin_cntDist_cardExpDate_10m  
+card_days_to_expire  | PosNeg Listed Cards  
+Velocity-7 | card_id  
+card_bin  
+card_expiration_date  
+mcc |  mcc_cardbin_cntDist_cardExpDate_10m  
+mcc_cardbin_cntDist_cardid_10m  
+mcc_cardbin_cur0  
+mcc_cardbin_cur1  
+mcc_cardbin_cur3  
+mcc_cardbin_cur5  | PosNeg Listed Cards  
+CNP-1 | info_type  
+card_presence_flag   
+card_id   
+acceptor_id |  AUTH_CNP_cardId_countDist_acceptor_5m  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+CNP-2 | card_presence_flag   
+card_id   
+currency_code  
+cardholder_bill_amount |  card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  
+is_high_amount  | PosNeg Listed Cards  
+Common Currencies  
+Threshold-1 | info_type   
+transaction_status  
+card_id  
+acceptor_id  
+cardholder_bill_amount  
+currency_code |  APPR_AUTH_cardId_acceptor_sum_billAmount_1d  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Threshold-2 | info_type  
+card_id |  AUTH_cardId_count_4w  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Threshold-3 | card_id  
+currency_code  
+info_type  
+transaction_status  
+cardholder_bill_amount |  APPR_AUTH_cardId_sum_billAmount_4w  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  
+sign_cardholder_bill_amount  
+sign_count  
+is_high_amount  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Threshold-4 | card_id  
+currency_code  
+info_type  
+transaction_status  
+cardholder_bill_amount |  HIGH_AMOUNT_APPR_AUTH_cardId_count_1d  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  
+sign_count  
+is_high_amount  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Threshold-5 | card_id  
+info_type  
+transaction_status  
+cardholder_bill_amount  
+acceptor_id  
+currency_code |  APPR_AUTH_cardId_acceptor_count_1d  
+APPR_AUTH_cardId_acceptor_sum_billAmount_1d  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  
+sign_count  
+sign_cardholder_bill_amount  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Threshold-6 | card_id  
+info_type  
+card_presence_flag  
+device_id |  AUTH_CNP_distinct_device_id_per_card_24h  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Behavior-1 | card_id  
+info_type  
+transaction_status |  DECLINE_cardId_count_1d  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Behavior-2 | cardholder_bill_amount  
+card_id  
+info_type  
+transaction_status  
+acceptor_id  
+amount  
+currency_code |  APPR_AUTH_cardId_acceptor_billAmount_count_1d  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  
+amount_as_str  
+sign_count  | PosNeg Listed Cards  
+Cards - Rules Thresholds  
+Behavior-3 | card_id  
+info_type  
+acceptor_id  
+transaction_status  
+feedback_label  
+feedback_value |  APPR_AUTH_acceptorId_count_6M  
+FRAUD_ratio_acceptorId_6M  
+FRAUD_acceptorId_count_6M  
+AUTH_cardId_acceptorId_count_6M  
+sign_count  
+card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+Rules Thresholds  
+Behavior-4 | card_id  
+malware_flag |  card_id_not_blacklisted_nor_whitelisted  
+posneg_card_value  | PosNeg Listed Cards  
+**SCA Required** | SCAR1 | acceptor_country_code  
+card_country_code  
+info_type  
+card_id  
+acceptor_id | AUTH_cardId_acceptorId_count_6M | n/a  
+SCAR2 | customer_country_code_change_flag | n/a | n/a  
+SCAR3 | customer_email_change_flag | n/a | n/a  
+SCAR4 | customer_phone_change_flag | n/a | n/a  
+SCAR5 | info_type  
+card_id  
+currency_code  
+card_presence_flag  
+mcc |  AUTH_CNP_currency_changed_24h  
+AUTH_cardid_mcc_count_6M  | n/a  
+SCAR6 | cardholder_bill_amount  
+card_available_balance | n/a | Cards - Rules Thresholds  
+SCAR7 | info_type  
+card_id  
+card_presence_flag  
+account_pw_change_flag | AUTH_CNP_cardid_count_pw_changed_24h | Cards - Rules Thresholds  
+SCAR8 | info_type  
+device_language  
+card_id  
+device_ip_country_code  
+device_id |  AUTH_device_language_changed_24h  
+AUTH_cardid_device_ip_country_code_count_6M  
+AUTH_cardid_deviceid_count_6M  | n/a  
+SCAR9 | info_type  
+card_id  
+card_presence_flag  
+mcc |  AUTH_CNP_login_session_id_changed_24h  
+AUTH_CNP_auth_type_changed_24h  
+AUTH_cardid_mcc_count_6M  | n/a  
+SCAR10 | cardholder_bill_amount  
+info_type  
+card_id  
+mcc |  AUTH_cardid_mcc_avg_amount_1M  
+AUTH_cardid_mcc_count_1M  | Cards - Rules Thresholds  
+SCAR11 | proxy_flag | n/a | n/a  
+**SCA Exemption** | SCA11-1 | cardholder_bill_amount  
+info_type  
+transaction_status  
+card_id  
+last_sca_at |  APPR_AUTH_contactless_last_sca_at_cardid_sum_billAmount_90d  
+APPR_AUTH_contactless_last_sca_at_cardid_sum_billAmount_30h  
+sign_cardholder_bill_amount  
+pos_card_read_method  | Cards - Rules Thresholds  
+SCA11-2 | cardholder_bill_amount  
+pos_card_read_method  
+info_type  
+transaction_status  
+card_id  
+last_sca_at |  APPR_AUTH_contactless_last_sca_at_cardid_count_90d  
+APPR_AUTH_contactless_last_sca_at_cardid_count_30h  
+sign_count  
+last_sca_at_as_str  | Cards - Rules Thresholds  
+SCA12 | mcc | n/a | SCA Exempted MCCs  
+SCA13 | trusted_acceptor | n/a | n/a  
+SCA14 | first_recurring_payment  
+recurring_payment | n/a | n/a  
+SCA16-1 | cardholder_bill_amount  
+info_type  
+transaction_status  
+last_sca_at  
+card_id |  APPR_AUTH_last_sca_at_cardid_sum_billAmount_90d  
+APPR_AUTH_last_sca_at_cardid_sum_billAmount_30h  
+sign_cardholder_bill_amount  | Cards - Rules Thresholds  
+SCA16-2 | cardholder_bill_amount  
+info_type  
+transaction_status  
+card_id  
+last_sca_at |  APPR_AUTH_last_sca_at_cardid_count_90d  
+APPR_AUTH_last_sca_at_cardid_count_30h  
+last_sca_at_as_str  | Cards - Rules Thresholds  
+SCA17 | card_category | n/a | n/a  
+SCA18-ETV1 | reference_fraud_rate  
+cardholder_bill_amount  
+info_type  
+card_presence_flag  
+card_id | AUTH_CNP_cardid_sum_amount_24h | Fraud Rates  
+Cards - Rules Thresholds  
+SCA18-ETV2 | reference_fraud_rate  
+cardholder_bill_amount  
+info_type  
+card_presence_flag  
+card_id | AUTH_CNP_cardid_sum_amount_24h | Fraud Rates  
+Cards - Rules Thresholds  
+SCA18-ETV3 | reference_fraud_rate  
+cardholder_bill_amount  
+info_type  
+card_presence_flag  
+card_id | AUTH_CNP_cardid_sum_amount_24h | Fraud Rates  
+Cards - Rules Thresholds  
+  
+## Transfersâ
+
+**Rules Project** | **Rule Code** | **API Fields** | **Metrics and Derived Fields** | **Lists**  
+---|---|---|---|---  
+**Feedback Rules** | FB1 | feedback_type  
+feedback_label  
+feedback_value  
+sender_transaction_bank_account_number | n/a | PosNeg Listed Accounts  
+**PosNeg Rules** | PN1 | sender_bank_country_code | n/a | PosNeg Listed Countries  
+PN2 | receiver_bank_country_code | n/a | PosNeg Listed Countries  
+PN3 | sender_transaction_bank_account_number | n/a | PosNeg Listed Accounts  
+PN4 | receiver_transaction_bank_account_number | n/a | PosNeg Listed Accounts  
+PN5 | sender_bank_bic | n/a | PosNeg Listed BICs  
+PN6 | receiver_bank_bic | n/a | PosNeg Listed BICs  
+PN7 | sender_bank_sort_code | n/a | PosNeg Listed Sort Codes  
+PN8 | receiver_bank_sort_code | n/a | PosNeg Listed Sort Codes  
+PN9 | sender_transaction_notes  
+receiver_transaction_notes | n/a | PosNeg Listed Keywords  
+PN10 | receiver_transaction_bank_account_number | n/a | PosNeg Listed Accounts  
+PN11 | sender_transaction_bank_account_number | n/a | PosNeg Listed Accounts  
+PN12 | device_ip_address  
+device_ip_address_location | n/a | PosNeg Listed IP Address  
+PN13 | device_id | n/a | PosNeg Listed Devices  
+**Entity Limit Rules** | EL1 | info_type  
+sender_transaction_amount  
+sender_transaction_bank_account_number   
+sender_transaction_currency | sum_amount_per_sender_24h | Transfers - Rules Thresholds  
+EL2 | created_at  
+info_type  
+sender_transaction_amount  
+sender_transaction_bank_account_number   
+sender_transaction_currency |  avg_daily_amount_per_sender_1w  
+sum_amount_per_sender_1w  
+distinct_day_week_per_sender_1w  | Transfers - Rules Thresholds  
+EL3 | info_type  
+sender_transaction_bank_account_number  
+created_at |  avg_monthly_count_sender_3m_delay_1m  
+count_sender_1m  
+count_sender_3m_delay_1m  
+distinct_month_per_sender_3m_delay_1m  
+month  | Transfers - Rules Thresholds  
+EL4 | sender_transaction_currency,   
+sender_transaction_amount  
+sender_bank_bic  
+receiver_bank_bic | n/a | Transfers - Rules Thresholds  
+EL5 | created_at  
+info_type  
+receiver_transaction_bank_account_number  
+receiver_transaction_amount  
+receiver_transaction_currency |  avg_daily_amount_per_receiver_1w  
+sum_amount_per_receiver_1w  
+distinct_day_week_per_receiver_1w  | Transfers - Rules Thresholds  
+EL6 | info_type  
+sender_transaction_bank_account_number  
+sender_transaction_amount  
+sender_transaction_currency  
+created_at |  avg_monthly_amount_per_sender_3m_delay_1m  
+sum_amount_per_sender_1m  
+sum_amount_sender_3m_delay_1m  
+distinct_month_per_sender_3m_delay_1m  
+count_sender_1m  
+month  | Transfers - Rules Thresholds  
+EL7 | info_type  
+receiver_transaction_bank_account_number  
+receiver_transaction_amount  
+receiver_transaction_currency  
+created_at |  avg_monthly_amount_per_receiver_3m_delay_1m  
+sum_amount_per_receiver_1m  
+sum_amount_receiver_3m_delay_1m  
+distinct_month_per_receiver_3m_delay_1m  
+count_receiver_1m  
+month  | Transfers - Rules Thresholds  
+EL8 | receiver_transaction_bank_account_number  
+info_type  
+created_at |  avg_monthly_count_receiver_3m_delay_1m  
+count_receiver_3m_delay_1m  
+distinct_month_per_receiver_3m_delay_1m  
+count_receiver_1m  
+month  | Transfers - Rules Thresholds  
+EL9 | sender_transaction_currency  
+sender_transaction_amount  
+sender_bank_country_code  
+receiver_bank_country_code  
+sender_bank_sort_code  
+receiver_bank_sort_code | n/a | Transfers - Rules Thresholds  
+EL10 | sender_transaction_currency  
+sender_transaction_bank_account_number  
+sender_transaction_amount  
+channel_type  
+info_type | sum_amount_per_sender_telephone_24h | Transfers - Rules Thresholds  
+EL11 | sender_transaction_bank_account_number  
+created_at  
+channel_type  
+info_type |  count_sender_telephone_24h   
+avg_monthly_count_sender_telephone_3m_delay_24h  | Transfers - Rules Thresholds  
+EL12 | sender_transaction_bank_account_number  
+created_at  
+channel_type  
+info_type |  count_sender_online_24h  
+avg_monthly_count_sender_online_3m_delay_24h  | Transfers - Rules Thresholds  
+**Fraud Rules** | FR1 | sender_transaction_bank_account_number  
+info_type | count_sender_90m | Transfers - Rules Thresholds  
+FR2 | sender_transaction_bank_account_number  
+info_type  | count_sender_24h | Transfers - Rules Thresholds  
+FR3 | sender_transaction_bank_account_number  
+sender_country_code  
+sender_transaction_country_code  
+info_type | distinct_country_per_sender_24h | Transfers - Rules Thresholds  
+FR4 | sender_transaction_amount  
+sender_transaction_bank_account_number  
+receiver_transaction_bank_account_number  
+info_type | count_sender_receiver_amount_1k_24h | Transfers - Rules Thresholds  
+FR5 | sender_transaction_bank_account_number  
+sender_account_open_date  
+created_at  
+info_type  
+sender_transaction_amount  
+sender_account_balance  
+account_id |  count_sender_3m_delay_24h  
+count_sender_24h  | Transfers - Rules Thresholds  
+FR6 | sender_transaction_bank_account_number  
+geographic_scope  
+cross_border  
+sender_transaction_amount  
+info_type | count_sender_cross_border_amount_3k_24h | Transfers - Rules Thresholds  
+FR7 | sender_transaction_bank_account_number  
+geographic_scope  
+cross_border  
+sender_transaction_amount  
+info_type | count_sender_cross_border_amount_3k_1month | Transfers - Rules Thresholds  
+FR11 | sender_transaction_bank_account_number  
+receiver_transaction_bank_account_number  
+info_type | distinct_receiver_per_sender_24h | Transfers - Rules Thresholds  
+FR12 | sender_transaction_bank_account_number  
+receiver_transaction_bank_account_number  
+info_type  
+receiver_segment | distinct_sender_per_receiver_24h | Transfers - Rules Thresholds  
+FR13 | sender_transaction_bank_account_number  
+receiver_name  
+receiver_transaction_bank_account_number  
+info_type  | distinct_receiver_same_name_per_sender_24h | Transfers - Rules Thresholds  
+FR15 | receiver_transaction_bank_account_number  
+sender_account_id  
+sender_transaction_bank_account_number  
+created_at  
+info_type |  count_sender_6m  
+count_sender_time_of_day_6m  | Transfers - Rules Thresholds  
+FR16 | receiver_transaction_bank_account_number  
+payment_sub_type  
+sender_transaction_bank_account_number  
+info_type | distinct_sender_per_receiver_direct_deposit_3m | Transfers - Rules Thresholds  
+FR18 | sender_email  
+sender_transaction_bank_account_number  
+info_type | distinct_sender_per_email_1m | Transfers - Rules Thresholds  
+FR19 | sender_phone  
+sender_transaction_bank_account_number  
+info_type | distinct_sender_per_phone_1m | Transfers - Rules Thresholds  
+FR20 | receiver_email  
+receiver_transaction_bank_account_number  
+info_type | distinct_receiver_per_email_1m | Transfers - Rules Thresholds  
+FR21 | receiver_phone  
+receiver_transaction_bank_account_number  
+info_type  | distinct_receiver_per_phone_1m | Transfers - Rules Thresholds  
+FR24 | sender_transaction_bank_account_number  
+device_id  
+info_type | distinct_sender_per_device_id_90m | Transfers - Rules Thresholds  
+FR25 | sender_transaction_bank_account_number  
+device_id  
+info_type  | distinct_device_id_per_sender_90m | Transfers - Rules Thresholds  
+FR27 | sender_transaction_bank_account_number  
+info_type  
+payment_status | count_failed_trx_sender_24h | Transfers - Rules Thresholds  
+FR28 | sender_email | n/a | n/a  
+FR30 | device_latitude  
+device_longitude  
+sender_transaction_bank_account_number  
+info_type  |  sender_prev_device_lat_1h  
+sender_prev_device_long_1h  | Transfers - Rules Thresholds  
+FR32 | device_id  
+account_id | distinct_account_per_device_3m | Transfers - Rules Thresholds  
+**Instant Transfers Rules** | IT1 | sender_transaction_amount  
+sender_transaction_currency | n/a | Transfers - Rules Thresholds  
+IT2 | receiver_transaction_amount  
+receiver_transaction_currency | n/a | Transfers - Rules Thresholds  
+IT3 | info_type  
+payment_sub_type  
+sender_transaction_bank_account_number  
+created_at |  avg_daily_count_sender_instant_transfer_3m_delay_24h  
+count_sender_instant_transfer_3m_delay_24h  
+distinct_day_year_per_sender_instant_transfer_3m_delay_24h  
+count_sender_instant_transfer_24h  
+day_of_year  | Transfers - Rules Thresholds  
+IT4 | payment_type  
+sender_name  
+sender_street_addr | n/a | n/a  
+IT5 | payment_type  
+receiver_name  
+receiver_street_addr | n/a | n/a  
+IT6 | sender_alias | n/a | PosNeg Listed Alias  
+IT7 | receiver_alias | n/a | PosNeg Listed Alias  
+IT8 | sender_transaction_notes  
+text_for_receiver  
+sender_transaction_amount | n/a | Transfers - Rules Thresholds  
+IT9 | receiver_alias  
+receiver_alias_type | n/a | PosNeg Listed Email Domains  
+IT10 | receiver_alias_last_update_time  
+sender_alias_last_update_time  
+sender_transaction_amount  
+sender_transaction_currency | n/a | Transfers - Rules Thresholds  
+IT11 |  text_for_receiver  
+sender_transaction_amount  
+| n/a |  Transfers - Rules Thresholds  
+Whitelisted Strings   
+IT12 | receiver_alias  
+receiver_alias_type | n/a | PosNeg Listed Phone Numbers  
+IT13 | info_type   
+payment_sub_type  
+sender_alias_registration_time  
+sender_transaction_currency  
+sender_transaction_amount  
+sender_alias | sum_amt_instant_transfers_per_sender_alias_90m | Transfers - Rules Thresholds  
+**Direct Debit Rules** | DD1 | info_type   
+created_at  
+payment_sub_type  
+sender_account_open_date  
+sender_transaction_bank_account_number |  count_sender_dd_3m_delay_24h  
+count_sender_dd_24h  | Transfers - Rules Thresholds  
+DD2 | receiver_transaction_bank_account_number | n/a | PosNeg Listed DD Companies  
+DD3 | receiver_transaction_bank_account_number | n/a | PosNeg Listed DD Companies  
+DD4 | sender_bank_country_code  
+receiver_bank_country_code | n/a | n/a  
+DD5 | sender_country_code  
+receiver_country_code | n/a | n/a  
+DD7 | info_type   
+payment_sub_type  
+sender_transaction_bank_account_number  
+payment_status | count_dd_return_per_sender_3m | Transfers - Rules Thresholds  
+DD8 | info_type   
+payment_sub_type  
+sender_transaction_bank_account_number  
+payment_status | count_dd_return_per_sender_24h | Transfers - Rules Thresholds  
+**Bill Payments Rules** | BP1 | reference_number | n/a | PosNeg Listed Biller IDs  
+BP2 | sender_transaction_amount  
+sender_transaction_currency  
+reference_number_entry_mode | n/a | Transfers - Rules Thresholds  
+BP4 | sender_transaction_amount  
+sender_account_id  
+day_of_week   
+created_at  
+info_type  
+account_id  
+day_of_week  
+event_occured_at  
+new_device | sum_amt_bill_payments_per_sender_out_work_days_1m | Transfers - Rules Thresholds  
+**Decision Rules** | DR1 | enforced_risk_level | n/a | n/a  
+DR2 | fraud_score  
+payment_sub_type | n/a | Transfers - Rules Thresholds  
+DR3 | enforced_risk  
+risk_level  
+payment_sub_type | n/a | n/a  
+DR4 | fraud_score | n/a | Transfers - Rules Thresholds  
+DR5 | enforced_risk  
+risk_level | n/a | n/a  
+DR6 | fraud_score | n/a | Transfers - Rules Thresholds  
+DR7 | enforced_risk  
+risk_level | n/a | n/a  
+**SCA Required** | SCAR1 | sender_country_code  
+receiver_country_code  
+receiver_transaction_bank_account_number  
+sender_transaction_bank_account_number  
+info_type  | count_sender_receiver_6m  | Transfers - Rules Thresholds  
+SCAR2 | sender_country_code_change_flag | n/a | n/a  
+SCAR3 | sender_email_change_flag | n/a | n/a  
+SCAR4 | sender_phone_change_flag | n/a | n/a  
+SCAR5 | sender_account_balance  
+sender_transaction_amount | n/a | Transfers - Rules Thresholds  
+SCAR6 | sender_account_pw_change_flag  
+sender_transaction_bank_account_number  
+info_type  | count_sender_pw_change_24h | Transfers - Rules Thresholds  
+SCAR7 | sender_device_language_changed  
+device_ip_country_code  
+sender_transaction_bank_account_number  
+device_id  
+info_type  |  sender_device_language_changed   
+count_sender_device_ip_country  
+count_sender_device_id_6m  | n/a  
+SCAR8 | sender_transacttion_bank_account_number  
+receiver_transaction_bank_account_number  
+auth_type  
+login_session_id  
+info_type  
+sender_transaction_bank_account_number |  auth_type_changed_24h  
+login_session_id_changed_24h  
+count_sender_receiver_6m  | n/a  
+SCAR9 | proxy_flag | n/a | n/a  
+**SCA Exemption** | SCA13 | trusted_receiver | n/a | n/a  
+SCA14 | first_recurring_payment  
+recurring_payment | n/a | n/a  
+SCA15 | sender_id  
+receiver_id  
+| n/a | n/a  
+SCAR16-1 | sender_transaction_amount  
+expired_metrics  
+last_sca_at_as_str   
+sender_transaction_bank_account_number  
+info_type  |  sum_amount_sender_last_sca_90d   
+sum_amount_sender_last_sca_30h  | Transfers - Rules Thresholds  
+SCAR16-2 | sender_transaction_amount  
+expired_metrics  
+last_sca_at_as_str   
+sender_transaction_bank_account_number   
+info_type  |  sum_amount_sender_last_sca_90d   
+sum_amount_sender_last_sca_30h  | Transfers - Rules Thresholds  
+SCA17 | segment_channel_type | n/a | n/a  
+SCA18-ETV1 | reference_fraud_rate  
+sender_transaction_amount  
+fraud_rate  
+decision  
+info_type  
+sender_transaction_bank_account_number | sum_amount_per_sender_24h | Transfers - Rules Thresholds  
+SCA18-ETV2 | reference_fraud_rate  
+sender_transaction_amount  
+fraud_rate  
+decision  
+info_type  
+sender_transaction_bank_account_number | sum_amount_per_sender_24h | Transfers - Rules Thresholds  
+SCA18-ETV3 | reference_fraud_rate  
+sender_transaction_amount  
+fraud_rate  
+decision  
+info_type  
+sender_transaction_bank_account_number | sum_amount_per_sender_24h | Transfers - Rules Thresholds  
+**Device and Network Intelligence Rules** | Transfers-DNI1 | session_id | n/a | n/a  
+Transfers-DNI2 | device_id | n/a | n/a  
+Transfers-DNI3 | session_id | n/a | n/a  
+Transfers-DNI4 | device_id | n/a | n/a  
+Transfers-DNI5 | device_id | n/a | n/a  
+Transfers-DNI6 | n/a | n/a | n/a  
+Transfers-DNI7 | created_at  
+sender_account_open_date  
+info_type  
+sender_account_id | count_account_activity_3m | n/a  
+Transfers-DNI8 | device_ip_country_code  
+device_id | n/a | n/a  
+Transfers-DNI9 | device_id | n/a | n/a  
+Transfers-DNI10 | device_id  
+sender_transaction_amount | n/a | n/a  
+Transfers-DNI11 | created_at  
+payment_sub_type  
+device_id  
+sender_account_id  
+info_type |  count_account_activity_out_work_days_3m  
+count_account_activity_3m  | n/a  
+  
+(*) The `account_id` is populated by the Digital Activity API.
+
+(**) These rules are omnichannel and use fields from the Digital Activity API.
+
+## Digital Activityâ
+
+**Rules Project** | **Rule Code** | **API Fields** | **Scoring Event** | **Metrics and Derived Fields** | **Lists**  
+---|---|---|---|---|---  
+**Decision Rules** | DR1 | enforced_risk_level  
+risk_level | All Digital Events | n/a | n/a  
+DR2 | fraud_score | All Digital Events | n/a | Digital Activity - Rules Thresholds  
+DR3 | enforced_risk_level  
+risk_level | All Digital Events | n/a | n/a  
+DR4 | fraud_score | All Digital Events | n/a | Digital Activity - Rules Thresholds  
+DR5 | enforced_risk_level  
+risk_level | All Digital Events | n/a | n/a  
+DR6 | fraud_score | All Digital Events | n/a | Digital Activity - Rules Thresholds  
+**Feedback Rules** | FB1 | feedback_label  
+feedback_value  
+account_id | All Digital Events | n/a | PosNeg Listed Accounts  
+FB2 | feedback_label  
+feedback_value  
+account_id | All Digital Events | n/a | PosNeg Listed Accounts  
+**PosNeg Rules** | PN1 | device_ip_address | All Digital Events | n/a | PosNeg Listed IP Addresses  
+PN2 | device_id | All Digital Events | n/a | PosNeg Listed Devices  
+PN3 | account_id | All Digital Events | n/a | PosNeg Listed Accounts  
+PN4 | account_id | All Digital Events | n/a | PosNeg Listed Accounts  
+PN5 | new_alias_value | Alias | n/a | PosNeg Listed Alias  
+PN6 | new_customer_email_addr  
+new_customer_email_domain | Profile Update | n/a | PosNeg Listed Email Addresses  
+PosNeg Listed Email Domains  
+PN7 | new_customer_phone_number | Profile Update | n/a | PosNeg Listed Phone Numbers  
+**Device and Network Intelligence Rules** | DNI1 | session_id | All Digital Events | n/a | n/a  
+DNI2 | n/a | All Digital Events | n/a | n/a  
+DNI3 | session_id | All Digital Events | n/a | n/a  
+DNI4 | device_id | All Digital Events | n/a | n/a  
+DNI5 | device_id | All Digital Events | n/a | n/a  
+DNI6 | device_id | All Digital Events | n/a | n/a  
+DNI7 | event_status  
+account_age  
+challenge_requested  
+account_id | Authentication | count_account_activity_3M | n/a  
+DNI8 | challenge_requested  
+device_ip_country_code  
+device_id | Authentication | n/a | n/a  
+DNI9 | n/a | All Digital Events | n/a | n/a  
+**Fraud Rules** | FR1 | device_id  
+customer_id  
+challenge_requested | Authentication |  distinct_customer_id_per_device_id_1w  
+count_logins_per_device_id_90min  | Digital Activity - Rules Thresholds  
+FR2 | device_ip_address  
+customer_id  
+challenge_requested | Authentication |  distinct_customer_id_per_device_ip_addr_1h  
+count_logins_per_device_ip_addr_1h  | Digital Activity - Rules Thresholds  
+FR3 | device_id  
+challenge_requested  
+event_status  
+account_id | Authentication |  count_succ_logins_per_account_1m  
+count_logins_per_device_id_1m  
+count_failed_logins_per_device_id_90min  | Digital Activity - Rules Thresholds  
+FR4 | device_ip_address  
+challenge_requested  
+event_status  
+account_id | Authentication |  count_succ_logins_per_account_1m  
+count_logins_per_device_ip_addr_1m  
+count_failed_logins_per_device_ip_addr_90min  | Digital Activity - Rules Thresholds  
+FR5 | account_id  
+challenge_requested  
+event_status | Authentication | count_failed_logins_per_account_id_1min | Digital Activity - Rules Thresholds  
+FR6 | customer_region  
+device_ip_region  
+account_id  
+challenge_requested | Authentication | distinct_login_locations_per_account_1h | Digital Activity - Rules Thresholds  
+FR7 | account_id  
+session_id  
+challenge_requested  
+event_status | Authentication | count_account_changes_per_session_id_1h | Digital Activity - Rules Thresholds  
+FR8 | account_id  
+challenge_requested | New Payee | count_new_payee_per_account_1min | Digital Activity - Rules Thresholds  
+FR9 | account_id  
+challenge_requested  
+event_sub_type  
+event_status | New Payee and Profile Update |  account_previous_change_is_new_device_24h  
+account_previous_auth_type_changed_24h  | n/a  
+FR10 | event_sub_type  
+account_id  
+challenge_requested  
+event_status | Authentication |  account_previous_activity_is_succ_login_24h  
+count_failed_logins_per_account_id_24h  | Digital Activity - Rules Thresholds  
+FR11 | account_id  
+account_age  
+event_sub_type  
+event_status | Profile Update and Credentials Update |  account_previous_activity_is_succ_login_24h  
+count_succ_logins_per_account_1m  | n/a  
+FR12 | event_status  
+account_id  
+account_age  
+event_sub_type  
+challenge_requested  
+event_occurred_at | Credentials Update |  ount_succ_logins_per_account_time_of_day_3m  
+count_succ_logins_per_account_3m  
+account_previous_activity_is_succ_login_24h  | Digital Activity - Rules Thresholds  
+FR13 | new_device_id  
+event_sub_type  
+account_id  
+account_age  
+challenge_requested  
+device_ip_region  
+customer_region  
+event_status | Device |  account_previous_change_is_password_reset_24h  
+count_login_per_account_and_ip_region_1m  
+count_succ_logins_per_account_1m  | Digital Activity - Rules Thresholds  
+  
+(*) The `count_account_activity_3M` metric is omnichannel, and therefore is populated by Cards, Transfers, and Digital Activity APIs.

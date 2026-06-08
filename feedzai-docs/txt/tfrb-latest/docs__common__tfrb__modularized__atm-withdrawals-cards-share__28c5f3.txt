@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/modularized/atm-withdrawals-cards-shared
+Title: atm-withdrawals-cards-shared | Transaction Fraud for Banking
+============================================================
+
+# atm-withdrawals-cards-shared
+
+Was this page helpful?Â 
+
+To correctly map ATM withdrawals to card authorizations, and hence score ATM withdrawals, some fields need to be populated to identify ATM withdrawal events as follows:
+    
+    
+        {  
+            // Required fields  
+            "mti": "0110",   
+            "card_pan": "8955060600182663", // Which card was used  
+            "ttc": "001", // Type of transaction  
+            "currency_code": "EUR",   
+            "amount": 20,  
+            "cardholder_bill_amount": 20,  
+            "lifecycle_id": "1df7a7qg78vd7fs",  
+            "pos_card_read_method": "01",  
+            "event_occurred_at": 1684492270092,  
+            "card_bin": "123456",  
+            "account_iban": "482924bf58091603ed69c5bd1221ad67481bfca8",  
+            "customer_id": "87b2ee22cb0004722a7265fdbbf7be98c681a3bb",  
+        }  
+    
+
+Read the [Authorization [POST]](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-card-authorization) documentation for more information on other fields you can use in the payload.

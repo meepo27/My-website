@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/logging-api-authentication
+Title: API Authentication | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# API Authentication
+
+In this page you can find an outline of the authentication process, necessary parameters, and the required flow to interact with the Pulse APIs, for example, in the context of authenticating a service account before using the Pulse and Case Manager servlets that allow [exporting and importing Pulse applications](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/import-export-pulse-applications).
+
+## Authentication Processâ
+
+Pulse and Case Manager APIs require authentication for accessing and performing actions. Specifically, Basic Authentication is used for authenticating service accounts through their credentials (username and password). These credentials need to be encoded in Base64 before being sent in the API requests. The authentication flow is as follows:
+
+  * Take note of a Pulse service account's username and password
+  * Encode the username and password using a Base64 encoder of your choosing
+  * Send a request to the authentication endpoint with the credentials in the request body
+  * If the request succeeds, Pulse will return a session cookie that can be used in subsequent API calls, e.g. a request to the logging API
+
+
+
+You can find below the authentication diagram:
+
+After receiving a successful response the cookie can be used to make authenticated requests to the Pulse API to, for example, [Import and Export Pulse applications using the Pulse API](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/import-export-pulse-applications).
+
+## API definitionâ
+
+In this section you can find the authentication API endpoint definition.
+
+#### Endpoint URLâ
+
+> `POST` `/pulseviews/api/sessions` `(authenticates a service account)`
+
+#### Parametersâ
+
+> None
+
+#### Responsesâ
+
+> Code| Content-type| Response  
+> ---|---|---  
+> `200`| `application/json`| `JSON object with user information`  
+> `401`| `text/html;charset=iso-8859-1`| `Error 401 Unauthorized`  
+  
+#### Example cURLâ
+
+> 
+>     curl -X POST http://<PULSE_URL>/pulseviews/api/sessions \  
+>     >   -H "Content-Type: application/json" \  
+>     >   -H "X-Requested-With: XMLHttpRequest" \  
+>     >   -d '{"username": "<base64_username>","password": "base64_password"}' -c -  
+>     > 
+> 
+> Copy
+
+#### Example responseâ
+
+> 
+>     {"blockedState":"NONE","createdAt":1732196807880,...}  
+>     > #HttpOnly_localhost FALSE   /   FALSE   0   SSOcookie   cee99ab5-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+>     > 
+> 
+> Copy

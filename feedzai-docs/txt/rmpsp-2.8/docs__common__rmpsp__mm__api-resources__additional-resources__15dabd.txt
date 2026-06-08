@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/additional-resources
+Title: Additional Resources | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [API Resources](/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/overview)
+  * Additional Resources
+
+
+
+# Additional Resources
+
+This section contains information about the following topics:
+
+  * [Authentication](/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/authentication)
+
+

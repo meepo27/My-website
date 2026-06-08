@@ -1,0 +1,484 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-instant-transfers-rules
+Title: Transfers - Instant Transfers Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - Instant Transfers Rules
+
+
+
+On this page
+
+# Transfers - Instant Transfers Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+TFB provides **Instant Transfers Rules** to account for fraud schemes that are associated with this payment type. This is important because instant transfers have unique patterns that might be considered normal in other payment types. For example, thresholds on the transfer's amount are more strict on instant transfers than on other transfer payment types. Therefore, this rules project includes rules that limit the transaction amount with lower thresholds.
+
+Additionally, instant transfers do not allow for manual revision due to the instantaneous nature of this payment type (i.e. they are accepted or decline). Therefore, this rules project is built-in with outcome logic to not trigger alerts in Case Manager. See the [Understand How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) page for more information on how rules generate a final recommendation.
+
+In the workflow, this rule block is configured with a filter so that only events with `payment_sub_type` equal to `instant_transfer` are evaluated by **Instant Transfer Rules**.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Transfers-IT1
+
+### Comment
+
+> Transaction amount exceeds sender threshold
+
+### Actions
+
+  * [Transfers-IT1]
+
+
+
+### Variables
+    
+    
+    max_trx_amount_sender_th=transfers__rules_thresholds["max_trx_amount_sender_th"].threshold;  
+    
+    formatted_amount = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sender_transaction_amount);
+    formatted_th = ValueFormatTools.formatMoney(event.sender_transaction_currency, max_trx_amount_sender_th);
+
+### Condition
+    
+    
+    (event.sender_transaction_amount ?? 0 != 0) 
+    and 
+    event.sender_transaction_amount >= max_trx_amount_sender_th
+
+### Explanation
+
+> [Transfers-IT1] - High Risk - Transaction amount ({localvar.formatted_amount}) for this sender exceeds the established limit ({localvar.formatted_th}) for this type of transfer.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT2
+
+### Comment
+
+> Transaction amount exceeds receiver threshold
+
+### Actions
+
+  * [Transfers-IT2]
+
+
+
+### Variables
+    
+    
+    max_trx_amount_receiver_th=transfers__rules_thresholds["max_trx_amount_receiver_th"].threshold;
+    
+    formatted_amount = ValueFormatTools.formatMoney(event.receiver_transaction_currency, event.receiver_transaction_amount);
+    
+    formatted_th = ValueFormatTools.formatMoney(event.receiver_transaction_currency, max_trx_amount_receiver_th);
+
+### Condition
+    
+    
+    (event.receiver_transaction_amount ?? 0 != 0)
+    and
+    event.receiver_transaction_amount >= max_trx_amount_receiver_th
+
+### Explanation
+
+> [Transfers-IT2] - High Risk - Transaction amount ({localvar.formatted_amount}) for this receiver exceeds the established limit ({localvar.formatted_th}) for this type of transfer.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT3
+
+### Comment
+
+> Sender's daily number of transactions is extremely higher than daily average number of transaction (considering behavior from previous 3 months)
+
+### Actions
+
+  * [Transfers-IT3]
+
+
+
+### Variables
+    
+    
+    min_ratio = transfers__rules_thresholds["min_ratio_sender_instant_transfer_count_sender_daily_avg_3m_th"].threshold;
+    
+    min_count_trx_sender_instant_transfer_24h = transfers__rules_thresholds["min_count_trx_sender_instant_transfer_24h"].threshold;
+    
+    ratio = match 
+    	if (event.avg_daily_count_sender_instant == 0.0) then
+    		return event.count_sender_instant_transfesr; 
+    	else
+    		return Maths.safeDivision(event.count_sender_instant_transfesr*1.0,event.avg_daily_count_sender_instant); 
+    	end 
+    end
+    
+
+### Condition
+    
+    
+    ratio >= min_ratio
+    and 
+    event.count_sender_instant_transfesr>=min_count_trx_sender_instant_transfer_24h 
+
+### Explanation
+
+> [Transfers-IT3] - High Risk - Transaction count ({event.count_sender_instant_transfesr}) for this sender is significantively higher ( {localvar.min_ratio} x) than Sender's daily average count over the last 3 months 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT4
+
+### Comment
+
+> Wire transaction with no Sender's information
+
+### Actions
+
+  * [Transfers-IT4]
+
+
+
+### Variables
+    
+    
+     
+
+### Condition
+    
+    
+    event.payment_type == 'wire' 
+      and
+    ((event.sender_name ?? '' == '') or (event.sender_street_addr ?? '' == ''))
+
+### Explanation
+
+> [Transfers-IT4] - High Risk - Wire transaction with no Sender's information.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT5
+
+### Comment
+
+> Wire transaction with no Receiver's information
+
+### Actions
+
+  * [Transfers-IT5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.payment_type == 'wire' 
+      and 
+    ((event.receiver_name ?? '' == '') or (event.receiver_street_addr ?? '' == ''))
+
+### Explanation
+
+> [Transfers-IT5] - High Risk - Wire transaction with no Receiver's information.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT6
+
+### Comment
+
+> Sender alias is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-IT6]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_alias ?? '' != '')
+     and event.posneg_sender_alias_value == 'decline'
+
+### Explanation
+
+> [Transfers-IT6] - High Risk - Sender alias ({event.sender_alias}) is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT7
+
+### Comment
+
+> Receiver alias is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-IT7]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_alias ?? '' != '')
+     and event.posneg_receiver_alias_value == 'decline'
+
+### Explanation
+
+> [Transfers-IT7] - High Risk - Receiver alias ({event.receiver_alias}) is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT8
+
+### Comment
+
+> Instant payments without any description and above amount threshold
+
+### Actions
+
+  * [Transfers-IT8]
+
+
+
+### Variables
+    
+    
+    text_for_self_empty = event.sender_transaction_notes ?? '' == ''; 
+    text_for_receiver_empty = event.text_for_receiver ?? '' == ''; 
+    max_amt_threshold_empty_text = transfers__rules_thresholds['max_amt_threshold_empty_text'].threshold; 
+
+### Condition
+    
+    
+    text_for_self_empty
+    and text_for_receiver_empty
+    and (event.sender_transaction_amount ?? 0)>= max_amt_threshold_empty_text 
+
+### Explanation
+
+> [Transfers-IT8] - High Risk - Payments without any description and payment amount ({event.sender_transaction_amount}) is above [ {localvar.max_amt_threshold_empty_text} ]
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT9
+
+### Comment
+
+> Receiver alias type is email address and the email domain is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-IT9]
+
+
+
+### Variables
+    
+    
+    
+
+### Condition
+    
+    
+    (event.receiver_alias_type ?? '' == 'email') and (event.receiver_alias_email_domain ?? '' != '')
+      and event.posneg_receiver_alias_email_do == 'decline'
+
+### Explanation
+
+> [Transfers-IT9] - High Risk - Receiver alias email domain is listed to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT10
+
+### Comment
+
+> Instant payment above amount threshold to a receiver alias if alias_last_update_time was less than 24h ago
+
+### Actions
+
+  * [Transfers-IT10]
+
+
+
+### Variables
+    
+    
+    receiver_alias_last_update_hours = (event.event_occurred_at - (event.receiver_alias_last_update_tim ?? 0)) / (1000*60*60);   
+    sender_alias_last_update_hours = (event.event_occurred_at - (event.sender_alias_last_update_time ?? 0)) / (1000*60*60);   
+    max_amt_threshold_last_update = transfers__rules_thresholds['max_amt_threshold_last_update'].threshold;
+    
+    formatted_th = ValueFormatTools.formatMoney(event.sender_transaction_currency, max_amt_threshold_last_update);
+    formatted_amount = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sender_transaction_amount);
+
+### Condition
+    
+    
+    (
+      receiver_alias_last_update_hours < 24  
+      or sender_alias_last_update_hours < 24
+    ) 
+    and (event.sender_transaction_amount ?? 0) >= max_amt_threshold_last_update 
+
+### Explanation
+
+> [Transfers-IT10] - High Risk - Payment amt ({localvar.formatted_amount}) is above {localvar.formatted_th} and receiver or sender alias last update was less than 24h ago
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT11
+
+### Comment
+
+> Instant payments with malformed text (more than 2 special characters, odd keyboard distance) and above amount threshold
+
+### Actions
+
+  * [Transfers-IT11]
+
+
+
+### Variables
+    
+    
+    text_regex = com.feedzai.commons.udfs.StringTools.regexReplaceAll('[^a-zA-Z0-9.]',event.text_for_receiver,'%');       
+                            
+    text_keyboard_distance = com.feedzai.cloud.udf.Strings.keyboardDistance(event.text_for_receiver,1);    
+    keyboard_distance_threshold = transfers__rules_thresholds['keyboard_distance_threshold'].threshold; 
+    
+    max_amt_threshold_malformed_text = transfers__rules_thresholds['max_amt_threshold_malformed_text'].threshold;  
+
+### Condition
+    
+    
+    (event.text_for_receiver ?? '' != '') and (!ListedKeywords.containsKeyword(posneg_listed_keywords, "accept", event.text_for_receiver, true))
+    and 
+    (
+      com.feedzai.commons.udfs.StringTools.contains(text_regex ?? '', '%%')
+      or text_keyboard_distance < keyboard_distance_threshold    
+    )
+    and
+    (event.sender_transaction_amount ?? 0)>= max_amt_threshold_malformed_text  
+    
+
+### Explanation
+
+> [Transfers-IT11] - High Risk - Instant payments with malformed text (more than 2 special characters, odd keyboard distance) and above amount threshold 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT12
+
+### Comment
+
+> Receiver alias type is 'phone' and this number is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-IT12]
+
+
+
+### Variables
+    
+    
+    
+
+### Condition
+    
+    
+    (event.receiver_alias_type ?? '') == 'phone' 
+      and event.receiver_alias ?? '' != '' 
+      and event.posneg_receiver_alias_phone_va == 'decline'
+
+### Explanation
+
+> [Transfers-IT12] - High Risk - Receiver alias phone number ({event.receiver_alias}) is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-IT13
+
+### Comment
+
+> Total amount of instant payments per sender alias in 90 minutes, after a new alias registration, is above a set threshold
+
+### Actions
+
+  * [Transfers-IT13]
+
+
+
+### Variables
+    
+    
+    sender_alias_new_registration = (event.event_occurred_at - (event.sender_alias_registration_time ?? 0)) / (1000*60);     
+    max_total_amt_new_reg_threshold = transfers__rules_thresholds['max_total_amt_new_reg_threshold'].threshold;
+    
+    formatted_th = ValueFormatTools.formatMoney(event.sender_transaction_currency, max_total_amt_new_reg_threshold);
+    formatted_sum = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sum_amt_instant_transfers_per_);
+
+### Condition
+    
+    
+    sender_alias_new_registration <= 90     
+    and event.sum_amt_instant_transfers_per_ >= max_total_amt_new_reg_threshold   
+
+### Explanation
+
+> [Transfers-IT13] - High Risk - Total amount per sender alias in the last 90min ({localvar.formatted_sum}) is above {localvar.formatted_th}, after a new alias registration ({event.sender_alias}) 
+
+### Mark As
+
+The outcome of this rule is: **high**

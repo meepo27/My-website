@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/alert-activity-widgets
+Title: alert-activity-widgets | Transaction Fraud for Banking
+============================================================
+
+On this page
+
+# alert-activity-widgets
+
+Was this page helpful?Â 
+
+### Attached Filesâ
+
+This widget also provides a convenient storage for any information that is not currently represented or supported by Case Manager's interface. It allows you to add information that may be useful to support the investigation and for subsequent investigation steps, legal action, or auditing.
+
+You can use this widget to **upload** , **download** and/or **delete** files, as well as **update** files (e.g. to the latest version) by selecting the update  icon.
+
+### Notesâ
+
+While investigating alerts, you may need to document any steps taken during your investigation to share with other agents that may look into the same alert. To do so:
+
+  1. Select **Add Note**.
+  2. Select what your note refers to (e.g. event, merchant, customer). Note that depending on the option selected, you might need to enter additional information
+  3. Enter your **Note**.
+  4. Select **Save**.
+
+
+
+All notes added to the alert (either by you or another agent) are then displayed in this widget, allowing you to check, for example:
+
+  * If the parties involved were recently contacted.
+  * If other agents flagged any related alerts or information that might impact your decision.
+  * If additional information has been requested and hasn't yet been received.
+
+
+
+### Activity Logâ
+
+This widget displays the different actions performed in relation to the alert. For example, attached files, notes added, updates to lists, etc.
+
+You can use the dropdown at the top right to filter the list by different actions, such as **Event created** or **Status**.

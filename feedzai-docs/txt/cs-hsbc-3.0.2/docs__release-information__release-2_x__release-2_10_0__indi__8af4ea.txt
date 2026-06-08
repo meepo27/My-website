@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3110-HSBC-3204-Add-new-fields-to--vocalink--complex-field
+Title: HSBC-3110-HSBC-3204-Add-new-fields-to--vocalink--complex-field | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3110-HSBC-3204-Add-new-fields-to--vocalink--complex-field
+
+### Add new fields to `vocalink` complex fieldâ
+
+FeatureFTMT-27190HSBC-3110HSBC-3204
+
+Also In:2.9.0
+
+We've added new fields to the existing `vocalink` for Inbound and Outbound Payments API and workflow schema:
+
+**Field Name**| **Datatype**  
+---|---  
+alert_id| String  
+source_account_id| String  
+destination_account_id| String  
+transaction_id| String  
+transaction_value| Double  
+score_generated_at| Long  
+transaction_currency| String  
+  
+##### warning
+
+Due to the complex nature of HSBCâs production workflow, which contains many elements with multiple copies of the schema, this change may cause a normal blue-green deployment to fail. A manual step will be required to update the objects in the Pulse UI.

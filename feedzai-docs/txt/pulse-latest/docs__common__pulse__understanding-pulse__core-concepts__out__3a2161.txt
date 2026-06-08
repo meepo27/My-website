@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator
+Title: Outcome Combinator | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * Outcome Combinator
+
+
+
+On this page
+
+# Outcome Combinator
+
+Was this page helpful?Â 
+
+The outcome combinator is a key concept in [workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) and [sandbox evaluations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/sandbox-evaluations) that helps to create more stable Data Science projects and allows you to define the strategy on how to combine results into outcomes in workflows.
+
+Outcomes
+
+Outcomes represent the decisions produced as output based on the way a workflow has been modelled, e.g. Fraud/Not fraud. Pulse adds each outcome decision field (for instance, _fraud_) and outcome score field (for instance, _fraud_score)_ to the schema of events moving along the workflow.
+
+## How Outcome Combinators Workâ
+
+Scoring and rules services contribute to outcomes and respective scores with partial values. The message associated with every event that enters a workflow is complemented with further information on outcomes whenever the event is scored or processed by [rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules).
+
+The outcome combinator therefore takes all those partials results, retrieves any other relevant data from each of the steps (rules, [models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models), etc) and combines all information. This expands the message and updates the decision information related to that given event.
+
+Outcome combinators act every time that an event is processed by a workflow service, or resources in a sandbox evaluation, that contributes to a decision and adds results to the event. It is then when the combinator:
+
+  1. Is executed in order to combine all the partial results generated up to that point, according to a combination strategy â typically a weighed average.
+  2. Updates the fields associated to the outcomes. E.g. _fraud_ and _fraud_score_.
+
+
+
+Outcome combinators guarantee that those fields always reflect the combined scores and decisions taken in the workflow up to that point, which can be used as input for the next service being processed. Outcome combinators define how to calculate the final score for an outcome, i.e. how to combine all partial scores produced by any resource.
+
+## Learn Moreâ
+
+Refer to the [Testing your work in a Sandbox environment](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment) page for more details on how Sandboxing works.

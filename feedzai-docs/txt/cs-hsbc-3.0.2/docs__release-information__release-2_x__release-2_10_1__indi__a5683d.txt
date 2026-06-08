@@ -1,0 +1,86 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.1/individual-release-notes/HSBC-3632
+Title: HSBC-3632 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3632
+
+### Address CVE'sâ
+
+Feature
+
+In this release, we addressed multiple CVEs and security-related FTMT tickets.
+
+Please refer to the table below for a detailed summary of the updates and component versions affected.
+
+Component| FTMT Ticket| Feedzai Ticket| Old Version| Upgraded Version| CVE| Additional Notes  
+---|---|---|---|---|---|---  
+Pulse| FTMT-30590   
+FTMT-30225   
+FTMT-28076| HSBC-3567   
+HSBC-3630| 25.0.91| 25.1.0| CVE-2023-6378   
+CVE-2023-6481   
+CVE-2024-7254   
+CVE-2025-24970   
+CVE-2025-30065   
+CVE-2025-48924   
+CVE-2025-52999   
+CVE-2025-5115| Addresses a security vulnerability identified in `jackson-core` version   
+Upgrade library versions for local project-components (that don't come directly from the core Feedzai products).  
+Pulse Commands| FTMT-30225   
+FTMT-28076| HSBC-3567   
+HSBC-3630| 25.14.38| 25.17.3| CVE-2023-6378   
+CVE-2023-6481   
+CVE-2024-7254   
+CVE-2025-24970   
+CVE-2025-30065   
+CVE-2025-48924   
+CVE-2025-52999|   
+ETL| FTMT-30224| HSBC-3565| 18.0.0| 18.1.0| CVE-2024-1597   
+CVE-2024-7254   
+CVE-2024-13009   
+CVE-2025-52999|   
+Reference Data| FTMT-30224| HSBC-3568| 3.7.8| 3.7.11| CVE-2024-13009|   
+Ansible Portable| FTMT-30226| HSBC-3619| 7.8.4| 7.8.5| CVE-2025-47273| Prevents a security vulnerability identified in the `setuptools` version, that was updated to 79.0.1.  
+External Notifications| FTMT-30590| HSBC-3621| 1.1.2| 2.1.1| CVE-2022-1471   
+CVE-2025-52999| Full details on the [Upgrade Data Extraction Pipelines to version 2.1.1](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.10#upgrade-data-extraction-pipelines-to-version-211) release note.  
+JupyterLab| FTMT-30590   
+FTMT-30225| HSBC-3633   
+HSBC-3681| 25.0.46| 25.0.49-gcs-2.2.29| CVE-2025-52999   
+CVE-2023-44487   
+CVE-2022-1471   
+CVE-2024-13009| This upgrade addresses the vulnerabilities in Pulse and removes the vulnerable libraries included by the Hadoop dependency. Please find the new Docker image in the [Installation Guide](/cs-hsbc/3.0.2/docs/installation-guide/overview).  
+Case Manager| FTMT-30224| HSBC-3547| N/A| N/A| CVE-2023-5072   
+CVE-2023-6378   
+CVE-2023-6481   
+CVE-2024-1597   
+CVE-2024-13009   
+CVE-2025-52999| Upgrade library versions for local project-components (that don't come directly from the core Feedzai products).  
+Spark Distribution| FTMT-30590  
+FTMT-30225| HSBC-3657| 3.3.2-hadoop-3.3.4| 3.5.7-hadoop-3.3.5| CVE-2025-52999| Addresses a security vulnerability identified in `jackson-core` version by upgrading the Spark dependency. Please note that this upgrade does not address the CVE that is bundled with Hadoop 3.3.6 given there is no version that addresses it.  
+Ansible Roles| FTMT-30590  
+FTMT-30225| HSBC-3657| 33.1.0| 34.0.0| CVE-2025-52999| Pipeline changes to adopt new Spark distribution archive.  
+GCS Connector| FTMT-28985| HSBC-3682| 1.9.4-hadoop3| hadoop3-2.2.29| CVE-2019-17571   
+CVE-2020-7692   
+CVE-2020-8908   
+CVE-2020-15250   
+CVE-2021-4104   
+CVE-2021-22573   
+CVE-2022-23302   
+CVE-2022-23305   
+CVE-2022-23307   
+CVE-2023-2976   
+CVE-2023-26464| The upgraded version is the last version that supports Java 8  
+  
+##### warning
+
+Please note that starting in this version the `Spark Jars` archive was deprecated in favor of `Spark Dist`.
+
+Any non-Feedzai pipelines that depend on this artifact should be updated to the new one that can be found in the [Installation Guide](/cs-hsbc/3.0.2/docs/installation-guide/overview).
+
+##### warning
+
+Starting in this version the JupyterLab will be having a different naming, including the GCS Connector version provided in it, making it clear which component versions the image includes.
+
+This change also requires a change in the load process. Instead of loading the image as `docker.feedzai.com/feedzai/jupyterlab:<jupyterlabVersion>`, it will now have to be loaded as `docker.feedzai.com/feedzai/jupyterlab:<jupyterlabVersion>-gcp`.

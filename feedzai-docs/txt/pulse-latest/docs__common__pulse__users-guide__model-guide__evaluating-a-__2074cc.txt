@@ -1,0 +1,226 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model/
+Title: Evaluating a model | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * Evaluating a Model
+
+
+
+On this page
+
+# Evaluating a model
+
+Was this page helpful?Â 
+
+Evaluating your [model](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) against a test dataset is crucial in understanding its performance. This topic explains how to generate a [model evaluation](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation) over a trained model, and how to analyze the evaluation results.
+
+## Generating a model evaluationâ
+
+To generate an evaluation, execute the following actions:
+
+  1. In the Data Science  tab, select a model project from the **Model Projects** list.
+
+  2. Add  a new model evaluation.
+
+  3. Add a Name for the model evaluation, select the **Model** , and the **Data Source**.
+
+Training and testing datasets
+
+Make sure that when explicitly evaluating a model you **do not** select a testing data source that intersects with the dataset you used for training.
+
+  4. Select the **Target Variable**. It must match the format (data type and possible values) of the target variable of the model, if it has any.
+
+  5. In the **Fields to Select** area, choose which fields in your test data source Pulse will feed to the model and press . Only _Numeric_ and _Categorical_ fields are available.
+
+Testing data fields
+
+Pulse feeds the test data to the model according to the data schema you provided at training time. This means that although different test field names are allowed, you must always specify your fields in the same order and with the same data types.
+
+If the model training used a supervised ML algorithm, this rule applies to that field as well. If the model used an un supervised ML algorithm, then the target variable can be in any place within the schema of the evaluation data source.
+
+  6. Enable  an **Additional Cost Field** to be available for the model evaluation. Typically, you can select a field that represents the transaction amount to have metrics such as the _fraud money recall_ and _fraud money FPR_.
+
+  7. Enable  **Feature Importance** and configure the following input parameters. Check the page [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance#parameters) for more information about these parameters:
+
+     1. **False Positive Rate**. The default value is 1.00%.
+     2. **Sample Percentage**. The default value is 30%.
+     3. **Random Seed**
+  8. Select which are the **Breakdown** fields and values to slice the results into. For example, _Card Present_ vs _Card Not-Present._ Pulse will automatically display the number of possible breakdown combinations.
+
+Breakdowns
+
+The higher the number of possible breakdown combinations, the more computational resources will be consumed by training, and the longer will take to generate an evaluation for your model.
+
+  9. In the **Output Result** area, select the **Score Instances** checkbox to generate a new data source and a CSV file in your filesystem, adding a Pulse risk assessment to each instance. The new data source includes extra fields with a Feedzai score, each one representing the likelihood of the transactions being classified as each of the possible values of the target variable. For example, in a fraud scenario, Pulse adds two fields, one with the score for fraud and the other representing the score for not fraud. To configure the output, add a **Name** for the data source and a **Directory Path** where it will be stored.
+
+  10. **Evaluate** the Model using the  button, to create your model evaluation and compute feature importance.
+
+Incompatible schema
+
+If the data source selected in step 3 has a different schema than the data source used to train the model, an error message is displayed. In this case, you can select the  option to change the schema of the model evaluation.
+
+
+
+
+### Analyzing the model evaluationâ
+
+When you open an existing model evaluation, you have access to metrics to analyze the performance of your model. Additionally, if the model evaluation has feature importance computed, you have access to a tab to analyze the results of feature importance. However, if the model evaluation does not have feature importance computed yet, you can still perform this computation.
+
+The following subsections will guide you through the following topics:
+
+  * Analyzing performance metrics
+  * Computing feature importance from an existing model evaluation. This is only needed if feature importance has not been yet calculated while generating the model evaluation.
+  * Analyzing feature importance
+
+
+
+#### Analyzing performance metricsâ
+
+To analyze evaluation results, execute the following actions:
+
+  1. In the **Data Science** tab, select a model project from the **Model Projects** list.
+  2. Select an existing model evaluation.
+  3. Perform any of the following operations:
+     1. Change the **Target Value** of your target variable for which you want to evaluate the results. For example, 0 representing _Not-Fraud_ and 1 representing _Fraud_.
+
+When changing the Target Value
+
+The following happens when you change the target value:
+
+        * The specified target value will be interpreted as positive, while other values will be interpreted as negative. The ROC curve will reflect this reinterpretation.
+
+        * The Score Distribution graph gets updated as well. The graph shows the distribution associated to the likelihood of the instance to be classified as the specified target value. In the case of two classes, the score distributions associated to them are mirror images with respect to the X axis.
+
+If you make the non-usual choice of GENUINE as target value, then the score distribution will have high values for transactions that look legitimate, and low values for high risk of fraud. The FPR would be reinterpreted as the rate of fraudulent transactions mistakenly predicted as legitimate. Recall would be the "detection rate" of legitimate transactions, instead of the usual fraudulent transactions.
+
+     2. Analyze the **ROC Curve** for the selected evaluation.
+
+Exact values
+
+Hover the mouse pointer over the plot line to inspect the exact values for the **Recall** and **FPR** metrics and the respective **Threshold**.
+
+Cost-based Metrics
+
+If you define a **Cost Field** , then the **ROC Curve** will also plot the values for **Cost Recall** vs **Cost FPR**.
+
+     3. Configure the **X/Y Plot** to display a curve for any **X-Axis** and **Y-Axis**.
+
+Exact values
+
+Hover the mouse pointer over the plot line to inspect the exact values for the **X-Axis** and **Y-Axis** metrics and the respective **Threshold**.
+
+     4. Analyze the **Metrics** table, displaying the selected metrics for all breakdown combinations you configured. Adjust the Feedzai score **Threshold** to visualize the respective results in the **Metrics** table.
+
+Custom Evaluation Metrics
+
+If you do not define a [Cost Field](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/cost-fields) for an evaluation, then Pulse will not be able to compute any custom evaluation metrics you may have configured and you will not have access to them.
+
+     5. Use the  button to display a specific breakdown in the ROC Curve and X/Y Plot areas.
+
+     6. Analyze the **Score Distribution** for the selected evaluation.
+
+In a good model, the values of the target variable can be visually separated on the graph. In the following example, setting the threshold between 50 and 100 will separate _False_ from _True_.
+
+  4. If you want to take your evaluation further at any point, you can enrich it by [comparing with other model evaluations](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models).
+
+
+
+#### Computing feature importance from existing model evaluationâ
+
+Compute Feature Importance in existing Model Evaluations
+
+The option to compute feature importance from an existing model evaluation is available only if feature importance has not been computed yet for the selected model evaluation.
+
+To compute feature importance from an existing model evaluation, execute the following actions:
+
+  1. In the **Data Science** tab , select a model project from the **Model Projects** list.
+  2. In the **Model Project** window, select a model evaluation from the **Model Evaluations** list.
+  3. Select the  button to configure the input parameters for Feature Importance:
+  4. Set the following input parameters. Check the page [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance#parameters) for more information about these parameters:
+     1. **False Positive Rate**. The default value is 1.00%.
+     2. **Sample Percentage**. The default value is 30%.
+     3. **Random Seed**
+  5. Use the  button to compute feature importance for this model evaluation.
+
+
+
+#### Analyzing feature importanceâ
+
+To analyze the results of feature importance, execute the following actions:
+
+  1. In the **Data Science** tab, select a model project from the **Model Projects** list.
+
+  2. Select an existing model evaluation.
+
+  3. Select the  button to access the feature importance results:
+
+Feature importance
+
+If an error occurs during the computation of the feature importance, the  tab displays a warning. Check [Handling Feature Importance errors](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model/handling-feature-importance-errors) to learn how to re-compute feature importance.
+
+By default, the list presents three columns: **Feature** , **Absolute Importance** and **Relative Importance**. Features are sorted by absolute importance. Absolute and relative importance are calculated based on the algorithm described in the [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance#how-pulse-calculates-feature-importance) topic.
+
+
+
+
+You can perform any of the following operations:
+
+  * **Sort and reverse order:** You can sort the list by any of the columns using the arrows on the right hand side of the column name (). You can reverse the sort by order by selecting the same column twice.
+  * **Choose Metrics:** Use the  button to customize the columns that are listed in the feature importance results.
+  * **Export Results to CSV:** Use the  button to export the results of feature importance to a CSV file with the following information: Feature, Target FPR, #Recall, #FPR, Absolute Importance, Relative Importance.
+
+
+
+## Exploring Evaluation resultsâ
+
+The **Exploration Mode** in your model project allows you to explore results both from single Model Evaluations and Hyperparameter Tuning.
+
+To explore evaluation results and examine Model performance for business targets, for example, client SLAs, execute the following actions:
+
+  1. In the Data Science  tab, select a model project from the **Model Projects** list.
+
+  2. Select the  option to explore evaluation results in your model project.
+
+  3. Select the  to view model evaluation metrics according to the target you configure. As an example, consider that your client SLA for project acceptance includes detecting fraud with 1% recall. Configure a target as follows:
+
+     1. Define which is the metric that the target will reflect, in this case, _#Recall_.
+
+     2. Define the **Configuration** for the new target by selecting which is the target metric and which is the preferred strategy to reach the target. In this case, _Under 1%._
+
+     3. Choose which are the **Metrics to Show**. This means that Pulse displays the values for each selected metric when the model detects fraud with recall the closest (and inferior) to 1%.
+
+Custom Evaluation Metrics
+
+If you do not define a [Cost Field](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/cost-fields) for an evaluation, then Pulse will not be able to compute your [custom evaluation metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/custom-evaluation-metrics) and you will not have access to them.
+
+  4. Use the search filters under **Evaluations** to select model evaluations and/or hyperparameter tuning results. Note that you can combine all results from one type of evaluations with all results from the other type.
+
+  5. Analyze the results of the evaluations for each target.
+
+
+
+
+## Using custom evaluation metricsâ
+
+To configure a [custom evaluation metric](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/custom-evaluation-metrics) and make it available for model evaluations execute the following steps:
+
+  1. In your Pulse application, use the **Options menu** and select .
+
+  2. Add  a new evaluation metric.
+
+  3. Name and add a textual **Description** to the evaluation metric.
+
+  4. Configure an arithmetic **Expression** to calculate the value of the metric.
+
+Available values
+
+The available values you can use for your metric's expression are the ones of the confusion matrix metrics both for count and cost field sums. For example, `count_FalsePositives` and `cost_field_FalsePositives.`
+
+
+
+
+## Next Stepsâ
+
+More than generating model evaluations you must be able to track how the performance of your model is improving. As model training and evaluation is an iterative process, once you evaluate your current model you should [compare it with previous iterations](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models).

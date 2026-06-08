@@ -1,0 +1,98 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/access-workload
+Title: Access Workload | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Access Workload
+
+
+
+On this page
+
+# Access Workload
+
+Was this page helpful?Â 
+
+As a fraud analyst, the first step you should take is to access the workload. Depending on the risk engine's decision, you may find a set of events for review.
+
+This page helps you understand how to access the events that are up for review.
+
+## List eventsâ
+
+When events arrive at Case Manager, they can be displayed in more than one page, depending on the fraud risk and the complexity. On Case Manager's sidebar you can access:
+
+  * **Search By Event :** Displays all the events in Case Manager. Note that, in a transaction fraud use case, an event may correspond to a transaction associated with a card payment, transfer, or digital activity.
+
+  * **Alerts :** Events that trigger a risk engine rule with the `alert` action - flagging a high fraud risk. When such rule is triggered, Case Manager displays the transaction both in the Search by Event and Alerts pages. The Alerts page allows you to focus only on triggered events.
+
+  * **Cases :** Events and alerts can be grouped into cases for a more organized action-taking process. This allows you to access events that may be correlated and that require a thorough investigation. Cases offer extra functionalities, such as note attachment. In addition, cases can also be automatically created through [**Automation Rules**](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-automation-rules). The following examples illustrate how both the note attachment and case automatic creation functionalities can help your investigation:
+
+    * A fraudster tests a card in several charity merchants and then performs transactions in other merchants. All these events can be grouped into a case to give you a holistic view of the fraudster behavior. While reviewing this case, you can add notes, such as "send a message to the customer to confirm transaction authenticity".
+    * Imagine that a transaction associated with a given Permanent Account Number (PAN) triggers an alert and opens a case automatically. As a consequence, future transactions up to a configurable time range for the same PAN (suspicious or not) are grouped into this case.
+
+
+
+The following figure gives you an idea of how events, alerts, and cases relate to each other:
+
+tip
+
+**Events versus Alerts:** Commonly, fraud analysts use the Alerts page to review suspicious behavior, whereas the Search By Event page is used to search for information. For example, you could use the Search By Event page to find all the transactions performed by the same card brand as a way to obtain extra information to support your investigation.
+
+Since there is a much higher percentage of genuine transactions relative to fraudulent ones, the Search By Event page is not an effective way to access your workload.
+
+## Filter eventsâ
+
+Each page allows you to narrow down the workload for your analysis through filters.
+
+To understand how filters play a role in your workload, take the following examples:
+
+  * **Queues** : Define different priorities for your workload. Events, alerts, and cases go into a queue, which is associated with a number of fraud analysts who retrieve workload from that queue. Use the **More Actions** button to move events and cases to Queues from the Events and Cases / Case Details pages. Note that TFB already offers out-of-the-box queues that organize events, alerts, and cases in queues automatically. If the default queues do not address your needs, you can create custom queues.
+  * **Assignee** : Events can be assigned directly to fraud analysts. This means you can filter the events that are already being handled by other fraud analysts.
+
+
+
+## Access alertsâ
+
+To work with single events, perform the following steps:
+
+  1. Using the sidebar, enter the **Alerts** page to access the full list of alerts.
+  2. The **All Channels** tab is selected by default. You can view the alerts per channel by selecting the corresponding tab.
+
+
+
+tip
+
+Case Manager displays alerts originated from card, transfer, and digital activity events using different channels. The channel tab selector is available both on the **Search By Event** and **Alerts** pages.
+
+Note that you also have access to dropdown menus with filter options associated with queues to narrow down your search.
+
+## Access casesâ
+
+To work with cases, perform the following steps:
+
+  1. Using the sidebar, enter the **Cases** page to access the full list of cases.
+
+
+
+### Case automatic openedâ
+
+Imagine that you want to retrieve your work from a case that was automatically opened and sent to a queue named _Case Automatic Opened_. To quickly find your case:
+
+  1. Select the filter _Case Automatic Opened_ under **Queue**.
+  2. Use the  button to filter your search.
+  3. Open the case to access the list of linked events as well as the activity log. See the [Analyze Events](/tfrb/latest/docs/common/tfrb/investigate-alerts/select-and-analyze-events) step to learn how to investigate events.
+
+
+
+info
+
+For information on the different event statuses, check the [Event Statuses and Investigation Flow](/tfrb/latest/docs/common/tfrb/investigate-alerts/event-status-flow) page.
+
+Learn how to create and review cases in [Manage Cases](/tfrb/latest/docs/common/tfrb/investigate-alerts/manage-cases).
+
+## Next stepsâ
+
+In the next step of the fraud analyst journey, you will learn how to [analyze events](/tfrb/latest/docs/common/tfrb/investigate-alerts/select-and-analyze-events).

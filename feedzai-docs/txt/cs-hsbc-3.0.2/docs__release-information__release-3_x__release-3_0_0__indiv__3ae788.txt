@@ -1,0 +1,44 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4024
+Title: HSBC-4024 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4024
+
+### Add new Token reference data entityâ
+
+FeatureFTMT-34393FTMT-34969HSBC-4024
+
+We've added a new Token reference data entity to the Reference Data API. The entity key is `ref_digital_wallet_token` and its schema is the following:
+
+New Token fields
+
+**Field Name**| **Datatype**  
+---|---  
+tar_unique_refernce_number| String  
+tcn_unique_refernce_number| String  
+ref_customer_id| String  
+ref_card_pan| String  
+ref_tar_local_datetime| String  
+ref_tcn_local_datetime| String  
+ref_tar_local_datetime_alt| String  
+ref_tcn_local_datetime_alt| String  
+ref_digital_wallet_secu_elem_id| String  
+ref_digital_wallet_eligible_path| String  
+ref_digital_wallet_locale_lang| String  
+ref_card_mobile_match| String  
+ref_digital_wallet_source_pan| String  
+ref_digital_wallet_token_device_type| String  
+ref_digital_wallet_token| String  
+ref_digital_wallet_provider_reason| String  
+ref_digital_wallet_provider_risk| String  
+ref_digital_wallet_token_source| String  
+ref_digital_wallet_pan_source| String  
+ref_digital_wallet_provider_acc_score| String  
+ref_digital_wallet_provider_device_score| String  
+ref_avs_code| String  
+  
+We've also added support for Cards enrichment in the Cards workflow by adding all of the Token entity fields to the Cards API and workflow schemas. By default Cards enrichment will be done using `ref_digital_wallet_token` but the field can be changed during deployment using the Ansible variable `cards_token_enrichment_key`.
+
+Please refer to the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) and to the [Reference Data Tokens API](/cs-hsbc/3.0.2/api#tag/referencedata) for more details.

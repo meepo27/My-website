@@ -1,0 +1,14 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/overview
+Title: Risk Management for PSPs | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Risk Management for PSPs
+
+
+
+# Risk Management for PSPs
+
+### [About Risk Management for PSPsLearn the basics to have a solid understanding of how the solution works](/rmpsp/2.8/docs/common/rmpsp/about/overview)
+
+### [Admin ReferenceUnderstand how Risk Management for PSPs manages accesses and dashboards](/rmpsp/2.8/docs/common/rmpsp/admin-reference/overview)

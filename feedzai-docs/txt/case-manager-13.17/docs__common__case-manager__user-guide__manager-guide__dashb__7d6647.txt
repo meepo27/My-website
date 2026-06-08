@@ -1,0 +1,57 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/rules-monitoring
+Title: Rule Monitoring Dashboard | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Monitor Performance
+  * [Analyze Metrics](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics)
+  * Rule Monitoring Dashboard
+
+
+
+On this page
+
+# Rule Monitoring Dashboard
+
+The Rule Monitoring dashboard helps you find the rules that are in use, and the ones that are not. Additionally, a set of metrics helps you understand how each rule is performing and how the rule set could be optimized. These capabilities allow you to respond quickly to trends in suspicious activities by performing the following actions:
+
+  1. Follow the performance of a new rule to confirm if it behaves as expected.
+  2. Spot unnecessary rules.
+  3. Simplify and optimize your set of rules.
+
+
+
+The following sections explain the different dashboard metrics in more detail.
+
+## Amount of Transactions by Rule Triggeredâ
+
+This section provides a general overview of all rules by amount to quickly identify spikes and unusual behavior.
+
+  
+
+
+Individual rules can be highlighted by selecting a specific line or rule name.
+
+## Number of Transactions by Rule Triggeredâ
+
+Similar to the previous section, this chat displays the number of transactions triggered for each rule.
+
+## Top 10 Rules Triggeredâ
+
+This section shows the 10 most triggered rules by average transaction amount and number of transactions.
+
+## Bottom 10 Rules Triggeredâ
+
+Similar to the previous section, this chart shows the 10 least triggered rules by average transaction amount and number of transactions. This information enables a real-time analysis on newly created rules and their performance. It also enables financial institutions to track and identify rules that are neither used nor needed and thus can be removed.
+
+## Tuning Dashboard Resultsâ
+
+This dashboard is dynamic and highly configurable. You can select the rules and metrics that are shown, and the time period over which the metrics are calculated.
+
+## Learn Moreâ
+
+  * Learn more about the other available dashboards: [Business Overview](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/business-overview) and [Analyst Performance](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/analyst-performance).
+  * Learn more about [Managing Reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports) and how you can use them to capture and download a snapshot of how your system performed during a given timeframe.
+
+

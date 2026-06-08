@@ -1,0 +1,68 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/uat/overview
+Title: User Acceptance Testing | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/overview)
+  * User Acceptance Testing
+
+
+
+On this page
+
+# User Acceptance Testing
+
+The User Acceptance Testing (UAT) guide ensures that the Merchant Monitoring solution is properly tested. The following sections guide you through the necessary steps to test rules, cases, and automation rules.
+
+## Requirementsâ
+
+To execute all the tests, make sure you have the customer's QA or Pre-Production environment, as well as the [UAT Postman Collection](/rmpsp/2.8/postman-psp-collection.tar.gz).
+
+The Postman collection includes a set of requests and environment variables. Make sure you import both and change the environment variables into the desired enrivonment.
+
+## Test rulesâ
+
+  1. Execute the `MM-BR1` folder from the Postman Collection to trigger the `Monthly-Amount-Decrease-BR1` rule.
+
+Learn more about this process in the [Rule Testing](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/overview) guide.
+
+  2. In Pulse, run the Scheduled Metrics Jobs (SMJs) under **Registered Jobs**.
+
+  3. Execute the last request in Postman's `MM-BR1` folder.
+
+  4. In Case Manager, the last Merchant Monitoring event will display the desired rule under the **Rules Triggered** widget.
+
+  
+
+  5. Perform the following actions:
+
+     * [Move the event to queue](https://cam.feedzai.com/case-manager/13.3.0/docs/common/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#move-alerts-to-queues)
+     * [Link the event to case](https://cam.feedzai.com/case-manager/13.3.0/docs/common/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#link-alerts-to-cases)
+     * [Update the event's list](https://cam.feedzai.com/case-manager/13.3.0/docs/common/user-guide/analyst-guide/managing-lists)
+     * [Add a note to the event](https://cam.feedzai.com/case-manager/13.3.0/docs/common/user-guide/analyst-guide/investigating-alerts/managing-notes-in-alerts/##)
+
+
+
+## Test casesâ
+
+The **Search By Case** page displays the previous event.
+
+  
+
+
+By selecting the case you are redirected to the **Case Details** page, which shows the previously created case.
+
+## Test automation rulesâ
+
+  1. In the **Automation Rules** page, create the following rule:
+
+This rule triggers when a new event arrives to Case Manager with a specific **Terminal ID**.
+
+  2. Send the Postman Collection's last request (i.e. 03 - Payment 3) from the `Payment-FR20` folder.
+
+  3. Go to the **Event Details** page to confirm that the event's queue was automatically set to the previously created queue.
+
+
+

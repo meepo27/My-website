@@ -1,0 +1,93 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/rules-snapshots
+Title: Rule Snapshots | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules)
+  * Rule Snapshots
+
+
+
+On this page
+
+# Rule Snapshots
+
+Was this page helpful?Â 
+
+A **rule snapshot** captures the configuration of a rules project at a given time, including which rules compose the block, and their execution order.
+
+Snapshots allow the following:
+
+  * Use a specific version of a block of rules in a runtime workflow seamlessly.
+  * Evaluate the performance of a specific version of your rules before marking them production ready.
+
+
+
+## Snapshots and rule evaluationsâ
+
+A **rule evaluation** consists in the execution of a block of rules to classify the records of a data source, in a manner that lets you extract relevant performance metrics. Rule evaluations are useful in your data science project to perform easy comparisons over earlier versions of the rules, and assess whether they help you catching fraud (or predicting other target variables).
+
+info
+
+Sometimes you may want to just define and deploy a rule immediately, for example, when implementing a rule of business constraints. Therefore, **it is possible to generate a rule snapshot without generating an evaluation**.
+
+Pulse runs the evaluation of rules in a distributed way, on a set of machines in a cluster. This means that even for very large test datasets with several TB in size, Pulse is very fast to compute metrics and generate statistics, thus contributing to better performance assessments and faster iterations on your rules.
+
+The following image shows a rule evaluation taking into account the final result of running an instance through a block of sequential rules.
+
+## Evaluation methodsâ
+
+Pulse lets you analyze how rules perform over your data under different perspectives. Rule evaluation is available under the following points of view, known as **evaluation methods** :
+
+  * Block evaluation
+  * Block rule evaluation
+  * Individual rule evaluation
+
+
+
+These evaluation methods are explained in the following sections.
+
+### Block evaluationâ
+
+When you have a large set of rules, it may be very time consuming to analyze the performance of each rule individually.
+
+The **block evaluation** shows the performance for all rules you selected to be part of the evaluation, as a single block. This means that Pulse uses a black-box approach. You obtain evaluation results regarding the final value of the target field after Pulse runs all rules.
+
+Analyzing performance after Pulse runs an instance through them all as a single block, may immediately uncover issues or let you know that your set of rules, as a whole, performs at a high level.
+
+### Block rule evaluationâ
+
+Most likely you will need to perform a detailed examination of how each rule performs within the block configured for the evaluation.
+
+With the **block rule evaluation** , Pulse lets you drill down into each rule inside the block. You obtain the block performance broken down by each rule.
+
+Analyzing each rule in isolation allows you to detect rules with very bad performance, for example, a low recall and a high FPR. In addition, if the block evaluation returns suspicious results, drilling down into each rule may let you understand which one is causing the bad performance.
+
+### Individual rule evaluationâ
+
+The **individual rule evaluation** presents evaluation results as if each rule would run individually, without stopping the workflow. Pulse assumes that the control flow is always _Continue_ for all rules.
+
+This method is useful in situations where there are rules that stop other rules from being evaluated. For example, if you define a blacklist rule to run at the beginning of the rule block and stop the workflow, it may prevent subsequent rules from being evaluated.
+
+You may have a rule that catches 100% of fraud but since the block never reaches it, you would not have access to its performance and of the remaining rules.
+
+If the control flow has been configured as _Continue_ for all rules, then the block rule evaluation and the individual rule evaluation return identical results.
+
+## Breakdownsâ
+
+When you generate a rule evaluation, in addition to generating overall performance metrics, Pulse also calculates them over field combinations. This allows you to break them down by another categorical field and its values, and evaluate your rule block performance for each of those possible field and value combinations, for each rule (depending on the evaluation method). For example, checking the performance of your rule block segmented by each suspicious country, as you identified when designing features, where fraud is more prevalent.
+
+info
+
+When you run a rule evaluation, you must always select for which breakdown fields and values you want Pulse to calculate statistics.
+
+If Pulse allowed you to skip this action, and simply calculate broken-down statistics for all possible combination of fields and values, it would rapidly cause performance degradation due to lack of computational resources.
+
+## Snapshots and evaluations in a multi-tenant environmentâ
+
+Snapshots inherit the characteristics of the originating rules project, and thus, in the case of rules projects of the type _Global_ and _Duplicated for Tenant_ , the same rule applies for all the tenants. In the case of rules projects of the type _By Tenant_ , the rules can be distinct by tenant. However, still in the latter case, only one snapshot is needed to capture the rules for each tenant (i.e. is not a snapshot for per tenant). A snapshot associated to a rules project of the type _By Tenant_ is referred to as **overall snapshot**.
+
+Evaluations are not available in multi-tenant environments
+
+The evaluation feature is not available in rules projects that are set up for multi-tenancy (i.e. _Duplicated for Tenant_ and _By Tenant_).

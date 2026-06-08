@@ -1,0 +1,65 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.17
+Title: Release 0.17 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.17.0`â
+
+### Input and Workflow Schema Updateâ
+
+Feature
+
+We made changes on the input schema (for the input APIs) and in the workflow schema to support HSBC V9 data mapping. Find the changes introduced in the release below.
+
+**Added fields**
+
+Field| Datatype| Description  
+---|---|---  
+sender_account_open_date| long| Opening date of the account (in milliseconds since the Unix epoch).  
+billing_currency_code| string| Billing Currency Code  
+change_event_delivery| string| Change Event Delivery  
+customer_change_data_old| string| Previous data change  
+device_ip_address| string| IP address v4 [Presently all IP are on v4. Oman/ Bahrain are using it at present]. Internet address obtained via ajax application  
+overnight_acc_ledger_bal| double| Customer balance at the end of previous day. Different that available balance. Available in SASEFM for use in Payment Alert Decisioning  
+receiver_transaction_amount_dbl| double| Transaction amount received by the receiver.  
+sender_account_balance_dbl| double| Available balance (including overdraft limits) in billing currency and in scientific notation prior to the transaction [ also includes Sum of Balances on Sender Accounts]  
+sender_transaction_amount_dbl| double| Transaction amount in transaction currency and in scientific notation. This should always be a positive number  
+var_recurring_payment| string| Variable recurring payment indicator only for open banking payments  
+vocalink.vocalink_score| double| Vocalink Score  
+vocalink.mastercard_id| string| Vocalink Unique Identifier  
+  
+**Removed fields**
+
+Field  
+---  
+browser_os_version  
+costumer_id_global  
+customer_change_reason  
+customer_portfolio_phys_type  
+ds_transaction_id  
+payment_message_source_d  
+sender_account_channel_limit  
+sender_transaction_reason_d  
+sender_transaction_sign_stts_d  
+sender_transaction_origin_amount  
+sender_transaction_origin_currency  
+  
+**Note:** these fields were removed from the workflow schema but were kept as part of the API schema so we don't introduce a breaking change in the API. This allows that this set of fields can still be sent without the event being rejected by Pulse.
+
+**Updated fields**
+
+Field| Datatype| Description  
+---|---|---  
+bioc.custom_risk_aliases| double| Additional Biocatch Risk Factors  
+tmx.device_dev_id| string| Fingerprint hash STRING  
+  
+**Tests**
+
+After applying the changes to the input schema we ran a series of integration tests to validate the changes.
+
+The first test case was to issue a request to all input endpoints using the payload as defined in schema v8. All tests passed since we still allow fields from schema v8 to be sent to the API although they are not part of the workflow schema:
+
+The second test case was to issue a request to all input endpoints using the using a payload with the fields added in schema v9. All tests executed with success:

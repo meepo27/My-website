@@ -1,0 +1,825 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/rest-api-old
+Title: About REST API (old) | Case Manager
+============================================================
+
+On this page
+
+# About REST API (old)
+
+Deprecated API specification
+
+Case Manager is currently moving to an API specification generated with Swagger. Due to Case Manager's API size and complexity, the resources are being gradually moved to the new format. Until this transition is complete, please make sure that you check both this page and the [new API specification](/case-manager/13.17/api/).
+
+When all resources are moved to the new format, this page will be deleted.
+
+## Endpointsâ
+
+Resource|  Method|  Endpoint|  Description  
+---|---|---|---  
+System| GET| 
+    
+    
+    /api/version
+
+| Gets the version information of the application.  
+Configuration| GET| 
+    
+    
+    /api/configuration/<id>
+
+| Get the Configuration entry matching the given ID.  
+GET| 
+    
+    
+    /api/configuration?<pagination parameters>
+
+| Get a paginated list of Configuration entries.  
+GET| 
+    
+    
+    /api/configuration/tree
+
+| Get all the Configuration as a hierarchical JSON object.  
+GET| 
+    
+    
+    /api/configuration/suggestions
+
+| Gets all the suggestions.  
+GET| 
+    
+    
+    /api/configuration/core
+
+| Get the core configuration. For now, only includes the [cm](/docs/internal/case-manager/reference/core-config-json#cm) and suggestions configuration.  
+GET| 
+    
+    
+    /api/configuration/rules-block
+
+| Get the configuration for the available rules blocks to the logged user.  
+Language| GET| 
+    
+    
+    /api/language/<id>
+
+| Get the Language matching the given ID.  
+GET| 
+    
+    
+    /api/language?<pagination parameters>
+
+| Get a paginated list of Languages.   
+Language Message| GET| 
+    
+    
+    /api/language-message/<language>
+
+| Get a comprehensive list (not paginated) of all the Messages that are available for a given Language.  
+Message| GET| 
+    
+    
+    /api/message/<id>
+
+| Get the Message matching the given ID.  
+GET| 
+    
+    
+    /api/message?<pagination parameters>
+
+| Get a paginated list of Messages.   
+Data Entity| GET| 
+    
+    
+    /api/dataentity/<id>
+
+| Get the Data Entity matching the given ID.  
+GET| 
+    
+    
+    /api/dataentity?<pagination parameters>
+
+| Get a paginated list of Data Entities.   
+Data Source| GET| 
+    
+    
+    /api/datasource/<id>
+
+| Get the Data Source matching the given ID.  
+GET| 
+    
+    
+    /api/datasource?<pagination parameters>
+
+| Get a paginated list of Data Sources.   
+Session| GET| 
+    
+    
+    /api/session
+
+| Get the session of the user that is authenticated in the system.  
+POST| 
+    
+    
+    /api/session
+
+| Login the user in the system.  
+POST| 
+    
+    
+    /api/session/generate-config
+
+| Generates a 2FA configuration for the user.  
+POST| 
+    
+    
+    /api/session/validate-config
+
+| Validates the user 2FA configuration.  
+POST| 
+    
+    
+    /api/session/reset-config
+
+| Resets the user 2FA configuration.  
+POST| 
+    
+    
+    /api/session/replace-config
+
+| Replaces the user 2FA configuration.  
+PUT| 
+    
+    
+    /api/session
+
+| Change the user's password.  
+PUT| 
+    
+    
+    /api/session/restore
+
+| Restore the user's expired password.  
+DELETE| 
+    
+    
+    /api/session
+
+| Logout the user from the system.  
+POST| 
+    
+    
+    /api/session/request-password-reset
+
+| Request password reset for the user.  
+POST| 
+    
+    
+    /api/session/validate-password-reset
+
+| Validate password reset for the user.  
+POST| 
+    
+    
+    /api/session/confirm-password-reset
+
+| Confirm password reset for the user.  
+Event| GET| 
+    
+    
+    /api/event/<id>
+
+| Get the Event matching the given ID.  
+GET| 
+    
+    
+    /api/event?<pagination parameters>
+
+| Get a paginated list of Events.  
+GET| 
+    
+    
+    /api/event/review/next
+
+| Gets the next event to be reviewed by a given user..  
+GET| 
+    
+    
+    /api/event/review/current
+
+| Gets the current event being reviewed by a given user..  
+GET| 
+    
+    
+    /api/event/<id>/linked?<pagination parameters>
+
+| Get a paginated list of Linked Events to the given event..  
+Event Status| POST| 
+    
+    
+    /api/event-status
+
+| Change the Status of a set of Events.  
+Event User| POST| 
+    
+    
+    /api/event-user
+
+| Assign a set of Events to an Analyst.  
+Event Queue| POST| 
+    
+    
+    /api/event-queue
+
+| Move a set of Events to a Queue.  
+Event Note| POST| 
+    
+    
+    /api/event-note
+
+| Add a Note to a set of Events.  
+Event Pos/Neg|  POST| 
+    
+    
+    /api/event-posneg
+
+| Edit a Block/Allow List according to a given set of Events.  
+POST| 
+    
+    
+    /api/event-posneg/bulk
+
+| Bulk edit Block/Allow List items according to a given set of Events.  
+Event Export  
+POST| 
+    
+    
+    /api/event-report
+
+| Download a file-based report exporting a set of Events..  
+POST| 
+    
+    
+    /api/event-report/readonly
+
+| Download a file-based report exporting a set of Events, using the readonly database..  
+Event Visibility| POST| 
+    
+    
+    /api/event-visibility/
+
+| Set the access group ID of one or more events.  
+Case| GET| 
+    
+    
+    /api/case/<id>?timestamp=<timestamp>
+
+| Get a case matching given id and timestamp.  
+GET| 
+    
+    
+    /api/case?<pagination parameters>
+
+| Get a paginated list of cases.  
+POST| 
+    
+    
+    /api/case
+
+| Create a new case.  
+PUT| 
+    
+    
+    /api/case/<id>?timestamp=<ts>
+
+| Update a case matching given id and timestamp.  
+GET| 
+    
+    
+    /api/case/review/next
+
+| Gets the next case to be reviewed by a given user.  
+GET| 
+    
+    
+    /api/case/review/current
+
+| Gets the next case to be reviewed by a given user.  
+GET| 
+    
+    
+    /api/case/case-types
+
+| Gets the list of available case types.  
+GET| 
+    
+    
+    /api/case/source-type
+
+| Gets the list of available case source types.  
+POST| 
+    
+    
+    /api/case/export
+
+| Download a file-based report exporting a set of Cases.  
+Case Event| POST| 
+    
+    
+    /api/event-case
+
+| Add events to already existing cases.  
+DELETE| 
+    
+    
+    /api/event-case
+
+| Delete associations between cases and events.  
+Case Note| GET| 
+    
+    
+    /api/case-note/<case-id>?<pagination-parameters>/pre>
+          
+
+| Retrieve case notes  
+POST| 
+    
+    
+    Add note to existing cases.
+
+| Add note to existing cases.  
+DELETE| 
+    
+    
+    /api/case-note/<note-id>
+
+| Delete a case note.  
+Note Type| GET| 
+    
+    
+    /api/note-type
+
+| List all configured note types.  
+Case User| POST| 
+    
+    
+    /api/case-user
+
+| Assign user to existing cases.  
+Case Queue| POST| 
+    
+    
+    /api/case-queue
+
+| Move existing cases to a given queue.  
+Case State| POST| 
+    
+    
+    /api/case-state
+
+| Change state of given cases.  
+Report| GET| 
+    
+    
+    /api/report/<id>
+
+| Get the Report matching the given ID.  
+GET| 
+    
+    
+    /api/report?<pagination parameters>
+
+| Get a paginated list of Reports.  
+POST| 
+    
+    
+    /api/report
+
+| Create a new Report.  
+DELETE| 
+    
+    
+    /api/report/<id>
+
+| Delete a Report matching a given ID.  
+Report Template| GET| 
+    
+    
+    /api/report-template/<id>
+
+| Get the Report Template matching the given ID.  
+GET| 
+    
+    
+    /api/report-template?<pagination parameters>
+
+| Get a paginated list of Report Templates.  
+POST| 
+    
+    
+    /api/report-template
+
+| Create a new Report Template.  
+PUT| 
+    
+    
+    /api/report-template/<id>
+
+| Update the report template matching the given ID.  
+DELETE| 
+    
+    
+    /api/report-template/<id>
+
+| Delete the report template matching the given ID.  
+File| GET| 
+    
+    
+    /api/file/<id>?<alt>
+
+| Get the File matching the given ID according to the given format.  
+POST| 
+    
+    
+    /api/file
+
+| Create a new File.  
+Local| GET| 
+    
+    
+    /api/locale/<id>
+
+| Get the Local matching the given ID.  
+GET| 
+    
+    
+    /api/locale?<pagination parameters>
+
+| Get a paginated list of Locals.  
+Timezone| GET| 
+    
+    
+    /api/timezone/<id>
+
+| Get the Timezone matching the given ID.  
+GET| 
+    
+    
+    /api/timezone?<pagination parameters>
+
+| Get a paginated list of Timezones.  
+Tokenizer| GET| 
+    
+    
+    /tokenizer/reveal?<params>
+
+| Reveals the plain text given a token.  
+GET| 
+    
+    
+    /tokenizer/reveal/all
+
+| Reveals a list of encrypted fields from an event.  
+Dashboard Ticket| GET| 
+    
+    
+    /api/dashboard/<dashboard-id>/ticket
+
+| Get a trusted ticket to the authenticated user.  
+Pulse Application  
+  
+| GET| 
+    
+    
+    /api/pulse-app/state
+
+| Get the state of the Pulse application.  
+GET| 
+    
+    
+    /api/pulse-app/status
+
+| Get the status of the Pulse application.  
+GET| 
+    
+    
+    /api/pulse-app/lists
+
+| Get the lists that are defined in the Pulse application.  
+Self-Service Rules  
+  
+  
+| GET| 
+    
+    
+    /api/ssr?<context parameters>
+
+| Get a list of Self-Service Rules.  
+GET| 
+    
+    
+    /api/ssr/<id>?<context parameters>
+
+| Get the Self-Service Rule matching the given ID.  
+POST| 
+    
+    
+    /api/ssr?<context parameters>
+
+| Create a new Self-Service Rule.  
+PUT| 
+    
+    
+    /api/ssr/<id>?<context parameters>
+
+| Update the Self-Service Rule matching the given ID.  
+DELETE| 
+    
+    
+    /api/ssr/<id>?<context parameters>
+
+| Delete the Self-Service Rule matching the given ID.  
+GET| 
+    
+    
+    /api/ssr/metadata?<context parameters>
+
+| Get the Self-Service Rules's metadata.  
+POST| 
+    
+    
+    /api/ssr/publish?<context parameters>
+
+| Publish the Self-Service Rules.  
+POST| 
+    
+    
+    /api/ssr/validate?<context parameters>
+
+| Validate a Self-Service Rule.  
+GET| 
+    
+    
+    /api/ssr/status?channelId=<CHANNEL_ID>
+
+| Get the current status of the self-service capabilities for the configured pulse application.  
+Self-Service Rules Testing| POST| 
+    
+    
+    /api/ssr-testing/<target-id>?channelId=<CHANNEL_ID
+
+| Create a self-service rule test.  
+GET| 
+    
+    
+    /api/ssr-testing/<target-id>/latest?channelId=<CHANNEL_ID
+
+| Get the last self-service rule test.  
+Custom Entity Export| POST| 
+    
+    
+    /api/entity/<entityName>/export
+
+| Download a file-based report exporting the information of a custom entity table.  
+Custom Extensions| POST| 
+    
+    
+    /api/extension/action
+
+| Synchronously execute a [custom extension](/docs/internal/case-manager/configuration-guide/extension-points/custom-extensions/extensions-configuration).  
+POST| 
+    
+    
+    /api/async-action/submit
+
+| Submit the asynchronous execution of a [custom extension](/docs/internal/case-manager/configuration-guide/extension-points/custom-extensions/extensions-configuration).  
+GET| 
+    
+    
+    /api/async-action/check
+
+| Gets the status of the asynchronous execution of a [custom extension](/docs/internal/case-manager/configuration-guide/extension-points/custom-extensions/extensions-configuration).  
+Status| GET| 
+    
+    
+    /api/status/<id>
+
+| Get the Status matching the given ID.  
+GET| 
+    
+    
+    /api/status?<pagination parameters>
+
+| Get a paginated list of Statuses.  
+Status Reason| GET| 
+    
+    
+    /api/status-reason/<id>
+
+| Get the Status Reason matching the given ID.  
+GET| 
+    
+    
+    /api/status-reason?<pagination parameters>
+
+| Get a paginated list of Status Reasons.  
+User| GET| 
+    
+    
+    /api/user/<id>
+
+| Get the User matching the given ID.  
+GET| 
+    
+    
+    /api/user?<pagination parameters>
+
+| Get a paginated list of Users.  
+Queue| GET| 
+    
+    
+    /api/queue/<id>
+
+| Get the Queue matching the given ID.  
+GET| 
+    
+    
+    /api/queue?<pagination parameters>
+
+| Get a paginated list of Queues.  
+POST| 
+    
+    
+    /api/queue
+
+| Create a new Queue.  
+PUT| 
+    
+    
+    /api/queue/<id>
+
+| Update the Queue matching the given ID.  
+DELETE| 
+    
+    
+    /api/queue/<id>
+
+| Delete the Queue matching the given ID.  
+Queue User| GET| 
+    
+    
+    /api/queue-user/user-queues
+
+| Get the queues to which this user is assigned.  
+Automation | GET| 
+    
+    
+    /api/automation/<id>
+
+| Get the Automation Rules matching the given ID.  
+GET| 
+    
+    
+    /api/automation?<pagination parameters>
+
+| Get a paginated list of Automation Rules.  
+POST| 
+    
+    
+    /api/automation
+
+| Create a new Automation Rule.  
+PUT| 
+    
+    
+    /api/automation/<id>
+
+| Update the Automation Rules matching the given ID.  
+DELETE| 
+    
+    
+    /api/automation/<id>
+
+| Delete the Automation Rules matching the given ID.  
+PATCH| 
+    
+    
+     /api/automation/<id>
+
+| Change the table position of the Automation Rule matching the given ID.  
+SLA| GET| 
+    
+    
+    /api/sla/<id>
+
+| Get the SLA matching the given ID.  
+GET| 
+    
+    
+    /api/sla?<pagination parameters>
+
+| Get a paginated list of SLAs.  
+POST| 
+    
+    
+    /api/sla
+
+| Create a new SLA.  
+PUT| 
+    
+    
+    /api/sla/<id>
+
+| Update the SLA matching the given ID.  
+DELETE| 
+    
+    
+    /api/sla/<id>
+
+| Delete the SLA matching the given ID.  
+List| GET| 
+    
+    
+    /api/list
+
+| List available user lists.  
+GET| 
+    
+    
+    /api/list/event-lists
+
+| Retrieve the available lists to the user, indexed by event fields.  
+GET| 
+    
+    
+    /api/list/search
+
+| Search in which lists an entity is located.  
+POST| 
+    
+    
+    /api/list/update
+
+| Execute a bulk update over lists.  
+POST| 
+    
+    
+    /api/list/update-entities
+
+| Execute a manual bulk update over lists.  
+GET| 
+    
+    
+    /api/list/audit
+
+| Retrieve audit information for the given field and value.  
+Channel| GET| 
+    
+    
+    /api/channel
+
+| List all channels configured in Case Manager.  
+GET| 
+    
+    
+    /api/channel/{id}
+
+| List the details of the channel with the given id in the path. Returns 404 if id doesn't exist.  
+Group| GET| 
+    
+    
+    /api/group/list
+
+| List all access groups from Pulse.  
+GET| 
+    
+    
+    /api/select/<id>
+
+| Get a selectable model of a group matching the given ID.  
+GET| 
+    
+    
+    /api/detail/<id>
+
+| Get the group matching the given ID.  
+  
+## Paginationâ
+
+In order to specify how pagination should be generated, consider the following URL attributes:
+
+Attribute| Description| Example  
+---|---|---  
+limit| The number of results per page, defaulting to 10.| GET /api/event?limit=10 GET /api/event?limit=25  
+offset| The index of the first entry in the page, defaulting to 0.| GET /api/event?limit=10&offset=90 GET /api/event?limit=10&offset=100  
+orderby| The field and direction to sort results. Consists on "<field> <direction>", where direction may be "asc" or "desc". Direction defaults to "asc".| GET /api/event?orderby=timestamp GET /api/event?orderby=timestamp asc GET /api/event?orderby=merchant_id desc  
+filter| The expression(s) to filter results. Currently an expression consists on "<field> <op> <value>". The operation may be "eq", "neq", "gt", "lt", "gteq" and "lteq". Multiple expressions can be checked using a comma as separator.| GET /api/event?filter='timestamp' gt 1000 GET /api/event?filter=('mcc' eq '9072') GET /api/event?filter='timestamp' gt '1000' AND 'mcc' eq '9072'  
+  
+Access each of the following pages for more information regarding the respective REST API:
+
+  * [Core Configuration](/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-core-configuration)
+  * [Authentication](/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-authentication)
+  * [Runtime](/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-runtime)
+  * [CRUD Metadata](/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-crud)
+
+

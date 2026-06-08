@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3668
+Title: HSBC-3668 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3668
+
+### Add model information to Cards and Non Mon responseâ
+
+FeatureFTMT-29505HSBC-3668
+
+We've updated the response object from the Cards authorization and Non Mon endpoint, to include the model information that was used to reach an outcome. The `model` field includes the following structured information:
+    
+    
+        "model": [  
+            {  
+                "modelId": "6f41c74c7d491cd8",  
+                "modelVersionId": "53d00a6cc43347f7",  
+                "modelName": "dummy_model_test",  
+                "outcome": "isfraud",  
+                "score": [  
+                    0.9340874776977786,  
+                    0.0659125223022215  
+                ]  
+            }  
+        ]  
+    
+
+Copy
+
+See up-to-date API documentation and Swagger definition at [Cards Authorization Endpoints](/cs-hsbc/3.0.2/api#tag/cards/operation/postCardAuthorization) and [Non Mon](/cs-hsbc/3.0.2/api#tag/nonmon/operation/postNonMon).

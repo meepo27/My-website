@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4030
+Title: HSBC-4030 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-4030
+
+### Add new fields to Outbound Payments and Digital Activityâ
+
+FeatureFTMT-32720FTMT-34654HSBC-4030
+
+We have added the below elements to the `bioc` tuple in Outbound Payments and Digital Activity API schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+trust_score| Integer  
+mule_account_score| Integer  
+max_30_day_score| Integer  
+chall_risk_score| Double  
+chall_voice_scam_score| Double  
+  
+The `Payments` and `Payments + Outcomes` schemas were updated with all the above fields.

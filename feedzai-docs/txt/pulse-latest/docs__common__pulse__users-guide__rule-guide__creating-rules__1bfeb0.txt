@@ -1,0 +1,88 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/data-types-in-rules
+Title: Data Types in Rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)  
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/)
+  * Data Types in Rules
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Data Types in Rules
+
+RDL uses its own data types. When using a field or a list, the values get automatically converted to these data types. This topic describes the data types that RDL uses.
+
+## Primitive data typesâ
+
+The following table shows the **primitive data types** of RDL. These data types are equivalent to the Java primitive data types. To see the exact definition or range for each, check the [Java documentation](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html).
+
+Data type| Examples  
+---|---  
+int| 
+    
+    
+    -289
+    
+    0
+    
+    42  
+  
+long| 
+    
+    
+    123456789
+    
+    1l
+    
+    -2L  
+  
+float| 
+    
+    
+    0.99
+    
+    -1.23e-100f
+    
+    3.14F  
+  
+double| 
+    
+    
+    1234567.89012
+    
+    1.23456e300d
+    
+    1.23456e-300d
+    
+    1e1D  
+  
+bool| 
+    
+    
+    true
+    false  
+  
+string| 
+    
+    
+    "John Doe"
+    'John Doe'  
+  
+## Collectionsâ
+
+RDL uses the following collections: lists, sets, maps, and tuples. They are the equivalent of the [complex data types](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types#complex-fields) that you can use in the schema of a data source.
+
+In RDL, the collection called map is the equivalent of a [list](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) created under **Lists** . Hence all collection operators can be used on them.
+
+Best practice
+
+Although it is possible to define collections directly in the rule using RDL, **the recommended method is to create a[list](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) outside of the rule, under Lists** . This way you can maintain the rules more easily, since a change in the list items does not imply the change and deployment of the whole rule.
+
+Explicitly iterating over lists is not recommended
+
+It is not recommended to iterate explicitly over Pulse lists (e.g., using filter, all, etc), as this is highly inefficient. Pulse lists are optimized for contains/lookup operations.

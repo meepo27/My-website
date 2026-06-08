@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/
+Title: Tuning Job executions with Job Profiles | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * Tuning Job executions with Job Profiles
+
+
+
+On this page
+
+# Tuning Job executions with Job Profiles
+
+Was this page helpful?Â 
+
+Pulse enables you to optimize configurations that are used when handling large amounts of data.
+
+Data scientists can use this functionality to tweak the properties used in various tasks within the [Data Science Loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop) that are performed in a cluster-computing framework. For example, most of the Data Science tasks including running [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans), [Model Evaluations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation), [Rules Evaluations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/rules-snapshots#evaluation-methods), are executed by Spark jobs.
+
+Each type of Job may require different configuration settings to be performed efficiently. For example, depending on the size of your dataset you might have to adjust the Spark memory allocated to train a Model Evaluation.
+
+Pulse allows you to configure Job Profiles with different sets of Spark properties. You can then select the Job Profile that best fulfils the needs of the target task that you want to execute.
+
+## Memory considerationsâ
+
+When running Spark jobs, it's recommended to have a default profile for all jobs, and define Job Profiles for executing resource-intensive jobs.
+
+Calculation tasks may fail if they have insufficient memory available. This might happen because each Spark node has fixed resources available, for instance a fixed number of cores and a fixed amount of memory. Some nodes may have larger resources than others, but by default it's not sure that the tasks that need large resources get assigned to those nodes. Typical examples of tasks needing larger memory are Model Trainings, Hyperparameter Tunings and Plan Executions.
+
+If smaller jobs occupy the resources that have larger capacity, Pulse doesn't leverage the full potential of the Spark cluster. To ensure that the necessary resources are available for jobs that need them, you can use Spark properties to influence the number of cores and the amount of memory used by a job. Job Profiles can regulate what kind of resources should be assigned to a job which is running with a specific Job Profile. For instance, you can have a default profile for all jobs, but define a Job Profile for executing Plans, and another one for Hyperparameter Tunings to make sure that these get the proper resources they require.
+
+If these Job Profiles are created, you can use them when creating a job execution of a related Data Science resource.
+
+Restrictive default settings
+
+The default Spark settings are restrictive. For example, they allow 1GB of memory per node. It is recommended to create a Spark configuration strategy early on in a project, and keep adjusting the settings as you monitor the Job Executions.
+
+## Learn Moreâ
+
+Check the following pages to learn more about [Job Profiles](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/jobs-and-job-profiles) in Pulse:
+
+  * [Creating a Job Profile](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/creating-a-job-profile)
+  * [Selecting profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles)
+  * [Editing properties on demand](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/editing-properties-on-demand)
+
+

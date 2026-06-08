@@ -1,0 +1,7 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/overview-import
+Title: overview-import | Risk Management for PSPs
+============================================================
+
+# overview-import
+
+Case Manager is an alert management tool that enables fraud prevention agents to review transactions that fall within a risk threshold and raise alerts. Case Manager includes out-of-the-box resources tailored to the Transaction Fraud for PSPs use case, which automate event processing and organize teams' workload efficiently.

@@ -1,0 +1,333 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/about/how-it-works
+Title: How the Solution Works | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * How the Solution Works
+
+
+
+On this page
+
+# How the Solution Works
+
+Was this page helpful?Â 
+
+Imagine that a cardholder performs a payment within a given merchant. The issuer bank sends this transaction to Feedzai which will respond with a real-time recommendation on whether the transaction is legitimate or fraudulent:
+
+Read below how this recommendation is generated.
+
+## 1\. Feedzai's APIâ
+
+Using the example above, the life cycle initiates when an issuer bank sends data to Feedzai via RESTful API. In this case, the transaction is sent via the cards API, typically using the Authorization endpoint. You can also check the Life Cycles to learn more about how the API works, the available endpoints, and how they play a role within the transaction life cycle.
+
+The transaction is then processed by the Feedzai's risk engine - Pulse - which will generate a recommendation. This processing is performed in real-time by a runtime workflow, but all the resources are pre-formed beforehand. If the event is identified as suspicious, Pulse generates an alert, which is then analyzed manually by fraud analysts.
+
+## 2\. Enrichmentâ
+
+TFB allows the enrichment of events in real time with extra data points that can be used for improved fraud detection. The enrichment of the events can be done through the [Reference Data](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) connector or by API integrations.
+
+The API enrichment can be done by integrating external providers. TFB includes a standard integration with Feedzai's Digital Trust. Digital Trust offers a session analysis that extracts thousands of parameters such as biometric, behavioral, device, IP, network data, etc, throughout the session. These are data points that are incorporated into the events in session stages (e.g. login, profile update, transfer initiation) to monitor and score different transfer initiations and/or digital events.
+
+The following diagram shows an example of a session life cycle and the different data points that can be identified on each stage.
+
+  1. Login from an unknown device and VPN connection detected.
+  2. Customer phone number changed with network anomalies detected.
+  3. RAT detected when a monetary transfer initiated.
+
+
+
+For more information on how to detect fraud with these data points, check the [Digital Trust Integration](/tfrb/latest/docs/common/tfrb/references/dt-integration) page.
+
+## 3\. Rules and data science work in Pulseâ
+
+The user interaction with Pulse is based on two fundamental concepts:
+
+  * **Resource configuration:** The resources (i.e. schemas, plans, models, rules, TrustScore, and lists) are developed beforehand and only then defined in a runtime workflow.
+  * **Runtime workflow:** Represents what Pulse executes in runtime.
+
+
+
+The configuration setup comprises the definition of the resources that are then used in runtime. To understand how Pulse works, the most important concepts are schemas, plans, rules, TrustScore, and lists.
+
+### Schemasâ
+
+Describe the available data fields of a data source, as well as their types. Firstly, they are used to map the fields sent via the RESTful API into a data structure that can be handled by Pulse. Any field that is added to complement the API schema, for example, new metrics such as the amount spent over the last hour, needs to be included in the schema definition. The solution comes pre-packaged with the following schemas:
+
+Check the [Pulse Schema](/tfrb/latest/docs/common/tfrb/references/pulse-schemas) page to understand the logic of each pre-packaged schema.
+
+### Plansâ
+
+Data Science Plans are a very powerful and generic tool: they are essentially functions that receive data and output a transformation of that data (not necessarily with equal size). TFB includes the following out-of-the-box plans:
+
+Cards, Transfers and Digital Activity plans are used to create derived fields based on the cards, transfers and digital activity API information, respectively. These fields generally comprise metrics such as sums and counts of a given field over a given period. The fields are saved into a new schema named _Workflow Schema_ , which is then used as input for rules.
+
+tip
+
+**Omnichannel metrics:** The Digital Activity metrics can also be used by the Transfers channel. Transfers rules use digital activity metrics to detect fraud scenarios such as Authorized Push Payment (APP) and Account Takeover (ATO). This is possible via Pulse omnichannel, which allows metrics to be built based on events from multiple workflows, such as Transfers.
+
+Check the [Pulse Schemas](/tfrb/latest/docs/common/tfrb/references/pulse-schemas) page and see the out-of-the-box metrics.
+
+### TrustScoreâ
+
+TrustScore is an intelligent scoring system designed to identify and flag potentially fraudulent activity. It's not a single, static model, but rather a sophisticated combination of models that analyze a vast array of data points to provide a holistic view of risk.
+
+TrustScore leverages the federated learning method. This means that instead of centralizing all client data, which can raise privacy concerns, TrustScore uses a federated learning approach to provide a robust, intelligent, and privacy-preserving score.
+
+This allows Feedzai to build expert models that learn from a diverse range of fraud patterns across its entire client base, without ever directly accessing or mixing sensitive transaction data with other clients' data.
+
+Customer data remains strictly segregated and secure within Feedzai's infrastructure. Feedzai builds and trains these models within its machine learning infrastructure to ensure the highest level of data protection.
+
+When a new transaction or event occurs in a client's production environment, it is simultaneously analyzed by all these specialized expert models.
+
+The individual scores from each model are then combined to produce the final TrustScore. This combined score provides a highly accurate assessment of the fraud risk associated with that particular event.
+
+info
+
+Feedzai provides TrustScore out of the box to score all events from **Cards** and **Outbound Transfers**.
+
+TrustScore's `fraud_score` field is present in _Cards Workflow Schema_ and _Transfers Workflow Schema_ , respectively.
+
+Clients' scoring models and TrustScore
+
+Clients using their own [models](/tfrb/latest/docs/common/tfrb/models/use-models) should validate how to best combine their scoring capabilities with TrustScore within their workflow.
+
+For instance, TrustScore may serve as an additional input to influence a client's existing scoring model.
+
+Learn how to use TrustScore's `fraud_score` field in [rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules#how-to-write-a-rule-using-trustscore).
+
+### Merchant TrustSignalsâ
+
+info
+
+This is an add-on feature. Please contact Feedzai for more information and activation.
+
+Merchant TrustSignals are enriched fields that assess the risk profile of individual merchants within the portfolio of a client by analyzing the merchant's behavior (e.g. number of fraudulent transactions and fraud rate). This collective intelligence helps identify potentially risky merchants and take informed action, while ensuring complete data privacy.
+
+Here's the end-to-end process by which Feedzai enriches TrustSignals fields. You don't need to do anything on your end; once this add-on is activated, the TrustSignals fields are automatically ready for you to use in your rules and models.
+
+note
+
+During the activation process, you might see your production workflows in Pulse being edited. This is a required step perfomed by Feedzai to enable TrustSignals and the workflow will continue behaving as expected after it's published.
+
+  1. Feedzai aggregates huge amounts of transactional data across its secure, anonymized client community. This comprehensive dataset allows Feedzai to extract powerful signals tailored to identify patterns indicative of merchant risk. All data from Feedzai's clients remains segregated to ensure complete privacy preservation.
+  2. Feedzai then pre-calculates and aggregates the risk score based on attributes associated with each merchant. These are derived from observed patterns within the Feedzai community, and help pinpoint risk based on:
+     * First Seen Date
+     * Churn Rank (Lifecycle Status)
+     * Merchant Risk Score
+     * Fraud Volume
+     * Fraud Amount
+     * Transaction Volume
+     * Transaction Amount
+     * Fraud Volume Rate
+     * Fraud Amount Rate
+     * Approval Rate
+     * Approval Value Rate
+  3. This intelligence integrates into each client's risk strategy. Merchant TrustSignals are sent via API to Pulse, allowing clients to leverage these real-time insights as payments come in. Once activated, there is no additional integration or technical resources needed to deploy these signals into a client's existing Feedzai environment.
+
+
+
+tip
+
+Once activated, Merchant TrustSignals enrich the risk strategy with no additional integration or technical resources required, and are displayed in the **Rules Triggered** widget for each event (if available).
+
+#### Available Merchant TrustSignals and required fieldsâ
+
+The following TrustSignals are available to use in Pulse [rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules) and require the **merchant's name** to be present during activation:
+
+TrustSignal| Pulse variable| Example  
+---|---|---  
+Variable level| Case Manager description| Range  
+**First Seen Date** : First time the merchant was identified in the network.| `mts_time_since_rank`| 3| Level 4 of 4 (> 1 year)| > 1 year  
+2| Level 3 of 4 (6 - 12 months)| 6 - 12 months  
+1| Level 2 of 4 (3 - 6 months)| 3 - 6 months  
+0| Level 1 of 4 (< 3 months)| < 3 months  
+**Churn Rank (Lifecycle Status)** : Lifecycle status based on the number of days since the merchant was last seen (e.g. last transaction). It uses 30-day and 45-day thresholds to assign one of four lifecycle status: No data/Null, Active, At risk or Churn."| `mts_churn_rank`| 3| Level 4 of 4 (Churn)| > 45 days  
+2| Level 3 of 4 (At risk)| 30 - 45 days  
+1| Level 2 of 4 (Active)| < 30 days  
+0| Level 1 of 4 (No data)| No data / NULL  
+**Merchant Risk Score** : A rule-based risk category (1â4) combining the Fraud Volume, Churn Rank (Lifecycle Status), and Approval Rate. Possible outputs are: Low, Medium, High, or Critical.| `mts_merchant_risk_score_rank`| 4| Level 4 of 4 (Critical)| Critical  
+3| Level 3 of 4 (High)| High  
+2| Level 2 of 4 (Medium)| Medium  
+1| Level 1 of 4 (Low)| Low  
+**Fraud Volume** : Number of suspected fraudulent transactions since the First Seen Date.| `mts_fraud_count_rank`| 5| Level 6 of 6 (>= 500)| >= 500  
+4| Level 5 of 6 (250-499)| 250-499  
+3| Level 4 of 6 (100-249)| 100-249  
+2| Level 3 of 6 (70-99)| 70-99  
+1| Level 2 of 6 (5-70)| 5-70  
+0| Level 1 of 6 (< 5)| < 5  
+**Fraud Amount** : Sum of the amounts from suspected fraudulent transactions since the First Seen Date.| `mts_fraud_value_rank`| 4| Level 5 of 5 (>= $42,809.72)| >= $42,809.72  
+3| Level 4 of 5 ($4,416.74 - $42,809.72)| $4,416.74 - $42,809.72  
+2| Level 3 of 5 ($1922.07 - $4,416.74)| $1922.07 - $4,416.74  
+1| Level 2 of 5 ($174.73 - $1922.07)| $174.73 - $1922.07  
+0| Level 1 of 5 (< $174.73)| < $174.73  
+**Transaction Volume** : Number of transactions from the merchant since the First Seen Date.| `mts_ transaction_count_rank`| 4| Level 5 of 5 (>= 6.61K)| >= 6.61K  
+3| Level 4 of 5 (2.45K - 6.61K)| 2.45K - 6.61K  
+2| Level 3 of 5 (695 - 2.45K)| 695 - 2.45K  
+1| Level 3 of 5 (34 - 694)| 34 - 694  
+0| Level 1 of 5 (< 34)| < 34  
+**Transaction Amount** : Sum of transaction amounts from the merchant since the First Seen Date.| `mts_transaction_value_rank`| 4| Level 5 of 5 (>= $106,412.72)| >= $106,412.72  
+3| Level 4 of 5 ($47,178.05 - $106,412.72)| $47,178.05 - $106,412.72  
+2| Level 3 of 5 ($15,376.55 - $47,178.05)| $15,376.55 - $47,178.05  
+1| Level 2 of 5 ($873.76 - $15,376.55)| $873.76 - $15,376.55  
+0| Level 1 of 5 (< $873.76)| < $873.76  
+**Fraud Volume Rate** : Percentage that the number of fraudulent transactions represents in relation to the merchant's total number of transactions, since the First Seen Date.| `mts_fraud_rate_rank`| 5| Level 6 of 6 (>= 20%)| >= 20%  
+4| Level 5 of 6 (10% - 20%)| 10% - 20%  
+3| Level 4 of 6 (5% - 10%)| 5% - 10%  
+2| Level 3 of 6 (1.8% - 5%)| 1.8% - 5%  
+1| Level 2 of 6 (0.9% - 1.8%)| 0.9% - 1.8%  
+0| Level 1 of 6 (< 0.9%)| < 0.9%  
+**Fraud Amount Rate** : Percentage that the total amount from fraudulent transactions represents in relation to the merchant's total transactioned amount, since the First Seen Date.| `mts_fraud_value_rate_rank`| 5| Level 6 of 6 (>= 20%)| >= 20%  
+4| Level 5 of 6 (10% - 20%)| 10% - 20%  
+3| Level 4 of 6 (5% - 10%)| 5% - 10%  
+2| Level 3 of 6 (1.8% to 5%)| 1.8% to 5%  
+1| Level 2 of 6 (0.9% to 1.8%)| 0.9% to 1.8%  
+0| Level 1 of 6 (< 0.9%)| < 0.9%  
+**Approval Rate** : Percentage that the number of approved transactions represents in relation to the merchant's total number of transactions, since the First Seen Date.| `mts_approval_rate_rank`| 5| Level 6 of 6 (>= 80%)| >= 80%  
+4| Level 5 of 6 (60% - 80%)| 60% - 80%  
+3| Level 4 of 6 (40% - 60%)| 40% - 60%  
+2| Level 3 of 6 (20% - 40%)| 20% - 40%  
+1| Level 2 of 6 (< 20%)| < 20%  
+0| Level 1 of 6 (No transactions)| No transactions  
+**Approval Value Rate** : Percentage that the total amount from approved transactions represents in relation to the merchant's total transactioned amount, since the First Seen Date.| `mts_approval_value_rate_rank`| 5| Level 6 of 6 (>= 80%)| >= 80%  
+4| Level 5 of 6 (60% - 80%)| 60% - 80%  
+3| Level 4 of 6 (40% - 60%)| 40% - 60%  
+2| Level 3 of 6 (20% - 40%)| 20% - 40%  
+1| Level 2 of 6 (< 20%)| < 20%  
+0| Level 1 of 6 (No transactions)| No transactions  
+  
+info
+
+The **Pulse variable** can be used in [rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules) in Pulse, alongside the corresponding **Variable levels**. These refer to the codified value for each of the levels identified in the **Case Manager description**. The CM descriptions are displayed purely for information purposes in the **Rules Triggered** widget.
+
+The following example references the `mts_fraud_count_rank` variable level **4** (equivalent to _Level 5 of 6 (250-499)_) and `mts_transaction_count_rank` variable level **0** (equivalent to _Level 1 of 5 ( < 34)_) in a rule that monitors the **Fraud Volume** and **Transaction Volume**.
+
+### Rulesâ
+
+A rule defines a condition based on the fields of a data source that produces a binary result for each record that matches the condition. In Pulse, rules are organized into Rules Projects:
+
+The following image shows an example of a pre-packaged rule:
+
+Check the [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview) topic for a full list of pre-packaged rules. This page contains conceptual information on how rules are organized in Pulse, naming convention, and nomenclature used in this manual. The Rules Projects pages list all rules within each rules project and provide relevant information, such as description, actions, conditions, and outcomes.
+
+### Runtime workflowâ
+
+Workflows represent what Pulse executes in runtime, i.e. contains the resources into a sequence of processing steps that produce a decision in real time. TFB comes with three workflows to process card payments, transfers, and digital activity. The following diagram refers to the cards workflow:
+
+The flow is as follows:
+
+  1. The transaction is received by Pulse through the Input Adaptor. At this point, the data is mapped to the input schema.
+  2. Pulse augments the input schema by calculating metrics defined by the plan using the Plan service. The data structure that holds the new information is the _Workflow Schema_ , which is used as input for the rules.
+  3. The event then flows through the rules which generate outcomes to whether the event is deemed as legitimate or fraudulent. If you want to know more about how the outcomes are generated and which ones prevail, check the [Understand How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) page.
+  4. The _Decision Rules_ operator sets up the final outcome as decline, accept or review. If the outcome is set as review, the event then goes into Case Manager for manual revision.
+
+
+
+## 4\. Alert revision in Case Managerâ
+
+When a rule with the action Alert is triggered (check the [Understand How Rules Work](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/how-rules-work) page for more information), the event is displayed on Case Manager's alerts page for manual revision:
+
+The investigation of alerts in card payments is a post-mortem-like analysis because the issuer processes the payment in real time. Credit transfers and direct debits are bank payments subject to longer processing times. Therefore, fraud analysts can manually review alerts generated by these payment types with status as Pending Review.
+
+This manual provides two guides that help fraud analysts and fraud managers to use Case Manager:
+
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview): This guide's target audience are fraud analysts. It explains how Case Manager works and how it can be used to analyze alerts that suggest suspicious activity.
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview): Learn how to set up Case Manager to keep the workload of fraud teams organized to prevent fraudulent behavior efficiently.
+
+
+
+## 5\. Webhooksâ
+
+Webhooks provide a straightforward way to keep relevant stakeholders up to date with the latest information. They can be [enabled within Feedzai's Case Manager](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-automation-rules#enable-webhooks) to further automate the sending of information to key stakeholders for more effective decision-making. Webhooks empower Feedzai clients to combat fraud with automated responses to downstream systems. Strategically implementing webhooks enables operational efficiency and safeguards banks' customers, according to the established fraud prevention policies.
+
+When something significant happens, such as a transaction or login attempt, the webhook sends an instant notification to the bank's system. Webhooks deliver updates right when they matter.
+
+tip
+
+Contact your Customer Success manager to discuss how Feedzai's webhooks can automate your internal business processes.
+
+### Key conceptsâ
+
+  * **Webhook** : A webhook is a custom callback that notifies one application (the subject) whenever an event occurs in another application (the observer).
+  * **Payload** : The data related to the triggering event is sent to the subject's system via an HTTP request.
+
+
+
+### How webhooks workâ
+
+Imagine you're waiting for an important email. Instead of refreshing your inbox repeatedly, the email server sends you a message as soon as the email arrives. Similarly, webhooks work behind the scenes, quietly notifying your target system when specific events or business conditions are triggered. Webhooks can also automatically notify banks of potential fraudulent transactions on their customers' credit cards. It can also be used to automatically update backend fraud or customer relationship management (CRM) systems.
+
+Technical details
+
+  * Using an automation call, âCall Webhook,â Case Manager is able to send HTTP requests to external endpoints.
+  * The payload of the HTTP request includes details of the webhook trigger source (i.e., an event or case) in JSON format.
+  * If the webhook was triggered by a case automation, an additional field is sent on the payload with the details of the events attached to the case.
+
+
+
+### How webhooks improve operational processesâ
+
+Webhooks offer several operational efficiency advantages by automating the flow of crucial information in financial institutions' internal systems:
+
+  * **Fraud feedback** : If your bank has multiple systems that consume fraud outcomes (i.e., fraud or not fraud), the traditional approach would be to go into each system and manually update them. This is time consuming and not the best use of your resources. Through webhooks, a Case Manager [automation rule](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-automation-rules) will act upon the analyst's decision to provide feedback to all the necessary systems.
+  * **Updates to CRM systems** : Traditionally, when a bank closes an alert in Case Manager, it must update the CRM with case notes and details of the alert. This means adding the same details and notes to multiple systems. With webhooks, the bank can automatically retrieve backend data with a single click. The necessary data is copied from Case Manager and into the bank's preferred CRM. Both of these scenarios produce 100% task completion in less than half the time and effort. Instead of spending time on administrative tasks, your analysts can focus on strategic decision-making.
+
+
+
+### How webhooks improve fraud mitigationâ
+
+Webhooks offer several fraud mitigation advantages for financial institutions:
+
+  * **Validate event details with their customers** : As your analysts investigate suspicious transactions, you may want to contact the customer to validate the event details or make the customer aware of the event.
+  * **Update other internal systems** : Based on the analyst's decision, consider triggering actions in other systems, like blocking the card involved in a fraudulent event or blocking the customer's home banking account, preventing additional actions until the issue has been resolved.
+
+
+
+Let's explore three scenarios where webhooks play a crucial role in fraud prevention:
+
+#### Account takeover detectionâ
+
+  1. **Scenario** : Based on Feedzai's Transaction Fraud digital activity channels, Feedzai's risk engine can see that a customer's home address recently changed and unusual activity for the customer's profile involving a new card has been detected. Most events occurred using a device located 1,000 miles from normal online locations. All these different behaviors generate an alert in Case Manager.
+  2. **Webhook use** : Based on a specific rule trigger, Case Manager can send a webhook with selected details for actions from the team.
+  3. **Action** : Based on the bank's policy, they can send a text message to the customer to validate the address change and the card usage in the identified region. Text messages can be tailored depending on the type of risk identified. Additionally, the bank can request additional authentication in the native banking application before any additional purchase is approved.
+
+
+
+#### Credit card fraudâ
+
+  1. **Scenario** : A customer's credit card experiences multiple high-value transactions within a short timeframe.
+  2. **Webhook use** : Based on Case Manager's fraud decision, banks can send a webhook with selected details for actions from the team.
+  3. **Action** : Based on the bank's policy, they can send a text message to the customer informing them about the fraudulent activity. Additionally, the bank can use in-app notifications. The workflows are up to the bank to tailor based on their unique risk strategy.
+
+
+
+#### Identity verification failuresâ
+
+  1. **Scenario** : During account creation, a user fails identity verification multiple times.
+  2. **Webhook use** : Based on Case Manager's fraud decision, banks receive notifications when verification attempts fail 2 or more times.
+  3. **Action** : Based on the bank's policy, they can flag the account for manual review or request additional documentation.
+
+
+
+### When to use webhooksâ
+
+Webhooks are ideal when real-time updates matter - instances where you need to take immediate actions to prevent the event from being analyzed or stop future use as quickly as possible. This applies to situations involving, for instance, account security.
+
+### When not to use webhooksâ
+
+Weigh the pros and cons of using webhooks in the following situations:
+
+  * **Customer friction** : The flexibility to validate events with end users in real time can close the feedback loop, but it can also cause customer friction. Evaluate how you want to manage communications with customers to establish the appropriate fraud prevention policies. Taking false-positives into consideration, you can establish a threshold to ensure that webhooks are not over-utilized to minimize friction with customers.
+  * **Syncs with other internal systems** : There are several methods for synching the data outputs from the Feedzai event processing, and the webhook option should be carefully used for this purpose.
+    * **High-frequency polling** : If data updates are frequent, webhooks may not be efficient.
+    * **Large-scale data sync** : Consider other methods like APIs for bulk data transfer.
+    * **Complex bidirectional communication** : Webhooks are one-way options. APIs may be more suitable for complex interactions.
+
+
+
+## 6\. Dashboardsâ
+
+TFB has dashboards out of the box with metrics and real-time charts to provide insights into your business and rule performance. Based on these insights, you can then improve workload management or write self-service rules to quickly block a fraudulent behavior.
+
+Learn about the available dashboards in the [View Analytics Dashboard](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview) page.

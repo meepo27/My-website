@@ -1,0 +1,42 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-sso
+Title: Sign in with SSO | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Sign in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/)
+  * Sign in with SSO
+
+
+
+On this page
+
+# Sign in with SSO
+
+Case Manager supports Single Sign-On (**SSO**) which allows you to access various applications (_i.e._ start a session) by signing in to only one of the applications. Learn more about [Single Sign-On](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/single-sign-on) in Case Manager.
+
+## Authentication scenarios in Case Managerâ
+
+There are two SSO scenarios in Case Manager:
+
+  * **SP-initiated** : This scenario is initiated by the Service Provider (SP) and occurs when you access a Case Manager URL, and you are not signed in. You are redirected to a URL that is managed by the Identity Provider (IdP). In this IdP URL, you are prompted with a sign-in form and, after a successful authentication, you are automatically redirected back to the Feedzai URL. Learn more on [signing in via SP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated).
+  * **IdP-initiated** : This scenario is initiated by the IdP and occurs when you access a central gateway/portal, in which you can sign in and then select a Case Manager URL. Learn more on [signing in via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated).
+
+
+
+## User Provisioningâ
+
+With Case Manager **SSO** , users are created with the concept of user provisioning. If you are signing in for the first time and your account does not exist, your account is created on-the-fly after being authorized by the IdP. This occurs when you sign in by [SP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated) or by [IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated).
+
+## Sign outâ
+
+SSO allows users to sign out from all applications at once (_i.e._ without having to sign out individually from all the applications). This is commonly referred to as Single Logout. Learn more on [signing out via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-out-via-idp-initiated).
+
+## Learn moreâ
+
+Now that you have an overview of how Case Manager's SSO works, check the following pages for more details:
+
+  * [Sign in via SP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated)
+  * [Sign in via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated)
+  * [Sign out via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-out-via-idp-initiated)
+
+

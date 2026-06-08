@@ -1,0 +1,87 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/job_profile/
+Title: job_profile - DS API
+============================================================
+
+#  `` job_profile Â¶
+
+Java ds-api counterpart in Java: `com.feedzai.commons.dsapi.JobProfile`.
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` JobProfile Â¶
+    
+    
+    JobProfile(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a JobProfile in Pulse.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` create `classmethod` Â¶
+    
+    
+    create(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), desc: str, job_properties: Mapping[str, str]) -> JobProfile
+    
+
+Create a new JobProfile in `app` with the user facing name `desc` with and the specified spark `job_properties`, complementary to the default properties.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The App where the job profile will be created. |  _required_  
+  
+####  `desc` Â¶
+
+|  `str` |  The name of the job profile user faces in UI. |  _required_  
+  
+####  `job_properties` Â¶
+
+|  `Dict` |  Dictionary with Spark job configurations. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`JobProfile` |  JobProfile object corresponding to the Pulse job profile created.  
+  
+###  `` get_job_config_dict Â¶
+    
+    
+    get_job_config_dict(job_properties: Optional[Mapping[str, str]] = None) -> Dict
+    
+
+Merges this job profile properties with job_properties.
+
+Note
+
+if there is intersection between the properties, the job_properties property will overwrite this job profile property.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `job_properties` Â¶
+
+|  `dict` |  Additional spark properties, eg. {"spark.executor.memory": "1g"}, by default dict() |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict` |  Merged Pulse job config and spark properties. eg. {"spark.executor.memory": "1g"}

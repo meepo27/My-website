@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-persisted-entity-tagging
+Title: Update list item | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [List Management](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/list-management)
+  * Update list item
+
+
+
+Was this page helpful?Â 
+
+# Update list item
+    
+    
+    PUT 
+    
+    ## /api/entitytagging/
+
+Allows you to update an existing item on a list.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 400
+  * 401
+  * 500
+
+
+
+OK
+
+Bad Request
+
+Unauthorized
+
+The system encountered an unexpected internal error.

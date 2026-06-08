@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/release-information/whats-new
+Title: What's New | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * What's New
+
+
+
+On this page
+
+# What's New
+
+info
+
+Note that this page refers to **What's new in 13.17**. To learn about changes to hotfix versions, refer to the respective [upgrading guide](/docs/common/case-manager/release-information/upgrading-guides/upgrading-from-quarter-release).
+
+Feedzai is pleased to announce CM version 13.17, part of the CM 13 LTS support.
+
+**Here are the highlights of what's new in CM 13.17:**
+
+## General UI Improvements for the Event Details Pageâ
+
+### New Event Details page layoutâ
+
+This version introduces a new, revamped version of the Event Details page. It includes an improved, more responsive layout that improves the user experience when consulting this page, especially for users with smaller screens.
+
+This new layout includes:
+
+  * The **top panel** , which hosts a new sticky header that allows users to easily identify the event's main information. This facilitates the decision on the necessary actions for that specific event;
+  * The **main panel** , which contains most of the configurable widgets, and allows for detailed information and user interaction;
+  * And the **side panel** , which displays special widgets, offering supplementary information or additional functionality.
+
+
+
+This layout structure ensures efficient organization and presentation of event-related information, enhancing user experience and readability.
+
+### `View More` drawerâ
+
+A new sliding drawer was introduced in this CM version as well, that provides additional information to some widgets. It can be accessed when selecting the  button, which opens the drawer and displays the information.
+
+  
+
+
+[Learn more about the new Event Details page](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-modern)

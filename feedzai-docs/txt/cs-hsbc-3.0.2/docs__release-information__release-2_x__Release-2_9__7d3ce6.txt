@@ -1,0 +1,100 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.9
+Title: Release 2.9 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.9.0`â
+
+### Add new product type field to Paymentsâ
+
+FeatureFTMT-27619HSBC-3191
+
+We've added a new field to the Payments schema:
+
+**Field Name**| **Datatype**  
+---|---  
+sender_product_type| String  
+  
+The `Payments` and `Payments + Outcomes` Pulse schemas were updated with the new fields. The fields were also added to the Case Manager schema for the Transfers and Digital Activity channels.
+
+### Add new PB Delegate field to Paymentsâ
+
+FeatureWPB-376255HSBC-3177
+
+We've added a new field to the Payments schema:
+
+**Field Name**| **Datatype**  
+---|---  
+delegate_without_product_indicator| Boolean  
+  
+The `Payments` and `Payments + Outcomes` Pulse schemas were updated with the new fields. The fields were also added to the Case Manager schema for the Transfers and Digital Activity channels.
+
+### Add new SRF fields to Paymentsâ
+
+FeatureFTMT-27191HSBC-3175
+
+We've added new fields to the Payments schema:
+
+**Field Name**| **Datatype**  
+---|---  
+sfr_moneylock_hold_bal| Double  
+sfr_total_hold_bal| Double  
+  
+The `Payments` and `Payments + Outcomes` Pulse schemas were updated with the new fields. The fields were also added to the Case Manager schema for the Transfers and Digital Activity channels.
+
+### Add new CMB ECW fields to Paymentsâ
+
+FeatureFTMT-27244HSBC-3160
+
+We've added new fields to the Payments schema:
+
+**Field Name**| **Datatype**  
+---|---  
+ecw_question_and_answer_details| String  
+ecw_final_action| String  
+ecw_answers_changed| String  
+ecw_duration| String  
+ecw_payment_details_changed| String  
+ecw_purpose_of_payment| String  
+ecw_country_payment_description| String  
+ecw_pop_cpd_mapped| String  
+ecw_response_time| String  
+payment_execution_type| String  
+request_correlation_id| String  
+  
+The `Payments` and `Payments + Outcomes` Pulse schemas were updated with the new fields. The fields were also added to the Case Manager schema for the Transfers and Digital Activity channels.
+
+### Generate HAR Export Documentationâ
+
+DocsHSBC-3035
+
+We've added a new page with the process to export a HAR (HTTP Archive).
+
+Please refer to [Export HAR files](/cs-hsbc/3.0.2/docs/operations-guide/how-to/export-har-files) for more details.
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-25998HSBC-3044
+
+We have added the below fields to the Cards API schema:
+
+**Field Name**| **Datatype**  
+---|---  
+customer_portfolio_region| String  
+customer_portfolio_country| String  
+customer_portfolio_product| String  
+customer_portfolio_class| String  
+customer_portfolio_type| String  
+customer_portfolio_channel| String  
+account_portfolio_hier_2| String  
+merchant_id| String  
+scheme_fraud_score| String  
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.
+
+##### note
+
+With the addition of `customer_portfolio_country`, we've changed the default `tenant` field mapping in Cards accordingly to align with the Outbound and Inbound Payments behavior.

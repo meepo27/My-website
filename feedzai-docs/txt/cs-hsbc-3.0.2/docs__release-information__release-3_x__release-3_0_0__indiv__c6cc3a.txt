@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3977
+Title: HSBC-3977 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-3977
+
+### Add new extensions for the Cards and Non-Mon channelsâ
+
+FeatureFTMT-34467FTMT-34477FTMT-34482HSBC-3977HSBC-4147
+
+We've created the following extensions to be used for the Cards channel via automation rules and SLA rules:
+
+**Extension Name**| **Notification Type**  
+---|---  
+`Send 2-WAY SMS`| `cards_2_way_sms`  
+`Send 1-WAY SMS`| `cards_1_way_sms`  
+`Send Reminder SMS`| `cards_reminder_sms`  
+  
+The extensions `Send 1-WAY SMS` and `Send Reminder SMS` have also been enabled for the Non-Mon channel, with the same notification types.
+
+Additionally, `Send Mobile Payment Push` has been enabled for Cards to send notifications with the type `cards_mobile_push`.
+
+These extensions are enabled by default, but can be disabled by setting the following to `false`:
+
+  * `send_2_way_sms_extension_enabled`
+  * `send_1_way_sms_extension_enabled`
+  * `send_reminder_sms_extension_enabled`
+
+
+
+For more details please refer to the [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) and the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.

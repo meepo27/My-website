@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/menu-entry
+Title: Menu Entry | Case Manager
+============================================================
+
+# Menu Entry  
+  
+This section lists all the properties available to add a menu entry.
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| string| yes| I18n key that points to the menu item title.  
+route| string| yes| Route to where this menu item points. The available routes are listed below.  
+default| boolean| yes| Whether the route specified in this menu item is the application default route. If this property is set to true, the **route** property cannot be left empty.  
+showIcon| boolean| yes| Whether this menu item should have an icon.  
+cssClass| string| yes| Custom CSS classes, separated by spaces, to be added to the menu item.  
+iconCssClass| string| yes| Custom CSS classes, separated by spaces, to add an icon to the menu item.  
+subItems| array| yes| List of objects where each contains the properties to add child menu items to the current menu item. The available properties for this object are the same as the ones described here in this section.  
+tooltip| string| yes| I18n key that points to the menu item tooltip.  
+link| string| yes| Custom URL to direct to pages outside of Case Manager. The `route` property must be empty for this link to be active.  
+  
+info
+
+There are a few pages that are core to Case Manager, such as the settings pages, and due to that they don't need configuration, in particular you don't need to create a route for them. Below, you can find the list of routes for each core page.
+
+  * /reports - Generated reports page
+  * /settings/queues - Settings (Queues)
+  * /settings/automation - Settings (Automation)
+  * /settings/report - Settings (Report template)
+  * /settings/slas - Settings (Slas)
+  * /settings/ssr - Settings (SSR)
+
+

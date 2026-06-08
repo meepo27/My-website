@@ -1,0 +1,146 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/fraud-scenarios/transfers
+Title: Outbound Transfers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Fraud Scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview)
+  * Outbound Transfers
+
+
+
+On this page
+
+# Outbound Transfers
+
+Was this page helpful?Â 
+
+This page covers the fraud scenarios and the detection strategy for outbound transfers.
+
+## Account takeoverâ
+
+Account takeover is the act of obtaining access to a person's bank account, typically by logging into their online account. Once they have control, fraudsters can easily transfer or wire money out of the victim's account into their own.
+
+**How Feedzai prevents account takeover**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule is triggered if the transaction count made by a particular sender in the last month is considerably greater than the monthly average transaction count from the last 3 months. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules) under the References section.
+  * A transaction is declined if the count of transactions from a particular sender to new receivers within the last 24 hours exceeds USD 5,000.
+  * A rule detects if the transaction amount of an instant transfer is greater than or equal to USD 15,000.
+
+
+
+## Authorized push payment fraudâ
+
+Authorized push payment (APP) fraud is the act of criminals tricking their victims into transferring money to their accounts. For instance, these individuals may act as if they are from a legitimate company or entity, such as the victim's bank. To sound convincing, fraudsters mention personal details about the victim, which they have collected from the victim's social media and/or other public spaces that show their profiles. Fraudsters then advise the victims to transfer their money to another account (e.g. a safe one), as their current account has been compromised.
+
+After realizing they transferred money to a scammer, the victims may never recover their stolen money; therefore, it is recommended that they contact their banks as soon as possible.
+
+**How Feedzai prevents APP fraud**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction is declined if the count of instant transfers in the past 24 hours is 3 times greater than the count over the last 3 months. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules) under the References section.
+  * A rule is triggered if, in the past 90 minutes, the count of distinct new receivers from a particular sender is greater than or equal to 3.
+  * An alert should be raised if, in the last 24 hours, the number of transactions between a sender and a new receiver is greater than or equal to 3 and each amount exceeds USD 5,000.
+
+
+
+## Phishingâ
+
+Phishing is the act of sending fraudulent emails to extract account credentials from the victims. In these emails fraudsters pretend to be from a legitimate source by using an official company's logo and wording. Usually, the content of the email varies in nature (e.g. email compromise, urgent requests, bank account irregular activity, etc.). Fraudsters succeed at phishing when the victims access a seemingly legitimate link, which in reality is a cloned version of the official company's link. As a result, many transactions are made in short time.
+
+**How Feedzai prevents phishing**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * An alert should be raised if, in the past 90 minutes, a sender makes transactions to distinct new receivers, exceeding the threshold.
+  * Transfers with 5 or more distinct currencies from the original bank's currency raise an alert.
+  * A rule is triggered if a customer makes transactions with persons involved in criminal activities (e.g. people listed to be declined). To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-posneg-rules) under the References section.
+
+
+
+## Money mulesâ
+
+Money mule is a term for persons, who knowingly or unknowingly, are recruited by criminals to perform money laundering activities such as receiving and transferring funds illegally. These intermediaries are in most cases unemployed people who accept easy jobs promoted online (e.g. fake job adverts, social media, etc.). The only requirement they get from their 'job agents' is a bank account which is later used for money laundering. What they may not know is that the money usually comes from fraudulent activities such as phishing, botnet attacks, skimming, etc.
+
+Money mules receive the stolen money in their bank accounts and are requested to transfer or wire that money to another account (usually located overseas). This is a common way to launder money.
+
+**How Feedzai prevents money mules**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * If the number of distinct currencies transferred to a particular receiver in the past month is greater than or equal to 4 an alert is raised. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules) under the References section.
+  * A rule is triggered if 5 or more senders are using shared contact information, such as address, telephone or email, with no reasonable explanation.
+  * A rule is triggered if, in the past 24 hours, a particular sender made a transaction with an amount 3 times greater than the daily average.
+
+
+
+## Fake invoice fraudâ
+
+Fake invoice fraud is a form of stealing from people who actively yet unknowingly, transfer money to fraudsters. In a business, a clerk may receive an invoice concerning a product (i.e. a good or a service) that the company 'had ordered'. Since companies pay for several goods and services, these employees may not realize that the invoice is actually a scam. For instance, the invoice may be related to the request of extra telecommunications services or changes in contract, which involves additional costs.
+
+This type of fraud is not exclusive to companies. As an illustration, if a person is buying a house, they may receive an invoice from their 'solicitor' listing extra goods or services they don't recall having requested. However, since the email or letter look genuine (i.e. containing the solicitor's logo and sophisticated wording), they transfer money to the fraudulent account, which is quickly wired to another one, making it difficult to recover.
+
+Usually, criminals committing this type of fraud have access to the victims' information (e.g. through phishing, botnet attacks, etc.), which is why their invoices look genuine.
+
+**How Feedzai prevents fake invoice fraud**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule is triggered if the number of bank accounts with shared phone number exceeds the threshold. To understand how this is achieved with a rule included in the standard package, check this [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules) under the References section.
+  * A rule is triggered if the count of distinct receivers from a particular email address in the past month exceeds the threshold.
+  * The count of transactions greater than or equal to USD 1,000 in the past 24 hours must not be greater than or equal to 5.
+
+
+
+## Payroll scheme (ghost employee)â
+
+Payroll scheme is a type of fraud that may be performed by employees, payroll staff or even the company itself. This scenario may occur in three ways:
+
+  * The employee reports extra worked hours. In this case, they may over-report worked hours in their timesheet or work together with the payroll clerk to forge the payroll record.
+  * An employee has just left the company but the payroll clerk/staff does not terminate his or her pay, and instead redirects that pay to their own account or splits with someone cooperating in the scam.
+  * To avoid paying taxes, the company may deliberately misclassify their employees so that they cover for their own taxes.
+
+
+
+**How Feedzai prevents payroll scheme**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule is triggered if, in direct deposits, the count of distinct senders to the same receivers in the past 3 months is greater than or equal to 9.
+  * A rule is triggered if, in the past 6 months, the number of transactions made by a particular sender to new distinct receivers exceeds the threshold.
+  * An alert is raised if, in a direct debit, there's a geographic location mismatch between the sender and the receiver. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-direct-debit-rules) under the References section.
+
+
+
+## Mandate fraudâ
+
+In the mandate fraud scenario, organizations are the targeted victims. For instance, a fraudster claims to be a member of an organization (e.g. a supplier) that receives regular payments from the victim's organization. This individual requests the victims to change the payment details to reflect the fraudster's new bank account. To maintain the direct debit payment method, the victims contact their banks to change the transfer mandate to the fraudster account.
+
+Similarly to the APP fraud, fraudsters can easily access their victims' business details (e.g. which suppliers they have contracts with) by researching their social media, website, among other spaces.
+
+**How Feedzai prevents mandate fraud**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule is triggered if, in the past 3 months, the count of direct debits from a particular sender to new receivers exceeds the threshold.
+  * A rule is triggered if, in the past 3 months, the count of direct debit payments made into an account with no activity exceeds the threshold.
+  * An alert is raised if there's a direct debit from a company in the high-risk direct debit's list. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-direct-debit-rules) under the References section.
+
+
+
+## CEO fraudâ
+
+CEO fraud occurs when criminals email the Finance or Accounting department of a company, impersonating as important executives. The content of the email is convincing enough that employees transfer or wire money to the provided bank account. This is called social engineering, a term used for successfully manipulating people into behaving promptly and precipitately as a response to a fraudulent request.
+
+**How Feedzai prevents CEO fraud**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule triggers if in the past 6 months, the number of direct deposits to new distinct receivers per sender is greater than or equal to 25.
+  * A rule identifies if, in the past 24 hours, a sender made 3 or more transactions with amounts of USD 5,000 each to a new receiver.
+  * A rule is triggered if a particular sender makes transactions outside their usual business hours. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules) under the References section.
+
+

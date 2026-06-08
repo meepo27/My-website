@@ -1,0 +1,130 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl
+Title: ETL Configurations | Feedzai Documentation
+============================================================
+
+On this page
+
+# ETL Configurations
+
+## Ansible variablesâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+stop_on_any_error| BOOLEAN| | true| boolean flag to stop extraction if any error happened  
+num_extractions_threads| NUMBER| | 1| Number of threads assigned to extractions  
+num_publishing_threads| NUMBER| | 1| Number of threads assigned to publishing  
+max_events_per_second| NUMBER| | 5000| Max number of events that can be loaded per second  
+event_storage_splits| NUMBER| | 1| The number of event storage splits.  
+split_size| NUMBER| | 134217728| The size of the event storage splits.  
+papp_file_path| STRING| | "{{ etl_home_path }}/var/tfrb.papp"| The path where the tfrb.papp is set  
+database_pulse_eventstorage_hostname| STRING| X| | the host of the Events Storage Database  
+database_pulse_eventstorage_port| STRING| | 5432| The port of the Events Storage Database  
+database_pulse_eventstorage_schema| STRING| | eventstorage| The schema of the Event Storage Database  
+database_pulse_eventstorage_username| STRING| | "{{ lookup('gcp_secret_manager', secret='database_pulse_eventstorage_username') }}"| Pulse Event Storage username  
+database_pulse_eventstorage_password| STRING| | "{{ lookup('gcp_secret_manager', secret='database_pulse_eventstorage_password') }}"| Pulse Event Storage password  
+storage_bucket_eventstorage_path| STRING| X| | Path of the folder on bucket where the events will be stored, e.g: 'gs://BUCKET_NAME/FOLDER'  
+storage_bucket_eventstorage_folder_prefix| STRING| | event_store_| Prefix of the bucket folder where the events will be stored, e.g: 'gs://BUCKET_NAME/FOLDER/event_store_'  
+cron_jobs| LIST[CRON]| | `daily extraction of last day`| List of cron jobs to run  
+etl_extraction_interval| [INTERVAL]| | | Interval to be used by the extraction. **Note:** Only considered if `cron_jobs` is not defined or empty  
+etl_java_opts| STRING| | "-Xms8g -Xmx8g"| ETL Java options. This property can also be used to override the metrics default port by setting it with `-Dcom.feedzai.commons.letmeknow.reporter.rest.DropwizardRestReporterFactory.port=<port>`  
+pulse_connection_mode| STRING| X| "PAPP"| ETL Connection mode. `PAPP` indicates that a local application will be used whereas `RUNTIME` indicates that the application will be loaded from Pulse when the ETL process starts.  
+pulse_cluster_name| STRING| | | **Mandatory for`RUNTIME` mode**. Pulse cluster name in Zookeeper, usually set to `pulse{{ deployment_color }}`  
+zookeeper_nodes| STRING| | | **Mandatory for`RUNTIME` mode**. Zookeeper contact points (e.g. Zookeeper LB IP).  
+etl_include_result_tracking| BOOLEAN| | False if ETL configured for Historical Data Loading, true otherwise| Whether the result tracking should be exported or not  
+etl_include_formatted_result_tracking| BOOLEAN| | False if ETL configured for Historical Data Loading, true otherwise| Whether the formatted result tracking should be exported or not  
+etl_include_outcomes_extraction| BOOLEAN| | False if ETL configured for Historical Data Loading, true otherwise| Whether the outcomes should be exported or not  
+etl_outcomes_in_single_field| BOOLEAN| | False if ETL configured for Historical Data Loading, true otherwise| Whether the outcomes should be exported in a single field (JSON) or not (default - one column per outcome). Only works if extraction.includeOutcomes or extraction.includeFeedbacks are enabled  
+etl_include_internal_state| BOOLEAN| | False if ETL configured for Historical Data Loading, true otherwise| Whether or not inernal state (scheduled metrics) will be included during extractions.  
+etl_include_triggered_actions| BOOLEAN| | False if ETL configured for Historical Data Loading, true otherwise| Whether the triggered actions should be exported or not.  
+etl_project_all_fields| BOOLEAN| | True if ETL configured for Historical Data Loading, true otherwise| The fields to be projected when `projectAllFields` is set to false. The order of the fields in this list will match the order in which they are projected to the targetAdapter.  
+etl_include_feedbacks| BOOLEAN| | False if ETL configured for Historical Data Loading, false otherwise| Whether the exported events should include feedback or not. The default is false.  
+etl_include_workflow_state| BOOLEAN| | False if ETL configured for Historical Data Loading, false otherwise| Whether the workflow state should be exported or not.  
+etl_include_event_diffs| BOOLEAN| | False if ETL configured for Historical Data Loading, false otherwise| Whether the event diffs should be exported or not.  
+get_latest_published_app_version| BOOLEAN| | false| **Only applies to`RUNTIME` mode**. If set to `true`, ETL will try to load the published workflow schema to extract events. If set to `false` (or if the current published schema is not found), ETL will load the current workflow schema.  
+etl_uuid_field| STRING| | customer_id if ETL configured for Historical Data Loading, else use lifecycle_id| Indicates the CSV column where the event UUID is defined. When running ETL for Historical Data Loading, this property is set to `customer_id` to prevent inserting errors due to non-valid IDs.  
+etl_scheduled_metrics_manager| STRING| | ALL_PLAN_EXECUTIONS| The type of the scheduled metrics manager to use when computing metrics. Can be one of `ALL_PLAN_EXECUTIONS`, `CURRENT_WORKFLOW`, `EMPTY` or `ZERO`.  
+use_rsync| BOOLEAN| X| true| Configures the deployment pipeline to use `rsync` instead of `copy`. Note that this variable should be set to `false` in RHEL8+ installations.  
+etl_cm_rabbitmq_queue_type| STRING| | CLASSIC| Sets the RabbitMQ queue type (possible values are CLASSIC and QUORUM). Note that this impacts only Pulse to Case Manager recovery, and is ignored in normal data science extractions to GCS buckets.  
+  
+### Cron typeâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+name| STRING| X| | Name of the cron job  
+user| STRING| X| | The user which will run the cron job  
+job_arguments| STRING| X| | Arguments for the ETL tool Cron Job  
+hour| STRING| | *| The cron expression for `hour`  
+minute| STRING| | *| The cron expression for `minute`  
+day| STRING| | *| The cron expression for `day`  
+weekday| STRING| | *| The cron expression for `weekday`  
+month| STRING| | *| The cron expression for `month`  
+  
+#### Default cron jobsâ
+    
+    
+    cron_jobs:  
+      - name: "Daily Extractions job of runtime data to Data Science environment"  
+        user: "{{ etl_unix_user }}"  
+        job_arguments: "--extraction -cf {{ etl_symlink_path }}/conf/event-storage-etl.properties -rei -1d --secret {{ etl_secret_path }}"  
+        hour: 0  
+        minute: 0  
+    
+
+Copy
+
+The `-rei` configuration follows [JTimeWindow Expressions](https://github.com/takezoe/jtimewindow).
+
+In our example `-1d` means "the last day".
+
+Other examples:
+    
+    
+    - Last 2 days:                         -2d/today  
+    - Last week:                           -1w  
+    - From 3 months ago until 1 month ago: -3M/-1M  
+    - From 30 minutes ago until now:       -30m/now  
+    
+
+Copy
+
+### Interval typeâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+start_event_timestamp| TIMESTAMP| X| | Unix timestamp of the extraction interval start timestamp  
+end_event_timestamp| TIMESTAMP| X| | Unix timestamp of the extraction interval end timestamp  
+  
+### Runtime mode notesâ
+
+ETL Runtime mode enables ETL to fetch the current schema from Pulse before it starts exporting events, keeping the schema up to date without requiring a new release.
+
+Please find below some notes regarding this mode.
+
+Since ETL will connect through RMI to Zookeeper to fetch Pulse configuration and then Pulse to fetch the schema, the VM running ETL requires the following firewall rules to be set:
+
+  * TCP connection to Pulse port 1099 (this port is configured in Pulse property `pulse.manager.rmi.localregistryport`)
+  * TCP connection to Pulse port 1199 (this port is configured in Pulse property `pulse.manager.rmi.objectport`)
+  * TCP connection to Zookeeper port 2181
+
+
+
+#### Important noteâ
+
+From 2.4.0 forward the below notice does no longer apply. By setting `get_latest_published_app_version` to `true`, ETL will extract events based on the published workflow schema, meaning that all columns the tool will try to fetch will already be present in the database.
+
+> ETL will fetch the schema even if the application is not published. The consequence of this is that the workflow schema can not have any changes because the database will not have the new column(s) created. This consequence is not problematic since the schema is only changed when the API is also changed (with a new release). Since this process is done in a B/G deployment, ETL will always pick up the current schema.
+
+### Scheduled metrics managerâ
+
+ETL Runtime mode also supports schedule metrics extractions. This option can be enabled by setting `etl_include_internal_state` to `true`.
+
+When extracting events from event storage to CSV a new configuration can be used to determine how ETL handles scheduled metrics extraction. In previous versions, when an event's scheduled metrics belonged to a plan that was no longer referenced in the workflow, extraction of the event would fail.
+
+ETL now handles such cases gracefully and can also be configured to handle them in different ways. Find below the configuration options and how they influence schedule metrics extraction:
+
+  * `ALL_PLAN_EXECUTIONS`: ETL will search for the metrics definition in all existing plan executions
+  * `CURRENT_WORKFLOW`: ETL will search for metrics definitions in plan executions that are referenced in the workflow
+  * `EMPTY`: ETL will always return empty metrics
+  * `ZERO`: ETL will always return metrics with a value of zero
+
+

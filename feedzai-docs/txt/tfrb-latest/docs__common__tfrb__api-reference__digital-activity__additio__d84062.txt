@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/digital-activity/additional-resources/responses-errors
+Title: Responses and Errors | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Digital Activity
+  * Responses and Errors
+
+
+
+On this page
+
+# Responses and Errors
+
+Was this page helpful?Â 
+
+When a client makes a request to an HTTP server and the server successfully receives their request, the server notifies the client if the request was successfully processed or not. Read this page to understand what each response and error means.
+
+## Successful responseâ
+
+Successful calls to Feedzai's API result in a response with HTTP 200 code. Check each Digital Activity endpoint to see the structure of a successful response.
+
+### Warning responseâ
+
+A warning response is a subtype of a successful response which is sent with the HTTP 200 code. The transaction is also processed. The response returns:
+
+  * `status` field with the response 'warning'.
+  * `warnings` field with the reasons for this outcome.
+
+
+
+## Error responseâ
+
+When a call to Feedzai's API results in an error, the response object returned has always the same fields. In particular, the `status` field is shared with the successful response objects of all endpoints. The **Error Response** object is defined as follows:
+
+Name| Field Type| Description  
+---|---|---  
+`code`| String| An indicative code for the error. See possible values below.  
+`errors`| Array of strings| A list of free text explanations for the error.  
+`status`| String| Always with value `error`.  
+  
+### Generic error codes - possible valuesâ
+
+Error code| Description| HTTP Code  
+---|---|---  
+`authenticationError`| The request could not be authenticated.| `401`  
+`authorizationError`| The authenticated user does not have permission to access the endpoint.| `403`  
+`parseError`| The request could not be parsed.| `400`  
+`validationError`| The request failed to pass payload validations.| `400`  
+`invalidTimestampError`| The timestamp provided in the request is invalid.| `400`  
+`nonexistentEndpoint`| The endpoint being called does not exist.| `404`  
+`unsupportedMethod`| The HTTP method to call this endpoint is not supported.| `405`  
+`internalError`| Feedzai's system produced an internal error.| `500`  
+`timeoutError`| Feedzai's system failed to produce a timely response.| `504`  
+  
+## Learn moreâ
+
+Check each Digital Activity endpoint for specific error codes.

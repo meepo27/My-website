@@ -1,0 +1,175 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-feedback-rules
+Title: Feedback Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * Feedback Rules
+
+
+
+On this page
+
+# Feedback Rules
+
+### Descriptionâ
+
+Feedback Rules allow you to apply a set of actions to events that were confirmed as fraud or not fraud. For example, adding an entity to a PosNeg list over a period of time. Take the following example: A fraud analyst reviews an alert in Case Manager and marks it as fraud. In this case, an event is automatically sent to Pulse with the `fraud_label` as 'true' (i.e. fraud) and âevent_subtypeâ field as 'cm_feedback'. A Feedback rule will process this feedback event and will put the card into a PosNeg list to auto-decline for the next 5 days.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Auto-Decline-Card-FB1
+
+### Comment
+
+> Flag card to be auto declined if the transaction is marked as 'Fraud'. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Auto-Decline-Card
+  * [Auto-Decline-Card-FB1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback'
+    and   
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == true
+    and 
+    // Filters
+    (event.payment_card_id ?? '' != '') 
+
+### Explanation
+
+> Transaction is marked as 'Fraud'. Card ID ({event.payment_card_id}) flagged for auto decline. 
+
+### Mark As
+
+N/A
+
+## Auto-Approve-Card-FB2
+
+### Comment
+
+> Flag card to be auto-approved if the transaction is marked as 'Not Fraud'. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Auto-Approve-Card-FB2]
+  * Auto-Approve-Card
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback'
+    and   
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == false
+    and 
+    // Filters
+    (event.payment_card_id ?? '' != '') 
+
+### Explanation
+
+> Transaction is marked as 'Not Fraud'. Card ID ({event.payment_card_id}) flagged for auto approve. 
+
+### Mark As
+
+N/A
+
+## Auto-Decline-Email-FB3
+
+### Comment
+
+> Flag a customer email to be auto declined if the transaction is marked as 'Fraud'. Depends on 'List Management Service' to put the customer email in the configured list.
+
+### Actions
+
+  * Auto-Decline-Email
+  * [Auto-Decline-Email-FB3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback'
+    and   
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == true
+    and 
+    // Filters
+    (event.customer_email ?? '' != '') and (event.card_presence_flag == false)
+
+### Explanation
+
+> Transaction is marked as 'Fraud'. Customer Email ({event.customer_email}) flagged for auto decline. 
+
+### Mark As
+
+N/A
+
+## Auto-Approve-Email-FB4
+
+### Comment
+
+> Flag a customer email to be auto-approved if the transaction is marked as 'Not Fraud'. Depends on 'List Management Service' to put the customer email in the configured list.
+
+### Actions
+
+  * Auto-Approve-Email
+  * [Auto-Approve-Email-FB4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback'
+    and   
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == false 
+    and 
+    // Filters
+    (event.customer_email ?? '' != '') and (event.card_presence_flag == false) 
+
+### Explanation
+
+> Transaction is marked as 'Not Fraud'. Customer Email ({event.customer_email}) flagged for auto decline. 
+
+### Mark As
+
+N/A

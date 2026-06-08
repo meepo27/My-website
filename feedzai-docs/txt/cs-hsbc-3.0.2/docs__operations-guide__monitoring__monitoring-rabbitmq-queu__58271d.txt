@@ -1,0 +1,65 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/monitoring-rabbitmq-queues
+Title: RabbitMQ Queues | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# RabbitMQ Queues
+
+This section presents the messaging topics used in Pulse and Case Manager.
+
+This section describes each topic/queue in detail. Each topic/queue is presented taking in account its general purpose and a list of consumers and producers. Each topic may have one or more queues and each queue one or more consumers.
+
+## Pulse Queuesâ
+
+This section describes the topic/queue Pulse uses.
+
+**Note:** topics are identified by an `*` in front on their name. They can have more than one queue associated with them which is identified by the routing key.
+
+Topic/Queue Name| Description| Consumers| Producers| Notes  
+---|---|---|---|---  
+fdz-sq-digital-activity-non-scoring-*| When a new non-scoring digital event (e.g. async event) is received by Pulse.| Pulse| Pulse|   
+fdz-sq-transfers-non-scoring-*| When a new non-scoring transfer event (e.g. async event) is received by Pulse.| Pulse| Pulse|   
+fdz-sq-hsbc-payments-feedback-listenerhsbc-payments-feedback-listener| When a new feedback is received by Pulse.| Pulse| Pulse|   
+fdz-sq-global-feedbacks-notification-Feedback-Notifier-Migrator| When a feedback change is received by Pulse.| Pulse| Pulse|   
+fdz-sq-global-feedbacks-queue-appId-<app_id>| When a new Feedback event is sent to the Feedback Storage Service.| Pulse| Pulse| If this queue piles up over time, feedback updates to the Pulse event storage table will not be written (the events in Pulse will be missing the fraud feedback labels), which can have an impact on SMJs depending on the metrics defined, and fraud labels coming from feedbacks will not arrive in Case Manager, leading to missing fraud feedback labels.  
+fdz-sq-global-fdz-sync-topic-*| Used for workflow replicas to be notified of normal events arriving the original workflow dead letter.| Pulse| Pulse| The number of messages in this topic/queue may increase substantially during an App Publish since the node being published does not process replica messages sent by the other instances. When the App Publish finishes the instance should be able to process the pending messages.  
+fdz-sq-global-fdz-app-*| This is a topic per application, shared by all replicas of that application. It has two main uses:  
+\- Communication between the Pulse Server   
+\- And the App Engines for publishing / stopping apps.| Pulse| Pulse|   
+fdz-sq-global-fdz-apps-service-app-service-*| This topic is used for two purposes:   
+\- Pulse Server leader to communicate application life cycle requests to followers. For example, after creating an app through the web API (on the Pulse Server leader), the app should be bootstrapped in all pulse servers; in order to achieve this, the pulse server leader publishes a Bootstrap App message for the other Pulse servers to know that they must bootstrap the app.   
+\- To broadcast changes in model object values. Currently this is used only by the Managed List Service, where changes on list items made on the GUI take effect immediately, with no need to re-publish the app.| Pulse| Pulse|   
+fdz-sq-global-fdz-dc-heartbeat-*| Receive heartbeat messages sent from other cluster monitor implementations and the self Data Center Heartbeat. Also, listen for Data Center Heartbeat Request messages, requesting each data center to report that it is alive.| Pulse| Pulse|   
+fdz-sq-global-fdz-metadata-sync-job-manager-*| For App Engines to be notified of request to update a job metadata.| Pulse| Pulse|   
+fdz-sq-global-fdz-metadata-sync-member-*| For App Engines to be notified of requests to reload the Configuration.| Pulse| Pulse|   
+fdz-sq-global-fdz-metadata-sync-pulse-config-manager-*| For Pulse Servers to be notified of requests to reload the Configuration.| Pulse| Pulse|   
+fdz-sq-global-fdz-metadata-sync-pulse-security-*| For Pulse Servers to be notified of requests to reload security metadata.| Pulse| Pulse|   
+fdz-sq-global-jwk-service-updates-*| When a JWK is created or revoked, the leader node sends an update for other replicas| Pulse| Pulse|   
+fdz-sq-fdz-cluster-dc1-dc-manager-*| This is used to broadcast to all the cluster members of the local data center that a given data center became primary.| Pulse| Pulse|   
+fdz-sq-fdz-data-science-jobs-<app_id>*| This is used to keep data science job status updated between Pulse instances| Pulse| Pulse|   
+fdz-sq-fdz-force-flush-topic-*| Keep workflow clocks synchronized between replicas.| Pulse| Pulse|   
+fdz-sq-fdz-processes-*| This topic is used for communications between external jobs (e.g. SMJs running on Dataproc) and their launcher, the job manager service.| Pulse/External Job| Pulse/External Job|   
+fdz-sq-fdz-pulse-mgmt*| This is used by the pulse-mgmt tool to broadcast requests for disabling and shutting down a data center to all members of the current data center, in fail overs.| Pulse| Pulse|   
+fdz-sq-fdz-workflow-publish-*| This is used to synchronize the workflow publish state between Pulse instances| Pulse| Pulse|   
+  
+## Case Manager Queuesâ
+
+This section describes each topic/queue Case Manager uses.
+
+**Note:** Since cases are not being used all queues regarding cases in the following table are merged in `CM_UPDATES_CASES_*`.
+
+Topic/Queue Name| Description| Consumers| Producers| Notes  
+---|---|---|---|---  
+CM_UPDATES_CASES_*| Cases Queues. **Note:** These queues are not in use| Logstash| Case Manager|   
+CM_UPDATES_EVENTS-EVENT-external-notifications-queue| When a new event (or an event update) arrives in CM.| Logstash| Case Manager| If no consumer is supposed to connect to this queue, it should be pruned occasionally so messages do not pile up.  
+CM_UPDATES_EVENTS-QUEUE-external-notifications-queue| An event's queue changes.| Logstash| Case Manager| If no consumer is supposed to connect to this queue, it should be pruned occasionally so messages do not pile up.  
+CM_UPDATES_EVENTS-STATUS-external-notifications-queue| When the state of an event (on any state machine) changes.| Logstash| Case Manager| If no consumer is supposed to connect to this queue, it should be pruned occasionally so messages do not pile up.  
+CM_UPDATES_EVENTS-USER-external-notifications-queue| The user assigned to an event has changed.| Logstash| Case Manager| If no consumer is supposed to connect to this queue, it should be pruned occasionally so messages do not pile up.  
+CM_UPDATES_EVENTS-RELATED_TRANSACTIONS-external-notifications-queue| When related transactions arrive to CM.| Logstash| Case Manager| If no consumer is supposed to connect to this queue, it should be pruned occasionally so messages do not pile up.  
+CM_UPDATES_EVENTS-NOTES-external-notifications-queue| When a new note is added to event| Logstash| Case Manager| If no consumer is supposed to connect to this queue, it should be pruned occasionally so messages do not pile up.  
+fdz-sq-EVENT_QUEUE_CARDS| When a new Cards event arrives to CM.| Case Manager| Pulse| In case this queue starts to pile up it means CM is not able to process events at a higher rate than they are being produced. This is not critical since the consequence is that events will show in CM later than when they were inserted in the queue. However, if events keep piling up in the queue for longer periods of time, this is a sign that something is wrong in the system, possibly in Case Manager or the database.  
+fdz-sq-EVENT_QUEUE_NON-MON| When a new Non-Mon event arrives to CM.| Case Manager| Pulse| In case this queue starts to pile up it means CM is not able to process events at a higher rate than they are being produced. This is not critical since the consequence is that events will show in CM later than when they were inserted in the queue. However, if events keep piling up in the queue for longer periods of time, this is a sign that something is wrong in the system, possibly in Case Manager or the database.  
+fdz-sq-EVENT_QUEUE_DIGITAL-ACTIVITY| When a new Digital Activity event arrives to CM.| Case Manager| Pulse| In case this queue starts to pile up it means CM is not able to process events at a higher rate than they are being produced. This is not critical since the consequence is that events will show in CM later than when they were inserted in the queue. However, if events keep piling up in the queue for longer periods of time, this is a sign that something is wrong in the system, possibly in Case Manager or the database.  
+fdz-sq-EVENT_QUEUE_TRANSFERS| When a new Transfers event arrives to CM.| Case Manager| Pulse| In case this queue starts to pile up it means CM is not able to process events at a higher rate than they are being produced. This is not critical since the consequence is that events will show in CM later than when they were inserted in the queue. However, if events keep piling up in the queue for longer periods of time, this is a sign that something is wrong in the system, possibly in Case Manager or the database.  
+fdz-sq-EVENT_QUEUE_65b71a29808f2220| When a new Inbound Payments event arrives to CM.| Case Manager| Pulse| In case this queue starts to pile up it means CM is not able to process events at a higher rate than they are being produced. This is not critical since the consequence is that events will show in CM later than when they were inserted in the queue. However, if events keep piling up in the queue for longer periods of time, this is a sign that something is wrong in the system, possibly in Case Manager or the database.

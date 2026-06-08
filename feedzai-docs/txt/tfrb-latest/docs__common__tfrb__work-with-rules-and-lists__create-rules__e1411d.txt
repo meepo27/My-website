@@ -1,0 +1,145 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules-projects
+Title: Create Rules Projects | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * Create Rules Projects
+
+
+
+On this page
+
+# Create Rules Projects
+
+Was this page helpful?Â 
+
+A rules project is an ordered collection of rules that share similar traits. Grouping your rules in different rules projects allows you to:
+
+  * Keep your work organized.
+  * Set general configurations (e.g. a schema) that apply to all the rules that share similarities.
+  * Order rules projects in a workflow so that real-time events are first processed by rules with higher priority and then by rules with lower priority. Find more information about this on the Rules precedence section.
+
+
+
+## Create rules projectsâ
+
+Since you are not allowed to change existing out-of-the-box rules, you need to create a new rules project first.
+
+  1. In the side panel, go to **Data Science**.
+  2. Scroll through the page until you get to the **Rules Projects** widget.
+  3. Select **New Rules Project**.
+
+
+
+This is how you should set up a new rules project:
+
+  * **Name** : New rule project name.
+  * **Type** : Advanced.
+  * **Schema** : If you changed the out-of-the-box plan, select the schema you created in the previous step. Otherwise, select **Cards Workflow Schema v4**.
+  * **Confirm** this action.
+    * If the schema has changed after you created the rules project, you need to update the schema, even if the schema names are the same.
+  * **Target Variable** : `decision`.
+    * Do NOT select `fraud` as the target variable. It should only be `decision` in almost all cases.
+  * **State** : Leave it unchecked.
+  * **Actions** :
+    * Add the default action codes `Alert`, `Limit/Review Card`, `Auto Decline Card`, `Auto Approve Card`, `NO-OP`.
+    * You also need to create action codes for any new rules. This is because these codes will be displayed in Case Manager when rules are triggered.
+      * Naming convention for cards: [Cards-RULE_NAME].
+    * Any custom action code needed for Case Manager or other downstream consumption. Contact the Feedzai project team for this customization.
+  * **Multi-Tenancy** : Global.
+
+
+
+To view other rules projects' configurations, or to change your own rules projects' configurations, select the **Configure** button.
+
+## Standard rules projectsâ
+
+Transaction Fraud for Banking includes standard rules projects to help you get started:
+
+(*) Fraud Rules are subdivided into several logics, i.e. velocity rules, threshold rules, behavior rules, and card-not-present rules (only applicable to the Cards rules projects).
+
+Conceptually, rules projects are divided into the following main groups according to the event type that arrives to the workflow:
+
+  * Feedback events.
+  * Scorable events.
+  * All events, i.e. besides the aforementioned events, it includes Cards Clearings and Transfer Settlements.
+
+
+
+info
+
+A _Sanctions Rules Project_ may also be included. Note that it is only relevant and active if you have Feedzai's Watchlist Transaction Screening solution enabled. It does not impact Transaction Fraud for Banking's performance or results.
+
+### Feedback eventsâ
+
+Feedback events are evaluated by the following rules project:
+
+  * **Feedback Rules** : Contains rules that classify entities into decline or approve lists according to the analyst's feedback on the event. Examples of rules include:
+    * **Feedback fraud** : Card, transfer or digital event is listed to be declined if the customer does not acknowledge the event or the analyst marks it as "Fraud".
+    * **Feedback not fraud** : Card, transfer or digital event is listed to be approved if the customer acknowledges the event or the analyst marks it as "Not Fraud".
+
+
+
+### Scorable eventsâ
+
+Scorable events are the events that return a decision outcome. For instance, Cards Authorization, Transfer Initiation, and Digital Activity endpoints return a decision outcome. Scorable events are evaluated by the following rules projects:
+
+  * **PosNeg Rules** : Adds entities to a PosNeg list to be approved, declined or reviewed.
+  * **Fraud Rules** : Contains rules that look for standard fraud patterns.
+  * **Entity Limit Rules** : Contains rules that allow you to limit the amount and count of transactions for cards and transfers.
+  * **Decision Rules** : Contains rules that have triggered based on the score produced by a data science model and on rules triggered in the previous blocks.
+  * **Device Intelligence** : Contains rules to monitor the relevant information about the device that is being used to perform a digital event.
+
+
+
+### All eventsâ
+
+The following rules project is evaluated for all event types:
+
+  * **Self Service Rules** : Contains rules that are written in Case Manager by Fraud Managers and are processed in Pulse. Fraud Managers can use this functionality to write rules directly in production to quickly act on an emerging fraud pattern.
+
+
+
+## Rules precedenceâ
+
+An event can trigger several rules in multiple rules projects. It is important to understand what happens when an event triggers several rules that generate different outcomes. This precedence level in Pulse is explained below for rules that generate decisions and alerts.
+
+### Precedence in decisionsâ
+
+The following image shows the precedence level for rules that trigger an approve or decline decision. The label _triggered_ in this example means that at least one rule in the rules project has triggered.
+
+Rules precedence regarding decisions works as follows:
+
+  * **Scenario 1** : If no rule is triggered, the final outcome is **approve**.
+  * **Scenario 2** : When one of the rules with the decision decline is triggered, the final outcome is **decline**.
+  * **Scenarios 3 and 4** : When multiple rules with different decisions are triggered, the final outcome is the decision of the rule that has triggered first.
+
+
+
+### Precedence in alertsâ
+
+The following image shows the precedence level for rules projects that trigger an alert:
+
+Rules precedence regarding alerts works as follows:
+
+  * **Scenario 1** : If no rule is triggered, the transaction is not displayed in Case Manager's alert page. However, fraud analysts can still access the transaction in Case Manager's search page.
+  * **Scenario 2** : When one of the rules with the action alert is triggered, the transaction is displayed in Case Manager's alert page. You have access to the reason explaining why the rule was triggered.
+  * **Scenario 3** : When multiple rules with alert action are triggered, the transaction is displayed in Case Manager's alert page. You have access to the reason explaining why each rule was triggered.
+
+
+
+## Rules orderâ
+
+The order in which rules are processed can be defined inside each rules project. This allows you to define the order according to the priority of the outcome, i.e. rules with higher priority (e.g. hard decline) can be evaluated before rules with lower priority (e.g. hard approve).
+
+## Nextâ
+
+Go to the next building block in the rule creation process:
+
+  * [Create rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules)
+
+

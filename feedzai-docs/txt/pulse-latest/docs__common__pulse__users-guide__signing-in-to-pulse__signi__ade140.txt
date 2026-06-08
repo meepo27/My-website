@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/
+Title: Signing in with Single Sign-On | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Signing in to Pulse
+  * Signing in with Single Sign-On
+
+
+
+On this page
+
+# Signing in with Single Sign-On
+
+Was this page helpful?Â 
+
+Pulse supports Single Sign-On (SSO) which allows you to access various applications (i.e. to start a session) by signing in to only one of the applications. You can learn more about Pulse SSO in the [Single Sign-On](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on) page under the Administrator's Guide.
+
+## Sign in Scenariosâ
+
+Pulse supports **SP-initiated** sign-in.
+
+This scenario is initiated by the Service Provider (SP) and occurs when you access a Pulse URL, and you are not signed in. You are redirected to a URL that is managed by the Identity Provider (IdP). In this IdP URL, you are prompted with a sign in form and after authentication you are automatically redirected back to the Feedzai URL. Check [Sign in via SP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-sp-initiated).
+
+## User Provisioningâ
+
+With Pulse SSO, users are created by the concept of user provisioning. If you are signing in for the first time and if your account does not exists as a Pulse User, your account is created on-the-fly after being authorized by the IdP.
+
+## Sign in as Administratorâ
+
+The recommended method to create users in Pulse is by User Provisioning. However, Administrators can still sign in to Pulse using a static URL and then add new user accounts. Note that this option should only be used under special situation as the recommended method to add user accounts is by User Provisioning.
+
+Check [Signing in as Pulse Administrator](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-as-pulse-administrator).
+
+## Sign outâ
+
+One component associated with SSO is allowing users to sign out from all the applications at once (i.e. without having to sign out individually from all the applications). This is component is commonly referred to as Single Logout.
+
+## Learn moreâ
+
+Now that you have an overall picture of Pulse SSO you can check user guide details presented in the following sections:
+
+  * [Signing in via SP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-sp-initiated)
+  * [Signing in as Pulse Administrator](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-as-pulse-administrator)
+
+

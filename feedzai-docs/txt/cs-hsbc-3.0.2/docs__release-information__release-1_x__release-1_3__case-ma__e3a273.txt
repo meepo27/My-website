@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-search-page/search-digital-activity-rework
+Title: Search Page - Digital Activity | Feedzai Documentation
+============================================================
+
+# Search Page - Digital Activity
+
+**Widget: Search Page Digital Activity Advanced Search**
+
+Before:
+
+After:
+
+Action| Field| UI  
+---|---|---  
+Remove| Account ID|   
+Remove| Device Email|   
+Remove| Device Phone Number|   
+Rename| IP Location| IP City

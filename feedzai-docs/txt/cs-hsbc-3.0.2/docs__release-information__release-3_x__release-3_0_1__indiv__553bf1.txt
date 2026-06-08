@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.1/individual-release-notes/HSBC-4366
+Title: HSBC-4366 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4366
+
+### Fix Reasons dropdown options becoming unavailableâ
+
+Bug FixFTMT-36949HSBC-4366
+
+We've fixed an issue which, under certain conditions, caused all options to disappear from the Reasons dropdown when trying to set an event's Block Code or Operational Status.

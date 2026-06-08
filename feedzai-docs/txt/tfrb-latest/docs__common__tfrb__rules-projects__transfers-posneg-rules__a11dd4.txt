@@ -1,0 +1,436 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-posneg-rules
+Title: Transfers - PosNeg Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - PosNeg Rules
+
+
+
+On this page
+
+# Transfers - PosNeg Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_PosNeg Rules_ implement decisions based on listed entity values. This means that these rules check if entities are listed to be approved / declined, and, based on that, PosNeg rules set the respective approve / decline decision. Examples of entities include accounts, countries, and even blacklisted key-words that come in the transaction notes.
+
+_PosNeg Rules_ act only on requests evoked by the Transfer Initiation endpoint.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Transfers-PN1
+
+### Comment
+
+> Transfer is from a country which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_bank_country_code ?? '' != '') 
+    and
+    event.posneg_sender_bank_country_val == 'decline'
+
+### Explanation
+
+> [Transfers-PN1] - Decline - Transfer is from a country ({event.sender_bank_country_code}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN2
+
+### Comment
+
+> Transfer is to a country which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_bank_country_code ?? '' != '') 
+    and
+    event.posneg_receiver_bank_country_v == 'decline'
+
+### Explanation
+
+> [Transfers-PN2] - Decline - Transfer is to a country ({event.receiver_bank_country_code}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN3
+
+### Comment
+
+> Transfer is from an account which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_transaction_bank_accoun ?? '' != '') 
+    and
+    event.posneg_sender_account_value == 'decline'
+
+### Explanation
+
+> [Transfers-PN3] - Decline - Transfer is from an account ({event.sender_transaction_bank_accoun}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN4
+
+### Comment
+
+> Transfer is to an account which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_transaction_bank_acco ?? '' != '') 
+    and
+    event.posneg_receiver_account_value == 'decline'
+
+### Explanation
+
+> [Transfers-PN4] - Decline - Transfer is to an account ({event.receiver_transaction_bank_acco}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN5
+
+### Comment
+
+> Transfer is from a Bank Identifier Code (BIC) which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_bank_bic ?? '' != '') 
+    and
+    event.posneg_sender_bank_bic_value == 'decline'
+
+### Explanation
+
+> [Transfers-PN5] - Decline - Transfer is from a Bank Identifier Code ({event.sender_bank_bic}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN6
+
+### Comment
+
+> Transfer is to a Bank Identifier Code (BIC) which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN6]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_bank_bic ?? '' != '') 
+    and
+    event.posneg_receiver_bank_bic_value == 'decline'
+
+### Explanation
+
+> [Transfers-PN6] - Decline - Transfer is to a Bank Identifier Code ({event.receiver_bank_bic}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN7
+
+### Comment
+
+> Transfer is from a Sort Code which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN7]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_bank_sort_code ?? '' != '') 
+    and
+    event.posneg_sender_bank_sort_code_v == 'decline'
+
+### Explanation
+
+> [Transfers-PN7] - Decline - Transfer is from a Sort Code ({event.sender_bank_sort_code}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN8
+
+### Comment
+
+> Transfer is to a Sort Code which is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN8]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_bank_sort_code ?? '' != '') 
+    and
+    event.posneg_receiver_bank_sort_code == 'decline'
+
+### Explanation
+
+> [Transfers-PN8] - Decline - Transfer is to a Sort Code ({event.receiver_bank_sort_code}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN9
+
+### Comment
+
+> Transaction notes contain keywords which are listed to be auto declined
+
+### Actions
+
+  * [Transfers-PN9]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    ((event.sender_transaction_notes ?? '' != '') and 
+      ListedKeywords.containsKeyword(posneg_listed_keywords, "decline", event.sender_transaction_notes, true) )
+    or
+    ((event.receiver_transaction_notes ?? '' != '') and  
+    ListedKeywords.containsKeyword(posneg_listed_keywords, "decline", event.receiver_transaction_notes, true) )
+
+### Explanation
+
+> [Transfers-PN9] - Decline - Transfer notes contain keywords that are listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN10
+
+### Comment
+
+> Transfer is to an account which is listed to be auto approved.
+
+### Actions
+
+  * [Transfers-PN10]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_transaction_bank_acco ?? '' != '')
+    and
+    event.posneg_receiver_account_value == 'approve'
+
+### Explanation
+
+> [Transfers-PN10] - Low Risk - Transfer is to an account ({event.receiver_transaction_bank_acco}) which is listed to be auto approved.
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Transfers-PN11
+
+### Comment
+
+> Transfer is from an account which is listed to be auto approved.
+
+### Actions
+
+  * [Transfers-PN11]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.sender_transaction_bank_accoun ?? '' != '') 
+    and
+    event.posneg_sender_account_value == 'approve'
+
+### Explanation
+
+> [Transfers-PN11] - Low Risk - Transfer is from an account ({event.sender_transaction_bank_accoun}) which is listed to be auto approved.
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Transfers-PN12
+
+### Comment
+
+> Decline IP that is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN12]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.device_ip_address ?? '' != '')
+    and
+    event.posneg_device_ip_value == 'decline'
+
+### Explanation
+
+> [Transfers-PN12] - Decline - Device IP {{event.device_ip_address_location}} is listed to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Transfers-PN13
+
+### Comment
+
+> Decline Device Id that is listed to be auto declined.
+
+### Actions
+
+  * [Transfers-PN13]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.device_id ?? '' != '')
+    and
+    event.posneg_device_id_value == 'decline'
+
+### Explanation
+
+> [Transfers-PN13] - Decline - '{eventname.device_id}' {{event.device_id}} is listed to be auto declined. 
+
+### Mark As
+
+The outcome of this rule is: **decline**

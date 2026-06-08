@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/what-is-case-manager
+Title: What is Case Manager? | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * What is Case Manager?
+
+
+
+On this page
+
+# What is Case Manager?
+
+WelcomeÂ and thank you for choosing Case Manager, the ultimate tool for handling alerts and managing analyst teams. With Case Manager, analysts can manually review events and act on them to stop suspicious activity. Case Manager also allows financial institutions to organise their teams' workload, and automate event processing for better efficiency.
+
+## How it worksâ
+
+When a transaction enters the system, Feedzai can block or approve them in real time. This real-time processing is performed by Pulse - Feedzai's data science tool that is able to process thousands of transactions per second. However, acting on hundreds of transactions can greatly impact financial institutions and their customers. Case Manager enables analysts to review transactions that fall within a risk threshold and raise alerts.
+
+The following diagram shows what happens since an event arrives in Pulse until the feedback sent by Case Manager.
+
+  1. The event (e.g., transaction) arrives in Pulse.
+  2. Pulse applies rules and machine learning models to score the event according to its risk level. The event is then automatically approved, declined, or sent for manual review.
+  3. Analysts review the event details provided by Case Manager to support the investigation.
+  4. Analysts make a decision on the event, for example, mark as fraud or not fraud.
+  5. The decision is then sent back to Pulse (i.e. feedback) to improve the rules and machine learning models to be applied in future transactions.
+
+
+
+## Main capabilitiesâ
+
+Case Manager includes different capabilities that allow financial institutions to handle alerts and manage analyst teams, namely:
+
+  * Detailed alert information to enable an efficient, quick, accurate, and holistic investigation.
+  * Flexible workflow management with:
+    * Cases to bundle events.
+    * Queues to group tasks and help define priorities.
+    * Configurable automation rules to speed up the process.
+    * Internal SLA check marks to keep track of velocity and progress of the workload.
+  * Immediate capability to improve rules and list entries to be applied in future transactions. For example, quickly block all transactions made with the same card as a transaction reviewed by an analyst.
+
+
+
+## Learn moreâ
+
+Now that you understand what Case Manager is, dive deeper into how it works:
+
+  * [Architecture](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/architecture-overview): Get to know the different Case Manager components and how they conect with each other.
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview): Learn about the different core concepts such as alerts, cases, queues, automation rules, SLAs, among others.
+  * [User guide](/case-manager/13.17/docs/common/case-manager/user-guide/user-guide-overview): Learn how to use Use Case Manager.
+
+

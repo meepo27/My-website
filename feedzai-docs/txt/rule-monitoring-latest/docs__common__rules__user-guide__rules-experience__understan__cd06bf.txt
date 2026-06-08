@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules
+Title: Understand the Rules Strategy Tool | Rule Monitoring
+============================================================
+
+On this page
+
+# Understand the Rules Strategy Tool
+
+Was this page helpful?Â 
+
+Rules Strategy is a tool that allows the user to create [rules](/rules/latest/docs/common/rules/overview) and manage them according to the financial institutionâs business needs. Each business solution works with different business types. These business types be cards, transfers, and others. These are called **channels**.
+
+The tool provides pre-selected channels customized to the clientâs needs that can be accessed in the [Strategy Builder](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder) page in the top navigation bar. With this solution, you can create a rule strategy for each individual channel to better suit its needs.
+
+## User journeyâ
+
+The following section details how to navigate the Rules Strategy tool.
+
+When using this tool, the starting point for your journey is the [Strategy Builder](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder) page. This is your dashboard where you can access the rule strategies for each of your channels. From this page you can manage your strategies: you can create or adjust rules inside a specific channel which will be grouped along with other rules with the same decision criteria.
+
+For detailed instructions on employing these flows, see [Manage Rules](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules).

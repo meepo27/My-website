@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-device
+Title: Digital Activity - Device | Feedzai Documentation
+============================================================
+
+# Digital Activity - Device
+
+Before:
+
+After:
+
+**Field Modifications** :
+
+Change| Field  
+---|---  
+Added| Device ID Type  
+Added| Fuzzy Device ID  
+Added| Device TDL  
+Added| HTTP User Agent  
+Added| Server Date time  
+Added| Browser Date  
+Added| Browser Timezone  
+Fixed| Device Channel  
+Fixed| Device Type  
+Fixed| Operating System  
+Fixed| Device Language  
+Removed| Model & Brand  
+Removed| Registration Date  
+Removed| Browser  
+Removed| Mobile App  
+Removed| Device Location  
+Removed| Device Screen Height  
+Removed| Device Screen Width  
+Removed| Registration Date  
+Removed| Device Phone Number  
+Removed| Device Email  
+Removed| Device Risk Rating  
+Removed| Device Risk Code  
+Removed| Device Risk Reason

@@ -1,0 +1,116 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-feedback-rules
+Title: Cards - Feedback Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - Feedback Rules
+
+
+
+On this page
+
+# Cards - Feedback Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Feedback Rules_ allow you to apply a set of actions to events that were confirmed as fraud or not fraud. Typical scenarios include:
+
+  * A cardholder is contacted by the issuer bank and is asked whether the operation is authentic or not. After the cardholderâs confirmation, the issuer sends an API request via the feedback endpoint with `fraud_label` as 'true' (i.e. fraud) or 'false' (not fraud) and `feedback_type` field equal to 'out_of_band'. This `feedback_type` field is mapped to a Pulse internal field `event_subtype` with the same value.
+  * A fraud analyst reviews an alert in Case Manager and marks it as fraud or not fraud. In this case, an event is automatically sent to Pulse with the `fraud_label` as 'true' (i.e. fraud) or 'false' (not fraud) and `event_subtype` field as 'cm_feedback'.
+
+
+
+Both scenarios will trigger feedback rules and apply configurable actions. For example:
+
+  * Fraudulent event: Card is blacklisted if the cardholder does not acknowledge the transaction or the analyst marks it as "Fraud".
+  * Non-fraudulent event: Card is whitelisted if the cardholder acknowledges the transaction or the analyst marks it as "Not Fraud".
+
+
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-FB1
+
+### Comment
+
+> Flag card to be auto declined if customer does not acknowledge transaction or analyst marks as 'Fraud' . Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-FB1]
+  * Auto Decline Card
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback' and (event.feedback_type == "out_of_band" or event.feedback_type == "cm_feedback")
+    and
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == true
+    and 
+    // Filters
+    (event.card_id ?? '' != '')
+
+### Explanation
+
+> [Cards-FB1] - Customer did not acknowledge the transaction or analyst marked as 'Fraud'. '{eventname.card_id}' {event.card_id} flagged for auto decline. 
+
+### Mark As
+
+N/A
+
+## Cards-FB2
+
+### Comment
+
+> Flag card to be auto approved if customer acknowledges transaction or analyst marks as Not 'Fraud' . Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Auto Approve Card
+  * [Cards-FB2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    event.event_type == 'feedback' and (event.feedback_type == "out_of_band" or event.feedback_type == "cm_feedback")
+    and
+    // Fraud
+    event.feedback_label == 'fraud' and event.feedback_value == false
+    and 
+    // Filters
+    (event.card_id ?? '' != '')
+
+### Explanation
+
+> [Cards-FB2] - Customer acknowledged the transaction or analyst marked as 'Not Fraud'. '{eventname.card_id}' {event.card_id} flagged for auto approve. 
+
+### Mark As
+
+N/A

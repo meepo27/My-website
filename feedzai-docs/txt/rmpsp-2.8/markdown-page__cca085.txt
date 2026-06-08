@@ -1,0 +1,7 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/markdown-page
+Title: Markdown page example | Risk Management for PSPs
+============================================================
+
+# Markdown page example
+
+You don't need React to write simple standalone pages.

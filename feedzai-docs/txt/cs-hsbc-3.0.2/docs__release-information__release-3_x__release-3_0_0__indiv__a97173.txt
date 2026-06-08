@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3696
+Title: HSBC-3696 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3696
+
+### Fix an issue with the ETL extraction MULTICHANNEL strategyâ
+
+Bug FixHSBC-3696
+
+We've fixed an issue with the ETL extraction tool using the MULTICHANNEL routing strategy, where the extraction to Case Manager would fail if it found events whose channel was not mapped in `etl_cm_channel_queue_mappings`.
+
+The MULTICHANNEL strategy can now be used to recover the events of a single channel from a multichannel workflow (e.g. recover only Digital Activity events).
+
+We've also upgraded ETL to version 18.2.2 which reduces the amount of logging when a channel-queue mapping is missing.

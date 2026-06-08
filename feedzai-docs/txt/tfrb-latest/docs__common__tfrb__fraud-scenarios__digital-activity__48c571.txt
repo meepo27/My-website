@@ -1,0 +1,71 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/fraud-scenarios/digital-activity
+Title: Digital Activity | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Fraud Scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview)
+  * Digital Activity
+
+
+
+On this page
+
+# Digital Activity
+
+Was this page helpful?Â 
+
+This page covers the fraud scenarios and the detection strategy for digital activity events.
+
+## Account takeoverâ
+
+Account takeover (ATO) is the act of obtaining access to a person's bank account, typically by logging into their online account. Once they have control, fraudsters can easily transfer or wire money out of the victim's account into their own.
+
+The most common threats leading to this fraud scenario type are as follows:
+
+  * **Social engineering** , within the ATO scenario, may involve collecting information about the victim from various sources, such as phishing scams, in order to take over the victim's account.
+  * **Brute force attack** consists of an attacker submitting many passwords with the hope of eventually guessing the correct combination of characters. The perpetrator can also take advantage of the victimâs personally identifiable information (PII) to change the victim's password. After successfully guessing the password, the event becomes an ATO scenario.
+  * **Phishing** is the act of sending fraudulent emails to extract account credentials from the victims. In these emails fraudsters pretend to be from a legitimate source by using an official company's logo and wording. Usually, the content of the email varies in nature (e.g. email compromise, urgent requests, bank account irregular activity, etc.). Fraudsters succeed at phishing when the victims access a seemingly legitimate link, which in reality is a cloned version of the official company's link. In an ATO fraud scenario, the purpose of phishing is to obtain as much information about the victim as possible to take over their account.
+  * **Password theft** is a method that may have several variants. For example, cybercriminals can focus on PII to try to match or reset the victimâs password. They may also develop complex tools to decipher passwords, and try them on thousands of sites expecting the same password to be used across multiple accounts.
+  * **Malware** is any software intentionally designed to cause damage or perform a fraudulent activity. Malware can get installed into the victimâs device without them noticing. Once installed, criminals can access useful data such as passwords or PII to perform ATO.
+  * **SIM swap** , also known as phone hijacking or port-out scam, aims at succeeding on two-factor authentication mechanisms, where the second authentication happens through an SMS code or mobile phone call. The perpetrator starts by collecting the victim's PII data, either by sending phishing emails or by buying data from other criminals (e.g. dark web). Next, they contact the victimâs mobile telephone provider and use social engineering techniques to convince the company to port the victimâs phone number to the fraudsterâs SIM. For example, this is done by impersonating the victim using the stolen personal details and claiming that they have lost their phone. This will allow the criminal to take over the victimâs account by intercepting any one-time password used during the login or transfer of funds.
+  * **Fake apps** are Android or iOS applications that mimic legitimate applicationsâ look and feel to trick unsuspecting victims into installing them. Once downloaded and installed, similarly to the malware, the fake applications perform various malicious actions benefiting a criminal to perform multiple types of financial crime.
+
+
+
+**How Feedzai prevents account takeover**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule may be used to block a login attempt originated from a device Id that is listed to be auto declined. To understand how this is achieved with a rule included in the standard package, check [Posneg rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-posneg-rules) under the References section.
+  * A rule may be used to block a login attempt after a certain number of failed login attempts takes place per account at the last minute. Check this [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-fraud-rules) to know more about the standard usage of this rule under the References section.
+  * An alert is triggered if the number of daily transactions and digital activity (e.g. logins) for a dormant account exceeds a defined threshold.
+
+
+
+info
+
+It is crucial for Feedzai to receive digital activity events related to banking sessions in order to detect ATO scenarios. Such events involve login, phone and email address changes, and password resets. For instance, a fraudster may perform a SIM swap scam by using the victim's phone number to reset the security token. Changing the victim's email may also be used to reset a password and take full control of an account.
+
+## Authorized push payment fraudâ
+
+Authorized push payment (APP) fraud is the act of criminals tricking their victims into transferring money to their accounts. For instance, these individuals may act as if they are from a legitimate company or entity, such as the victim's bank. To sound convincing, fraudsters mention personal details about the victim, which they have collected from the victim's social media and/or other public spaces that show their profiles. Fraudsters then advise the victims to transfer their money to another account (e.g. a safe one), as their current account has been compromised.
+
+After realizing they transferred money to a scammer, the victims may never recover their stolen money; therefore, it is recommended that they contact their banks as soon as possible.
+
+Consider the following threats, which are the most common methods to perform an APP:
+
+  * **Social engineering** , within the APP fraud scenario, is the psychological manipulation fraudsters use to trick victims into giving away money. Take the example of a romance scam, where a fraudster wins the victim's affection and trust. The fraudster then tricks the victim into actively sending money to the fraudster (e.g. for a plane ticket to meet them). As another example, in some instant payment platforms (e.g. Zelle, NPP, PIX, MBWay) a fraudster may try to add several mobile phones/emails in order to find an existing user to perform an Authorized Push Payment fraud scheme via social engineering.
+  * **Phishing** , in the APP fraud scenario context, is the act of urging the victims to transfer their money to a safe account (i.e. the fraudster account), as their bank account has been compromised. Usually, fraudsters use an urgent tone of voice to convince their target to move quickly and transfer their money.
+
+
+
+**How Feedzai prevents APP fraud**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule may be used to decline a transaction if the transaction takes place outside the usual time of the day and if the transfer is made to a new receiver within the last 6 months. To understand how this is achieved with a rule included in the standard package, check [Fraud Rules](/tfrb/latest/docs/common/tfrb/rules-projects/transfers-fraud-rules) under the References section.
+  * An alert may be triggered if within 90 minutes the count of distinct new receivers from a particular sender is greater than or equal to 3.
+  * An alert should be raised if, within the last 24 hours, the number of transactions between a sender and a new receiver is greater than or equal to 3 and each amount exceeds USD 5,000.
+
+

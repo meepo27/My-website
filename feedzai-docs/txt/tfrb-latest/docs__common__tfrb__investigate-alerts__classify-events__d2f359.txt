@@ -1,0 +1,75 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/classify-events
+Title: Classify Events | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Classify Events
+
+
+
+On this page
+
+# Classify Events
+
+Was this page helpful?Â 
+
+After analyzing an event and customer details as described in the previous journey steps, you are ready to take action based on your decision and classify the event as fraud or not fraud.
+
+To classify events and justify your decision:
+
+  1. In the event details page, select the options  or . You can also select  if the investigation is pending or blocked.
+
+note
+
+For **Inbound Payments** and **Outbound Transfers** , you must select  before classifying the event.
+
+For **Ad-hoc Customer Investigations** , the available options are  or  instead of **Fraud** or **Not Fraud**.
+
+  2. Select an option in the **Add Reasons** dropdown menu to justify your decision. The available options vary per event type and selected state.
+
+  3. Optionally, add a note to provide extra information.
+
+  4. Use the  button to update the event with the decision and reason.
+
+
+
+
+Submit and Update Lists
+
+The  button takes you to the next step: **Update Lists**. The actions performed in this step might have business implications if the information is not properly updated. For safety purposes, this button can be disabled in some use cases. Since it is an action that needs to be done carefully, it is explained as the [final step](/tfrb/latest/docs/common/tfrb/investigate-alerts/update-lists) of your user journey.
+
+Once you update the event with decision and reason, this information is displayed in the **System Decision** and **Reasons** fields, respectively, in the event details page.
+
+## Review nextâ
+
+You can continue analyzing events by selecting **Get Next** on the page's header. This is particularly useful when you are working with event queues because your goal is to analyze all the events in the queue quickly and with this option, you don't need to go back and stop the event analysis flow.
+
+By selecting **Events Queues** from the dropdown menu, Case Manager will automatically take you to the next event with the **Status** defined as **N/A**.
+
+note
+
+Events that have already been classified as **Fraud** or **Not Fraud** because they have already been reviewed will be skipped by this option.
+
+Alternatively, you can go back to the **Alerts** or **Search by Event** pages to select a new event to review. Check the [Access Workload](/tfrb/latest/docs/common/tfrb/investigate-alerts/access-workload) page for more information.
+
+## Bulk actionsâ
+
+You can classify more than one event at the same time:
+
+  1. Navigate to the events inside a given case, the **Alerts** or **Search by Event** page. See the example below for the **Alerts** page:
+
+info
+
+In the **Alerts** page, you must select an event tab (e.g. Cards or Digital Activity) to classify the events in bulk.
+
+  2. Use the checkboxes to select the events that you want to classify.
+  3. Classify them as  or  by executing the actions described at the top of this page to justify your decision.
+
+
+
+## Next stepsâ
+
+Now that you know how to classify events, learn how to [update lists](/tfrb/latest/docs/common/tfrb/investigate-alerts/update-lists) with new information. Since this is a sensitive operation, you might require special permissions or additional training to execute this final step.

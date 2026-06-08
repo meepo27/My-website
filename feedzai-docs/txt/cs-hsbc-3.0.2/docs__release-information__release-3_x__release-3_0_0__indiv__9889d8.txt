@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3978
+Title: HSBC-3978 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3978
+
+### Add Card Pan transaction grouping option in Case Managerâ
+
+FeatureFTMT-34471HSBC-3978
+
+We've added the option of grouping events by Card Pan (`card_pan` field) in the transaction history. When selected, the transaction history is filtered to show all transactions that have taken place on the card with the same number.
+
+We've also fixed some inconsistencies on how `card_pan` was showing in the Case Manager UI. The `Card Pan` label will now show the exact value sent in `card_pan` on Event Details and tables, instead of being computed from `card_bin` and `card_last4`.

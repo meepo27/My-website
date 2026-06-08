@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-transactions
+Title: Transaction | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [CardsÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/cards)
+  * Transaction
+
+
+
+Was this page helpful?Â 
+
+# Transaction
+    
+    
+    GET 
+    
+    ## /api/transactions/:lifecycle_id
+
+The Transaction Get Endpoint allows you to retrieve a transaction previously sent to Feedzai.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+  * 500
+
+
+
+OK
+
+Unauthorized
+
+The system encountered an unexpected internal error.

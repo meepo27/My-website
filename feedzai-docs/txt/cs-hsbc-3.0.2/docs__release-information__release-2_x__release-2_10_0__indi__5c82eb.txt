@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3151-Add-configurable-usage-of-the-legacy-list-format
+Title: HSBC-3151-Add-configurable-usage-of-the-legacy-list-format | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3151-Add-configurable-usage-of-the-legacy-list-format
+
+### Add configurable usage of the legacy list formatâ
+
+FeatureHSBC-3151
+
+Also In:2.9.0
+
+Weâve introduced support for configuring the list import/export format via the following Ansible variable:
+
+  * `lists_use_legacy_csv_format`
+
+
+
+By default, the variable value is set to true, preserving the previous behavior. To enable the new format, set it to false. Please note that in case the variable is not defined, it will use the old import/export format.
+
+This enables installations to choose between the legacy and new list formats based on their needs:
+
+  * Strategic Market installations can adopt the new list format, making use of tenant-specific exports.
+  * UK and AMH installations must continue using the legacy format to maintain compatibility.
+
+
+
+Tne new list format provides some improvements, like:
+
+  * Introduction of data headers to the exported lists
+  * Use the tenant key or the tenant group name in the exported files
+  * Complex lists are also more intuitive, as each field is in a different column instead of in a json format
+
+
+
+For more details about the new variables and their default values, refer to [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).

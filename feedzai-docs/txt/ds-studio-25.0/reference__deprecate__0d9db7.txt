@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/deprecate/
+Title: deprecate - DS API
+============================================================
+
+#  `` deprecate Â¶
+
+##  `` deprecated_argument Â¶
+    
+    
+    deprecated_argument(removal_version: str, kw_name: str, replacement: Optional[str] = None) -> Callable[[_TFunc], _TFunc]
+    
+
+Decorator factory that marks an argument of a function as deprecated.
+
+Returns a decorator that, when applied to a function, checks at call time whether the deprecated keyword argument (`kw_name`) was supplied. If so, a `DeprecationWarning` is issued indicating the argument's pending removal and, optionally, pointing to a replacement.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `removal_version` Â¶
+
+|  `str` |  The version of the library in which the argument is marked as deprecated (e.g., "2.0"). |  _required_  
+  
+###  `kw_name` Â¶
+
+|  `str` |  The name of the argument to be deprecated. |  _required_  
+  
+###  `replacement` Â¶
+
+|  `str or None` |  Optional name of the replacement argument to suggest to the user. If None, it means the argument is removed entirely. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Callable` |  A decorator that wraps a function and warns when the deprecated keyword argument is used.

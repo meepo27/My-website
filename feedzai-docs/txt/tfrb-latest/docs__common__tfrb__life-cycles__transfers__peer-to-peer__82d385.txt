@@ -1,0 +1,57 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/peer-to-peer
+Title: Peer-to-Peer | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details)
+  * Peer-to-Peer
+
+
+
+On this page
+
+# Peer-to-Peer
+
+Was this page helpful?Â 
+
+Learn about the Peer-to-Peer end-to-end life cycle to smoothly integrate with the transfers API.
+
+## Transaction initiationâ
+
+The scenarios described in this section explain the transfer life cycle for direct peers. This page covers the end-to-end default scenario in which only the Transfer Initiation endpoint is called to process transfers.
+
+info
+
+**Endpoints Integration:** Check the [Transaction Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle) page to learn more about the life cycles for transfer updates, settlements, and feedback actions, corresponding to requests to the Info, Settlement and Feedback endpoints, respectively.
+
+### Direct peersâ
+
+The following diagram depicts typical use cases associated with this transfer model:
+
+The steps depicted in the previous image for the top-up use case are the following:
+
+  1. Before the transfer, the sender does a top-up using any available channel - for example, mobile, internet banking - to ensure enough funds to perform the transfer.
+  2. The request is sent to the top-up bank.
+  3. The top-up bank transfers the funds to the sender.
+  4. The sender initiates the transfer using any available channel - for example, mobile, internet banking.
+  5. The receiver peer (e.g. mobile device) receives the funds.
+  6. The receiver is notified and may transfer the funds to a bank account.
+
+
+
+The steps depicted in the previous image for the card/account charge use case are the following:
+
+  1. The sender initiates the transfer using any available channel - for example, mobile, internet banking.
+  2. After transfer initiation, the sender peer sends the transfer instruction to the sender bank to charge the sender's debit/credit card or bank account.
+  3. The receiver peer receives the transfer instructions.
+  4. The receiver bank receives the payout or settlement via card or bank account.
+  5. The receiver peer notifies the receiver.
+
+
+
+info
+
+**Integration with the transfers API:** The transfers API was designed to allow banks that operate at different points of the transfers life cycle to integrate with Feedzai. This flexible integration capability is shown in the previous figure with the API  label.

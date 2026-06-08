@@ -1,0 +1,26 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/inbound-payments/generated-fields
+Title: Generated Fields | Transaction Fraud for Banking
+============================================================
+
+On this page
+
+# Generated Fields
+
+Was this page helpful?Â 
+
+The Inbound Payments API generates some fields which will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Initiation| ???  
+Info| info  
+Settlement| settlement  
+Feedback| feedback  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Transfers API as a timestamp, in milliseconds.

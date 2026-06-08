@@ -1,0 +1,128 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/manage-lists
+Title: Manage Lists | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * Manage Lists
+
+
+
+On this page
+
+# Manage Lists
+
+Was this page helpful?Â 
+
+List Management is a built-in functionality in Case Manager that allows you to add, remove, and search for items within a list.
+
+To access the List Management panel, hover over the **Settings** option in Case Manager's navigation bar and then select **List Management**.
+
+By default, TFB displays the following lists:
+
+PosNeg lists allow you to store items with the values: approve, decline or review/limit. With simple lists, you can add items directly as entity values. Learn more about [Pulse Lists](/tfrb/latest/docs/common/tfrb/references/pulse-lists).
+
+From the **List Management** panel you can perform a number of tasks, such as:
+
+  * Adding entities to lists
+  * Searching for entities in lists
+  * Updating an entity on a list
+  * Removing an entity from a list
+
+
+
+Permissions
+
+The permissions to view, create, edit and delete items from a list are defined by user roles. See the [Roles and Permission](/tfrb/latest/docs/common/tfrb/roles-and-permissions) page to check all the default configurations.
+
+## Adding entities to listsâ
+
+There are several different ways to add entities to lists:
+
+  * Manually adding an entity to a list
+
+
+
+  * Adding an entity from an event to a list
+
+
+
+  * Adding all entities in an event to all relevant lists
+
+
+
+note
+
+An entity can be added to multiple lists, but lists only contain one entity type (e.g. a list for countries cannot include account number entities).
+
+### Manually adding an entity to a listâ
+
+On the **Lists Management** page, hover over the intended list and select the  button. This opens a dialog for you to add an entity to the specific list.
+
+  
+
+
+Once you have populated the fields with the relevant information, select  to add the entity to that list.
+
+Manually adding entities
+
+Manually adding an entity value to a list removes any automatic control of the value. Review the information carefully to avoid typos, as they will result in an entity mismatch.
+
+### Adding an entity from an event to a listâ
+
+While reviewing an event, you can add a specific entity to a list, or alter its configuration if it's already in a list. Information fields eligible for lists have the **Update Lists** button. Select it to open the **Update Lists** dialog.
+
+This dialog allows you to add the entity to a new list or to update its configuration (which action to take, the validity of the action, etc). It can also be used to remove the entity from lists.
+
+### Adding all entities in an event to all relevant listsâ
+
+On the **Event** page, select **Update Lists** to view all the event entities that can be included in lists.
+
+  
+
+
+This opens the **Update Lists** dialog for you to choose which lists to add the entities to. You can also specify the **Validity** and complement the action with a **Note**. If an entity is already on a list, it can be moved to another list or be **Unlisted**.
+
+## Searching for entities in listsâ
+
+You can search for entities that belong to a given list by using the **Search Entities** tab.
+
+### Viewing audits in listsâ
+
+Case Manager allows you to view the [auditing](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/lists#auditing) history of a listed entity.
+
+When you search for an entity in lists, Case Manager displays all audit entries where that entity is present. To view this audit trail, select the **View Audit** button in the **Search entities** tab.
+
+This view allows you to filter the audits by lists. Select the  button and choose the intended list(s) from the drop-down menu.
+
+Case Manager supports having multiple audit trails open at the same time. You can go back to the **Search Entities** tab, perform another search and open the audit view for that search. The **Audit Entities** tab remains open with the previous entity audits.
+
+## Updating an entity on a listâ
+
+There are two methods for updating an entity on a list. You can either locate the entity through an event (for example, in the **Alerts** page) or through the lists, as described in searching for entities in lists.
+
+On the **Alerts** page, information fields that are eligible for lists have the  button. Select it to open the **Update Lists** dialog.
+
+The dialog shows what lists the entity is currently on. Select a list and click on the  button to change the configuration of the entity. When all changes are done, click on the  button.
+
+Alternatively, if you searched for the entity directly in the lists, hover on the list and select the **Update entity** button.
+
+This opens the **Update Entity** dialog, allowing you to update the entity.
+
+## Removing an entity from a listâ
+
+There are two methods for removing an entity from a list. You can either access the entity through an event (for example, in the **Alerts** page) or through the lists, as described in searching for entities in lists.
+
+On the **Alerts** page information, fields that are eligible for lists have the  button. Select it to open the **Update Lists** dialog that displays what lists the entity is currently on.
+
+Select the  button to remove the entity from all lists or individually update the lists from which you wish to unlist the entity. After selecting all removals, select the  button to apply those changes.
+
+Alternatively, if you searched for the entity directly in the lists, click on the  button to remove from all lists, or hover on a specific list and select the  button.
+
+The  button opens the **Update Entity** dialog, allowing you to unlist the entity, removing it from the list.
+
+## Learn moreâ
+
+Learn how to create a [self-service rule](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/create-ssr), test and deploy it directly in production to quickly counteract a fraudster scheme.

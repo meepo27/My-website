@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/tfrb/latest/search
+Title: Search the documentation
+============================================================
+
+Skip to main content
+
+[**Home**](/tfrb/latest/)[TFB](/tfrb/latest/docs/common/tfrb/about/overview)
+
+[FAQ](/tfrb/latest/docs/common/tfrb/faq)
+
+English
+
+  * [English](/tfrb/latest/search)
+  * [EspaÃ±ol](/tfrb/latest/es/search)
+
+
+
+# Search the documentation
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#781c171b0d151d160c190c111716381e1d1d1c021911561b1715).   
+Copyright Â© 2026 Feedzai.

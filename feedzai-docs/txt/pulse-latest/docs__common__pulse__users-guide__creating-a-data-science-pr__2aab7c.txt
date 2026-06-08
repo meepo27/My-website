@@ -1,0 +1,85 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/
+Title: Creating a Data Science project | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Creating a Data Science project
+
+
+
+On this page
+
+# Creating a Data Science project
+
+Was this page helpful?Â 
+
+Whether you are an experienced Data Scientist or still new to the job, learning how to use a new tool can seem a daunting task. This section of the User Guide will lead you through the several stages involved in your Data Science project and how to make the most out of Pulse.
+
+It will help you how to map typical Data Science stages to Pulse, so that your learning curve is minimized, and you quickly get up to speed with Pulse. The main goal is to allow you to become more productive with Pulse than you already are with your current toolset. Pulse fully supports a complete [Data Science Loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop).
+
+Pulse, despite having fraud detection as a major use case, is completely problem-agnostic. This means that you can use Pulse to solve other types of problems, and apply the same Data Science approach to other domains and use cases.
+
+To create a Data Science project in Pulse:
+
+  1. In the Applications  tab, create a 
+  2. Check the following pages to start your work in your new application:
+     * [Cleaning and loading your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data)
+     * [Tuning Job executions with Job Profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles)
+     * [Processing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data)
+     * [Creating features and models automatically](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/creating-features-and-models-automatically)
+     * [Building and evaluating your model](/pulse/latest/docs/common/pulse/users-guide/model-guide)
+     * [Working with rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide)
+     * [Testing your work in a Sandbox environment](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment)
+     * [Interacting with Pulse via JupyterLab](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/interacting-with-pulse-via-jupyterlab)
+
+
+
+Additionally, it is also recommended that you fully acquire all the necessary context and understand what concepts you are manipulating in your project. To learn more about how Data Science works in Pulse, and Pulse's core concepts, check the following pages:
+
+  * [Data Science Loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop)
+  * [Channels](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/channels)
+  * [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources)
+  * [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules)
+  * [Sandbox Evaluations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/sandbox-evaluations)
+  * [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows)
+  * [Outcome Combinator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator)
+  * [Lists](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists)
+  * [Jobs and Job Profiles](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/jobs-and-job-profiles)
+  * [User-Defined Functions](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions)
+  * [Audit](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/audit)
+  * [Concepts Glossary](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary)
+
+
+
+## Using the Data Science tabâ
+
+The **Data Science** tab  is the entry point for Data Science tasks in Pulse. It enables you to manipulate core Pulse concepts, such as [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans), and assists you throughout all stages of your Data Science project.
+
+The following image displays the Data Science tab :
+
+The Data Science tab  contains the following sections:
+
+  1. Data Sources
+
+List with all configured [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and respective analysis status. Select a Data Source to configure, examine and run analyses on your data. Use the Duplicate  option to avoid creating/recreating a Data Source from scratch.
+
+  2. Plans
+
+List with all configured [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) and respective type (Deployable or Non-Deployable). Select a Plan to design, edit and execute your data transformations. Use the Duplicate  option to avoid creating/recreating a Plan from scratch.
+
+  3. Model Projects
+
+List with all configured [Model Projects](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models). Select a Model Project to configure models and evaluations.
+
+  4. Rules Projects
+
+List with all configured [Rules Projects](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules). Select a Rules Project to configure rules, templates, snapshots and evaluations.
+
+
+
+
+## Getting Startedâ
+
+Start working on your Data Science project by learning how to [clean and load your data into Pulse](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data).

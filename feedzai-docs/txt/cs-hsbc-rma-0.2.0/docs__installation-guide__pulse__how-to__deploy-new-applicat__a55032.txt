@@ -1,0 +1,5 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/how-to/deploy-new-applications
+Title: deploy-new-applications | Feedzai RMA Documentation
+============================================================
+
+# deploy-new-applications

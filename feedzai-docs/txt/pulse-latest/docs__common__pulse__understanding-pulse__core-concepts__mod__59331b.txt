@@ -1,0 +1,99 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/hyperparameter-tuning
+Title: Hyperparameter Tuning | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * Hyperparameter Tuning
+
+
+
+On this page
+
+# Hyperparameter Tuning
+
+Was this page helpful?Â 
+
+**Hyperparameter tuning** is the process of fine-tuning parameters to obtain the optimal set of parameters for a specific use case. When fine-tuning parameters without automating this process, it is time-consuming to define a different set of parameters and run the model training in each iteration. Hyperparameter tuning helps the user to determine the optimum parameters for a given machine learning context in an automated way.
+
+## Introduction to hyperparameter tuningâ
+
+Depending on the use case, a certain set of parameters will work better than others, so the goal of data scientists is to try as many sets as possible to know which one allows to achieve an optimized solution for that specific use case. Hyperparameter tuning relies on experimental results, allowing data scientists to train and evaluate multiple models with a diverse set of parameters by algorithm simultaneously.
+
+Pulse generates the performance statistics for all the selected algorithms with all the parameter combinations. This saves time and keeps the models organized. Data scientists can iterate faster to determine the algorithm and set of parameters that optimize model performance. They are, thus, able to spend more time searching for insights in the data, which could improve the performance even more. Given the massive quantity of model evaluations that a hyperparameter tuning can originate, the exploration mode functionality facilitates how the user can explore and compare those evaluations obtained. As such, it helps users to make a decision in a more informed manner.
+
+## Grid search (parameter sweep)â
+
+The **grid search** (aka. parameter sweep) is considered the standard way of performing a hyperparameter tuning. The grid search consists on an exhaustive search, or sweep, of an exponentially large grid of possible hyperparameter combinations for a learning algorithm. Some key points of this process to consider are:
+
+  * You manually specify a set of values for each hyperparameter.
+  * Pulse creates a model for every combination of values. Take a very simple example (as in the image below): if you have 3 hyperparameters and you specify 2 values for one and 3 values for another, after performing the sweep, the grid will return (2*3) = 6 models.
+  * Once the sweeping is finished, you can make queries and sort the models by performance metrics (such as _FPR_) by using the exploration mode.
+
+
+
+## Hyperparameter tuning evaluation methodsâ
+
+Hyperparameter tuning will behave different according to the selected evaluation method.
+
+When selecting either cross or split validation the several models will be all trained and evaluated within the same distributed job. This will cause the model evaluation to run on a single partition which will lead to evaluations time much larger than the single evaluation jobs. The evaluation results will only be available after all the models finish training.
+
+For the validation data source method, the models will be trained within the same distributed job, but a single evaluation job will be triggered as soon as each model finishes its training. Once the models are evaluated, the results will be available at the hyperparameter tuning page, without being necessary to wait for the remaining trainings and evaluations to finish.
+
+### Exploration modeâ
+
+Once the creation step of a hyperparameter tuning is finished, the exploration one follows. The **exploration mode** is a view where you explore and analyze results to learn which evaluations perform better for a certain business target. There are two exploration mode views available in Pulse: a global view in your model project, where you can combine single model evaluations with hyperparameter tuning evaluations, and another view specific to each hyperparameter tuning.
+
+The key points of the exploration mode are:
+
+  * Possibility to add targets and metrics
+  * Search filter that supports a flexible listing:
+    * Selecting model and hyperparameter tuning evaluations
+    * Selecting by algorithm and data source
+  * Possibility to select evaluations and add them to the results comparison table
+  * Possibility to clear applied evaluations from a target
+
+
+
+## Single model evaluation vs. hyperparameter tuningâ
+
+Hyperparameter tuning brings important advantages when compared to creating and evaluating models one by one. The following table sums up the most significant of them:
+
+Single model| Hyperparameter tuning  
+---|---  
+  
+  * Trains and evaluates models one at a time.
+
+| 
+
+  * Tuning evaluation combinations:
+    * launches and combines the possible combinations of the selected parameters
+    * tries more than one algorithm and for each one of them specifies multiple parameters simultaneously
+
+  
+  
+  * The model is trained and evaluated in a distributed way. Typically performs better than hyperparameter tuning.
+
+| 
+
+  * Spark distributes the training so that several models are trained and evaluated simultaneously according to the selected validation method.
+
+  
+  
+  * Instances are partitioned across many tasks and collected in a final logical block resulting in an aggregation of scored instances.
+
+| 
+
+  * No output scored instances since the model binary is not saved.
+
+  
+  
+## Learn moreâ
+
+Check the following pages in the User Guide to learn how the hyperparameter tuning functionality fits in a model life cycle and how it works in Pulse:
+
+  * [Tuning Model Parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters)
+  * [Exploring Hyperparameter Tuning Results](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/exploring-hyperparameter-tuning-results)
+
+

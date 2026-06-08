@@ -1,0 +1,215 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/admin-reference/roles-and-permissions
+Title: Roles and Permissions | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Admin Reference](/rmpsp/2.8/docs/common/rmpsp/admin-reference/overview)
+  * Roles and Permissions
+
+
+
+On this page
+
+# Roles and Permissions
+
+Learn about the default roles and their associated permissions to understand how RMPSP manages the access within Pulse, Case Manager, and dashboards.
+
+## Overviewâ
+
+The following list summarizes the out-of-the-box roles in RMPSP with high-level information about the allowed actions for each role:
+
+**Fraud Prevention Agent L1 - PSP**
+
+  * Mark up payment and merchant monitoring events
+  * Add and remove files from alerts and cases
+  * Add entities to PosNeg lists - global and tenanted
+  * Create and modify Self-Service Rules (SSRs) - global and tenanted
+  * Access Genome
+
+
+
+**Fraud Prevention Agent L2 - PSP**
+
+  * Mark up payment and merchant monitoring events
+  * Create and manage cases in Case Manager
+  * Add and remove files from alerts and cases
+  * Add entities to PosNeg lists - global and tenanted
+  * Create and modify Self-Service Rules (SSRs) - global and tenanted
+  * Access Genome
+
+
+
+**Fraud Prevention Manager - PSP**
+
+  * Mark up payment and merchant monitoring events
+  * Create and manage cases in Case Manager
+  * Add and remove files from alerts and cases
+  * Add entities to PosNeg lists - global and tenanted
+  * Create and modify SSRs - global and tenanted
+  * Access Genome
+  * Override Fraud Prevention Agents' actions
+  * Access analytics dashboards
+  * Create and delete reasons
+  * Self Service Configuration (UI)
+
+
+
+**Fraud Strategist - PSP**
+
+  * Maintain rules, lists, and thresholds in Pulse and Case Manager
+  * Read events and alerts
+
+
+
+**Fraud Strategist Manager - PSP**
+
+  * Maintain rules, lists, and thresholds in Pulse and Case Manager
+  * Read events and alerts
+  * Override Fraud Strategists' actions
+  * Access analytics dashboards
+
+
+
+**Monitoring and Auditing**
+
+  * Quality monitoring - selects a sample of alerts per agent in a given month and examines the investigation's accuracy (i.e. typically an internal auditor)
+  * Read alerts, cases, and SSRs from users with a reporting responsibility
+  * Access analytics dashboards
+
+
+
+**Fraud Prevention Agent L1 - Merchant**
+
+  * See and act on payments from their own tenant
+  * Mark up payments
+  * Add and remove files from alerts
+
+
+
+**Fraud Prevention Agent L2 - Merchant**
+
+  * See and act on payments from their own tenant
+  * Mark up payments
+  * Add and remove files from alerts
+  * Add entities to "by Merchant PosNeg" lists (tenanted)
+
+
+
+**Fraud Prevention Agent L3 - Merchant**
+
+  * See and act on payments from their own tenant
+  * Mark up payments
+  * Add and remove files from alerts
+  * Add entities to "by Merchant PosNeg" lists (tenanted)
+  * Create and modify "by Merchant" SSRs
+
+
+
+**Merchant Monitoring**
+
+  * View, assign, and manage Merchant Monitoring events
+  * View Merchant Monitoring channel
+
+
+
+**Integrator**
+
+  * Manage API JWKs
+
+
+
+caution
+
+Users with any of the following roles must be added to the `rmpsp_landlord_resources` group and be granted the `landlord` role, when [creating a user](/rmpsp/2.8/docs/common/rmpsp/admin-reference/manage-users):
+
+  * `Fraud Prevention Agent L1 - PSP`
+  * `Fraud Prevention Agent L2 - PSP`
+  * `Fraud Prevention Manager - PSP`
+  * `Fraud Strategist - PSP`
+  * `Fraud Strategist Manager - PSP`
+  * `Merchant Monitoring`
+
+
+
+## Detailed viewâ
+
+The following table shows a detailed view of each role's permissions:
+
+Tool| Permissions| Fraud Prevention Agent L1 - PSP| Fraud Prevention Agent L2 - PSP| Fraud Prevention Manager - PSP| Fraud Strategist - PSP| Fraud Strategist Manager - PSP| Fraud Prevention Agent L1 - Merchant| Fraud Prevention Agent L2 - Merchant| Fraud Prevention Agent L3 - Merchant| Merchant Monitoring| MM Ad-hoc Investigations| Monitoring and Auditing| Integrator  
+---|---|---|---|---|---|---|---|---|---|---|---|---|---  
+Pulse  
+4-Eye Check - Create / Review| | | | X| X| | | | | | |   
+4-Eye Check - Review| | | | | X| | | | | | |   
+Export Resources| | | X| | X| | | | | | |   
+Manage Application| | | X| X| X| | | | | | |   
+Manage Custom Services| | | X| X| X| | | | | | |   
+Manage Data Science| | | X| X| X| | | | | | |   
+Manage History| | | X| X| X| | | | | | X|   
+Manage Jobs| | | X| X| X| | | | | | |   
+Manage JWK| | | | | | | | | | | | X  
+Manage List Items| X| X| X| X| X| | X| X| | | |   
+Manage Lists| | | X| X| X| | | | | | |   
+Manage Outcome Combinators| | | X| X| X| | | | | | |   
+Manage Sandbox Evaluations| | | X| X| X| | | | | | |   
+Manage SSRs| | | X| X| X| | | X| | | |   
+Manage Workflows| | | X| X| X| | | | | | |   
+Publish SSRs| | | X| X| X| | | X| | | |   
+Read Application| | | X| X| X| | | | | | X| X  
+Read Custom Services| | | X| X| X| | | | | | | X  
+Read Data Science| | | X| X| X| | | | | | X| X  
+Read Data Science Rules Projects| | | | | | X| X| X| | | |   
+Read History| | | X| X| X| | | | | | X| X  
+Read Jobs| | | X| X| X| | | | | | |   
+Read Lists| X| X| X| X| X| X| X| X| | | X|   
+Read Outcome Combinators| | | X| X| X| | | | | | | X  
+Read Sandbox Evaluations| | | X| X| X| | | | | | |   
+Read SSRs| | | X| X| X| | | X| | | X|   
+Read Users| | | | | | | | | | | | X  
+Read Workflows| | | X| X| X| X| X| X| | | X| X  
+Login| | | X| X| X| | | | | | X| X  
+Manage Users| | | X| | X| | | | | | |   
+Case Manager  
+Access Entity Notes| | | X| | | | | | X| X| |   
+Assign Events| X| X| | | | | | | | | |   
+Assign Ad-Hoc Investigations Events| | | | | | | | | | X| |   
+Assign Merchant Monitoring Events| | | | | | | | | X| | |   
+Landlord| X| X| X| X| X| | | | | | X|   
+Login| X| X| X| X| X| X| X| X| | | X|   
+Manage Automation Rules| | | X| | | | | | | | |   
+Manage Cases| | X| X| | | X| X| X| | | |   
+Manage Ad-Hoc Investigations Events| | | | | | | | | | X| |   
+Manage Events - Base| X| X| X| | | X| X| X| | | |   
+Manage Events - Landlord| X| X| X| | | | | | | | |   
+Manage Merchant Monitoring Events| | | | | | | | | X| | |   
+Manage Events - Tenant| | | | | | X| X| X| | | |   
+Manage List Items| X| X| X| X| X| | X| X| | | |   
+Manage Queues| | | X| | | | | | | | |   
+Manage Reports| | | X| | | | | | | | X|   
+Manage SLAs| | | X| | | | | | | | |   
+Manage SSRs| | | X| X| X| | | X| | | |   
+Manage User Queues| X| X| X| | | | | | | | |   
+Publish SSRs| | | X| X| X| | | X| | | |   
+Read / Create Reasons| | | X| | | | | | | | |   
+Read / Delete Reasons| | | X| | | | | | | | |   
+Reveal Encrypted Values| | X| X| | X| | X| X| | | |   
+Review Next| X| X| X| X| | | | | | | X|   
+Self-Service Config| | | X| | | | | | | | |   
+Read / Write Merchant Monitoring Ad-Hoc Investigations from Tenants| | | | | | | | | | X| |   
+Read / Write Merchant Monitoring from Tenants| | | | | | | | | X| | |   
+Read / Write Payments from Tenants| X| X| X| X| X| X| X| X| | | X|   
+Test SSRs| | | X| X| | | | | | | |   
+Read Automation Rules| | | X| | | | | | | | |   
+Read Cases| | X| X| | X| X| X| X| | | X|   
+Read Dashboards| | | X| | X| | | | | | X|   
+Read Entity Files| | | X| | | | | | X| X| |   
+Read Entity Notes| | | | | | X| X| X| | | |   
+Read Ad-Hoc Investigations Events| | | | | | | | | | X| |   
+Read Events - Base| X| X| X| X| X| X| X| X| | | X|   
+Read Events - Landlord| X| X| X| X| X| | | | | | X|   
+Read Merchant Monitoring Events| | | | | | | | | X| | |   
+Read Events - Tenant| | | | | | X| X| X| | | |   
+Read Merchants| X| X| X| X| X| | | | | | X|   
+Read Queues| | | X| X| X| | | | | | X|   
+Read Reports| | | X| | | | | | | | X|   
+Read SLAs| | | X| | | | | | | | X|   
+Read SSRs| | | X| X| X| | | X| | | X| 

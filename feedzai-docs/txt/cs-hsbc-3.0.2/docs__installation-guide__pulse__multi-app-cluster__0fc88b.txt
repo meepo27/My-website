@@ -1,0 +1,126 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/multi-app-cluster
+Title: Cluster with same portfolio applications | Feedzai Documentation
+============================================================
+
+On this page
+
+# Cluster with same portfolio applications
+
+With the multi-tenancy support added to Pulse the system supports multiple portfolios of the same type in the same cluster. Although this architecture works in most cases, business/regulatory restrictions require a different setup. This page focus on an architecture where the Pulse cluster is shared but there is a clear segregation on the application side, including the workflow, risk strategy, Event Storage and others.
+
+## Overviewâ
+
+Architecturally, having a cluster with different applications of the same portfolio does not extensively differ from a cluster with applications of different markets with the same portfolios. It can be viewed has having different portfolio applications in a cluster but with restrictions on the API input ports and event storage.
+
+In this page we describe the changes that were done to support this new architecture. For simplicity, we will focus on a setup with:
+
+  * Two markets (`Market 1` and `Market 2`)
+  * Two Outbound Payments Applications, one for each market (`market1_outbound_payments` and `market2_outbound_payments`). These two applications can not share the same workflow/risk strategy
+  * One Cards Application for market 1
+  * Two Case Manager clusters, one for each market
+  * Two Reference Data Service instances, one for each market
+
+
+
+In the above example we can see that by having different Case Manager and Reference Data Service instances, all data between the two applications is segregated, meaning that Case Manager will only show data from the application that belongs to the same market and that Pulse will only enrich events using the corresponding Reference Data Service.
+
+##### note
+
+Having different Event Storage databases per market is an optional requirement as this architecture allows different applications to share the same database.
+
+The Event Storage tables are segregated by application ID meaning that, even if different markets share the same database instance, all data will be stored in the corresponding application tables.
+
+## Configurationâ
+
+The bare minimum changes for the example in this page relate to database and API port configurations.
+
+For the example above we will assume market 1 is the default one which means that for market we would need to set the following for Pulse:
+
+  * `market2_outbound_payments_database_pulse_outbound_payments_eventstorage_hostname` pointing to the `Outbound 2 Database`
+  * `market2_outbound_payments_database_pulse_outbound_payments_eventstorage_jdbc` with the default value but with the previous variable in the `hostname` definition
+  * `market2_outbound_payments_api_port` to an available port, different from the default port (`8081`). Given all applications run in the same instance, ports need to differ to avoid collision
+  * `apps_enabled` with the applications to deploy
+  * `markets` with the available markets
+
+
+
+The Pulse configuration would look like the following:
+    
+    
+    # project-<env>/group_vars/pulse/market1_outbound_payments  
+    market1_outbound_payments_app_slug                    : "market1_outbound_payments"  
+    market1_outbound_payments_market                      : "market1"  
+    market1_outbound_payments_portfolio                   : "outbound_payments"  
+    database_pulse_outbound_payments_eventstorage_hostname: "market1_outbound_payments_database_hostname"  
+    reference_data_servers                                : "market1_rds_hostname"  
+      
+    # project-<env>/group_vars/pulse/market2_outbound_payments  
+    market2_outbound_payments_app_slug                                              : "market2_outbound_payments"  
+    market2_outbound_payments_market                                                : "market2"  
+    market2_outbound_payments_portfolio                                             : "outbound_payments"  
+    market2_outbound_payments_database_pulse_outbound_payments_eventstorage_hostname: "market2_outbound_payments_database_hostname"  
+    market2_outbound_payments_database_pulse_outbound_payments_eventstorage_jdbc    : "jdbc:postgresql://{{ market2_outbound_payments_database_pulse_outbound_payments_eventstorage_hostname }}:{{ database_pulse_outbound_payments_eventstorage_port }}/{{database_pulse_outbound_payments_eventstorage_database_name }}?{{ database_pulse_outbound_payments_eventstorage_jdbc_opts | join('&') }}"  
+    market2_outbound_payments_api_port                                              : 8086  
+    market2_reference_data_servers                                                  : "market2_rds_hostname"  
+      
+    # project-<env>/group_vars/pulse/variables.yml  
+    apps_enabled:  
+      - market1_outbound_payments  
+      - market1_cards  
+      - market2_outbound_payments  
+      
+    markets:  
+      market1: Market 1  
+      market2: Market 2  
+    
+
+Copy
+
+For Case Manager we would need less changes, mainly related with Pulse and RDS endpoint configurations. This would require a different set of variables per deployment, one per cluster, as shown below:
+    
+    
+    # Market 1 installation  
+    # project-<env>/group_vars/case-manager/variables.yml  
+    apps_enabled:  
+      - market1_outbound_payments  
+      - market1_cards  
+      
+    reference_data_servers: "market1_rds_hostname"  
+      
+    # Market 2 installation  
+    # project-<env>/group_vars/case-manager/variables.yml  
+    apps_enabled:  
+      - market2_outbound_payments  
+      
+    reference_data_servers: "market2_rds_hostname"  
+    
+
+Copy
+
+Although not included in this example, the Reference Data Applications would require their own application configuration, similar to the Outbound applications, as show below:
+    
+    
+    # project-<env>/group_vars/pulse/market1_reference_data  
+    market1_reference_data_app_slug : "market1_reference_data"  
+    market1_reference_data_market   : "market2"  
+    market1_reference_data_portfolio: "reference_data"  
+    reference_data_servers          : "market1_rds_hostname"  
+      
+    # project-<env>/group_vars/pulse/market2_reference_data  
+    market2_reference_data_app_slug : "market2_reference_data"  
+    market2_reference_data_market   : "market2"  
+    market2_reference_data_portfolio: "reference_data"  
+    market2_reference_data_servers  : "market2_rds_hostname"  
+    market2_reference_data_port     : 8087  
+      
+    # Enable applications in Pulse  
+    # project-<env>/group_vars/pulse/variables.yml  
+    apps_enabled:  
+      - market1_outbound_payments  
+      - market1_cards  
+      - market1_reference_data  
+      - market2_outbound_payments  
+      - market2_reference_data  
+    
+
+Copy

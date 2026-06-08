@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/monitoring-zookeeper
+Title: Monitoring ZooKeeper | Feedzai Documentation
+============================================================
+
+On this page
+
+# Monitoring ZooKeeper
+
+##### tip
+
+For a complete reference of the monitoring recommendations for ZooKeeper, refer to the [official documentation](https://zookeeper.apache.org/doc/current/zookeeperMonitor.html). Make sure to refer to the version being used.
+
+## Collecting metricsâ
+
+Since version 3.6.0 ZooKeeper has started to expose several metrics to monitor multiple parts of the system. The recommendation from the maintainers is to use Prometheus with Grafana for visualization, but there is also an alternative to [use InfluxDB alongside the Telegraf plugin](https://www.influxdata.com/integration/apache-zookeeper/).
+
+It is also possible to [start ZooKeeper with JMX](https://zookeeper.apache.org/doc/current/zookeeperJMX.html) and then use [Jolokia](https://jolokia.org/), a JMX-HTTP bridge plugin that makes JMX-based systems more suitable to agent-based solutions.
+
+Feedzai also recommends the usage of [Exhibitor](https://github.com/soabase/exhibitor), a supervisor system for ZooKeeper originally implemented by Netflix that also provides an API-based facility to manage the cluster.
+
+## Top Metrics to Monitorâ
+
+In this section you will find which metrics are important to monitor in **ZooKeeper**.
+
+##### info
+
+Note that the following list is simply a reference to the most important metrics, and should not be considered as the single source of monitoring the healthiness of the system.
+
+Metric Name| Description  
+---|---  
+`avg_latency`| The average latency of the requests executed against ZooKeeper  
+`znode_count`| The number of znodes (suggested to be keept below 1000000)  
+`open_file_descriptor_count`| Number of files opened (suggested to be keept below 300)  
+`election_time_count`| Used to determine if there was a new leader election recently  
+`followers`| Number of followers, could be used to computed the quorum based on total number of nodes (leader only)

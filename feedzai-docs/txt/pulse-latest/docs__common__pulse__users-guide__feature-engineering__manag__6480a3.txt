@@ -1,0 +1,119 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/managing-metrics-backfills
+Title: Managing Metrics Backfills | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/)
+  * Managing Metrics Backfills
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Managing Metrics Backfills
+
+The **Backfills** management area allows you to monitor, manually trigger, and manage [backfill jobs](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/backfills) for your [metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/plans-in-workflows#metrics). While backfills are automatically triggered when you publish changes to metrics, this area gives you more control over the process.
+
+### 
+
+Here, you can:
+
+  * Manually start a backfill for specific metrics in a workflow.
+  * Monitor the status and progress of all backfill jobs (both manual and automatic).
+  * Cancel backfill jobs that are no longer needed.
+
+
+
+## Triggering a new backfill jobâ
+
+To manually trigger a backfill job, follow these steps:
+
+  1. Navigate to the **Backfills** tab in your application.
+
+  2. In the "Trigger Backfill" section, use the dropdown menus to select the metrics you want to backfill:
+
+     * **Workflow** : Choose the [workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) containing the metrics. You can only select one workflow at a time.
+     * **Plan Services** : Select one or more [plan services](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows#plan-service) within the chosen workflow.
+     * **Metrics Operators** : Select one or more [metrics operators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference#metrics) from the selected plan services.
+     * **Metrics** : Select the specific [metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/plans-in-workflows#metrics) to be backfilled.
+
+For Plan Services, Metrics Operators, and Metrics, you can use the "Select All..." option to include all items in the list. All fields are mandatory.
+
+  3. Select the **Trigger Backfill** button.
+
+
+
+
+A new backfill job will be created and added to the queue, visible in the "Triggered Jobs History" table underneath. Once it is picked for execution, the associated Pulse job(s) will be displayed in the **Jobs** tab:
+
+### 
+
+The jobs listed in this view can be matched to the corresponding backfill jobs in the **Backfills** tab via the **Name** column in both tables, which displays the full hash of the backfill job in the former, and a 6-character shortened version in the latter.
+
+## Monitoring backfill jobsâ
+
+The "Triggered Jobs History" table provides a detailed overview of all backfill jobs. For each backfill job, this table displays the following information:
+
+Column| Description  
+---|---  
+**Name**|  The name of the job, composed of the name of the associated workflow and a 6-character shortened hash in parentheses â e.g., `workflow123 (az5LYD)`.  
+**Type**|  The type of job, which is always `BACKFILL`.  
+**Status**|  The current status of the job. See the list of possible statuses below.  
+**Description**|  A brief description regarding the nature of the job (e.g., "Backfill triggered manually via Pulse UI" or "Backfill created automatically from publish").  
+**TriggeredÂ by**|  The user who initiated the job. For automatic backfills, this will be "system".  
+**Triggered at**|  The timestamp when the job was created.  
+**Started at**|  The timestamp when the job execution began. This may differ from "Triggered at" if the job waited in the queue, and will show "No info available" if the job is still queued.  
+**Finished at**|  The timestamp when the job was completed. It shows "No info available" for running jobs.  
+**Updated at**|  The timestamp of the last status update for the job.  
+  
+This table is updated in real time, so it can be used to monitor the backfill jobs' details and progress. The most relevant columns to track the progress of a backfill job are:
+
+  * **Status** : Indicates the current state of the job (e.g., `SCHEDULED`, `EXECUTING`, `FINISHED`). Refer to the full list of possible statuses below.
+  * **Started at** and **Finished at** : Show when the job began and completed, helping to estimate duration.
+  * **Updated at** : Reflects the last time the job's status changed, useful for tracking recent activity.
+
+
+
+### Backfill job statusesâ
+
+The possible statuses for a backfill job, and the corresponding meanings, are as follows:
+
+  * `SCHEDULED`: The job is in the queue, waiting to be executed.
+  * `SKIPPED`: The job was skipped due to [automatic optimization](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/backfills#backfill-optimization).
+  * `STARTING`: The job has been picked up from the queue and is being prepared for execution.
+  * `EXECUTING`: The job is currently running.
+  * `FINISHED`: The job has completed successfully.
+  * `STOPPING`: The job has been manually canceled and is in the process of a graceful shutdown.
+  * `CANCELLED`: The job was successfully stopped after a manual cancellation.
+  * `FAILED`: The job terminated due to an error.
+
+
+
+## Viewing backfill job detailsâ
+
+Besides monitoring the job's status, you can click on a backfill job's name in the "Triggered Jobs History" table (or the **Expand row** icon at the right edge of the row) to view more detailed information about that specific job, including its full ID (i.e. its unabbreviated hash), which metrics are being backfilled, which plan services and operators are involved, and what workflow they belong to.
+
+### 
+
+In this expanded view, the Workflow and Plan execution boxes contain links that you can use to navigate to them.
+
+There is also a **Copy to clipboard** button next to each box, that allows copying the corresponding element name.
+
+tip
+
+In the metrics boxes, using the **Copy to clipboard** button will add a comma-separated list of metric names to the clipboard. This list can then be pasted in the metrics dropdown to schedule a new backfill, as a more convenient way to select multiple metrics.
+
+## Canceling a backfill jobâ
+
+You can manually cancel a backfill job if it is in the `SCHEDULED`, `STARTING`, or `EXECUTING` status. This is useful if you need to prioritize other jobs or if a backfill is no longer necessary. Refer to the [best practices for managing the queue of backfill jobs](/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/railgun#managing-the-queue-of-backfill-jobs) for more information on when to manually cancel jobs.
+
+To cancel a backfill job:
+
+  1. Locate the job in the "Triggered Jobs History" table.
+  2. Click the **Cancel Backfill** â¨ button in the **Actions** column for that job.
+
+
+
+A confirmation message will appear, and the job's status will change to `STOPPING` while it cleans up. Once the process is complete, the status will update to `CANCELLED`.

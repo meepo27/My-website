@@ -1,0 +1,108 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/how-pulse-projects-work
+Title: How Pulse projects work | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * How Pulse projects work
+
+
+
+On this page
+
+# How Pulse projects work
+
+Was this page helpful?Â 
+
+Pulse projects integrate the work performed during the Data Science loop with runtime to accomplish a defined objective, e.g. detect fraud.
+
+Data Scientists, Software Engineers and Fraud Analysts play a key role in the field of fraud prevention to transform raw data into valuable insights. However, this work has a number of complex challenges to address:
+
+  * With traditional tool sets, Data Scientists often need to dig into different tools and techniques to execute their tasks. For each problem, Data Scientists need to adapt their approach and write customized code, e.g. scripts to import data, database queries, data visualization techniques.
+  * Developing and iterating Machine Learning [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) require Data Scientists with special skills who are difficult to find in the market.
+  * Organizations struggle when they need to deploy efficiently and accurately Data Science work in runtime. Usually, it takes several months for engineering teams to deploy a trained Model and ensure that is working as designed and tested during the Data Science stage.
+
+
+
+Pulse projects are designed to address these challenges. The ultimate goal of Data Science work is to configure Pulse to run as a real time [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) to accomplish a target objective, e.g. detect fraud. Pulse projects provide the following:
+
+  * Pulse delivers a full Data Science suite to help Data Scientists while handling most of the heavy work by running all the technological complexity behind the scenes.
+  * Pulse makes it easy to perform Data Science work, allowing personas with different profiles to use the platform.
+  * Pulse focuses on bridging Data Science and runtime together under the same platform. When you are developing your activities along the [Data Science Loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop), you are also performing some configurations that allow easy and quick deployments.
+  * Pulse also allows access to [Feedzai IQ](/pulse/latest/docs/common/pulse/about-pulse#feedzai-iq), a suite of risk assessment solutions that provide out-of-the-box AI-powered risk insights based on aggregated financial risk intelligence from Feedzai's global network.
+
+
+
+## Environmentsâ
+
+A key idea in Pulse is the possibility of working in different environments to develop and test your work before deploying it into production. In fact, regardless of the project, developing and testing Pulse resources is recommended to be performed in offline environments, i.e. it should never be done in the same environment that contains the runtime stage evaluating real-time transactions (i.e. production environment).
+
+## Applicationsâ
+
+Each project in Pulse is built as a Pulse application (**Pulse App**).
+
+A Pulse App consists of a user defined session in which resources such as **Plans** , **Models** and **Rules** are developed.
+
+Each application typically handles a specific use case (for example, Transaction Fraud or AML), and a set of channels (see [Channels](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/channels) for more details).
+
+With this architecture, users can develop work in different applications using offline environments which can be then moved to production environment. This concept is referred to as **App Collaboration**.
+
+Check the page [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications) to learn more about App Collaboration in Pulse.
+
+## Project stages: Data Science and Runtimeâ
+
+Pulse projects are based on two main stages:
+
+  * **Data Science:** Fully supports all the steps in the **Data Science Loop**.
+  * **Runtime:** Executes the work that was developed in the Data Science phase in a runtime **Workflow**.
+
+
+
+Similarly to configuring settings on a device, for example a smartphone, in which the general settings are used by various apps that might be installed; the Data Science phase can be considered as the initial configuration stages of your Workflow.
+
+While running the **Data Science** phase in Pulse, you are:
+
+  * Configuring and validating all the [concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts) that your project needs to make good decisions in real-time. For example, configuring [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and use them to train Models, transform incoming data into new features for your Model input with Plans.
+  * Use of Pulse as a unified set of Data Science tools that fully supports your Data Science Loop, while keeping your focus on the ultimate goal of using this work to perform live decisions in runtime. Manipulate huge volumes of data, explore it efficiently and evaluate all your work using different tools (e.g. [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance)). This allows you to be confident that when you bring your Data Science work into a live Workflow.
+
+
+
+While running the **Runtime** phase in Pulse, you are:
+
+  * Applying the resources developed in the Data Science phase to a real-time scenario.
+  * Using a native resource in Pulse referred to as **Workflow** with a final goal of performing decisions in real-time.
+  * Defining a sequence of steps in the Workflow that will process events as the input and produce a final decision as the output.
+
+
+
+info
+
+There are some scenarios where you don't necessarily need to go through the Data Science phase. For example, deploying [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules). In this case, you would only need to define the Rules and the input schema for your Workflow. In such scenarios, Pulse lets you jump straight into configuring these concepts in a runtime Workflow so that it doesn't cause limitations to your work.
+
+## Mapping between Data Science and Runtimeâ
+
+To combine the Data Science and Runtime phases, Pulse maps the resources that are developed in the Data Science stage to an element in the Workflow referred to as **Service**.
+
+The following diagram illustrates how [concepts in Pulse](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts) translate from Data Science to [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) elements:
+
+In general, to deploy your work in a Workflow, you will be required to:
+
+  * Generate the Workflow input Schema by exporting a Data Source and copying its structure and format.
+  * Add runtime elements (i.e. services) to the Workflow:
+    * **Plan Services:** Configure your deployable Plans and directly deploy them.
+    * **Scoring Services:** Configure your Machine Learning Models and directly deploy them.
+    * **Rules Services:** Configure your Rules in a Rules Project and directly deploy them.
+    * **Custom Workflow Services:** To consume data, according to the input Schema from an external system, or to implement custom logic.
+  * Configure your Scoring Services and Rules Services to contribute to the Workflow's decisions, i.e. [Outcomes](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/configuring-outcomes).
+
+
+
+## Learn Moreâ
+
+Now that you have an overall picture of how Pulse brings **Data Science** and **Runtime** together on the same platform, you can start working on your project as explained in the following sections:
+
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications)
+  * [Channels](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/channels)
+
+

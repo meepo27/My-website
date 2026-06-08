@@ -1,0 +1,149 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-lists
+Title: Manage Lists | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * Manage Lists
+
+
+
+On this page
+
+# Manage Lists
+
+Lists allow Case Manager to automatically classify incoming events. Case Manager looks at specific entities in each event (such as credit card, customer ID or phone number) and checks in the defined lists if those entities are associated with a known fraud source or if they belong to a secure source. Users can manage customised lists, which provide a flexible tool that they can use according to their ongoing needs.
+
+## Viewing listsâ
+
+To view and manage lists, access the **List Management** page using the **Settings** option in the main menu.
+
+info
+
+The **Channel Group** column and the **Entity** channel are only visible if Case Manager is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+## Adding entities to listsâ
+
+There are several different way to add entities to lists:
+
+  * Manually add an entity value directly to a single list.
+  * Add a single entity from an event to a list.
+  * Add some or all entities related to a specific event, in all relevant lists.
+  * Add some or all entities related to a group of events, in all relevant lists.
+
+
+
+### Manually adding an entity to a listâ
+
+Manually adding entities
+
+Keep in mind that manually adding an entity value to a list removes any automatic control of the value. Carefully review the information to avoid any typo, which would invalidate the intended restriction.
+
+On the **List Management** page, hover over the intended list and select the  button. This opens the following dialog, so that you can configure how Case Manager should act.
+
+  
+
+
+Once you have populated the fields with the relevant information, select  to add the entity to that list.
+
+### Adding an entity from an event to a listâ
+
+While reviewing an event, you might come across a situation that warrants adding a specific single entity to a list, or reviewing the entity if already in lists. Information fields that are eligible for lists have the **Update Lists** button: . Selecting the button opens the **Update Lists** dialog.
+
+Use the dialog to add the entity to existing or new lists. The same method can be used to remove the entity from lists or to update the definitions of the entity in lists (what action to take, the validity of the definition, etc).
+
+### Adding or updating all entities in an eventâ
+
+On the **Event details** page, select **Update Lists** to have Case Manager look for all entities that might be included in lists.
+
+  
+
+
+This will launch the **Update Lists** dialog, in which you can choose the lists to add the entities to. Specify in that decision scorecard screen the validity and notes you want to complement the action with. For entities already on lists, the dialog also allows you to update their configuration or remove them from lists (unlisting).
+
+### Adding entities from multiple eventsâ
+
+Add one or more events to a list by selecting events in the **Search** or **Alerts** pages and clicking the **Update Pos/Neg Lists** option.
+
+Case Manager will look through all the selected events for information fields that may be included in lists and launch the **Update Lists** dialog. Define how Case Manager must behave for events with those values.
+
+## Searching for entities in listsâ
+
+You can also search for entities that belong to a given list by using the **Search Entities** tab.
+
+info
+
+The **Channel Group** filter is only visible if Case Manager is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+### Viewing Audits in Listsâ
+
+Case Manager allows you to view the auditing history of a listed entity.
+
+There are two different auditing views available: a global audit view of an entity and a specific view of the audits of a list.
+
+#### Global audit viewâ
+
+When you search for an entity in lists, Case Manager displays all audit entries where that entity is present. To view this audit trail, select the **View Audit** button in the **Search entities** tab.
+
+This view allows you to filter the results by lists. Select the  button and choose the intended list(s) from the drop-down menu displayed to show the corresponding audits.
+
+Note that you can go back to the **Search Entities** tab, perform another search and open the audit view for the newly searched entity. The **Audit Entities** tab remains open, as well as the audits tab for the previous entity. You can thus have multiple audit trail tabs open at the same time.
+
+#### Specific audit viewâ
+
+While in **Search Entities** results screen, you can also access the audit history of a specific list of an entity. Hover over an item in the list and select the audit button .
+
+The audit history for this specific list is displayed. You can view the entries for the actions performed to that element over time, such as:
+
+  * The change performed.
+  * Who performed the change.
+  * The timestamp for the change.
+  * Notes provided by the user (if applicable).
+  * Validity date (if applicable).
+
+  
+
+
+You can also add more lists by selecting them in the filter box, which thus gives you full viewing flexibility.
+
+caution
+
+While in this specific audit view, you can go back to the **Search Entities** tab and select another list to view the corresponding audit. But doing this removes the previous audit list display.
+
+## Updating an entity on a listâ
+
+There are two methods for updating an entity on a list, depending on how you access the information about that entity. You can either locate the entity through an event (for example in the **Alerts** page) or through the lists, as described in Searching for entities in lists.
+
+  * On the **Alerts** page, information fields that are eligible for lists have the  button. Clicking on the button opens the **Update Lists** dialog.
+
+The dialog shows what lists the entity is currently on. Select a list and click on the  button to change the conditions of the entity entry on the list. When all changes are done, click on the  button to save those changes.
+
+  * Alternatively, if you searched for the entity directly in the lists, hover on a specific list and reveal the  button.
+
+    * The  button opens the **Update entity** dialog, allowing you to update the entity entry on the list.
+
+
+
+
+## Removing an entity from a listâ
+
+There are two methods for removing an entity from a list, depending on how you access the information about that entity. You can either locate the entity through an event (for example in the **Alerts** page) or through the lists, as described in Searching for entities in lists.
+
+  * On the **Alerts** page information, fields that are eligible for lists have the  button. Clicking on the button opens the **Update Lists** dialog.
+
+    * The dialog shows what lists the entity is currently on. Click on the  button to remove the entity from all lists or individually update the lists from which you wish to unlist (remove) the entity. After selecting all removals, select the  button to apply those changes.
+  * Alternatively, if you searched for the entity directly in the lists click on the  button to remove from all lists, or hover on a specific list and reveal the  button.
+
+    * The  button opens the **Update entity** dialog, allowing you to unlist the entity, removing it from the list.
+
+
+
+
+## Learn moreâ
+
+Now that you know how to manage Case Manager, continue by reading the following pages:
+
+  * [Lists](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/lists): Learn more about what lists management is and how it can be useful for your solution.
+  * [Managing Reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports): Generate and get statistics of your events in order to see how useful Case Manager is.
+
+

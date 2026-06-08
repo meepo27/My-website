@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/pages/dashboards-page
+Title: Dashboards Page | Case Manager
+============================================================
+
+On this page
+
+# Dashboards Page
+
+In this page you can find the properties that are available when configuring a Dashboard page.
+
+## Dashboard Schemaâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+type| String| No| Defines the dashboard type. The accepted types are: - tableau - The configuration must be set for a tableau dashboard  
+workbook| String| No| Represents the workbook name of the dashboard  
+view| String| No| Represents the view name of the dashboard  
+options| Object| Yes| Holds the options to be passed to the dashboard. The set of configurable options is presented below.  
+  
+Here's an example of a configuration of a tableau dashboard:
+    
+    
+    {  
+        "dashboard": {  
+            "type": "tableau",  
+            "workbook": "Workbook1",  
+            "view": "Dashboard1",  
+            "options": {  
+                "height": 800  
+            }  
+        }  
+    }  
+    
+
+## Tableau Dashboard Optionsâ
+
+In the options object you can pass any of the fields specified by Tableau [here](https://onlinehelp.tableau.com/current/api/js_api/en-us/JavaScriptAPI/js_api_ref.htm#ref_head_13), with exception of the callback fields.
+
+But the most relevant options, and the ones you should consider when integrating Tableau in Case Manager, are the following:
+
+Property| Type| Default| Description  
+---|---|---|---  
+hideTabs| bool| true| Indicates whether tabs are hidden or shown  
+hideToolbar| bool| true| Indicates whether the toolbar is hidden or shown  
+height| string| 600| Can be any valid CSS size specifier. Defaults to 600px. This property is specially important, because you have to set the right height for the dashboard to render. If the dashboard needs more height than the default one, it might not render completely.  
+width| string| | Can be any valid css size specifier. If not specified, defaults to the published width of the view.  
+"filter name"| string| | Apply a filter that you specify to the view when it is first rendered. For more information, see [Filtering](https://onlinehelp.tableau.com/current/api/js_api/en-us/JavaScriptAPI/js_api_concepts_filtering.htm).

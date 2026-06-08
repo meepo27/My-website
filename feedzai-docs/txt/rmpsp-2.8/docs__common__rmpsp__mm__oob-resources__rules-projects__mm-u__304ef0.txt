@@ -1,0 +1,549 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-unusual-activity-rules
+Title: Unusual Activity Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Unusual Activity Rules
+
+
+
+On this page
+
+# Unusual Activity Rules
+
+### Descriptionâ
+
+Contains rules that look for suspicious activity that is not yet associated with a particular fraud scenario but requires close monitoring. Subsequent transactions performed by alerted merchants may evolve into a specific fraud type such as bankruptcy, fraud or money laundering.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## Score-Deviation-Weekly-UAR1
+
+### Comment
+
+> Average score from last week deviates by at least n standard deviation
+
+### Actions
+
+  * [Score-Deviation-Weekly-UAR1]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["weekly_fraud_score_limit"].threshold ?? default_threshold_list["weekly_fraud_score_limit"].threshold;
+    threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+    threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    max_deviation = (threshold * event.std_score_1w_1w_dlay) + event.avg_score_1w_1w_dlay; // (n * std dev of previous week fraud score) + avg score of previous week
+      
+    
+
+### Condition
+    
+    
+    event.avg_score_1w >= max_deviation // Average fraud score of last week // aggregated model score per merchant from TF channel
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) current weekly average score of {event.avg_score_1w} deviates by at least {localvar.threshold} standard deviations compared to previous weekly average score of {event.avg_score_1w_1w_dlay}.
+
+### Mark As
+
+N/A
+
+## Score-Deviation-Monthly-UAR2
+
+### Comment
+
+> Average score from last month deviates by at least n standard deviation
+
+### Actions
+
+  * [Score-Deviation-Monthly-UAR2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["monthly_fraud_score_limit"].threshold ?? default_threshold_list["monthly_fraud_score_limit"].threshold;
+    threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+    threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    max_deviation = (threshold * event.std_score_4w_4w_dlay) + event.avg_score_4w_4w_dlay;  // (n * std dev of previous week fraud score) + avg score of previous week
+      
+    
+
+### Condition
+    
+    
+    event.avg_score_4w >= max_deviation // Average fraud score of last month // aggregated model score per merchant from TF channel
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) current monthly average score of {event.avg_score_4w} deviates by at least {localvar.threshold} standard deviations compared to previous monthly average score of {event.avg_score_4w_4w_dlay}.
+
+### Mark As
+
+N/A
+
+## MID-Track-List-UAR3
+
+### Comment
+
+> Merchant ID is in a track list
+
+### Actions
+
+  * Alert
+  * [MID-Track-List-UAR3]
+
+
+
+### Variables
+    
+    
+    listed = track_list.contains(event.merchant_id??"");
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    listed 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) is in a track list.
+
+### Mark As
+
+N/A
+
+## NDX-Limit-UAR4
+
+### Comment
+
+> NDX (non-delivery exposure) limit is equal to or above a set threshold
+
+### Actions
+
+  * [NDX-Limit-UAR4]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["ndx_limit"].threshold ?? default_threshold_list["ndx_limit"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    // For Rule Explanation
+    formated_threshold = threshold / 100; 
+    formated_ndx = event.ndx_approx / 100;  
+
+### Condition
+    
+    
+    event.ndx_approx >= threshold // if Merchant ADD == x days then NDX Apprx = Merchant Sum Amt x days
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) Non Delivery Exposure is {localvar.formated_ndx} and is equal/above the limit of {localvar.formated_threshold} .
+
+### Mark As
+
+N/A
+
+## ADD-Limit-UAR5
+
+### Comment
+
+> ADD (average delivery days) limit is equal to or above a set threshold
+
+### Actions
+
+  * [ADD-Limit-UAR5]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["add_limit"].threshold ?? default_threshold_list["add_limit"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    event.merchant_add >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) Average Delivery Days is {event.merchant_add} and is equal/above the hard limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Distinct-Cards-Increase-UAR6
+
+### Comment
+
+> Number of distinct cards in 1 month has grown abnormally compared to the last 3 months
+
+### Actions
+
+  * [Distinct-Cards-Increase-UAR6]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["distinct_cards_1m_3m"].threshold ?? default_threshold_list["distinct_cards_1m_3m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // Number of distinct cards one month over the number of distinct of three months (delayed over 4w)
+    event.rt_dist_card_1m_to_3m >= threshold
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) distinct cards number of one month is {event.rt_dist_card_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Dist-Country-Increase-UAR7
+
+### Comment
+
+> Number of distinct card countries in 1 month has grown abnormally compared to the last 3 months
+
+### Actions
+
+  * Alert
+  * [Dist-Country-Increase-UAR7]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["distinct_cardcountry_1m_3m"].threshold ?? default_threshold_list["distinct_cardcountry_1m_3m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // Number of distinct card country one month over the number of distinct card country of three months (delayed over 4w)
+    event.rt_dist_cardcntry_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) distinct card country number of one month is {event.rt_dist_cardcntry_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Card-Manual-Increase-UAR8
+
+### Comment
+
+> Card manually entered payments rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * [Card-Manual-Increase-UAR8]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["card_manual_count_1m_3m_list"].threshold ?? default_threshold_list["card_manual_count_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+
+### Condition
+    
+    
+    // Card manual payments rate of one month over the card manual rate of three months (delayed over 4w) 
+    // Filters: card_entry_mode == 'manual'
+    // Filters: (event_type == "info") and (payment_auth_status == "accepted") 
+    event.rtcomp_manual_cnt_1m_to_3m >= threshold
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) card manually entered payments rate of one month is {event.rtcomp_manual_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Monthly-Count-Increase-UAR9
+
+### Comment
+
+> Number of payments in 1 month has grown abnormally compared to the last 3 months
+
+### Actions
+
+  * Alert
+  * [Monthly-Count-Increase-UAR9]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["count_increase_1m_3m"].threshold ?? default_threshold_list["count_increase_1m_3m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // total coount of approved payments one month over the total amount of approved payments of three months (delayed over 4w)
+    // Filters: (event_type == "info") and (payment_auth_status == "accepted")  
+    event.rt_cnt_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) number of payments one month is {event.rt_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Monthly-Amt-Increase-UAR10
+
+### Comment
+
+> Total amount of payments in 1 month has grown abnormally compared to the last 3 months
+
+### Actions
+
+  * [Monthly-Amt-Increase-UAR10]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["amount_increase_1m_3m"].threshold ?? default_threshold_list["amount_increase_1m_3m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // total amount of approved payments one month over the total amount of approved payments of three months (delayed over 4w)
+    // Filters: (event_type == "info") and (payment_auth_status == "accepted")  
+    event.rt_amt_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) total amount of payments one month is {event.rt_amt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Daily-Amount-Increase-UAR11
+
+### Comment
+
+> Total amount of payments in 1 day has grown abnormally compared to the last week
+
+### Actions
+
+  * [Daily-Amount-Increase-UAR11]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["amount_increase_1d_1w"].threshold ?? default_threshold_list["amount_increase_1d_1w"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // total amount of approved payments one day over the total amount of approved payments of 1w (delayed over 1day) 
+    // Filters: (event_type == "info") and (payment_auth_status == "accepted") 
+    event.rt_amt_1d_to_1w >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) total amount of payments one day is {event.rt_amt_1d_to_1w}x higher than one week and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Peer-Avg-Ticket-Size-UAR12
+
+### Comment
+
+> Merchant daily average transaction value deviates by at least n Standard Deviations of the MCC 90 day average transaction value
+
+### Actions
+
+  * Alert
+  * [Peer-Avg-Ticket-Size-UAR12]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["mcc_avg_ticket_size_limit"].threshold ?? default_threshold_list["mcc_avg_ticket_size_limit"].threshold;
+    threshold_count = multi_tenanted_threshold_list["min_count_succ_90d"].threshold ?? default_threshold_list["min_count_succ_90d"].threshold;
+    
+    max_deviation = (threshold * event.mcc_std_accpt_amt_90d_1d_dlay) + event.mcc_avg_accpt_amt_90d_1d_dlay; // (n * std dev of MCC succ trx amount last 90 days) + avg MCC succ trx amount of last 90 days
+      
+    
+
+### Condition
+    
+    
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted")) 
+    event.avg_accpt_amt_1d >= max_deviation // Average succ trx amount last day >= Max Deviation
+      and event.cnt_accpt_90d_1d_dlay >= threshold_count // min 1 succ transaction per day
+
+### Explanation
+
+> Merchant ({event.merchant_id}) daily average ticket size is {event.avg_accpt_amt_1d} and deviates by at least {localvar.threshold} standard deviation compared to previous 90 days MCC average ticket size of {event.mcc_avg_accpt_amt_90d_1d_dlay}.
+
+### Mark As
+
+N/A
+
+## Merch-Avg-Ticket-Size-UAR13
+
+### Comment
+
+> Merchant daily average transaction value deviates by at least n Standard Deviations of the Merchant 90 day average transaction value
+
+### Actions
+
+  * Alert
+  * [Merch-Avg-Ticket-Size-UAR13]
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["merch_avg_ticket_size_limit"].threshold ?? default_threshold_list["merch_avg_ticket_size_limit"].threshold;
+    threshold_count = multi_tenanted_threshold_list["min_count_succ_90d"].threshold ?? default_threshold_list["min_count_succ_90d"].threshold;
+    
+    max_deviation = (threshold * event.std_accpt_amt_90d_1d_dlay) + event.avg_accpt_amt_90d_1d_dlay; // (n * std dev of succ trx amount last 90 days) + avg succ trx amount of last 90 days
+      
+    
+
+### Condition
+    
+    
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted")) 
+    event.avg_accpt_amt_1d >= max_deviation // Average succ trx amount last day >= Max Deviation
+      and event.cnt_accpt_90d_1d_dlay >= threshold_count // min 1 succ transaction per day
+
+### Explanation
+
+> Merchant ({event.merchant_id}) daily average ticket size is {event.avg_accpt_amt_1d} and deviates by at least {localvar.threshold} standard deviation compared to previous 90 days average ticket size of {event.avg_accpt_amt_90d_1d_dlay}.
+
+### Mark As
+
+N/A
+
+## Gift-Prepaid-Card-Rate-UAR14
+
+### Comment
+
+> Daily gift or prepaid card payments rate is equal or above a set threshold
+
+### Actions
+
+  * [Gift-Prepaid-Card-Rate-UAR14]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["gift_prepaid_card_limit"].threshold ?? default_threshold_list["gift_prepaid_card_limit"].threshold;
+    
+    //For Rule Explanation
+    formated_threshold = threshold * 100; 
+    formated_rate = event.rt_prepaid_card_cnt_1d * 100; 
+
+### Condition
+    
+    
+    // Approved Gift or prepaid payments rate of one day 
+    // Filters: payment_auth_status == 'accepted' and payment_card_type == 'giftcard' or 'prepaid' 
+    event.rt_prepaid_card_cnt_1d >= threshold 
+
+### Explanation
+
+> Merchant ({event.merchant_id}) gift/prepaid card payments rate of one day is {localvar.formated_rate} and it's equal/above the limit of {localvar.formated_threshold} 
+
+### Mark As
+
+N/A

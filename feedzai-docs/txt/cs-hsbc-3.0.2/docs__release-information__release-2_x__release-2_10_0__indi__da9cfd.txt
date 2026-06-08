@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3276-Add-new-fields-to-the-Mobile-Outbound-extensions
+Title: HSBC-3276-Add-new-fields-to-the-Mobile-Outbound-extensions | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3276-Add-new-fields-to-the-Mobile-Outbound-extensions
+
+### Add new fields to the Mobile Outbound extensionsâ
+
+Bug FixFTMT-28271HSBC-3276
+
+The following fields were added to Case Manager `2 Way/1 Way SMS` and `Mobile Payment Push` extensions for the Digital Activity channel:
+
+Field Name| Datatype| Description  
+---|---|---  
+customer_id_global| String| Global Customer ID  
+user_id| String| Online Banking User ID  
+  
+For the Digital Activity channel we have also changed the `payment_sub_type` and `payment_type` fields in Case Manager (which also applies to the fields in SLAs, automation rules, and the AFIS extension) to use the raw values received from Pulse, instead of the values enriched via self-service List enrichment.
+
+This should have no impact on the existing solution, as these fields were not being used, but will allow the raw value to be used for these fields if used again in the future.
+
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.

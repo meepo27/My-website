@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/fraud
+Title: Fraud | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Fraud
+
+
+
+On this page
+
+# Fraud
+
+**Fraud** Â isÂ an event attribute: your analysts and automation rules will be able to review the [Alerts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/alerts)Â sent to Case Manager and decide whether they are consideredÂ **Fraudulent** Â or not.
+
+  * Events that Pulse marks as **Fraud** will offer you a first-sight status of the event, therefore allowing you to focus on events that need manual review.
+  * **Alerts** that are manually marked as **Fraud** in Case Manager will give feedback to Pulse, improving the **Fraud** detection machine-learning models.
+
+
+
+## Event Outcomesâ
+
+For each event that is processed by Pulse, you can configure a [set of Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules) in your [runtime Workflow](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/workflows) that contribute to how events are classified. These decisions are represented byÂ [binary Outcomes](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/workflows)Â for events, such asÂ **Fraud/Not fraud**. For each outcome, Pulse adds a binary decision and aÂ [Score](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/score)Â field to the event.
+
+Establishing the conditions for events in Pulse to be marked as eitherÂ **Fraud** Â orÂ **Not** Â **Fraud** Â will determine how they are presented in Case Manager. This will help you in having a quick grasp of how likely an event is to be fraudulent. The following image shows an event that you can take action on, which Pulse has already scored and identified asÂ **Fraud**.
+
+Events will hold thatÂ **Fraud/Not Fraud** value when sent to Case Manager. However, once in Case Manager, analysts can decide upon those events and mark them asÂ **Fraud/Not Fraud** , regardless of the outcome they show. This decision will appear in theÂ **Status** Â field next to theÂ **Score**.
+
+Automating Actions
+
+Aside from manual review, you can configureÂ [Automation Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/automation-rules)Â to decide upon entering transactions.
+
+However, even if the event in Case Manager is marked asÂ **Fraud** , if Pulse's outcome wasÂ **Not Fraud** ,Â this outcome is final, meaning that the values assigned to the transaction in Pulse and Case Manager (or any other external systems)Â will co-exist. This feedback improves Pulse's machine-learning models: the feedback loop will be more accurate as you keep on using Case Manager, refining the models and automatically detectingÂ **Fraud** Â with more accuracy.Â 
+
+When you decide to mark an event asÂ **Fraud** Â orÂ **Not Fraud** , you can alsoÂ select theÂ reason(s) behind your decision. Learn more about [reasons](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reasons).
+
+## Learn moreÂ â
+
+For a better understanding of the concept of fraud, check the following pages:
+
+  * [Score](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/score): A concept related toÂ **Fraud** that represents the likelihood of an event to be fraudulent or not withÂ a numerical value.
+  * [Classifying Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts): Learn how to mark events in Case Manager asÂ **Fraud** /**Not Fraud**.
+  * [Feedback loop](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/what-is-case-manager): Â Understand how Case Manager contributes to improvingÂ **Fraud** detection in Pulse.
+
+

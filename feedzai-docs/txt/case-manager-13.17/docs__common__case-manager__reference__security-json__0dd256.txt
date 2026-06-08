@@ -1,0 +1,360 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/security-json
+Title: Security (security.json) | Case Manager
+============================================================
+
+On this page  
+  
+# Security (security.json)
+
+This section gives a comprehensive explanation on all the settings that are made available in the `security.json` file.
+
+## Introductionâ
+
+More specifically, for each configuration entry, we will point out:
+
+  * **Property** : The name of the configuration field being referenced.
+  * **Value Type** : The configuration field's value data type.
+  * **Optional** : Whether the configuration field is optional or not.
+  * **Description** : How the configuration field relates with the Case Manager's functionality.
+
+
+
+Make sure you read [this tutorial](/case-manager/13.17/docs/internal/case-manager/configuration-guide/security-configuration/security-configuration-overview) in order to learn how this `security.json` file should be used.
+
+## `security.json` referenceâ
+
+Property| Value Type| Optional| Description  
+---|---|---|---  
+**permissions**|  JsonList<String>| No| 
+
+  * List of Case Manager related permissions that should be used to populate Pulse.
+  * Case Manager related permissions are prefixed with the `cm:` token.
+  * Case Manager permissions is a set of well-known permission string â that is, they are bundled with CM.
+  * Some Pulse related permissions are required for a user to be able login into Case Manager  
+(remember that Case Manager's user management is backed by Pulse).Those permissions are:
+        
+        pulseviews:login
+        security:ownership:read
+        security:permissions:read
+        security:roles:read
+        
+
+  * If there are no permissions to specify, let this property with an empty JSON array.
+
+  
+**roles**|  JsonList<JsonMap<String, Object>| No| 
+
+  * List of Case Manager security roles.
+  * Case Manager related roles are prefixed with the _cm-_ token.
+  * Roles are defined by a set of permissions â that is, they are bound to the use requirements.
+  * You may specify so many roles as you want.
+  * If there are no roles to specify, let this property with an empty JSON array.
+  * Check the properties within the **role** property.
+
+  
+  
+### Roleâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+**name**|  String| No| Name of the role.  
+**permissions**|  JsonList<String>| No| Set of permissions used to define the role.  
+  
+### Permissionsâ
+
+A standard hierarchical permission scheme based on **scope:type:domain:action :instance** will be used.
+
+There are three types of domains:
+
+  * **section** (alerts, details, search, settings ...): used by _frontend_ to show/hide menu items and render/don't render pages;
+  * **actions** (set event status, add event note ...): used by _frontend_ to show/hide actions;
+  * **resource** (event, queue, event-note, ...): used by _backend_ to forbid REST API invocations.
+
+
+
+For example, `cm:resource:event:read:*` allows the user to read all event. The wildcard may be switched by specific event UUIDs (out of scope for Phase I). Likewise, `cm:section:search:*` allows a user to access the search page. If a user has these permissions, it must also have the above one (or else he will not be able to effectively search).
+
+Regarding the **section** domain type, it is important to mention that since you can create dynamic pages you will also need to create permissions for those pages. To access to a dynamic page, it is expected the user to have the following permission: `cm:section:<pageName>:read:` where `<pageName>` is the page name that you defined in the **pages** property under the User Interface configuration.
+
+For example, if you have the following set of dynamic pages:
+
+#### Example - Dynamic pages securityâ
+    
+    
+    {  
+        ...,  
+        pages: {  
+            customer: {...},  
+            event: {...},  
+            merchant: {...},  
+            ...  
+        }  
+        ...  
+    }  
+    
+
+You should create the following permissions in order to access to those pages:
+
+  * cm:section:customer:read:*
+  * cm:section:event:read:*
+  * cm:section:merchant:read:*
+
+
+
+## Complete permissions listâ
+
+You can find out what are the required Case Manager permissions [here](/case-manager/13.17/docs/common/case-manager/reference/permissions).
+
+## Sample `security.json` fileâ
+
+security.json
+    
+    
+    {  
+        "roles": [  
+            {  
+                "name": "cm-admin",  
+                "permissions": [  
+                    "pulseviews:login",  
+                    "security:ownership:read",  
+                    "security:permissions:read",  
+                    "security:roles:read",  
+                    "security:users:update",  
+                    "security:users:read",  
+      
+                    "cm:*"  
+                ]  
+            },  
+            {  
+                "name": "cm-manager",  
+                "permissions": [  
+                    "pulseviews:login",  
+                    "security:ownership:read",  
+                    "security:permissions:read",  
+                    "security:roles:read",  
+                    "security:users:update",  
+                    "security:users:read",  
+      
+                    "cm:*"  
+                ]  
+            },  
+            {  
+                "name": "cm-landlord-admin",  
+                "permissions": [  
+                    "pulseviews:login",  
+                    "security:ownership:read",  
+                    "security:permissions:read",  
+                    "security:roles:read",  
+                    "security:users:update",  
+                    "security:users:read",  
+      
+                    "cm:*"  
+                ]  
+            },  
+            {  
+                "name": "cm-landlord-analyst",  
+                "permissions": [  
+                    "pulseviews:login",  
+                    "security:ownership:read",  
+                    "security:permissions:read",  
+                    "security:roles:read",  
+                    "security:users:update",  
+                    "security:users:read",  
+      
+                    "cm:element:tenant:read:*",  
+                    "cm:resource:tenant:read:*",  
+      
+                    "cm:section:alert:read:*",  
+                    "cm:section:event-details:read:*",  
+                    "cm:section:event-search:read:*",  
+                    "cm:section:report:create:*",  
+                    "cm:section:report:read:*",  
+      
+                    "cm:action:event-status:create:*",  
+                    "cm:action:event-queue:create:*",  
+                    "cm:action:event-user:create:*",  
+                    "cm:action:event-note:create:*",  
+                    "cm:action:event-posneg:create:*",  
+                    "cm:action:event-export:create:*",  
+                    "cm:resource:event:read:*",  
+                    "cm:resource:event-status:create:*",  
+                    "cm:resource:event-user:create:*",  
+                    "cm:resource:event-queue:create:*",  
+                    "cm:resource:event-note:create:*",  
+                    "cm:resource:event-posneg:create:*",  
+                    "cm:resource:event-export:read:*",  
+                    "cm:resource:report:create:*",  
+                    "cm:resource:report:read:*",  
+                    "cm:resource:report-template:read:*",  
+                    "cm:resource:file:read:*",  
+                    "cm:resource:queue:read:*",  
+                    "cm:resource:status:read:*",  
+                    "cm:resource:status-reason:read:*",  
+                    "cm:resource:user:read:*",  
+                    "cm:resource:locale:read:*",  
+                    "cm:resource:timezone:read:*",  
+                    "cm:resource:session:read:*"  
+                ]  
+            },  
+            {  
+                "name": "cm-tenant-analyst",  
+                "permissions": [  
+                    "pulseviews:login",  
+                    "security:ownership:read",  
+                    "security:permissions:read",  
+                    "security:roles:read",  
+                    "security:users:update",  
+                    "security:users:read",  
+                    "cm:section:alerts:read:*",  
+                    "cm:section:event-details:read:*",  
+                    "cm:section:event-search:read:*",  
+                    "cm:section:report:create:*",  
+                    "cm:section:report:read:*",  
+      
+                    "cm:action:event-status:create:*",  
+                    "cm:action:event-queue:create:*",  
+                    "cm:action:event-user:create:*",  
+                    "cm:action:event-note:create:*",  
+                    "cm:action:event-posneg:create:*",  
+                    "cm:action:event-export:create:*",  
+      
+                    "cm:resource:event:read:*",  
+                    "cm:resource:event-status:create:*",  
+                    "cm:resource:event-user:create:*",  
+                    "cm:resource:event-queue:create:*",  
+                    "cm:resource:event-note:create:*",  
+                    "cm:resource:event-posneg:create:*",  
+                    "cm:resource:event-export:read:*",  
+                    "cm:resource:report:create:*",  
+                    "cm:resource:report:read:*",  
+                    "cm:resource:report-template:read:*",  
+                    "cm:resource:file:read:*",  
+                    "cm:resource:queue:read:*",  
+                    "cm:resource:status:read:*",  
+                    "cm:resource:status-reason:read:*",  
+                    "cm:resource:user:read:*",  
+                    "cm:resource:locale:read:*",  
+                    "cm:resource:timezone:read:*",  
+                    "cm:resource:session:read:*"  
+                ]  
+            },  
+            {  
+                "name": "cm-search-only",  
+                "permissions": [  
+                    "pulseviews:login",  
+                    "security:ownership:read",  
+                    "security:permissions:read",  
+                    "security:roles:read",  
+                    "security:users:update",  
+                    "security:users:read",  
+      
+                    "cm:section:event-search:read:*",  
+                    "cm:section:event-details:read:*",  
+      
+                    "cm:resource:event:read:*",  
+                    "cm:resource:event-export:read:*",  
+                    "cm:resource:queue:read:*",  
+                    "cm:resource:status:read:*",  
+                    "cm:resource:user:read:*",  
+                    "cm:resource:session:read:*"  
+                ]  
+            }  
+        ],  
+        "permissions": [  
+            "pulseviews:login",  
+            "security:ownership:read",  
+            "security:permissions:read",  
+            "security:roles:read",  
+            "security:users:update",  
+            "security:users:read",  
+      
+            "cm:*",  
+      
+            "cm:section:alerts:read:*",  
+            "cm:section:event-details:read:*",  
+            "cm:section:event-search:read:*",  
+            "cm:section:customer-alerts:read:*",  
+            "cm:section:merchant-alerts:read:*",  
+            "cm:section:customer-search:read:*",  
+            "cm:section:merchant-search:read:*",  
+            "cm:section:report:read:*",  
+            "cm:section:report:create:*",  
+            "cm:section:settings-queue:create:*",  
+            "cm:section:settings-queue:read:*",  
+            "cm:section:settings-queue:update:*",  
+            "cm:section:settings-queue:delete:*",  
+            "cm:section:settings-automation:create:*",  
+            "cm:section:settings-automation:read:*",  
+            "cm:section:settings-automation:update:*",  
+            "cm:section:settings-automation:delete:*",  
+            "cm:section:settings-report-template:create:*",  
+            "cm:section:settings-report-template:read:*",  
+            "cm:section:settings-report-template:update:*",  
+            "cm:section:settings-report-template:delete:*",  
+            "cm:section:settings-slas:create:*",  
+            "cm:section:settings-slas:read:*",  
+            "cm:section:settings-slas:update:*",  
+            "cm:section:settings-slas:delete:*",  
+      
+            "cm:action:event-status:create:*",  
+      
+            "cm:action:event-queue:create:*",  
+            "cm:action:event-user:create:*",  
+            "cm:action:event-note:create:*",  
+            "cm:action:event-posneg:create:*",  
+            "cm:action:event-export:create:*",  
+      
+            "cm:element:tenant:read:*",  
+            "cm:resource:configuration:read:*",  
+            "cm:resource:configuration-automation:read:*",  
+            "cm:resource:language:read:*",  
+            "cm:resource:language-message:read:*",  
+            "cm:resource:message:read:*",  
+            "cm:resource:session:create:*",  
+            "cm:resource:session:read:*",  
+            "cm:resource:session:update:*",  
+            "cm:resource:session:delete:*",  
+            "cm:resource:event:read:*",  
+            "cm:resource:event-status:create:*",  
+            "cm:resource:event-user:create:*",  
+            "cm:resource:event-queue:create:*",  
+            "cm:resource:event-note:create:*",  
+            "cm:resource:event-posneg:create:*",  
+            "cm:resource:event-export:read:*",  
+            "cm:resource:report:create:*",  
+            "cm:resource:report:read:*",  
+            "cm:resource:report-template:create:*",  
+            "cm:resource:report-template:read:*",  
+            "cm:resource:report-template:update:*",  
+            "cm:resource:report-template:delete:*",  
+            "cm:resource:file:create:*",  
+            "cm:resource:file:read:*",  
+            "cm:resource:locale:read:*",  
+            "cm:resource:timezone:read:*",  
+            "cm:resource:status:read:*",  
+            "cm:resource:status-reason:read:*",  
+            "cm:resource:user:read:*",  
+            "cm:resource:queue:create:*",  
+            "cm:resource:queue:read:*",  
+            "cm:resource:queue:update:*",  
+            "cm:resource:queue:delete:*",  
+            "cm:resource:automation:create:*",  
+            "cm:resource:automation:read:*",  
+            "cm:resource:automation:update:*",  
+            "cm:resource:automation:delete:*",  
+            "cm:resource:sla:create:*",  
+            "cm:resource:sla:read:*",  
+            "cm:resource:sla:update:*",  
+            "cm:resource:sla:delete:*",  
+            "cm:resource:tenant:read:*"  
+        ]  
+    }  
+    
+
+danger
+
+The `security.json` is formatted in JSON, so you should make sure that it is a well-formated JSON file before trying to use it within Case Manager.
+
+## Learn Moreâ
+
+Learn more about Case Manager's security in the [Security Configuration](/case-manager/13.17/docs/internal/case-manager/configuration-guide/security-configuration/security-configuration-overview).

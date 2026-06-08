@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.1/individual-release-notes/HSBC-3621
+Title: HSBC-3621 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3621
+
+### Upgrade Data Extraction Pipelines to version 2.1.1â
+
+FeatureFTMT-26459FTMT-30590HSBC-3367HSBC-3621HSBC-3330
+
+We've upgraded the Data Extraction Pipelines to version 2.1.1.
+
+This upgrade includes the following changes:
+
+  * Support for Logstash 9.1.4 by upgrading the existing pipelines and service configuration files. It addresses `CVE-2022-1471` and `CVE-2025-52999`
+  * Logstash can now be executed with a keystore
+  * Fix an issue where the Logstash recovery process pipeline would get stuck, causing Ansible to wait indefinitely
+
+
+
+##### warning
+
+Please note this is a breaking change since the new Data Extraction Pipelines package requires Java 17 or 21.
+
+For more information refer to [Data Extraction Pipelines Requirements](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/requirements-dep) and also to [Data Extraction Pipelines Configurations](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/configuration-dep).

@@ -1,0 +1,50 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/endpoint-life-cycles
+Title: Ad-Hoc Investigation Endpoints' Life Cycles | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [API Resources](/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/overview)
+  * Ad-Hoc Investigation Endpoints' Life Cycles
+
+
+
+On this page
+
+# Ad-Hoc Investigation Endpoints' Life Cycles
+
+This page explains the life cycles of the Investigations API's endpoints. The Investigations API includes the following endpoints:
+
+  * [Investigation `POST`](/rmpsp/2.8/api/rmpsp#tag/Ad-Hoc-Investigation-API/operation/postInvestigation)
+  * [Info `PUT`](/rmpsp/2.8/api/rmpsp#tag/Ad-Hoc-Investigation-API/operation/putInvestigationPutFeedback)
+  * [Feedback `PUT`](/rmpsp/2.8/api/rmpsp#tag/Ad-Hoc-Investigation-API/operation/putInvestigation)
+
+
+
+## Investigation (`POST`)â
+
+To perform an ad-hoc investigation, take the following steps:
+
+  1. Send an `investigation` (`POST`) request to Feedzai. The request must contain the `merchant_id` to fetch the merchant data from the Reference Data Service and populate the merchant event in Case Manager. Consider the following payload when sending the request:
+         
+         {   
+             "event_external_id": "Tx_8448122",  
+             "lifecycle_id": "Iv_8448121",  
+             "injection_time": 1603207359060,  
+             "id": "unique_identifier",  
+             "reason_code": "string",  
+             "origin": "subpoenas"  
+         }  
+         
+
+  2. Go to Case Manager's Ad-Hoc Investigations channel and open the created event.
+
+
+
+
+## Info (`PUT`)â
+
+The `info` endpoint allows you to update and add new information to a previously created investigation, e.g. signalling that the investigation can be closed.
+
+## Feedback (`PUT`)â
+
+The `feedback` endpoint allows you to label merchants as **risky** (`fraud`) or **not risky** (i.e. `not fraud`). The labelling of an event is highly recommended, as it gives feedback to Feedzai's risk engine, which uses this information to learn and consolidate fraud patterns.

@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/ad-hoc-customer-investigations
+Title: Ad-Hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * Ad-Hoc Customer InvestigationsÂ 
+
+
+
+# Ad-Hoc Customer Investigations
+
+Was this page helpful?Â 
+
+The Investigations API provides a mechanism for creating ad-hoc investigation points for customers initiated from the client's side, independent of Cards, Transfers or Customer Assessment Alerts. This functionality enables external systems to trigger investigations, facilitating proactive analysis and assessments for specific Customers.
+
+## [ðï¸ Ad-hoc Customer Investigation InfoThe Info endpoint enables you to update and add new information to a previously created investigation, e.g. signalling that the investigation can be closed.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-adhoc-customer-investigation-info)## [ðï¸ Ad-hoc Customer Investigation FeedbackThe Feedback endpoint allows you to label customers as 'fraud' or 'not fraud'The labelling of an event is highly recommended since it gives feedback so that Feedzai's risk engine can learn and consolidate fraud patterns](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-adhoc-customer-investigation-feedback)## [ðï¸ Ad-hoc Customer InvestigationCreates a new investigation event. This event will be the investigation unit in Case Manager.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-adhoc-customer-investigation)

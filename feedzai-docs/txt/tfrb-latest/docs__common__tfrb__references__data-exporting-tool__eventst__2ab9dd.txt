@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-cards-feedback
+Title: Event Storage - Cards Feedback | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Event Storage
+  * Event Storage - Cards Feedback
+
+
+
+# Event Storage - Cards Feedback
+
+Was this page helpful?Â 
+
+The **Event Storage Feedback Schema** stores the basic information of any feedback event.
+
+Name| Type| Description| Example  
+---|---|---|---  
+`fdz_uuid`| string| Identifier of each event in UUID| 061ad3f3-9991-49fe-850f-e49d6d981028  
+`timestamp`| double| Unix Timestamp in milliseconds| 1760000000.0  
+`statusreasons`| string| A JSON Array with the status reasons. This only exists if lifecycle_id is null.| ('id': '1234-12345-12345', 'name': 'At your discretion', 'statusid': 'real_event')  
+`lifecycle_id`| string| The lifecycle ID of the event. This only exists when statusreasons is null.|   
+`realoutcome`| boolean| Indicates whether this was the real outcome or not.|   
+`feedbacklabel`| string| Label of the Feedback event| fraud  
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

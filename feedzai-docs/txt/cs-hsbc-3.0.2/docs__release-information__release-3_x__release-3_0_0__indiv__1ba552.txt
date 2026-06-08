@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3858
+Title: HSBC-3858 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3858
+
+### Add Spanish (Mexico) language to Case Managerâ
+
+FeatureFTMT-29151HSBC-3858
+
+Spanish (Mexico) is now available in Case Manager, enabling users to work in Mexican Spanish across the application.
+
+All translations are available in the Manage Messages page, introduced in [Update Case Manager to version 13.28.0](/cs-hsbc/3.0.2/docs/release-information/release-3.x/Release-3.0#update-case-manager-to-version-13280).

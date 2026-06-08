@@ -1,0 +1,460 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/grafana/case-manager-grafana-suggestions
+Title: Case Manager Setup | Feedzai Documentation
+============================================================
+
+On this page
+
+# Case Manager Setup
+
+In this page you can find a set of suggestions for Case Manager monitoring using Grafana.
+
+## Suggestionsâ
+
+##### info
+
+There are VM resource related metrics (CPU, Memory, IO, etc) that can also be added to Grafana. These were left out on purpose Google already has out of the box monitoring support for these resources.
+
+These suggestions can be either new dashboards, changes to existing dashboards or completely new dashboard pages. Please find the metric description in [Case Manager Top Metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-casemanager).
+
+### Cluster pageâ
+
+Currently there is only one page where we can filter metrics by each of the instances. Although useful, having a cluster view monitoring page gives a view of how the overall cluster health. Given this, our suggestion is to add a new page with the following metrics:
+
+Row Title| Title| Description| Query Details  
+---|---|---|---  
+Healthchecks - Case Manager| Database| The database health check relies on the shared CM's connection pool to execute the statement SELECT 1. If the  
+connection is successfully retrieved and the statement finishes, the health check succeeds, if any error occurs  
+in any of the steps the check fails. A timeout of 5 seconds was given when retrieving a connection to avoid  
+hanging the health check response. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Database' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Case Manager| Messaging| The Messaging Server Health Check is achieved by trying to initialize a new connection with the messaging server.  
+The outcome is a bool, meaning that it was successfully executed when 1, otherwise is 0.| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Messaging' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Case Manager| Pulse| The Pulse Health Check when triggered tries to connect to pulse and tries to login. The outcome is a bool,  
+meaning that it was successfully executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Case Manager| Tokenizer| The tokenizer health checks validates if there is a tokenizer instance reachable and if the authorization  
+configured is valid. The outcome is a bool, meaning that it was successfully executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Tokenizer' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Case Manager| RabbitMQ Consumers per Event Queue| Measures the total number of consumers per event queue. Having a number of consumers less then the number of nodes  
+represent a problem in the sense that only one/some of the casemanager(s) is/are consuming events, not distributing the load.| **Query A**  
+**Field:** "consumers"  
+**From:** "rabbitmq_queue"  
+**Where:** queue =~ /._EVENT_QUEUE._ / , vhost =~ /hsbcasemanager/ , $timeFilter  
+**Group By:** time($__interval), "queue", "vhost"  
+Case Manager End-to-End Check| End-to-End Check| Measures the execution of a operation set, constituted by 5 operations:  
+\- login  
+\- get alert list  
+\- load first alert list  
+\- get all queues  
+\- load first queue  
+  
+The operations are executed sequentially, and if one fails the value is immediately returned, meaning that, the set  
+is successfully executed when the outcome is 5. It means also, that, when value is 1 for instance, the login was  
+successfully done, but if fails getting the alert list.| **Query A**  
+**Field:** "operations"  
+**From:** "casemanager_monitoring"  
+**Where:** $timeFilter  
+**Group By:** time($__interval)  
+Case Manager End-to-End Check| End-to-End Check - Elapsed Time| Measures the elapsed time to execute a set of operations, per case manager instance. This graph is coupled with the  
+"Operation Set Execution", once it shares the same operations  
+The operations are executed sequentially, and if one fails the elapsed time will be the the time when the operation  
+failed minus the start time.| **Query A**  
+**Field:** "elapsed_time"  
+**From:** "casemanager_monitoring"  
+**Where:** $timeFilter  
+**Group By:** time($__interval)  
+Event Processing - New Event| New Event - Throughput| Measures the overall throughput for the event processing when the event type is: "new event".  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.event.processing.latency"  
+**Where:** eventType='NEW_EVENT' , $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+**Query C**  
+**Field:** "uptime"  
+**From:** "system"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host"  
+Event Processing - New Event| New Event - Latency per Percentile| Measures the overall cluster event processing max latency, when the event type is "new event".  
+It displays the higher latencies for percentile 50, 90, 99, 99.9 and also the maximum.  
+| **Query A**  
+**Field:** "p50", "p95", "p99", "p999"  
+**From:** "cm.event.processing.latency"  
+**Where:** eventType='NEW_EVENT' , $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+**Query B**  
+**Field:** "max"  
+**From:** "cm.event.processing.latency"  
+**Where:** eventType='NEW_EVENT' , $timeFilter  
+**Group By:** time($__interval)  
+Event Processing - Status Change| Status Change - Throughput| Measures the overall throughput for the event processing when the event type is: "status change".  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.event.processing.latency"  
+**Where:** eventType='STATUS_CHANGE' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing - Status Change| Status Change - Latency per Percentile| Measures the overall cluster event processing max latency, when the event type is "status change". It displays  
+the higher latencies for percentile 50, 90, 99, 99.9 and also the maximum.  
+| **Query A**  
+**Field:** "p50", "p95", "p99", "p999"  
+**From:** "cm.event.processing.latency"  
+**Where:** eventType='STATUS_CHANGE' , $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+**Query B**  
+**Field:** "max"  
+**From:** "cm.event.processing.latency"  
+**Where:** eventType='STATUS_CHANGE' , $timeFilter  
+**Group By:** time($__interval)  
+Automation Rules| Automation Rules - Throughput and Errors| Measures the overall throughput and errors when executing automation rules.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.automation"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "ruleName"  
+Automation Rules| Automation Rules - Latency per Percentile| Measures the overall cluster latency at percentile 99 to execute an automation rule. It displays highest automation  
+rule latency at percentile 99.9 per instance.  
+| **Query A**  
+**Field:** "p999"  
+**From:** "cm.automation"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "ruleName"  
+Pulse Requests| Pulse Requests - Throughput and Errors| Measures the overall throughput and the errors in the communication with pulse instances.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.request.pulse.api"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "path"  
+Pulse Requests| Pulse HTTP Endpoints and Latencies| Measures the latency in the communication with pulse instances.| **Query A**  
+**Field:** "count", "p99"  
+**From:** "cm.request.pulse.api"  
+**Where:** $timeFilter  
+**Group By:** "host", "path"  
+Event Processing| Event Processing Queue Occupancy| Measures the event processing queue occupancy (internal cm queue), per case manager instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.ratio"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch audit-batch Queue Occupancy| Measures the audit batch queue occupancy (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.occupancy.audit-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch audit-batch Flush Latency at p99| Measures the audit batch queue latency (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "p99"  
+**From:** "cm.event.processing.batch.flush.latency.audit-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch explanations-batch Queue Occupancy| Measures the explanations batch queue occupancy (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.occupancy.explanations-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch explanations-batch Flush Latency at p99| Measures the explanations batch queue latency (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "p99"  
+**From:** "cm.event.processing.batch.flush.latency.explanations-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch event-storage-batch Queue Occupancy| Measures the event storage batch queue occupancy (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.occupancy.event-storage-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch event-storage-batch Flush Latency at p99| Measures the event storage batch queue latency (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "p99"  
+**From:** "cm.event.processing.batch.flush.latency.event-storage-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch event-common-batch Queue Occupancy| Measures the event common batch queue occupancy (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.occupancy.event-common-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch event-common-batch Flush Latency at p99| Measures the event common batch queue latency (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "p99"  
+**From:** "cm.event.processing.batch.flush.latency.event-common-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch event-queue-automations-batch Queue Occupancy| Measures the event queue automations batch queue occupancy (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.occupancy.event-queue-automations-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Event Processing| Event Processing Batch event-queue-automations-batch Flush Latency at p99| Measures the event queue automations batch queue latency (internal cm queue), per case manager instance.| **Query A**  
+**Field:** "p99"  
+**From:** "cm.event.processing.batch.flush.latency.event-queue-automations-batch"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Deadletters| Deadletter Events| Measures the total number of deadletters.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.event.processing.deadletter.count"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+DB Connection Pool| DB Connection Pool usage| Measures the overall db connection pool usage.| **Query A**  
+**Field:** "value"  
+**From:** "cm.db.connection.pool.usage"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+DB Connection Pool| DB Connection Pool Waiting Threads| Measures the overall db connection pool waiting threads.| **Query A**  
+**Field:** "count"  
+**From:** "cm.db.connection.pool.waiting"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Case Manager HTTP Endpoints and Latencies| Case Manager HTTP Endpoints and Latencies| Measures the latency of Case Manager HTTP endpoints.| **Query A**  
+**Field:** "count", "p99"  
+**From:** "cm.request.api"  
+**Where:** $timeFilter  
+**Group By:** "host", "path"  
+Login Errors| Login Error Percent(10 Minute Window)| Measures the number of logins and its error percentage over a 10 minute window.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.request.login"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Usage| Measures the jvm heap usage per component instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Usage After GC| Measures the jvm heap usage after gc per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.after-gc.usage"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Garbage Collector Time| Measures maximum JVM GC duration. Long garbage collection pause durations indicate that the heap size is not  
+adjusted for the actual usage.| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Old-Generation.time"  
+**Where:** $timeFilter  
+**Group By:** "host"  
+JVM| JVM Active Threads Count| Measures the current number of active threads in the JVM per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.threads.count"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM File Descriptors Ratio| Measures the jvm file descriptors usage ratio per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.filedescriptor"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+The `Row Title` column refers to a Grafana feature to group dashboards by type. This is only a suggestion and thus not mandatory.
+
+### Node pageâ
+
+These suggestions relate to the existing Case Manager dashboard page. You may find some new dashboards or changes to existing ones.
+
+Our suggestions are to add the dashboards in the following table with a filter by each of the available nodes and applications:
+
+Row Title| Title| Description| Query Details  
+---|---|---|---  
+Case Manager - Healthchecks| Database| The database health check relies on the shared CM's connection pool to execute the statement SELECT 1.  
+If the connection is successfully retrieved and the statement finishes, the health check succeeds, if any error  
+occurs in any of the steps the check fails. A timeout of 5 seconds was given when retrieving a connection to  
+avoid hanging the health check response. The outcome is a bool, meaning that it was successfully executed  
+when 1, otherwise is 0. This healthcheck corresponds to the case manager selected instance.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Database' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Case Manager - Healthchecks| Messaging| The Messaging Server Health Check is achieved by trying to initialize a new connection with the messaging server.  
+The outcome is a bool, meaning that it was successfully executed when 1, otherwise is 0. This healthcheck  
+corresponds to the case manager selected instance.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Messaging' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Case Manager - Healthchecks| Pulse| The Pulse Health Check when triggered tries to connect to pulse and tries to login, if it succeeds the check will  
+also succeed.  
+The outcome is a bool, meaning that it was successfully executed when 1, otherwise is 0. This healthcheck  
+corresponds to the case manager selected instance.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'Pulse' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Event Processing - New Event| New Event - Throughput| Measures the event processing throughput when the event type is "new event", for the selected case manager instance.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.event.processing.latency"  
+**Where:** "host" = '$host' , eventType='NEW_EVENT' , $timeFilter  
+**Group By:** time($__interval)  
+Event Processing - New Event| New Event - Latency per Percentile| Measures the event processing latencies when the event type is "new event", for the selected case manager instance.  
+| **Query A**  
+**Field:** "p50", "p95", "p99", "p999", "max"  
+**From:** "cm.event.processing.latency"  
+**Where:** "host" = '$host' , eventType='NEW_EVENT' , $timeFilter  
+**Group By:** time($__interval)  
+Event Processing - Status Change| Status Change - Throughput| Measures the event processing throughput when the event type is "status change", for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.event.processing.latency"  
+**Where:** "host" = '$host' , eventType='STATUS_CHANGE' , $timeFilter  
+**Group By:** time($__interval)  
+Event Processing - Status Change| Status Change - Latency per Percentile| Measures the event processing latencies when the event type is "status change", for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "p50", "p95", "p99", "p999", "max"  
+**From:** "cm.event.processing.latency"  
+**Where:** "host" = '$host' , eventType='STATUS_CHANGE' , $timeFilter  
+**Group By:** time($__interval)  
+Automation Rules| Automation Rule $automationRule - Throughput and Error Percent| For the selected case manager instance, measures the throughput to execute the selected automation rule and the  
+associated error percentage.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.automation"  
+**Where:** "host" = '$host' , "ruleName" = '$automationRule' , $timeFilter  
+**Group By:** time($__interval)  
+Automation Rules| Automation Rule $automationRule - Latency per Percentile| For the selected case manager instance, measures the latency per percentile (50, 95, 99, 99.9 and 100) to execute  
+the selected automation rule.  
+| **Query A**  
+**Field:** "p50", "p95", "p99", "p999", "max"  
+**From:** "cm.automation"  
+**Where:** "host" = '$host' ruleName = '$automationRule' , $timeFilter  
+**Group By:** time($__interval)  
+Pulse Requests| Pulse Requests - Throughput and Error Percent| For the selected case manager instance, measures the throughput of the communications with pulse and the error  
+percent inherent to this.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.request.pulse.api"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval), "path"  
+Pulse Requests| Pulse HTTP Endpoints and Latencies| Measures the latency in the communication with pulse instances.| **Query A**  
+**Field:** "count", "p99"  
+**From:** "cm.request.pulse.api"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** "path"  
+Event Processing| Event Processing Queue Occupancy| Measures the percentage of the event processing queue being used, for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.ratio"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Event Processing| Events Waiting in Queue| Measures the number of events waiting to be processed, for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.event.processing.queue.used.count"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Deadletters| Deadletter Events| Measures the number of events that were selected case manager deadletter.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.event.processing.deadletter.count"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+DB Connection Pool| DB Connection Pool Usage| Measures the db connection pool usage, for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.db.connection.pool.usage"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+DB Connection Pool| DB Connection Pool Waiting Threads| Measures the db connection pool waiting threads, for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "count"  
+**From:** "cm.db.connection.pool.waiting"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Case Manager Executor Thread Pool and Task Queue| Executor Thread Pool Usage| Measures the thread pool usage, for the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.executor.pool.threadsUsageRatio"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Case Manager Executor Thread Pool and Task Queue| Tasks on Executor's Queue| Measures the the number of tasks within the executor's queue, on the selected case manager  
+instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.executor.pool.taskQueueEventsCount"  
+**Where:** "host" = '$host' $timeFilter  
+**Group By:** time($__interval)  
+Case Manager HTTP Endpoints and Latencies| Case Manager HTTP Endpoints and Latencies| Measures the latency of Case Manager HTTP endpoints.| **Query A**  
+**Field:** "count", "p99"  
+**From:** "cm.request.api"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** "path"  
+Login Errors| Login Error Percent| Measures the login error percent on the selected case manager instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "cm.request.login.error.percent"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Heap| Measures the jvm heap usage of the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.used"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.max"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Used (By Gen)| For the selected instance, considering the heap used, displays the usage of each generation.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.pools.G1-Old-Gen.used"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Heap Used After GC (By Gen)| For the selected instance, considering the heap used, displays the usage of each generation after gc.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.pools.G1-Old-Gen.used-after-gc"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Heap Usage After GC| Measures the jvm heap usage after gc on the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.after-gc.usage"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Garbage Collector Time| Measures the JVM GC duration on the selected instance. Long garbage collection pause durations indicate that the  
+heap size is not adjusted for the actual usage.| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Old-Generation.time"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** N/A  
+JVM| JVM Active Threads Count| Measures the current number of active threads in the JVM on the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.threads.count"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM File Descriptors Ratio| Measures the jvm file descriptors usage ratio of the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.filedescriptor"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)

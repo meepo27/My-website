@@ -1,0 +1,104 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3666
+Title: HSBC-3666 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3666
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-24023FTMT-30076FTMT-32738FTMT-33019HSBC-3666HSBC-3755HSBC-3749
+
+We have added the below fields to the Cards schema and workflow:
+
+New Fields
+
+Field Name| Datatype  
+---|---  
+address_match_ind_3ds| STRING  
+buyer_daily_provisn_attempt_3ds| STRING  
+buyer_purchase_velocity_3ds| STRING  
+challenge_method_final_3ds| STRING  
+date_received_3ds| STRING  
+device_channel_3ds| STRING  
+digital_id_trust_score_3ds| DOUBLE  
+purchase_amount_3ds| DOUBLE  
+purchase_exponent_3ds| STRING  
+shipping_indicator_3ds| STRING  
+shipping_post_region_3ds| STRING  
+svc_acs_transaction_id_3ds| STRING  
+card_action_on_data_indicator| STRING  
+card_active_flg_last_change_date| STRING  
+card_change_data_new| STRING  
+card_change_data_old| STRING  
+card_cpp_exp_date_proxy| LONG  
+card_cpp_list_date| LONG  
+card_details_availability_ind| STRING  
+card_entity_id| STRING  
+card_entity_type| STRING  
+card_expiration_date_3ds| LONG  
+card_involving_entity| STRING  
+card_new_city_name| STRING  
+card_new_country_code| STRING  
+card_new_phn_country_code| STRING  
+card_new_phone_number| STRING  
+card_new_post_code| STRING  
+card_new_state_name| STRING  
+card_nm_effective_timestamp| LONG  
+card_old_city_name| STRING  
+card_old_country_code| STRING  
+card_old_phn_country_code| STRING  
+card_old_phone_number| STRING  
+card_old_post_code| STRING  
+card_old_state_name| STRING  
+card_onlinebanking_user_id| STRING  
+card_reissue_type_flag| STRING  
+card_temp_limit_chnage_indicator| STRING  
+card_temporary_lmt_exp_date| LONG  
+card_transfer_entity_from_key| STRING  
+card_transfer_entity_to_key| STRING  
+card_transfer_reason| STRING  
+card_txn_sub_type| STRING  
+card_transaction_ref_number_alt| STRING  
+card_website_name| STRING  
+customer_level_limit_type| STRING  
+digital_wallet_token_txn_new| STRING  
+new_card_activation_flag| STRING  
+old_card_activation_flag| STRING  
+transaction_status_3ds| STRING  
+user_amount| DOUBLE  
+user_indicator| STRING  
+user_string| STRING  
+observed_ip_address_3ds| STRING  
+network_risk_score_3ds| STRING  
+device_browser_language_3ds| STRING  
+device_region_3ds| STRING  
+issuer_name_3ds| STRING  
+arcot_merch_alert_score_3ds| STRING  
+arcot_tpd_provider_id_3ds| STRING  
+matched_policy_3ds| STRING  
+matched_regulatory_rule_3ds| STRING  
+policy_advice_id_3ds| STRING  
+policy_results_3ds| STRING  
+policy_advice_score_3ds| STRING  
+regulatory_advice_id_3ds| STRING  
+regulatory_rule_results_3ds| STRING  
+rule_score_source_3ds| STRING  
+rule_set_advice_id_3ds| STRING  
+rule_set_matched_rule_3ds| STRING  
+rule_set_result_3ds| STRING  
+rule_set_score_3ds| DOUBLE  
+sr_rules_advice_id_3ds| STRING  
+sr_rules_set_version_3ds| STRING  
+transaction_failure_reason_3ds| STRING  
+tran_origination_cntry_3ds| STRING  
+card_saf_ind| STRING  
+tran_id_3ds| STRING  
+ucaf_value_3ds| STRING  
+customer_id_personal| STRING  
+customer_id_business| STRING  
+tmx.digital_id_trust_score| DOUBLE  
+tmx.chall_reason_code| STRING  
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.

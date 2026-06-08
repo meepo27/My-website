@@ -1,0 +1,352 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-cards
+Title: Event Storage - Cards | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Event Storage
+  * Event Storage - Cards
+
+
+
+# Event Storage - Cards
+
+Was this page helpful?Â 
+
+The **Event Storage - Cards** entity stores card related events, such as authorizations, information and clearings.
+
+A new record becomes available for this entity for every card transaction processed by the risk engine.
+
+Name| Type| Description| Example  
+---|---|---|---  
+`account_associated_cards`| array<string>| List of the PANs (hashed or tokenized) associated with the account.| ["PAN1", "PAN2", ..., "PAN N"]  
+`account_limits`| array<row>| The account limits.|   
+âââ`event_type`| string| The type of events associated with this limit.|   
+âââ`day_amount`| bigint| Total amount on the account day period| 123  
+âââ`daily_amount`| bigint| Total daily amount| 100  
+âââ`night_amount`| bigint| Total amount on the account night period| 123  
+âââ`single_day_amount`| bigint| Single transaction amount limit on the day period.| 333  
+âââ`single_night_amount`| bigint| Single transaction amount limit on the night period.| 222  
+âââ`start_day_hour`| bigint| Used to compare the event date and the period transaction limit specified for the client.|   
+âââ`start_night_hour`| bigint| Used to compare the event date and the period transaction limit specified for the client.|   
+`amount_fees`| array<row>| Fees associated with this transaction. This is a constructed data element comprising up to six sets of 36-digit values. |ISO 8583, DE 46: Amount fees|   
+âââ`fee_type`| string| Fee type associated to the transaction|   
+âââ`fee_amount`| bigint| Fee amount (in cents)|   
+âââ`fee_conv_rate`| double| Fee conversion rate|   
+âââ`fee_reconciliation_amount`| bigint| The original amount of the fee expressed in the reconciliation currency (in cents)|   
+`customer_accounts`| array<row>| Set of tuples with information on all customer accounts.|   
+âââ`account_id`| string| A bank's internal account number. This field is optional and cannot be used as a replacement for `account_iban`. | Feedzai|   
+âââ`account_iban`| string| International Bank Account Number (IBAN) in ISO 13616:2020 format or any bank account unique identifier. This field should be sent as a token or hash. Example: 482924bf58091603ed69c5bd1221ad67481bfca8|   
+âââ`account_bic`| string| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code. Example: DABAIE2D|   
+âââ`account_open_date`| bigint| Opening date of the account (in milliseconds since the Unix epoch).|   
+âââ`account_balance`| bigint| Current account balance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency).|   
+âââ`account_credit_limit`| bigint| Account credit limit (in cents or equivalent). Not relevant for debit. For example, 1000 to represent $10.00 (assuming the US dollar currency).|   
+âââ`account_otb_limit`| bigint| Account open-to-buy limit: the available amount between the account balance and unused credit limit (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency).|   
+âââ`account_available_credit`| bigint| Available credit within the credit limit provided by the bank (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency).|   
+âââ`account_debt_balance`| bigint| Accountâs debt balance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency).|   
+âââ`account_cash_advance_balance`| bigint| Debt amount in an account due to cash advance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency).|   
+âââ`account_status`| string| The status of the account. Possible values: `open`, `blocked`.|   
+âââ`account_last_activity`| bigint| Identifies the timestamp of the last activity registered at this account (in milliseconds since the Unix epoch).|   
+âââ`account_number_of_cards`| integer| The number of cards associated with this account.|   
+âââ`atc1`| string| Account type code 1. Optional code that identifies the type of account to be updated for debits and inquiries ("from" account). Used in conjunction with transaction type code (ttc). For example, 10 = Savings account - default. | ISO 8583|   
+âââ`atc2`| string| Account type code 2. Optional code that identifies the type of account to be updated for credits ("to" account). Used in conjunction with transaction type code (ttc). For example, 50 = Investment account - default. | ISO 8583|   
+âââ`account_last_payment_date`| bigint| Date when the customer pays off the balance on the account (in milliseconds since the Unix epoch).|   
+âââ`account_last_payment_amount`| bigint| Amount of the last payment made on the account (in cents).|   
+âââ`account_type`| string| Type of account (e.g. credit, debit, investment).|   
+âââ`account_currency`| string| Currency of the account (ISO 4217 code).|   
+âââ`account_pw_change_flag`| boolean| For deployments that do not include Digital Activity, you can use this field to detect if the customer changed the password on the account. This refers to whether the password is changed over the last day or within a single session. | Feedzai|   
+âââ`account_rewards_used_count`| integer| The number of times that the customer used the rewards.|   
+âââ`account_debt_payment_method`| string| Payment method of outstanding balance on the account. Example: Visa|   
+`customer_cards`| array<row>| Set of tuples with information on customer cards.|   
+âââ`card_pan`| string| 'The primary account number (PAN), or simply a card number, is the card identifier found in payment cards, such as credit cards and debit cards. This field can be sent in the multiple formats (from most to least secure): - token - hash - encrypted - clear text. For PCI compliance, follow the security guidelines to protect the data: 1) When data is sent as clear text or encrypted, then it''s mandatory to use Feedzai Tokenizer. 2) When data is sent as hash, then Feedzai Tokenizer is recommended (if not used, it will be disabled). 3) When data is sent as token, then Feedzai Tokenizer is not necessary and will be disabled. | ISO 8583, DE 2: Primary Account Number'|   
+âââ`card_bin`| string| Card's bank identification number. A card BIN comprises the first 4 to 8 digits of a card PAN. | Feedzai Example: 123456|   
+âââ`card_effective_date`| string| Year and month in which the card becomes effective (YYYYMM). Example: 211901|   
+âââ`card_expiration_date`| string| Specifies the expiration date of the card (YYMM). | ISO 8583, DE 9: Conversion rate reconciliation|   
+âââ`card_type`| string| Specifies whether the card is debit, credit.|   
+âââ`card_brand`| string| Card brand. Example: Visa|   
+âââ`card_last4`| string| Last four digits of the card PAN.|   
+âââ`card_id`| string| Persistent unique card ID (even after operations that might lead to an ID change, such as card re-issuing). | Feedzai|   
+âââ`card_category`| string| Specifies whether the card is 'business' or 'consumer'. | Feedzai Example: consumer|   
+âââ`card_program`| string| Specifies whether the card is black, platinum, etc.|   
+âââ`card_country_code`| string| Represents the country (in accordance with ISO 3166, Alpha-2) where the card was issued. | Feedzai|   
+âââ`card_format`| string| The card format. The possible values are: virtual, physical, and other.|   
+âââ`card_status`| string| The status of the card (e.g. active, blocked, expired).|   
+âââ`card_available_balance`| bigint| The available balance on the card (in cents or equivalent).|   
+âââ`card_transaction_amount_limit`| bigint| Maximum transaction amount allowed on the card (in cents or equivalent).|   
+âââ`cardholder_name`| string| The full name of the cardholder.|   
+âââ`card_issued_date`| bigint| Date when the card was issued (in milliseconds since the Unix epoch). | Feedzai|   
+âââ`card_first_activation_date`| bigint| Date of the first activation of this card (in milliseconds since the Unix epoch). | Feedzai|   
+`original_amount_data`| row| |   
+âââ`currency`| string| The amount of data elements from the original transaction.|ISO 8583 , DE 30: Amounts original (Field 1)| EUR  
+âââ`currency_unit`| integer| The reconciliation amount of data elements from the original transaction. | ISO 8583, DE 30: Amounts original (Field 2)| 2  
+âââ`amount`| bigint| Original receiver amount| 314  
+`original_rec_amount_data`| row| The amount of data elements from the original transaction. | ISO 8583|   
+âââ`currency`| string| The amount of data elements from the original transaction.|ISO 8583 , DE 30: Amounts original (Field 1)| EUR  
+âââ`currency_unit`| integer| The reconciliation amount of data elements from the original transaction. | ISO 8583, DE 30: Amounts original (Field 2)| 2  
+âââ`amount`| bigint| Original receiver amount| 314  
+`rules_explanations`| string| Explanation of rules triggered in text format.| Rule X triggered because X amount surpasse the Y limit.  
+`rules_ids`| string| Identifier of the rules.|   
+`action_names`| string| |   
+`decision`| string| Output decision from the system.| approve  
+`fdz_partition_index`| integer| Partition index.| 79  
+`fdz_tenant_key`| string| Tenant key from Feedzai perspective.| sample_value  
+`fdz_timestamp`| bigint| Unix timestamp.| 1756463007000  
+`fdz_uuid`| string| UUID from Feedzai perspective.| d392378a-f4b2-49b5-8814-e3ea65543420  
+`is_alert`| string| Identifies whether the event is an alert.| True  
+`acceptor_add_contact_info`| string| 'Card acceptor additional contact information.|ISO 8583, DE 43: Card acceptor name/location (Field 10)'| 3248371648  
+`acceptor_certificate_number`| string| 'Value assigned to a card acceptor certificate issued by the acquirer''s certificate authority.|ISO 8583, DE 34: Electronic commerce data (Field 7)'| 680a503b53268a615b7b2d8b81a61e2c5e38c68a  
+`acceptor_city`| string| 'Card acceptor city.|ISO 8583, DE 43: Card acceptor name/location (Field 4)'| Andersonbury  
+`acceptor_country_code`| string| 'Card acceptor country code (in accordance with ISO 3166, Alpha-2).|ISO 8583, DE 43: Card acceptor name/location (Field 7)'| US  
+`acceptor_cust_service_phone`| string| 'Card acceptor customer service phone number.|ISO 8583, DE 43: Card acceptor name/location (Field 9)'| 42340072319124  
+`acceptor_dba_name`| string| '''Merchant Does Business As'' name.|Feedzai'| Hunt, Harris and Ruiz  
+`acceptor_email`| string| 'Card acceptor email address.|ISO 8583, DE 43: Card acceptor name/location (Field 12)'| [[email protected]](/cdn-cgi/l/email-protection#167e7e6456617f7a75796e38787362)  
+`acceptor_id`| string| 'Code used to uniquely identify the card acceptor originating a transaction; this code is also referred to as Merchant Identifier, or ''MID''. | ISO 8583, DE 42: Card acceptor identification code'| c7a2c7c5850fc9625a015ea0c2ea1d61635763d6  
+`acceptor_latitude`| double| Latitude of the acceptor. This location derives from GPS coordinates. | Feedzai|   
+`acceptor_longitude`| double| Longitude of the acceptor. This location derives from GPS coordinates. | Feedzai|   
+`acceptor_mastercard_risk`| integer| Risk level of the acceptor determined by Mastercard. Ranges from 0 to 999.|Feedzai|   
+`acceptor_name`| string| 'Name of the card acceptor as known to the cardholder.|ISO 8583, DE 43: Card acceptor name/location (Field 2)'| Hunt, Harris and Ruiz  
+`acceptor_open_date`| integer| Represents the date from which the acceptor is active (in milliseconds since the Unix epoch).|Feedzai|   
+`acceptor_phone`| string| 'Card acceptor phone number.|ISO 8583, DE 43: Card acceptor name/location (Field 8)'| 3240396761  
+`acceptor_phone_val_code`| string| Acceptor phone validation code indicates whether the acceptor phone number is valid.|Feedzai| A  
+`acceptor_region`| string| 'Card acceptor region code.|ISO 8583, DE 43: Card acceptor name/location (Field 5)'| CA  
+`acceptor_risk`| integer| Represents the risk level of the acceptor determined by the issuing bank. Ranges from 0 to 5.|Feedzai|   
+`acceptor_risky_flag`| boolean| Indicator on whether the acceptor is considered to be risky or not.|Feedzai|   
+`acceptor_street_addr`| string| 'Card acceptor street address.|ISO 8583, DE 43: Card acceptor name/location (Field 3)'| 6316 Christopher Ramp Suite 987  
+`acceptor_tax_number`| string| Merchant's tax number.|Feedzai| 91-83714  
+`acceptor_url`| string| 'Card acceptor internet URL.|ISO 8583, DE 43: Card acceptor name/location (Field 11)'| huntharrisruiz.com  
+`acceptor_visa_risk`| integer| Risk level of the acceptor determined by Visa. Ranges from 0 to 99.|Feedzai|   
+`acceptor_zip`| string| 'This data element is used to convey the ZIP code or postal code of the merchant''s or card acceptor''s registered location. | ISO 8583, DE 43: Card acceptor name/location (Field 6)'| 64465  
+`account_available_credit`| integer| Available credit within the credit limit provided by the bank (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`account_balance`| integer| Current account balance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`account_bic`| string| Bank Identifier Code (BIC) in SWIFT format or any other bank unique identifier code.|Feedzai| DABAIE2D  
+`account_cash_advance_balance`| integer| Debt amount in an account due to cash advance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`account_credit_limit`| integer| Account credit limit (in cents or equivalent). Not relevant for debit. For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`account_currency`| string| Currency associated with the account. Refers to accounts' balances and credit limit.|Feedzai| USD  
+`account_debt_balance`| integer| Accountâs debt balance (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`account_debt_payment_method`| string| Payment method of outstanding balance on the account.|Feedzai| Visa  
+`account_digital_signature`| string| 'A digital signature created by the private part of the private/public key pair supplied by a card issuer to a cardholder and linked to the cardholder''s account on which the card is issued.|ISO 8583, DE 34: Electronic commerce data (Field 2)'| b1367b34bfe36c56fa1e1e53a9326105ba59be1d  
+`account_iban`| string| International Bank Account Number (IBAN) in ISO 13616:2020 format or any bank account unique identifier. This field should be sent as a token or hash.|Feedzai| 482924bf58091603ed69c5bd1221ad67481bfca8  
+`account_id`| string| A bank's internal account number. This field is optional and cannot be used as a replacement for `account_iban`. | Feedzai| c0e68e4e-215f-47cb-b3cd-0d67a9ad881f  
+`account_last_activity`| integer| Identifies the timestamp of the last activity registered at the account (in milliseconds since the Unix epoch).|Feedzai|   
+`account_last_payment_amount`| integer| Amount of the last payment made on the account (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Feedzai|   
+`account_last_payment_date`| integer| Date when the customer pays off the balance on the account (in milliseconds since the Unix epoch).|Feedzai|   
+`account_number_of_cards`| integer| Number of cards associated with the account.|Feedzai|   
+`account_open_date`| integer| Opening date of the account (in milliseconds since the Unix epoch).|Feedzai|   
+`account_otb_limit`| integer| Account open-to buy-limit is the available amount between the account balance and unused credit limit (in cents or equivalent). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`account_pw_change_flag`| boolean| For deployments that do not include Digital Activity, you can use this field to detect if the customer changed the password on the account. This refers to if the password is changed over the last day or within a single session. | Feedzai|   
+`account_rewards_used_count`| integer| The number of times that the customer used the rewards.|Feedzai|   
+`account_status`| string| 'Status of the account. Possible values: `open`, `blocked`, `closed`, `waiting_for_kyc`.|Feedzai'| open  
+`account_type`| string| Type of the account. For example, savings or main account.|Feedzai| savings  
+`acquirer_id`| string| 'Identifies the acquiring institution.|ISO 8583, DE 32: Acquiring institution identification code'| 18493716481  
+`acquirer_number`| string| 'Identifies the acquirer''s merchant.|ISO 8583, DE 31: Acquirer reference number (Field 2)'| 789342  
+`acquirer_seq_number`| string| 'Data supplied by the acquirer.|ISO 8583, DE 31: Acquirer reference number (Field 4)'| 18472819401  
+`action_code`| string| 'The result code returned to indicate whether the transaction is approved or declined.|ISO 8583, DE 39: Action code / Result code'| 0000  
+`amount`| integer| 'Transaction amount in the original currency as specified by the `currency_code` field, in cents or equivalent (e.g. 1000 to represent $10.00). | ISO 8583, DE 4: Amount transaction (Field 3)'|   
+`application_transaction_counter`| integer| The 4-character numeric (binary) Application Transaction Counter contains the counter value maintained by the chip card. The chip card increments this value for each transaction (including failed transactions)|   
+`approval_code`| string| 'Code used when the transaction is approved.|ISO 8583, DE 38: Approval Code'| 019201  
+`atc1`| string| 'Account type code 1. Optional code that identifies the type of account to be updated for debits and inquiries ("from" account). Used in conjunction with transaction type code (ttc). For example, 10 = Savings account - default. | ISO 8583, DE 3: Processing Code (Field 2)'| 10  
+`atc2`| string| 'Account type code 2. Optional code that identifies the type of account to be updated for credits ("to" account). Used in conjunction with transaction type code (ttc). For example, 50 = Investment account - default. | ISO 8583, DE 3: Processing Code (Field 3)'| 50  
+`auth_agent_id`| string| 'The authorizing agent institution identification code.|ISO 8583, DE 58: Authorizing agent institution identification code.'| 17281947362  
+`auth_type`| string| Authentication option used by the consumer during the payment process.|Feedzai| fingerprint  
+`avs_code`| string| 'Defines the result of the address verification process.|ISO 8583, DE 49: Verification Data (Field 2 - Response)'| A  
+`business_app_transfer_purpose`| string| Contains information about the payment's purpose| AA  
+`capture_date`| string| 'Month and day of the capture (MMDD).|ISO 8583, DE 17: Date of capture'| 0820  
+`card_available_balance`| integer| The card available balance (in cents or equivalent). For example, for debit cards, this could be the total account amount, which can include an overdraft facility. For credit cards, this is often limited to the card credit limit amount or remaining unspent credit amount. For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`card_bin`| string| Card's bank identification number. A card BIN comprises the first 4 to 8 digits of a card pan. | Feedzai| 123456  
+`card_brand`| string| Card Brand.|Feedzai| Visa  
+`card_category`| string| Specifies whether the card is 'business' or 'consumer'.|Feedzai| consumer  
+`card_country_code`| string| Represents the country (in accordance with ISO 3166, Alpha-2) where the card was issued. | Feedzai| US  
+`card_credit_limit`| integer| Card credit limit (in cents or equivalent, e.g.), as set by the institution according to the cardholder profile. For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`card_credit_score`| integer| Credit Bureau (or similar institution) credit score of the cardholder. Useful for client onboarding, and as context on an individual in Case Manager. | Feedzai|   
+`card_effective_date`| string| 'Identifies the year and month in which the card becomes effective (YYYYMM).|ISO 8583, DE 13: Date effective'| 211901  
+`card_expected_payments_frequency`| string| 'The frequency defined with the bank to repay the credit card debt. Possible values: `monthly`, `weekly`, `bi_weekly`.'| monthly  
+`card_expiration_date`| string| 'Specifies the expiration date of the card (YYMM). | ISO 8583, DE 9: Conversion rate reconciliation'| 2405  
+`card_first_activation_date`| integer| Date of the first activation of this card (in milliseconds since the Unix epoch).|Feedzai|   
+`card_format`| string| 'The card format. The possible values are: virtual, physical and other'| physical  
+`card_id`| string| Persistent unique card ID (even after operations that might lead to an ID change, such as card re-issuing). | Feedzai| eb7a757cc59081a84fe7f827b649e9c6c7b12338  
+`card_issued_date`| integer| Date when the card was issued (in milliseconds since the Unix epoch).|Feedzai|   
+`card_issuer`| string| Identifies the issuing institution.|Feedzai| Issuer Bank  
+`card_last4`| string| Card's last 4 digits.|Feedzai| 1234  
+`card_number_of_cardholders`| integer| Number of cardholders associated with the card. For example, in the case of joint accounts, it is possible to have multiple cardholders associated with a card. | Feedzai|   
+`card_pan`| string| 'The primary account number (PAN), or simply a card number, is the card identifier found in payment cards, such as credit cards and debit cards. This field can be sent in the multiple formats (from most to least secure): - token - hash - encrypted - clear text. For PCI compliance, follow the security guidelines to protect the data: 1) When data is sent as clear text or encrypted, then it''s mandatory to use Feedzai Tokenizer. 2) When data is sent as hash, then Feedzai Tokenizer is recommended (if not used, it will be disabled). 3) When data is sent as token, then Feedzai Tokenizer is not necessary and will be disabled. | ISO 8583, DE 2: Primary Account Number'| 8955060600182663  
+`card_presence_flag`| boolean| 'Flag indicating whether the card was present during the transaction.|ISO 8583, DE 61: Point of Service (POS) Data (Field 5)'|   
+`card_program`| string| Specifies whether the card is black, platinum, gold , silver, etc.|Feedzai| silver  
+`card_seq_number`| string| 'Used to distinguish between separate cards with the same primary account number.|ISO 8583, DE 23: Card sequence number'| 001  
+`card_status`| string| Status of the card (active, blocked, under validation, etc.).|Feedzai| active  
+`card_transaction_amount_limit`| integer| Card's amount limit that can be spent per transaction (in cents). For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2).|Feedzai|   
+`card_type`| string| Specifies whether the card is debit, credit, pre-paid, etc. Useful for tuning risk strategy thresholds based on the type of card. | Feedzai| credit  
+`card_ver_data`| string| 'Number that is only printed on the card which is not included in any other technology e.g. magnetic stripe or ICC.|ISO 8583, DE 49: Verification Data (Field 2)'| 0129  
+`cardholder_add_id`| string| 'Identification number on the additional identification document.|ISO 8583, DE 49: Verification Data (Field 7)'| bb066a51bcfa18b42ac7c646ce012fce5b394c88  
+`cardholder_add_id_type`| string| 'Represents additional identification offered by the cardholder.|ISO 8583, DE 49: Verification Data (Field 6)'| passport  
+`cardholder_authentication_verification_value`| string| 'CAVV Results Code. Contains a one-character code that indicates the following: - The classification of the transaction, i.e. either an authentication transaction, where the Issuer ACS has created the CAVV, or an `attempts` transaction, where the Visa Attempts Server has created the CAVV - For an authentication transaction, where the Issuer ACS has created the CAVV - For an `attempts` transaction, where the Visa Attempts Server has created the CAVV'| 2  
+`cardholder_bill_amount`| integer| 'Amount billed to the cardholder in the issuing bank''s currency, exclusive of cardholder billing fees, as specified by the `cardholder_bill_currency_code` field, in cents or equivalent (e.g. 1000 to represent $10.00). It should be consistent across all transactions as this value is used to calculate profiles in a unified currency. | ISO 8583, DE 6: Amount, cardholder billing'|   
+`cardholder_bill_conv_rate`| double| 'Factor used in the conversion from transaction to cardholder billing amount.|ISO 8583, DE 10: Conversion rate, cardholder billing'|   
+`cardholder_bill_currency_code`| string| 'Code defining the currency of `cardholder_bill_amount`, usually where the account is based (in accordance with ISO 4217, Alpha-3). | ISO 8583, DE 51: Currency code, cardholder billing'| USD  
+`cardholder_bill_street_addr`| string| 'Cardholder billing street address.|ISO 8583, DE 49: Verification Data (Field 3)'| 707 Valerie Corners  
+`cardholder_bill_zip`| string| 'ZIP of the cardholder billing address.|ISO 8583, DE 49: Verification Data (Field 4)'| 70783  
+`cardholder_certificate_number`| string| 'Value assigned to a cardholder certificate issued by the card issuer''s certificate authority.|ISO 8583, DE 34: Electronic commerce data (Field 6)'| 13e3acec30b1dd45689afbd914d2074af222195b  
+`cardholder_compress_bill_addr`| string| 'Represents only the numeric and postcode elements of the cardholder billing address.|ISO 8583, DE 49: Verification Data (Field 5)'| 707 70783  
+`cardholder_name`| string| Cardholder name.|Feedzai| John Doe  
+`cardholder_presence_indicator`| string| 'Indicator informing about the presence of the cardholder.|ISO 8583, DE 61: Point of Service (POS) Data (Field 4)'| 1  
+`cardholder_verification_rule`| string| 'A Cardholder Verification Rule (CVR) consists of 2 bytes: the first indicates the type of Cardholder Verification Method (CVM) to be used, while the second specifies in which condition this CVM will be applied'|   
+`company_id`| string| Company ID.|Feedzai| c3ae6b7f-1605-4c38-a7dc-e67819559a82  
+`currency_code`| string| 'This code specifies the original currency in which transactions are conducted in, and consequently defines the currency for the `amount` field (in accordance with ISO 4217, Alpha-3). | ISO 8583, DE 4: Amount transaction (Field 1)'| EUR  
+`currency_unit`| integer| 'Indicates the number of places that the decimal point of the `amount` field is moved to the left, starting from the rightmost numeric digit. For example, if the currency is US dollar and the `amount` is 1000, a `currency_unit: 2` represents $10.00.|ISO 8583, DE 4: Amount transaction (Field 2)'|   
+`customer_citizen_id_number`| string| Identification number defined in the citizen identity document associated with the customer's home country.|Feedzai| 42611351  
+`customer_city`| string| Customer city.|Feedzai| South Leahfort  
+`customer_country_code`| string| Customer country code (in accordance with ISO 3166, Alpha-2).|Feedzai| US  
+`customer_country_code_change_flag`| boolean| Whether the customer is perfoming the first payment after changing country. This is a reference data field. | Feedzai|   
+`customer_currency`| string| Currency associated with the customer. Refers to customers' total balance and credit limit.|Feedzai| USD  
+`customer_dob`| string| Customer date of birth (YYYYMMDD).|Feedzai| 20871211  
+`customer_driver_license`| string| Customer driver's license.|Feedzai| F4540525  
+`customer_email`| string| Customer email.|Feedzai| [[email protected]](/cdn-cgi/l/email-protection#c7ada8afa9e9a3a8a287a0aaa6aeabe9a4a8aa)  
+`customer_email_change_flag`| boolean| For deployments that do not include Digital Activity, you can use this field to detect if the customer is perfoming the first payment after changing email. This refers to if the email is changed over the last day or within a single session. This is a reference data field. | Feedzai|   
+`customer_id`| string| 'A unique transaction identifier that should remain consistent across multiple events (auth, info, clearing) associated with the same transaction. | ISO 8583, DE 21: Transaction life cycle identification data (Field 2)'| 87b2ee22cb0004722a7265fdbbf7be98c681a3bb  
+`customer_kyc_lvl`| string| Know Your Customer (KYC) level. This is a reference data field. | Feedzai| A  
+`customer_name`| string| Customer name.|Feedzai| John Doe  
+`customer_number_of_accounts`| integer| Number of accounts associated with the customer.|Feedzai|   
+`customer_number_of_cards`| integer| Number of cards associated with the customer.|Feedzai|   
+`customer_occupation`| string| Customer's main professional activity.|Feedzai| actor  
+`customer_occupation_status`| string| Customer's current occupation status.|Feedzai| employee  
+`customer_passport_number`| string| Customer passport number.|Feedzai| 640635130  
+`customer_phone`| string| Customer phone number.|Feedzai| 217823554  
+`customer_phone_change_flag`| boolean| For deployments that do not include Digital Activity, you can use this field to detect if the customer is perfoming the first payment after changing phone number. This refers to if the phone number is changed over the last day or within a single session. This is a reference data field. | Feedzai|   
+`customer_phone_val_code`| string| Indicates whether the customer phone number is valid.|Feedzai| partially valid  
+`customer_region`| string| Customer region code.|Feedzai| WA  
+`customer_registration_date`| integer| Customer registration date (in milliseconds since the Unix epoch).|Feedzai|   
+`customer_risk_rating`| string| Customer's risk rating.|Feedzai| A  
+`customer_segment`| string| Customer's segment within the banks' segmentation.|Feedzai| retail  
+`customer_ssn`| string| Customer social security number.|Feedzai| 204541535  
+`customer_street_addr`| string| Customer street address.|Feedzai| 2087 Laura Courts Suite 109  
+`customer_tax_number`| string| Customer tax number.|Feedzai| 951755612  
+`customer_total_balance`| integer| Sum of the balances on all customer's accounts (in cents or equivalent). This is a reference data field and can be used to calculate overall balance (debit and credit) to compare against an individual transaction. For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`customer_total_credit_limit`| integer| Sum of the credit limit on all customer's accounts (in cents or equivalent). This is a reference data field. For example, 1000 to represent $10.00 (assuming the US dollar currency, and a currency unit of 2). | Feedzai|   
+`customer_zip`| string| The customer's registered ZIP code, i.e. the postal code from the customer's residential address registered with the bank. This is a reference data field. | Feedzai| 62986  
+`cvv2_presence_indicator`| string| Code provided by the merchant to indicate whether the CVV2 value is on the card| 0  
+`cvv_val_code`| string| CVV validation code.|Feedzai| 1432  
+`destination_id`| string| 'Identification code of the destination which is maintained throughout the life of the transaction.|ISO 8583, DE 93: Transaction destination identification code'| 18391847582  
+`device_fingerprint`| string| Information collected about the software and hardware of the device used to perform the transaction. Could be encrypted information used for device enrichment.|Feedzai| 0400YbjucgPeDpqN9ZBLUITS+9VZ4/+YT+qYutCN/R8/6uxqb6W7w==  
+`device_id`| string| Unique identification number assigned to a device and should be consistent across all transactions. This could come from a computer's CPU serial number, MAC address or browser fingerprint. Using the IP address is not recommended. If you use Digital Trust, then this field is optional. | Feedzai| JRO03C  
+`device_ip`| string| The IP of the device used to perform the transaction.|Feedzai| 13.8.170.179  
+`device_ip_country_code`| string| The country code derived from the device's IP (in accordance with ISO 3166, Alpha-2). | Feedzai| US  
+`device_ip_latitude`| double| Device IP latitude. This location derives from the web connection. | Feedzai|   
+`device_ip_longitude`| double| Device IP longitude. This location derives from the web connection. | Feedzai|   
+`device_language`| string| Device language code.|Feedzai| US  
+`digital_wallet_token`| string| Contains the token information of tokenized transactions|   
+`digital_wallet_token_assurance_level`| string| Contains the token assurance level value information of tokenized transactions| 00  
+`digital_wallet_token_requester`| string| Contains the token requester ID information of tokenized transactions| 40010030273  
+`digital_wallet_token_type`| string| Contains the token type information of tokenized transactions| Q  
+`digital_wallet_tokenized_transaction`| boolean| Identifies transactions that are tokenized (PANs replaced with a VISA/Mastercard provided cloud-based token)|   
+`dispute_end_date`| integer| Timestamp corresponding to the moment when the dispute was closed (in milliseconds since the Unix epoch).|Labeling|   
+`dispute_feedback_notes`| string| Notes related to the dispute feedback event.|Labeling| The client has called to open a dispute on a transaction that was not made by him.  
+`dispute_notes`| string| Contextual information left by the analyst at the time of the dispute opening.|Dispute|   
+`dispute_reason`| string| 'Why the dispute was opened. Possible reasons: - `duplicate` \- Cardholder claims multiple charges for the same product or service; - `fraudulent` \- Cardholder claims an unauthorized payment. This can happen if the card was lost or stolen and used to make a fraudulent purchase. It can also happen if the cardholder does not recognize the payment as it appears on the billing statement sent by the card issuer; - `subscription_canceled` \- Cardholder claims continuous charges after the subscription being canceled; - `product_unacceptable` \- Cardholder claims that a received product or service is defective, damaged, or not as described; - `product_not_received` \- Cardholder claims an unreceived purchased of products or services; - `unrecognized` \- Cardholder claims an unrecognized payment appearing on the card statement; - `credit_not_processed` \- Cardholder claims that the purchased product was returned or the transaction was otherwise canceled, but the merchant has not yet provided a refund or credit; - `general` \- Uncategorized dispute.|Dispute'|   
+`dispute_refunded`| string| 'Whether the funds were refunded to the cardholder. Possible values: `no_refund`, `partial_refund`, `total_refund`.|Labeling'| partial_refund  
+`dispute_start_date`| integer| Timestamp that corresponds to the time when the dispute was opened (in milliseconds since the Unix epoch).|Dispute|   
+`dispute_submitted_by`| string| 'Who submitted the dispute. Possible values: `issuer` or `acquirer`.|Dispute'|   
+`event_external_id`| string| Unique identifier, on the customer's platform, of this event.|Feedzai| 4048611b295e993d1b561d9030c53424bbf2b95e  
+`event_occurred_at`| integer| Timestamp corresponding to the moment when the current event occurred (i.e. is not the original event in the case of Info and Clearing events, with the exception of the Pre-decided Info events; in milliseconds since the Unix epoch).|Feedzai|   
+`feedback_type`| string| 'It identifies the different types of feedback. Supported values: - `out_of_band` for conclusions of out-of-band communication - `chargeback` for closing disputes. If `feedback_type` equals `out_of_band`, the required fields are `oob_response_type` and `oob_end_date`. If `feedback_type` equals `chargeback`, the required fields are `dispute_refunded` and `dispute_end_date`. | Labeling'| out_of_band  
+`feedback_value`| boolean| This field only applies to the Feedback endpoint and refers to value that should be associated with the `feedback_label`. For example, if the label is `fraud`, the value `true` labels the transaction as fraudulent and the value `false` labels as non-fraudulent. | Labeling|   
+`file_transfer_ack_code`| string| 'Indicates whether the sender requires an acknowledgement from the receiver. When this sub-element indicates âacknowledgement required,â the sender shall not transmit any other notification or instruction message before receiving a notification acknowledgement or instruction acknowledgement message.|ISO 8583, DE 68: Batch/file transfer message control (Field 1)'| 7  
+`file_transfer_seq_number`| string| 'Provides the unique sequence number assigned to the message within the batch.|ISO 8583, DE 68: Batch/file transfer message control (Field 2)'| 00000001  
+`first_recurring_payment`| boolean| Whether the payment is the first occurrence of a series of recurring payments set up by the customer with the same amount and with the same payee. | Feedzai|   
+`forwarding_institution_id`| string| 'Code identifying the forwarding institution. Not used when the acquirer and the card issuer can communicate directly.|ISO 8583, DE 33: Forwarding institution identification code'| 19382917391  
+`function_code`| string| 'Purpose of a message within its message class. It adds granularity about the message type, e.g. type of authorization or verification transaction, type of financial presentment. |ISO 8583, DE 24: Function code'| 841  
+`info_type`| string| 'It indicates the sub-type of the info event and helps to determine why the event is being sent. Supported values: - `dispute` \- `not_honor` \- `additional_info` \- `pre_decided`. In case of `dispute`, `not_honor` or `additional_info`, this field updates an existing transactional event. When itâs `pre_decided`, this field creates a new transactional event that has already been decided by the source system, i.e. the bank. | Feedzai'| dispute  
+`julian_processing_date`| string| 'Date that the acquirer processed the original transaction, e.g. first presentment.|ISO 8583, DE 31: Acquirer reference number (Field 3)'| 8241  
+`last_sca_at`| integer| Timestamp corresponding to the last time that the consumer performed Strong Customer Authentication (SCA).|Feedzai|   
+`lifecycle_id`| string| 'Unique transaction identifier.|ISO 8583, DE 21: Transaction life cycle identification data (Field 2)'| 1df7a7qg78vd7fs  
+`lifecycle_indicator`| string| 'Indicates the point in the transaction life cycle at which the life cycle trace identifier is assigned.|ISO 8583, DE 21: Transaction life cycle identification data (Field 1)'| 1  
+`lifecycle_seq_number`| string| 'Used with the life cycle trace identifier to uniquely identify when multiple financial presentments are generated from a single authorization transaction.|ISO 8583, DE 21: Transaction life cycle identification data (Field 3)'| 01  
+`lifecycle_token`| string| 'Represents a code calculated using an algorithm against key transaction data elements that are common to both authorization messages and financial presentment messages.|ISO 8583, DE 21: Transaction cycle identification data (Field 4)'| 2718  
+`local_datetime`| string| 'Identifies the local year, month, day, and time in which the transaction takes place at the location of the card acceptor in Authorization and Financial Presentment messages (YYYYMMDDhhmmss).|ISO 8583, DE 12: Date and time local transaction'| 20181201012233  
+`login_session_id`| string| Deprecated - Use 'session_id' instead.| fb2e77d  
+`luhn_check_digit`| integer| 'Check sum on the previous 22 digits of acquirer reference number calculated in accordance with ISO 7812-1.|ISO 8583, DE 31: Acquirer reference number (Field 5)'|   
+`malware_flag`| boolean| Indicates whether the device is infected with malware.|Feedzai|   
+`mc_fraud_score`| integer| Master card fraud score|   
+`mcc`| string| 'The merchant category code (MCC) classifies the type of business being done by the card acceptor for this transaction (in accordance with ISO 18245). | ISO 8583, DE 26: Merchant category code (MCC)'| 4722  
+`merchant_initiated`| boolean| Whether the transaction was initiated by a merchant / acceptor, e.g. a recurring payment. | Feedzai|   
+`mti`| string| 'The Message Type Indicator (MTI) is a four-digit numeric field which indicates the overall function of the message. A message type indicator includes the ISO 8583 version, the Message Class, the Message Function, and the Message Origin. For example, 0110 indicates an authorization. | ISO 8583 '| 0110  
+`oob_comm_type`| string| 'The type of communication made with the client. Possible values: `sms`, `call`, `email`.|Out of Band'|   
+`oob_end_date`| integer| Timestamp corresponding to the moment when the client responded to the out-of-band communication (in milliseconds since the Unix epoch).|Labeling|   
+`oob_feedback_notes`| string| Notes related to the out-of-band feedback event.|Labeling| The client has confirmed that he didn't make the transaction.  
+`oob_notes`| string| Notes related to the out-of-band communication.|Out of Band|   
+`oob_response_type`| string| 'The type of out-of-band response made by the client. For example, possible values are: `call`, `sms`, `email`, `branch`, or any other value deemed necessary by the client. Note that this field is required if the `feedback_type` field has the value `out_of_band`. | Labeling'| call  
+`oob_start_date`| integer| Timestamp that corresponds to the moment when the client was contacted (in milliseconds since the Unix epoch).|Out of Band|   
+`originator_id`| string| 'Identification code of the originator which is maintained throughout the life of the transaction.|ISO 8583, DE 94: Transaction originator identification code'| 18493049285  
+`pos_acceptor_disp_data_len`| integer| 'Represents the number of characters of data from a card issuer that can be displayed on the POS for the cardholder.|ISO 8583, DE 27: Point of service capability (Field 7)'|   
+`pos_acceptor_rec_data_len`| integer| 'Represents the number of characters of data from a card issuer that can be printed on a POS receipt for the card acceptor.|ISO 8583, DE 27: Point of service capability (Field 5)'|   
+`pos_approval_code_len`| integer| 'Represents the maximum length of the approval code which the acquirer may accommodate. The card issuer or agent shall limit the approval code to this length.|ISO 8583, DE 27: Point of service capability (Field 3)'|   
+`pos_card_capture_cap`| string| 'Indicates if the card can be captured.|ISO 8583, DE 27: Point of service capability (Field 10)'| N  
+`pos_card_read_method`| string| 'Series of code values indicating the card reading capabilities employed during the transaction, such as magnetic swipe, EMV, or manual entry. Each issuer can define their own code values to specify the POS entry mode for Card Present transactions. For example: 01 - manual entry; 02 - magnetic stripe; 91 - contactless card; 95 - smart card. | ISO 8583, DE 22: Point-of-Service data code (Field 7)'| 01  
+`pos_cardholder_disp_data_len`| integer| 'Identifies the card issuer data to be displayed on the POS for the cardholder.|ISO 8583, DE 27: Point of service capability (Field 6)'|   
+`pos_cardholder_rec_data_len`| integer| 'Represents the number of characters of data from a card issuer that can be printed on a POS receipt for the cardholder.|ISO 8583, DE 27: Point of service capability (Field 4)'|   
+`pos_cardholder_ver_cap`| string| 'Series of code values that indicate the POS capabilities available to identify the cardholder.|ISO 8583, DE 27: Point of service capability (Field 2)'| 8080  
+`pos_cardholder_ver_method`| string| 'Series of code values that indicate the cardholder verification method (CVM) used by the POS to identify the cardholder. Each issuer can define their codes. For example: 0 - Fail CVM processing; 1 - Plaintext PIN verification performed by ICC (Integrated Circuit Card); 2 - Enciphered PIN verified on-line; 3 - Plaintext PIN AND Signature-Paper; 4 - Enciphered PIN by ICC; 5 - Enciphered PIN by ICC AND Signature-Paper; 30 - Signature-Paper; 31 - No CVM required | ISO 8583, DE 22: Point-of-Service data code (Field 8)'| 31  
+`pos_environment`| string| 'Series of code values that indicate if the card acceptor was present. Typically, this field takes the values CP (for Card Present) or CNP (for Card Not Present). If more granularity is required, use `pos_card_read_method` to specify the POS entry mode for Card Present. If not present, you can use this field to also indicate the type of environment in which the transaction took place. Card Not Present transactions could be, for example, MOTO (from mail order/Telephone order) or WEB. This field may be relevant as a machine learning model feature. | ISO 8583, DE 22: Point-of-Service data code (Field 4)'| CP  
+`pos_icc_data_len`| integer| 'Number of characters of data from a card issuer that can be returned to the ICC at the POS.|ISO 8583, DE 27: Point of service capability (Field 8)'|   
+`pos_pin_len_cap`| integer| 'Number of PIN digits that the point of service device can accept.|ISO 8583, DE 27: Point of service capability (Field 11)'|   
+`pos_read_cap`| string| 'Series of code values that indicate the card reading capabilities of the POS.|ISO 8583, DE 27: Point of service capability (Field 1)'| 8080  
+`pos_security_characteristics`| string| 'Series of codes that indicate the security characteristics applicable to a transaction. This field may be relevant as a machine learning model feature. | ISO 8583, DE 22: Point-of-Service data code (Field 2)'| 0001  
+`pos_track1_data`| string| 'Information encoded on the track 1 of the magnetic stripe 2 including field separators and excluding the start sentinel, end sentinel and longitudinal redundancy check (''LRC'') characters.|ISO 8583, DE 45: Track 1 data'| 6239184a00000120768=08021010912346567?4  
+`pos_track2_data`| string| 'Information encoded on track 2 of the magnetic stripe as specified in ISO 7813, excluding beginning and ending sentinels and longitudinal redundancy check characters as defined therein.|ISO 8583, DE 35: Track 2 data'| 6759184500000120768=08051010912346567?4  
+`pos_track3_data`| string| 'Information encoded on track 3 of the magnetic stripe as specified in ISO 4909, including field separators, but excluding beginning and ending sentinels and longitudinal redundancy check characters as defined therein.|ISO 8583, DE 36: Track 3 data'| 6333000012345679=08051010912345078901?7  
+`pos_track3_rw`| string| 'Indicates if the POS can rewrite Track 3.|ISO 8583, DE 27: Point of service capability (Field 9)'| Y  
+`proxy_flag`| boolean| Whether the device IP is a proxy.|Feedzai|   
+`reason_code`| string| 'Provides the receiver of a request, advice or notification message with the reason, or purpose of that message. For original authorizations and financial presentments, it identifies why the type of message was sent, e.g. why an advice versus a request. For other messages it identifies states why this action was taken.|ISO 8583, DE 25: Message Reason Code'| 8002  
+`receiving_institution_id`| string| 'Code identifying the receiving institution. Not used when the acquirer and the card issuer can communicate directly.|ISO 8583, DE 100: Receiving institution identification code'| 18493059382  
+`reconciliation_amount`| integer| 'Reconciliation amount in the currency specified by the `reconciliation_currency_code` field, in cents or equivalent (e.g. 1000 to represent $10.00). | ISO 8583, DE 5: Amount Reconciliation (Field 3)'|   
+`reconciliation_conv_rate`| double| 'Factor used in the conversion from transaction to cardholder billing amount.|ISO 8583, DE 9: Conversion rate reconciliation'|   
+`reconciliation_currency_code`| string| 'Code defining the currency of the `reconciliation_amount` (in accordance with ISO 4217, Alpha-3). | ISO 8583, DE 5: Amount Reconciliation (Field 1)'| EUR  
+`reconciliation_currency_unit`| integer| 'Indicates the number of places that the decimal point of the `reconciliation_amount` field is moved to the left, starting from the rightmost numeric digit. For example, if the reconciliation currency is US dollar and the `reconciliation_amount` is 1000, a `reconciliation_currency_unit: 2` represents $10.00.|ISO 8583, DE 5: Amount Reconciliation (Field 2)'|   
+`reconciliation_date`| string| 'The year, month and day for which financial totals are reconciled between the acquirer and the card issuer (YYYYMMDD).|ISO 8583, DE 28: Date reconciliation'| 20180829  
+`reconciliation_indicator`| string| 'A value used to allow reconciliation of time periods within a reconciliation date. The value is subject to bilateral agreement.|ISO 8583, DE 29: Reconciliation indicator'| 223  
+`recurring_payment`| boolean| Whether the payment is part of a series of recurring payments set up by the customer with the same amount and with the same payee. | Feedzai|   
+`reference_fraud_rate`| double| Fraud rate for card payments. Calculated as the total value of unauthorized or fraudulent remote transactions, divided by the total value of all remote card transactions, in the previous calendar quarter (i.e. three-month window).|Feedzai|   
+`retrieval_reference_number`| string| 'Reference supplied by the system retaining the original source information and used to assist in locating that information or a copy thereof.|ISO 8583, DE 37: Retrieval reference number'| 129829381948  
+`return_amount`| integer| 'New actual amount (in cents) necessary to perform a partial or full reversal of a financial transaction or a partial completion amount.|ISO 8583, DE 95: Replacement Amounts (Field 1).'|   
+`secure_3d_indicator`| string| 'Identifies the authentication method used by the Issuerâs ACS to authenticate the cardholder (e.g. risk-based authentication, OTP, etc.) '| 2  
+`secure_3d_protocol_version`| string| Authentication data. Includes the 3-D Secure Protocol version number| 2.x.x  
+`secure_3d_val_code`| string| 3D secure validation code.|Feedzai| 558251  
+`secure_3d_val_status`| string| 3D secure validation status. Possible values are `failed`, `passed`, and `disabled`.|Feedzai (PSD2)| passed  
+`service_code`| string| 'Identifies the geographic/service availability (in accordance with ISO 7813).|ISO 8583, DE 40: Service code'| 001  
+`session_id`| string| Id of the session that the user logged into. This should be consistent across all events within the same banking session, including payment initiations as it will be used to associate events to a session.|Feedzai| 9be65da3-ec5d-45c0-93c0-03afc5f7633b  
+`sic`| string| Standard industrial classification merchant category code.|Feedzai| 2000  
+`stan`| string| 'System trace audit number. This field is assigned by a transaction originator to assist in uniquely identifying a transaction. The trace number remains unchanged for all messages within a two-message exchange, e.g. request/repeat and response.|ISO 8583, DE 11: Systems trace audit number (STAN)'| 103405661402  
+`tenant_id`| string| ''|   
+`terminal_city`| string| Terminal city.|Feedzai| Yvetteville  
+`terminal_country_code`| string| Terminal country code (in accordance with ISO 3166, Alpha-2).|Feedzai| US  
+`terminal_id`| string| 'Applicable to Card Present transactions. This field represents the card acceptor terminal identification number.|ISO 8583, DE 41: Card acceptor terminal identification'| 44b77c377266be3ca36ee2b5bcedde09222d346a  
+`terminal_ip`| string| IP of the terminal address.|Feedzai| 13.59.108.243  
+`terminal_ip_city`| string| Estimated city of the terminal based on IP.|Feedzai| Yvetteville  
+`terminal_ip_country_code`| string| Estimated country code (in accordance with ISO 3166, Alpha-2) of the terminal based on IP.|Feedzai| US  
+`terminal_ip_latitude`| double| Estimated latitude of the terminal based on IP. This location derives from the web connection. | Feedzai|   
+`terminal_ip_longitude`| double| Estimated longitude of the terminal based on IP. This location derives from the web connection. | Feedzai|   
+`terminal_ip_region`| string| Estimated region of the terminal based on IP.|Feedzai| CA  
+`terminal_ip_zip`| string| Estimated ZIP of the terminal based on IP.|Feedzai| 73412  
+`terminal_latitude`| double| Latitude coordinate of the terminal. This location derives from GPS coordinates. | Feedzai|   
+`terminal_longitude`| double| Longitude coordinate of the terminal. This location derives from GPS coordinates. | Feedzai|   
+`terminal_poc_flag`| boolean| Whether the terminal was previously a point of compromise (POC).|Feedzai|   
+`terminal_region`| string| Terminal region code.|Feedzai| CA  
+`terminal_street_addr`| string| Street address where the terminal is located.|Feedzai| 66192 Stephen Bridge Suite 829  
+`terminal_timezone`| string| Time zone in which the terminal is located expressed as +/- hh:mm format (using UTC as reference).|Feedzai| +01:00  
+`terminal_zip`| string| Terminal ZIP.|Feedzai| 73412  
+`transaction_category_code`| string| 'Data object defined by MasterCard which indicates the type of transaction being performed, and which may be used in card risk management.|ISO 8583, DE 55: TransactionCategoryCode_9F53 (EMV Tag)'| A  
+`transaction_seq_counter`| integer| 'Counter maintained by the terminal that is incremented by one for each transaction.|ISO 8583, DE 55: TransactionSequenceCounter_9F41 (EMV Tag)'|   
+`transaction_status`| string| 'Indicates the different status of the transaction. Updates the same life cycle ID with an additional event entry. Possible values: - `accepted` \- `rejected` \- `cancelled` \- `reversed` \- `refunded`. | Feedzai'| accepted  
+`transaction_status_reason`| string| 'Explains the transaction status. Possible values are: - `account_closed` \- The bank account has been closed; - `account_frozen` \- The bank account has been frozen; - `account_restricted` \- The bank account has restrictions on either the type, or the number, of payments allowed. This normally indicates that the bank account is a savings or other non-checking account; - `account_ownership_changed` \- The bank account is no longer valid because its branch has changed ownership; - `could_not_process` \- The bank could not process this payment; - `debit_not_authorized` \- Debit transactions are not permitted on the account; - `rejected` \- The bank has rejected this payment; - `insufficient_funds` \- The user account has insufficient funds to cover the payout; - `invalid_account_number` \- The account number is invalid; - `incorrect_account_holder_name` \- The account holder name on file is incorrect; - `invalid_currency` \- The bank was unable to process this payout because of its currency. This is probably because the bank account cannot accept payments in that currency; - `no_account` \- No bank account could be located with these details; - `unsupported_card` \- The bank no longer supports payouts to this card; - `accepted` \- The bank processed the payment; - `feedzai_unavailable` \- Feedzai was unavailable to score the transaction on the Authorization endpoint and it had to be sent to the Info endpoint, as a pre-decided transaction.|Feedzai'| account_closed  
+`transmission_datetime`| string| 'Specifies the date and time when the message initiator sends the message. This field is expressed in the Coordinated Universal Time (UTC) (in accordance with ISO 8601), in the format MMDDhhmmss.|ISO 8583, DE 7: Date and time transmission'| 1201112233  
+`transstain`| string| 'A hash value calculated by applying a secure hash algorithm to the XID and card secret (a secret defined value known only to the cardholder and issuer of the cardholder certificate).|ISO 8583, DE 34: Electronic commerce data (Field 9)'| e528318831716fa8a878e4f3c0e1fe5eeecbc292  
+`trusted_acceptor`| boolean| Whether the acceptor is included in the cardholder's list of trusted acceptors. | Feedzai|   
+`trx_to_rec_conv_date`| string| 'Month and day the conversion rate is effective to convert the transaction amount from the original to reconciliation currency (MMDD).|ISO 8583, DE 9: Conversion rate reconciliation'| 0829  
+`ttc`| string| 'The Transaction Type Code (TTC) specifies the type of transaction. For example, 01 means Cash(ATM). | ISO 8583, DE 3: Processing Code (Field 1)'| 01  
+`tvr`| string| 'Terminal verification result.|ISO 8583, DE 55: TerminalVerificationResults_95 (EMV Tag)'| 8080  
+`user_format_id`| string| 'Identifier applied by the acquirer based on bilateral agreements.|ISO 8583, DE 31: Acquirer reference number (Field 1)'| 1  
+`visa_fraud_score`| integer| Visa fraud score|   
+`xid`| string| 'Value assigned to a transaction as a unique transaction identifier.|ISO 8583, DE 34: Electronic commerce data (Field 8)'| dca8c172f2d02402be16ab906b8db1024824b271  
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

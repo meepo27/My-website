@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/notes-draft-floating
+Title: notes-draft-floating | Case Manager
+============================================================
+
+# notes-draft-floating
+
+In case you no longer want to add the note, select the **Discard** option to delete it.
+
+tip
+
+Use the  and  icons to minime or expand the **Add Note** window, respectively.
+
+info
+
+Draft mode is also available. If you need to gather additional information from a different page, you can navigate through Case Manager and still return to your note. For that, select **Add note** upon returning to the page of your original note and the drafted message will still be there.
+
+However, note that if you close the browser tab, sign out or if your session times out before saving, the note will be lost.

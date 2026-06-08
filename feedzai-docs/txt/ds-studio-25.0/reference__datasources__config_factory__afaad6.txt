@@ -1,0 +1,98 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/datasources/config_factory/
+Title: config_factory - DS API
+============================================================
+
+#  `` config_factory Â¶
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` ConfigFactory Â¶
+    
+    
+    ConfigFactory(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+A DataSource Configuration Factory representation.
+
+###  `` configs_dict `class-attribute` `instance-attribute` Â¶
+    
+    
+    configs_dict = {CSV: partial(_set_csv_conf, config_ref=createCsvConf), PARQUET: partial(_set_parquet_conf, config_ref=createParquetConf), INFER: partial(_set_infer_schema_conf, config_ref=createInferSchemaConf)}
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` get_config `staticmethod` Â¶
+    
+    
+    get_config(config: ConfigType, **kwargs: Union[bool, str, int, Dict[str, str], Set[str]]) -> [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")
+    
+
+Getter for Pulse datasource configuration.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `str` |  The desired Pulse configuration. Options are: `csv`, `parquet`, `infer`. |  _required_  
+  
+####  `kwargs` Â¶
+
+|  `Dict` |  Keyword arguments used for the configuration setup. |  `{}`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`has_header` |  `bool` |  Flags whether the dataset is to be read with header. Defaults to True.  
+`sep` |  `str` |  Delimiter to use. Should contain exactly one character. Defaults to ','.  
+`missing_values` |  `set of str` |  Set of strings with values for empty value. Defaults to {"", "NA", "NULL"}.  
+`quote` |  `str` |  The character used to denote the start and end of a quoted item. Defaults to '''  
+`line_separator` |  `str` |  The string used mark the end of line. Defaults to '\n''.  
+`encoding` |  `str` |  Encoding to use for UTF when reading/writing. Defaults to 'UTF-8'.  
+`cat_threshold` |  `int` |  A value that represents the maximum number of distinct values on a given field for it to be inferred as categorical. Defaults to 15. Will only be used if no Schema is specified.  
+`job_properties` |  `Dict` |  The dictionary with the specific properties for the schema inference job. Will only be used if no Schema is specified.  
+`n_records` |  `int` |  The number of records that will be read per partition when performing datasource schema inference. Defaults to 15000. Will only be used if no Schema is specified.  
+`dtypes` |  ` Dict` |  The dictionary with the field overriding information when inferring the datasource schema. Will only be used if no Schema is specified.  
+`merge_schemas` |  `bool` |  Specify if schema merging should be allowed. See: https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#schema-merging  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  Returns the requested datasource configuration depending on the config passed.  
+  
+##  `` ConfigType Â¶
+
+Bases: `str`, `Enum`
+
+###  `` CSV `class-attribute` `instance-attribute` Â¶
+    
+    
+    CSV = 'csv'
+    
+
+###  `` INFER `class-attribute` `instance-attribute` Â¶
+    
+    
+    INFER = 'infer'
+    
+
+###  `` PARQUET `class-attribute` `instance-attribute` Â¶
+    
+    
+    PARQUET = 'parquet'
+    

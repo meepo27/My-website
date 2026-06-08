@@ -1,0 +1,1458 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-core-configuration
+Title: Core Configuration | Case Manager
+============================================================
+
+On this page  
+  
+# Core Configuration
+
+Deprecated API specification
+
+Case Manager is currently moving to an API specification generated with Swagger. Due to Case Manager's API size and complexity, the resources are being gradually moved to the new format. Until this transition is complete, please make sure that you check both this page and the [new API specification](/case-manager/13.17/api/).
+
+When all resources are moved to the new format, this page will be deleted.
+
+This page details the REST API regarding Core Configuration.
+
+### Systemâ
+
+**Get the system version**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/version
+
+| \--| \--| Version entry as JSON object| Gets information about the version of the app that is running.  
+**Example****Request**| `/api/versionÂ `  
+---|---  
+**Response**|  HTTP 200 â _application/json_ Returns version
+    
+    
+    {
+    	version: "1.7.0-SNAPSHOT"_,
+    	commitTimestamp: 1491990303000_,
+    
+    	buildTimestamp: 1492080443000*,
+    
+    	commit: "0885360f85b8fd721591270c3c43bfd1f4aa9f14"*
+    
+    }  
+  
+### Configuration Â â
+
+**Get the Configuration entry matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/configuration/<id>
+
+| \--| \--| Configuration entry as JSON object| Get the Configuration entry matching the given ID.  
+**Example****Request**| `/api/configuration/c65673c6-c068-498b-88f0-ff111f2ff059`  
+---|---  
+**Response**|  HTTP 200 â _application/json_ Returns version
+    
+    
+    {
+    	id: "c65673c6-c068-498b-88f0-ff111f2ff059"_,
+    	key: "menu.0.route"_,
+    
+    	value: "/search"_,
+    	type: "STRING"_
+    
+    }  
+  
+**Get a paginated list of Configuration entries**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/configuration?<pagination parameters>
+
+| \--| Pagination| Paginated list of configuration entries| Get configuration entry by ID  
+**Example****Request**| `/api/configuration?limit=10*&offset=0*`  
+---|---  
+ **Response**|  HTTP 200 â _application/json_ Returns version
+    
+    
+    {
+    	items: [{
+    
+    	id: "c65673c6-c068-498b-88f0-ff111f2ff059"_,
+    	key: "menu.0.route"_,
+    
+    	value: "/search"_,
+    	type: "STRING"_
+    }, {
+    
+    	id: "875cf4fc-130a-4cc7-b7f2-8715f12b9d9c"_,
+    	key: "menu.0.showIcon"_,
+    
+    	value: "true"_,
+    	type: "BOOLEAN"_
+    }, {
+    
+    	id: "97361a03-8fe7-4a49-9ff5-857d0cb569a9"_,
+    	key: "menu.0.iconCssClass"_,
+    
+    	value: "icon icon-search"_,
+    	type: "STRING"_
+    }, {
+    
+    	id: "97361a03-8fe7-4a49-9ff5-857d0cb569a0"_,
+    	key: "menu.0.tooltip"_,
+    
+    	value: "menu.search"_,
+    type: "STRING"_
+    }, {
+    
+    	id: "114565d6-447c-4dfc-8251-2613c9239c2f"_,
+    	key: "menu.1.default"_,
+    
+    	value: "true"_,
+    	type: "BOOLEAN"_
+    }, {
+    
+    	id: "ab5f4925-c93c-4fc4-8348-badff7b18c6c"_,
+    	key: "menu.1.route"_,
+    
+    	value: "/alerts"_,
+    	type: "STRING"_
+    }, {
+    
+    	id: "92a4946f-a442-4117-b97a-6ebb48ed88fb"_,
+    	key: "menu.1.showIcon"_,
+    
+    	value: "true"_,
+    	type: "BOOLEAN"_
+    }, {
+    
+    	id: "3f631ed2-74a5-473f-9bb1-eb40f7b7b775"_,
+    	key: "menu.1.iconCssClass"_,
+    
+    	value: "icon icon-alerts"_,
+    	type: "STRING"_
+    }, {
+    
+    	id: "3f631ed2-74a5-473f-9bb1-eb40f7b7b776"_,
+    	key: "menu.1.tooltip"_,
+    
+    	value: "menu.alerts"_,
+    	type: "STRING"_
+    }, {
+    
+    	id: "99622b60-cbdd-4226-aef6-b0551e5cea60"_,
+    	key: "menu.2.route"_,
+    
+    	value: "/reports"_,
+    	type: "STRING"_
+    }],
+    
+    	total: 964*,
+    
+    	limit: 10*,
+    
+    	offset: 0*,
+    
+    	filter: null*,
+    
+    	orderBy: null*}  
+  
+**Get all configuration as JSON**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/configuration?<pagination parameters>
+
+| \--| \--| All configuration| Get all the Configuration as a hierarchical JSON object.  
+**Example****Request**| `/api/configuration/tree`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	bugreport: {
+    
+    	endpoint: "<https://issues.feedzai.com/s/f490b5fa9db1cf072d85383caac1e610-T/en_USm2vhx/64027/22/1.4.27/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js>"_,
+    	collectorId: "e5d751bf"_,
+    
+    	locale: "en-US"_,
+    	enabled: true_
+    
+    	},
+    
+    	entities: {
+    
+    	alerts: {
+    
+    	config: {
+    
+    	details: {
+    
+    	actionButtonsConfig: {
+    
+    	numberVisibleActions: 3*,
+    
+    	dropDown: {
+    
+    	button: {
+    
+    	cssClass: "fdz-css-button fdz-css-button--negative-blue"_,
+    	iconCssClass: "icon-more"_,
+    
+    	showIcon: true*
+    
+    	},
+    
+    	position: "right"*
+    
+    	},
+    
+    	actions: [{
+    
+    	cssClass: "fdz-css-button fdz-css-button--red"_,
+    	statusId: "fraud"_,
+    
+    	iconCssClass: "icon-deny"_,
+    	tooltip: "event.actions.fraud.tooltip"_,
+    
+    	title: "event.actions.fraud"_,
+    	type: "state"_
+    
+    	}, {
+    
+    	cssClass: "fdz-css-button fdz-css-button--green"_,
+    	statusId: "genuine"_,
+    
+    	iconCssClass: "icon-approve"_,
+    	tooltip: "event.actions.not_fraud.tooltip"_,
+    
+    	title: "event.actions.not_fraud"_,
+    	type: "state"_
+    
+    	}, {
+    
+    	cssClass: "fdz-css-button fdz-css-button--yellow"_,
+    	statusId: "none"_,
+    
+    	iconCssClass: "icon-hold"_,
+    	tooltip: "event.actions.suspicious.tooltip"_,
+    
+    	title: "event.actions.suspicious"_,
+    	type: "state"_
+    
+    	}, {
+    
+    	cssClass: "fdz-css-button fdz-css-button--negative-blue"_,
+    	iconCssClass: "icon-note"_,
+    
+    	title: "event.actions.add-note"_,
+    	type: "note"_
+    
+    	}, {
+    
+    	cssClass: "fdz-css-button fdz-css-button--negative-blue"_,
+    	iconCssClass: "icon-move"_,
+    
+    	title: "event.actions.move-to-queue"_,
+    	type: "move-to-queue"_
+    
+    	}, {
+    
+    	cssClass: "fdz-css-button fdz-css-button--negative-blue"_,
+    	iconCssClass: "icon-assign_user_2"_,
+    
+    	title: "event.actions.assign-to-user"_,
+    	type: "assign-to-user"_
+    
+    	}]
+    
+    	},
+    
+    	...
+    
+    }  
+  
+**Get available suggestions**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/configuration/suggestions
+
+| \--| \--| Suggestions| Gets all the registered suggestions.  
+**Example****Request**| `/api/configuration/suggestions`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    [{
+    	status_id: "fraud"_,
+    	quick_filters: ["schema.fields.amount"_]
+    
+    	},
+    
+    	{
+    
+    	status_id: "fraud"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.customer_id*: "POSITIVE"*
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	reason_id: "975c5ab6-bd2f-4567-8ae3-6026742f4036"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.card_token*: "NEGATIVE"*
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	reason_id: "a70cddca-8499-46d3-a167-3e938a564508"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.merchant_category_code*: "NEGATIVE"*
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	reason_id: "f9ab011c-adb7-46a9-b355-3f2e120c50e0"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.customer_id*: "NEGATIVE"*
+    
+    	}
+    
+    	}
+    
+    ]  
+  
+**Get core configuration**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/configuration/core
+
+| \--| \--| Core configuration| Gets the core configuration. For now. only contains the cm and suggestions configuration.  
+**Example** Request| `/api/configuration/core`  
+---|---  
+Response| HTTP 200Â 
+    
+    
+    {
+    
+    	"cm"_:{
+    
+    	"url"_: "<https://am.yoshi.zai:8443>"_,
+    	"multi_tenancy"_: true*
+    
+    	}
+    
+    	"suggestions"_:[
+    	{
+    
+    	status_id: "fraud"_,
+    
+    	quick_filters: ["schema.fields.amount"_]
+    	},
+    
+    	{
+    
+    	status_id: "fraud"_,
+    
+    	pos_neg_lists: {
+    
+    	schema.fields*.customer_id*: "POSITIVE"*
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	reason_id: "975c5ab6-bd2f-4567-8ae3-6026742f4036"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.card_token*: "NEGATIVE"*
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	reason_id: "a70cddca-8499-46d3-a167-3e938a564508"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.merchant_category_code*: "NEGATIVE"*
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	reason_id: "f9ab011c-adb7-46a9-b355-3f2e120c50e0"_,
+    	pos_neg_lists: {
+    
+    	schema.fields_.customer_id*: "NEGATIVE"*
+    
+    	}
+    
+    	}
+    
+    	],
+    
+    	"cases"_:{
+    
+    	"sourceTypeEnabled"_: false*,
+    
+    	"states"_: [
+    	"case.states.open"_,
+    
+    	"case.states.closed-as-fraud"_,
+    	"case.states.closed-as-not-fraud"_,
+    
+    	"case.states.closed-as-suspicious"*
+    
+    	]
+    
+    	}
+    
+    }  
+  
+**Get the configuration for the available Rules Blocks to the logged user**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/configuration/rules-block
+
+| \--| tenantId (optional)channelId (optional)| The configuration for the available rules blocks.| Get the configuration for the available Rules Blocks to the logged user.  
+**Example** Request| `/api/configuration/rules-block`  
+---|---  
+Response| HTTP 200Â 
+    
+    
+    [
+    
+    	{
+    
+    	"id"_: "99951a7a-8f83-4825-b0c2-d113637114db"_ ,
+    
+    	"type"_: "GLOBAL"_ ,
+    
+    	"message_key"_: "global.rules.block"_
+    
+    	},
+    
+    	{
+    
+    	"id"_: "07b861e9-b7bd-4b0d-ac36-22e2e6af563c"_ ,
+    
+    	"type"_: "TENANT"_ ,
+    
+    	"tenants"_: ["uUhu5L_lZfPg6poP_JFHog"_ , "nH6Qe_HsB-a8QP-OQw9PhA"_, "12345"_],
+    
+    	"message_key"_: "tenanted.rules.block"_
+    
+    	}
+    
+    ]  
+  
+**Example 2**
+
+Request| `/api/configuration/rules-block?tenantId=12345*`  
+---|---  
+Response| HTTP 200Â 
+    
+    
+    [
+    
+    	{
+    
+    	"id"_: "07b861e9-b7bd-4b0d-ac36-22e2e6af563c"_ ,
+    
+    	"type"_: "TENANT"_ ,
+    
+    	"tenants"_: ["uUhu5L_lZfPg6poP_JFHog"_ , "nH6Qe_HsB-a8QP-OQw9PhA"_, "12345"_],
+    
+    	"message_key"_: "tenanted.rules.block"_
+    
+    	}
+    
+    ]  
+  
+### Languageâ
+
+**Get the Language matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/language?<id>
+
+| \--| \--| Language as a JSON object| Get the Language matching the given ID  
+**Example****Request**| `/api/language/hpkzmcgu16`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"id"_: "hpkzmcgu16"_ ,
+    
+    	"name"_: "en"_ ,
+    
+    	"title"_: "English"_
+    
+    }  
+  
+**Get a paginated list of Languages**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/language?<pagination parameters>
+
+| \--| Pagination| Paginated list of Languages entries| Get paginated list of languages  
+**Example****Request**| `api/language?limit=10*&offset=0`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"items"_: [{
+    
+    	"id"_: "n88zhbvj09"_,
+    	"name"_: "pt"_,
+    	"title"_: "Portuguese"*
+    
+    	}, {
+    
+    	"id"_: "hpkzmcgu16"_ ,
+    
+    	"name"_: "en"_ ,
+    
+    	"title"_: "English"_
+    
+    	}],
+    
+    	"total"_: 2_ ,
+    
+    	"limit"_: 10_ ,
+    
+    	"offset"_: 0_ ,
+    
+    	"filter"_: null_ ,
+    
+    	"orderBy"_: null_
+    
+    }  
+  
+### Language Messageâ
+
+**Get all the messages for a given language**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/language-message/<language>
+
+| \--| \--| A list of Messages as a JSON object| Get a comprehensive listÂ (not paginated)Â of all the Messages that are available for a given Language.  
+**Example****Request**| `/api/language-mesage/en`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"sla.modalbox.delete.title"_: "Delete SLA"_ ,
+    
+    	"automation.schema.fields.old.merchant_category_code"_: "Old Merchant Category Code"_ ,
+    
+    	"notification.sla.delete.success"_: "The SLA was successfully deleted."_ ,
+    
+    	"reports.createdAt"_: "Created at"_ ,
+    
+    	"alerts.error"_: "Oops! Something went wrong."_ ,
+    
+    	"schema.fields.channel"_: "Channel"_ ,
+    
+    	"menu.search"_: "Search"_ ,
+    
+    	"notification.report-template.create.success"_: "The report template was successfully created."_ ,
+    
+    	"sla.name"_: "Name"_ ,
+    
+    	"customer.phone"_: "Phone"_ ,
+    
+    	"sla.title"_: "SLAs"_ ,
+    
+    	"placeholder.periodicity"_: "Periodicity"_ ,
+    
+    	"automation.schema.fields.score"_: "Score"_ ,
+    
+    	"notification.report.delete.success"_: "The report was successfully deleted."_ ,
+    
+    	...
+    
+    }  
+  
+### Messageâ
+
+**Get the Message matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/message/<id>
+
+| \--| \--| Message as a JSON object| Get the Message matching the given ID  
+**Example****Request**| `/api/message/c44bd161-1152*-4135*-aeb9-a1888d61305b`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"id"_: "c44bd161-1152-4135-aeb9-a1888d61305b"_ ,
+    
+    	"languageId"_: "hpkzmcgu16"_ ,
+    
+    	"key"_: "application.title"_ ,
+    
+    	"translation"_: "Alert Manager"_
+    
+    }  
+  
+**Get a paginated list of Messages**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/message?<pagination parameters>
+
+| \--| Pagination| A paginated list of Messages as a JSON object| Get a paginated list of Messages.  
+**Example****Request**| `/api/message?limit=10*&offset=0*`  
+---|---  
+ **Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"items"_: [{
+    
+    	"id"_: "c44bd161-1152-4135-aeb9-a1888d61305b"_,
+    	"languageId"_: "hpkzmcgu16"_,
+    	"key"_: "application.title"_,
+    	"translation"_: "Alert Manager"*
+    
+    	}, {
+    
+    	"id"_: "c262b6cb-64bb-4993-a3b5-7d23d42f570c"_ ,
+    
+    	"languageId"_: "hpkzmcgu16"_ ,
+    
+    	"key"_: "auth.username"_ ,
+    
+    	"translation"_: "Username"_
+    
+    	}, {
+    
+    	"id"_: "adcc2ec4-23d4-4b8c-bb88-f2647d7d97d3"_ ,
+    
+    	"languageId"_: "hpkzmcgu16"_ ,
+    
+    	"key"_: "auth.password"_ ,
+    
+    	"translation"_: "Password"_
+    
+    	...],
+    
+    	"total"_: 905_ ,
+    
+    	"limit"_: 10_ ,
+    
+    	"offset"_: 0_ ,
+    
+    	"filter"_: null_ ,
+    
+    	"orderBy"_: null_
+    
+    }  
+  
+### Data Entityâ
+
+**Get the Data Entity matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/dataentity/<id>
+
+| \--| \--| Date Entity as a JSON object| Get the Data Entity matching the given ID  
+**Example****Request**| `/api/dataentity/c44bd161-1152*-4135*-aeb9-a1888d61305b`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	id: "660cc24773a642c59df189b480a9397f"_,
+    	name: "merchant"_,
+    
+    	dataSourceId: "d87995524c4c4332a7f91ce6c48a0080"_,
+    	primaryKeyFieldId: "68dd123578f64ec0b03ad9cde21413a1"_,
+    
+    	fields: [{
+    
+    	id: "088358dfbc9d4b2fb858d4c78cbfbe62"_,
+    	name: "name"_,
+    
+    	type: "STRING"_,
+    	source: "FAM_MERCHANT.name"_
+    
+    	}, {
+    
+    	id: "1a6c8b663ecf463e984d24879c4190b5"_,
+    	name: "email"_,
+    
+    	type: "STRING"_,
+    	source: "FAM_MERCHANT.email"_
+    
+    	}, {
+    
+    	id: "68dd123578f64ec0b03ad9cde21413a1"_,
+    	name: "id"_,
+    
+    	type: "STRING"_,
+    	source: "FAM_MERCHANT.id"_
+    
+    	}, {
+    
+    	id: "cee3a2d7066a4c36bd3c109b03087146"_,
+    	name: "city"_,
+    
+    	type: "STRING"_,
+    	source: "FAM_MERCHANT.city"_
+    
+    	}, {
+    
+    	id: "ff42eb8c3b62440e8e1ddf08075f6f98"_,
+    	name: "mcc"_,
+    
+    	type: "STRING"_,
+    	source: "FAM_MERCHANT.mcc"_
+    
+    	}]
+    
+    }  
+  
+**Get a paginated list of Data Entities**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/dataentity?<pagination parameters>
+
+| \--| Pagination| A paginated list of Data Entities as a JSON object| Get a paginated list of Data Entities.  
+**Example****Request**| `/api/dataentity?limit=10*&offset=0*`  
+---|---  
+ **Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"items"_: [{
+    
+    	"id"_: "660cc24773a642c59df189b480a9397f"_,
+    	"name"_: "merchant"_,
+    	"dataSourceId"_: "d87995524c4c4332a7f91ce6c48a0080"_,
+    	"primaryKeyFieldId"_: "68dd123578f64ec0b03ad9cde21413a1"_,
+    	"fields"_: null*
+    
+    	}, {
+    
+    	"id"_: "10000000"_ ,
+    
+    	"name"_: "select-merchant"_ ,
+    
+    	"dataSourceId"_: "d87995524c4c4332a7f91ce6c48a0080"_ ,
+    
+    	"primaryKeyFieldId"_: "10000001"_ ,
+    
+    	"fields"_: null_
+    
+    	}, {
+    
+    	"id"_: "640d33e7576c47cb908fffb37d3d4686"_ ,
+    
+    	"name"_: "customer"_ ,
+    
+    	"dataSourceId"_: "d87995524c4c4332a7f91ce6c48a0080"_ ,
+    
+    	"primaryKeyFieldId"_: "3567acfac11342708b8b9903cb43323c"_ ,
+    
+    	"fields"_: null_
+    
+    	},
+    
+    	...],
+    
+    	"total"_: 10_ ,
+    
+    	"limit"_: 10_ ,
+    
+    	"offset"_: 0_ ,
+    
+    	"filter"_: null_ ,
+    
+    	"orderBy"_: null_
+    
+    }  
+  
+### Data Sourceâ
+
+**Get the Data Source matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/datasource/<id>
+
+| \--| \--| Date Source as a JSON object| Get the Data Source matching the given ID  
+**Example****Request**| `/api/datasource/d87995524c4c4332a7f91ce6c48a0080`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    
+    	"id"_: "d87995524c4c4332a7f91ce6c48a0080"_ ,
+    
+    	"name"_: "DS1"_ ,
+    
+    	"backend"_: "com.feedzai.am.runtime.entity.jdbc.JdbcEntityEngine"_ ,
+    
+    	"properties"_: [],
+    	"fields"_: [{
+    
+    	"id"_: "b0f6b6560af3495480c0ed3aadf0612f"_ ,
+    
+    	"name"_: "uuid"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.uuid"_
+    
+    	}, {
+    
+    	"id"_: "8b0c6735b5ed4e5d9165d196b8878a95"_ ,
+    
+    	"name"_: "timestamp"_ ,
+    
+    	"type"_: "LONG"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.timestamp"_
+    
+    	}, {
+    
+    	"id"_: "c8e15cd2aa3f4e6a8a23ba3be2d25d25"_ ,
+    
+    	"name"_: "fraud"_ ,
+    
+    	"type"_: "BOOLEAN"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.fraud"_
+    
+    	}, {
+    
+    	"id"_: "ae1176b7c163445baa9d06efd96513aa"_ ,
+    
+    	"name"_: "score"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.score"_
+    
+    	}, {
+    
+    	"id"_: "abbdc96a255a45c3b6ac9fc7c62cfd00"_ ,
+    
+    	"name"_: "amount"_ ,
+    
+    	"type"_: "DOUBLE"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.amount"_
+    
+    	}, {
+    
+    	"id"_: "a388038a134rt7e2b6097ddc45c2a451"_ ,
+    
+    	"name"_: "currency"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.currency"_
+    
+    	}, {
+    
+    	"id"_: "9d3a257240b748e3a2fcefeec9f76cc0"_ ,
+    
+    	"name"_: "card_token"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.card_token"_
+    
+    	}, {
+    
+    	"id"_: "ba86b69e25f64f6fbca64558f741049b"_ ,
+    
+    	"name"_: "card_expiration_date"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.card_expiration_date"_
+    
+    	}, {
+    
+    	"id"_: "2dfddaf47efb453e86f9389e262ce760"_ ,
+    
+    	"name"_: "card_bin"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.card_bin"_
+    
+    	}, {
+    
+    	"id"_: "4e70a90269324d0891c7a6831b250c10"_ ,
+    
+    	"name"_: "card_last4"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.card_last4"_
+    
+    	}, {
+    
+    	"id"_: "26c17cbcaa6844f0b9343dee88c154a4"_ ,
+    
+    	"name"_: "card_present"_ ,
+    
+    	"type"_: "BOOLEAN"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.card_present"_
+    
+    	}, {
+    
+    	"id"_: "b705f8851b554afc91d58f8f38d3fb9d"_ ,
+    
+    	"name"_: "channel"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.channel"_
+    
+    	}, {
+    
+    	"id"_: "655887326dd941daa38d1dbce550453c"_ ,
+    
+    	"name"_: "merchant_id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.merchant_id"_
+    
+    	}, {
+    
+    	"id"_: "dc9ddfe1359749f09af5b8b4f7961af7"_ ,
+    
+    	"name"_: "merchant_category_code"_ ,
+    
+    	"type"_: "INTEGER"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.merchant_category_code"_
+    
+    	}, {
+    
+    	"id"_: "34ab13830a04409ca0b92419c07d5c75"_ ,
+    
+    	"name"_: "customer_id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.customer_id"_
+    
+    	}, {
+    
+    	"id"_: "9c6cb2b09b594eef914c8a308369335e"_ ,
+    
+    	"name"_: "terminal_id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "AM_EVENT_STORAGE.terminal_id"_
+    
+    	}, {
+    
+    	"id"_: "68dd123578f64ec0b03ad9cde21413a1"_ ,
+    
+    	"name"_: "id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.id"_
+    
+    	}, {
+    
+    	"id"_: "088358dfbc9d4b2fb858d4c78cbfbe62"_ ,
+    
+    	"name"_: "name"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.name"_
+    
+    	}, {
+    
+    	"id"_: "1a6c8b663ecf463e984d24879c4190b5"_ ,
+    
+    	"name"_: "email"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.email"_
+    
+    	}, {
+    
+    	"id"_: "cee3a2d7066a4c36bd3c109b03087146"_ ,
+    
+    	"name"_: "city"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.city"_
+    
+    	}, {
+    
+    	"id"_: "ff42eb8c3b62440e8e1ddf08075f6f98"_ ,
+    
+    	"name"_: "mcc"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.mcc"_
+    
+    	}, {
+    
+    	"id"_: "10000001"_ ,
+    
+    	"name"_: "value"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.id"_
+    
+    	}, {
+    
+    	"id"_: "10000002"_ ,
+    
+    	"name"_: "label"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MERCHANT.name"_
+    
+    	}, {
+    
+    	"id"_: "3567acfac11342708b8b9903cb43323c"_ ,
+    
+    	"name"_: "id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CUSTOMER.id"_
+    
+    	}, {
+    
+    	"id"_: "f1ebb32fff6e4f70a1c4230e3f941586"_ ,
+    
+    	"name"_: "name"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CUSTOMER.name"_
+    
+    	}, {
+    
+    	"id"_: "29319691ab1147faabf0761a08dea2f7"_ ,
+    
+    	"name"_: "email"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CUSTOMER.email"_
+    
+    	}, {
+    
+    	"id"_: "844f36f35b424dbcbb976220994f9d59"_ ,
+    
+    	"name"_: "city"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CUSTOMER.city"_
+    
+    	}, {
+    
+    	"id"_: "20000001"_ ,
+    
+    	"name"_: "value"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CUSTOMER.id"_
+    
+    	}, {
+    
+    	"id"_: "20000002"_ ,
+    
+    	"name"_: "label"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CUSTOMER.name"_
+    
+    	}, {
+    
+    	"id"_: "c988038a13b947e2b6097ddc45c2a451"_ ,
+    
+    	"name"_: "id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.bin"_
+    
+    	}, {
+    
+    	"id"_: "47fd626004cf4d54944edc4b17f697fe"_ ,
+    
+    	"name"_: "brand"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.brand"_
+    
+    	}, {
+    
+    	"id"_: "c83f843d2d214bccb13f802c16572b82"_ ,
+    
+    	"name"_: "issuer"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.issuer"_
+    
+    	}, {
+    
+    	"id"_: "e34d7a27b15e41f9a86859f30a21b511"_ ,
+    
+    	"name"_: "type"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.type"_
+    
+    	}, {
+    
+    	"id"_: "a28a10e8235840d098387033c664b43f"_ ,
+    
+    	"name"_: "category"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.category"_
+    
+    	}, {
+    
+    	"id"_: "0dd51a83d8ed4289a4b08488edae4c0e"_ ,
+    
+    	"name"_: "country"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.country"_
+    
+    	}, {
+    
+    	"id"_: "312810066f024550a654a3dd2111132e"_ ,
+    
+    	"name"_: "country_a2"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.country_a2"_
+    
+    	}, {
+    
+    	"id"_: "0eb0885770c5409b880cd8249512ce90"_ ,
+    
+    	"name"_: "country_a3"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.country_a3"_
+    
+    	}, {
+    
+    	"id"_: "d3f1a4c6c9984d67bc878a6c419b784c"_ ,
+    
+    	"name"_: "country_iso"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.country_iso"_
+    
+    	}, {
+    
+    	"id"_: "32d1a73ed8b5426eba82a7aeb33a3d2b"_ ,
+    
+    	"name"_: "website"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.issuer_website"_
+    
+    	}, {
+    
+    	"id"_: "b0d4a843a4894d4ea7f85c6c6e7624aa"_ ,
+    
+    	"name"_: "phone"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.issuer_phone"_
+    
+    	}, {
+    
+    	"id"_: "70000001"_ ,
+    
+    	"name"_: "value"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.bin"_
+    
+    	}, {
+    
+    	"id"_: "70000002"_ ,
+    
+    	"name"_: "label"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_BINBASE.issuer"_
+    
+    	}, {
+    
+    	"id"_: "0d0248a888034830a1a5edf4b249fe87"_ ,
+    
+    	"name"_: "id"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MCC.id"_
+    
+    	}, {
+    
+    	"id"_: "e3883892f6a64ce290708da8de73b56f"_ ,
+    
+    	"name"_: "name"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MCC.name"_
+    
+    	}, {
+    
+    	"id"_: "9856f7d052484d7b99153e7d26fd36b8"_ ,
+    
+    	"name"_: "category"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MCC.category"_
+    
+    	}, {
+    
+    	"id"_: "60000001"_ ,
+    
+    	"name"_: "value"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MCC.id"_
+    
+    	}, {
+    
+    	"id"_: "60000002"_ ,
+    
+    	"name"_: "label"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_MCC.name"_
+    
+    	}, {
+    
+    	"id"_: "30000001"_ ,
+    
+    	"name"_: "value"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CHANNEL.id"_
+    
+    	}, {
+    
+    	"id"_: "30000002"_ ,
+    
+    	"name"_: "label"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_CHANNEL.name"_
+    
+    	}, {
+    
+    	"id"_: "50000001"_ ,
+    
+    	"name"_: "value"_ ,
+    
+    	"type"_: "STRING"_ ,
+    
+    	"source"_: "FAM_TERMINAL.id"_
+    
+    	}]
+    
+    }  
+  
+**Get a paginated list of Data Sources**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/datasource?<pagination parameters>
+
+| \--| Pagination| A paginated list of Data Sources as a JSON object| Get a paginated list of Data Sources.  
+**Example****Request**| `api/datasource?limit=10*&offset=0*`  
+---|---  
+ **Response**|  HTTP 200Â 
+    
+    
+    	{
+    
+    	"items"_: [{
+    
+    	"id"_: "d87995524c4c4332a7f91ce6c48a0080"_,
+    	"name"_: "DS1"_,
+    	"backend"_: "com.feedzai.am.runtime.entity.jdbc.JdbcEntityEngine"_,
+    	"properties"_: null*,
+    
+    	"fields"_: null_
+    
+    	}],
+    
+    	"total"_: 1_ ,
+    
+    	"limit"_: 10_ ,
+    
+    	"offset"_: 0_ ,
+    
+    	"filter"_: null_ ,
+    
+    	"orderBy"_: null_
+    
+    	}

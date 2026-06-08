@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3918
+Title: HSBC-3918 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3918
+
+### Fix mismatch in field formats in Cardsâ
+
+Bug FixFTMT-34154HSBC-3918
+
+Also In:2.11.1
+
+We've fixed a mismatch in the Cards API and Workflow schemas where the following fields had a different data type from the requirement.
+
+**Field Name**| **Previous Datatype**| **New Datatype**  
+---|---|---  
+user_amount| Double| List<Double>  
+user_indicator| String| List<String>  
+user_string| String| List<String>  
+  
+The field types have been corrected in the API specification, Cards and Cards + Outcomes schemas, and database.
+
+##### warning
+
+The database columns corresponding to the updated fields will be dropped during the deployment pipeline. Until the deployment completes and the column is re-added, any Cards events that contain these fields will fail to be stored in event storage and won't be recovered.

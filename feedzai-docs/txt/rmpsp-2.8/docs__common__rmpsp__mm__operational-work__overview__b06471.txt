@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview
+Title: Operational Work | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Operational Work
+
+
+
+# Operational Work
+
+### [Data Scientist & Fraud Strategist](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/overview)
+
+### [Fraud Prevention Agent](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+
+### [Fraud Prevention Manager](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview)
+
+### [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)

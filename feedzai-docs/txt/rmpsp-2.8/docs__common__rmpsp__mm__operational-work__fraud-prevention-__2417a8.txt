@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview
+Title: Fraud Prevention Manager | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * Fraud Prevention Manager
+
+
+
+# Fraud Prevention Manager
+
+### [Case Manager for Fraud Prevention ManagersLearn how to create reasons or queues using Case Manager.](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/case-manager/overview)
+
+### [Analytics Dashboards GuideView real-time insights on merchant portfolio and temporal trends.](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/analytics-dashboards-guide)

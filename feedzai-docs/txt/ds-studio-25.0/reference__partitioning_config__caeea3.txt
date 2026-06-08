@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/partitioning_config/
+Title: partitioning_config - DS API
+============================================================
+
+#  `` partitioning_config Â¶  
+  
+##  `` PartitioningConfig Â¶
+    
+    
+    PartitioningConfig(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.JavaWrapper\)")`
+
+Representing a Partitioning configuration.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    

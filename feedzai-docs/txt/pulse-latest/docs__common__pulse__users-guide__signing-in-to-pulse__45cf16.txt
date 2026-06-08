@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse
+Title: About Signing in to Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Signing in to Pulse
+  * About Signing in to Pulse
+
+
+
+On this page
+
+# About Signing in to Pulse
+
+Was this page helpful?Â 
+
+Pulse provides a default sign in form in which you can enter your Username and Password to start a Pulse session. This Username and Password are associated with a Pulse User account that can be configured with a number of settings such as Pulse Groups, Pulse Roles, Tenants, among others.
+
+There are two key functionalities in Pulse that impact the sign in process namely:
+
+  * **Two-Factor Authentication** (2FA): Users are requested to sign in with two pieces of information to verify user identity. In this case, the user is prompted with a sign in form to enter its credentials (i.e. user account and password), followed by a second separate step in which the user has to provide a security code.
+  * **Single Sign-On** (**SSO**): Users are created in Pulse by the concept of user provisioning and the sign in process include two different scenarios: Sign in initiated via an Identity Provider and Sign in initiated via a Service Provider.
+
+
+
+## Learn Moreâ
+
+Learn more about User sign in with **2FA** :
+
+  * [Signing in with Two-Factor Authentication](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-two-factor)
+
+
+
+Learn more about User sign in with **SSO** :
+
+  * [Signing in with Single Sign-On](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on)
+
+

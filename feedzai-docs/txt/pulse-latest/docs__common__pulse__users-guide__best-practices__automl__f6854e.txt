@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/best-practices/automl/
+Title: AutoML Best Practices | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Best Practices
+  * AutoML
+
+
+
+# AutoML Best Practices
+
+Was this page helpful?Â 
+
+Throughout the pages of this chapter, you will find some good practices for each stage of the AutoML process:
+
+  1. Feature engineering
+     1. Data source split
+  2. Feature selection
+  3. Training and evaluation
+     1. Hyper-parameter tuning
+     2. Model selection
+
+
+
+As a general rule, a full AutoML usage (going through all three stages in one go) is preferable when you want to build your first model. In this case, AutoML serves as a kickstart to your data science loop.
+
+When looking at AutoML as a whole, always try to run it first with a very aggressive sample of your data. The model results wonât be useful for any deployment, but you will be able to âbenchmarkâ how much time the tasks take. More importantly, you will be able to understand if your job profiles are configured correctly for this task: if using a random sample of 1% of your data only works with 1 GB of memory per executor to run, then the full data is expected to take at most 100 GB to run safely.
+
+From the user perspective, most of the effort should be put into creating a good semantic file. Analyze your data, understand data skewness and relationships between variables. With that in mind you can avoid downstream issues in AutoML.

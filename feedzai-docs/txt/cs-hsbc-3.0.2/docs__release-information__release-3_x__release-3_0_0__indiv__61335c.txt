@@ -1,0 +1,20 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4152
+Title: HSBC-4152 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4152
+
+### Add Session ID column to Transaction History and Search Pagesâ
+
+FeatureFTMT-34971HSBC-4152
+
+We've added the `Session ID` column (mapped to `session_id) in the following pages:
+
+  * Event Search Page: Transfers tab, between `Beneficiary Account` and `Assignee`
+  * Alerts Page: Transfers tab, between `Beneficiary Account` and `Assignee`
+  * Event Details Transaction History: Transfers tab, between `Device ID` and `Assignee`
+  * Customer Details Transaction History: Transfers tab, between `Beneficiary Account` and `Assignee`
+
+

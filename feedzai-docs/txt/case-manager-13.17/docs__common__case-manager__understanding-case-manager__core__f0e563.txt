@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reasons
+Title: Reasons | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Reasons
+
+
+
+On this page
+
+# Reasons
+
+When you classify an alert, you can select theÂ reasonÂ behind your decision.
+
+TheseÂ reasonsÂ are displayed in several locations such as theÂ alert header or the activity log. This helps analysts to quickly understand why an alert was classified with a specific state.
+
+Note that each action (i.e. state) has a different set of reasons.Â Learn more about [states](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/states-and-outcomes).
+
+## Learn moreÂ â
+
+Now that you understand what reasons are, learn how to use them when [acting on alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts).
+
+In addition, depending on your user's permissions, you can [manage the reasons](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reasons) used by analysts when classifying alerts.

@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/requirements-refdata
+Title: Requirements | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Requirements
+
+## Service Requirementsâ
+
+This service requires the following software to run.
+
+### Java Environmentâ
+
+OpenJDK SE Development Kit version 1.8, with the following vendors (with their latest hotfix versions):
+
+  * Azul Zulu [rpm](https://maven.feedzai.com/repository/hsbc-releases/azul/zulu/8.68.0.21-ca-jdk8.0.362/zulu-8.68.0.21-ca-jdk8.0.362-linux.x86_64.rpm) [zip](https://maven.feedzai.com/repository/hsbc-releases/azul/zulu/8.68.0.21-ca-jdk8.0.362/zulu-8.68.0.21-ca-jdk8.0.362-linux.x86_64.zip) [tar.gz](https://maven.feedzai.com/repository/hsbc-releases/azul/zulu/8.68.0.21-ca-jdk8.0.362/zulu-8.68.0.21-ca-jdk8.0.362-linux.x86_64.tar.gz)
+  * Azul Platform Prime (formerly Zing)
+  * Amazon Corretto
+  * Oracle
+
+
+
+##### tip
+
+Product tests are done with the **Azul Zulu JVM**.
+
+The following versions are not supported, and are known to have problems:
+
+  * 1.8.0u242
+  * 1.8.0u121
+  * 1.8.0u60
+  * 1.8.0u45 and earlier
+
+
+
+Non-listed releases are either not supported or haven't been put to extensive testing.
+
+## Setup Requirementsâ
+
+### Databaseâ
+
+The Reference Data Service is a service responsible for storing reference data that belongs to individual entities (e.g. Merchant, Customer, etc). The type of storage that betters suits this use-case are _key-value_ stores.
+
+The following systems are supported:
+
+  * Apache Cassandra 4.1 or higher - version 4.1.10 is the recommended version, and [DSE](https://www.datastax.com/) 6.8 is also supported
+
+
+
+#### Cassandraâ
+
+When using Cassandra, RDS will also automatically create the entities tables, considering the following:
+
+  1. A Cassandra cluster is available, and working properly. To connect to Cassandra, you must define the contact points in `cassandra.contactPoints` (for example, `cassandra-1,cassandra-2`).
+  2. A user has been created for RDS with the following permissions:
+
+
+  * Create a Keyspace
+  * Create tables
+  * Modify (Insert, Delete, Update, Truncate)
+  * Select
+
+
+
+The credentials of the user must be configured in `cassandra.user|password`.

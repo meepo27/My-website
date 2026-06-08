@@ -1,0 +1,87 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/managing-the-project-life-cycle
+Title: Managing the project life cycle | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/)
+  * Managing the project life cycle
+
+
+
+On this page
+
+# Managing the project life cycle
+
+Was this page helpful?Â 
+
+## Whyâ
+
+When you finally deploy your project into Production, it marks the end of a cycle in your application. However, projects are not static and, most likely, require periodic maintenance and upgrading.
+
+It is common that you receive recent and better data from your client, for example including human feedback with the final classification for transactions that Pulse original sent for review. Therefore, quickly closing the feedback loop is what allows your project to be up-to-date with how your business evolves, without falling behind due to cumbersome modeling, training, deployment and upgrading procedures.
+
+You must be aware of the actions you need to undertake to upgrade your Pulse application, from Data Science stages to redeploying that work in your [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows), without breaking it or having to start from scratch.
+
+How Pulse projects work
+
+Make sure you fully understand [how Pulse projects work](/pulse/latest/docs/common/pulse/users-guide/how-pulse-projects-work) when you maintain and update your applications.
+
+## How toâ
+
+### Consuming new data and deploying new Modelsâ
+
+When you need to take new data into account, you must repeat some of the Data Science tasks you have already completed before training your **Model** for the first time. Re-deploying the **Model** is also accomplished via the same procedure.
+
+Consuming new data
+
+The core of this task is to go through a new iteration of your [Data Science loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop) and retrain your Machine Learning **Model** before you configure it in a **Scoring Service** in your **Workflow**.
+
+Retraining Models
+
+Pulse lets you push your new data through the exact same analysis and transformation pipeline you used when first training the current **Model**.
+
+So if you only need to retrain a **Model** , with the exact same configuration as the current one, you can directly reuse the Data Science **Plans** you used before.
+
+Nevertheless, when analyzing the new data you may come to the conclusion that you need to reengineer your features or configure the **Model** with different parameters.
+
+In this case, although it may be more complex as you need to create new **Plans** and evaluate new **Model** configurations, the process includes no additional/different tasks to the ones you first executed for the current **Model**.
+
+To retrain your Machine Learning [Model](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) with improved/more recent data and deploy the new **Model** to Production, execute the following actions:
+
+  1. Run your new data through the same Data Science pipeline you have used before. This includes configuring [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and transformations with [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans).
+     1. [Clean and load your new data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data) to create a new **Data Source** and obtain a high-quality dataset that adheres to your project's schema and requirements.
+     2. [Understand and process your new data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data) to [analyze and sample it](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data), and [engineer your features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) to generate a dataset that you can use to retrain your **Model**.
+     3. Optionally, compute extra information and new features for your [features/instances dataset](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/generating-instance-features-dataset).
+  2. [Build and evaluate a new Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model).
+     1. [Train a new Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model) within your Model Project. In alternative, you can start a new **Model Project**.
+     2. [Evaluate the new Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model).
+     3. [Compare your new Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models) with the current one to assess your performance with the new data.
+     4. [Adjust the Model parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters) and repeat the process until your reach your goal.
+  3. Deploy the new **Model** in your **Workflow** . [Edit an existing or configure a new Scoring Service](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models) . Specify the new **Model** , and if applicable, specify a new **Model Project** .
+
+
+
+### Deploying new Rules��â
+
+Adding new **Rules** or editing existing ones and taking them to Production is accomplished by going through some of the same tasks you have already completed when building and deploying your **Rules** for the first time.
+
+Rules Snapshot
+
+The core of this task is to create a new **Rules Snapshot** and configure it in a **Rules Service** in your **Workflow**.
+
+To add a new [Rule](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) to your project, or adjust an existing one, and redeploy it to Production, execute the following actions:
+
+  1. [Build and evaluate your new Rule](/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/building-and-evaluating-a-rule).
+     1. [Define/Edit a Rule.](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules) In alternative, you can start a new **Rules Project**.
+     2. Create a new **Rule Snapshot** that includes the new **Rule** and new configurations you may have added, such as **Templates** and **Environment** code.
+     3. Optionally, [evaluate the Rule](/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/building-and-evaluating-a-rule).
+     4. Repeat the procedure if you need to further adjust and re-evaluate the **Rule** within the rule block.
+  2. Deploy the new **Rule** in your **Workflow**.
+     1. In your [runtime Workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow), [configure a new Outcome](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/configuring-outcomes) if the new **Rule** contributes to a different decision than the ones already configured.
+     2. [Edit an existing or configure a new Rules Service](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules). Specify the new **Rule Snapshot** that includes your new **Rule** , and if applicable, specify a new **Rules Project**.
+
+
+
+## Next Stepsâ
+
+Your deployment is now complete. However, when you need to perform maintenance and update tasks to your Pulse applications revisit the relevant sections of this [User Guide](/pulse/latest/docs/common/pulse/users-guide).

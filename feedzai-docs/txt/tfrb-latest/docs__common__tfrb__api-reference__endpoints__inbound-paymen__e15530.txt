@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/inbound-payments
+Title: Inbound Payments | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * Inbound PaymentsÂ 
+
+
+
+# Inbound Payments
+
+Was this page helpful?Â 
+
+The Inbound Payments API provides various endpoints to allow you to send information during the whole inbound transfer's life cycle. You can send data related to inbound transfer initiation, inbound transfer updates, inbound settlements, and fraud feedback actions, corresponding to API requests to the Inbound Transfer Initiation, Info, Settlement and Feedback endpoints, respectively.
+
+## [ðï¸ SettlementThe Settlement endpoint allows you to inform Feedzai when a inbound transfer is settled.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-inbound-transfer-settlement)## [ðï¸ Inbound Transfer initiationThe Inbound Transfer Initiation endpoint allows you to leverage Feedzai's data science capabilities to score a transaction according to its risk.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-initiation)## [ðï¸ InboundTransferThe Inbound Transfer Endpoint allows you to retrieve a transfer previously sent to Feedzai.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-inbound-transfers)## [ðï¸ Scorable InfoThe Inbound Transfer Scorable Info endpoint allows you to leverage Feedzai's data science capabilities to score a transaction according to its risk.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-info)## [ðï¸ InfoThe Inbound Transfer Info endpoint enables you to update and add new information to an existing inbound transfer.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-inbound-transfer-info)## [ðï¸ FeedbackThe Feedback endpoint allows you to label inbound transfers, for instance, as 'Fraud' or 'Not Fraud'. The labeling of an event is highly recommended since it gives feedback so that Feedzai's risk engine can learn and consolidate fraud patterns](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-inbound-transfer-feedback)

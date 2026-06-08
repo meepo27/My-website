@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-search-fragment-tags
+Title: Searching | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Entity Tagging](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/entity-tagging)
+  * Searching
+
+
+
+Was this page helpful?Â 
+
+# Searching
+    
+    
+    POST 
+    
+    ## /api/entitytagging/fragments/:fragmentType/tags/search
+
+The Search Fragment Tag endpoint allows you to search for tags of a fragment.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 400
+  * 401
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+Bad Request
+
+Unauthorized
+
+The system encountered an unexpected internal error.

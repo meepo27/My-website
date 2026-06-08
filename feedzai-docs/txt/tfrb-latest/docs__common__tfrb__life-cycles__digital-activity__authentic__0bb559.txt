@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/authentication
+Title: Authentication Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * Authentication Endpoint
+
+
+
+On this page
+
+# Authentication Endpoint
+
+Was this page helpful?Â 
+
+The Digital Activity's Authentication endpoint leverages the customers' authentication or login change attempts via homebanking or mobile app.
+
+The following image shows the Authentication endpoint's end-to-end process. Note that it applies to a simplified processing model.
+
+  1. The customer makes a login attempt in the banking system, through the mobile app for instance.
+  2. The issuer bank invokes Feedzai's Authentication endpoint.
+  3. Feedzai conducts real-time data analysis and makes a decision on whether to approve, decline or challenge the authentication event.
+  4. The customer's bank makes an automated decision based on Feedzai's recommendation.
+  5. The customer is or isn't allowed to authenticate.
+
+
+
+## Learn moreâ
+
+Read the [Card Issuing Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/card-issuing) page to continue learning about the endpoints' life cycles.

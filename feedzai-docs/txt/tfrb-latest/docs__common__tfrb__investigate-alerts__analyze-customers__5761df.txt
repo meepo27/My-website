@@ -1,0 +1,107 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/analyze-customers
+Title: Analyze Customers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Analyze Customers
+
+
+
+On this page
+
+# Analyze Customers
+
+Was this page helpful?Â 
+
+While reviewing alerts, you may want to investigate a specific customer to understand their behavior so that you can better support your decision.
+
+This page explains the available customer widgets and how they can help you to act on alerts.
+
+## Access Customer Details pageâ
+
+You can access the Customer Details page via the **Event Search** page, **Fraud Alerts** page and **Search by Customer** page.
+
+The following animation shows how you can access the Customer Details page from the Event Search, Fraud Alerts and Search by Customer pages.
+
+## Header and Customer Insightsâ
+
+The header displays general information about the customer, such as risk rating, name and total balance. From here, fraud analysts can easily understand the customer's risk (e.g. when approving a loan or increasing the limit of a card). Additionally, they can add notes and/or upload any files that may be relevant (e.g. for other investigations involving this customer or auditing procedures), as well as [create an ad-hoc customer investigation](/tfrb/latest/docs/common/tfrb/investigate-alerts/create-ad-hoc-investigation) to log intelligence gathered from investigations outside the usual event flow.
+
+You can also collapse or expand the **Customer Insights for the Last 30 Days** section to preview additional details on customer behavior, which combined with other information from the event being investigated helps detect fraud patterns more easily. The insights section displays the customer's historical information regarding accounts, cards, transactions and corresponding amounts, etc. over the last 30 days.
+
+## Customer Detailsâ
+
+This widget displays general information about the customer, such as location, contact, and business-related details.
+
+## Rules Triggered by Location and Deviceâ
+
+To support the investigation, this widget lists the rules triggered by behaviors associated with the customer's location and device.
+
+Imagine a scenario where a fraudster acquires the customer's card credentials. They then use a VPN with an IP address resolving to New York to perform one test transaction, followed by four larger transactions within 45 minutes.
+
+In this scenario, the system calculates the distance between the last two known transaction IP locations (New York and Paris) and triggers a rule advising fraud analysts to decline transactions due to the distance between the previous and current IP location in the last hour being higher than 1000.0 km.
+
+Check the full list of [standard rules](/tfrb/latest/docs/common/tfrb/rules-projects/overview) to search for other explanations, and different [fraud scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview) to better understand how rules help prevent them.
+
+## Customer Portfolioâ
+
+This widget displays the different accounts and cards associated with the customer. It provides a baseline to understand the customer's behavior by allowing you to quickly check for the:
+
+  * **Status** of all of the customer's accounts and cards.
+  * **Current Balance** of each account and card.
+  * **Transaction limits** of each account and card.
+  * **Type of each card** (e.g. prepaid, debit).
+
+
+
+You can also select **Details** to get additional information on each account's credit limit, holders and related cards, as well as each card's issuer bank and credit limit.
+
+While [analyzing events](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview), this widget helps uncover fraudulent behavior such as:
+
+Fraud evidence| Example details  
+---|---  
+Unusually high transaction amount| The transaction amount represents over 50% of the account's current balance.  
+Dormant account takeover| A prepaid card is associated with one of the customer's dormant accounts and a transfer of 20% of the funds are immediately transferred to the prepaid card.  
+  
+tip
+
+On top of the information available on the **Customer Portfolio** widget, you can refer to your internal banking system to get additional details on the customer's accounts/cards and crosscheck it with the information available in Case Manager.
+
+## Transaction Historyâ
+
+This widget displays all the transactions involving the customer. This places alerts in a more general picture and allows you to act upon them more efficiently.
+
+Similar to what happens in the Event page, you can perform several actions such as exporting, acting on transactions, or managing how the list is displayed to fit your preference.
+
+## Notesâ
+
+While investigating customers, you may need to document any steps taken during your investigation to share them with other analysts that may look into a customer. Notes are also useful when escalating alerts to other analysts.
+
+This widget displays the existing notes regarding a customer and also allows you to **Add Notes**.
+
+## Attached Filesâ
+
+Similar to notes, you may need to add files to support the investigation. This can be done by selecting **Upload Files** either on the widget or the page's header.
+
+Files may be useful for subsequent investigation steps, legal action, or auditing. This widget also provides a convenient storage for any information that is not currently represented or supported by Case Manager's interface.
+
+On top of uploading files, from this widget you can also **Download** , **Update** or **Delete** any of the available files.
+
+## Activity Logâ
+
+This widget displays the different actions performed in the customer page, namely regarding attached files, notes, and updates to lists.
+
+## Registered and Mailing Addressâ
+
+These widgets display detailed information about the customer's primary legal address (i.e. registered address) and the preferred address for receiving mail (i.e. mailing address).
+
+## Related Partiesâ
+
+This widget provides an overview of all individuals or entities associated with the customer under review. It helps uncover hidden connections and/or potential fraudulent networks by displaying and scoring each related party based on connected attributes.
+
+## Next stepsâ
+
+Now that you understand how to analyze customers, you can return to [reviewing alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/select-and-analyze-events) or continue your investigation with [Genome](/tfrb/latest/docs/common/tfrb/investigate-alerts/uncover-patterns-with-genome).

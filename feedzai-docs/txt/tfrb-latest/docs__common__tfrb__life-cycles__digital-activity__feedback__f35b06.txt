@@ -1,0 +1,48 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/feedback
+Title: Feedback Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * Feedback Endpoint
+
+
+
+On this page
+
+# Feedback Endpoint
+
+Was this page helpful?Â 
+
+The Digital Activity's Feedback endpoint allows you to label digital activity events as "Fraud" or "Not Fraud". The labeling of an event is highly recommended, as Feedzai's risk engine can learn from it and consolidate fraud patterns.
+
+Consider the following diagram, which shows the **Feedback** endpoint's end-to-end process in an Account Update event.
+
+  1. The user attempts to make changes to their account, e.g., change account limit.
+
+  2. The issuer bank invokes Feedzai's Account Update endpoint.
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities have a match in the Reference Data Storage.
+
+data precedence in reference data storage
+
+Note that any new data from account update events will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  3. Feedzai conducts real-time data analysis and makes a decision on whether to approve, decline or challenge the account change event.
+
+  4. The customer's bank makes an automated decision based on Feedzai's recommendation.
+
+At this point, the bank can use the **Feedback** endpoint to send its final decision to Feedzai, using the account update event's `lifecycle_id`. This is highly recommended as Feedzai can use the bank's feedback to train its models and provide more accurate decisions in the future.
+
+  5. The customer is or isn't allowed to change their account.
+
+
+
+
+## Learn moreâ
+
+Now that you understand each endpoint's life cycle, take a look at Digital Activity's [API](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/digital-activity) documentation to have a complete overview of each endpoint's schema and respective fields.

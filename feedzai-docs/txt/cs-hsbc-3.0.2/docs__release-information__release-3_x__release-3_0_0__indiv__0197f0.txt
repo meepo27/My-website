@@ -1,0 +1,89 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4259
+Title: HSBC-4259 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4259
+
+### Upgrade Pulse to version 25.1.9â
+
+We've upgraded Pulse to version 25.1.9.
+
+This upgrade include the following changes:
+
+HSBC-3866
+
+Bug FixHSBC-3866
+
+Also In:2.11.2
+
+Fixes an issue where SMJs did not retrieve values from the secondary channel when different event storages were configured.
+
+HSBC-3998
+
+Bug FixHSBC-3998
+
+Also In:2.11.2
+
+Fixes an issue where SMJs did not retrieve values from the secondary channel when the workflow partition keys are incompatible or the second channel has a different number of partitions.
+
+This upgrade also adds new monitoring metrics. For more information, please consult [Workflow Validation metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#workflow-validation), [App Lifecycle Operations metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#app-lifecycle-operations), and [Pulse Publish metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#pulse-publish).
+
+HSBC-4156
+
+FeatureHSBC-4156
+
+Also In:2.11.2
+
+Includes additional logging to help identify the root cause of an error that occurs when deleting datasources in the Data Science environment.
+
+For these logs to be available, the following classes must be set to the `DEBUG` level:
+
+  * com.feedzai.pulse.service.apps.manager.datascience.AppDataScienceDataSourceManagerImpl
+  * com.feedzai.pulse.service.apps.manager.AbstractModelManager
+  * com.feedzai.pulse.service.apps.manager.AppSchemaManagerImpl
+
+
+
+This can be done during deployment by using the `pulse_loggers` Ansible variable.
+
+##### warning
+
+After replicating the issue with the above log levels enabled, the loggers should be disabled to avoid excessive logging.
+
+FTMT-26214 / HSBC-4218
+
+FeatureFTMT-26214HSBC-4218
+
+Also In:2.11.2
+
+Includes extended support for real-time cross-channel metrics. Cross-channel metrics now have a messaging-based implementation which adds support for partitioned PKernel and workflow partitioning. The new implementation can be enabled by setting the following Ansible variable to `false`:
+
+  * `cross_channel_metrics_rmi_based_lookup` (default: `true`)
+
+
+
+Please check [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more information.
+
+HSBC-4259
+
+FeatureHSBC-4259
+
+Also In:2.11.2
+
+Upgrades pac4j from version `4.5.7` to `4.5.9` to address critical CVE-2026-29000.
+
+FTMT-27426 / HSBC-4126
+
+FeatureFTMT-27426HSBC-4126
+
+Pulse now supports RabbitMQ `4.2`. As part of this upgrade, it is now possible to configure Pulse to use RabbitMQ `QUORUM` queues.
+
+This is configurable using the `rabbitmq_queue_type` Ansible variable. To ensure backwards compatibility, the default value of the variable is `CLASSIC`.
+
+For more information please refer to the [Pulse Configuration Page](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+##### note
+
+Although classic queues are still supported in RabbitMQ 4.2 please note they aren't mirrored which removes high availability. The default value is only meant as an upgrade point from 3.X versions.

@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/tfp-lists
+Title: Lists | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Lists
+
+
+
+# Lists
+
+Name| Description  
+---|---  
+PosNeg Listed Countries| PosNeg List for country codes managed by the Landlord.  
+PosNeg Listed Cards| PosNeg List for cards by card_id managed by the Landlord.  
+PosNeg Terminal IP|  PosNeg List for terminal IP by terminal_ip   
+aml_high_risk_countries|  High-Risk Countries that must be monitored by AML rules  
+By Merchant Tenanted Listed PosNeg Shipping Address| List of PosNeg Listed Shipping Addresses per tenant that is managed by the Merchant.  
+By Merchant Tenanted PosNeg Listed Card BIN| List of PosNeg Listed Card BIN per tenant that is managed by the Merchant.  
+By Merchant Tenanted PosNeg Listed Card Country| List of PosNeg Listed Card Countries per tenant that is managed by the Merchant.  
+By Merchant Tenanted PosNeg Listed Cards| List of PosNeg Listed Cards per tenant that is managed by the Merchant  
+By Merchant Tenanted PosNeg Listed Customer Email| List of PosNeg Listed Customer Emails per tenant that is managed by the Merchant.   
+By Merchant Tenanted PosNeg Listed Device IP| List of PosNeg Listed Device IPs per tenant that is managed by the Merchant.  
+By Merchant Tenanted PosNeg Listed Devices| List of PosNeg Listed Device IDs per tenant that is managed by the Merchant  
+By Merchant Tenanted PosNeg Listed Terminals| List of PosNeg Listed Terminals per tenant that is managed by the Merchant  
+Card Testing MCC| List of MCCs used on carding/card testing fraud scenarios  
+Global Default - Rules Thresholds| Default thresholds used in rules regardless of the Merchant ID  
+Listed Merchants - International Payments| List os MIDs that are limited to accept international card payments  
+MCC Limits| List of daily amount limits per MCC and MID  
+Merchant ID BIN Attacks| Merchant IDs to be excluded from 'Bin Attack' Rule  
+Merchant Risk Levels - Rules Thresholds| Different thresholds per Merchant Risk Level  
+Tenanted PosNeg Listed Customer Email| List of PosNeg Listed Customer Emails per tenant that is managed by the Landlord  
+Tenanted Rules Thresholds| List of rules thresholds per tenant (Merchant ID) managed by the Landlord.  
+Tenanted PosNeg Listed Card Country| List of PosNeg Listed Card Countries per tenant that is managed by the Landlord  
+Tenanted PosNeg Listed Device IP| List of PosNeg Listed Device IPs per tenant that is managed by the Landlord  
+Tenanted PosNeg Listed Devices| List of PosNeg Listed Device IDs per tenant that is managed by the Landlord  
+Tenanted PosNeg Listed Terminals| List of PosNeg Listed Terminals per tenant that is managed by the Landlord  
+Tenanted Listed PosNeg Shipping Address| List of PosNeg Listed Shipping Addresses per tenant that is managed by the Landlord  
+Tenanted PosNeg Listed Card BIN| List of PosNeg Listed Card BIN per tenant that is managed by the Landlord  
+Tenanted PosNeg Listed Cards| List of PosNeg Listed Cards per tenant that is managed by the Landlord  
+PosNeg Listed Customer Email|  PosNeg List for Customer Emails managed by the Landlord.  
+PosNeg Listed Device IP|  PosNeg List for device IP by device_ip managed by the Landlord.   
+PosNeg Listed Ship Addr ZIP| PosNeg List for shipping address zip codes managed by the Landlord.  
+PosNeg Listed Card BIN|  PosNeg List for Card BIN managed by the Landlord.   
+PosNeg Listed Card Country| PosNeg List for Card Country codes managed by the Landlord.  
+PosNeg Listed Devices| PosNeg List for Devices managed by the Landlord.  
+PosNeg Listed Merchants| PosNeg List for Merchant IDs managed by the Landlord.  
+PosNeg Listed Shipping Address| PosNeg List of Shipping Address managed by the Landlord.  
+PosNeg Listed Terminals| PosNeg List for Terminal IDs managed by the Landlord.  
+Restricted MCC per BIN| List of all restricted MCCs for a specific BIN  
+Dummy IPs| List of dummy IP addresses to be excluded from the Device IP rules  
+By Merchant Tenanted Country Thresholds|   
+Global Negative listed MCCs| List of Negative listed MCCs

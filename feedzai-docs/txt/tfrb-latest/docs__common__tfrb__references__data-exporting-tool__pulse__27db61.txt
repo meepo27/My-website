@@ -1,0 +1,26 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-listitems
+Title: Pulse Audit - List Items | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Pulse Audit
+  * Pulse Audit - List Items
+
+
+
+# Pulse Audit - List Items
+
+Was this page helpful?Â 
+
+The **Pulse Audit - List Items** entity stores all audit events for Lists Items. For every action in Pulse related to List Items, this entity captures the audit trail.
+
+It comprises the [Pulse Audit - Base Schema](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-base) and the following fields:
+
+Name| Type| Description| Example  
+---|---|---|---  
+`audit_payload`| row| The audit payload associated with the list items action.|   
+âââ`app_name`| string| |   
+âââ`list_name`| string| |   
+âââ`context`| string| | 

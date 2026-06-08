@@ -1,0 +1,36 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/cleanup-configuration
+Title: Configuration Recommendations | Feedzai Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+Please find below the complete configuration reference for the Pulse Application (`PAPP`) cleanup pipeline.
+
+### Ansibleâ
+
+##### note
+
+Available ansible variables for running the Ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+ansible_user| feedzai| User for ansible execution  
+ansible_local_user| {{ ansible_user }}| User that will be the owner of the unpacked Pulse assembly, should be the same as `ansible_user`  
+cleanup_pulse_install_path| "/opt/feedzai"| Cleanup install path  
+cleanup_pulse_home_path| "{{ cleanup_pulse_install_path }}/{{ cleanup_pulse_home_prefix }}{{ project_version }}""| Cleanup home path  
+cleanup_database_pulse_metadata_hostname| "postgres"| Postgres Cleanup Metadata host name  
+cleanup_database_pulse_metadata_port| "5432"| Postgres Cleanup Metadata port  
+cleanup_database_pulse_metadata_database_name| "feedzai"| Postgres Cleanup Metadata Database name  
+cleanup_database_pulse_metadata_jdbc| "jdbc:postgresql://{{ cleanup_database_pulse_metadata_hostname }}:{{ cleanup_database_pulse_metadata_port }}/{{ cleanup_database_pulse_metadata_database_name }}?{{ cleanup_database_pulse_metadata_jdbc_opts | join('&') }}"| Cleanup JDBC for metadata which should be the same metadata DB as Pulse.  
+cleanup_database_pulse_metadata_username| "pulse"| Pulse Metadata username  
+cleanup_database_pulse_metadata_password| "secret"| Pulse Metadata password  
+cleanup_database_pulse_metadata_schema| "pulse"| Pulse Metadata schema  
+whitelist_by_name| | List of schemas names to keep.  
+keep_ui_schemas| | `true` to keep all schemas that show on the UI, `false` otherwise.  
+cleanup_last_days| 3| Number of days to retain. For example, if set to 30, resources that were not updated in the last 30 days are eligible for cleanup.  
+cleanup_recent| 5| Number of most recent resources to keep.  
+cleanup_apps| cleanup_apps:   
+Â Â \- uk_outbound_payments| Applications to cleanup.  
+cleanup_pulse_commands_contexts| | Controls which cleanup patches will run. Possible values are `cleanup-schemas`, `cleanup-rule-snapshots`, `cleanup-plan-executions`, `cleanup-workflow` and multiple can be provided separated by comma.

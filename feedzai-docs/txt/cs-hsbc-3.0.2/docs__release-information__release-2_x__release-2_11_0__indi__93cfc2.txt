@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3754
+Title: HSBC-3754 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3754
+
+### Fix issue with Pulse's Alert Storage Service not forwarding messages to Case Managerâ
+
+Bug FixHSBC-3754
+
+We've fixed an issue that could occur with Pulse not forwarding messages to Case Manager when there was both a RabbitMQ connection loss forcing Pulse's Alert Storage Service to reconnect to RabbitMQ, and a manual Pulse UI configuration reload.

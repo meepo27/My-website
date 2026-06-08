@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/release-information/upgrading-guides/upgrading-guide-overview
+Title: Upgrading Guide | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Upgrading Guide
+
+
+
+On this page
+
+# Upgrading Guide
+
+Before doing any upgrades, check the [Compatibility Matrix](https://documentation.feedzai.com/compatibility-matrix/compatibility-matrix/) to find out which components of your system may also require upgrading.
+
+danger
+
+Before upgrading Case Manager to a new version, make sure that you update to Pulse and Case Manager's latest hotfixes. For example, if you want to update to CM 8.1, and you are using Pulse 20.0.2 and Case Manager 8.0.2, you must update to the latest Pulse 20.0 and Case Manager 8.0 hotfixes before upgrading to CM 8.1.
+
+## How to upgrade Case Managerâ
+
+Zero-Downtime Deployments
+
+Case Manager does not (yet) supports zero-downtime deployments.
+
+To avoid loss of data, upgrade your system according to the following steps strictly in this order:
+
+  1. Stop the [Alert Storage Service](/case-manager/13.17/docs/common/case-manager/reference/alert-storage-service) (ASS) instance (by stopping the corresponding Pulse App.)
+  2. **Wait** for all the Events and Triggers within the queues to be processed. **Otherwise, you may lose data.**
+  3. Stop all Case Manager instances.
+  4. Set up the new Case Manager according to the page configuration upgrades.
+  5. Set up the new ASS according to the page configuration upgrades.
+  6. Check if the messaging cluster is properly configured according to the new Case Manager requirements. If required, reconfigure the cluster and restart it.
+  7. Start the new Case Manager instances.
+  8. Start the new ASS (by stopping the corresponding Pulse App.)
+
+
+
+## Specific upgrade guidesâ
+
+Read the information on how to upgrade from a Case Manager's specific version under this section.

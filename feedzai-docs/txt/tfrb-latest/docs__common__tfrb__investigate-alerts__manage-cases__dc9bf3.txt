@@ -1,0 +1,126 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/manage-cases
+Title: Manage Cases | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Manage Cases
+
+
+
+On this page
+
+# Manage Cases
+
+Was this page helpful?Â 
+
+Cases allow you to group events when there is a common element that suggests a connection between them. This allows you to save time in your investigation and have a more organized and better-structured action-taking process.
+
+info
+
+Cases can be omnichannel. This means that you can aggregate events from **Cards** , **Digital Activity** , and **Transfers**.
+
+## Create a caseâ
+
+You can create cases through the **Cases** page, as well as through the **Event** , **Search** , and **Alerts** pages as follows:
+
+  * Cases page
+  * Search / Alert pages
+  * Event page
+
+
+
+  1. Hover over the **Cases** icon and select **New Case**.
+  2. Fill out the necessary information.
+
+
+
+  1. Go to the **Alerts** or **Search by Event** page.
+  2. Tick the checkbox for the event(s) that you want to link a case to.
+  3. Select the  button at the bottom of the search results.
+  4. If the case you want to link to already exists select **Existing Case** ; if not, select **New Case**.
+  5. Fill out the necessary information.
+
+
+
+  1. Select the **More Actions** button on the top right corner.
+  2. Select **Link to Case**.
+  3. If the case you want to link to already exists select **Existing Case** ; if not, select **New Case**.
+  4. Fill out the necessary information.
+
+
+
+**OR**
+
+  1. Go to the **Transaction History** widget.
+  2. Tick the checkbox for the event(s) that you want to link a case to.
+  3. Select the **More Actions** option next to the **Fraud** and **Not Fraud** buttons.
+  4. Select **Link to Case**.
+  5. If the case you want to link to already exists select **Existing Case** ; if not, select **New Case**.
+  6. Fill out the necessary information.
+
+
+
+tip
+
+While the first option links a specific event to a new or existing case, the second option allows you to select events in bulk from the **Transaction History** widget, and link them to a new or existing case.
+
+## Review casesâ
+
+Once you know which cases are up for review, you can use a case's details page to start the investigation process. This section helps you to understand the different case details displayed and how they can help you to classify cases.
+
+The **Cases / Case Details** page header displays the following information:
+
+  * **Name** : The case's name.
+  * **ID** : The case's alphanumerical ID.
+  * **Status** : The case's state (i.e. **To be reviewed** , **Review in progress** , **Waiting for info** and **Closed**). Check the classify cases section below for more information about each state and how to update it.
+  * **Source type** : What originated the investigation (e.g. Referrals from customer-facing employees).
+  * **Queue** : The queue the case is stored in.
+  * **Assignee** : The user assigned to the case.
+
+
+
+Below this header, contextual information is provided as follows:
+
+  * **Case Details** : Description of the case and information about who created it and when.
+  * **Linked Events** : Events associated with the case under investigation.
+  * **Attached Files** : This widget allows you to add files that support your investigation.
+  * **Notes** : This widget displays any notes added for the case and allows you to add new ones.
+  * **Activity Log** : This widget displays the different actions performed in the case, namely regarding linked events, attached files and notes.
+
+
+
+## Classify casesâ
+
+There are four different states that help you give visibility of your progress and keep the workload organized during your investigation:
+
+From the case's header you can choose between the following options:
+
+  * **To be reviewed** : Default status for new cases pending review. It can also be used if the case was previously classified as one of the options below and now needs to be reviewed again.
+  * **Review in progress** : When you start the case investigation.
+  * **Waiting for info** : When you are blocked and need more information.
+  * **Closed** : When you have fully reviewed the events and alerts within the case.
+
+
+
+Advanced use of states
+
+States can be used in automation processes, generally created by fraud managers, to improve workload management. For example, fraud managers can create an automation rule to send to a high priority queue all the cases that are waiting for more information.
+
+## Review nextâ
+
+You can continue analyzing cases by selecting **Get Next** on the page's header:
+
+By selecting **Cases Queues** from the dropdown menu, Case Manager will automatically assign you to a new case.
+
+note
+
+You can only move to the next case after classifying the current one using the **Closed** option described in the [Classify cases](/tfrb/latest/docs/common/tfrb/investigate-alerts/manage-cases/#classify-cases) section.
+
+Alternatively, you can go back to the **Cases** page to select a new case to review. Check the [Access cases](/tfrb/latest/docs/common/tfrb/investigate-alerts/access-workload/#access-cases) section for more information.
+
+## Next stepsâ
+
+Learn how to [Classify Events](/tfrb/latest/docs/common/tfrb/investigate-alerts/classify-events) as "Fraud" or "Not Fraud".

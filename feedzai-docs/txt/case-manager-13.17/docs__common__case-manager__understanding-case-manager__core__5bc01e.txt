@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/cases
+Title: Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Cases
+
+
+
+On this page
+
+# Cases
+
+Cases allow you to group events when there is a common element that suggests a connection between them. This allows you to save time in your investigation and have a more organized and better-structured action-taking process.
+
+While investigating cases, analysts can see the events that have been linked to such case as well as an activity log showing all the historical information related to that very case. In addition, they can add notes, files, and set states depending on the result of the investigation.
+
+Team managers can use cases to organize their team's workload by assigning cases to analysts, creating queues to store and segregate cases, or configuring rules to automatically distribute cases according to specific conditions.
+
+## Learn moreÂ â
+
+Now that you know what cases are, learn how to:
+
+  * [Access](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases) the cases that are up for review.
+  * [Review](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases) cases using the Case Details page.
+  * [Act](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/acting-on-cases) on cases according to your investigation.
+
+

@@ -1,0 +1,42 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview
+Title: Manage Workload and Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * Manage Workload and Rules
+
+
+
+On this page
+
+# Manage Workload and Rules
+
+Was this page helpful?Â 
+
+Learn how to set up Case Manager to keep the workload of fraud teams organized, preventing fraudulent behavior efficiently.
+
+## Fraud manager tasksâ
+
+As a fraud manager, you need to understand how:
+
+  * Organize the workload of fraud teams either by automation processes or manually,
+  * Act when fraud is not being captured efficiently.
+
+
+
+The Manage Workload and Rules guide helps you with these tasks:
+
+## Learn moreâ
+
+Learn more about each of the fraud manager's tasks:
+
+  * [Operationalize fraud teams](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview): Configure queues, automation rules and Service Level Agreements (SLAs) to automate the workload management of fraud teams. This section contains practical examples to quickly configure a standard setup. This setup will enable you to keep the workload organized from day 1.
+  * [Organize Workload Manually](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/organize-workload-manually): Manually add events/alerts and cases to a queue as well as assign them to a team member. This task complements the previous one enabling you to take care of special situations. For example, to assign an alert that needs to be reviewed by a particular fraud analyst.
+  * [Manage Lists](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/manage-lists): Learn how to add, remove, and search for items within a list.
+  * [Create Self-Service Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/create-ssr): Learn how to create a rule, test and deploy it directly in production to quickly counteract a fraudster scheme.
+
+
+
+You can also learn more about analytics tools in the [View Analytics Dashboards](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview) page. These analytic tools provide you big picture of how the business is performing and how the system is fighting fraud with the business overview dashboard and rules monitoring dashboard, respectively.

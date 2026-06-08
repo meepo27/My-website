@@ -1,0 +1,68 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/business-overview
+Title: Business Overview Dashboard | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Monitor Performance
+  * [Analyze Metrics](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics)
+  * Business Overview Dashboard
+
+
+
+On this page
+
+# Business Overview Dashboard
+
+The Business Overview dashboard allows you to get insights into the performance of your application. This topic details the different metrics available in the Business Overview dashboard.
+
+The following sections explain the different dashboard metrics in more detail.
+
+## Process Overviewâ
+
+This section provides a quick overview of the number and value of the processed transactions. This overview helps to quickly identify potential spikes so that they can be quickly investigated. In addition, this section helps to identify if the existing models and rules are performing as expected. For example, unusual amounts of automatically declined or approved transactions may lead to adjustments to the system.
+
+  
+
+
+  * **Total Reviewed** : Sum of the Manually Approved and Manually Declined transactions.
+  * **Total Auto-Reviewed** : Sum of the Auto-Approved and Auto-Declined transactions.
+  * **Auto-Approved** : Relates to the alerts automatically approved by the Pulse workflow.
+  * **Manually Approved** : Relates to the alerts manually approved by analysts.
+  * **Auto-Declined** : Relates to the alerts automatically declined by the Pulse workflow.
+  * **Manually Declined** : Relates to the alerts manually declined by analysts.
+
+
+
+## Decision Overviewâ
+
+This section provides insights into the automated decisions made by the system.
+
+The timeline visualization helps to easily identify spikes. On the other hand, the percentage of the decision distribution can serve as a quick check of the overall performance and help to identify newly introduced unusual behavior, for example, caused by a new rule.
+
+## Automatic / Manual Overviewâ
+
+This section displays the ratio between manually and automatically reviewed alerts. This can help to quickly identify unusual spikes and then fine tune the review automation processes.
+
+The charts show the amount and count of alerts reviewed automatically (darker blue) and manually (lighter blue) over time.
+
+## Scoring Distributionâ
+
+This section breaks down the scoring distribution over time, by total number of occurrences, and by average amount by scoring cluster. This helps financial institutions to learn more about system decisions. For example, if the average amount in high scoring transactions is lower than the average amount in low scoring transactions, it can indicate a suspicious behavior.
+
+## Chargeback Overviewâ
+
+This section provides insights on chargebacks and their occurrence over time, broken down in more detail by reason, number, and amount.
+
+The line chart displays the count of alerts that resulted in chargeback over time. On the other hand, the bar charts display the count of alerts for each chargeback reason and the sum of the amount for each chargeback code, respectively.
+
+## Tuning Dashboard Resultsâ
+
+To get a more specific overview, you can filter the metrics as appropriate.
+
+## Learn Moreâ
+
+  * Learn more about the other available dashboards: [Rules Monitoring](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/rules-monitoring) and [Analyst Performance](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/analyst-performance).
+  * Learn more about [Managing Reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports) and how you can use them to capture and download a snapshot of how your system performed during a given timeframe.
+
+

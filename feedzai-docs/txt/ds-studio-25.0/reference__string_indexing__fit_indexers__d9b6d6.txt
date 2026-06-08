@@ -1,0 +1,158 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/string_indexing/fit_indexers/
+Title: fit_indexers - DS API
+============================================================
+
+#  `` fit_indexers Â¶  
+  
+This module implements the API to allow users to fit new indexers by wrapping the needed functionality from the string-indexing library.
+
+##  `` DEFAULT_MAX_CATEGORIES `module-attribute` Â¶
+    
+    
+    DEFAULT_MAX_CATEGORIES = 10000
+    
+
+##  `` DEFAULT_MIN_CATEGORY_SAMPLES `module-attribute` Â¶
+    
+    
+    DEFAULT_MIN_CATEGORY_SAMPLES = 100
+    
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` bulk_fit Â¶
+    
+    
+    bulk_fit(app: [App](../../app/#ds_api.app.App "            App \(ds_api.app.App\)"), indexer_name_pattern: str, data: DataFrame, features: List[str], max_categories: int = DEFAULT_MAX_CATEGORIES, min_category_samples: int = DEFAULT_MIN_CATEGORY_SAMPLES) -> List[[PulseIndexer](../pulse_indexers/#ds_api.string_indexing.pulse_indexers.PulseIndexer "            PulseIndexer
+    
+    
+      
+          module-attribute
+       \(ds_api.string_indexing.pulse_indexers.PulseIndexer\)")]
+    
+
+Create several PulseIndexers from a given PySpark DataFrame. This is more performant than calling `fit` directly as operations are submitted as parallel Spark jobs. However, make sure there is enough memory in the executors to hold all indexers in memory.
+
+Indexers with no items are not created on purpose as they would have no use. A warning will be issued for each indexer that was empty.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `app` Â¶
+
+|  `[App](../../app/#ds_api.app.App "            App \(ds_api.App\)")` |  Pulse Application where the indexer will be created. |  _required_  
+  
+###  `indexer_name_pattern` Â¶
+
+|  `str` |  A format pattern to generate the indexer name for each indexed feature. For example: "v18_{feature}_max_cats_ ". The possible pattern placeholders are: \- {feature} : The name of the column being fit \- {max_categories} : The actual `max_categories` parameter value. \- {min_category_samples} : The actual `min_category_samples` parameter value. It will show up in the Pulse Lists' pane with that name and the indexer resource prefix (`ds_api.string_indexing.pulse_indexers.PULSE_INDEXER_DESC_PREFIX`). |  _required_  
+  
+###  `data` Â¶
+
+|  `DataFrame` |  PySpark DataFrame with data to index. Must have the columns listed in `features`. |  _required_  
+  
+###  `features` Â¶
+
+|  `list of str` |  Names of the columns to index. |  _required_  
+  
+###  `max_categories` Â¶
+
+|  `(int,)` | 
+    
+    
+             default = ds_api.string_indexing.fit_indexers.DEFAULT_MAX_CATEGORIES
+    
+
+Maximum number of categories from the target column to index. Categories with the least number of observations will be filtered out from the indexer mapping until only `max_categories` are left. Any categories left outside this will be left to the "others" bucket. If set to 0 no such clipping is applied. |  `DEFAULT_MAX_CATEGORIES`  
+  
+###  `min_category_samples` Â¶
+
+|  `(int,)` | 
+    
+    
+                   default = ds_api.string_indexing.fit_indexers.DEFAULT_MAX_CATEGORIES
+    
+
+Minimum number of observations that a category must have during fit to be indexed. If set to 0 no such clipping is applied. |  `DEFAULT_MIN_CATEGORY_SAMPLES`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`List of PulseIndexer` |  The created PulseIndexer Lists.  
+  
+##  `` fit Â¶
+    
+    
+    fit(app: [App](../../app/#ds_api.app.App "            App \(ds_api.app.App\)"), indexer_name: str, data: DataFrame, feature: str, max_categories: int = DEFAULT_MAX_CATEGORIES, min_category_samples: int = DEFAULT_MIN_CATEGORY_SAMPLES) -> [PulseIndexer](../pulse_indexers/#ds_api.string_indexing.pulse_indexers.PulseIndexer "            PulseIndexer
+    
+    
+      
+          module-attribute
+       \(ds_api.string_indexing.pulse_indexers.PulseIndexer\)")
+    
+
+Create a new PulseIndexer from a given PySpark DataFrame. The Spark DataFrame must have a column with that name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `app` Â¶
+
+|  `[App](../../app/#ds_api.app.App "            App \(ds_api.App\)")` |  Pulse Application where the indexer will be created. |  _required_  
+  
+###  `indexer_name` Â¶
+
+|  `str` |  Name to give to the generated PulseIndexer. It will show up in the Pulse Lists' pane with that name and the indexer resource prefix (`ds_api.string_indexing.pulse_indexers.PULSE_INDEXER_DESC_PREFIX`). |  _required_  
+  
+###  `data` Â¶
+
+|  `DataFrame` |  PySpark DataFrame with data to index. Must have the column `colname`. |  _required_  
+  
+###  `feature` Â¶
+
+|  `str` |  Name of the column to index. |  _required_  
+  
+###  `max_categories` Â¶
+
+|  `(int,)` | 
+    
+    
+             default = ds_api.string_indexing.fit_indexers.DEFAULT_MAX_CATEGORIES
+    
+
+Maximum number of categories from the target column to index. Categories with the least number of observations will be filtered out from the indexer mapping until only `max_categories` are left. Any categories left outside this will be left to the "others" bucket. If set to 0 no such clipping is applied. |  `DEFAULT_MAX_CATEGORIES`  
+  
+###  `min_category_samples` Â¶
+
+|  `(int,)` | 
+    
+    
+                   default = ds_api.string_indexing.fit_indexers.DEFAULT_MAX_CATEGORIES
+    
+
+Minimum number of observations that a category must have during fit to be indexed. If set to 0 no such clipping is applied. |  `DEFAULT_MIN_CATEGORY_SAMPLES`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[PulseIndexer](../pulse_indexers/#ds_api.string_indexing.pulse_indexers.PulseIndexer "            PulseIndexer
+
+
+  
+      module-attribute
+   \(ds_api.string_indexing.pulse_indexers.PulseIndexer\)")` |  The created PulseIndexer List.  
+  
+Raises:
+
+Type | Description  
+---|---  
+`ValueError` |  If during the indexer fit there are not enough samples to generate any categories at all and the indexer would be empty.

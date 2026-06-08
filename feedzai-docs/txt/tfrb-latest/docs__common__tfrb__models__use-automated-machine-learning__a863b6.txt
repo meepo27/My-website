@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/download-semantic-file
+Title: Download Semantic File | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Use Models](/tfrb/latest/docs/common/tfrb/models/use-models)
+  * [AutoML](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/journey-overview)
+  * Download Semantic File
+
+
+
+On this page
+
+# Download Semantic File
+
+Was this page helpful?Â 
+
+TFB provides two semantic files, one for cards and another one for transfers (i.e. addresses both instant and non-instant transfers). Select the following buttons to download the files, and then run AutoML.
+
+[Semantic file - Cards](/tfrb/latest/semantic-file-cards.json)
+
+[Semantic file - Transfers](/tfrb/latest/semantic-file-transfers.json)
+
+With the semantic file for cards, you can run AutoML and generate approximately 800 new features relevant to the card (issuing) use case. The semantic file for transfers allows you to generate about 490 new features that apply to instant and non-instant transfers.
+
+If you already have your data pre-loaded with the data type matching the tags' meaning in these semantic files, you can go directly to [Create an AutoML Run](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/create-automl-run). If you are new to AutoML, the next step of the user journey helps you to get started.
+
+## Next stepâ
+
+Start by [loading and preparing the data](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/load-prepare-data) which will be used to run AutoML.

@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-inbound-transfer-settlement
+Title: Settlement | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Inbound PaymentsÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/inbound-payments)
+  * Settlement
+
+
+
+Was this page helpful?Â 
+
+# Settlement
+    
+    
+    PUT 
+    
+    ## /api/inbound-transfers/:lifecycle_id/settlement
+
+The Settlement endpoint allows you to inform Feedzai when a inbound transfer is settled.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

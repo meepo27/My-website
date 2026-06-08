@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/keycloak/network-keycloak
+Title: Network and Connectivity | Feedzai Documentation
+============================================================
+
+On this page
+
+# Network and Connectivity
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+## Firewall Rulesâ
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+HTTP| TCP 8080| Case Manager UI HTTP  
+Keycloak| TCP 7600| Intra-cluster communication  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+RBDMS (PostgreSQL)| TCP 5432|   
+Keycloak| UDP 1812| Keycloak plugin for Radius server (OIDC)  
+Pulse| 8080| Communication with Pulse via HTTP  
+Elasticsearch| 9300| Communication with Elasticsearch via HTTP  
+Case Manager| 8080| Communication with Case Manager via HTTP

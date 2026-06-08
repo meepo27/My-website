@@ -1,0 +1,89 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/digital-fingerprint-widgets
+Title: digital-fingerprint-widgets | Transaction Fraud for Banking
+============================================================
+
+On this page
+
+# digital-fingerprint-widgets
+
+Was this page helpful?Â 
+
+### Networkâ
+
+This widget allows you to see important network details for the event being investigated.
+
+You may also come across a situation that requires adding a specific single entity to a list, or reviewing the entity if already in lists. Information fields that are eligible for lists (e.g. IP Address) have the **Update Lists** button.
+
+It helps uncover fraud evidence such as:
+
+Description| Examples and details  
+---|---  
+Proxy server| Fraudsters use proxies to hide their true IP address and geolocation in order to commit fraud without being detected. Note that you won't be able to confirm whether this is an indicator of fraud if you look at it in an isolated manner.  
+IP address| The IP address is associated with previous fraudulent activity and is listed to be declined.  
+Mismatch between IP address location and originator's city| The device's IP address is Lisbon, whereas the originator's city (see Accounts widget) is New York. Note that you won't be able to confirm whether this is an indicator of fraud if you look at it in an isolated manner.  
+  
+tip
+
+On top of the information available on the **Network** widget, you can refer to external platforms to cross-check specific details with the information available in Case Manager. For example, cross-check the alert's IP address with the one available in the VISA system and use it to assess the distance between the customer's location and the transaction's location.
+
+### Sessionâ
+
+The following widget displays the Session Risk Score for the event under analysis.
+
+info
+
+**Session Risk Score** is a unique digital identifier that is created for each user. The Session Risk Score collects the userâs full context of biometric, behavioral, device and network data points, and continuously analyzes user behavior from login to logout across every interaction.
+
+The score value changes color depending on the risk severity:
+
+  * **Blue (0-39)** : Very low likelihood that the event is fraudulent.
+  * **Green (40-59)** : Low likelihood that the event is fraudulent.
+  * **Yellow (60-89)** : Medium likelihood that the event is fraudulent.
+  * **Red (90-100)** : High likelihood that the event is fraudulent.
+
+
+
+The following table shows examples of factors that may lead to a high risk score:
+
+Description| Examples and details  
+---|---  
+Session Risk Score| The device information captured by the Session Risk Score is associated with previous fraudulent activity.  
+Unusual session| The current session ID is linked to multiple account changes (e.g during this session the user changed their password, email, phone number, and added a new payee before initiating a transfer).  
+  
+### Deviceâ
+
+This widget allows you to see important information about the device that is being used in the event under investigation. Select **View more** to see additional details about the device.
+
+You may also come across a situation that requires adding a specific single entity to a list, or reviewing the entity if already in lists. Information fields that are eligible for lists (e.g. Device ID) have the **Update Lists** button.
+
+It helps uncover fraud evidence such as:
+
+Description| Examples and details  
+---|---  
+Risky device| \- The device ID, IP, and associated email are listed to be declined.  
+\- The email associated with this device has an unknown domain (e.g. [[email protected]](/cdn-cgi/l/email-protection#8ce6e3e9a2e8e3e9ccebbfb8f8ebfaefa2efe3e1)).  
+Suspicious device OS| Rooted device. This makes it possible for the fraudster to have privileges that are usually not available nor recommended for the end user.  
+  
+Learn more about [device and behavior](/tfrb/latest/docs/common/tfrb/fraud-scenarios/device-and-behavior) fraud scenarios and their threats.
+
+### Session Alertsâ
+
+The following widget displays the 'Type', 'View' (online session page in which the alert was detected - e.g. login page, profile page, transfers page) and 'Risk Score' of session alerts.
+
+It helps uncover fraud evidence such as:
+
+Description| Examples and details  
+---|---  
+ATO high risk score| Account Takeover (ATO) high risk score may tell the agents that the session is likely to be ATO.  
+RAT high risk score| An event with a high score on Remote Access Trojans (RAT) only tells agents that the event is initiated from a remote access tool, which is not necessarily considered fraudulent. However, you can confirm this by looking at the Session Risk Score (see Session widget):  
+\- A high RAT score (e.g. 90) and high Session Risk Score (e.g. 95) suggest that the event is likely to be fraud.  
+\- A high RAT score (e.g. 90) but low Session Risk Score (e.g. 20) suggest that the event is likely to be genuine.  
+VPN high risk score| VPN alert detects VPN activity, which is not necessarily a risk. However, if you observe any Proxy detection, TOR connections, or a high Session Risk Score (see Session widget), this means that a fraudster may be trying to mask their location or IP.  
+  
+Potential Fraud Risk
+
+Pay special attention to the "Potential Fraud Risk" alert, as it is a strong indicator of a fraudulent session.
+
+This alert indicates the detection of patterns or behaviors that closely align with confirmed fraudulent activity.
+
+For more information, read the Digital Trust's [Potential Fraud Risk Alert](https://cam.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/console/fraud-score-model#potential-fraud-risk-alert) documentation.

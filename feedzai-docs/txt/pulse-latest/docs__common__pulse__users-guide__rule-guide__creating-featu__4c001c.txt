@@ -1,0 +1,80 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-lists-in-features
+Title: Using Lists in Features | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/)
+  * Using Lists in Features
+
+
+
+On this page
+
+# Using Lists in Features
+
+Was this page helpful?Â 
+
+To access a field of a list item in a plan, you need to add the field to the plan. This can be useful when you have reference data stored in lists, like risk levels, or country-related information. This topic describes how to add fields of lists to a plan, and how to access them in a feature.
+
+Features cannot use multi-tenant lists
+
+Multi-tenant lists are not supported in plans. More specifically, the user cannot select multi-tenant lists in a list operator.
+
+If in a plan you want to use list values to compute features, you need to add the list field to the plan. This is the objective of the list operator. For each event that traverses the list operator, this field will be populated with the corresponding list item value from the list.
+
+List items can have an **expiration date**. This expiration date applies to the list operator as well, meaning that if the corresponding list item is not valid at the time of the timestamp of the event, the field in the event will have a null value. You can set the timestamp field in the following places:
+
+  * for a deployable plan under the Configure Plan Schema option.
+  * in a non-deployable plan: for each operator, you can select the timestamp field individually, in the Timestamp Field option.
+
+
+
+If there is no timestamp field defined, the list items that have expiration date are ignored.
+
+## How toâ
+
+To add a field of a list to a plan, perform the following steps:
+
+  1. In the **Data Science** tab, open the plan you want to edit.
+  2. Drag a **List** operator to the plan.
+  3. Type a **Name** for the list operator.
+  4. For each list field that you want to add to the plan, perform the following steps:
+     1. In the **Output Field Name** column, type a name for the new field. This is the name by which you will be able to find the list value when using it in the plan.
+     2. In the **List** column, select the list that you want to use in the plan.
+     3. In the **Operation** column, select what you want to do with the list. The available operations are:
+        1. **Get** : returns the value of the field specified in the List Field column, corresponding to the list item identified by the Item Value Expression. Applies only to complex lists.
+        2. **Contains** : returns true if the list contains an item identified by the Item Value Expression.
+     4. In the **Item Value Expression** column, type an expression that defines the key for which the list operator will retrieve the value. This expression is the connection between the event and the list. It is a [PQL expression](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features/using-pql-in-features), meaning that you can use anything you can normally use in a map operator, for example:
+        * event fields
+        * constants
+        * boolean and arithmetic operators
+        * UDFs
+        * coalesce operator
+     5. In the **List Field** column, select the field of the list that you want to use in the plan. This field is available only if you selected a complex list in the List column.
+     6. Use the  button to add the field to the list operator.
+  5. **Save** the list operator.
+
+
+
+As a result, in the features (map and metric operators) of the plan you can access the list value associated to the current event, by typing the name you gave in the _Output Field Name_ column. The value that this field contains is the value that belongs to the key you defined in the _Item Value Expression_.
+
+## Exampleâ
+
+You may have a positive/negative list about known merchants. A merchant may be risky, hence transactions with that certain merchant might need to be declined. Transactions with other merchants might need to be approved, or might need a review. A positive/negative list accumulates all this knowledge in one place.
+
+In this case, the list is defined in the following way:
+
+The list items have the _Merchant Id_ as key, and either 'decline', 'approve' or 'review' in the _Action_ field. Example:
+
+Merchant Id| Action  
+---|---  
+898776| 'approve'  
+556949| 'decline'  
+132214| 'review'  
+  
+Now, you may want to use the knowledge accumulated in this list in the plan. For instance, when processing a transaction, you might want to calculate the number of transactions initiated by the same card with risky merchants.
+
+To allow that, add the _Action_ field of the _Merchant PosNeg list_ to the plan. The key that will connect the event with the list is the _MerchantId_. The new field of the event will be called _MerchantAction_.
+
+Now you can use the _MerchantAction_ field in the metric, as any other event field. It contains the action ('decline', 'approve' or 'review') according to the merchant of the event.

@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/reference-data-connector/snippet-reference-data-enrichment-scenarios
+Title: snippet-reference-data-enrichment-scenarios | Transaction Fraud for Banking
+============================================================
+
+# snippet-reference-data-enrichment-scenarios
+
+Was this page helpful?Â 
+
+  * **Scenario 1:** The field sent via the Transaction API (i.e. original field) is not populated, and the information is not in the Reference Data Storage. As a result, the field remains unpopulated.
+  * **Scenario 2:** The original field is not populated, and the information is in the Reference Data Storage. As a result, the field is enriched with reference data.
+  * **Scenario 3:** The original field is populated with a different value than the value that is in the Reference Data Storage. As a result, the value sent via **the Transaction API prevails over the reference data**.
+
+

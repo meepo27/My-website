@@ -1,0 +1,206 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager
+Title: Configuration Recommendations | Feedzai Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+##### tip
+
+For a complete reference check the [official Configuration Guide](https://cam.feedzai.com/case-manager/12.0.1/docs/common/configuration-guide/configuration-guide-overview).
+
+### Ansibleâ
+
+##### note
+
+Available ansible variables for running the ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+ansible_user| feedzai| User for ansible execution  
+ansible_local_user| {{ ansible_user }}| User that will be the owner of the unpacked Case Manager assembly, should be the same as `ansible_user`  
+cm_install_path| "/opt/feedzai"| Case Manager install path  
+cm_home_path| "{{ cm_install_path }}/product-cm-{{ cm_version }}"| Case Manager home path  
+cm_java_options| "-Xms4g -Xmx4g"| Case Manager Database Java options  
+database_casemanager_hostname| "postgres"| Postgres Case Manager Database host name  
+database_casemanager_port| "5432"| Postgres Case Manager Database port number  
+database_casemanager_database_name| "feedzai"| Postgres Case Manager Database name  
+database_casemanager_ro_hostname| "{{ database_casemanager_hostname }}"| Postgres Case Manager Database Read Only host name  
+database_casemanager_ro_port| "{{ database_casemanager_port }}"| Postgres Case Manager Database Read Only port number  
+database_casemanager_ro_database_name| "{{ database_casemanager_database_name }}"| Postgres Case Manager Database Read Only name  
+database_casemanager_jdbc_opts| [currentSchema={{ database_casemanager_schema }}, loginTimeout=10, connectTimeout=2, cancelSignalTimeout=2, socketTimeout=60, tcpKeepAlive=true, targetServerType='master', loadBalanceHosts=true, reWriteBatchedInserts=true]| Case Manager Database JDBC options  
+database_casemanager_jdbc| "jdbc:postgresql://{{ database_casemanager_hostname }}:{{ database_casemanager_port }}/{{ database_casemanager_database_name }}?{{ database_casemanager_jdbc_opts | join('&') }}"| Case Manager Database JDBC  
+database_casemanager_jdbc_ro_opts| [currentSchema={{ database_casemanager_schema }}, loginTimeout=10, connectTimeout=2, cancelSignalTimeout=2, socketTimeout=60, tcpKeepAlive=true, targetServerType='master', loadBalanceHosts=true]| Case Manager Database JDBC options for read-only replica  
+database_casemanager_ro_jdbc| "jdbc:postgresql://{{ database_casemanager_ro_hostname }}:{{ database_casemanager_ro_port }}/{{ database_casemanager_ro_database_name }}?{{ database_casemanager_jdbc_ro_opts | join('&') }}"| Case Manager Read Only Database JDBC  
+database_casemanager_username| casemanager| Case Manager Database username  
+database_casemanager_password| secret| Case Manager Database password  
+database_casemanager_schema| casemanager| Case Manager Database schema  
+database_casemanager_ro_username| {{ database_casemanager_username }}| Case Manager Database Read Only username  
+database_casemanager_ro_password| {{ database_casemanager_password }}| Case Manager Database Read Only password  
+database_casemanager_ro_schema| {{ database_casemanager_schema }}| Case Manager Database Read Only schema  
+cm_url| "http://localhost:8090"| Case Manager URL  
+reference_data_servers| reference-data| Reference Data server  
+reference_data_url| "http://{{reference_data_servers}}:{{reference_data_port}}""| Reference Data URL  
+reference_data_casemanager_jwt_token| "eyJraWQiOiJkZWZhdWx0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJoc2JjIiwibmJmIjoxNjkxNTAwNTc5LCJpc3MiOiJmZWVkemFpIiwiZXhwIjoxOTI0OTkxOTk5LCJqdGkiOiIxZjZkNDcwYi01YzJlLTRiYzEtOWYxZC01ODIwNmJlODE3YWUifQ.taEkIvVtopGfkedgl0L7Qdo28ehS6peyB-y9bm8isg4"| Case Manager JWT Token for Reference Data  
+cm_jetty_http_port| 8080| Jetty http port  
+pulse_casemanager_username| casemanager| Case Manager username in Pulse  
+pulse_casemanager_password| Secret1!| Case Manager password in Pulse  
+rabbitmq_casemanager_brokers| {{ rabbitmq_brokers }}| RabbitMQ Case Manager messaging brokers  
+rabbitmq_casemanager_username| cm| RabbitMQ Case Manager username  
+rabbitmq_casemanager_password| secret| RabbitMQ Case Manager password  
+rabbitmq_casemanager_vhost| cm| RabbitMQ Case Manager vhost  
+jks_store_password| N/A| Case Manager JKS truststore password  
+cm_truststore_path| "{{ cm_home_path }}/conf/trustedca.jks"| Case Manager JKS truststore path  
+pulse_internal_url| "http://pulse:8080"| Pulse internal URL  
+pulse_url| {{ pulse_internal_url }}| Pulse URL  
+cm_secret_value| N/A| Value used to encrypt sensitive properties  
+cm_properties_to_encrypt| []| List of properties to encrypt. Encrypted properties can be used by adding the suffix `_encrypted` to the original property name, i.e `<PROPERTY_NAME>_encrypted`. Doesn't support dictionary variables  
+afis_scheme| https| URI scheme. Expects either "http" or "https"  
+afis_scheme_send_sms| {{ afis_scheme }}| URI scheme. Expects either "http" or "https"  
+afis_payment_fulfillment_cm_extension_enabled| true| Whether to enable the AFIS Case Manager extension for payment fulfillments  
+afis_mobile_outbound_cm_extension_enabled| true| Whether to enable the AFIS Case Manager extension for mobile outbound payment push  
+afis_cm_extension_enabled_send_sms| true| Whether to enable the AFIS Case Manager extension for mobile outbound 2 way 1 way  
+send_2_way_sms_extension_enabled| true| Whether to enable the _Send 2-WAY SMS_ Case Manager extension  
+send_1_way_sms_extension_enabled| true| Whether to enable the _Send 1-WAY SMS_ Case Manager extension  
+send_reminder_sms_extension_enabled| true| Whether to enable the _Send Reminder SMS_ Case Manager extension  
+inbound_payment_notification_extension_enabled| true| Whether to enable the _Inbound Payment Notification_ Case Manager extension  
+card_status_update_extension_enabled| true| Whether to enable the _Card Status Update_ Case Manager extension  
+afis_host| | Host used to connect to AFIS  
+afis_host_send_sms| {{ afis_host }}| Host used to connect to AFIS for mobile outbound 2 way 1 way extension  
+afis_port| 443| Port used to connect to AFIS, usually either 80 for http connections or 443 for https  
+afis_port_send_sms| {{ afis_port }}| Port used to connect to AFIS, usually either 80 for http connections or 443 for https for mobile outbound 2 way 1 way extension  
+afis_api_endpoint| feedzai-event-notification| AFIS API Endpoint to where Case Manager notifications will be sent.  
+afis_api_endpoint_send_sms| {{ afis_api_endpoint }}| AFIS API Endpoint to where Case Manager 2 way 1 way extension notifications will be sent.  
+afis_timeout_in_seconds_send_sms| {{ afis_timeout_in_seconds }}| AFIS API Endpoint timeout interval for mobile outbound 2 way 1 way extension.  
+afis_waitstrategy_in_seconds_send_sms| {{ afis_waitstrategy_in_seconds }}| AFIS API Endpoint wait strategy interval for mobile outbound 2 way 1 way extension.  
+afis_stopstrategy_attempts_send_sms| {{ afis_stopstrategy_attempts }}| AFIS API Endpoint stop strategy interval for mobile outbound 2 way 1 way extension.  
+afis_proxy_enabled_send_sms| {{ afis_proxy_enabled }}| AFIS API Endpoint stop strategy interval for mobile outbound 2 way 1 way extension.  
+afis_proxy_host_send_sms| {{ afis_proxy_host }}| AFIS API Endpoint stop strategy interval for mobile outbound 2 way 1 way extension.  
+afis_proxy_port_send_sms| {{ afis_proxy_port }}| AFIS API Endpoint stop strategy interval for mobile outbound 2 way 1 way extension.  
+dsp_endpoint| | Full DSP Endpoint (containing scheme, host, port and api endpoint), used to fetch AFIS authentication tokens.  
+dsp_username| {{ lookup('gcp_secret_manager', secret='dsp_username', version=secret_manager_secret_version) }}| Username used to authenticate in DSP. By default this variable is fetched from Google Secret Manager.  
+dsp_password| {{ lookup('gcp_secret_manager', secret='dsp_password', version=secret_manager_secret_version) }}| Password used to authenticate in DSP. By default this variable is fetched from Google Secret Manager.  
+dsp_endpoint_send_sms| {{ dsp_endpoint }}| Full DSP Endpoint (containing scheme, host, port and api endpoint), used to fetch AFIS authentication tokens for mobile outbound 2 way 1 way extension.  
+dsp_username_send_sms| {{ dsp_username }}| Username used to authenticate in DSP. By default this variable is fetched from Google Secret Manager for mobile outbound 2 way 1 way extension.  
+casemanager_api_url| {{ cm_url }}| **Maintenance mode only**   
+URL of a single Case Manager instance or API Load Balancer  
+casemanager_api_username| {{ pulse_casemanager_username}}| **Maintenance mode only**   
+Case Manager user with API and Maintenance Mode permissions  
+casemanager_api_password| {{ pulse_casemanager_password }}| **Maintenance mode only**   
+Case Manager user password with API and Maintenance Mode permissions  
+cm_liquibase_environment| | Liquibase options (e.g. `-Xms4g -Xmx4g`)  
+getnext_time_frame| 604800| Time interval (in seconds) for how far in the past the Get Next process will look for events to review  
+casemanager_setup_thread_dumps_cron| false| Enable periodic thread dumps. This requires `logrotate` to be installed in the host machine.  
+casemanager_thread_dumps_cron_job| []| A list of CRON job configuration [CRON]  
+cm_liquibase_rollback| false| Revert Case Manager database changes in case there are any issues during validation  
+apps_enabled| apps_enabled:   
+Â Â \- uk_outbound_payments| The applications to deploy in Case Manager. By default only deploys the Outbound Payments applications.  
+cm_multi_tenancy_enabled| false| Whether to enable multi-tenancy in Case Manager  
+payment_fulfillment_exclude_events_without_status_reason| true| Whether to enable the Payment Fulfillment extension should filter out events without a status reason.  
+show_delegate_transaction_history_widget| true| Controls if the `Transaction History Delegate` widget and the `Delegate CIN` column, appear on the Customer Details Page  
+cm_loggers| {}| Controls extra loggers to be enabled in Case Manager. Keys in this dictionary are the loggers and the values the log level for that logger.  
+cm_probes_log_level| "OFF"| Case Manager probes log level. Probe logs contain the time an operation took and can be used to understand where bottlenecks might be occurring. To enable this feature set this variable to "TRACE" but should be done with care since it will generate a great amount of log files.  
+cm_probes_output_file_name| "cm-probes.log"| The file where probe logs will be stored. Rotated logs will be stored in the same folder with the format `{{ cm_probes_output_file_name }}.%d.%i.log.gz`.  
+use_rsync| true| Configures the deployment pipeline to use `rsync` instead of `copy`. Note that this variable should be set to `false` in RHEL8+ installations.  
+show_hsbcnet_search_fields| false| Controls if the HSBCNet specific Advanced Search fields appear on the event Search page.  
+fulfillment_channels_state_machines| {"transfers": [{"name": "status"}], "inbound-payments": [{"name": "status"}], "cards": [{"name": "status"}, {"name": "operational_status", "statuses": ["on_hold", "unresolved"]}], "non-mon": [{"name": "status"}, {"name": "operational_status", "statuses": ["on_hold", "unresolved"]}]}| Configures which channels and state machines trigger the Payment Fulfillment extension. Maps channel names to lists of state machine configurations. Each state machine can specify 'name' and optionally 'statuses' for specific status values; if 'statuses' is omitted, any status change triggers the extension.  
+cm_transaction_block_date_offset_days| 5| Configures the offset days for the block data.  
+rabbitmq_casemanager_use_quorum_queues| false| Whether to use quorum queues instead of classic queues. Quorum queues are recommended for RabbitMQ 4.x as classic queue mirroring was removed.  
+  
+* * *
+
+### Cron typeâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+name| STRING| X| | Name of the cron job  
+hour| STRING| | *| The cron expression for `hour`  
+minute| STRING| | *| The cron expression for `minute`  
+day| STRING| | *| The cron expression for `day`  
+weekday| STRING| | *| The cron expression for `weekday`  
+month| STRING| | *| The cron expression for `month`  
+  
+* * *
+
+### PDB channel specific databaseâ
+
+Variable| Default Value| Description  
+---|---|---  
+pdb_active_channels| | Identifies the usage of the dedicated databases. The first channel of the list identifies the main database. Available values:   
+Â Â \- cards   
+Â Â \- digital-activity   
+Â Â \- inbound-payments   
+Â Â \- transfers   
+Â Â \- non-mon  
+  
+Each of the following variables needs a suffix _<channel> that identifies the channel and the configuration of the dedicated database.
+
+Variable| Default Value  
+---|---  
+database_casemanager_engine_<channel>| "{{ database_casemanager_engine }}"  
+database_casemanager_jdbc_<channel>| "{{ database_casemanager_jdbc }}"  
+database_casemanager_username_<channel>| "{{ database_casemanager_username }}"  
+database_casemanager_password_<channel>| "{{ database_casemanager_password }}"  
+database_casemanager_schema_<channel>| "{{ database_casemanager_schema }}"  
+database_casemanager_schemapolicy_<channel>| "{{ database_casemanager_schemapolicy }}"  
+database_casemanager_pool_size_<channel>| "{{ database_casemanager_pool_size }}"  
+database_casemanager_pool_lazy_<channel>| "{{ database_casemanager_pool_lazy }}"  
+database_casemanager_reconnect_on_lost_<channel>| "{{ database_casemanager_reconnect_on_lost }}"  
+database_casemanager_max_number_retries_<channel>| "{{ database_casemanager_max_number_retries }}"  
+database_casemanager_retry_interval_<channel>| "{{ database_casemanager_retry_interval }}"  
+database_casemanager_query_select_timeout_<channel>| "{{ database_casemanager_query_select_timeout }}"  
+database_casemanager_ro_jdbc_<channel>| "{{ database_casemanager_ro_jdbc }}"  
+database_casemanager_ro_pool_size_<channel>| "{{ database_casemanager_ro_pool_size }}"  
+database_casemanager_ro_username_<channel>| "{{ database_casemanager_ro_username }}"  
+database_casemanager_ro_password_<channel>| "{{ database_casemanager_ro_password }}"  
+database_casemanager_ro_schema_<channel>| "{{ database_casemanager_ro_schema }}"  
+database_casemanager_ro_reconnect_on_lost_<channel>| "{{ database_casemanager_ro_reconnect_on_lost }}"  
+database_casemanager_ro_max_number_retries_<channel>| "{{ database_casemanager_ro_max_number_retries }}"  
+database_casemanager_ro_retry_interval_<channel>| "{{ database_casemanager_ro_retry_interval }}"  
+database_casemanager_ro_query_select_timeout_<channel>| "{{ database_casemanager_ro_query_select_timeout }}"  
+database_casemanager_ro_pool_lazy_<channel>| "{{ database_casemanager_ro_pool_lazy }}"  
+database_casemanager_ro_schemapolicy_<channel>| "{{ database_casemanager_ro_schemapolicy }}"  
+  
+* * *
+
+### Performance configurationâ
+
+With the inclusion of new use cases it is expected that Case Manager sizing to be updated. Aside from bare metal sizing updates, Case Manager also provides performance configurations that allow fine tuning of the various nodes.
+
+##### warning
+
+Changing any of these configurations can have a performance impact in Case Manager. They should only be changed in agreement with the project team.
+
+Please find below a description of each of the available configurations.
+
+Variable| Default Value| Description  
+---|---|---  
+cm_performance_event_worker_threads| 8| The number of workers that should be used to asynchronously store events into event storage.  
+cm_performance_queue_prefetch_size| 200| The number of messages Case Manager fetches from RabbitMQ.  
+cm_performance_batch_storage_size| 300| The size of the batch, i.e. the number of entries the batch can hold after which a flush will occur.  
+cm_performance_batch_storage_timeout| 1000| The batch timeout, i.e. the time after which a batch flush will occur, regardless of the amount of entries present in it.  
+cm_performance_batch_flush_workers| 4| The number of workers that should be used to asynchronously execute batch flush callback operations.  
+cm_performance_batch_flush_queue_size| 5000| The size of the buffer that holds events to be added to the batch.  
+cm_performance_event_storage_queue_size| 200| The size of the buffer that holds events to be added to the batch.  
+cm_performance_event_storage_batch_size| 500| The size of the batch, i.e. the number of entries the batch can hold after which a flush will occur.  
+cm_performance_event_storage_batch_timeout| 1000| The batch timeout, i.e. the time after which a batch flush will occur, regardless of the amount of entries present in it.  
+cm_performance_event_storage_batch_threads| 1| The batch threads, i.e. the number of threads getting entries of the queue and writing to the batch.  
+cm_performance_related_max_last_flush_secs| 10| Maximum period (in seconds) that notifier should wait before sending the RTS notification.  
+cm_performance_ignore_event_updates| false| Whether event updates should be ignored, and thus, the event ingestion process optimized.  
+cm_performance_disable_auditing_without_users| false| Whether the audit for actions without users should be skipped in the database.  
+cm_performance_max_queued_explanations| 5000| The Number of queued explanations for persistence by the explanations batch.  
+cm_performance_max_related_transactions| 500| The maximum number of related transactions to an event to fetch.  
+cm_performance_explanations_batch_size| 300| The size of the batch, i.e. the number of entries the batch can hold after which a flush will occur.  
+cm_performance_automation_worker_threads| 4| The batch threads, i.e. the number of threads getting entries of the queue and writing to the batch.  
+cm_performance_automation_batches_queue_size| 200| The size of the buffer that holds events to be added to the batch.  
+cm_performance_automation_batches_batch_size| 500| The size of the batch, i.e. the number of entries the batch can hold after which a flush will occur.  
+cm_performance_automation_batches_batch_timeout| 1000| The batch timeout, i.e. the time after which a batch flush will occur, regardless of the amount of entries present in it.  
+cm_performance_automation_batches_batch_threads| 1| The batch threads, i.e. the number of threads getting entries of the queue and writing to the batch.  
+cm_performance_automation_rule_cache| 0| Automation cache value until automation rules are refreshed in memory.  
+cm_performance_max_queued_automations| 5000| Maximum number of queued automations for execution by the automation worker threads  
+cm_performance_audit_batches_queue_size| 200| The size of the buffer that holds events to be added to the batch.  
+cm_performance_audit_batches_batch_size| 300| The size of the batch, i.e. the number of entries the batch can hold after which a flush will occur.  
+cm_performance_audit_batches_batch_timeout| 1000| The batch timeout, i.e. the time after which a batch flush will occur, regardless of the amount of entries present in it.  
+cm_performance_audit_batches_batch_threads| 1| The batch threads, i.e. the number of threads getting entries of the queue and writing to the batch.  
+cm_performance_enable_db_heuristic_for_event_queue_search| false| Whether an explicit `queueId neq null` should be added to improve queue searches.

@@ -1,0 +1,36 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-transfer-responses
+Title: Responses | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Outbound TransfersÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/outbound-transfers)
+  * Responses
+
+
+
+Was this page helpful?Â 
+
+# Responses
+    
+    
+    GET 
+    
+    ## /api/transfers/async/responses
+
+The Responses Get Endpoint allows you to retrieve the result of events that were processed asynchronously.
+
+## Responsesâ
+
+  * 200
+  * 401
+  * 500
+
+
+
+OK
+
+Unauthorized
+
+The system encountered an unexpected internal error.

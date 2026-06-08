@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4175
+Title: HSBC-4175 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4175
+
+### Add new fields to Cards and Non-Monâ
+
+FeatureFTMT-35019HSBC-4175
+
+We've added the following fields to the Cards and Non-Mon endpoints and workflow schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+digital_wallet_tar_ref_num| String  
+digital_wallet_tcn_ref_num| String  
+account_other_balances_2| Object  
+account_other_balances_2.amount| Number  
+account_other_balances_2.type| String  
+card_ond_vec_value_new| String

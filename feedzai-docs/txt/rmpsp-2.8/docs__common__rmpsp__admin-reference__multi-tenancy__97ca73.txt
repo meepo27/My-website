@@ -1,0 +1,95 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/admin-reference/multi-tenancy
+Title: Multi-Tenancy in Case Manager | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Admin Reference](/rmpsp/2.8/docs/common/rmpsp/admin-reference/overview)
+  * Multi-Tenancy in Case Manager
+
+
+
+On this page
+
+# Multi-Tenancy in Case Manager
+
+Multi-tenancy is the ability to host and centrally manage multiple tenants in a single application. This functionality allows a large company (e.g. PSP) to manage multiple clients (e.g. merchants). On the other hand, clients can also use Feedzai's solution, but with restricted access to their own data.
+
+This page describes the investigation differences between PSPs and merchants.
+
+## Investigation flowâ
+
+The investigation flow for merchants is simpler than for PSP. Merchants can see all their event details (i.e. payment, refunds, OCTs, etc.), make searches to understand sales patterns, rules triggered and system decisions, create cases and SSRs.
+
+Since a payment cannot be in two queues at the same time, having queues on the merchant's end restricts the PSP from using queues. Similarly, a payment cannot be assigned to two analysts at the same time, as having assignees on the merchant's end restricts the PSP from working with the **Assign to** functionality. As such, merchants can't perform any of these actions.
+
+Merchants aren't able to use neither status transitions, nor the **Get Next** button.
+
+**PSP**
+
+  
+
+
+**Merchant**
+
+## Alert flagâ
+
+PSPs can see both the alerted Self Service Rules (SSRs) and out-of-the-box rules.
+
+Merchants can create their own SSRs and decide to alert a payment without creating an alert for the PSP, and they won't see alerts from rules other than their own SSRs.
+
+**PSP**
+
+  
+
+
+**Merchant**
+
+## Fraud / Not Fraud feedbackâ
+
+On the PSPs' end, Case Manager displays both PSPs and merchants' feedback labels, **Fraud Label** and **Merchant Fraud Label** , respectively. The feedback from merchants provides PSPs with extra information for the decision process.
+
+Note that PSPs' decisions are not visible to merchants. Showing PSPs' decisions to merchants presents a risk, as merchants may notice they are under fraud investigation.
+
+**PSP**
+
+  
+
+
+**Merchant**
+
+## Rules explanation visibilityâ
+
+By default, the Rules explanation in the **Rules Triggered** widget is visible to all users with generic permissions to see rules.
+
+However, PSPs may not want their merchants to see certain triggered rules, due to compliance reasons or internal policies. Therefore, depending on the configuration you make, rules may or may not become available to merchants. Merchants will still be able to see the system's decision (`approve`, `decline`), and whether the payment has been alerted or not.
+
+**PSP**
+
+  
+
+
+**Merchant**
+
+To learn how to configure the rules visibility in Case Manager, refer to the **Rules visibility in Case Manager** section from the [Work with Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/work-with-rules) guide.
+
+## Notesâ
+
+Notes and attachments left by the PSPs are not visible to merchants. However, any note left by merchants will be available to PSPs for their consideration during an investigation.
+
+**PSP**
+
+  
+
+
+**Merchant**
+
+## Activity Logâ
+
+The activity log may also include sensitive information, such as notes or reasons for a fraud decision. For this reason, merchants can only see their own activity log. On the other hand, PSPs are able to see their merchants' activity log, to better understand the reasoning behind merchants' feedback decision.
+
+**PSP**
+
+  
+
+
+**Merchant**

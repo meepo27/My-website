@@ -1,0 +1,110 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/event-status-flow
+Title: Event Statuses and Investigation Flow | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Event Statuses and Investigation Flow
+
+
+
+On this page
+
+# Event Statuses and Investigation Flow
+
+Was this page helpful?Â 
+
+As an analyst, understanding how event statuses work is a key step to managing the alert investigation efficiently. Analysts and managers can benefit from an intuitive status flow that helps users track each given alert (e.g. whether the investigation is in progress, on hold, etc.).
+
+In this page, you will also learn how the out-of-the-box queues, automation rules, and SLAs play a role in the investigation flow. These settings integrate an automated process that sorts the alerts by priority for you.
+
+## Out-of-the-box statusesâ
+
+Transaction Fraud for Banking (TFB) provides you with the following status categories:
+
+  * **System Decision:** Indicates the outcome processed by the Feedzai's risk engine. The possible values are:
+    * Accept
+    * Decline
+    * Review (for transfers with cut-off time)
+    * Challenge (for digital activity events)
+  * **Operational Status:** Allows users to track the alert/event investigation stage. The possible values are:
+    * Unreviewed
+    * In progress
+    * On hold
+    * Closed
+  * **Breach Status:** This status is only available for transfers and allows analysts to manage the investigation and avoid reaching the breached status according to business SLAs. The possible values are:
+    * Breached
+    * Not Breached
+  * **Fraud Label:** Indicates whether the analyst has reached a final decision. This value can also be populated via API, for example, when the analyst receives customer feedback. The possible values are:
+    * Fraud
+    * Not Fraud
+
+
+
+## Where are statuses displayed?â
+
+In Case Manager, statuses are displayed in the search results of the **Search By Event** and **Alerts** pages, under **System Decision** , **Fraud Label** , and **Status** :
+
+If you select the event's **Date** , notice that the Event page also displays the alert header.
+
+### Cardsâ
+
+The following image shows the example of an alert header for cards. Note that the breach status does not apply for card events:
+
+### Digital Activityâ
+
+The following image is an example of a digital activity event header. Note that the breach status does not apply for digital activity events:
+
+### Inbound Paymentsâ
+
+The following image shows the example of an inbound payment event header:
+
+### Outbound Transfersâ
+
+The following image shows the example of an alert header for transfers:
+
+## Investigation flowâ
+
+This section focuses on the scenario of a typical investigation flow of an outbound transfer event with the following outcomes:
+
+  * **Alerted** : `yes`
+  * **System Decision** : `review`
+  * **Analyst Decision** and corresponding **Fraud Label** : `fraud`
+
+
+
+  1. An alerted transfer event arrives in Case Manager and triggers an automation rule that sets the initial operational and breach status as "Unreviewed" and "Not Breached", respectively.
+
+  2. The **System Decision** outcome from the risk engine, which asks the analyst to "Review" the alert, triggers an automation rule to start an initial Service-Level Agreement (SLA) to review the alert. If the alert isn't reviewed over the course of 23 hours, an SLA (i.e. 1h to breach) redirects the alert to a high-priority queue (i.e. "1h to breach") to be analyzed before the 24-hour breach. If the alert isn't reviewed within the 24-hour window, an SLA (i.e. "24h breach") breaches the alert and is then moved to a queue for breached alerts (i.e. "24h breach).
+
+info
+
+The **System Decision** "Review" does not change throughout the investigation.
+
+  3. An analyst assigns the event to themselves. This action triggers an automation rule (i.e. "handle new assignee"), which starts an SLA to review the alert in one hour and sets the **Operational Status** as "In Progress".
+
+  4. If the analyst needs to wait for more information from the customer, they can select the **Hold** button, which triggers an automation rule that starts an SLA. This extends the period of analysis to 48 hours and sets the Operational Status to "On Hold".
+
+  5. After collecting the necessary information, the analyst concludes it's a fraudulent transfer. To make a "fraud" decision, they select the **Fraud** button, which triggers an automation rule that removes the alert from the queue, unassigns the alert, sets the **Operational Status** as "Closed", and sets the **Fraud Label** as "Fraud".
+
+
+
+
+tip
+
+Since the status flow is achieved by using pre-configured SLAs, automation rules and queues, look into the [Out-of-the-Box Settings](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/out-of-the-box-settings) page to learn more about these configurations.
+
+## Learn moreâ
+
+Learn how to work with Case Manager by completing the following user journey steps:
+
+  1. [Access Workload](/tfrb/latest/docs/common/tfrb/investigate-alerts/access-workload): Have a complete view of the events that need to be analyzed using the alert and case pages.
+  2. [Analyze Events](/tfrb/latest/docs/common/tfrb/investigate-alerts/select-and-analyze-events): Get to know the information available to analyze the events. The information includes account/card details, customer information, and transaction history.
+  3. [Analyze Customers](/tfrb/latest/docs/common/tfrb/investigate-alerts/analyze-customers): Investigate customers to understand their behavior and to better support your decision.
+  4. [Uncover Patterns with Genome](/tfrb/latest/docs/common/tfrb/investigate-alerts/uncover-patterns-with-genome): Find and visualize complex financial crime patterns using link analysis and graph technology.
+  5. [Classify Events](/tfrb/latest/docs/common/tfrb/investigate-alerts/classify-events): Learn how to mark events as 'fraud' or 'not fraud' and justify your decision, such as suspected or confirmed fraud.
+  6. [Update Lists](/tfrb/latest/docs/common/tfrb/investigate-alerts/update-lists): Automatically handle situations with the same fraud patterns you just identified, such as a suspicious card ID or an MCC associated with a given card testing activity.
+
+

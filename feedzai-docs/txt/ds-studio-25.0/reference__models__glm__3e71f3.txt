@@ -1,0 +1,339 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/glm/
+Title: glm - DS API
+============================================================
+
+#  `` glm Â¶
+
+##  `` GeneralizedLinearModelConfig Â¶
+    
+    
+    GeneralizedLinearModelConfig(lambda_search: bool = False, standardize: bool = True, max_after_balance_size: float = 5.0, max_hit_ratio_k: int = 0, compute_p_values: bool = False, balance_classes: bool = False, remove_collinear_columns: bool = False, missing_values_handling: str = 'MeanImputation', solver: str = 'AUTO', non_negative: bool = False, intercept: bool = True, link: str = 'family_default', beta_epsilon: float = 0.0001, theta: float = 1e-10, hglm: bool = False, calc_like: bool = False, max_active_predictors: int | None = None, prior: float | None = None, max_iterations: int | None = None, lambda_min_ratio: float | None = None, objective_epsilon: float | None = None, gradient_epsilon: float | None = None, obj_reg: float | None = None, undersampling: float | None = None, oversampling: float | None = None, seed: int | None = None, ignored_fields: set[str] | None = None, schema: [Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[TrainingConfig](../#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)")`
+
+The H2O Generalized Linear Model configuration object used for model training.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `lambda_search` Â¶
+
+|  `bool` |  Use lambda search starting at lambda max, given lambda is then interpreted as lambda min. |  `False`  
+  
+###  `standardize` Â¶
+
+|  `bool` |  Standardize numeric columns to have zero mean and unit variance. |  `True`  
+  
+###  `max_after_balance_size` Â¶
+
+|  `float` |  Maximum relative size of the training data after balancing class counts (can be less than 1.0). Requires balance_classes. |  `5.0`  
+  
+###  `max_hit_ratio_k` Â¶
+
+|  `int` |  Maximum number (top K) of predictions to use for hit ratio computation (for multi-class only, 0 to disable). |  `0`  
+  
+###  `compute_p_values` Â¶
+
+|  `bool` |  Request p-values computation, p-values work only with IRLSM solver and no regularization. |  `False`  
+  
+###  `balance_classes` Â¶
+
+|  `bool` |  Balance training data class counts via over/under-sampling (for imbalanced data). |  `False`  
+  
+###  `remove_collinear_columns` Â¶
+
+|  `bool` |  In case of linearly dependent columns, remove some of the dependent columns. |  `False`  
+  
+###  `missing_values_handling` Â¶
+
+|  `str` |  Handling of missing values. Either MeanImputation or Skip. |  `'MeanImputation'`  
+  
+###  `solver` Â¶
+
+|  `str` |  AUTO will set the solver based on given data and the other parameters. IRLSM is fast on on problems with small number of predictors and for lambda-search with L1 penalty, L_BFGS scales better for datasets with many columns. |  `'AUTO'`  
+  
+###  `non_negative` Â¶
+
+|  `bool` |  Restrict coefficients (not intercept) to be non-negative. |  `False`  
+  
+###  `intercept` Â¶
+
+|  `bool` |  Include constant term in the model. |  `True`  
+  
+###  `link` Â¶
+
+|  `str` |  Link. |  `'family_default'`  
+  
+###  `beta_epsilon` Â¶
+
+|  `float` |  Converge if beta changes less (using L-infinity norm) than beta esilon, ONLY applies to IRLSM solver. |  `0.0001`  
+  
+###  `max_active_predictors` Â¶
+
+|  `int | None` |  Maximum number of active predictors during computation. Use as a stopping criterion to prevent expensive model building with many predictors. Default indicates: If the IRLSM solver is used, the value of max_active_predictors is set to 5000 otherwise it is set to 100000000. |  `None`  
+  
+###  `prior` Â¶
+
+|  `float | None` |  Prior probability for y==1. To be used only for logistic regression if the data has been sampled and the mean of response does not reflect reality. |  `None`  
+  
+###  `max_iterations` Â¶
+
+|  `int | None` |  Maximum number of iterations. |  `None`  
+  
+###  `lambda_min_ratio` Â¶
+
+|  `float | None` |  Minimum lambda used in lambda search, specified as a ratio of lambda_max (the smallest lambda that drives all coefficients to zero). Default indicates: if the number of observations is greater than the number of variables, then lambda_min_ratio is set to 0.0001; If the number of observations is less than the number of variables, then lambda_min_ratio is set to 0.01. |  `None`  
+  
+###  `objective_epsilon` Â¶
+
+|  `float | None` |  Converge if objective value changes less than this. Default indicates: If lambda_search is set to True the value of objective_epsilon is set to .0001. If the lambda_search is set to False and lambda is equal to zero, the value of objective_epsilon is set to .000001, for any other value of lambda the default value of objective_epsilon is set to .0001. |  `None`  
+  
+###  `gradient_epsilon` Â¶
+
+|  `float | None` |  Converge if objective changes less (using L-infinity norm) than this, ONLY applies to L-BFGS solver. Default indicates: If lambda_search is set to False and lambda is equal to zero, the default value of gradient_epsilon is equal to .000001, otherwise the default value is .0001. If lambda_search is set to True, the conditional values above are 1E-8 and 1E-6 respectively. |  `None`  
+  
+###  `obj_reg` Â¶
+
+|  `float | None` |  Likelihood divider in objective value computation, default is 1/nobs. |  `None`  
+  
+###  `theta` Â¶
+
+|  `float` |  Theta. |  `1e-10`  
+  
+###  `hglm` Â¶
+
+|  `bool` |  If set to true, will return HGLM model. Otherwise, normal GLM model will be returned. |  `False`  
+  
+###  `calc_like` Â¶
+
+|  `bool` |  If true, will return likelihood function value for HGLM. |  `False`  
+  
+###  `undersampling` Â¶
+
+|  `float` |  The value for undersampling. Only this or oversampling can be used. |  `None`  
+  
+###  `oversampling` Â¶
+
+|  `float` |  The value for oversampling. Only this or undersampling can be used. |  `None`  
+  
+###  `seed` Â¶
+
+|  `int` |  The seed value. |  `None`  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when training a model. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+Examples:
+    
+    
+    >>> model_config = GeneralizedLinearModelConfig()
+    >>> model_config.remove_collinear_columns
+    >>> model_config.remove_collinear_columns = True # sets it to True
+    >>> model = model_project.train(
+    ...     "model_name",
+    ...     datasource,
+    ...     "target_field",
+    ...     model_config
+    ... )
+    >>> model.waitUntilModelTrained()
+    >>> config_from_model = model.get_config()
+    
+
+###  `` balance_classes `property` `writable` Â¶
+    
+    
+    balance_classes
+    
+
+###  `` beta_epsilon `property` `writable` Â¶
+    
+    
+    beta_epsilon
+    
+
+###  `` calc_like `property` `writable` Â¶
+    
+    
+    calc_like
+    
+
+###  `` compute_p_values `property` `writable` Â¶
+    
+    
+    compute_p_values
+    
+
+###  `` gradient_epsilon `property` `writable` Â¶
+    
+    
+    gradient_epsilon
+    
+
+###  `` hglm `property` `writable` Â¶
+    
+    
+    hglm
+    
+
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` intercept `property` `writable` Â¶
+    
+    
+    intercept
+    
+
+###  `` lambda_min_ratio `property` `writable` Â¶
+    
+    
+    lambda_min_ratio
+    
+
+###  `` lambda_search `property` `writable` Â¶
+    
+    
+    lambda_search
+    
+
+###  `` link `property` `writable` Â¶
+    
+    
+    link
+    
+
+###  `` max_active_predictors `property` `writable` Â¶
+    
+    
+    max_active_predictors
+    
+
+###  `` max_after_balance_size `property` `writable` Â¶
+    
+    
+    max_after_balance_size
+    
+
+###  `` max_hit_ratio_k `property` `writable` Â¶
+    
+    
+    max_hit_ratio_k
+    
+
+###  `` max_iterations `property` `writable` Â¶
+    
+    
+    max_iterations
+    
+
+###  `` missing_values_handling `property` `writable` Â¶
+    
+    
+    missing_values_handling
+    
+
+###  `` non_negative `property` `writable` Â¶
+    
+    
+    non_negative
+    
+
+###  `` obj_req `property` `writable` Â¶
+    
+    
+    obj_req
+    
+
+###  `` objective_epsilon `property` `writable` Â¶
+    
+    
+    objective_epsilon
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` prior `property` `writable` Â¶
+    
+    
+    prior
+    
+
+###  `` remove_collinear_columns `property` `writable` Â¶
+    
+    
+    remove_collinear_columns
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` solver `property` `writable` Â¶
+    
+    
+    solver
+    
+
+###  `` standardize `property` `writable` Â¶
+    
+    
+    standardize
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` theta `property` `writable` Â¶
+    
+    
+    theta
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(config: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")) -> GeneralizedLinearModelConfig
+    
+
+Creates a GeneralizedLinearModelConfig from the java object.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  Java configuration object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`GeneralizedLinearModelConfig` |  Configuration object according to its python representation.

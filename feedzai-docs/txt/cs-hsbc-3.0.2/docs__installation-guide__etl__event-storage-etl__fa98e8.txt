@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/etl/event-storage-etl
+Title: Event Storage ETL | Feedzai Documentation
+============================================================
+
+# Event Storage ETL
+
+Welcome to the Event Storage ETL Guide.
+
+In this section you will find a set of pages with information about the Event Storage ETL process:
+
+  * [ETL process from Pulse RealTime (RT) to DataScience Environment (DSE)](/cs-hsbc/3.0.2/docs/installation-guide/etl/etl-pulse-rt-to-dse)
+  * [ETL configuration guide](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl)
+  * [ETL extractions schema](/cs-hsbc/3.0.2/docs/installation-guide/etl/extractions-etl)
+
+

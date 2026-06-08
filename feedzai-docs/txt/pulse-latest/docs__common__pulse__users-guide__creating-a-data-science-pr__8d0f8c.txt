@@ -1,0 +1,121 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/creating-a-stratified-sample
+Title: Creating a Stratified Sample | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Processing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/)
+  * [Analyzing and sampling your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/)
+  * Creating a Stratified Sample
+
+
+
+On this page
+
+# Creating a Stratified Sample
+
+Was this page helpful?Â 
+
+Generating a stratified sample is very common in fraud detection scenarios and represents the basis for [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering).
+
+Pulse enables you to design a [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) and generate a stratified sample from terabytes of historical data, with little need for manual actions, technical proficiency in external tools and access to cluster infrastructure.
+
+info
+
+Alternatively, you can perform these actions from the JupyterLab  user interface. Standard notebooks are available within [JupyterLab](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/interacting-with-pulse-via-jupyterlab) â in particular the Sampling Notebook, which demonstrates how to apply efficient sampling strategies over large datasets using Feedzai's sampling library.
+
+## How toâ
+
+The following instructions exemplify a way to generate a stratified sample for a card fraud scenario. This plan extracts some cards that never had fraud, and all fraudulent cards, out of the original data, and obtains all transactions for those cards.
+
+To design a plan and generate a stratified sample for the _Transactions_ data source, execute the following actions:
+
+  1. In the  **Data Science tab** ,  **Add** a new plan.
+
+  2. Set the plan as [Non-Deployable](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans#non-deployable-plans).
+
+  3. Design your Stratified Sample plan as displayed in the following image:
+
+
+
+
+Configure the elements as follows:
+
+  1. Edit the **Source** element and specify the date source. For example, _Cleaned Transactions_.
+
+  2. Edit the **Map** element to add a new field to the date source, as follows:
+
+Clipboard
+
+You can also  copy Operators to the clipboard in order to paste them in other Plans.
+
+     1. Select the **Fields to Add** tab and name the new field as _isFraud_.
+
+     2. Write the following expression for the field value:
+            
+            if (Fraud == 'True') then 1 else 0  
+            
+
+     3. Add the field to the list of fields to be added to the date source.
+
+  3. Edit the **Group By** element to specify grouping by _AccountID_ (represents the card number in this case) and calculate the _Sum_ aggregation of the _isFraud_ field.
+
+Checkpoint
+
+At this stage you have the number of fraud occurrences for each card number, calculated into the _sumFraud_ field. The plan workflow will branch to segment fraudulent cards from cards that never observed fraud.
+
+  4. Edit the **Filter** element with the following expression to obtain only the card numbers **with** fraudulent transactions.
+         
+         sumFraud > 0  
+         
+
+  5. Edit the **Filter** element with the following expression to obtain only the card numbers **without** fraudulent transactions.
+         
+         sumFraud == 0  
+         
+
+  6. Edit the **Sample** element to extract only 5% of all cards **without** fraudulent transactions.
+
+Checkpoint
+
+At this stage you have all fraudulent card numbers separate from a smaller subset of all cards that never had fraud. The plan workflow will recover the complete transactions for all cards in both branches and re-merge them together as a single dataset.
+
+  7. Edit the **Join** element to perform a join operation, by _AccountID_ , with the original data and recover the original transactions for those cards. You now have all transactions for cards where fraud **occurred**.
+
+  8. Edit the **Join** element to perform a join operation, by _AccountID_ , with the original data and recover the original transactions for those cards. You now have all transactions for cards where fraud **never occurred**.
+
+  9. Execute a **Union** of both **Join** elements.
+
+  10. Save the results of your plan to a data **Sink**. For example, a new date source named _Stratified Sample_.
+
+
+
+
+Finally:
+
+  1. the plan to execute all actions on the original date source and generate an improved one.
+
+     1. Define the **Data Source with ID source** as the original date source. For example, _Cleaned Transactions._
+
+     2. Expand the  to have access to additional configurations:
+
+        1. [Job Profile](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles): Allows you to choose a profile containing properties that best fit the **Spark Job** that you want to run. Check the page [Selecting Profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles) to learn more about this functionality.
+
+        2. [Data Partitioning](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/data-partitioning-for-the-metrics-operator): If you have [Metrics Operators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference) in your plan, this functionality allows to choose the **Data Partitioning** option that enables **Spark** to re-organize the data into different partitions as homogenous and well distributed as possible. Pulse allows you to choose the options: **Data-Aware Optimizer** , **Hash-Based** , and **Manual Partition**. These options are described in detail in the **[Data Partitioning](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/data-partitioning-for-the-metrics-operator)** page.
+
+Metrics Operators
+
+The **Data Partitioning** option takes effect only if you have metrics operators in your plan. Otherwise, this option does not affect the performance of the plan execution.
+
+     3. Configure the **Data Sink with ID sink** as the new and clean data source. For example, _Stratified Sample._
+
+     4. **Run** the plan to generate a new data source, in Pulse, named _Stratified Sample._ Pulse also saves an output file with the transformed data to your filesystem.
+
+  2. [Analyze](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data) the _Stratified Sample_ data source to check the distribution of fraud and non-fraud transactions.
+
+
+
+
+## Next Stepsâ
+
+When you have sampled and understood your data, you are ready to move on to [designing features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) for your model.

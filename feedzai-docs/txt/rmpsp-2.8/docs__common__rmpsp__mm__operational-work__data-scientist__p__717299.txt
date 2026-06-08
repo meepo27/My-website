@@ -1,0 +1,165 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/pulse/work-with-rules
+Title: Work with Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/overview)
+  * [Pulse Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/pulse/pulse-guide)
+  * Work with Rules
+
+
+
+On this page
+
+# Work with Rules
+
+This section provides you with an overview of how rules work to alert risky merchants with the resources that come out of the box with your application. Learn how to fully manage your rules, including:
+
+  * Understanding how rules work.
+  * Writing rules that are specific to your business.
+  * Evaluating and testing rules.
+  * Deploying rules to runtime.
+
+
+
+As a data scientist or risk strategist, you can leverage rules to detect and mitigate risky events at scale in real time. The following user journey shows the different stages required to set up your rules and deploy them to runtime:
+
+## How is the alert generated?ââ
+
+It is important to understand how rules process events and contribute to the API response to detect risky merchants efficiently. This section breaks down this life cycle in the following conceptual steps:
+
+  1. Rule options in the Pulse application
+  2. Rule blocks and outcomes in the Pulse workflow
+  3. Manual revision in Case Manager
+  4. API response
+
+
+
+### 1\. Rule options in the Pulse applicationââ
+
+Before getting into the specific logic behind each event, let's have a closer look at two important rule settings. Each rule is configured with Actions and Mark As:
+
+When a rule is triggered, Pulse sends the event to Case Manager as "Alerted" for fraud prevention agents to focus their investigation only on suspicious activity.
+
+  * The **Actions** option includes the rule code (e.g. Failed-3DS-Count-Rate-FR1) so that it is possible to identify which rules triggered.
+
+  * The **Mark As** option lets you select the outcome values that are configured beforehand in the Pulse workflow. When a rule is triggered, the **Mark As** value is written to the schema field that is associated with this rule outcome.
+
+
+
+
+Different rules are defined with different outcomes according to the specificities of each event. The position of rules projects in the Pulse workflow, and the additional custom services dictate how the final alert is generated.
+
+### 2\. Rule blocks and outcomes in the Pulse workflowââ
+
+Each set of APIs contains a Pulse workflow (i.e. _Merchant Monitoring Workflow_). The possible rule outcomes and the rules' processing order are defined in the workflow:
+
+**Merchant Monitoring workflow**
+
+How does the _Merchant Monitoring Workflow_ generate the final outcome?
+
+The Merchant Monitoring Workflow is configured with bankruptcy, chargeback, fraud, money laundering, and unusual activity rules. The `risky` outcome is generally configured to be used by machine learning models.
+
+### 3\. Manual revision in Case Managerââ
+
+Merchant activity can generate alerts when one of the rules, configured with the Alert action, is triggered. The event is then displayed in Case Managerâs Alerts page.
+
+Fraud prevention agents investigate alerts in Case Manager and decide whether the event is `risky` or `not risky` by _actioning_ or _dropping_ the alert.
+
+### 4\. API responseââ
+
+At this point, you already understand how Feedzai provides PSPs with a response. When you send an API request, you will get an API response with the following key fields:
+
+  * `alert`: Whether the event generated an alert that is visible on the Alerts page in Case Manager.
+  * `action_codes`: Every rule has an array of Actions including the name of the rule (e.g. [Failed-3DS-Count-Rate-FR1]). The `action_codes` array includes all the actions of triggered rules to further understand which rules have triggered for each event.
+
+
+
+## Rule configurations in Pulseââ
+
+To define a rule in Pulse, you have the following main configurations available:
+
+  * **Variables** : Allows you to declare variables that are further used in the rule's condition including thresholds or transformation/conversion of the input value (e.g. variable that converts an amount from cents to US dollar). Variables are useful to avoid having large condition statements, which are error-prone and difficult to maintain.
+  * **Conditions** : The condition expression must return a boolean value that dictates whether the event triggers a rule.
+  * **Explanations** : Allows you to understand why a rule has triggered in a human-readable way. If an event triggers, the explanation is displayed in Case Manager to provide additional insights to fraud prevention agents.
+  * **Actions** : Operations that are performed when the rule is triggered. The standard value that helps you meet your custom business logic is the following:
+    * Sends the event to Case Manager's Alerts page for manual revision.
+
+
+
+## Understand rules projectsâ
+
+A rules project is an ordered collection of rules that share similar traits. Grouping your rules in different rules projects allows you to:
+
+  * Keep your work organized.
+  * Set general configurations (e.g. a schema) that apply to all the rules that share similarities.
+
+
+
+## Standard rules projectsââ
+
+Merchant Monitoring includes the following standard rules projects to help you get started:
+
+  * **Bankruptcy risk rules** : Account for merchants who are at risk of or are concealing their inability to ensure payment of their debt.
+  * **Chargeback rules** : Account for merchants with abnormal customer transaction activity, which may lead to higher volume and risk of reported transaction chargebacks.
+  * **Fraud rules** : Prevent various fraud schemes that are generally associated with collusive/fraudulent merchants.
+  * **Money laundering rules** : Merchants with abnormal activity indicating potential business fronts used to process transactions for products and/or services that are unknown and/or illegal.
+  * **Unusual activity rules** : Rules that account for suspicious activity that is not yet associated with a particular fraud scenario but requires close monitoring.
+
+
+
+## Rules precedenceââ
+
+An event can trigger several rules in multiple rules projects. It is important to understand what happens when an event triggers several rules that generate different outcomes. The following section explain this precedence level for rules that generate alerts.
+
+### Precedence in alertsââ
+
+The following image shows the precedence level for rules projects that trigger an alert:
+
+Rules precedence regarding alerts works as follows:
+
+  * **Scenario 1** : If no rule is triggered, the transaction is not displayed in Case Manager's Alerts page. However, fraud fraud prevention agents can still access the transaction in Case Manager's search page.
+  * **Scenario 2** : When one of the rules with the action alert is triggered, the transaction is displayed in Case Manager's alert page. You have access to the reason explaining why the rule was triggered.
+  * **Scenario 3** : When multiple rules with alert action are triggered, the transaction is displayed in Case Manager's alert page. You have access to the reason explaining why each rule was triggered.
+
+
+
+## Rules orderââ
+
+The order in which rules are processed can be defined inside each rules project. This allows you to define the order according to the priority of the outcome.
+
+## Rule componentsâ
+
+Rules are composed of variables, conditions, and integrations with enrichment functions and environment metrics/variables. Learn about each of these [components](https://documentation.feedzai.com/pulse/24.1.0/docs/common/understanding-pulse/core-concepts/rules/rules-components/) to understand how you can use them when building a rule.
+
+## Create rulesâ
+
+A rule, when used in a workflow, evaluates if a certain condition is true for the current transaction. According to the result, the rule can trigger actions in the workflow like rejecting or accepting a transaction, and contribute to the score of the transaction.
+
+The following sections help you successfully create rules for your business needs:
+
+  * [Create rules](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/creating-rules/).
+  * [Operators in rules](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/creating-rules/operators-in-rules/).
+  * [Data types in rules](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/creating-rules/data-types-in-rules/).
+  * [Default UDFs](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/creating-rules/built-in-udfs/).
+
+
+
+## Create listsâ
+
+A list is a resource that allows you to store items (e.g. card IDs) which can be then referenced in rules.
+
+You can create lists in Pulse with different types of information. Use lists when writing rule conditions to confirm if the value of a given item is stored in a certain list. For example, you can create rules that mark events as risky or not risky.
+
+Learn how to [create lists](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/creating-lists-and-adding/).
+
+## Evaluate and test rulesâ
+
+You can evaluate your rules to assess their effectiveness by [creating](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/creating-a-rule-snapshot/) and [analyzing](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user's-guide/rule-guide/evaluating-rules-using-a/) a rule snapshot evaluation.
+
+## Deploy rules to runtimeâ
+
+The deployment process of rules is different depending on whether this is the first deployment, or an iteration over an existing deployment.
+
+Learn more about this topic in Pulseâs [Deploying Rules to the Production Environment](https://documentation.feedzai.com/pulse/24.1.0/docs/common/user%27s-guide/rule-guide/deploying-rules-to-the/) page.

@@ -1,0 +1,332 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.4
+Title: Release 2.4 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.4.3`â
+
+### Change Outbound Payments Amount and Currency mappingsâ
+
+FeatureFTMT-21000HSBC-2399
+
+We've changed the `amount` and `currency` mappings to `sender_transaction_original_amount` and `sender_transaction_original_currency`, respectively, for Outbound Payments in Case Manager.
+
+This change affects the `Common` (for `Transfers` events) and `Transfers` tabs in the following pages:
+
+  * Alerts page
+  * Search Page
+  * Event Details transaction history widget
+  * Customer Details transaction history widget
+
+
+
+### Change Inbound Payments Amount and Currency mappingsâ
+
+FeatureFTMT-21027HSBC-2402
+
+We've changed the `amount` and `currency` mappings to `receiver_transaction_amount_dbl` and `receiver_transaction_currency`, respectively, for Inbound Payments in Case Manager.
+
+This change affects the `Common` (for `Inbound Payments` events) and `Inbound Payments` tabs in the following pages:
+
+  * Alerts page
+  * Search Page
+  * Event Details transaction history widget
+  * Customer Details transaction history widget
+
+
+
+## Release `2.4.2`â
+
+### Add ansible support for segregating outbound/inbound/cards channels in Case Managerâ
+
+Bug FixHSBC-2277
+
+We've added the configuration to allow the setup of a dedicated databases to store the event storage of Case Manager's event channels. The following variable identifies the usage of the dedicated databases. The first channel of the list identifies the main database, which includes all the AM_* tables (with the exception of AM_EVENT_STORAGE and AM_EVENT__<channel>). Example with the available values:
+    
+    
+    pdb_active_channels:  
+      - transfers  
+      - cards  
+      - digital-activity  
+      - inbound-payments  
+    
+
+Copy
+
+Each of the following variables needs a suffix _<channel> that identifies the channel and the configuration of the dedicated database.
+
+  * database_casemanager_engine
+  * database_casemanager_jdbc
+  * database_casemanager_ro_jdbc
+  * database_casemanager_username
+  * database_casemanager_password
+  * database_casemanager_schema
+  * database_casemanager_schemapolicy
+  * database_casemanager_pool_size
+  * database_casemanager_pool_lazy
+  * database_casemanager_ro_pool_size
+  * database_casemanager_ro_username
+  * database_casemanager_ro_password
+  * database_casemanager_ro_schema
+  * database_casemanager_password_encrypted
+  * database_casemanager_reconnect_on_lost
+  * database_casemanager_max_number_retries
+  * database_casemanager_retry_interval
+  * database_casemanager_query_select_timeout
+  * database_casemanager_ro_password
+  * database_casemanager_ro_reconnect_on_lost
+  * database_casemanager_ro_max_number_retries
+  * database_casemanager_ro_retry_interval
+  * database_casemanager_ro_query_select_timeout
+
+
+
+## Release `2.4.1`â
+
+### Fix ETL not using new RUNTIME modeâ
+
+Bug FixHSBC-2166
+
+We have fixed an issue where the ETL was not using a live connection to Pulse for ETL extractions. The live connection is needed for the inclusion of scheduled metrics in ETL extractions.
+
+### Add Decision Typology outcomeâ
+
+FeatureFTMT-17700HSBC-2196
+
+We have added a new `decision_typology` outcome to the Payments workflow in the Outbound Payments application. This outcome can have the following values:
+
+  * `approve_fraud`
+  * `approve_scam`
+  * `review_fraud`
+  * `review_scam`
+  * `decline_fraud`
+  * `decline_scam`
+  * `none` (default)
+
+
+
+A `decision_typology` field has also been added to the `Payments + Outcomes` schema, allowing it to be used in the Risk Strategy.
+
+## Release `2.4.0`â
+
+### ETL Tool now extracts scheduled metricsâ
+
+FeatureHSBC-2149HSBC-2166HSBC-1988
+
+The ETL tool now extracts scheduled metrics in its extractions.
+
+In order to do so, the ETL tool now connects to the live application when determining the schema to use in its extractions. Depending on the value set in `get_latest_published_app_version` (default: `true`), the ETL tool will either extract events based on the published workflow schema or load the current (potentially-unpublished) workflow schema. It will always fall back to the latest unpublished version in the rare case when the application is not published (such as during a Pulse outage).
+
+The previous `pulse_connection_mode` and `papp_file_path` ansible variables have been removed, and these properties will be ignored in any ansible inventories that were previously using them.
+
+A new ansible variable was added to control whether the ETL tool includes metrics in its extraction, defaulting to `true`:
+
+  * `include_internal_state`
+
+
+
+See [ETL configuration reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl#ansible-variables) for more information.
+
+### Reconciliation of Transfers and Digital Activity endpointsâ
+
+FeatureHSBC-2162
+
+We have reconciled the API definition of all Transfers and Digital Activity endpoints.
+
+Please find below the changes.
+
+**All Transfers Endpoints:**
+
+**Field Name**| **Datatype**  
+---|---  
+customer_status| String  
+gift_indicator_code| Long  
+new_customer_flag| String  
+  
+**All Transfers Endpoints except for Feedback:**
+
+**Field Name**| **Datatype**  
+---|---  
+external_preliminary_decision| String  
+external_status_reason| String  
+  
+**All Digital Activity Endpoints:**
+
+**Field Name**| **Datatype**  
+---|---  
+bank_processing_application| String  
+bank_processing_type| String  
+cash_form| String  
+check_book_request_date| Long  
+check_number| String  
+external_preliminary_decision| String  
+external_status_reason| String  
+gpb_manual_payment_ind| String  
+invalid_email_indicator| Boolean  
+reversal_indicator| String  
+sender_account_channel_limit_double| Double  
+sub_channel_name| String  
+thailand_fps_ind| String  
+  
+**Behaviour and Consent Endpoints:**
+
+**Field Name**| **Datatype**  
+---|---  
+customer_status| String  
+gift_indicator_code| Long  
+sender_billing_amount| Double  
+  
+### Reference Data Schema and Workflow moved to their own applicationâ
+
+FeatureHSBC-2187HSBC-2200HSBC-2201HSBC-2202HSBC-2203
+
+Since Reference Data is intended to be common across multiple applications, we have created a new, separate app specifically for Reference Data.
+
+As a result, we've made some changes to the way the apps are organized:
+
+  * In the Outbound Payments app, we removed the Reference Data schema and workflow.
+  * We now have a new Reference Data application that includes the schema and workflow previously present in the Outbound Payments application.
+
+
+
+Additionally, it is important to note that the Reference Data App (e.g. `uk_reference_data`) must be added to the `apps_enabled` variable.
+
+Also, tags used in monitoring metrics (for example those used in Grafana) will change automatically with these modifications. Therefore, to ensure everything continues to function as expected, please review the monitoring metrics endpoints (pulse `/metrics` endpoint) for any resource using these tags (e.g., appSlug, workflowId, etc.).
+
+### Update database retention scripts to include inbound tablesâ
+
+FeatureHSBC-1979
+
+We've updated the database retention scripts to include the inbound Event Storage and Case Manager tables..
+
+See [Retention Scripts](/cs-hsbc/3.0.2/docs/installation-guide/database/retention-scripts) for more information.
+
+### Change Outbound Payments Amount mappingâ
+
+FeatureFTMT-17872FTMT-18154HSBC-2206HSBC-2212HSBC-1947
+
+Consequence of the recent change to send a transaction `amount` in the `sender_transaction_amount_dbl` field instead of `sender_transaction_amount`, Case Manager may not show the correct value in searches or show `N/A`.
+
+We've changed the current mapping to a new field `amount_dbl` based on `sender_transaction_amount_dbl`. This change affects the following pages:
+
+  * Alerts page
+  * Search Page
+  * Event Details transaction history widget
+  * Customer Details transaction history widget
+
+
+
+**Note:** Apart from the last page, this change only applies to the `Transfers` tab. In a future release we will deprecate the `amount` field completely, remap all channel tabs `Amount` columns to the `amount_dbl` field and also change the search filter.
+
+The new field is available to be used in Automation Rules and SLAs with the name `Amount (Double)`.
+
+We've also extended the Mobile Outbound extension to include the new field (`sender_transaction_amount_dbl`) in the request payload. Please see the updated payload in the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.
+
+### Add support to configure multi tenancy using an API fieldâ
+
+FeatureHSBC-2108
+
+To further support the multi tenancy `REQUEST` strategy introduced in [Configure Reference Data Service to use multi tenancy](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.4#add-reference-data-service-to-use-multi-tenancy), we've extended the deployment pipeline to make it possible to configured the payload field from which Pulse will read the tenant value.
+
+Configuration is based on the channel/application, using the following Ansible variables:
+
+  * `inbound_payments_tenant_api_payload_field`
+  * `outbound_payments_tenant_api_payload_field`
+  * `digital_activity_tenant_api_payload_field`
+  * `reference_data_tenant_api_payload_field`
+
+
+
+More information can be found in the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Add support for Reference Data Service multi tenancyâ
+
+FeatureHSBC-2171
+
+We've added support to configure Reference Data Service multi tenancy during deployment.
+
+This configuration can be done using the following Ansible variables:
+
+  * `reference_data_tenant_strategy`
+  * `inbound_payments_tenant_strategy`
+  * `transfers_tenant_strategy`
+  * `digital_activity_data_tenant_strategy`
+
+
+
+Setting these to `REQUEST` will enable RDS to use an API field to retrieve the tenant, instead of the default `feedzai` tenant.
+
+More information can be found in the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Case Manager version upgraded to 13.15.0â
+
+FeatureFTMT-17140HSBC-1983
+
+We've upgraded Case Manager to version 13.15.0. With this upgrade we enabled a feature that allows queues to be exported and imported, improving the process of migrating queues between environments.
+
+Access to this feature is controlled by adding the following two permissions to a role:
+
+  * `cm:resource:settings:import-export:*`
+  * `cm:action:settings:import-export:*`
+
+
+
+These permissions have also been included in the [Permissions Guide](/cs-hsbc/3.0.2/docs/operations-guide/permissions).
+
+### Add functionality to remove null byte from the Inbound Payments payloadâ
+
+FeatureHSBC-2167
+
+We have made the transformation that strips null bytes from string fields in payloads work for inbound payments (it previously already existed for outbound payments).
+
+### Add support for Customer multi-tenancy in Case Managerâ
+
+FeatureHSBC-2172HSBC-2177
+
+We've added support for multi-tenanted customers in Case Manager. The Customer Search page now has a form field to specify the tenant to be searched. Leaving the field empty will continue to use the default tenant, keeping the previous behaviour. Additionally, all links to the customer page now include the tenant in the URL, allowing multi-tenanted deployments to correctly link to customers.
+
+### Add missing Reference Data fields to API documentationâ
+
+Bug FixHSBC-2188
+
+Weâve updated the API documentation since it was outdated and missing several fields, for example `product_type` and `account_closed_date`.
+
+### Add `external_status_reason` to Feedback events from Case Managerâ
+
+FeatureFTMT-16108HSBC-1909
+
+We've added functionality to populate the `external_status_reason` field in Feedback workflow events when they are triggered by status changes in Case Manager. The value will be the status reason selected when marking the event as Fraud or Not Fraud.
+
+### Inbound Payments Schema Changesâ
+
+FeatureFTMT-17618HSBC-2121
+
+We have made the requested schema changes to Inbound Payments and Reference Data.
+
+Please find below the newly added fields
+
+**Inbound Payments**
+
+**Field Name**| **Datatype**  
+---|---  
+rfb_flag| Boolean  
+  
+**Reference Data - Customer**
+
+**Field Name**| **Datatype**  
+---|---  
+customer_business_type_last_update_date| Long  
+customer_reported_income_last_update_date| Long  
+customer_annual_turnover_last_update_date| Long  
+customer_portfolio_segment_last_update_date| Long  
+employer_name_last_update_date| Long  
+customer_occupation_status_last_update_at| Long  
+  
+### Support Alert ID Transformation for Inbound Payments Alert Storage Serviceâ
+
+FeatureHSBC-2170
+
+We have added Alert ID Transformation to the inbound payments app/workflow so that Alert ID is available in CM for inbound payments.

@@ -1,0 +1,51 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-out-via-idp-initiated
+Title: Signing out via IdP-initiated | Feedzai Pulse
+============================================================
+
+On this page
+
+# Signing out via IdP-initiated
+
+Was this page helpful?Â 
+
+## Whyâ
+
+Sign out via IdP-initiated is a method to sign out from all the applications at once without having to sign out from each application individually.
+
+## How Toâ
+
+  * For this example, two pulse instances have been [configured in the IdP as SPs](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-a-relying-party-trust):
+
+    * A Demo environment configured in the IdP as PULSE DEMO.
+
+    * A Local environment configured in the IdP as PULSE.
+
+SP applications
+
+Note that the two Pulse instances are used here as an example. In a production system the IdP could be configured with any application used by the client.
+
+
+
+
+To understand the concept of signing out from all the applications via IdP-initiated execute the following actions:
+
+  1. Sign in to two Pulse instances using either [SP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-sp-initiated) or [IdP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-idp-initiated).
+
+  2. Access the main IdP URL and choose the first Sign Out option (Sign out from all the sites that you have accessed).
+
+danger
+
+Note that the second Sign Out option (Sign out from this site) is only to sign out from the IdP website, and does not sign out the SP option that is selected under Select one of the following sites. Also note that, when selecting this second Sign Out option, the IdP does not communicate with any Pulse instance, and thus, the SP sessions that are already signed will remain active.
+
+  3. Verify that both Pulse instances initiated in Step 1 are signed out (you may have to reload the page or perform any operation within the Pulse instance). Note that you are redirected to an URL that allows you to sign in via SP-initiated.
+
+
+
+
+## Next Stepsâ
+
+  * Learn more about sign in scenarios with SSO:
+    * [Signing in via IdP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-idp-initiated)
+    * [Signing in via SP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-sp-initiated)
+
+

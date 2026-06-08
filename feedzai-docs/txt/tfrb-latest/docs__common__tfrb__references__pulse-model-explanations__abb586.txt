@@ -1,0 +1,71 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/pulse-model-explanations
+Title: Model Explanations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Model Explanations
+
+
+
+# Model Explanations
+
+Was this page helpful?Â 
+
+This page helps you understand:
+
+  * What model explanations are.
+  * How enabling model explanations affects responses.
+
+
+
+tip
+
+Note that Model Explanations is an opt-in feature. Contact the Feedzai team to enable this feature.
+
+Each time a scoring event is sent to Feedzai, model evaluations run for that same event. If Model Explanations is enabled, model explanations will be computed in real time, like model evaluations.
+
+The Model Explanations feature consists of returning the configured model explanation. Whenever an event runs through a model and the Model Explanations feature is enabled, a new output field (`model_explanations`) should be expected:
+    
+    
+    {  
+        "status": "ok",  
+        "lifecycle_id": "lifecycle_xyz",  
+        "event_external_id": "event_external_id_abc",  
+        "action_codes": [  
+        ],  
+        "secondary_action_codes": [],  
+        "alert": false,  
+        "model_explanations": [  
+            {  
+                "generator_name": "Fraud v2 - explainable model",  
+                "importance": 12,  
+                "feature_group_name": "Rapid movement of funds"  
+            },  
+            {  
+                "generator_name": "Fraud v2 - explainable model",  
+                "description": "The amount of funds transacted to foreign countries",  
+                "importance": 7,  
+                "feature_name": "foreign_amount_transacted"  
+            }  
+        ],  
+        "score": 19,  
+        "decision": "approve",  
+        "sca_required": false  
+    }  
+    
+
+Field name| Description  
+---|---  
+`generator_name`| The name of the model.  
+`importance`| The impact of each feature on a machine learning model.  
+`description`| In case the feature is not part of any group, the description of said feature.  
+`feature_name`| In case the feature is not part of any group, the technical name of said feature.  
+`feature_group_name`| In case the feature is part of a group, the name of said feature group.  
+  
+Learn more about:
+
+  * [Explanations](https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/explanations)
+  * [Models](https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+
+

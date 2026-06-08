@@ -1,0 +1,95 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/dt-integration
+Title: Digital Trust Integration | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Digital Trust Integration
+
+
+
+On this page
+
+# Digital Trust Integration
+
+Was this page helpful?Â 
+
+This page encapsulates all the information needed to understand Transaction Fraud for Banking's standard integration with Digital Trust.
+
+## Event enrichmentâ
+
+Transaction Fraud for Banking (TFB) allows the enrichment of Transfers and Digital Activity events in real time, with extra data points collected by Digital Trust, which can be used for improved fraud detection.
+
+Note that the `session_id` field is used to link TFB events to Digital Trust's session analysis. This means that `session_id` is a mandatory field for the TFB integration with Digital Trust. For more information on this topic, read Digital Activity's [Lifecycle and Session IDs](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/DA-Transfer).
+
+### Learn moreâ
+
+  * [How it Works](/tfrb/latest/docs/common/tfrb/about/how-it-works#2-enrichment)
+  * [How to write a rule with Digital Trust's enriched fields](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules#how-to-write-a-rule-with-digital-trusts-enriched-fields)
+  * [Behavioral Data in ML Models](/tfrb/latest/docs/common/tfrb/models/behavioral-data-in-ml-models)
+  * [Enriched Fields](/tfrb/latest/docs/common/tfrb/references/enriched-fields)
+  * [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/digitalactivity)'s API specs
+  * [Transfers](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/outboundtransfers)'s API specs
+
+
+
+## Multiple-company enrichment with Digital Trust enricherâ
+
+While an event can only be enriched by **one** Digital Trust company, multiple companies can be configured to fetch session details for distinct events.
+
+Take the following steps to enable this in Transfers and Digital Activity's workflows:
+
+  1. Open the Transaction Fraud for Banking app.
+
+  2. Go to **Workflow** and select the relevant workflow.
+
+  3. Select the **Edit Service** icon to edit the **Revelock Pre Plan** operator.
+
+  4. On the **Main** tab, select the **Open resource** icon to edit the **Plan** field. This will take you to a new **Edit Plan**.
+
+  5. Once in the relevant channel's **Revelock Pre Plan** 's Edit Plan, select the **Edit Operator** icon to edit the **Map Revelock Company** operator.
+
+  6. Select the **Fields to Add** tab.
+
+  7. The `Revelock Pre Plan` plan defines the `revelock_company` value, and determines which company to use.
+
+     1. If the `revelock_company` field is mapped to an empty value (`''`), use the default companyÂ¹. Otherwise, you can apply conditions, like the following one, to dynamically assign the company:
+    
+    if (sender_country_code == "UK") then "uk_company" else if (sender_country_code == "PT") then "pt_company " else ''  
+    
+
+
+
+
+Â¹The default company is `feedzai`. However, you can customize it in the **Revelock Enricher** 's custom service properties by adding the `enricher.revelock.company` property.
+
+## Fraud scenariosâ
+
+Digital Trust's device, network and behavioral data points prevent fraud scenarios such as Account Takeover.
+
+### Learn moreâ
+
+  * [Device and Behavior](/tfrb/latest/docs/common/tfrb/fraud-scenarios/device-and-behavior)
+
+
+
+## Case Manager's widgetsâ
+
+Case Manager provides you with Digital Trust's widgets, which help you select and analyze events based on the information details, and decide whether the transaction is genuine or fraudulent.
+
+### Learn moreâ
+
+  * Transfers' relevant widgets:
+
+    * [**Session** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#session)
+    * [**Device** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#device)
+    * [**Session Alerts** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#session-alerts), more specifically, the Session Risk Score and the "Potential Fraud Risk" alert type (read more about this alert in Digital Trust's [Potential Fraud Risk](https://cam.feedzai.com/digitaltrust/6.16/docs/common/digitaltrust/console/fraud-score-model#potential-fraud-risk-alert) documentation).
+  * Digital Activity's relevant widgets:
+
+    * [**Network** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#network)
+    * [**Session** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#session)
+    * [**Device** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#device)
+    * [**Session Alerts** widget](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#session-alerts), more specifically, the Session Risk Score and the "Potential Fraud Risk" alert type (read more about this alert in Digital Trust's [Potential Fraud Risk](https://cam.feedzai.com/digitaltrust/6.16/docs/common/digitaltrust/console/fraud-score-model#potential-fraud-risk-alert) documentation).
+
+

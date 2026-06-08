@@ -1,0 +1,7 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/api-reference/api/overview
+Title: RMA API Resources | Feedzai RMA Documentation
+============================================================
+
+# RMA API Resources
+
+This section provides you with the specification of the RMA API.

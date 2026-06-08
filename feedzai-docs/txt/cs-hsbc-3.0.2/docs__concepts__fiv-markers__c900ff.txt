@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/concepts/fiv-markers
+Title: FIV (Financial Inclusion Vulnerability) markers | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# FIV (Financial Inclusion Vulnerability) markers
+
+## Business Contextâ
+
+To ensure fair treatment and fairness for all, inclusion measures for all customers, especially those in vulnerable circumstances are required to be incorporated within a companyâs strategy, services and products.
+
+A vulnerable customer is recognized as someone who, due to their personal circumstances is particularly susceptible to detriment, especially when a firm is not acting with appropriate levels of care.
+
+## Feedzai Implementationâ
+
+`customer_fiv_markers` is a new HSBC custom field in the Customer Reference Data.
+
+This way, the Payments and the Digital activity data streams get enriched with this data, and it is thus available to be used in Feedzai Pulse Rules and Metrics.
+
+Since a user might have multiple FIV markers a [custom UDF](/cs-hsbc/3.0.2/docs/pulse/custom-udfs#fivmarkers) is available to fetch an FIV marker if it exists and has not expired.
+
+Due to the dynamic nature of this field - new FIV markers might be created at any time and number of markers per customer is variable - it has been implemented as a single String variable that Feedzai expects to contain an encoded JSON array, where each entry has the following schema:
+    
+    
+    {  
+      "fiv_marker_code": "FM1",  
+      "fiv_marker_exp_date": "2023-08-28"  
+    }  
+    
+
+Copy
+
+##### note
+
+Since the field is simply a String that by agreement is in the JSON format, the quotes inside have to escaped as `\"`
+
+Additionally, since FIV markers are included in the same field they can't be `PATCH`ed individually as other attributes, meaning if we want to add a single FIV marker to the existing list, the `PATCH`ing logic as to be done on the caller side.
+
+In practice, this might be equivalent to fetching the Customer Reference Data (via the `GET` method), appending to the array and submitting an update to the Customer Reference Data (via the `PUT` method).

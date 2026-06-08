@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/overview
+Title: Installation Guide | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Installation Guide
+
+Welcome to the Feedzai Installation Guide. In this guide you will find useful information on how to install Feedzaiâs products.
+
+## Artifacts
+
+Name| Version| Note  
+---|---|---  
+Installer| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/assembly-installer/0.2.0/assembly-installer-0.2.0-dist.tar.gz)|   
+Cross-project Feedzai RMA Solution Inventories| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/assembly-inventories/0.2.0/assembly-inventories-0.2.0-dist.tar.gz)|   
+Project Pulse Configurations| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/assembly-pulse/0.2.0/assembly-pulse-0.2.0-dist.tar.gz)|   
+Project Case Manager Configurations| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/assembly-case-manager/0.2.0/assembly-case-manager-0.2.0-dist.tar.gz)|   
+Project Batch Processor Configurations| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/assembly-batch-processor/0.2.0/assembly-batch-processor-0.2.0-dist.tar.gz)|   
+Project Pulse Data Science Configurations| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/assembly-dsf/0.2.0/assembly-dsf-0.2.0-dist.tar.gz)|   
+Empty RMPSP Application for Pulse Data Science Environments| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/pulse-application-dsf-rmpsp/0.2.0/pulse-application-dsf-rmpsp-0.2.0-dist.tar.gz)|   
+Empty MM Application for Pulse Data Science Environments| [0.2.0](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc-rma/pulse-application-dsf-mm/0.2.0/pulse-application-dsf-mm-0.2.0-dist.tar.gz)|   
+Pulse| [25.1.9](https://maven.feedzai.com/repository/releases/com/feedzai/deliverables/pulse-gcp/25.1.9/pulse-gcp-25.1.9.tar.gz)|   
+Spark Libs| [25.1.9](https://maven.feedzai.com/repository/releases/com/feedzai/deliverables/spark-libs-gcp/25.1.9/spark-libs-gcp-25.1.9.tar.gz)|   
+Spark Dist| [3.5.7-hadoop-3.3.5](https://maven.feedzai.com/content/repositories/releases/com/feedzai/deliverables/spark-dist/3.5.7-hadoop-3.3.5/spark-dist-3.5.7-hadoop-3.3.5.tar.gz)|   
+Case Manager| [13.31.0](https://maven.feedzai.com/content/repositories/releases/com/feedzai/deliverables/case-manager/13.31.0/case-manager-13.31.0.tar.gz)|   
+Batch Processor| [3.5.6](https://maven.feedzai.com/content/repositories/releases/com/feedzai/solutions/commons/batchprocessor/batch-processor-assembly/3.5.6/batch-processor-assembly-3.5.6-dist.tar.gz)|   
+Reference Data Server| [3.7.12](https://maven.feedzai.com/content/repositories/releases/com/feedzai/solutions/commons/referencedataservice/reference-data-server-assembly/3.7.12/reference-data-server-assembly-3.7.12-dist.tar.gz)|   
+Keycloak Feedzai Theme| [2.3.0](https://maven.feedzai.com/content/repositories/releases/com/feedzai/keycloak/keycloak-feedzai-theme/2.3.0/keycloak-feedzai-theme-2.3.0.tar.gz)|   
+JupyterLab Docker Image| [25.0.51-gcs-2.2.31](https://maven.feedzai.com/repository/hsbc-releases/com/feedzai/hsbc/docker-jupyterlab/25.0.51-gcs-2.2.31/docker-jupyterlab-25.0.51-gcs-2.2.31-gcp.tar.gz)| ****Load Docker Image as**  
+`docker.feedzai.com/feedzai/jupyterlab:25.0.51-gcs-2.2.31-gcp`**  
+  
+## Installing Feedzai Servicesâ
+
+  * [Pulse Requirements](/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/requirements-pulse)
+  * [Case Manager Requirements](/cs-hsbc-rma/0.2.0/docs/installation-guide/casemanager/requirements-casemanager)
+  * [Batch Processor Requirements](/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/requirements-batch-processor)
+  * [Reference Data Service Requirements](/cs-hsbc-rma/0.2.0/docs/installation-guide/refdata/requirements-refdata)
+
+
+
+## Configuring Third-Party Servicesâ
+
+  * [Cassandra Recommendations](/cs-hsbc-rma/0.2.0/docs/installation-guide/thirdparty/recommendations-cassandra)
+  * [RabbitMQ Recommendations](/cs-hsbc-rma/0.2.0/docs/installation-guide/thirdparty/recommendations-rabbitmq)
+  * [ZooKeeper Recommendations](/cs-hsbc-rma/0.2.0/docs/installation-guide/thirdparty/recommendations-zookeeper)
+
+
+
+## Feedzai Ansible Toolkitâ
+
+  * [Installing Feedzai with Ansible](/cs-hsbc-rma/0.2.0/docs/installation-guide/ansible/feedzai-ansible)
+
+
+
+## Database Setupâ
+
+  * [Retention Scripts](/cs-hsbc-rma/0.2.0/docs/installation-guide/database/retention-scripts)
+
+

@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4177
+Title: HSBC-4177 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-4177
+
+### Fix `Transaction Sub-Type` field inconsistent mappings in Case Managerâ
+
+Bug FixFTMT-32085HSBC-4177
+
+We've fixed inconsistent mappings in Case Manager regarding the `Transaction Sub-Type` field. Previously, the column in the transaction history widget was getting its value from `sender_transaction_code`. We have changed it to get its value from `cmd_payment_sub_type` to keep it consistent with the Search and Alerts pages.

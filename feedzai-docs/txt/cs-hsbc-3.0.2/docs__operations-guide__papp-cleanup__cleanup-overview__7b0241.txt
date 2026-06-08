@@ -1,0 +1,26 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/cleanup-overview
+Title: Pulse Application Cleanup | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Pulse Application Cleanup
+
+In Feedzai a Pulse Application, `PAPP` for short, refers to a modular component that manages data processing pipelines for various tasks such as real-time machine learning, fraud detection, and data analytics. Each `PAPP` is a combination of configurations, rules, machine learning models, and scripts that are specifically designed to handle high-throughput data streams. By deploying `PAPPs`, Feedzai enables businesses to efficiently process, analyze, and act on large volumes of data in real-time.
+
+## Overviewâ
+
+Over time, as `PAPPs` are created, modified and deployed, un-used or outdated `PAPPs` can accumulate leading to issues or performance degradation. Therefore `PAPP` cleanup is essential for maintaining an efficient and optimized environment within the Feedzai platform by:
+
+  * **Optimizing resources:** un-used `PAPPs` consume valuable system resources such as CPU, memory, and storage. Cleaning up these `PAPPs` frees up resources for active applications and tasks, improving overall system performance
+
+  * **Reducing costs** : reducing resource consumption by eliminating unnecessary `PAPPs` helps in minimizing operational costs, such as cloud storage, compute instances, and other infrastructure expenses
+
+  * **Improving Security and Compliance:** retaining outdated or un-used `PAPPs` poses a security risk, as these applications may contain sensitive data or outdated configurations. Regular cleanup ensures that only the necessary and secure applications remain active
+
+  * **Improving System Maintainability:** maintaining a clutter-free environment reduces the complexity of managing applications, configurations, and resources, leading to easier troubleshooting, monitoring, and system maintenance
+
+
+
+
+This process can be done via the Pulse UI although it may be difficult to identify and remove the resources can be cleaned. To automate it we have developed a new cleanup pipeline which you can find in the following sections.

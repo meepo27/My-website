@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/network-pulse
+Title: Network and Connectivity | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Network and Connectivity
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+## Firewall Rulesâ
+
+##### tip
+
+For a complete list of the the Firewall Configurations required for Pulse, please refer to the product documentation.
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+HTTP| TCP 8080| Pulse Server UI (HTTP)  
+HTTP| TCP 8443| Pulse Server UI (HTTPS)  
+HTTP| TCP 8081-8091| API HTTP Server (Feedzai Connectors)  
+YARN (Spark, HDFS)| TCP *| Job management  
+Pulse| TCP *| Communication between Pulse nodes (RMI)  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+RDBMS (PostgreSQL)| TCP 5432| Access to database  
+RabbitMQ| TCP 5671-5672| RabbitMQ AMQP (5671 for TLS)  
+YARN (Spark, HDFS)| TCP *| Job submission and management  
+Pulse| TCP *| Communication between Pulse nodes (RMI)  
+Reference Data Service| TCP 8080-8081| Communication with Reference Data Service  
+Profile Store (Cassandra)| 9042| Fetch data from Profile Store  
+ZooKeeper| 2181| Fetch data from Profile Store  
+Feedzai Enrichment Server (Public Network)| 443| Connection to Feedzai Enrichment Service for specific Feedzai IP  
+  
+## Load Balancersâ
+
+For high available environments Load Balancers must be set as follow:
+
+Service| Description| Algorithm| Healthcheck URL| Response Codes| Policy Example  
+---|---|---|---|---|---  
+Pulse| Entry point used by end users to access the web UI and by Case Manager Processor to interact remotely with Pulse.| Follow the leader| `HTTPS:8443/api/client/cluster/pulse/leader/global`   
+`HTTP:8080/api/client/cluster/pulse/leader/global`| 200 - Node is global leader.   
+503 - Node is not global leader| Checks should be performed every 30 seconds with a timeout of 5 seconds. Nodes should be removed after the second failure.  
+Pulse Application API| Entry point used to send events for Pulse to score them.| Round robin| `HTTP:8081/api/health`| 200 - Pulse received event and AppEngine workflow processed it successfully   
+500 - Some error occurred processing the event in the AppEngine workflow   
+503 - Input adapter is not available to receive the event| Checks should be performed every 6 seconds with a timeout of 5 seconds. Nodes should be removed after the second failure.

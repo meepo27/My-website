@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3252-HSBC-3253-Improve-Case-Manager-and-Pulse-Monitoring-guides
+Title: HSBC-3252-HSBC-3253-Improve-Case-Manager-and-Pulse-Monitoring-guides | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3252-HSBC-3253-Improve-Case-Manager-and-Pulse-Monitoring-guides
+
+### Improve Case Manager and Pulse Monitoring guidesâ
+
+FeatureHSBC-3252HSBC-3253
+
+We've made some changes to Case Manager and Pulse monitoring guide for better readability and organization.
+
+You can review the updated version at [Top Metrics to Monitor in Case Manager](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-casemanager) and [Top Metrics to Monitor in Pulse](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse)

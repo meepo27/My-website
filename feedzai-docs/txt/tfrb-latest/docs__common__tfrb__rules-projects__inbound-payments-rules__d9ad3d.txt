@@ -1,0 +1,412 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/inbound-payments-rules
+Title: Inbound Payments Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Inbound Payments Rules
+
+
+
+On this page
+
+# Inbound Payments Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+The _Inbound Payments_ rules project includes a set of rules that are triggered by risky inbound payments, focusing on volume/velocity of fund movements and behavioral indicators.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Inbound - PosNeg 1
+
+### Comment
+
+> Decline transfer to an account which is listed to be auto declined
+
+### Actions
+
+  * Inbound-PN1
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_transaction_bank_acco ?? '' != '')
+    and
+    event.posneg_receiver_account_value == 'decline'
+
+### Explanation
+
+> [Inbound-PN1] - Decline - Transfer is to an account ({event.receiver_transaction_bank_acco}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Inbound - PosNeg 2
+
+### Comment
+
+> Decline transfer to a Bank Identifier Code (BIC) which is listed to be auto declined
+
+### Actions
+
+  * Alert
+  * Inbound-PN2
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.receiver_bank_bic ?? '' != '') 
+    and
+    event.posneg_receiver_bank_bic_value == 'decline'
+
+### Explanation
+
+> [Inbound-PN2] - Decline - Transfer is to a Bank Identifier Code ({event.receiver_bank_bic}) which is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Inbound - Model Decision 1
+
+### Comment
+
+> Decline transaction if the model score is above a certain threshold
+
+### Actions
+
+  * Inbound-MD1
+  * Alert
+
+
+
+### Variables
+    
+    
+    score_th = inbound__rule_thresholds["model_score_th"].threshold; 
+    
+    score = (event.fraud_score ?? 0) * 1000;
+
+### Condition
+    
+    
+    score > score_th
+
+### Explanation
+
+> [Inbound-MD1] - Decline - Model score ({localvar.score}) was above the threshold ({localvar.score_th}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Inbound - Scam Prevention 1
+
+### Comment
+
+> Funds and number of transactions received from international sources in the last 24 hours exceeds defined thresholds
+
+### Actions
+
+  * Alert
+  * Inbound-SP1
+
+
+
+### Variables
+    
+    
+    count_th = inbound__rule_thresholds["sp1_count_th"].threshold;
+    amount_th = inbound__rule_thresholds["sp1_amount_th"].threshold;
+
+### Condition
+    
+    
+    event.received_transactions_cross_bo >= count_th
+    and
+    event.received_amount_cross_border_2 >= amount_th
+
+### Explanation
+
+> [Inbound-SP1] - Alert - Number of cross-border transactions exceeds threshold ({localvar.count_th}) as well as the amount transactacted ({localvar.amount_th}).
+
+### Mark As
+
+N/A
+
+## Inbound - Scam Prevention 2
+
+### Comment
+
+> Funds received in the last 24 hours differ significantly from the expectation considering the previous 6 months
+
+### Actions
+
+  * Alert
+  * Inbound-SP2
+
+
+
+### Variables
+    
+    
+    percent_th = inbound__rule_thresholds["sp2_percent_th"].threshold;
+    amount_th = inbound__rule_thresholds["sp2_amount_th"].threshold;
+    
+    account_age_months = (event.event_occurred_at - (event.receiver_account_open_date ?? 0)) / 2678400000.0;  // 1000 * 60 * 60 * 24 * 31  
+    account_age_maximum = Math.min(account_age_months, 6.0);
+    
+    average_received_amount = Maths.safeDivision(event.received_amount_6m_delay_24h * 1.0, account_age_maximum);
+    relative_difference = Maths.safeDivision(Math.abs(event.received_amount_24h - event.received_amount_6m_delay_24h), event.received_amount_6m_delay_24h);
+
+### Condition
+    
+    
+    account_age_maximum >= 6
+    and
+    event.received_amount_24h >= amount_th
+    and
+    relative_difference >= percent_th
+
+### Explanation
+
+> [Inbound-SP2] - Alert - Funds received exceed {localvar.percent_th} times the 6 months average for an account opened at least {localvar.account_age_maximum} months ago.
+
+### Mark As
+
+N/A
+
+## Inbound - Money Mules 1
+
+### Comment
+
+> Daily funds received in a dormant account exceeds threshold and transaction amount exceeds percentage threshold of account balance
+
+### Actions
+
+  * Inbound-MM1
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_th = inbound__rule_thresholds["mm1_amount_th"].threshold;
+    percent_th = inbound__rule_thresholds["mm1_percent_th"].threshold;
+    
+    account_age_months = ((event.event_occurred_at ?? 0) - (event.receiver_account_open_date ?? 0)) / 2678400000.0; // 1000 * 60 * 60 * 24 * 31
+    
+    balance_percentage = Maths.safeDivision((event.sender_transaction_amount ?? 0), (event.receiver_account_balance ?? 0));
+
+### Condition
+    
+    
+    event.received_transactions_6m_delay == 0 
+    and 
+    event.received_amount_24h >= amount_th
+    and
+    account_age_months >= 6
+    and 
+    balance_percentage >= percent_th
+
+### Explanation
+
+> [Inbound-MM1] - Alert - Daily funds received exceed threshold ({localvar.amount_th}) as well as the balance percentage ({localvar.percent_th}) for a dormant account.
+
+### Mark As
+
+N/A
+
+## Inbound - Money Mules 2
+
+### Comment
+
+> Ratio of funds received to funds sent is outside a certain range and the amounts transferred exceed a certain threshold
+
+### Actions
+
+  * Inbound-MM2
+  * Alert
+
+
+
+### Variables
+    
+    
+    ratio_th = inbound__rule_thresholds["mm2_ratio_th"].threshold;
+    total_th = inbound__rule_thresholds["mm2_total_th"].threshold;
+    
+    ratio = Maths.safeDivision( event.received_amount_7d, event.sent_amount_7d);
+    ratio_lower_limit = 1 - ratio_th;
+    ratio_upper_limit = 1 + ratio_th;
+
+### Condition
+    
+    
+    event.received_amount_7d >= total_th
+    and
+    event.sent_amount_7d >= total_th
+    and
+    ratio >= ratio_lower_limit
+    and
+    ratio <= ratio_upper_limit
+
+### Explanation
+
+> [Inbound-MM2] - Alert - Ratio of funds received to funds sent falls within the pre-set range ({localvar.ratio_lower_limit} to {localvar.ratio_upper_limit}).
+
+### Mark As
+
+N/A
+
+## Inbound - Money Mules 3
+
+### Comment
+
+> Ratio of funds sent to funds received is outside a certain range and the amounts transferred exceed a certain threshold
+
+### Actions
+
+  * Inbound-MM3
+  * Alert
+
+
+
+### Variables
+    
+    
+    ratio_th = inbound__rule_thresholds["mm3_ratio_th"].threshold;
+    total_th = inbound__rule_thresholds["mm3_total_th"].threshold;
+    
+    ratio = Maths.safeDivision(event.sent_amount_7d, event.received_amount_7d);
+    ratio_lower_limit = 1 - ratio_th;
+    ratio_upper_limit = 1 + ratio_th;
+
+### Condition
+    
+    
+    event.received_amount_7d >= total_th
+    and
+    event.sent_amount_7d >= total_th
+    and
+    ratio >= ratio_lower_limit
+    and
+    ratio <= ratio_upper_limit
+
+### Explanation
+
+> [Inbound-MM3] - Alert - Ratio of funds sent to funds received falls within the pre-set range ({localvar.ratio_lower_limit} to {localvar.ratio_upper_limit}).
+
+### Mark As
+
+N/A
+
+## Inbound - Money Mules 4
+
+### Comment
+
+> Ratio of transactions sent to transactions received is outside a certain range and the amounts transferred exceed a certain threshold
+
+### Actions
+
+  * Alert
+  * Inbound-MM4
+
+
+
+### Variables
+    
+    
+    ratio_th = inbound__rule_thresholds["mm4_ratio_th"].threshold;
+    count_th = inbound__rule_thresholds["mm4_count_th"].threshold;
+    
+    ratio = Maths.safeDivision(event.sent_transactions_7d, event.received_transactions_7d);
+    ratio_lower_limit = 1 - ratio_th;
+    ratio_upper_limit = 1 + ratio_th;
+
+### Condition
+    
+    
+    event.received_transactions_7d >= count_th
+    and
+    event.sent_transactions_7d >= count_th
+    and
+    ratio >= ratio_lower_limit
+    and
+    ratio <= ratio_upper_limit
+
+### Explanation
+
+> [Inbound-MM4] - Alert - Ratio of transactions sent to transactions received falls within the pre-set range ({localvar.ratio_lower_limit} to {localvar.ratio_upper_limit}).
+
+### Mark As
+
+N/A
+
+## Inbound - Money Mules 5
+
+### Comment
+
+> Ratio of transactions received to transactions sent is outside a certain range and the amounts transferred exceed a certain threshold
+
+### Actions
+
+  * Alert
+  * Inbound-MM5
+
+
+
+### Variables
+    
+    
+    ratio_th = inbound__rule_thresholds["mm5_ratio_th"].threshold;
+    count_th = inbound__rule_thresholds["mm5_count_th"].threshold;
+    
+    ratio = Maths.safeDivision(event.received_transactions_7d, event.sent_transactions_7d);
+    ratio_lower_limit = 1 - ratio_th;
+    ratio_upper_limit = 1 + ratio_th;
+
+### Condition
+    
+    
+    event.received_transactions_7d >= count_th
+    and
+    event.sent_transactions_7d >= count_th
+    and
+    ratio >= ratio_lower_limit
+    and
+    ratio <= ratio_upper_limit
+
+### Explanation
+
+> [Inbound-MM5] - Alert - Ratio of transactions received to transactions sent falls within the pre-set range ({localvar.ratio_lower_limit} to {localvar.ratio_upper_limit}).
+
+### Mark As
+
+N/A

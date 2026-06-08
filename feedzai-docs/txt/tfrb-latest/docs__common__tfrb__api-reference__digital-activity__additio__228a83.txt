@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/digital-activity/additional-resources/generated-fields
+Title: Generated Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Digital Activity
+  * Generated Fields
+
+
+
+On this page
+
+# Generated Fields
+
+Was this page helpful?Â 
+
+The Digital Activity API generates fields that will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Alias| alias  
+Account Update| account_update  
+Authentication| authentication  
+Card Issuing| card_issuing  
+Card Update| card_update  
+Credentials Update| credentials_update  
+Device| device  
+New Payee| new_payee  
+Profile Update| profile_update  
+Info| info  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Digital Activity API as a timestamp, in milliseconds.

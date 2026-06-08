@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/database-schema
+Title: Database Schema | Case Manager
+============================================================
+
+# Database Schema
+
+The Case Manager data schema is as follows:
+
+**AM_CASE_TYPE**
+
+The `AM_CASE_TYPE` table is modeled as follows:
+
+Field| Data Type| Description| Constraints| Nullable?  
+---|---|---|---|---  
+CASE_TYPE_ID| VARCHAR(40)| A serial version identifier to a case type.| Primary Key| No  
+CASE_TYPE_NAME| VARCHAR(40)| The case type name.| NA| Yes  
+  
+**AM_CASE_SOURCE**
+
+The `AM_CASE_SOURCE` table is modeled as follows:
+
+Field| Data Type| Description| Constraints| Nullable?  
+---|---|---|---|---  
+CASE_SOURCE_ID| VARCHAR(40)| A serial version identifier to a case source.| Primary Key| No  
+CASE_SOURCE_NAME| VARCHAR(40)| The case source name.| NA| Yes  
+TIMESTAMP| BIGINT| The timestamp when the case source was created.| NA| Yes  
+USER_ID| VARCHAR(40)| The identifier of the user who created the case source.| NA| Yes  
+CASE_SOURCE_ACTIVE| BOOLEAN| Whether the case source is enabled or not.| NA| Yes  
+CASE_SOURCE_IN_USE| BOOLEAN| Whether the case source is in use by another case or not.| NA| Yes  
+CASE_SOURCE_DEFAULT| BOOLEAN| Whether the is a default case source or not.| NA| Yes  
+CASE_TYPE| VARCHAR(40)| The case type identifier this case source is associated to.| NA| Yes  
+UPDATEDAT| BIGINT| The timestamp when the case source was updated.| NA| Yes  
+UPDATEDBY| VARCHAR(40)| The user identifier who updated the case source.| NA| Yes

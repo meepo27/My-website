@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-case
+Title: Case Manager Case | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Case Manager
+  * Case Manager Case
+
+
+
+# Case Manager Case
+
+Was this page helpful?Â 
+
+The **Case Manager - Case** entity stores information from Case Manager cases.
+
+Name| Type| Description| Example  
+---|---|---|---  
+`timestamp`| timestamp with time zone| The original timestamp of the object| 2025-09-30 10:25:59.100 +0100  
+`identifier`| string| The original ID of the object| 605e7f99-820b-45b2-ab5e-a4420dae675a  
+`channel`| string| The channel to which this case is valid for.| cards  
+`case_type`| string| The type of the case| AML, Fraud  
+`tenant`| string| The tenant of the case| feedzai  
+`notification_timestamp`| timestamp with time zone| The timestamp of when this notification took place| 2025-09-30 10:25:59.100 +0100  
+`notification_type`| string| The notification type. Is one of the following: 
+
+  * CASE_CREATE: The case is created
+  * CASE_UPDATE: The case was updated
+  * CASE_EVENT: The case was linked/unlinked with events
+  * ADD_NOTE: A note was added to the case
+  * DELETE_NOTE: A note was removed from the case
+  * CASE_QUEUE: The case was added/removed to/from a queue
+  * CASE_STATE: The case state was changed
+  * CASE_USER: The case was assigned/unassigned to/from a user
+
+|   
+`user_id`| string| The user id of the user that performed the action|   
+`user_name`| string| The user name of the user that performed the action|   
+`queue_id`| string| Id of the queue. This is only filled when on case queue.|   
+`queue_name`| string| Name of the queue. This is only filled when on case queue.|   
+`state_id`| string| State identifier: created, Update or State.|   
+`name`| string| The case name.|   
+`description`| string| The case description.|   
+`source_type_id`| string| The source type id|   
+`source_type_name`| string| The source type name|   
+`operation`| string| Contains the operation type (ADD/REMOVE). This is only filled when the action is of type CASE_EVENT|   
+`event_ids`| array<string>| \- The list of event ids that were affected by the adding or removing to or from the event. This is only filled when the action is of type CASE_EVENT|   
+`note_info`| row| |   
+âââ`note`| string| The note of the case.|   
+âââ`note_id`| string| The case note identifier.|   
+âââ`note_type_id`| string| Case Note Type identifier|   
+âââ`created_at`| timestamp with time zone| When this note was created| 2025-09-30 10:25:59.100 +0100  
+âââ`created_by`| string| The user that created the note|   
+âââ`deleted_at`| timestamp with time zone| When this note was deleted| 2025-09-30 10:25:59.100 +0100  
+âââ`deleted_by`| string| The user that deleted the note|   
+`custom_fields`| json| All the custom fields that the case might have.| {"custom_field_1": "value1", "custom_field_2": "value2"}  
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

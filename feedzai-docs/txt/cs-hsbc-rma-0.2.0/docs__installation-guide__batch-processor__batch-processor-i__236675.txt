@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/batch-processor-installation-guide
+Title: Batch Processor Installation Guide | Feedzai RMA Documentation
+============================================================
+
+# Batch Processor Installation Guide
+
+Welcome to the Batch Processor Installation Guide.
+
+In this section you will find a set of pages with information about the Batch Processor installation process:
+
+  * [Requirements](/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/requirements-batch-processor)
+  * [Network and Connectivity](/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/network-batch-processor)
+  * [Configuration Recommendations](/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/configuration-batch-processor)
+
+

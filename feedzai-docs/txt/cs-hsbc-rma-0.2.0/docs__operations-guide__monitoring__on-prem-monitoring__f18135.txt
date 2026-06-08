@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/on-prem-monitoring
+Title: Get Started With Monitoring | Feedzai RMA Documentation
+============================================================
+
+# Get Started With Monitoring  
+  
+##### info
+
+**Important note**
+
+Feedzai systems are preferably deployed in Feedzai Cloud. In such deployments, monitoring is performed internally by Feedzai, and there is no need to provide clients with monitoring instructions. However, for some clients, Feedzai software may be deployed in a client-hosted environment, i.e. on-premise or in a public cloud).
+
+This monitoring guide covers client-hosted deployments and, for that reason, it is not part of our standard client-facing documentation. The guide should only be provided to clients that require instructions on how to monitor their own systems.
+
+The purpose of this guide is to empower users to monitor Feedzai's system performance and investigate statuses autonomously.
+
+In this guide you will learn:
+
+  * How to [collect metrics](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/collect-metrics).
+  * What [kind of metrics there are](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/understand-available-metrics).
+  * Which [metrics are especially relevant for Pulse](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-pulse).
+  * Which [metrics and tables are especially relevant for Case Manager](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-case-manager).
+  * Which [metrics are especially relevant for Reference Data Service](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-refdata).
+
+
+
+##### tip
+
+Note that this guide only covers some Feedzai services, as an example. Nevertheless, the same principles may apply to other products and components.

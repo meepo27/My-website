@@ -1,0 +1,74 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/acting-on-cases
+Title: Act on Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/)
+  * Act on Cases
+
+
+
+On this page
+
+# Act on Cases
+
+After reviewing all the details related to a case, analysts can act on it. Depending on the use case, analysts can perform different types of actions. This page shows a few examples of those actions: setting a state, escalating so that it can be reviewed by, for example, a senior analyst, or move to a specific queue.
+
+info
+
+The actions available depend on the permissions defined for your user.
+
+## Set statesâ
+
+After investigating the case, set the corresponding status:
+
+  1. Select the status using the buttons on the case header. A window will pop up to input the final status.
+
+
+
+  2. Select the final state (e.g. "Closed with SAR") and add any note you consider necessary.
+
+  3. **Submit** to set the case state.
+
+
+
+
+## Escalate Casesâ
+
+After reviewing a case, analysts may need, for example, a senior analyst to review it in more detail. To reassign the case:
+
+  1. Go to a case's details page and, in the **Analyst** dropdown, select the **Choose Assignee** option.
+
+
+
+  2. In the **Choose Assignee** window, select the new **Assignee** and provide extra information in the **Note** box.
+
+
+
+Alternatively, you can also assign cases in the **Cases** page or in the Case Details page by selecting the **More actions** dropdown menu and then the **Choose Assignee** option.
+
+## Move Cases to Queuesâ
+
+You can also send cases to queues in order to organize and segregrate them according to the criteria that better fits your needs.
+
+  1. Go to the case that you want to move to a queue. You can also go to the **Cases** page and select multiple cases, for example, to move all cases happening in online marketplaces to the queue created for online purchases.
+
+  2. In the **More options** dropdown menu, select the **Move to Queue** option.
+
+  3. Select a **Queue** and provide extra information in the **Note** box. The **Queue** field shows all the existing case queues. Cases queues are not channel-specific thus being possible to send cases from any channel to any case queue.
+
+
+
+
+tip
+
+In the Case Details page, press `.` on your keyboard to display the shortcuts menu and select the **Move to Queue** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Other actionsâ
+
+Besides the actions detailed in the previous sections, the product can also include custom actions according to the use case. For example, a custom dialogue box can be configured to enable you to block all cards from all the events linked to the case.
+
+When performing these custom actions on multiple cases, the interface informs you of the status of those actions.
+
+After acting on cases, use the **Get Next** option to continue the investigation process. Learn more about [Get Next feature](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases#get-cases-automatically).

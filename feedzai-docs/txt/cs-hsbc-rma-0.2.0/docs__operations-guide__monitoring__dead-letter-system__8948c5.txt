@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/dead-letter-system
+Title: Dead Letters System | Feedzai RMA Documentation
+============================================================
+
+# Dead Letters System
+
+##### info
+
+Although described in conjunction, Pulse dead letter system runs independently from Case Manager
+
+When Pulse and Case Manager receive events but are unable to persist them, for instance due to a connection error with the database, a recovery system is used to avoid losing important information.
+
+This recovery system consists in storing failed events in Pulse and CM filesystems (dead letters) and a recovery job that parses these files and retries persisting them to the database.
+
+Dead letters are stored in a `retry` folder under `<installation-folder>/var/dead-letters`. When the recovery job triggers, it reads the existing dead letters and tries to persist the events to the database. On success the dead letter is deleted from the filesystem otherwise they are kept in the filesystem until the recovery job next execution (by default 1 hour).
+
+The recovery job maximum retries is by default 3 meaning that there is a 3 hour window to identify and resolve the database issue. If this threshold is reached, Pulse and CM move the dead letters to a failed folder under `<installation-folder>/var/dead-letters`.
+
+Available dead letters metrics for Case Manager are described in [Event Queue Deadletter](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-casemanager#event-queue-deadletter) and for Pulse in [Events Spilled to Disk](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-pulse#events-spilled-to-disk).

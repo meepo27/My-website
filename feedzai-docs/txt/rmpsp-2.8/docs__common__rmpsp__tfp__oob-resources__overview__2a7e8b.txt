@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview
+Title: Out-of-the-box Resources | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Out-of-the-Box Resources
+
+
+
+# Out-of-the-box Resources
+
+Transaction Fraud for Payment Service Providers (PSPs) offers out-of-the-box resources, such as lists, schemas, and rules projects. These resources are included in the solution standard package to help PSPs detect and prevent crime.
+
+This section contains the following reference documentation on those resources:
+
+  * [Lists](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/tfp-lists)
+  * [Schemas](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/tfp-schemas)
+  * Rules projects
+    * [Feedback Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-feedback-rules)
+    * [Refund and OCT Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-oct-rules)
+    * [PosNeg Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-posneg-rules)
+    * [Self-Service Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-self-service-rules)
+    * [Fraud Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-fraud-rules)
+    * [APM Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-apm-rules)
+    * [Card Present Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-card-present-rules)
+    * [By Merchant PosNeg Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-by-merchant-posneg-rules)
+    * [By Merchant Self-Service Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-by-merchant-self-service-rules)
+    * [Decision Rules](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-decision-rules)
+  * [Analytics Dashboards' Fields](/rmpsp/2.8/docs/common/rmpsp/analytics-fields)
+
+

@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/app/
+Title: app - DS API
+============================================================
+
+#  `` app Â¶
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` App Â¶
+    
+    
+    App(name=None, id=None, pulse=None, **kwargs)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a Pulse Application.
+
+###  `` pulse `instance-attribute` Â¶
+    
+    
+    pulse = [connect](../server/#ds_api.server.Server.connect "            connect
+    
+    
+      
+          classmethod
+       \(ds_api.server.Server.connect\)")() if len(kwargs) == 0 else [connect](../server/#ds_api.server.Server.connect "            connect
+    
+    
+      
+          classmethod
+       \(ds_api.server.Server.connect\)")(**kwargs)
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> App
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+###  `` pullById `classmethod` Â¶
+    
+    
+    pullById(pulse, id)
+    
+
+###  `` pullByName `classmethod` Â¶
+    
+    
+    pullByName(pulse, name)
+    

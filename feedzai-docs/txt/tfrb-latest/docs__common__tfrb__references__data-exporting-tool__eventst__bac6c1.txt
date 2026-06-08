@@ -1,0 +1,142 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-adhoc-customer-investigations
+Title: Event Storage - Ad-hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Event Storage
+  * Event Storage - Ad-hoc Customer Investigations
+
+
+
+# Event Storage - Ad-hoc Customer Investigations
+
+Was this page helpful?Â 
+
+The **Event Storage - Ad-hoc Customer Investigations** entity stores ad-hoc customer investigation related events.
+
+A new record becomes available for this entity for each ad-hoc customer investigation event.
+
+Name| Type| Description| Example  
+---|---|---|---  
+`fdz_partition_index`| integer| Partition index.| 79  
+`fdz_tenant_key`| string| Tenant key from Feedzai perspective.| sample_value  
+`fdz_timestamp`| bigint| Unix timestamp.| 1756463007000  
+`fdz_uuid`| string| UUID from Feedzai perspective.| d392378a-f4b2-49b5-8814-e3ea65543420  
+`rules_explanations`| string| Explanation of rules triggered in text format.| Rule X triggered because X amount surpasses the Y limit.  
+`rules_ids`| string| Identifier of the rules.|   
+`action_names`| string| |   
+`decision`| string| Output decision from the system.| approve  
+`is_alert`| string| Identifies whether the event is an alert.| True  
+`lifecycle_id`| string| |   
+`event_external_id`| string| |   
+`reason_code`| string| |   
+`origin`| string| |   
+`description`| string| |   
+`customer_id`| string| |   
+`customer_name`| string| |   
+`customer_email`| string| |   
+`customer_phone`| string| |   
+`customer_phone_val_code`| string| |   
+`customer_citizen_id_number`| string| |   
+`customer_passport_number`| string| |   
+`customer_driver_license`| string| |   
+`customer_ssn`| string| |   
+`customer_tax_number`| string| |   
+`customer_registration_date`| bigint| |   
+`customer_street_addr`| string| |   
+`customer_zip`| string| |   
+`customer_zip_area_code`| string| |   
+`customer_city`| string| |   
+`customer_region`| string| |   
+`customer_country_code`| string| |   
+`customer_dob`| string| |   
+`customer_number_of_accounts`| integer| |   
+`customer_total_balance`| bigint| |   
+`customer_total_credit_limit`| bigint| |   
+`customer_kyc_lvl`| string| |   
+`customer_occupation`| string| |   
+`customer_active`| string| |   
+`customer_segment`| string| |   
+`customer_number_of_cards`| integer| |   
+`customer_occupation_status`| string| |   
+`customer_risk_rating`| string| |   
+`customer_currency`| string| |   
+`customer_accounts`| array<row>| |   
+âââ`account_id`| string| |   
+âââ`account_iban`| string| |   
+âââ`account_bic`| string| |   
+âââ`account_open_date`| bigint| |   
+âââ`account_balance`| bigint| |   
+âââ`account_credit_limit`| bigint| |   
+âââ`account_otb_limit`| bigint| |   
+âââ`account_available_credit`| bigint| |   
+âââ`account_debt_balance`| bigint| |   
+âââ`account_cash_advance_balance`| bigint| |   
+âââ`account_status`| string| |   
+âââ`account_last_activity`| bigint| |   
+âââ`account_number_of_cards`| integer| |   
+âââ`atc1`| string| |   
+âââ`atc2`| string| |   
+âââ`account_last_payment_date`| bigint| |   
+âââ`account_last_payment_amount`| bigint| |   
+âââ`account_type`| string| |   
+âââ`account_currency`| string| |   
+âââ`account_pw_change_flag`| boolean| |   
+âââ`account_rewards_used_count`| integer| |   
+âââ`account_debt_payment_method`| string| |   
+`customer_cards`| array<row>| |   
+âââ`card_pan`| string| |   
+âââ`card_bin`| string| |   
+âââ`card_effective_date`| string| |   
+âââ`card_expiration_date`| string| |   
+âââ`card_type`| string| |   
+âââ`card_brand`| string| |   
+âââ`card_last4`| string| |   
+âââ`card_id`| string| |   
+âââ`card_category`| string| |   
+âââ`card_program`| string| |   
+âââ`card_country_code`| string| |   
+âââ`card_format`| string| |   
+âââ`card_status`| string| |   
+âââ`card_available_balance`| bigint| |   
+âââ`card_transaction_amount_limit`| bigint| |   
+âââ`cardholder_name`| string| |   
+âââ`card_issued_date`| bigint| |   
+`customer_address_validated`| boolean| |   
+`customer_email_validated`| boolean| |   
+`customer_contactoptout`| boolean| |   
+`customer_pwd`| string| |   
+`customer_gender`| string| |   
+`customer_mothersname`| string| |   
+`customer_type`| string| |   
+`customer_username`| string| |   
+`customer_branch_id`| string| |   
+`customer_preferred_language`| string| |   
+`customer_reported_income`| bigint| |   
+`customer_alias_status`| string| |   
+`customer_alias_last_update_time`| bigint| |   
+`customer_alias_registration_time`| bigint| |   
+`customer_alias`| string| |   
+`customer_alias_type`| string| |   
+`customer_citizenship`| string| |   
+`customer_credit_score`| integer| |   
+`customer_mailing_city`| string| |   
+`customer_mailing_country_code`| string| |   
+`customer_mailing_street_addr`| string| |   
+`customer_mailing_zip`| string| |   
+`is_client`| boolean| |   
+`customer_products_portfolio`| array<string>| |   
+`event_occurred_at`| bigint| |   
+`event_received_at`| bigint| |   
+`event_type`| string| |   
+`info_type`| string| |   
+`feedback_value`| boolean| |   
+`feedback_label`| string| |   
+`feedback_type`| string| |   
+`source`| string| |   
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

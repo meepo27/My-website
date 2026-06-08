@@ -1,0 +1,134 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/rules_project_evaluation_config/
+Title: rules_project_evaluation_config - DS API
+============================================================
+
+#  `` rules_project_evaluation_config Â¶  
+  
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` RulesProjectEvaluationConfig Â¶
+    
+    
+    RulesProjectEvaluationConfig(output_datasource_uri: str, output_datasource_name: str, filter_expression: str | None = None, cost_field: str | None = None, breakdowns: dict[str, set[str]] | None = None, timestamp_field: str | None = None, output_datasource_config: [DataSourceConfig](../datasource_config/#ds_api.datasource_config.DataSourceConfig "            DataSourceConfig \(ds_api.datasource_config.DataSourceConfig\)") | None = None, file_format: str | None = None, **kwargs)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+A configuration used for Rules Project Snapshot evaluation.
+
+Create a new Rules Project Snapshot evaluation configuration.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `output_datasource_uri` Â¶
+
+|  `str` |  The URI of the datasource with the exported evaluation. |  _required_  
+  
+###  `output_datasource_name` Â¶
+
+|  `str` |  The name of the datasource with the exported evaluation. |  _required_  
+  
+###  `filter_expression` Â¶
+
+|  `str` |  The expression that filters events from being evaluated. |  `None`  
+  
+###  `cost_field` Â¶
+
+|  `str` |  The cost field used in the evaluation. |  `None`  
+  
+###  `breakdowns` Â¶
+
+|  `dict[str, set[str]]` |  The breakdown fields and values. |  `None`  
+  
+###  `timestamp_field` Â¶
+
+|  `str` |  The timestamp field used in the evaluation. |  `None`  
+  
+###  `output_datasource_config` Â¶
+
+|  `[DataSourceConfig](../datasource_config/#ds_api.datasource_config.DataSourceConfig "            DataSourceConfig \(ds_api.datasource_config.DataSourceConfig\)")` |  The datasource config that includes the .csv writing options, such as delimiter, and encoding, of the datasource with the exported evaluation. Deprecated: Please use `file_format` instead. |  `None`  
+  
+###  `file_format` Â¶
+
+|  `str` |  Output file format. When not defined, it will reuse the format of the input data source. Possible options are: "parquet" (preferred) or "csv". |  `None`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`has_header` |  `bool` |  Flags whether the dataset is to be read with header. Defaults to True. _CSV config_.  
+`sep` |  `str` |  Delimiter to use. Must contain exactly one character. Defaults to ','. _CSV config_.  
+`missing_values` |  `set of str` |  Set of strings with values for empty value. Defaults to {"", "NA", "NULL"}. _CSV config_.  
+`quote` |  `str` |  The character used to denote the start and end of a quoted item. Defaults to '''. _CSV config_.  
+`line_separator` |  `str` |  The string used mark the end of line. Defaults to '\n''. _CSV config_.  
+`encoding` |  `str` |  Encoding to use for UTF when reading/writing. Defaults to 'UTF-8'. _CSV config_.  
+`merge_schemas` |  `bool` |  Specify if schema merging should be allowed. See: https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#schema-merging _Parquet config_.  
+  
+###  `` breakdowns `property` Â¶
+    
+    
+    breakdowns: dict[str, set[str]]
+    
+
+Get the breakdown fields and values.
+
+###  `` cost_field `property` Â¶
+    
+    
+    cost_field: str | None
+    
+
+Get the cost field used in the evaluation.
+
+###  `` exported_datasource `property` Â¶
+    
+    
+    exported_datasource: [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)") | None
+    
+
+Get datasource with the exported evaluation data.
+
+###  `` exported_datasource_name `property` Â¶
+    
+    
+    exported_datasource_name: str | None
+    
+
+Get the name of the datasource with the exported evaluation.
+
+###  `` exported_datasource_uri `property` Â¶
+    
+    
+    exported_datasource_uri: str | None
+    
+
+Get the URI of the datasource with the exported evaluation.
+
+###  `` filter_expression `property` Â¶
+    
+    
+    filter_expression: str | None
+    
+
+Get the expression that filters events from being evaluated.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` timestamp_field `property` Â¶
+    
+    
+    timestamp_field: str | None
+    
+
+Get the timestamp field used in the evaluation.

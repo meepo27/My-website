@@ -1,0 +1,193 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.1
+Title: Release 1.1 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.1.4`â
+
+### Fix Feedzai API documentationâ
+
+Bug Fix
+
+We have fixed an issue where the below fields data types were not correct in the API documentation
+
+Field| Previous type| Fixed type  
+---|---|---  
+sender_account_balance| number| integer  
+sender_transaction_amount| number| integer  
+receiver_transaction_amount| number| integer  
+receiver_creation_date| string| long  
+sender_registration_date| string| long  
+sanction_check| string| boolean  
+device_bluetooth_enabled| string| boolean  
+pinpoint_risk_score| number| string  
+  
+## Release `1.1.3`â
+
+### Fix installation process for Logstashâ
+
+Bug Fix
+
+We have fixed an issue where the Logstash plugins installation required internet access. We also added a toggle to skip the installation of Logstash itself, allowing pre-installed images to be used.
+
+## Release `1.1.2`â
+
+### Fix undefined variable error during installationâ
+
+Bug Fix
+
+We have fixed the issue found during installation by removing the undefined variable (`pulse_internal_comm_rsa_modulus`) usage as it is not required in the project.
+
+## Release `1.1.1`â
+
+This version introduces an hotfix for the installation issues.
+
+### Fix index name in the Payments workflow tableâ
+
+Bug Fix
+
+An issue was identified when running version `1.0.0` due to a conflicting index (`idx_es_transfers_lifecycle_id`) in the Payments workflow table.
+
+We have fixed the issue by renaming the Payments index to `idx_es_payments_lifecycle_id` so it does not clash with the Transfers workflow table lifecycle_id index.
+
+## Release `1.1.0`â
+
+This version updates our APIs according to the latest DMA.
+
+##### warning
+
+For the new fields to be available in the ETL extractions, the new ETL version must be installed.
+
+### Update on Inbound APIâ
+
+Feature
+
+In this release we have included the Input and Workflow changes that were introduced in Release Candidate 0.17.0.
+
+All the changes are described in [Input and Workflow Schema Update](/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.17#input-and-workflow-schema-update).
+
+### New fields to Customers' Reference Data APIâ
+
+Feature
+
+We've added as requested in Customer Demographics DMA (F24_DMA_UK-IN_CUST_DEMOG_v.01.02_Alpha_40_40_2023.05.12) new fields to the Customers' Reference Data API.
+
+The available fields can be consulted in the API documentation: [Reference Data](/cs-hsbc/3.0.2/api#tag/referencedata/operation/addCustomersReferenceData).
+
+### Events enriched with Customer Reference Dataâ
+
+Feature
+
+We've updated the schema to include the new reference data fields.
+
+Also, the Reference Data enrichers were configured in order to use the customer demographic data to enrich events.
+
+### Include Alert ID in CM Data Extractâ
+
+Feature
+
+We added the Alert Id field to Case Manager external notifications so it is available to build the necessary reports.
+
+### Changes on Case Manager Fields in Customer Details Pageâ
+
+Rework
+
+We've made a few changes in some fields on Case Manager Details Page, please find below a list of changes.
+
+Change| Field  
+---|---  
+Removed| Account Type  
+Removed| Contact Number  
+Removed| Customer Postcode  
+Removed| Region  
+Added| Mobile Phone Number  
+Added| Home Phone Number  
+Added| Daytime Work Phone Number  
+Added| Business Phone Number  
+Added| Home Postcode  
+Added| Correspondence Postcode  
+Added| Customer Home Country  
+Added| Customer Correspondence Country  
+  
+### Changes on Case Manager Fields in Originator Details Pageâ
+
+We've made a few changes in some fields on Case Manager Originator Details Page, please find below a list of changes.
+
+Rework
+
+Change| Field  
+---|---  
+Removed| WorkPhone2 lastChangeDate  
+Removed| HomePhone2 lastChangeDate  
+Removed| MobilePhone2 lastChangeDate  
+Renamed to| Work Phone Last Change Date  
+Renamed to| Home Phone Last Change Date  
+Renamed to| Mobile Phone Last Change Date  
+  
+### Add folder name prefix configuration to ETL toolâ
+
+FeatureFTMT-8225
+
+Added a new property (`storage_bucket_eventstorage_folder_prefix`) to allow adding a prefix to the folder where events will be stored when running the ETL event storage extraction.
+
+As an example, if the prefix is configured to `event_store_`, the output of an execution will be written to `gs://bucket/event_store_<start_datetime>-until-<end_datetime>/`.
+
+For more information see [ETL Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).
+
+### Fix Search Results and Transaction History populating irrelevant dataâ
+
+Bug Fix
+
+The following fields no longer display irrelevant data on the Search Results and Transaction History widgets:
+
+  * Customer / Customer ID
+  * Originator Name
+  * Originator Account
+  * Beneficiary Name
+  * Device Location
+  * Device IP
+
+
+
+### Fix Device Location mapping in Case Managerâ
+
+Bug Fix
+
+The Device Location field is now correctly mapped to `device_geo_ip_isp`.
+
+### Changes on Beneficiary Account Numberâ
+
+Feature
+
+Beneficiary Account number now shows a combination of two fields: Beneficiary's bank BIC and Beneficiary's account number.
+
+We also added a new search filter for BIC on the search screen.
+
+### Add Search by Beneficiary Account and Rename of the Fieldsâ
+
+Feature
+
+Include the possibility to search by Beneficiary Account on the search screen menus.
+
+Also renamed the fields `Originator` and `Beneficiary` to `Originator Name` and `Beneficiary Name`.
+
+### Fix on Transaction Type Searchâ
+
+Bug Fix
+
+There was a bug that when we clicked on the Transaction Type search screen, the dropdown was showing the Transaction Type code instead of the Transaction Type description, we have fixed that so from now on it displays the Transaction Type description values.
+
+### New Operational Status Availableâ
+
+Feature
+
+We've added, as requested, new Operational Status to be available to use in Automation Rules and SLA's, namely:
+
+  * `Pending BOT Closure`
+  * `Pending Manual Closure`
+  * `Pending Crypto Reversal SMS`
+
+

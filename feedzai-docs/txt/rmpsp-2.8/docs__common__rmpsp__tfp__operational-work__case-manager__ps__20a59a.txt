@@ -1,0 +1,182 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/investigate-alerts
+Title: Investigate Alerts | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide)
+  * [PSP](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/overview)
+  * Investigate Alerts
+
+
+
+On this page
+
+# Investigate Alerts
+
+As a fraud prevention agent, the first step you should take is to access the workload. Depending on the risk engine's decision, you may find a set of events for review.
+
+This page helps you understand how to access the events and cases that are up for review.
+
+## Access events, alerts, and casesâ
+
+When events arrive at Case Manager, they can be displayed in more than one page, depending on the fraud risk and the complexity. On Case Manager's sidebar you can access:
+
+  * **Search By Event** : Displays all the events (alerted and non-alerted).
+  * **Alerts** : Events that trigger a risk engine rule with the `alert` action, flagging a high fraud risk. When such rule is triggered, Case Manager displays the event both in the Search by Event and Alerts pages. The Alerts page allows you to focus only on triggered events.
+  * **Cases** : Events and alerts can be grouped into cases for a more organized action-taking process. This allows you to access events that may be correlated and that require a thorough investigation. Cases offer extra functionalities, such as note attachment.
+
+
+
+The following figure gives you an idea of how events, alerts, and cases relate to each other:
+
+tip
+
+**Events versus Alerts** : The Search By Event page shows all the alerted and non-alerted events. The Alerts page shows only the alerted events.
+
+Since there is a much higher percentage of genuine payments relative to fraudulent ones, the Search By Event page is not an effective way to access your workload.
+
+## Filter events, alerts, and casesâ
+
+The Search by Event, Alerts, and Cases pages allow you to narrow down the workload for your analysis through filters.
+
+**Alerts*** page: Depending on your use case, the Alerts page may group events into more channels.
+
+## Select and analyze eventsâ
+
+As previously mentioned, the key pages to access your workload are Alerts and Cases pages.
+
+Whether you open an alerted or non-alerted event, you will land on the Event page, which contains information that helps you make your decision.
+
+Note that you won't be able to make a decision based on a single event, or on a specific widget alone. An investigation is a comprehensive approach, in which you open several events, e.g. from the same customer ID, and search for fraud evidence by looking at multiple widgets.
+
+The Event page displays the following information:
+
+  * **Rules triggered** : Shows all the rules triggered by the event.
+  * **Transaction** : Shows the transaction details, such as date, amount, and payment method.
+  * **Genome** : Enables fraud agents to find crime patterns using link analysis and graph technology. Learn more in the Read Genome graphs section.
+  * **Merchant** : Includes information about the merchant that processed the payment, such as merchant's ID, MCC, and country.
+  * **Customer** : Includes information about the customer, such as the customer's ID, city, and address. To help your investigation, you can check this widget both against the billing and shipping widgets.
+  * **Terminal** : In a card present transaction, it shows information about where the transaction took place.
+  * **Device** : In a card not present transaction, it shows information about the device used to purchase goods/services.
+  * **Dispute** : In the event of chargeback, the dispute widget shows information on the reason why the payment is being disputed.
+  * **Billing** : Includes details about the invoice, such as the billing name, address, and ZIP code.
+  * **Shipping** : Includes details about the shipping, such as the shipping name, address, and ZIP code.
+  * **Items** : Shows information such as the name and ID of the purchased goods/services.
+  * **Payment Method** : Includes information about the payment method used, e.g. card or alternative payment method details.
+  * **Transaction History** : Displays all the transactions associated with the event under investigation.
+  * **Shipping Distance** : Displays the distance between the shipping and device locations.
+  * **Attached Files** : This widget allows you to add files that are useful for subsequent investigation steps.
+  * **Notes** : This widget shows any notes made under a given event.
+  * **Activity Log** : This widget displays the different actions performed in each event, namely regarding linked events, attached files, and notes.
+  * **Refunds and Chargebacks** : Shows the refunds / chargebacks for the payment under investigation.
+
+
+
+### Read Genome graphsâ
+
+Feedzai Genome enables fraud prevention agents to find and visualize complex fraudulent payment patterns using link analysis and graph technology.
+
+The powerful link analysis technology underlying Feedzai Genome, along with the tool's visual capabilities, help fraud prevention agents make decisions faster and with greater accuracy, thus lowering false positives in manual detection. This means that fraud prevention agents can understand the relationship between all the entities participating in a payment, such as the customer, the merchant, and the cards used. This enables fraud prevention agents detect complex fraud scenarios such as Account Takeover.
+
+To better understand how you should analyze links, consider the following example:
+
+A user performs a payment in a merchant. That transaction typically involves the following entities:
+
+  * Customer
+  * Card
+  * Merchant
+
+
+
+Genome displays each of these entities as nodes, and the relationship between them as the edges that connect the nodes.
+
+tip
+
+**Nodes (1)** represent entities and **edges (2)** represent the connection between nodes.
+
+info
+
+**Genome** displays only the nodes that are related to an alert under analysis.
+
+Now that you understand what nodes and edges are, learn how to properly read a Genome graph. Consider the following core concepts:
+
+#### Node entitiesâ
+
+  * Merchant  corresponds to the merchant receiving payments.
+  * Customer  corresponds to the customer performing payments.
+  * Card  corresponds to the card of the customer performing payments.
+
+
+
+#### Node and edge colorsâ
+
+The graph's node and edge colors are visible on the **Review** lens and correspond to the state of events associated with those nodes and edges:
+
+  * Yellow - at least one event in pending state
+  * Red - at least one confirmed fraud event
+  * Purple - at least one declined event
+  * Green - all events accepted
+
+
+
+#### Edge gradient and money flowsâ
+
+The edge gradient is directly connected to the money flows' functionality. This gradient indicates the money flow direction through the edges' color as follows:
+
+  * Grey, with a gradient on the edge's color, indicates who sends and who receives the money. The edge displays a lighter color next to the sender node and darker color next to the receiver node. The money flows from the lightest to the darkest side of the edge.
+  * Purple is used to indicate that there are transfers in both directions between two entities. For instance, consider two account entities A and B, respectively, where the money would flow from account A to B, as well as from B to A. When there is a history of fraud, the edge displays red instead of purple.
+  * Red indicates that there is a history of fraud involving at least one transaction.
+
+
+
+info
+
+Note that, when opening a graph, the **Review** lens is displayed by default. To see the edge gradients with the aforementioned colors, move to the **Genome** view.
+
+#### Genuine payment exampleâ
+
+This graph shows a genuine payment use case. Even though there is at least one declined payment from one customer node (purple node), the money flows between these entities are not considered fraudulent (purple gradient).
+
+#### Fraudulent payment exampleâ
+
+This graph shows a number of fraudulent events:
+
+  * (1) In this example, there has been at least one declined payment (purple node). According to the edge gradient color (red gradient), there is also previous history of fraud between these two entities.
+  * (2) This is a clear example of a fraudulent payment from a customer to a merchant (red nodes). According to the edge gradient color (red gradient), there is also previous history of fraud between these two entities.
+  * (3) These two examples show at least a confirmed fraudulent payment (yellow nodes). According to the edge gradient color (red gradient), there is also previous history of fraud between these two entities.
+
+
+
+To learn more about link analysis, read [Genome's documentation](https://cam.feedzai.com/genome/2.0.9/).
+
+## Review casesâ
+
+The main purpose of cases is to link events when there is a common element that suggests a connection. By aggregating events into a case, you save time in your investigation.
+
+info
+
+Cases can be omnichannel. This means that you can aggregate events from different channels.
+
+The Cases / Case Details page header displays the following information:
+
+  * **Name** : Displays the case's name.
+  * **ID** : Provides the case's alphanumerical ID.
+  * **Status** : Displays the case's state: 'New', 'Review in progress', 'Closed' and 'Closed with SAR'.
+  * **Source Type** : Provides the case's use case, e.g. Fraud or AML.
+  * **Queue** : Specifies the queue the case is stored in.
+  * **Source type** : Identifies what originated the investigation (e.g. Referrals from customer-facing employees).
+  * **Assignee** : Identifies the user assigned to the case.
+
+
+
+The header also displays several action buttons, according to the case's state: **To be reviewed** / **In analysis** / **Waiting for info** / **Closed**.
+
+Below this header, contextual information is provided as follows:
+
+  * **Linked Events** : Presents events associated with the case under investigation.
+  * **Attached Files** : This widget allows you to add files that support your investigation.
+  * **Notes** : This widget shows any notes made under a given case.
+  * **Activity Log** : This widget displays the different actions performed in case, namely regarding linked events, attached files, and notes.
+
+

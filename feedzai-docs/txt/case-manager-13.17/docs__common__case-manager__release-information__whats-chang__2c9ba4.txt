@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/release-information/whats-changed
+Title: What's Changed | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * What's Changed
+
+
+
+# What's Changed
+
+Case Manager 13.17 brings new features and improvements.
+
+Whether you are already experienced with Case Manager's previous versions or not, you should take these changes into account to ensure that you fully adopt Case Manager 13.17. These changes are especially important both when starting a new project from scratch and when migrating existing projects to Case Manager 13.17.
+
+Don't forget to also check the [What's new](/docs/common/case-manager/release-information/whats-new) page and the [Upgrading Guide](/docs/common/case-manager/release-information/upgrading-guides/upgrading-guide-overview) to make sure not to lose track of any of these changes. Note that this page refers to **What's changed in 13.17**. To learn about changes in hotfix versions, refer to the respective [upgrading guide](/docs/common/case-manager/release-information/upgrading-guides/upgrading-from-quarter-release).
+
+If you cannot find the answer to any migration issues or how to map old concepts and processes to Case Manager 13.17, please contact [[email protected]](/cdn-cgi/l/email-protection#c0b3b5b0b0afb2b480a6a5a5a4baa1a9eea3afad).

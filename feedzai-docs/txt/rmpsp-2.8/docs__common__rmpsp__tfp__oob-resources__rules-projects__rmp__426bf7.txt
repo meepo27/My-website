@@ -1,0 +1,1024 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-oct-rules
+Title: Refund and OCT Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [ Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * Refund and OCT Rules
+
+
+
+On this page
+
+# Refund and OCT Rules
+
+### Descriptionâ
+
+A payment refund is the process in which a payment made to the merchant account for a specific transaction is sent back to the customer.
+
+The Original Credit Transaction (OCT) is a transaction that can be used to send or "push" funds to an eligible card-based account, resulting in a credit of funds to the cardholder's account. The "push" payment framework speeds up the funds delivery. It differs from the traditional method, in which funds are credited to the receiver's bank account.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## OCT-Velocity-1
+
+### Comment
+
+> Decline OCT/Refunds if count and total amount exceeds threshold per Card & MID over 24h
+
+### Actions
+
+  * [OCT-Velocity-1]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_card_mid_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_card_mid_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_card_mid_24h_th"].threshold ?? 5000;
+     count_threshold = tenanted_rules_thresholds["oct_rfd_count_card_mid_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_card_mid_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_card_mid_24h_th"].threshold ?? 10;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amt_card_mid_24h / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amt_card_mid_24h >= amount_threshold
+     and event.oct_rfd_count_card_mid_24h >= count_threshold
+
+### Explanation
+
+> Count({event.oct_rfd_count_card_mid_24h}) and amount({localvar.converted_amount}) exceeds threshold({localvar.count_threshold} and {localvar.converted_amount_threshold}) per Card({event.payment_card_id})/MID({event.merchant_id}) over 24h
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-2
+
+### Comment
+
+> Decline OCT/ Refunds if count and total amount exceeds per card & MID over 7 days
+
+### Actions
+
+  * [OCT-Velocity-2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_card_mid_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_card_mid_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_card_mid_7d_th"].threshold ?? 10000;
+     count_threshold = tenanted_rules_thresholds["oct_rfd_count_card_mid_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_card_mid_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_card_mid_7d_th"].threshold ?? 10;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_card_mid_7d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_card_mid_7d >= amount_threshold
+     and event.oct_rfd_count_card_mid_7d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_card_mid_7d}) and amount ({localvar.converted_amount}) exceeds threshold ({localvar.count_threshold} and {localvar.converted_amount_threshold}) per Card ({event.payment_card_id}) & MID ({event.merchant_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-3
+
+### Comment
+
+> Decline OCT/ Refunds if count and total amount exceeds per card & MID over 30 days
+
+### Actions
+
+  * [OCT-Velocity-3]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_card_mid_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_card_mid_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_card_mid_30d_th"].threshold ?? 30000;
+     count_threshold = tenanted_rules_thresholds["oct_rfd_count_card_mid_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_card_mid_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_card_mid_30d_th"].threshold ?? 30;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amt_card_mid_30d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amt_card_mid_30d >= amount_threshold
+     and event.oct_rfd_count_card_mid_30d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_card_mid_30d}) and total amount ({localvar.converted_amount}) exceeds threshold ({localvar.count_threshold} and {localvar.converted_amount_threshold}) per Card ({event.payment_card_id}) & MID ({event.merchant_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-4
+
+### Comment
+
+> Decline OCT/ Refunds exceed count threshold per CardId for country over 7 days
+
+### Actions
+
+  * [OCT-Velocity-4]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = by_merchant_tenanted_country_thresholds[event.payment_card_country_code].count_threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_card_country_7d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_card_country_7d}) exceeds threshold ({localvar.count_threshold}) per Card ({event.payment_card_id}) per country ({event.payment_card_country_code}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-5
+
+### Comment
+
+> Decline OCT/ Refunds exceed amount threshold per CardId for country over 7 days
+
+### Actions
+
+  * [OCT-Velocity-5]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = by_merchant_tenanted_country_thresholds[event.payment_card_country_code].amount_threshold ?? 10;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_amount_card_country_7d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_amount_card_country_7d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold {localvar.converted_amount_threshold} per Card ({event.payment_card_id}) per country ({event.payment_card_country_code}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Scheme-6
+
+### Comment
+
+> Decline OCT/ Refunds for Visa, where MCC is listed to be declined
+
+### Actions
+
+  * Alert
+  * [OCT-Scheme-6]
+
+
+
+### Variables
+    
+    
+    is_decline_listed=global_negative_listed_mccs.contains( event.merchant_mcc );
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.norm_payment_card_brand == 'visa'
+     and is_decline_listed == true
+
+### Explanation
+
+> Card brand is {event.norm_payment_card_brand} and {event.merchant_mcc} MCC is listed to be declined
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Scheme-7
+
+### Comment
+
+> Decline OCT/ Refunds for Mastercard, where MCC is listed to be declined
+
+### Actions
+
+  * Alert
+  * [OCT-Scheme-7]
+
+
+
+### Variables
+    
+    
+    is_decline_listed=global_negative_listed_mccs.contains( event.merchant_mcc );
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.norm_payment_card_brand == 'mastercard'
+     and is_decline_listed == true
+
+### Explanation
+
+> Card brand is {event.norm_payment_card_brand} and {event.merchant_mcc} MCC is listed to be declined
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-8
+
+### Comment
+
+> Decline OCT/Refunds count exceeds threshold per Merchant Id over 24 hours
+
+### Actions
+
+  * Alert
+  * [OCT-Velocity-8]
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_mid_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_mid_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_mid_24h_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_mid_24h >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_mid_24h}) exceeds threshold ({localvar.count_threshold}) per Merchant ID ({event.merchant_id}) over 24 hours
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-9
+
+### Comment
+
+> Decline OCT/Refunds count exceeds threshold per Merchant Id over 7 days
+
+### Actions
+
+  * Alert
+  * [OCT-Velocity-9]
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_mid_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_mid_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_mid_7d_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_mid_7d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_mid_7d}) exceeds threshold ({localvar.count_threshold}) per Merchant ID ({event.merchant_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-10
+
+### Comment
+
+> Decline OCT/Refunds count exceeds threshold per Merchant Id over 30 days
+
+### Actions
+
+  * [OCT-Velocity-10]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_mid_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_mid_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_mid_30d_th"].threshold ?? 30;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_mid_30d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_mid_30d}) exceeds threshold ({localvar.count_threshold}) per Merchant ID ({event.merchant_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-11
+
+### Comment
+
+> Decline OCT/Refunds total amount exceeds threshold per MID over 24 hours
+
+### Actions
+
+  * [OCT-Velocity-11]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_mid_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_mid_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_mid_24h_th"].threshold ?? 500000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_mid_24h / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_mid_24h >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per Merchant ID ({event.merchant_id}) over 24 hours
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-12
+
+### Comment
+
+> Decline OCT/Refunds total amount exceeds threshold per MID over 7 days
+
+### Actions
+
+  * [OCT-Velocity-12]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_mid_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_mid_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_mid_7d_th"].threshold ?? 1000000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_mid_7d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_mid_7d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per Merchant ID ({event.merchant_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-13
+
+### Comment
+
+> Decline OCT/Refunds total amount exceeds threshold per MID over 30 days
+
+### Actions
+
+  * [OCT-Velocity-13]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_mid_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_mid_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_mid_30d_th"].threshold ?? 3000000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_mid_30d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_mid_30d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per Merchant ID ({event.merchant_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-14
+
+### Comment
+
+> Decline OCT/Refunds count exceeds threshold per Card Id over 24 hours
+
+### Actions
+
+  * [OCT-Velocity-14]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_card_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_card_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_card_24h_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_card_24h >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_card_24h}) exceeds threshold ({localvar.count_threshold}) per Card ID ({event.payment_card_id}) over 24 hours
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-15
+
+### Comment
+
+> Decline OCT/Refunds count exceeds threshold per Card Id over 7 days
+
+### Actions
+
+  * [OCT-Velocity-15]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_card_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_card_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_card_7d_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_card_7d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_card_7d}) exceeds threshold ({localvar.count_threshold}) per Card ID ({event.payment_card_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-16
+
+### Comment
+
+> Decline OCT/Refunds count exceeds threshold per Card Id over 30 days
+
+### Actions
+
+  * [OCT-Velocity-16]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_card_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_card_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_card_30d_th"].threshold ?? 30;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_card_30d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_card_30d}) exceeds threshold ({localvar.count_threshold}) per Card ID ({event.payment_card_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-17
+
+### Comment
+
+> Decline OCT/Refunds total amount exceeds threshold per Card Id over 24 hours
+
+### Actions
+
+  * Alert
+  * [OCT-Velocity-17]
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_card_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_card_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_card_24h_th"].threshold ?? 500000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_card_24h / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_card_24h >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per Card ID ({event.payment_card_id}) over 24 hours
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-18
+
+### Comment
+
+> Decline OCT/Refunds total amount exceeds threshold per Card Id over 7 days
+
+### Actions
+
+  * Alert
+  * [OCT-Velocity-18]
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_card_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_card_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_card_7d_th"].threshold ?? 1000000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_card_7d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_card_7d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per Card ID ({event.payment_card_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-19
+
+### Comment
+
+> Decline OCT/Refunds total amount exceeds threshold per Card Id over 30 days
+
+### Actions
+
+  * Alert
+  * [OCT-Velocity-19]
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_card_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_card_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_card_30d_th"].threshold ?? 3000000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_sum_amount_card_30d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_sum_amount_card_30d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per Card ID ({event.payment_card_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-20
+
+### Comment
+
+> Decline OCT/ Refunds count exceed threshold per BIN/Merchant Id over 24h
+
+### Actions
+
+  * [OCT-Velocity-20]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_bin_mid_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_bin_mid_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_bin_mid_24h_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_bin_mid_24h >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_bin_mid_24h}) exceeds threshold ({localvar.count_threshold}) per BIN({event.payment_card_bin}) and Merchant ID ({event.merchant_id}) over 24h
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-21
+
+### Comment
+
+> Decline OCT/ Refunds count exceed threshold per BIN/Merchant Id over 7d
+
+### Actions
+
+  * [OCT-Velocity-21]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_bin_mid_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_bin_mid_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_bin_mid_7d_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_bin_mid_7d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_bin_mid_7d}) exceeds threshold ({localvar.count_threshold}) per BIN({event.payment_card_bin}) and Merchant ID ({event.merchant_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-22
+
+### Comment
+
+> Decline OCT/ Refunds count exceed threshold per BIN/Merchant Id over 30d
+
+### Actions
+
+  * [OCT-Velocity-22]
+  * Alert
+
+
+
+### Variables
+    
+    
+    count_threshold = tenanted_rules_thresholds["oct_rfd_count_bin_mid_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_count_bin_mid_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_count_bin_mid_30d_th"].threshold ?? 30;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_count_bin_mid_30d >= count_threshold
+
+### Explanation
+
+> Count ({event.oct_rfd_count_bin_mid_30d}) exceeds threshold ({localvar.count_threshold}) per BIN({event.payment_card_bin}) and Merchant ID ({event.merchant_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-23
+
+### Comment
+
+> Decline OCT/ Refunds total amount exceed threshold per BIN/Merchant Id 24h
+
+### Actions
+
+  * [OCT-Velocity-23]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_bin_mid_24h_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_bin_mid_24h_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_bin_mid_24h_th"].threshold ?? 500000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_amount_bin_mid_24h / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_amount_bin_mid_24h >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per BIN({event.payment_card_bin}) and Merchant ID ({event.merchant_id}) over 24h
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-24
+
+### Comment
+
+> Decline OCT/ Refunds total amount exceed threshold per BIN/ Merchant Id 7d
+
+### Actions
+
+  * [OCT-Velocity-24]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_bin_mid_7d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_bin_mid_7d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_bin_mid_7d_th"].threshold ?? 1000000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_amount_bin_mid_7d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_amount_bin_mid_7d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per BIN({event.payment_card_bin}) and Merchant ID ({event.merchant_id}) over 7 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-Velocity-25
+
+### Comment
+
+> Decline OCT/ Refunds total amount exceed threshold per BIN/ Merchant Id 30d
+
+### Actions
+
+  * [OCT-Velocity-25]
+  * Alert
+
+
+
+### Variables
+    
+    
+    amount_threshold = tenanted_rules_thresholds["oct_rfd_amount_bin_mid_30d_th"].threshold ?? merchant_risk_levels__rules_thresholds["oct_rfd_amount_bin_mid_30d_th"].threshold ?? global_default__rules_thresholds["oct_rfd_amount_bin_mid_30d_th"].threshold ?? 3000000;
+     converted_amount_threshold = amount_threshold / 100;
+     converted_amount = event.oct_rfd_amount_bin_mid_30d / 100;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and event.oct_rfd_amount_bin_mid_30d >= amount_threshold
+
+### Explanation
+
+> Total amount ({localvar.converted_amount}) exceeds threshold ({localvar.converted_amount_threshold}) per BIN({event.payment_card_bin}) and Merchant ID ({event.merchant_id}) over 30 days
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-PosNeg-26
+
+### Comment
+
+> Decline OCT/refund if Card Id is in a PosNeg/Sanctioned list
+
+### Actions
+
+  * Alert
+  * [OCT-PosNeg-26]
+
+
+
+### Variables
+    
+    
+    card_id_listed_value = by_merchant_tenanted_posneg_listed_cards[event.payment_card_id].value;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and (event.payment_card_id ?? '') != ''
+      and card_id_listed_value == 'decline'
+
+### Explanation
+
+> Card ID ({event.payment_card_id}) is listed by the Tenant to be auto decline.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-PosNeg-27
+
+### Comment
+
+> Approve OCT/refund if Card Id is listed to be auto-approved globally or per MID.
+
+### Actions
+
+  * [OCT-PosNeg-27]
+  * Alert
+
+
+
+### Variables
+    
+    
+    card_id_listed_value = by_merchant_tenanted_posneg_listed_cards[event.payment_card_id].value;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and (event.payment_card_id ?? '') != ''
+      and card_id_listed_value == 'approve'
+
+### Explanation
+
+> Card ID ({event.payment_card_id}) is listed by the Tenant to be auto-approved.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-PosNeg-28
+
+### Comment
+
+> Decline OCT/refund if Merchant Id is in a PosNeg/Sanctioned list
+
+### Actions
+
+  * [OCT-PosNeg-28]
+  * Alert
+
+
+
+### Variables
+    
+    
+    merchant_id_listed_value = by_merchant_tenanted_posneg_listed_cards[event.merchant_id].value;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and (event.payment_card_id ?? '') != ''
+      and merchant_id_listed_value == 'decline'
+
+### Explanation
+
+> Card ID ({event.merchant_id}) is listed by the Tenant to be auto decline.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## OCT-PosNeg-29
+
+### Comment
+
+> Approve OCT/refund if Merchant Id is listed to be auto-approved.
+
+### Actions
+
+  * [OCT-PosNeg-29]
+  * Alert
+
+
+
+### Variables
+    
+    
+    merchant_id_listed_value = by_merchant_tenanted_posneg_listed_cards[event.merchant_id].value;
+
+### Condition
+    
+    
+    event.event_type == 'info' and
+     (event.info_type == 'refund' or event.info_type == 'oct')
+     and (event.payment_card_id ?? '') != ''
+      and merchant_id_listed_value == 'approve'
+
+### Explanation
+
+> Card ID ({event.merchant_id}) is listed by the Landlord to be auto-approve.
+
+### Mark As
+
+The outcome of this rule is: **decline**

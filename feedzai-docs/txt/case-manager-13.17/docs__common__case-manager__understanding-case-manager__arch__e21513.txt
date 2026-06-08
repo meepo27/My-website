@@ -1,0 +1,74 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/architecture-overview
+Title: Architecture | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Architecture
+
+
+
+On this page
+
+# Architecture
+
+Case Manager comprises several components that work together to provide its service. In this section, you will learn the **Architecture** of Case Manager and how it works to communicate with Pulse and present the service to the user. In order to achieve this, multiple Case Manager instances work side-by-side. The information received and processed in Case Manager is then sent back to Feedzai, closing the feedback loop and improving Feedzai's machine learning models.
+
+## General Architectureâ
+
+In the following diagram, you can have a general overview of the communication between the different components of Case Manager.
+
+  
+
+
+In order to offer you a complete depiction of the architecture of Case Manager, this process has been broken down into different subsections.
+
+First, you can have a look at how each of the components works and what are their functions:
+
+## Componentsâ
+
+### Load Balancerâ
+
+Load Balance is the one in charge of connecting browsers to Case Manager. This stateless Load Balancer knows where to find all Case Manager instances without using discovery. Although it may use sticky sessions, this is not required in order to establish the connection. This Load Balancer can be either software (Nginx, HAProxy) or hardware (Cisco, Barracuda). It also allows monitoring registered instances through an HTTP health check.
+
+### Case Managerâ
+
+All Case Manager instances contain the full system with all its four layers:
+
+  * A presentation layer consisting of code that runs client-side (inside a web browser).
+  * A service layer: An entry point to the business layer that enforces authentication and authorization.
+  * A business layer where all the application logic resides.
+  * A data layer that is shared across all Case Manager instances, where persistent information is stored.
+
+
+
+Also, each of the instances provides a simple REST health check endpoint that reflects the instance health.
+
+To provide high availability and horizontal scalability, the system contemplates that all but one Case Manager's instance can fail. It is also possible to add or remove instances by updating the Load Balancer configuration.
+
+### RabbitMQâ
+
+RabbitMQ is the messaging platform Pulse uses to communicate between machines and processes within the same datacenter, as well as across datacenters.
+
+### Pulseâ
+
+Pulse sends the events to Case Manager and it receives feedback from the latter. 
+
+### RDBMSâ
+
+RDBMS stands for Relational Database Management System. RDBMS is the basis for SQL, and for all modern database systems like MS SQL Server, Oracle, and PostgreSQL. A Relational database management system (RDBMS) is a database management system (DBMS) that is based on a relational model.
+
+The data in RDBMS is stored in database objects called tables. The table is a collection of related data entries and it consists of columns and rows: the most common and simplest form of data storage in a relational database.
+
+### Dashboarding Engineâ
+
+The Dashboarding Engine (for instance, Tableau) is a component that reads data from the database. According to the configuration of the dashboard, metrics/KPIs will be computed and made ready to be displayed.
+
+## Learn Moreâ
+
+Learn more about the three sections in which Case Manager's Architecture has been broken down:
+
+  * [User's connection to Case Manager.](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/users-connect-to-case)
+  * [Pulse's connection to Case Manager.](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/pulse-talks-to-case)
+  * [Case Manager's feedback to Pulse.](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/pulse-gets-feedback-from)
+
+

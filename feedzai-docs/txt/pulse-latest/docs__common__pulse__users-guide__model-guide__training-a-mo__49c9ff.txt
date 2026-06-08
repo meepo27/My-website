@@ -1,0 +1,68 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model/importing-an-external-model
+Title: Importing an external model | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * [Training a Model](/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model/)
+  * Importing an external model
+
+
+
+On this page
+
+# Importing an external model
+
+Was this page helpful?Â 
+
+## Whyâ
+
+Pulse can integrate with tools that you normally use and are familiar with. You can import models that you created and trained in third party systems. After importing a Model, you can evaluate it and use it in Workflows as any other Model in Pulse.
+
+## How toâ
+
+To import an externally trained model, execute the following actions:
+
+  1. In the **Data Science** tab , select a Model Project from the Model Projects list.
+
+  2. Add  a new model.
+
+
+
+
+Duplicating an existing Model
+
+When fine-tuning model parameters, instead of importing a Model again, you can duplicate an existing imported Model. For that, use the **Duplicate and Change** option on that model. This option loads a copy of it, with all the properties and values that were selected when the Model was originally imported.
+
+  3. Select **External Model**.
+
+  4. Select the **Algorithm** you used to train the model. Use the link button  at the end of the line to learn more about each algorithm. If you don't find the algorithm you need in the list, contact your administrator to discuss the integration possibilities.
+
+  5. Type the **Model Path** , which is the path to the physical location of the model folder. For the requirements regarding the content of the model folder, see the table in the next section.
+
+  6. If the Model Path has a model.json file that defines the data schema, Pulse automatically loads the schema in the **Fields to Select** area. Otherwise, select **Use Pulse Schema** , and select a data source that is compatible with the data that was used for training the external model.
+
+danger
+
+If models are imported via App Collaboration to a clustered environment, the model binary is only propagated to all nodes if the `modelStorageDirectory` property is configured to use a distributed filesystem such as HDFS.
+
+  7. Select the **Target Variable** and the necessary fields for the data schema in the **Fields to Select** area.
+
+In the case of an unsupervised machine learning algorithm (e. g. Isolation Forest), remove the field that you plan to use as target variable. This will avoid label leakage, since a realistic anomaly detection model does not have access to the label.
+
+
+
+
+## Requirementsâ
+
+The Model import assumes the following about the imported model:
+
+Provider| Requirements  
+---|---  
+Feedzai| `*.model.gz` (a serialized FZRForest object, compacted)  
+H2O| A folder called _model_ , containing either a `*.zip` (MOJO) or `*.jar` (POJO)  
+DataRobot| A folder called _model_ , containing a `*.jar` file. The model has to be trained in DataRobot version 4.4.1 or above.  
+  
+## Next Stepsâ
+
+Now that your model is trained, you can [evaluate its performance](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model), or [compare it with other models](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models).

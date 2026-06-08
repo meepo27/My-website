@@ -1,0 +1,1744 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/rest-api-old/rest-api-old-crud
+Title: CRUD Metadata | Case Manager
+============================================================
+
+On this page  
+  
+# CRUD Metadata
+
+Deprecated API specification
+
+Case Manager is currently moving to an API specification generated with Swagger. Due to Case Manager's API size and complexity, the resources are being gradually moved to the new format. Until this transition is complete, please make sure that you check both this page and the [new API specification](/case-manager/13.17/api/).
+
+When all resources are moved to the new format, this page will be deleted.
+
+This page details the REST API regarding CRUD Metadata.
+
+## CRUD Metadataâ
+
+### Statusâ
+
+**Get the Status matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/status/<id>
+
+| \--| \--| Status as a JSON object| Get the Status matching the given ID  
+**Example****Request**| `/api/status/fraud`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"value": "fraud",
+    
+    	"label": "event.status.fraud"
+    
+    }  
+  
+**Get a paginated list of Status**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/status?<pagination parameters>
+
+| \--| Pagination| A paginated list of Event Status| Get a paginated list of Evebt Status  
+**Example****Request**| `/api/status?limit=10&offset=0`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	 "items": [{
+    
+    	 "value": "unknown",
+    
+    	 "label": "event.status.unknown"
+    
+    	 }, {
+    
+    	 "value": "fraud",
+    
+    	 "label": "event.status.fraud"
+    
+    	 }, {
+    
+    	 "value": "genuine",
+    
+    	 "label": "event.status.genuine"
+    
+    	 }, {
+    
+    	 "value": "none",
+    
+    	 "label": "event.status.none"
+    
+    	 }],
+    
+    	 "total": 4,
+    
+    	 "limit": 10,
+    
+    	 "offset": 0,
+    
+    	 "filter": null,
+    
+    	 "orderBy": null
+    
+    }  
+  
+### Status Reasonâ
+
+**Get the Status Reason matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/status-reason/<id>
+
+| \--| \--| Status Reason as a JSON object| Get the Status Reason matching the given ID  
+**Example****Request**| `/api/status-reason/975c5ab6-bd2f-4567*-8ae3-6026742f4036`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	 id: "975c5ab6-bd2f-4567-8ae3-6026742f4036",
+    
+    	 statusId: "fraud",
+    
+    	 name: "Confirmed Fraud"
+    
+    }  
+  
+**Get a paginated list of Status Reasons**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/status-reason?<pagination parameters>
+
+| \--| Pagination| A paginated list of Status Reasons| Get a paginated list of Status Reasons  
+**Example****Request**| `/api/status-reason?limit=10&offset=0`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"items": [{
+    
+    	"id": "975c5ab6-bd2f-4567-8ae3-6026742f4036",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Confirmed Fraud"
+    
+    	}, {
+    
+    	"id": "a70cddca-8499-46d3-a167-3e938a564508",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Customer Request"
+    
+    	}, {
+    
+    	"id": "f9ab011c-adb7-46a9-b355-3f2e120c50e0",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Limit Abuse"
+    
+    	}, {
+    
+    	"id": "ab678a03-99b5-4d2e-8374-66ad619c0719",
+    
+    	"statusId": "fraud",
+    
+    	"name": "No Response"
+    
+    	}, {
+    
+    	"id": "26e900f5-1d07-4eba-94d5-bed72ba7306a",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Reshipper"
+    
+    	}, {
+    
+    	"id": "5e7f91a1-dcfc-47a7-ab69-86819a75b411",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Suspected Fraud"
+    
+    	}, {
+    
+    	"id": "2b5ce7b3-b60f-4277-8bc5-c0961099976e",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Swoosh Acct Suspended"
+    
+    	}, {
+    
+    	"id": "7fa67a7c-cd03-47ac-a6af-7bc7457ec9aa",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Swoosh Employee Abuse"
+    
+    	}, {
+    
+    	"id": "a2136f27-66fc-47c2-8498-2e2d8491bf09",
+    
+    	"statusId": "fraud",
+    
+    	"name": "Swoosh Family Abuse"
+    
+    	}, {
+    
+    	"id": "14938f62-536f-4e76-b488-61832a97ea93",
+    
+    	"statusId": "genuine",
+    
+    	"name": "Bulk Ship"
+    
+    	}],
+    
+    	"total": 17,
+    
+    	"limit": 10,
+    
+    	"offset": 0,
+    
+    	"filter": null,
+    
+    	"orderBy": null
+    
+    }  
+  
+### Userâ
+
+**Get the User matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/user/<id>
+
+| \--| \--| User as a JSON object| Get the User matching the given ID  
+**Example****Request**| `/api/user/835260333`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"value": "835260333",
+    
+    	"label": "manager"
+    
+    }  
+  
+**Get a paginated list of Users**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/user?<pagination parameters>[?channelId=channel]
+
+| \--| Pagination and whether to include inactive users. Also, optional channelId to grant user read-write permissions to that channel| A paginated list of Users which may include inactive users| Get a paginated list of Users with the possibility of including inactive users  
+  
+If you are using CM 8.1, please keep in mind that listing inactive users is only available since 8.1.1.
+
+**Example****Request**| `/api/user?limit=10&offset=0`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	 "items": [{
+    
+    	 "value": "1770275927",
+    
+    	 "label": "investigator",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "835260333",
+    
+    	 "label": "manager",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "696465287",
+    
+    	 "label": "riskofficer",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "107027353",
+    
+    	 "label": "pulse",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "864330622",
+    
+    	 "label": "analyst",
+    
+    	 "active": "true"
+    
+    	 }],
+    
+    	 "total": 5,
+    
+    	 "limit": 10,
+    
+    	 "offset": 0,
+    
+    	 "filter": null,
+    
+    	 "orderBy": null
+    
+     }  
+  
+**Request**| `/api/user?limit=10&offset=0&listInactive=true`  
+---|---  
+**Response**|  HTTP 200
+    
+    
+    {
+    	 "items": [{
+    
+    	 "value": "1770275927",
+    
+    	 "label": "investigator",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "835260333",
+    
+    	 "label": "manager",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "696465287",
+    
+    	 "label": "riskofficer",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "295729012",
+    
+    	 "label": "inactiveuser",
+    
+    	 "active": "false"
+    
+    	 }, {
+    
+    	 "value": "107027353",
+    
+    	 "label": "pulse",
+    
+    	 "active": "true"
+    
+    	 }, {
+    
+    	 "value": "864330622",
+    
+    	 "label": "analyst",
+    
+    	 "active": "true"
+    
+    	 }],
+    
+    	 "total": 6,
+    
+    	 "limit": 10,
+    
+    	 "offset": 0,
+    
+    	 "filter": nul,
+    
+    	 "orderBy": null
+    
+     }  
+  
+### Queueâ
+
+**Get the Queue matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/queue/<id>
+
+| \--| \--| The Queue as a JSON object| Get the Queue matching the given ID  
+**Example****Request**| `/api/queue/4ca173fb-c556-4e52*-8c80-4d6be164ab76`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	 "id": "4ca173fb-c556-4e52-8c80-4d6be164ab76",
+    
+    	 "createdAt": 1507892812964,
+    
+    	 "createdBy": "107027353",
+    
+    	 "createdByUsername": "pulse",
+    
+    	 "updatedAt": 1507898055126,
+    
+    	 "updatedBy": "107027353",
+    
+    	 "deletedAt": null,
+    
+    	 "deletedBy": null,
+    
+    	 "name": "Queue",
+    
+    	 "description": "Queue description",
+    
+    	 "channel": ,
+    
+    	 "tenant": "NPC",
+    
+    	 "users": [
+    
+    	 {
+    
+    	 "id": "77505",
+    
+    	 "username": "NPC",
+    
+    	 "tenants": {
+    
+    	 "oo9_BOJZ5HrRonpCoeRBig": "NPC"
+    
+    	}
+    
+    	}
+    
+    	 ],
+    
+    	 "deleted": false
+    
+     }  
+  
+**Get a paginated list of Queues**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/queue?<pagination parameters> & [channelPermissionLevel=level]
+
+| \--| Pagination and optional channel-permission level to filter the queues according to the user access-level (read-write, read-only, none)| A paginated list of Queues| Get a paginated list of Queues  
+**Example****Request**| `/api/queue?limit=10&offset=0`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"items": [
+    
+    	{
+    
+    	"id": "34531409-07db-456e-9e56-1b08919e1a5a",
+    
+    	"createdAt": null,
+    
+    	"createdBy": null,
+    
+    	"createdByUsername": null,
+    
+    	"updatedAt": null,
+    
+    	"updatedBy": null,
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Merchant",
+    
+    	"description": null,
+    
+    	"channel": ,
+    
+    	"tenant": null,
+    
+    	"users": [],
+    
+    	"deleted": false
+    
+    	},
+    
+    	{
+    
+    	"id": "aa89cb7c-c80e-4783-a6f3-1152f359cd3a",
+    
+    	"createdAt": null,
+    
+    	"createdBy": null,
+    
+    	"createdByUsername": null,
+    
+    	"updatedAt": null,
+    
+    	"updatedBy": null,
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Customer",
+    
+    	"description": null,
+    
+    	"channel": ,
+    
+    	"tenant": null,
+    
+    	"users": [],
+    
+    	"deleted": false
+    
+    	},
+    
+    	{
+    
+    	"id": "9b60b451-c756-45ab-a703-93a68d9d9550",
+    
+    	"createdAt": null,
+    
+    	"createdBy": null,
+    
+    	"createdByUsername": null,
+    
+    	"updatedAt": null,
+    
+    	"updatedBy": null,
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Investigation",
+    
+    	"description": null,
+    
+    	"channel": ,
+    
+    	"tenant": null,
+    
+    	"users": [],
+    
+    	"deleted": false
+    
+    	},
+    
+    	{
+    
+    	"id": "d762698a-3cee-469f-a8a7-6a337bd33c86",
+    
+    	"createdAt": null,
+    
+    	"createdBy": null,
+    
+    	"createdByUsername": null,
+    
+    	"updatedAt": null,
+    
+    	"updatedBy": null,
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Urgent",
+    
+    	"description": null,
+    
+    	"channel": ,
+    
+    	"tenant": null,
+    
+    	"users": [],
+    
+    	"deleted": false
+    
+    	},
+    
+    	{
+    
+    	"id": "4ca173fb-c556-4e52-8c80-4d6be164ab76",
+    
+    	"createdAt": 1507892812964,
+    
+    	"createdBy": "107027353",
+    
+    	"createdByUsername": "pulse",
+    
+    	"updatedAt": 1507897514399,
+    
+    	"updatedBy": "107027353",
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Queue",
+    
+    	"description": "Not so new queue",
+    
+    	"channel": ,
+    
+    	"tenant": "NPC",
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505",
+    
+    	"username": "NPC",
+    
+    	"tenants": {
+    
+    	"oo9_BOJZ5HrRonpCoeRBig": "NPC"
+    
+    	}
+    
+    	}
+    
+    	],
+    
+    	"deleted": false
+    
+    	}
+    
+    	],
+    
+    	"total": 5,
+    
+    	"limit": 100,
+    
+    	"offset": 0,
+    
+    	"filter": null,
+    
+    	"orderBy":
+    
+    }  
+  
+**Create a new Queue**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/queue
+
+| 
+    
+    
+    {
+    	"name": "Queue",
+    
+    	"description": "A new queue",
+    
+    	"channel": ,
+    
+    	"tenant": "NPC",
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505"
+    
+    	},
+    
+    	{
+    
+    	"id": "-1616614560"
+    
+    	}
+    
+    	]
+    
+    }
+
+| \--| The metadata on the created queue| Create a new queue  
+**Example****Request**| **Request**`/api/queue`**Payload**
+    
+    
+    	{
+    
+    	"name": "Queue",
+    
+    	"description": "A new queue",
+    
+    	"channel": ,
+    
+    	"tenant": "NPC",
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505"
+    
+    	},
+    
+    	{
+    
+    	"id": "-1616614560"
+    
+    	}
+    
+    	]
+    
+    }  
+  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"id": "4ca173fb-c556-4e52-8c80-4d6be164ab76",
+    
+    	"createdAt": 1507892812964,
+    
+    	"createdBy": "107027353",
+    
+    	"createdByUsername": "pulse",
+    
+    	"updatedAt": null,
+    
+    	"updatedBy": null,
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Queue",
+    
+    	"description": "A new queue",
+    
+    	"channel": ,
+    
+    	"tenant": "NPC",
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505",
+    
+    	"username": "NPC",
+    
+    	"tenants": {
+    
+    	"oo9_BOJZ5HrRonpCoeRBig": "NPC"
+    
+    	}
+    
+    	},
+    
+    	{
+    
+    	"id": "-1616614560",
+    
+    	"username": "landlord",
+    
+    	"tenants": {
+    
+    	"oo9_BOJZ5HrRonpCoeRBig": "NPC",
+    
+    	"mVRhp-Dt-cExvCfowcdC3g": "NRC",
+    
+    	"tZRk6Tb6DsHhTnaTzwFFgw": "QPC",
+    
+    	"m3Yh7OfBAzdeGKDq09NJDQ": "WPC",
+    
+    	"nHs-BP6OLUepRAWwD1ZDVg": "WPF",
+    
+    	"grYjHATpDflYIiLnKGZEgQ": "MPF",
+    
+    	"gWQ0X1U1sZX9XpHBrBdCjQ": "BPC",
+    
+    	"klZi89N1qXy9qOjvuPxBFQ": "MRC",
+    
+    	"u_GQdDE_k5M594GQJGZDyg": "MPC"
+    
+    	}
+    
+    	}
+    
+    	],
+    
+    	"deleted": false
+    
+    }  
+  
+**Update the Queue matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**PUT**| 
+    
+    
+    /api/queue/<id>
+
+| 
+    
+    
+    {
+    	"name": "Queue",
+    
+    	"description": "Not so new queue",
+    
+    	"channel": ,
+    
+    	"tenant": "NPC",
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505"
+    
+    	}
+    
+    	]
+    
+    }
+
+| \--| \--| Updates the queue matching the given ID  
+**Example****Request**| **URL request**`/api/queue/4ca173fb-c556-4e52*-8c80-4d6be164ab76`**Payload**
+    
+    
+    {
+    	"name": "Queue",
+    
+    	"description": "Not so new queue",
+    
+    	"tenant": "NPC",
+    
+    	"channel": ,
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505"
+    
+    	}
+    
+    	]
+    
+    }  
+  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    	"id": "4ca173fb-c556-4e52-8c80-4d6be164ab76",
+    
+    	"createdAt": 1507892812964,
+    
+    	"createdBy": "107027353",
+    
+    	"createdByUsername": "pulse",
+    
+    	"updatedAt": 1507897514399,
+    
+    	"updatedBy": "107027353",
+    
+    	"deletedAt": null,
+    
+    	"deletedBy": null,
+    
+    	"name": "Queue",
+    
+    	"description": "Not so new queue",
+    
+    	"tenant": "NPC",
+    
+    	"channel": ,
+    
+    	"users": [
+    
+    	{
+    
+    	"id": "77505",
+    
+    	"username": "NPC",
+    
+    	"tenants": {
+    
+    	"oo9_BOJZ5HrRonpCoeRBig": "NPC"
+    
+    	}
+    
+    	}
+    
+    	],
+    
+    	"deleted": false
+    
+    }  
+  
+**Delete the queue matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**DELETE**| 
+    
+    
+    /api/queue/<id>
+
+| \--| \--| \--| Delete the queue matching the given ID  
+**Example****Request**| **URL request**`/api/delete/56e53ba8-0f10-4c6f-8486*-83817adef12e`  
+---|---  
+**Response**|  HTTP 204Â   
+  
+### Queue Userâ
+
+**Get the Queues to which the user is assigned**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/queue-user/user-queues
+
+| \--| \--| List of Queue JSON objects| Gets the list of queues to which the user is assigned  
+  
+Example
+
+Request| `/api/queue-user/user-queues`  
+---|---  
+Response| 
+    
+    
+    [
+    {
+    "id": "4ca173fb-c556-4e52-8c80-4d6be164ab76",
+    "createdAt": 1507898288948,
+    "createdBy": "107027353",
+    "createdByUsername": null,
+    "updatedAt": 1507898288946,
+    "updatedBy": "107027353",
+    "deletedAt": null,
+    "deletedBy": null,
+    "name": "Queue",
+    "description": "Queue description",
+    "tenant": "NPC",
+    "users": null,
+    "deleted": false
+    }
+    ]  
+  
+### Automationâ
+
+**Get the Automation Rule matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/automation/<id>
+
+| \--| \--| The Automation Rule as a JSON object| Get the Automation Rule matching the given ID  
+**Example****Request**| `/api/automation/34531409-07db-456e-9e56-1b08919e1a5a`  
+---|---  
+**Response**|  HTTP 200Â 
+    
+    
+    {
+    "id": "34531409-07db-456e-9e56-1b08919e1a5a",
+    "deleted": false,
+    "name": "Set Event Initial Status: Fraud + Not Alert = Fraud",
+    "description": "(Note that Pulse will not be notified by this event status operation)",
+    "enabled": true,
+    "position": 1,
+    "channel":
+    "trigger": "EVENT",
+    "conditions": [{
+    "field": "schema.fields.fraud",
+    "operator": "EQUAL",
+    "value": "true"
+    }, {
+    "field": "alert",
+    "operator": "EQUAL",
+    "value": "false"
+    }],
+    "actions": [{
+    "action": "SET_EVENT_INITIAL_STATUS",
+    "values": {
+    "status": "fraud"
+    }
+    }]
+    }  
+  
+**Get a paginated list of Automation Rules**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/automation?<pagination parameters>
+
+| \--| Pagination| A paginated list of Automation Rules| Get a paginated list of Automation Rules  
+**Example****Request**| `/api/automation?limit=10&offset=0`  
+---|---  
+**Response**|  HTTP 200Â   
+
+    
+    
+    {
+    	"items": [{
+    
+    	"id": "bb00583d-151e-4545-b4a5-a93cd7544941",
+    
+    	"deleted": false,
+    
+    	"name": "Set Event Initial Status: Not Fraud + Alert = Unreviewed",
+    
+    	"description": "(Note that Pulse will not be notified by this event status operation)",
+    
+    	"enabled": true,
+    
+    	"position": 4,
+    
+    	"channel":
+    
+    	"trigger": "EVENT",
+    
+    	"conditions": [{
+    
+    	"field": "schema.fields.fraud",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "false"
+    
+    	}, {
+    
+    	"field": "alert",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "true"
+    
+    	}],
+    
+    	"actions": [{
+    
+    	"action": "SET_EVENT_INITIAL_STATUS",
+    
+    	"values": {
+    
+    	"status": "unknown"
+    
+    	}
+    
+    	}]
+    
+    	}, {
+    
+    	"id": "81e04706-4063-42c6-bca8-30050d878343",
+    
+    	"deleted": false,
+    
+    	"name": "Set Event Initial Status: Fraud + Not Alert = Fraud",
+    
+    	"description": "(Note that Pulse will not be notified by this event status operation)",
+    
+    	"enabled": true,
+    
+    	"position": 1,
+    
+    	"channel":
+    
+    	"trigger": "EVENT",
+    
+    	"conditions": [{
+    
+    	"field": "schema.fields.fraud",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "true"
+    
+    	}, {
+    
+    	"field": "alert",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "false"
+    
+    	}],
+    
+    	"actions": [{
+    
+    	"action": "SET_EVENT_INITIAL_STATUS",
+    
+    	"values": {
+    
+    	"status": "fraud"
+    
+    	}
+    
+    	}]
+    
+    	}, {
+    
+    	"id": "13052249-4966-46d8-9645-1e280d4d5ed0",
+    
+    	"deleted": false,
+    
+    	"name": "Set Event Initial Status: Not Fraud + Not Alert = Not Fraud",
+    
+    	"description": "(Note that Pulse will not be notified by this event status operation)",
+    
+    	"enabled": true,
+    
+    	"position": 2,
+    
+    	"channel":
+    
+    	"trigger": "EVENT",
+    
+    	"conditions": [{
+    
+    	"field": "schema.fields.fraud",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "false"
+    
+    	}, {
+    
+    	"field": "alert",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "false"
+    
+    	}],
+    
+    	"actions": [{
+    
+    	"action": "SET_EVENT_INITIAL_STATUS",
+    
+    	"values": {
+    
+    	"status": "genuine"
+    
+    	}
+    
+    	}]
+    
+    	}, {
+    
+    	"id": "a8358d60-42fb-4db5-8578-cfa432fe56f5",
+    
+    	"deleted": false,
+    
+    	"name": "Set Event Initial Status: Fraud + Alert = Unreviewed",
+    
+    	"description": "(Note that Pulse will not be notified by this event status operation)",
+    
+    	"enabled": true,
+    
+    	"position": 3,
+    
+    	"channel":
+    
+    	"trigger": "EVENT",
+    
+    	"conditions": [{
+    
+    	"field": "schema.fields.fraud",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "true"
+    
+    	}, {
+    
+    	"field": "alert",
+    
+    	"operator": "EQUAL",
+    
+    	"value": "true"
+    
+    	}],
+    
+    	"actions": [{
+    
+    	"action": "SET_EVENT_INITIAL_STATUS",
+    
+    	"values": {
+    
+    	"status": "unknown"
+    
+    	}
+    
+    	}]
+    
+    	}],
+    
+    	"total": 4,
+    
+    	"limit": 10,
+    
+    	"offset": 0,
+    
+    	"filter": null,
+    
+    	"orderBy": null
+    
+    }  
+  
+**Create a new Automation Rule**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/automation
+
+| | `{``Â Â Â Â "name": "New Rule",``Â Â Â Â "description": "NewÂ rule description",``Â Â Â Â "enabled": true,``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â "trigger": "EVENT",``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+  
+  
+
+
+  
+
+
+\--| The metadata on the created Automation Rule| Create a new Automation Rule  
+**Example****Request**| **URL request**| `/api/automation`  
+---  
+**Payload**`{``Â Â Â Â "name": "New Rule",``Â Â Â Â "description": "NewÂ rule description",``Â Â Â Â "enabled": true,``Â Â Â Â "channel": ``Â Â Â Â "trigger": "EVENT",``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+**Response**|  HTTP 200Â | `{``Â Â Â Â "id": "4cc6df55-b19b-425b-a699-a97bdb730603",``Â Â Â Â "deleted": false,``Â Â Â Â "name": "New Rule",``Â Â Â Â "description": "NewÂ rule description",``Â Â Â Â "enabled": true,``Â Â Â Â "position": 5,``Â Â Â Â "channel": ``Â Â Â Â "trigger": "EVENT",``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+  
+**Update the Automation Rule matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**PUT**| 
+    
+    
+    /api/automation/<id>
+
+| | `{``Â Â Â Â "name":"",``"description":"",``"enabled":true,``"trigger":"",``"conditions":[``{"field":"",``"operator":"","value":"}],*``"actions":[{"action":"","values":""}],``"position":}`  
+---  
+\--| \--| Updates the queue matching the given ID  
+**Example****Request**| **URL request**| `/api/automation/56e53ba8-0f10-4c6f-8486*-83817adef12e`  
+---  
+**Payload**`{``Â Â Â Â "name": "New Rule",``Â Â Â Â "description": "New rule description update",``Â Â Â Â "enabled": true,``Â Â Â Â "channel": ``Â Â Â Â "trigger": "EVENT",``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â �Â Â Â Â Â Â Â }``Â Â Â Â }],``Â Â Â Â "position": 5``}`  
+---  
+**Response**|  HTTP 200Â   
+| `{``Â Â Â Â "id": "4cc6df55-b19b-425b-a699-a97bdb730603",``Â Â Â Â "deleted": false,``Â Â Â Â "name": "New Rule",``Â Â Â Â "description": "NewÂ rule description update",``Â Â Â Â "enabled": true,``Â Â Â Â "position": 5,``Â Â Â Â "channel": ``Â Â Â Â "trigger": "EVENT",``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+  
+Â   
+  
+**Delete the Automation Rule matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**DELETE**| 
+    
+    
+    /api/automation/
+
+| \--| \--| \--| Delete the Automation Rule matching the given ID  
+**Example****Request**| **URL request**| `/api/automation/56e53ba8-0f10-4c6f-8486*-83817adef12e`  
+---  
+**Response**|  HTTP 204Â   
+  
+**Change the execution order of the Automation Rule matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**PATCH**| 
+    
+    
+    /api/automation/<id>
+
+| 
+    
+    
+    {
+       "position":
+    }
+
+| \--| \--| Change the execution order of the Automation Rule matching the given ID  
+**Example****Request**| **URL request**| `/api/automation/56e53ba8-0f10-4c6f-8486*-83817adef12e`  
+---  
+`{``Â Â Â "position": 2``}`  
+---  
+**Response**|  HTTP 204Â   
+  
+### SLAâ
+
+**Get the SLA matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/sla/<id>
+
+| \--| \--| The SLA as a JSON object| Get the SLA matching the given ID  
+**Example****Request**| | `/api/sla/34531409*-07db-456e-9e56*-1b08919e1a5a`  
+---  
+**Response**|  HTTP 200Â | `{``Â Â Â Â "id": "d762698a-3cee-469f-a8a7-6a337bd33c86",``Â Â Â Â "channel": ``Â Â Â Â "deleted": false,``Â Â Â Â "name": "High priority",``Â Â Â Â "description": "Increase alert priority if not reviewed within limit.",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "TIME_PERIOD",``Â Â Â Â Â Â Â Â "period": 12,``Â Â Â Â Â Â Â Â "timeUnit": "HOURS",``Â Â Â Â Â Â Â Â "valid": true``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "statusId",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "unknown"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+  
+**Get a paginated list of SLAs**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/sla?<pagination parameters>
+
+| \--| Pagination| A paginated list of SLAs| Get a paginated list of SLAs  
+**Example****Request**| | `/api/sla?limit=10&offset=0`  
+---  
+**Response**|  HTTP 200| `{``Â Â Â Â "items": [{``Â Â Â Â Â Â Â Â "id": "bb00583d-151e-4545-b4a5-a93cd7544941",``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â Â Â Â Â "deleted": false,``Â Â Â Â Â Â Â Â "name": "Set Event Initial Status: Not Fraud + Alert = Unreviewed",``Â Â Â Â Â Â Â Â "description": "(Note that Pulse will not be notified by this event status operation)",``Â Â Â Â Â Â Â Â "enabled": true,``Â Â Â Â Â Â Â Â "position": 4,``Â Â Â Â Â Â Â Â "trigger": "EVENT",``Â Â Â Â Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.fraud",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "false"``Â Â Â Â Â Â Â Â }, {``Â Â Â Â Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â Â Â Â Â }],``Â Â Â Â Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "action": "SET_EVENT_INITIAL_STATUS",``Â Â Â Â Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "status": "unknown"``Â Â Â Â Â Â Â Â Â Â Â Â }``Â Â Â Â Â Â Â Â }]``Â Â Â Â }, {``Â Â Â Â Â Â Â Â "id": "81e04706-4063-42c6-bca8-30050d878343",``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â Â Â Â Â "deleted": false,``Â Â Â Â Â Â Â Â "name": "Set Event Initial Status: Fraud + Not Alert = Fraud",``Â Â Â Â Â Â Â Â "description": "(Note that Pulse will not be notified by this event status operation)",``Â Â Â Â Â Â Â Â "enabled": true,``Â Â Â Â Â Â Â Â "position": 1,``Â Â Â Â Â Â Â Â "trigger": "EVENT",``Â Â Â Â Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.fraud",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â Â Â Â Â }, {``Â Â Â Â Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "false"``Â Â Â Â Â Â Â Â }],``Â Â Â Â Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "action": "SET_EVENT_INITIAL_STATUS",``Â Â Â Â Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "status": "fraud"``Â Â Â Â Â Â Â Â Â Â Â Â }``Â Â Â Â Â Â Â Â }]``Â Â Â Â }, {``Â Â Â Â Â Â Â Â "id": "13052249-4966-46d8-9645-1e280d4d5ed0",``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â Â Â Â Â "deleted": false,``Â Â Â Â Â Â Â Â "name": "Set Event Initial Status: Not Fraud + Not Alert = Not Fraud",``Â Â Â Â Â Â Â Â "description": "(Note that Pulse will not be notified by this event status operation)",``Â Â Â Â Â Â Â Â "enabled": true,``Â Â Â �Â Â Â Â Â "position": 2,``Â Â Â Â Â Â Â Â "trigger": "EVENT",``Â Â Â Â Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.fraud",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "false"``Â Â Â Â Â Â Â Â }, {``Â Â Â Â Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "false"``Â Â Â Â Â Â Â Â }],``Â Â Â Â Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "action": "SET_EVENT_INITIAL_STATUS",``Â Â Â Â Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "status": "genuine"``Â Â Â Â Â Â Â Â Â Â Â Â }``Â Â Â Â Â Â Â Â }]``Â Â Â Â }, {``Â Â Â Â Â Â Â Â "id": "a8358d60-42fb-4db5-8578-cfa432fe56f5",``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â Â Â Â Â "deleted": false,``Â Â Â Â Â Â Â Â "name": "Set Event Initial Status: Fraud + Alert = Unreviewed",``Â Â Â Â Â Â Â Â "description": "(Note that Pulse will not be notified by this event status operation)",``Â Â Â Â Â Â Â Â "enabled": true,``Â Â Â Â Â Â Â Â "position": 3,``Â Â Â Â Â Â Â Â "trigger": "EVENT",``Â Â Â Â Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.fraud",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â �Â Â Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â Â Â Â Â }, {``Â Â Â Â Â Â Â Â Â Â Â Â "field": "alert",``Â Â Â Â Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "true"``Â Â Â Â Â Â Â Â }],``Â Â Â Â Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "action": "SET_EVENT_INITIAL_STATUS",``Â Â Â Â Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "status": "unknown"``Â Â Â Â Â Â Â Â Â Â Â Â }``Â Â Â Â Â Â Â Â }]``Â Â Â Â }],``Â Â Â Â "total": 4,``Â Â Â Â "limit": 10,``Â Â Â Â "offset": 0,``Â Â Â Â "filter": null,``Â Â Â Â "orderBy": null*``}`  
+---  
+  
+**Create a new SLA**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/sla
+
+| | `{``Â Â Â Â "name": "",``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â "description": "",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "",``Â Â Â Â Â Â Â Â "period": "",``Â Â Â Â Â Â Â Â "timeUnit": ""``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "",``Â Â Â Â Â Â Â Â "operator": "",``Â Â Â Â Â Â Â Â "value": ""``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "",``Â Â Â Â Â Â Â Â "values": ""``Â Â Â Â }]``}`  
+---  
+  
+  
+
+
+  
+
+
+\--| The metadata on the created SLA| Create a new SLA  
+**Example****Request**| **URL request**| `/api/sla`  
+---  
+**Payload**`{``Â Â Â Â "name": "New SLA",``Â Â Â Â "channel": ``Â Â Â Â "description": "SLA description",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "TIME_PERIOD",``Â Â Â Â Â Â Â Â "period": 8,``Â Â Â Â Â Â Â Â "timeUnit": "HOURS"``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "statusId",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "unknown"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+**Response**|  HTTP 200Â | `{``Â Â Â Â "id": "d6266491-913c-4494-be75-6cfc4a56d317",``Â Â Â Â "deleted": false,``Â Â Â Â "name": "New SLA",``Â Â Â Â "channel": ``Â Â Â Â "description": "SLA description",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "TIME_PERIOD",``Â Â Â Â Â Â Â Â "period": 8,``Â Â Â Â Â Â Â Â "timeUnit": "HOURS",``Â Â Â Â Â Â Â Â "valid": true``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "statusId",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "unknown"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+  
+**Update the SLA matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**PUT**| 
+    
+    
+    /api/sla/<id>
+
+| | `{``Â Â Â Â "name": "",``Â Â Â Â Â Â Â Â "channel": ``Â Â Â Â "description": "",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "",``Â Â Â Â Â Â Â Â "period": "",``Â Â Â Â Â Â Â Â "timeUnit": ""``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "",``Â Â Â Â Â Â Â Â "operator": "",``Â Â Â Â Â Â Â Â "value": ""``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "",``Â Â Â Â Â Â Â Â "values": ""``Â Â Â Â }]`  
+---  
+\--| \--| Updates the SLA matching the given ID  
+**Example****Request**| **URL request**| `/api/automation/56e53ba8-0f10-4c6f-8486*-83817adef12e`  
+---  
+**Payload**`{``Â Â Â Â "name": "New SLA",``Â Â Â Â "channel": ``Â Â Â Â "description": "Update SLA description",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "TIME_PERIOD",``Â Â Â Â Â Â Â Â "period": 8,``Â Â Â Â Â Â Â Â "timeUnit": "HOURS"``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "statusId",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "unknown"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+**Response**|  HTTP 200| `{``Â Â Â Â "id": "d6266491-913c-4494-be75-6cfc4a56d317",``Â Â Â Â "deleted": false,``Â Â Â Â "name": "New SLA",``Â Â Â Â "channel": ``Â Â Â Â "description": "Update SLA description",``Â Â Â Â "goal": {``Â Â Â Â Â Â Â Â "type": "TIME_PERIOD",``Â Â Â Â Â Â Â Â "period": 8,``Â Â Â Â Â Â Â Â "timeUnit": "HOURS",``Â Â Â Â �Â Â Â Â "valid": true``Â Â Â Â },``Â Â Â Â "conditions": [{``Â Â Â Â Â Â Â Â "field": "statusId",``Â Â Â Â Â Â Â Â "operator": "EQUAL",``Â Â Â Â Â Â Â Â "value": "unknown"``Â Â Â Â }],``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â "action": "SET_EVENT_QUEUE",``Â Â Â Â Â Â Â Â "values": {``Â Â Â Â Â Â Â Â Â Â Â Â "queue": "d762698a-3cee-469f-a8a7-6a337bd33c86"``Â Â Â Â Â Â Â Â }``Â Â Â Â }]``}`  
+---  
+  
+Â   
+  
+**Delete the SLA matching the given ID**
+
+**Request**
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**DELETE**| 
+    
+    
+    /api/sla/<id>
+
+| \--| \--| \--| Delete the SLA matching the given ID  
+**Example****Request**| **URL request**| `/api/sla/d6266491-913c-4494*-be75-6cfc4a56d317`  
+---  
+**Response**|  HTTP 204Â   
+  
+### Listâ
+
+**List available user lists**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/list
+
+| \--| \--| List of available lists to current user.| List available user lists.  
+  
+**Example**
+
+Request| | `/api/list`  
+---  
+Response| HTTP 200Â | `[``Â Â Â Â {``Â Â Â Â Â Â Â Â "id": "gPEhUpN0SJ5_6p0rhzJJgg",``Â Â Â Â Â Â Â Â "name": "VIP Customers",``Â Â Â Â Â Â Â Â "description": "VIP Customers",``Â Â Â Â Â Â Â Â "type": "SIMPLE",``Â Â Â Â Â Â Â Â "tenancyType": "GLOBAL",``Â Â Â Â Â Â Â Â "eventField": "schema.fields.customer_id"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â Â Â "id": "gPEhUpN0SJ5_6p0rhzJJgg",``Â Â Â Â Â Â Â Â "name": "Travel List",``Â Â Â Â Â Â Â Â "description": "Travel List",``Â Â Â Â Â Â Â Â "type": "COMPLEX",``Â Â Â Â Â Â Â Â "tenancyType": "TENANT GROUP",``Â Â Â Â Â Â Â Â "eventField": "schema.fields.customer_id",``Â Â Â Â Â Â Â Â "possibleValues": ["US", "UK", "PT"]``Â Â Â Â }``]`  
+---  
+  
+**Retrieve the available lists to the user, indexed by event fields**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/list/event-lists
+
+| \--| \--| Map of available lists to current user., indexed by event fields.| Retrieve the available lists to the user, indexed by event fields.  
+  
+Example
+
+Request| | `/api/list/event-lists`  
+---  
+Response| HTTP 200Â | `{``Â Â Â Â "schema.fields.merchant_id": [``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "id": "gPEhUpN0SJ5a6p0rhzJJgg",``Â Â Â Â Â Â Â Â Â Â Â Â "name": "country_list",``Â Â Â Â Â Â Â Â Â Â Â Â "description": "posneg_card_token",``Â Â Â Â Â Â Â Â Â Â Â Â "type": "POS_NEG",``Â Â Â Â Â Â Â Â Â Â Â Â "tenancyType": "TENANT",``Â Â Â Â Â Â Â Â Â Â Â Â "eventFields": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.merchant_id",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.customer_id"``Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â "possibleValues": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "POSITIVE",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "NEGATIVE",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "REVIEW"``Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â "tokenized": false``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "id": "iNXiRaaJPfZk7Jf1litDQQ",``Â Â Â Â Â Â Â Â Â Â Â Â "name": "posneg_channel",``Â Â Â Â Â Â Â Â Â Â Â Â "description": "posneg_channel",``Â Â Â Â Â Â Â Â Â Â Â Â "type": "COMPLEX",``Â Â Â Â Â Â Â Â Â Â Â Â "tenancyType": "TENANT",``Â Â Â Â Â Â Â Â Â Â Â Â "eventFields": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.merchant_id",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.customer_id"``Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â "possibleValues": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "Block",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "Unblock"``Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â "tokenized": false``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â ...``Â Â Â Â ]``}`  
+---  
+  
+**Search in which lists an entity is located**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**GET**| 
+    
+    
+    /api/list/search
+
+| \--| field, value| Map of available lists to current user, indexed by event fields.| Search in which lists an entity is located.  
+  
+Example
+
+Request| | `/api/list/search?field=schema.fields.merchant_id&value=441439378753317`  
+---  
+Response| HTTP 200Â | `{``Â Â Â Â "containsAudit": true,``Â Â Â Â "result": [``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "id": "gPEhUpN0SJ5_6p0rhzJJgg",``Â Â Â Â Â Â Â Â Â Â Â Â "key": "441439378753317",``Â Â Â Â Â Â Â Â Â Â Â Â "note": null,``Â Â Â Â Â Â Â Â Â Â Â Â "tenant": null,``Â Â Â Â Â Â Â Â Â Â Â Â "validity": null,``Â Â Â Â Â Â Â Â Â Â Â Â "list": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "id": "lq5UPBQigefmxAr5l3hEAA",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "name": "country_list",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "description": "posneg_card_token",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "type": "POS_NEG",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "tenancyType": "TENANT",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "eventFields": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.merchant_id",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.customer_id"``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "possibleValues": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "POSITIVE",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "NEGATIVE",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "REVIEW"``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "tokenized": false``Â Â Â Â Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â Â Â Â Â "value": "POSITIVE"``Â Â Â Â Â Â Â Â }``Â Â Â Â ]``}`  
+---  
+  
+**Execute a bulk update over lists**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/list/update
+
+| | `{``Â Â Â Â "eventId": ,``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "listId": ,``Â Â Â Â Â Â Â Â Â Â Â Â "field": ,``Â Â Â Â Â Â Â Â Â Â Â Â "itemId": ,``Â Â Â Â Â Â Â Â Â Â Â Â "action": ,``Â Â Â Â Â Â Â Â Â Â Â Â "validity": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "startDate": ,``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "endDate": ``Â Â Â Â Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â Â Â Â Â "comment": ``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â ...``Â Â Â Â ]``}`  
+---  
+-| Execute a set of update requests over lists.| Execute a bulk update over lists.  
+  
+Example
+
+Request| **URL Request**| `/api/list/update`  
+---  
+**Payload**`{``Â Â Â Â "eventId": {``Â Â Â Â Â Â Â Â "id": "5861bbff-d3f8-40bc-bba1-b2d7539073ac",``Â Â Â Â Â Â Â Â "timestamp": 12345678``Â Â Â Â },``Â Â Â Â "actions": [{``Â Â Â Â Â Â Â Â Â Â Â Â "listId": "fiNXiRaaJPfZk7Jf1litDQQ",``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.customer_id",``Â Â Â Â Â Â Â Â Â Â Â Â "itemId": "7a90872e-5e51-4740-816b-b39c19d32462",``Â Â Â Â Â Â Â Â Â Â Â Â "action": "UPDATE",``Â Â Â Â Â Â Â Â Â Â Â Â "validity": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "startDate": 1000000,``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "endDate": 5000000``Â Â Â Â Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â Â Â Â Â "comment": "Updating the validity of an item"``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.customer_id",``Â Â Â Â Â Â Â Â Â Â Â Â "action": "UPDATE",``Â Â Â Â Â Â Â Â Â Â Â Â "validity": null,``Â Â Â Â Â Â Â Â Â Â Â Â "comment": "Updating a POS/NEG list",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "POSITIVE"``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",``Â Â Â Â Â Â Â Â Â Â Â Â "field": "fields.card_token",``Â Â Â Â Â Â Â Â Â Â Â Â "action": "CREATE",``Â Â Â Â Â Â Â Â Â Â Â Â "validity": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "startDate": 1000000,``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "endDate": 5000000``Â Â Â Â Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â Â Â Â Â "comment": "Creating an item in COMPLEX list",``Â Â Â Â Â Â Â Â Â Â Â Â "value": "ARGENTINA"``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",``Â Â Â Â Â Â Â Â Â Â Â Â "field": "schema.fields.card_last4",``Â Â Â Â Â Â Â Â Â Â Â Â "action": "CREATE",``Â Â Â Â Â Â Â Â Â Â Â Â "validity": null,``Â Â Â Â Â Â Â Â Â Â Â Â "comment": "Creating an item in SIMPLE list"``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "itemId": "7a90872e-5e51-4740-816b-b39c19d32462",``Â Â Â Â Â Â Â Â Â Â Â Â "action": "DELETE",``Â Â Â Â Â Â Â Â Â Â Â Â "comment": "Delete an item"``Â Â Â Â Â Â Â Â }``Â Â Â Â ]``}`  
+---  
+Response| HTTP 200Â | `{``Â Â Â Â "schema.fields.customer_id": [``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",``Â Â Â Â Â Â Â Â Â Â Â Â "errors": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "error": "errorCode",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "message": "Something went wrong"``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â }``Â Â Â Â Â Â Â Â Â Â Â Â ]``Â Â Â Â Â Â Â Â }``Â Â Â Â ]``}`  
+---  
+  
+**Execute a manual bulk update over lists**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+**POST**| 
+    
+    
+    /api/list/update-entities
+
+| | `[``Â Â Â {``Â Â Â Â Â Â Â Â Â "listId": ,``Â Â Â Â Â Â Â Â Â "field": ,``Â Â Â Â Â Â Â Â Â "itemId": ,``Â Â Â Â Â Â Â Â Â "action": ,``Â Â Â Â Â Â Â Â Â "validity": {``Â Â Â Â Â Â Â Â Â Â Â Â Â "startDate": ,``Â Â Â Â Â Â Â Â Â Â Â Â Â "endDate": ``Â Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â Â "comment": ``Â Â Â Â Â },``Â Â Â Â ...``]`  
+---  
+-| Execute a set of manual update requests over lists.| Execute a manual bulk update over lists.  
+  
+Example
+
+Request| **URL Request**| `/api/list/update-entities`  
+---  
+**Payload**`[``Â Â Â Â {``Â Â Â Â Â Â Â Â "listId": "fiNXiRaaJPfZk7Jf1litDQQ"``Â Â Â Â Â Â Â Â "itemId": "7a90872e-5e51-4740-816b-b39c19d32462",``Â Â Â Â Â Â Â Â "action": "UPDATE",``Â Â Â Â Â Â Â Â "validity": {``Â Â Â Â Â Â Â Â Â Â Â Â Â "startDate": 1000000,``Â Â Â Â Â Â Â Â Â Â Â Â Â "endDate": 5000000``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â "comment": "Updating the validity of an item",``Â Â Â Â Â Â Â Â "tenantId": "tenantId1"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",``Â Â Â Â Â Â Â Â "action": "UPDATE",``Â Â Â Â Â Â Â Â "validity": null,``Â Â Â Â Â Â Â Â "comment": "Updating a POS/NEG list",``Â Â Â Â Â Â Â Â "value": "POSITIVE",``Â Â Â Â Â Â Â Â "tenantGroupId": "tenantGroupId1"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",,``Â Â Â Â Â Â Â Â "entity": "14554821",``Â Â Â Â Â Â Â Â "action": "CREATE",``Â Â Â Â Â Â Â Â "validity": {``Â Â Â Â Â Â Â Â Â Â Â Â "startDate": 1000000,``Â Â Â Â Â Â Â Â Â Â Â Â "endDate": 5000000``Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â "comment": "Creating an item in COMPLEX list",``Â Â Â Â Â Â Â Â "value": "ARGENTINA"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â Â Â "listId": "rk4dBDFXU_Db-CqHZp1KdQ",,``Â Â Â Â Â Â Â Â "entity": "Liberty Street",``Â Â Â Â Â Â Â Â "action": "CREATE",``Â Â Â Â Â Â Â Â "validity": null,``Â Â Â Â Â Â Â Â "comment": "Creating an item in SIMPLE list"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â Â Â "itemId": "7a90872e-5e51-4740-816b-b39c19d32462",``Â Â Â Â Â Â Â Â "action": "DELETE",``Â Â Â Â Â Â Â Â "comment": "Delete an item"``Â Â Â Â }``]`  
+---  
+Response| HTTP 200Â | `[``Â Â Â Â [``Â Â Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â Â Â Â "error": "errorCode",``Â Â Â Â Â Â Â Â Â Â Â Â "message": "Something went wrong"``Â Â Â Â Â Â Â Â }``Â Â Â Â ],``Â Â Â Â [],``Â Â Â Â [],``Â Â Â Â [],``Â Â Â Â []``]`  
+---  
+  
+**Search audit entries for an entity**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/list/audit
+
+| \--| field, value| List of audit entries| Search audit entries for an entity.  
+  
+Example
+
+Request| | `/api/list/audit?field=schema.fields.channel&value=QPC`  
+---  
+Response| HTTP 200Â | `[``Â Â Â Â {``Â Â Â Â Â Â Â Â "action": "CREATED",``Â Â Â Â Â Â Â Â "timestamp": 1540390885332,``Â Â Â Â Â Â Â Â "user": "pulse",``Â Â Â Â Â Â Â Â "item": {``Â Â Â Â Â Â Â Â Â Â Â Â "id": "QPC:TENANT:tZRk6Tb6DsHhTnaTzwFFgw:iNXiRaaJPfZk7Jf1litDQQ:0:9223372036854775807",``Â Â Â Â Â Â Â Â Â Â Â Â "key": "QPC",``Â Â Â Â Â Â Â Â Â Â Â Â "note": null,``Â Â Â Â Â Â Â Â Â Â Â Â "tenant": "tZRk6Tb6DsHhTnaTzwFFgw",``Â Â Â Â Â Â Â Â Â Â Â Â "tenantGroup": null,``Â Â Â Â Â Â Â Â Â Â Â Â "tenantName": "QPC",``Â Â Â Â Â Â Â Â Â Â Â Â "tenantGroupName": null,``Â Â Â Â Â Â Â Â Â Â Â Â "validity": null,``Â Â Â Â Â Â Â Â Â Â Â Â "list": {``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "id": "iNXiRaaJPfZk7Jf1litDQQ",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "name": "posneg_channel",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "description": "posneg_channel",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "type": "POS_NEG",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "tenancyType": "TENANT",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "eventFields": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "schema.fields.channel"``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "possibleValues": [``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "POSITIVE",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "NEGATIVE",``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "REVIEW"``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â ],``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "tokenized": false,``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "useInDecisionScorecard": true,``Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â "noteMandatory": false``Â Â Â Â Â Â Â Â Â Â Â Â },``Â Â Â Â Â Â Â Â Â Â Â Â "updatedBy": null,``Â Â Â Â Â Â Â Â Â Â Â Â "value": "POSITIVE"``Â Â Â Â Â Â Â Â }``Â Â Â Â }``]`  
+---  
+  
+### Channelâ
+
+**List Available Channels**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/channel[?channelPermissionLevel=level]
+
+| \--| Optional channel-permission level to filter the channels according to the user access-level (read-write, read-only, none)| List all channels configured in Case Manager| List all channels configured in Case Manager  
+  
+Example
+
+Request| | `/api/channel`  
+---  
+Response| HTTP 200Â | `[``Â Â Â Â {``Â Â Â Â Â Â "id": "aml",``Â Â Â Â Â Â "name": "channel.aml.name"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â "id": "transaction-fraud",``Â Â Â Â Â Â "name": "channel.transaction-fraud.name"``Â Â Â Â }``]`  
+---  
+  
+**Get Channel Details**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/channel/{id}
+
+| \--| id| Details of the channel with the given _idÂ_ in the path.| List the details of the channel with the given _idÂ_ in the path. Returns 404 if _id_ doesn't exist.  
+  
+Example
+
+Request| | `/api/channel/transaction-fraud`  
+---  
+Response| HTTP 200Â | `{``Â Â "id": "transaction-fraud",``Â Â "name": "channel.transaction-fraud.name"``}`  
+---  
+  
+### Groupâ
+
+**List all access groups from Pulse**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/group/list
+
+| \--| \--| The list of all Pulse access groups.| List all Pulse access groups.  
+  
+Example
+
+Request| | `/api/group/list`  
+---  
+Response| HTTP 200Â | `{``Â Â "items": [``Â Â Â Â {``Â Â Â Â Â Â "id": "landlords",``Â Â Â Â Â Â "groupName": "landlords",``Â Â Â Â Â Â "parentId": "kTrt98FDyhq9tL-WG7VEoA"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â "id": "rbdCX3HHJQUHM4Cy9_tJNA",``Â Â Â Â Â Â "groupName": "Europe",``Â Â Â Â Â Â "parentId": "kTrt98FDyhq9tL-WG7VEoA"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â "id": "lMb4wUfb1i6kVyXy51BAsw",``Â Â Â Â Â Â "groupName": "Portugal",``Â Â Â Â Â Â "parentId": "rbdCX3HHJQUHM4Cy9_tJNA"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â "id": "nC8Ao53iaE6sShcZjahIlw",``Â Â Â Â Â Â "groupName": "Lisbon",``Â Â Â Â Â Â "parentId": "lMb4wUfb1i6kVyXy51BAsw"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â "id": "o6XRyx7PdAAxtCd5FwhOWg",``Â Â Â Â Â Â "groupName": "France",``Â Â Â Â Â Â "parentId": "rbdCX3HHJQUHM4Cy9_tJNA"``Â Â Â Â },``Â Â Â Â {``Â Â Â Â Â Â "id": "vW8HOsMsKh46NMQWdDhDJw",``Â Â Â Â Â Â "groupName": "America",``Â Â Â Â Â Â "parentId": "kTrt98FDyhq9tL-WG7VEoA"``Â Â Â Â }``Â Â ],``Â Â "total": 6,``Â Â "limit": 6,``Â Â "offset": 0,``Â Â "filter": null,``Â Â "orderBy": null,``Â Â "totalThreshold": null*``}`  
+---  
+  
+**Retrieve ID and name of a given group.**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/group/select/<id>
+
+| \--| groupID| The ID and name from a given group ID.| Get the ID and name of a given group ID.  
+  
+Example
+
+Request| | `/api/group/select/lMb4wUfb1i6kVyXy51BAsw`  
+---  
+Response| HTTP 200Â | `{``Â Â "value": "lMb4wUfb1i6kVyXy51BAsw",``Â Â "label": "Portugal"``}`  
+---  
+  
+**Retrieve the full details of a given group ID**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/group/detail/<id>
+
+| \--| groupID| The full details of a group given a group ID.| Get the full details of a group from a given group ID.  
+  
+Example
+
+Request| | `/api/group/detail/lMb4wUfb1i6kVyXy51BAsw`  
+---  
+Response| HTTP 200Â | `{``Â Â "id": "lMb4wUfb1i6kVyXy51BAsw",``Â Â "groupName": "Portugal",``Â Â "parentId": "rbdCX3HHJQUHM4Cy9_tJNA"``}`  
+---  
+  
+### Tenantâ
+
+**List tenants from Pulse**
+
+Request
+
+Method| Endpoint| Payload| Parameters| Returns| Description  
+---|---|---|---|---|---  
+GET| 
+    
+    
+    /api/tenant
+
+| \--| PaginationchannelId| List of tenants| List of tenants according to the pagination parameters.  
+  
+Available filters (pagination):
+
+Filter| Description| Example  
+---|---|---  
+id| Filter by the tenant's identifier.| 'id' eq 'lMb4wUfb1i6kVyXy51BAsw'  
+value| Filter by the tenant's name (value).| 'value' like 'ten'  
+label| Filter by the tenant's label.| 'label' eq 'tenant1'  
+comment| Filter by the tenant's comment.| 'comment' like 'something'  
+in_rule_block| Filter by whether the tenant is present in a rule block or not.| 'in_rule_block' eq 'true'  
+  
+Example
+
+Request| | `/api/tenant`  
+---  
+Response| HTTP 200Â | `{``Â Â Â "items":[``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"BPC",``Â Â Â Â Â Â Â Â Â "label":"BPC",``Â Â Â Â Â Â Â Â Â "id":"kI6UipWo5AHherzeKYdDGg"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"MPF",``Â Â Â Â Â Â Â Â Â "label":"MPF",``Â Â Â Â Â Â Â Â Â "id":"uyy4movJD-l-CToDJwNESg"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"PQR",``Â Â Â Â Â Â Â Â Â "label":"PQR",``Â Â Â Â Â Â Â Â Â "id":"rPS0tKWo6gVxSb-asINEqw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"WPC",``Â Â Â Â Â Â Â Â Â "label":"WPC",``Â Â Â Â Â Â Â Â Â "id":"tbW-d2lwijT4rzJuVg1Dlw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"GHI",``Â Â Â Â Â Â Â Â Â "label":"GHI",``Â Â Â Â Â Â Â Â Â "id":"i5L_O7Ls45F4vruf7XVGNQ"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"NPC",``Â Â Â Â Â Â Â Â Â "label":"NPC",``Â Â Â Â Â Â Â Â Â "id":"o7ckoT_GQ-zfWqp2HWFPSQ"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``�Â Â Â Â Â Â Â Â Â "value":"NRC",``Â Â Â Â Â Â Â Â Â "label":"NRC",``Â Â Â Â Â Â Â Â Â "id":"vPogb68pXcZYfYjjANhAGw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"QPC",``Â Â Â Â Â Â Â Â Â "label":"QPC",``Â Â Â Â Â Â Â Â Â "id":"oIaDhPyd3cflhfdyoS5MVw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"MRC",``Â Â Â Â Â Â Â Â Â "label":"MRC",``Â Â Â Â Â Â Â Â Â "id":"g8zrirOVq8PDxTM4w6NOZQ"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"MNO",``Â Â Â Â Â Â Â Â Â "label":"MNO",``Â Â Â Â Â Â Â Â Â "id":"gLFpo5SLcOpSbSCRA1xFuA"``Â Â Â Â Â Â }``Â Â Â ],``Â Â Â "total":16,``Â Â Â "limit":10,``Â Â Â "offset":0,``Â Â Â "filter":null,``Â Â Â "orderBy":null,``Â Â Â "totalThreshold":null*``}`  
+---  
+  
+Example
+
+Request| | `/api/tenant?filter='in_rule_block'``eq 'true'`  
+---  
+Response| HTTP 200Â | `{``Â Â Â "items":[``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"BPC",``Â Â Â Â Â Â Â Â Â "label":"BPC",``Â Â Â Â Â Â Â Â Â "id":"kI6UipWo5AHherzeKYdDGg"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"MPF",``Â Â Â Â Â Â Â Â Â "label":"MPF",``Â Â Â Â Â Â Â Â Â "id":"uyy4movJD-l-CToDJwNESg"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"PQR",``Â Â Â Â Â Â Â Â Â "label":"PQR",``Â Â Â Â Â Â Â Â Â "id":"rPS0tKWo6gVxSb-asINEqw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"WPC",``Â Â Â Â Â Â Â Â Â "label":"WPC",``Â Â Â Â Â Â Â Â Â "id":"tbW-d2lwijT4rzJuVg1Dlw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"GHI",``Â Â Â Â Â Â Â Â Â "label":"GHI",``Â Â Â Â Â Â Â Â Â "id":"i5L_O7Ls45F4vruf7XVGNQ"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"NPC",``Â Â Â Â Â Â Â Â Â "label":"NPC",``Â Â Â Â Â Â Â Â Â "id":"o7ckoT_GQ-zfWqp2HWFPSQ"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"NRC",``Â Â Â Â Â Â Â Â Â "label":"NRC",``Â Â Â Â Â Â Â Â Â "id":"vPogb68pXcZYfYjjANhAGw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"QPC",``Â Â Â Â Â Â Â Â Â "label":"QPC",``Â Â Â Â Â Â Â Â Â "id":"oIaDhPyd3cflhfdyoS5MVw"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"MRC",``Â Â Â Â Â Â Â Â Â "label":"MRC",``Â Â Â Â Â Â Â Â Â "id":"g8zrirOVq8PDxTM4w6NOZQ"``Â Â Â Â Â Â },``Â Â Â Â Â Â {``Â Â Â Â Â Â Â Â Â "value":"MNO",``Â Â Â Â Â Â Â Â Â "label":"MNO",``Â Â Â Â Â Â Â Â Â "id":"gLFpo5SLcOpSbSCRA1xFuA"``Â Â Â Â Â Â }``Â Â Â ],``Â Â Â "total":16,``Â Â Â "limit":10,``Â Â Â "offset":0,``Â Â Â "filter": "'in_rule_block' eq 'true'"``Â Â Â "orderBy":null,``Â Â Â "totalThreshold":null*``}`  
+---

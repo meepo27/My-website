@@ -1,0 +1,232 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/rmpsp-oct-rules
+Title: Refund and OCT Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Refund and OCT Rules
+
+
+
+On this page
+
+# Refund and OCT Rules
+
+### Descriptionâ
+
+A payment refund is the process in which a payment made to the merchant account for a specific transaction is sent back to the customer.
+
+The Original Credit Transaction (OCT) is a transaction that can be used to send or "push" funds to an eligible card-based account, resulting in a credit of funds to the cardholder's account. The "push" payment framework speeds up the funds delivery. It differs from the traditional method, in which funds are credited to the receiver's bank account. These rules monitor the volume and trends of refunds and OCTs for merchants.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## OCT-MM-1
+
+### Comment
+
+> Alert when OCT/Refunds to sales ( amount ) ratio exceeds threshold over 30 days
+
+### Actions
+
+  * Alert
+  * [OCT-MM-1]
+
+
+
+### Variables
+    
+    
+    ratio_threshold = multi_tenanted_threshold_list["oct_rfd_sales_ratio_mid_30d_th"].threshold ?? default_threshold_list["oct_rfds_sales_ratio_mid_30d_th"].threshold ?? 0.01;
+
+### Condition
+    
+    
+    (event.oct_rfd_amount_mid_30d-event.oct_rfd_amount_ref_rev_mid_30d)/event.oct_rfd_amount_payment_mid_30d  > ratio_threshold
+
+### Explanation
+
+> OCT/Refunds to sales ratio exceeds threshold ({localvar.ratio_threshold}) over 30 days
+
+### Mark As
+
+N/A
+
+## OCT-MM-2
+
+### Comment
+
+> Alert when OCT/Refunds count by merchant, in 7 days frame exceeds threshold
+
+### Actions
+
+  * Alert
+  * [OCT-MM-2]
+
+
+
+### Variables
+    
+    
+    count_threshold = multi_tenanted_threshold_list["oct_rfd_count_mid_7d_th"].threshold ?? default_threshold_list["oct_rfd_count_mid_7d_th"].threshold ?? 10;
+
+### Condition
+    
+    
+    event.oct_rfd_count_mid_7d >= count_threshold
+
+### Explanation
+
+> OCT/Refunds count ({event.oct_rfd_count_mid_7d}) by Merchant ({event.merchant_id}) in 7 days frame
+
+### Mark As
+
+N/A
+
+## OCT-MM-3
+
+### Comment
+
+> Alert OCT/Refund growth rate exceeds threshold, compared to 90 day average
+
+### Actions
+
+  * [OCT-MM-3]
+  * Alert
+
+
+
+### Variables
+    
+    
+    rate_threshold = multi_tenanted_threshold_list["oct_rfd_amt_mid_90d_24h_rate_th"].threshold ?? default_threshold_list["oct_rfd_amt_mid_90d_24h_rate_th"].threshold ?? 2;
+
+### Condition
+    
+    
+    event.oct_rfd_sum_amt_24h / ( event.oct_rfd_sum_amt_mid_90d / 90 ) >= rate_threshold
+
+### Explanation
+
+> OCT/Refunds growth rate exceeds thresholds ({localvar.rate_threshold}) compared to 90 day averag
+
+### Mark As
+
+N/A
+
+## OCT-MM-4
+
+### Comment
+
+> Total amount of Refunds/OCTs in 1 month has grown abnormally compared to the last 3 months
+
+### Actions
+
+  * [OCT-MM-4]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["oct_rfd_amount_increase_1m_3m"].threshold ?? default_threshold_list["oct_rfd_amount_increase_1m_3m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["oct_rfd_min_avg_amount"].threshold ?? default_threshold_list["oct_rfd_min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["oct_rfd_min_trx_count"].threshold ?? default_threshold_list["oct_rfd_min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // total amount of approved Refunds/OCTs one month over the total amount of approved Refunds/OCTs of three months (delayed over 4w)
+    // Filters: (event_type == "info") and (info_type == "refund" or info_type == "oct") 
+    event.oct_rfd_rt_amt_1m_to_3m >= threshold 
+    and (event.oct_rfd_sum_amt_1w/7.0) >= threshold_amount 
+    and event.oct_rfd_cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) total amount of OCT/Refunds one month is {event.oct_rfd_rt_amt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## OCT-MM-5
+
+### Comment
+
+> Number of Refunds/OCTs in 1 month has grown abnormally compared to the last 3 months
+
+### Actions
+
+  * [OCT-MM-5]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["oct_rfd_count_increase_1m_3m"].threshold ?? default_threshold_list["oct_rfd_count_increase_1m_3m"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["oct_rfd_min_avg_amount"].threshold ?? default_threshold_list["oct_rfd_min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["oct_rfd_min_trx_count"].threshold ?? default_threshold_list["oct_rfd_min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // total coount of approved Refunds/OCTs one month over the total amount of approved Refunds/OCTs of three months (delayed over 4w)
+    // Filters: (event_type == "info") and (info_type == "refund" or info_type == "oct") 
+    event.oct_rfd_rt_cnt_1m_to_3m >= threshold 
+    and (event.oct_rfd_sum_amt_1w/7.0) >= threshold_amount 
+    and event.oct_rfd_cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) number of OCT/Refunds one month is {event.oct_rfd_rt_cnt_1m_to_3m}x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## OCT-MM-6
+
+### Comment
+
+> Alert OCT/refunds count or amount exceeds threshold per MID over 30days when account has been inactive/dormant for at least 6 months
+
+### Actions
+
+  * [OCT-MM-6]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold_amount = multi_tenanted_threshold_list["oct_rfd_refund_amount_mid_30d_th"].threshold ?? default_threshold_list["oct_rfd_refund_amount_mid_30d_th"].threshold;
+     threshold_count = multi_tenanted_threshold_list["oct_rfd_refund_count_mid_30d_th"].threshold ?? default_threshold_list["oct_rfd_refund_count_mid_30d_th"].threshold;
+     converted_amount_threshold = threshold_amount / 100;
+     converted_amount = event.oct_rfd_amount_mid_30d / 100;
+
+### Condition
+    
+    
+    event.oct_rfd_mid_count_6m_delay_30d == 0 and
+     event.oct_rfd_count_mid_30d >= threshold_count and
+      event.oct_rfd_amount_mid_30d >= threshold_amount
+
+### Explanation
+
+> Merchant ID is dormant for at least 6 months and count ({event.oct_rfd_count_mid_30d}) and total amount ({localvar.converted_amount}) exceeds threshold ({localvar.threshold_count} and {localvar.converted_amount_threshold}, respectively)
+
+### Mark As
+
+N/A

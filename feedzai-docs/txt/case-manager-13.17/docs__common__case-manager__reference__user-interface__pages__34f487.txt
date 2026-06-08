@@ -1,0 +1,43 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/pages/details-page
+Title: Details Page | Case Manager
+============================================================
+
+On this page  
+  
+# Details Page
+
+In this page we describe how a details should be configured.
+
+## Details Config Schemaâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+actionButtonsConfig| Object | Array<Object>| true| Configures the action buttons that appears at the top of the details page.Â This property accepts an object or a list of objects of typeÂ [Action Button List](/docs/common/case-manager/reference/user-interface/widgets/action-button-list).  
+widgets| Array<Object>| false| Â Configures the page widgets. Each object contains the configuration needed for a specific widget. Please check theÂ [Widgets](/docs/common/case-manager/reference/user-interface/widgets/widgets-overview)Â section to see the available widgets.  
+extraResources| Object| true| If given, it will fetch the content of a GET request apart from the event details request and attach it to the detail object. Example **input** :
+    
+    
+    {
+    	...
+    	extraResources: {
+    		"sarIformation": "case-detail-extra/{{id}}"
+    	}
+    	...
+    }
+    
+
+Output on the case detail object:
+    
+    
+    {
+    	...
+    	"sarInformation": {
+    		id: 1,
+    		sample: "sample"
+    	}
+    	...
+    }
+    
+
+When using this configuration, please add a translation for the resource you are adding with this format: details.extraResources.**< resourceKey>**.error.i.e.Â details.extraResources.**sarInformation**.error = "Error fetching the information regarding SAR"  
+

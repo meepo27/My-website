@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3101-Add-new-endpoints-for-List-Management
+Title: HSBC-3101-Add-new-endpoints-for-List-Management | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3101-Add-new-endpoints-for-List-Management
+
+### Add new endpoints for List Managementâ
+
+FeatureHSBC-3101
+
+We've added a new Entity Tagging API which can be used to perform list management operations programmatically. There are four new endpoints:
+
+  * **GET Entity Tagging** â used to retrieve list items
+  * **DELETE Entity Tagging** â used to remove list items
+  * **POST Entity Tagging** â used to create new list items
+  * **PUT Entity Tagging** â used to upsert (create or update) list items
+
+
+
+The new endpoints live in the Reference Data application Input Service, sharing the same port as the Reference Data API.
+
+For a full specification check the [Entity Tagging API documentation](/cs-hsbc/3.0.2/api#tag/entitytagging) and refer to the [Postman Collection](/cs-hsbc/3.0.2/docs/api-reference/postman) for examples.
+
+##### Complex Lists
+
+When it comes to Complex Lists, these endpoints only support lists that have a single value which must be named `value`.

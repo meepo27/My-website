@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/pulse-guide
+Title: Pulse Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * Pulse Guide
+
+
+
+# Pulse Guide
+
+The Pulse guide leads you on the recommended tasks you must perform in Pulse throughout the complete life cycle of your project. It contains instructions on what you should do to perform each task and how you should keep moving forward, often complemented with examples, and always providing more context and conceptual details.
+
+Pulse focuses on a democratization of Data Science, which allows both data scientists and fraud prevention agents to use the platform. All of the the tasks in this journey will be about writing or improving the risk strategy for the transaction fraud use case, heavily influenced by Data Science and Machine Learning models, providing an understanding on how to work with rules and models.
+
+This guide provides you with the following steps:
+
+  * [Work with rules](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/work-with-rules)
+  * [Build and use models](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/pulse/use-models)
+
+

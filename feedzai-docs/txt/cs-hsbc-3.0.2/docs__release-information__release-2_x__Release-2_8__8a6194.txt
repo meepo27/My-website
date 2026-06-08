@@ -1,0 +1,1008 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.8
+Title: Release 2.8 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.8.0`â
+
+### Make ETL hardcoded values configurableâ
+
+FeatureFTMT-26243HSBC-3052
+
+We've extended the ETL configuration to allow `includeTriggeredActions` to be set to `false` for historical data loading (leaving it as `true` by default for data extraction) and also allowing it to be set via an Ansible variable. Also, a few variables that were previously hardcoded are now configurable.
+
+Please find below the variable definition, including their default and default for HDL:
+
+Variable| Datatype| Default Value| Default for HDL  
+---|---|---|---  
+include_triggered_actions| Boolean| true| false  
+project_all_fields| Boolean| true| true  
+include_feedbacks| Boolean| false| false  
+include_workflow_state| Boolean| false| false  
+include_event_diffs| Boolean| false| false  
+  
+This is a breaking change for the `includeTriggeredActions` variable in the CSV schema for historical data loading. Moving forward, users no longer need to manually add action columns, as they are now handled automatically.
+
+Please refer to [ETL Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl#ansible) for more information.
+
+### Add Ansible variable to control Pulse and Case Manager loggersâ
+
+FeatureHSBC-3042
+
+Also In:2.4.92.5.72.7.3
+
+We've added Ansible variables that allow log levels to be configured for Pulse and Case Manager.
+
+  * `pulse_loggers` controls loggers for Pulse
+  * `cm_loggers` controls loggers for Case Manager
+
+
+
+Each variable can be configured as a dictionary of loggers as keys and log level as values, for example:
+    
+    
+    pulse_loggers:  
+        com.feedzai.hsbc: debug  
+        com.feedzai.pulse: trace  
+    
+
+Copy
+
+More information can be found in the configuration reference for [Pulse](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) and [Case Manager](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).
+
+### Add documentation on Pulse applications export and importâ
+
+DocsHSBC-3030
+
+We've added a new documentation page to describe the process of exporting and importing Pulse applications.
+
+Please refer to [Export and Import Pulse applications](/cs-hsbc/3.0.2/docs/operations-guide/how-to/import-export-pulse-applications) for more information.
+
+### Data Transfer Pipeline (DTP)â
+
+Feature
+
+The Data Transfer Pipeline (DTP) is a new tool intended to replace the ETL.
+
+The DTP goal is to make event data processed in Pulse RT available to the Data Science environment.
+
+Compared to the ETL, the DTP provides better support for workflow schema changes by using a workflow service that has access to the last published schema.
+
+Events and all their fields that reach the end of the workflow are streamed to an upstream cloud native service (GCP Pub/Sub) as soon as they are processed in Pulse.
+
+For detailed information about DTP, its functionality, and usage, refer to the provided documentation [here](/cs-hsbc/3.0.2/docs/installation-guide/dtp/data-transfer-pipeline).
+
+### Add Outbound Event Storage indices for `event_occurred_at` and `event_received_at`â
+
+FeatureFTMT-24568HSBC-3014
+
+We've added the following indices to the Outbound Event Storage table:
+
+  * `idx_event_occurred_at`, a `btree` index on column `event_occurred_at`
+  * `idx_event_received_at`, a `btree` index on column `event_received_at`
+
+
+
+These indices are not required nor used by the Feedzai product and are intended to boost performance of HSBC internal processes.
+
+##### warning
+
+These indices will be automatically applied to the main (non-partitioned) table, the partitioning function, and all _new_ partitions created after this update. Existing partition tables created prior to this change will _not_ be affected and will require manual indexing if needed.
+
+### Add new field to the Payment Fulfillment extensionâ
+
+FeatureFTMT-25899HSBC-3012
+
+The following field was added to Case Manager Payment Fulfillment extension:
+
+Field Name| Datatype| Channels| Description  
+---|---|---|---  
+channel_name| string| transfers| Channel Name  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for full details.
+
+### Add Case Manager assign and lock alert condition for cardsâ
+
+FeatureHSBC-3013
+
+We've implemented the `assign and lock` feature for Cards in Case Manager.
+
+The working logic is identical to the one present in Outbound Payments.
+
+From now on, only Alerted events will be displayed inside `Linked Alerts` section with "Assignee".
+
+### Extend Case Manager to also include the Cards channel when hiding reasonsâ
+
+FeatureHSBC-2977
+
+We've extended the existing tactical solution where Case Manager hides reasons for channels other than the one of the current event, allowing it to also hide Cards reasons along with Outbound Payments and Inbound Payments when marking _Fraud_ / _Not Fraud_ decisions.
+
+The solution requires all Cards reasons' to have `Cards` as their prefix, so they can be detected and properly hidden at the correct moment.
+
+### Remove the deployment dependency on TFB Pulse and Case Manager configurationsâ
+
+InternalHSBC-2770
+
+We've removed the dependency on TFB Pulse and Case Manager configuration assemblies. As a result, we've removed those entries from the [Installation Guide](/cs-hsbc/3.0.2/docs/installation-guide/overview) list of artifacts. This means that HSBC is no longer required to download those artifacts when installing new versions.
+
+This is not a breaking change as the presence of those artifacts does not hinder the installation. In that case they would simply be ignored. It also does not does not affect any available functionality or configuration in use.
+
+### Add configuration for RDS `maxParallelCalls` propertyâ
+
+FeatureHSBC-2968
+
+We've added a configuration to control the maximum number of parallel calls that the RDS client used by Pulse to connect to RDS can make. It will default to the previous value that Pulse was using (4). This can be configured using the following Ansible variable (and can be configured per-app by prefixing the variable with `<app_slug>_`:
+
+**Variable**| **Datatype**| **Default Value**  
+---|---|---  
+rds_max_parallel_calls| Integer| 4  
+  
+Please refer to [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more information.
+
+### Update Data Extraction Pipelines Configuration Documentationâ
+
+DocsHSBC-2971
+
+We've update the documentation of some Ansible variables described in the [Data Extraction Pipelines Configuration page](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/configuration-dep). This is a documentation-only change and does not affect the variables used by the installation pipelines.
+
+Previously the documentation was referencing internal variables when it should have been referencing our external variables that have a nomenclature more similar to other components. Please find below a summary of the changes. Note that some variables that were previously documented as colour-specific now use the same variable for both colours.
+
+Previous Ansible Variable| New Ansible Variable  
+---|---  
+`rabbitmq_blue.host`| `rabbitmq_brokers`  
+`rabbitmq_green.host`| `rabbitmq_brokers`  
+`rabbitmq_blue.vhost`| `rabbitmq_pulse_vhost_blue`  
+`rabbitmq_green.vhost`| `rabbitmq_pulse_vhost_green`  
+`rabbitmq_blue.user`| `rabbitmq_insights_logstash_username`  
+`rabbitmq_green.user`| `rabbitmq_insights_logstash_username`  
+`rabbitmq_blue.password`| `rabbitmq_insights_logstash_password`  
+`rabbitmq_green.password`| `rabbitmq_insights_logstash_password`  
+`pulse.host`| `pulse_elb`  
+`pulse.app_id`| `pulse_app_id`  
+`pulse.workflow_id`| `pulse_workflow_id`  
+`pulse.user`| `pulse_insights_logstash_username`  
+`pulse.password`| `pulse_insights_logstash_password`  
+  
+### Enable debug-level logs for Pulse workflow validationâ
+
+FeatureHSBC-2982
+
+We have enabled extra `DEBUG` logs that can be used to track how long workflow validation is taking. Among others, the new messages include:
+
+  * _"Starting remote inbound_payments workflow validation."_ which can be used to track the start of the workflow validation
+  *  _"Finished inbound_payments workflow validation."_ which can be used to track the end of the validation
+
+
+
+The time between both log messages will determine how long validation took. These log messages are present in the Pulse Server log file (usually `pulse.log`) and not in the application logs.
+
+The logging level for workflow validation can be controlled by changing the `workflow_validation_log_level` ansible variable. It will default to `DEBUG`, whereas previously when it was not configurable, it was set (hardcoded) to `INFO`.
+
+More information can be found in the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Private Banking Delegateâ
+
+FeatureWPB-350942WPB-365306HSBC-2735HSBC-2736HSBC-2737HSBC-2738HSBC-2739HSBC-2740HSBC-2741HSBC-2984
+
+We've added the necessary features to enable the PB Delegate use case.
+
+Please find below a list of changes.
+
+Pulse
+
+#### New Fieldsâ
+
+The following fields were added to Pulse API:
+
+Field Name| Datatype| Endpoints  
+---|---|---  
+delegate_id| String| Transfers & Digital Activity  
+delegate_initiated| Boolean| Transfers & Digital Activity  
+approver_id| String| Transfers & Digital Activity  
+transaction_id| String| Transfers & Digital Activity  
+account_holder_customer_id| String| Transfers & Digital Activity  
+delegate_of| List of Objects| Customer Reference Data  
+delegates| List of Objects| Customer Reference Data  
+  
+Each entry of the above list of objects has the following fields:
+
+Field Name| Datatype  
+---|---  
+customer_id| String  
+date_added| Long  
+  
+The following schemas were updated accordingly:
+
+  * `Payments`
+  * `Payments + Outcomes`
+
+
+
+#### Delegate Watchlist for Outbound Paymentsâ
+
+We have created the `Delegate Watchlist` list in the Outbound Payments application to support the Personal Banking Delegate use case. This list can be used, for instance, to store delegate ID numbers of customers that were flagged after risky transactions.
+
+See [Configure List Management Service](https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service) for information on how to configure the service.
+
+The list was also added to Case Manager to allow an analyst to update it when, for example, marking an event as Fraud or Not Fraud.
+
+Case Manager
+
+#### Schemaâ
+
+The following fields were added to the Case Manager schema:
+
+Field Name| Datatype| Channels| Description  
+---|---|---|---  
+delegate_id| String| Transfers/Digital Activity| The CIN from the delegate that is currently active on the PB customer account.  
+delegate_initiated| Boolean| Transfers| Whether the payment is being made by a delegate.  
+approver_id| String| Digital Activity| The CIN from the customer that approves a pending payment.  
+transaction_id| String| Transfers/Digital Activity| Identifier to correlate initiation and approval events of a transaction.  
+  
+#### Event Details Pageâ
+
+`By Delegate` is now present in both Transfers and Digital Activity events, mapping to the `delegate_id` field
+
+Also in Case Manager Transaction History widget, in the Transfers and Digital Activity channels there is a new column and filter for `Delegate CIN` that is indeed mapping to the `delegate_id` field.
+
+#### Customer Details Pageâ
+
+There is a new widget called `Transaction History Delegate` in the Customer Details Page.
+
+This widget filters all the Transfers and Digital Activity events for a given `delegate_id`.
+
+As a result, both the `Transaction History` and `Transaction History Delegate` have a new column for `Delegate CIN`, that is mapping to the `delegate_id` field.
+
+This new widget is controlled by a new ansible variable, `show_delegate_transaction_history_widget`, when set to True, that is the default value, the Transaction History Delegate widget and the Delegate CIN column will appear in Case Manager.
+
+This new variable was added to [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).
+
+We've added two new widgets to the Customer Details Page, `Delegates` and `Delegates of`:
+
+  * `Delegate Of` displays a list of PB customers for whom the customer is a delegate
+  * `Delegates` displays a list of customers who have delegated on the customer
+
+
+
+Please refer to the [PB Delegate Documentation](/cs-hsbc/3.0.2/docs/concepts/pb-delegate) for a more detailed documentation about the PB Delegate use case.
+
+### Add outcome fields to Cardsâ
+
+FeatureFTMT-24022HSBC-2970
+
+We've added the following outcomes to the Cards workflow to align with Outbound:
+
+  * `shadow_fraud`
+  * `scam`
+  * `shadow_scam`
+  * `self_serve_strategy`
+  * `decision_typology`
+
+
+
+### Add tenant field to Case Manager external notificationsâ
+
+FeatureFTMT-25381HSBC-2907
+
+We've added the `tenant` field to Case Manager external notifications payload for all channels.
+
+### New operational status statesâ
+
+FeatureFTMT-24511HSBC-2918
+
+We've added new states to the Operational Status state machine in Case Manager:
+
+  * Pending Mule Review
+  * Mule Review In Progress
+  * Customer Contact Awaited
+  * Pending Mule Investigation Closure
+  * Mule Investigation Completed
+
+
+
+These new states can be used in Automation Rules to better support mule investigations in Case Manager.
+
+### Update Case Manager EVENT_ID field lengthâ
+
+Bug FixHSBC-1820
+
+In order to keep the consistency across tables, and to prevent some features to stop working for events with big `lifecycle_id`, we've updated the field `event_id` length in the following tables:
+
+  * `AM_CASE_EVENT`
+  * `AM_EVENT`
+  * `AM_EVENT_ACCESS_GROUP`
+  * `AM_EVENT_CASE`
+  * `AM_EVENT_FILE`
+  * `AM_EVENT_IN_REVIEW`
+  * `AM_EVENT_NOTE`
+  * `AM_EVENT_QUEUE`
+  * `AM_EVENT_SLA`
+  * `AM_EVENT_STATUS`
+  * `AM_EVENT_STORAGE`
+  * `AM_EVENT_USER`
+  * `AM_EXTENSION_LOG`
+  * `AM_LIST_UPDATE`
+
+
+
+The `transaction_id` field of the `AM_EVENT_COMMON` table was also updated since this column is computed from `EVENT_ID`.
+
+### Add new payment above limit field to Pulseâ
+
+FeatureWPB-356058HSBC-2923
+
+We've added a new field to the Outbound Payments API and Digital Activity API:
+
+Field Name| Datatype  
+---|---  
+payment_above_limit| Boolean  
+  
+The following schemas were updated accordingly:
+
+  * `Payments`
+  * `Payments + Outcomes`
+
+
+
+### Add new fields to Case Manager external notificationsâ
+
+FeatureFTMT-24847HSBC-2908
+
+We've added the below fields to the Case Manager external notifications payload.
+
+Field Name| Channel  
+---|---  
+treatment_strategy| Inbound Payments  
+self_serve_strategy| Inbound Payments  
+pib_suspended| Inbound Payments  
+  
+### Add new generic fields to Pulseâ
+
+FeatureWPB-334507HSBC-2598
+
+We have added the below fields to the Digital Activity and Transfers API:
+
+Field Name| Datatype  
+---|---  
+sender_transaction_extra_1| String  
+sender_transaction_extra_2| String  
+sender_transaction_extra_3| String  
+customer_additional_info_1| String  
+customer_additional_info_2| String  
+customer_additional_info_3| String  
+customer_additional_info_4| String  
+  
+The Customer Reference Data API was also updated with the following fields:
+
+Field Name| Datatype  
+---|---  
+customer_additional_info_1| String  
+customer_additional_info_2| String  
+customer_additional_info_3| String  
+customer_additional_info_4| String  
+  
+The following schemas were updated accordingly:
+
+  * `Payments`
+  * `Payments + Outcomes`
+
+
+
+All fields were also made available in Case Manager to be used in Automation Rules and SLAs.
+
+### Add configurable Real-time PKernel Partitioningâ
+
+FeatureHSBC-2641
+
+We've added a new Pulse configuration property `services.rte.workflow.plan.partitionedRealtimeMetrics` to control real-time PKernel partitioning by application:
+
+  * When set to `true`, there will be multiple PKernel Engines (one per workflow partition) generating instances
+  * When `false` (the default), there will be only one PKernel Engine generating instances
+
+
+
+With a partitioned PKernel setup each node will be responsible for only a part of the calculated real-time metrics, with other nodes still having replicas. Partitioning the PKernel in this way can lead to dramatic speed-ups in workflow recovery times, which typically accounts for the vast majority of the time it takes for a node to publish or to recover after it crashes.
+
+Please note, as of this `2.8` release, Pulse does not support cross-channel metrics with a partitioned PKernel.
+
+More information can be found in the [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+### Add new mortgage fields to Pulseâ
+
+FeatureFTMT-24519HSBC-2919
+
+We've added two new mortgage fields to the Customer Reference Data API:
+
+Field Name| Datatype  
+---|---  
+customer_mortgage_flag| Boolean  
+customer_number_of_mortgage_accounts| Integer  
+  
+The following schemas were updated accordingly:
+
+  * `Inbound Payments`
+  * `Inbound Payments + Outcomes`
+
+
+
+### Disable Self Service Rules Testing storageâ
+
+FeatureHSBC-2615
+
+We've changed the following variables to disable the Self Service Rules Testing storage:
+
+  * `pulse.global.services.rte.workflow.rules.forwardToTestingStorage`
+  * `pulse.global.services.fraud.simplerulestestingservice.enable`
+
+
+
+This prevents data related to this feature from being stored in the database `ssrt_events` table, optimizing disk usage.
+
+### Fix Ansible pipeline in Pulse assuming eth0 as the network interface nameâ
+
+Bug FixHSBC-2912
+
+Also In:2.7.2
+
+We have added a workaround to the technical issue in which the `eth0` interface was being assumed in the ansible pipelines.
+
+### Add receiver_product_type field to Pulse and Case Managerâ
+
+FeatureFTMT-23881HSBC-2778
+
+We have added the below field to the Inbound Payments API:
+
+Field Name| Datatype  
+---|---  
+receiver_product_type| String  
+  
+The following schemas were updated accordingly:
+
+  * `Inbound Payments`
+  * `Inbound Payments + Outcomes`
+
+
+
+The new field was also added to the Case Manager schema.
+
+### Fix Cards amount column in Case Managerâ
+
+FeatureHSBC-2807
+
+We've changed the Case Manager mapping for the Cards field `schema.amount_dbl` to use the `amount` field from the API request. The `schema.amount` field still exists in Case Manager but will be empty from now on.
+
+All Case Manager widgets and tables were changed to always use `schema.amount_dbl` when displaying the Amount for Cards events.
+
+Please note that Cards Automation Rules and SLAs should use the `Amount (Double)` field.
+
+### Add new field to the Mobile Outbound extensionsâ
+
+FeatureFTMT-24874HSBC-2791
+
+Also In:2.7.2
+
+The following field was added to Case Manager `2 Way/1 Way SMS` and `Mobile Payment Push` extensions:
+
+Field Name| Datatype| Channels| Description  
+---|---|---|---  
+channel_user_id| String| Transfers| Online/Internet Banking User ID.  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.
+
+### Create `Cards + Outcomes` schema and `Treatment Strategy Priority` list in Cards applicationâ
+
+FeatureHSBC-2767
+
+We have created `Cards + Outcomes` schema and `Treatment Strategy Priority` list to support the Alert Prioritization in the `Get Next` feature.
+
+The list addition is non-destructive: if it list already exists in a given environment, it will not be added (nor will the list items of the existing list be modified).
+
+Likewise, the workflow will not be updated to prevent any issues in installations that are already using an existing list.
+
+### Add new feedback update strategy to Outbound paymentsâ
+
+FeatureFTMT-20994HSBC-2722
+
+Also In:2.5.62.7.2
+
+In previous versions, when a feedback event reached Pulse, all events related to the feedback would be updated and reinjected into the workflow. This would generate unnecessary load in Case Manager since it only requires a single feedback event.
+
+To circumvent this issue we've introduced a new feedback update strategy to control which payment related events are to be updated by a feedback event. This can be configured in the following properties:
+
+  * transfers.endpoints.puttransferfeedback.feedbackUpdateStrategy
+  * transfers.feedbacklistener.feedbackUpdateStrategy
+
+
+
+The strategy applied to both properties can be configured using the following Ansible variable:
+
+Variable| Datatype| Default Value  
+---|---|---  
+outbound_payments_feedback_strategy| String| SINGLE  
+  
+The value of the property can be one of:
+
+  * `ALL`: Updates all events with the same lifecycle id (corresponds to the old behaviour)
+  * `SINGLE`: Updates each Case Manager event with a given lifecycle id
+
+
+
+To better understand the different behaviours please take the following example:
+
+  * A transfer initiation reaches Pulse
+  * Two info requests are made to update the initiation
+  * A feedback event is made
+
+
+
+Having the previous scenarios with the configuration set to `ALL` would mean three feedback events would be reinjected into the workflow and later processed by Case Manager.
+
+On the other hand setting it to `SINGLE` would mean only one event would be reinjected into the workflow. The default strategy is now `SINGLE` and it is our suggestion to keep this strategy.
+
+Please refer to [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse) and the [Feedback Update Strategy concepts page](/cs-hsbc/3.0.2/docs/concepts/feedback-update-strategy) for more details.
+
+### Add new feedback update strategy to Cards and Inbound Paymentsâ
+
+FeatureHSBC-2903
+
+Following the changes done in [Add new feedback update strategy to Outbound payments](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.8#add-new-feedback-update-strategy-to-outbound-payments), we've extended the feedback update strategy to Cards and Inbound Payments.
+
+Functionality wise the behaviour is the same as described for Outbound Payments, only the configuration properties change:
+
+  * Inbound:
+
+    * inboundpayments.endpoints.putinboundtransferfeedback.feedbackUpdateStrategy
+    * inboundpayments.feedbacklistener.feedbackUpdateStrategy
+  * Cards:
+
+    * cards.endpoints.feedback.feedbackUpdateStrategy
+    * cards.feedback.listener.feedbackUpdateStrategy
+
+
+
+The strategy applied to both properties can be configured using the following Ansible variables:
+
+Variable| Datatype| Default Value  
+---|---|---  
+inbound_payments_feedback_strategy| String| SINGLE  
+cards_feedback_strategy| String| SINGLE  
+  
+### Change Cards Event Details pageâ
+
+FeatureHSBC-2576
+
+We have made several changes to the default configuration of the Event Details page for Card events.
+
+Previously, some fields were unused and displayed `N/A`.
+
+This issue has been resolved, and now all fields on the page are designed to display meaningful data.
+
+### Upgrade ETL to version 17.0.0â
+
+FeatureHSBC-2594
+
+We've upgraded ETL to version 17.0.0.
+
+This version introduces a new ETL mode to address extraction of event scheduled metrics when the metrics were computed by a plan that is no longer referenced by the workflow.
+
+The new mode is configured to search metrics definition in all existing plan executions and to not fail extraction if the plan execution no longer exists in Pulse.
+
+For more information refer to the [ETL configuration reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).
+
+### Upgrade Reference Data Service to version 3.7.8â
+
+FeatureHSBC-2721
+
+This change includes an upgrade of SnakeYAML to address the CVE-2022-1471 vulnerability.
+
+### Revert liquibase-core 4.30 upgradeâ
+
+InternalHSBC-2703
+
+We've reverted the prior `liquibase-core` version bump from 4.29.2 to 4.30.0, to avoid a bug that sometimes causes it to execute slowly.
+
+### Remove unused Case Manager columnsâ
+
+FeatureHSBC-2723
+
+We have removed `TREATMENT_STRATEGY_ID` and `EVENT_TREATMENT_STRATEGY_ID` from Case Manager columns as they are no longer used.
+
+In environments in which the columns do not exist, this change is a no-op and will not fail.
+
+##### note
+
+For completeness and to match earlier branches (such as the `2.4.8` release), these columns were added in this release in environments that don't exist, but here they are once again removed.
+
+### Add support to filter events without status reason to Payment Fulfillment extensionâ
+
+FeatureFTMT-20994HSBC-2701
+
+Also In:2.5.62.7.2
+
+We've added a filtering option to the Payment Fulfillment extension that will filter out events when a status reason is not present. The filter can be enabled or disabled using the following Ansible variable:
+
+Variable| Datatype| Default Value  
+---|---|---  
+payment_fulfillment_exclude_events_without_status_reason| Boolean| true  
+  
+Please refer to [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information.
+
+### Add new fields to the Inbound Payments and Digital channels in Case Managerâ
+
+FeatureFTMT-24516HSBC-2464
+
+We've made available a new set of fields to Automation Rules and SLAs for the Inbound Payments and Digital channels:
+
+Field Name| Inbound Payments| Digital Activity  
+---|---|---  
+sender_transaction_code| âï¸| âï¸  
+sender_transaction_narrative| âï¸| âï¸  
+sender_transaction_notes| âï¸| âï¸  
+sender_bank_country_code| âï¸| âï¸  
+receiver_account_currency| âï¸| âï¸  
+receiver_bank_country_code| âï¸| âï¸  
+receiver_transaction_currency| âï¸| âï¸  
+receiver_account_bank_id| âï¸| âï¸  
+overnight_acc_ledger_bal| âï¸| âï¸  
+sender_transaction_ref| âï¸| âï¸  
+customer_fiv_markers| âï¸| âï¸  
+receiver_account_type| âï¸| âï¸  
+customer_business_type| âï¸| âï¸  
+customer_portfolio_segment| âï¸| âï¸  
+customer_annual_turnover| âï¸| âï¸  
+customer_reported_income| âï¸| âï¸  
+rfb_flag| âï¸|   
+receiver_transaction_amount_dbl| âï¸|   
+line_of_business| âï¸|   
+business_start_date| âï¸|   
+customer_business_type_last_update_date| âï¸|   
+customer_reported_income_last_update_date| âï¸|   
+customer_annual_turnover_last_update_date| âï¸|   
+customer_portfolio_segment_last_update_date| âï¸|   
+employer_name| âï¸|   
+employer_name_last_update_date| âï¸|   
+employer_start_date| âï¸|   
+customer_occupation_status| âï¸|   
+customer_occupation_status_last_update_at| âï¸|   
+receiver_account_open_date| âï¸|   
+  
+Additionally the following plan enriched fields were also made available to Inbound Payments and Digital Activity:
+
+Field Name| Inbound Payments| Digital Activity  
+---|---|---  
+cmd_payment_type| âï¸| âï¸  
+cmd_payment_sub_type| âï¸| âï¸  
+cmd_event_description (cmd_sender_transaction_code in Inbound)| âï¸| âï¸  
+cmd_sender_bank_name| âï¸| âï¸  
+cmd_receiver_bank_name| âï¸| âï¸  
+  
+Please note that the enrichment plan to support this feature for Inbound Payments is not available by default and requires manual creation. Please refer to [Case Manager event enrichment guide](/cs-hsbc/3.0.2/docs/guides/casemanager/event-enrichment) to learn how to configure it.
+
+### Add new Pulse list for Inbound Paymentsâ
+
+FeatureHSBC-2653
+
+We have created a new Pulse list for treatment strategy in the Inbound Payments application in order to support the Alert Prioritisation in the `Get Next` feature, so that the baseline Feedzai inbound deployment more closely matches the outbound deployment.
+
+The new list is called `Treatment Strategy Priority` and the addition is non-destructive: if this list already exists in a given environment, it will not be added (nor will the list items of the existing list be modified).
+
+Likewise, the workflow will not be updated, so that the runtime Pulse of environments that are already using an existing list will not be affected.
+
+The content of the list has the same outcomes that were initially present in the Outbound Payments list that existed before Outbound Payments was deployed and HSBC took ownership of the list. Specifically, these default outcomes are:
+
+Treatment Strategy| Priority  
+---|---  
+BIBACH| 4  
+CHAPS| 10  
+FASTER| 1  
+GBLMONEY| 10  
+GBLWALLET| 10  
+GFX| 10  
+INTERNAL| 2  
+SO| 3  
+  
+### Add new fields to Pulseâ
+
+FeatureHSBC-2409
+
+We have added the below fields to the `Payments` and `Payments + Outcomes` schemas in order to more closely match the fields comprising the Outbound Payments API:
+
+Field Name| Datatype  
+---|---  
+browser_os_version| String  
+costumer_id_global| String  
+customer_portfolio_phys_type| String  
+customer_portfolio_remote_type| String  
+ds_transaction_id| String  
+payment_message_source_d| String  
+sender_transaction_origin_amount| Long  
+sender_transaction_origin_currency| String  
+sender_transaction_reason_d| String  
+sender_transaction_sign_stts_d| String  
+customer_change_reason| String  
+sender_account_channel_limit| Double  
+  
+We have added the below field to the `Inbound Payments` and `Inbound Payments + Outcomes` schemas in order to more closely match the fields comprising the Inbound Payments API:
+
+Field Name| Datatype  
+---|---  
+sender_account_channel_limit| Double  
+  
+### Enable advanced search for Cardsâ
+
+FeatureHSBC-2578
+
+We've enabled the advanced search for Cards in the search page.
+
+Also the alerts page now has the Cards channel fully working and filtering only the corresponding events.
+
+### Add treatment strategy columns to Case Manager databaseâ
+
+Bug FixHSBC-2710
+
+Also In:2.4.82.5.62.7.2
+
+We've added two columns to `AM_EVENT_INBOUND_PAYMENTS` that are needed for Case Manager to start:
+
+  * `TREATMENT_STRATEGY_ID`
+  * `EVENT_TREATMENT_STRATEGY_ID`
+
+
+
+These columns must exist (and must match the columns from `AM_EVENT_COMMON` and `AM_EVENT_TRANSFERS`) for legacy reasons.
+
+### Add new Inbound fields to Case Manager external notificationsâ
+
+FeatureFTMT-23796FTMT-24496HSBC-2672
+
+We've added the below fields to the Case Manager external notifications payload.
+
+Field Name| Channel  
+---|---  
+event_type| Inbound Payments  
+lifecycle_id| Inbound Payments  
+alert_id| Inbound Payments  
+  
+We've created the [Notifications Schema page](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/notifications-schema) with the notifications schema and payload examples for the various channels. Please refer to it for more details.
+
+### Configure Cards alert id transformationâ
+
+FeatureHSBC-2652
+
+We've added a new `alert_id` field to the Cards workflow schema to enable the alert id transformation.
+
+This transformation generates a new `alert_id` field from the event's `lifecycle_id` and endpoint name, which will then be used as the event identifier in Case Manager.
+
+In practice this transformation will make Case Manager merge authorization and info events that have the same `lifecycle_id`. Clearings will always generate a new event in Case Manager, for example:
+
+  * Send `autorization` with `lifecycle_id=lifecycle_1`: new event in Case Manager
+  * Send `info` with `lifecycle_id=lifecycle_1`: updates existing event in Case Manager
+  * Send `clearing` with `lifecycle_id=lifecycle_1`: new event in Case Manager
+
+
+
+Please note that this transformation is different from the Inbound/Outbound alert id transformation which takes the configured last n characters from the `lifecycle_id`.
+
+### Cards schema changesâ
+
+FeatureHSBC-2581
+
+In order to make the CM and Pulse schema for the Cards application as much as identical as possible, we've done several changes to some fields.
+
+The following fields were removed from Case Manager schema:
+    
+    
+     - acceptor_city  
+     - acceptor_dba_name  
+     - acceptor_mastercard_risk  
+     - acceptor_open_date  
+     - acceptor_risk  
+     - acceptor_risky_flag  
+     - acceptor_street_addr  
+     - acceptor_visa_risk  
+     - acceptor_zip  
+     - account_available_credit  
+     - account_credit_limit  
+     - account_last_activity  
+     - atc1  
+     - atc2  
+     - card_last4  
+     - last_sca_at  
+     - pos_card_capture_cap  
+     - terminal_latitude  
+     - terminal_longitude  
+     - terminal_poc_flag  
+     - terminal_street_addr  
+     - dispute_end_date  
+     - dispute_feedback_notes  
+     - dispute_refunded  
+     - feedback_type  
+     - oob_end_date  
+     - oob_feedback_notes  
+     - oob_response_type  
+     - dispute_notes  
+     - dispute_reason  
+     - dispute_start_date  
+     - dispute_submitted_by  
+     - info_type  
+     - oob_comm_type  
+     - oob_notes  
+     - oob_start_date  
+     - customer_portfolio_producte  
+     - customer_portfolio_region  
+     - payment_message_source  
+     - customer_type  
+     - office_id  
+     - customer_account_type  
+     - sender_transaction_type  
+     - sender_transaction_cop_result  
+     - sender_transaction_auth_type  
+     - payment_type  
+     - payment_sub_type  
+    
+
+Copy
+
+The following fields were added to the Pulse Schema:
+    
+    
+    - customer_phone  
+    - customer_business_phone  
+    - customer_businessphone_last_update_at  
+    - customer_citizen_id_number  
+    - customer_citizenship  
+    - customer_corresp_city  
+    - customer_corresp_country_code  
+    - customer_corresp_region  
+    - customer_corresp_street_addr  
+    - customer_corresp_zip  
+    - customer_corresp_zip_area_code  
+    - customer_email_last_update_at  
+    - customer_fiv_marker_last_updated_at  
+    - customer_gender_code  
+    - customer_hmphone_last_update_at  
+    - customer_home_address_last_update_at  
+    - customer_home_city  
+    - customer_home_country_code  
+    - customer_home_phone  
+    - customer_home_region  
+    - customer_home_street_addr  
+    - customer_home_zip  
+    - customer_home_zip_area_code  
+    - customer_mbphone_last_update_at  
+    - customer_pb_marker  
+    - customer_preferred_language  
+    - customer_registration_date  
+    - customer_surname  
+    - customer_total_balance  
+    - sender_email  
+    - sender_name  
+    - sender_phone  
+    - customer_forname  
+    - customer_reported_income  
+    
+
+Copy
+
+### Fix Case Manager enrichment errorâ
+
+Bug FixFTMT-23776FTMT-23777FTMT-23780HSBC-2664
+
+We've fixed an issue in Case Manager where some enrichers were not properly loaded due to a malformed Javascript function.
+
+This would lead to Case Manager showing the enricher name (e.g. `paymentTypeEnrich`) instead of the actual enriched value.
+
+### Add Alert Storage Service transformations to the Inbound Payments and Cards applicationsâ
+
+FeatureFTMT-23716HSBC-2532
+
+The Alert Storage Service for Outbound Payments benefited from a number of transformations that were not available in the other applications. These transformations include, among others, the ability to populate an `additional_fields` field in Case Manager with values generated during the workflow.
+
+As we ported these functionalities, we merged what were previously two independent functionalities:
+
+  * The ability to have `additional_fields` based on a prefix (which is being used to import `cmd_*` fields into Case Manager)
+    * Please note that the enrichment plan and lookup lists were not created as part of this task. Please refer to [Case Manager event enrichment guide](/cs-hsbc/3.0.2/docs/guides/casemanager/event-enrichment) to learn how to create the necessary resources to support this feature
+  * The ability to have `additional_fields` based on exact name matching (which by default is making the following fields available under `additional_fields`: `pib_suspended, internal_payment_type, internal_event_source, isJade`):
+    * These fields are controlled via the `additional_fields_enricher_fields` Ansible variable
+
+
+
+##### warning
+
+This refactor made it so the configuration for the exact name matching enrichment was ported into the same configuration namespace as the prefix based enrichment.
+
+This results in some Pulse configuration properties changing:
+
+  * `services.alertstorageservice.alerttransformations.cmenrichment.enrichedFields`: accepts a list of additional fields to enrich
+    * Previously was `com.feedzai.hsbc.pulse.services.customalertstorageservice.additionalfields.enricher.fields`
+  * `services.alertstorageservice.alerttransformations.cmenrichment.enabled`: now acts as a toggle for both the prefix based enrichment and exact name matching enrichment
+    * Previously only controlled the prefix based enrichment
+
+
+
+Unless manual overrides were done, this requires no further action from HSBC as this release automatically uses the new properties.
+
+### Add Cards use caseâ
+
+FeatureHSBC-2575
+
+We've added the Cards use case, along with the application in Pulse and the channel in Case Manager. While technically, an old baseline for Cards existed from the project outset, this was not used at HSBC. We have expanded on it so that the Cards use case is fully implemented and ready to use.
+
+There are several release notes related to the Cards use case and changes that were done in this release notes page which can be consulted for the details on each feature that was implemented.
+
+##### note
+
+To enable the Cards application, the following Ansible variables must be set for both Pulse and Case Manager:
+    
+    
+    apps_enabled:  
+      - <other apps>  
+      - <market>_cards  
+      
+    ...  
+      
+    <market>_cards_app_slug: <market>_cards  
+    <market>_cards_market: <market>  
+    <market>_cards_portfolio: cards  
+      
+    
+
+Copy
+
+For example for the UK, the above variables would be:
+    
+    
+    apps_enabled:  
+      - <other UK apps>  
+      - uk_cards  
+      
+    ...  
+      
+    uk_cards_app_slug: uk_cards  
+    uk_cards_market: uk  
+    uk_cards_portfolio: cards  
+      
+    
+
+Copy
+
+For full details, please see the existing documentation for how to deploy new apps/channels, which applies to all applications/channels, including cards:
+
+  * [Pulse - How to deploy new applications](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications)
+  * [Pulse Configuration Reference and default variables](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible)
+  * [Case Manager - How to deploy new channels](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/how-to/deploy-new-channel)
+  * [Global Rollout Documentation](/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.1/global-rollout#cards-application)
+
+
+
+### Case Manager version upgraded to 13.17.7â
+
+FeatureFTMT-24041HSBC-2658
+
+Also In:2.4.72.7.1
+
+We've upgraded Case Manager to version 13.17.7.
+
+This version addresses the following issues in multi database setups:
+
+  * Automation rules intended to set the event queue were not working properly
+  * SLAs were not updating the operational status correctly after breaching
+
+
+
+### Add Python 3 support in the Ansible deployment pipelinesâ
+
+FeatureFTMT-22381HSBC-2453
+
+Also In:2.7.2
+
+We've updated the deployment pipelines to support setting the interpreter Python version.
+
+By default it will now use Python 3 (the version that is linked to the `/usr/bin/python3` path) and can be changed by setting the Ansible built-in variable `ansible_python_interpreter`.
+
+##### warning
+
+In version 2.7.1 we introduced a `python_ansible_interpreter` variable which is no longer in use. The Ansible built-in variable `ansible_python_interpreter` is now the only way to change the Python interpreter.

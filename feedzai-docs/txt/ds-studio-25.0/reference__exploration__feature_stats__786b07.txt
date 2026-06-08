@@ -1,0 +1,159 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/feature_stats/
+Title: feature_stats - DS API
+============================================================
+
+#  `` feature_stats Â¶  
+  
+##  `` collect_value_counts Â¶
+    
+    
+    collect_value_counts(data: _TDataFrame, string_fields: list[str], dist_sampling: float | None) -> dict[str, dict[str, int]]
+    
+
+Compute sampled value counts for string fields via groupBy.
+
+It identifies the frequency of unique values within specified string columns.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data` Â¶
+
+|  `DataFrame` |  The source DataFrame containing string columns to analyze. |  _required_  
+  
+###  `string_fields` Â¶
+
+|  `list of str` |  The names of the columns for which to compute value distributions. |  _required_  
+  
+###  `dist_sampling` Â¶
+
+|  `float` |  The sampling fraction (0.0 to 1.0). If None or 0.0, the function returns an empty dictionary immediately. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict of (str, dict of (str, int))` |  A mapping where each key is a field name, and the value is a dictionary containing unique strings and their respective occurrence counts.  
+  
+##  `` datetime_stat_exprs Â¶
+    
+    
+    datetime_stat_exprs(field_name: str) -> list[tuple[str, str, Column]]
+    
+
+Generate Spark aggregate expressions that compute statistics for a given datetime column.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  `str` |  The name of the datetime column to analyze. The name is automatically escaped using backticks for SQL safety. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`list of tuple of (str, str, pyspark.sql.Column)` |  A list of triples containing (field_name, stat_description, spark_expression). The statistics included are: \- count: Total number of non-null datetime entries. \- missing: Count of NULL values in the column. \- min: The earliest (minimum) timestamp in the dataset. \- max: The latest (maximum) timestamp in the dataset.  
+  
+##  `` get_expected_stats_set Â¶
+    
+    
+    get_expected_stats_set(field_type)
+    
+
+Returns the set of stats retrieved by compute_stats for a given field type.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_type` Â¶
+
+|  |  type of field. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  set of expected computed stats.  
+  
+##  `` numerical_stat_exprs Â¶
+    
+    
+    numerical_stat_exprs(field_name: str) -> list[tuple[str, str, Column]]
+    
+
+Generate Spark aggregate expressions that compute statistics for a given numerical column.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  `str` |  The name of the numerical column to analyze. The name is automatically escaped using backticks for SQL safety. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`list of tuple of (str, str, pyspark.sql.Column)` |  A list of triples containing (field_name, stat_description, spark_expression). The statistics included are: \- sum: Sum of all finite values. \- min: Minimum finite value. \- max: Maximum finite value. \- nan: Count of NaN values. \- zeros: Count of values equal to 0. \- infinites: Count of positive and negative infinity values. \- missing: Count of null values. \- count: Count of finite values. \- mean: Arithmetic mean of finite values. \- var: Sample variance of finite values.  
+  
+##  `` string_stat_exprs Â¶
+    
+    
+    string_stat_exprs(field_name: str) -> list[tuple[str, str, Column]]
+    
+
+Generate Spark aggregate expressions that compute statistics for a given string column.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  `str` |  The name of the string column to analyze. The name is automatically escaped using backticks for SQL safety. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`list of tuple of (str, str, pyspark.sql.Column)` |  A list of triples containing (field_name, stat_description, spark_expression). The statistics included are: \- count: Count of values that are neither NULL nor empty strings. \- empty: Count of empty string ("") values. \- missing: Count of NULL values. \- hll_cardinality: An approximate count of distinct values using the HyperLogLog++ algorithm for memory efficiency.  
+  
+##  `` validation_exprs Â¶
+    
+    
+    validation_exprs(field_name: str, validations: list[[Validation](../validations/#ds_api.exploration.validations.Validation "            Validation \(ds_api.exploration.validations.Validation\)")]) -> list[tuple[str, str, Column]]
+    
+
+Build Spark aggregate expressions for custom validations on a field..
+
+Iterates over a provided set of validations and generates a SQL expression that encompasses all provided validations.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `field_name` Â¶
+
+|  `str` |  The name of the column to be validated. The name is automatically escaped using backticks for SQL safety. |  _required_  
+  
+###  `validations` Â¶
+
+|  `list of Validation` |  A list of Validation objects, each containing a description and a 'sql_builder' method that accepts a Column and returns a Spark aggregate expression. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`list of tuple of (str, str, pyspark.sql.Column)` |  A list of triples containing (field_name, validation_description, spark_expression). These are typically collected into a single data.agg() call alongside standard statistics.

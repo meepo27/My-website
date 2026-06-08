@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/refdata/network-refdata
+Title: Network and Connectivity | Feedzai Documentation
+============================================================
+
+On this page
+
+# Network and Connectivity
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+## Firewall Rulesâ
+
+##### tip
+
+For a complete list of the the Firewall Configurations required for Reference Data Service, please refer to the product documentation.
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+HTTP| TCP 8443-8444| HTTP Requests from Reference Data Service client.  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+Database (Cassandra)| TCP 9042| Connection to the database  
+  
+## Load Balancersâ
+
+For high available environments Load Balancers must be set as follow:
+
+Service| Description| Algorithm| Healthcheck URL| Response Codes| Policy Example  
+---|---|---|---|---|---  
+Reference Data Service| Used to read/write reference data.| Round robin| `HTTPS:9443/health`   
+`HTTP:9080/health`| 200 - Node is available| Checks should be performed every 10 seconds with a timeout of 2 seconds. Nodes should be removed after the second failure.

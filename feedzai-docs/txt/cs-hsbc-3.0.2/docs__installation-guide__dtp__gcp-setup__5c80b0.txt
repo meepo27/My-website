@@ -1,0 +1,161 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup
+Title: GCP Setup | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# GCP Setup
+
+In this page you can find information about the necessary resource setup in Google Cloud Platform (GCP) for Data Transfer Pipeline (DTP).
+
+## Pub/Sub Setupâ
+
+The DTP uses Pub/Sub topics as a vehicle to share messages from Pulse to the Dataflow pipeline and also for the [Inactivity Service](/cs-hsbc/3.0.2/docs/installation-guide/dtp/service-dtp#inactivity-service). It is possible to let DTP automatically create the Pub/Sub topics or it can be configured to connect to topics previously created.
+
+For a complete reference of the configurations exposed by the DTP please refer to the [DTP Configuration page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp).
+
+### Automatically create topicsâ
+
+As a low-maintenance option, the DTP can be configured to automatically create the Pub/Sub topics it uses. These will have default configurations applied to them and it is not possible to tweak them.
+
+To enable automatic topic creation, the following Ansible variables should be configured:
+
+  * `dtp_pubsub_topic_enable_creation` should be set to `true`.
+  * `dtp_pubsub_topic_name_prefix` should be set a string prefix to be used in the topic id.
+    * The final topic name will be _"projects/{project}/topics/{prefix}-{app-id}"_.
+  * `dtp_inactivity_topic_enable_creation` should be set to `true`
+  * `dtp_inactivity_topic_id` should be set to the topic id for the DTP to create.
+
+
+
+By design, each application will automatically have its own topic as the _app id_ is used as part of the topic id.
+
+### Use existing topicsâ
+
+If custom configuration for the topics is required, the DTP also supports connecting to existing topics. To enable this mode of operation, the follow Ansible variables should be configured:
+
+  * `dtp_pubsub_topic_enable_creation` should be set to `false`.
+  * `dtp_pubsub_topic_id` should be set to the topic id to use.
+    * The topic name will be _"projects/{project}/topics/{dtp_pubsub_topic_id}"_.
+  * `dtp_inactivity_topic_enable_creation` should be set to `false`
+  * `dtp_inactivity_topic_id` should be set to the topic id for the DTP to connect to.
+
+
+
+It is **crucial for the main topic id to be unique for each app**. Unlike the automatic topic creation mode, this approach does not inject the _app id_ in the topic id so it up this Ansible variable to have distinct values for each application. That can be done using the `<app_slug>_dtp_pubsub_topic_id` syntax for the Ansible variable.
+
+## GCP Permissionsâ
+
+In the following table you can find the minimal set of GCP resource permissions required by the service account attached to the machine running the Data Transfer Pipeline (DTP).
+
+Permission| Description  
+---|---  
+dataflow.jobs.cancel| Allows the cancellation of Dataflow jobs.  
+dataflow.jobs.create| Allows the creation of Dataflow jobs.  
+dataflow.jobs.get| Allows the fetching of Dataflow jobs.  
+dataflow.jobs.list| Allows listing Dataflow jobs of a project.  
+iam.serviceAccounts.actAs| Allows the service account to act as another service account (e.g. the Dataflow service account).  
+pubsub.schemas.create| Allows the creation of Pub/Sub schemas.  
+pubsub.schemas.delete| Allows the deletion of Pub/Sub schemas.  
+pubsub.schemas.get| Allows the fetching of Pub/Sub schemas.  
+pubsub.schemas.list| Allows listing Pub/Sub schemas of a project.  
+pubsub.subscriptions.consume| Allows the consumption of Pub/Sub topic messages by a subscription.  
+pubsub.subscriptions.create| Allows the creation of a Pub/Sub subscription.  
+pubsub.topics.attachSubscription| Allows attaching a subscription to a Pub/Sub topic.  
+pubsub.topics.create| Allows the creation of Pub/Sub topics.  
+pubsub.topics.publish| Allows the publish of messages to a Pub/Sub topic.  
+storage.buckets.get| Allows reading metadata of GCS buckets.  
+storage.objects.create| Allows the creation of objects in GCS buckets.  
+storage.objects.get| Allows the fetching of objects in GCS buckets.  
+  
+### Dataflow worker service accountâ
+
+The DTP uses a Dataflow pipeline to process and store the data. When creating the job, the service account attached to the machine running DTP will impersonate the Dataflow service account. However, Dataflow uses two service accounts to manage security and permissions:
+
+  * **The Dataflow service account:** The Dataflow service uses the Dataflow service account as part of the job creation request, and during job execution to manage it.
+  * **The worker service account:** Worker instances use this service account to access input and output resources after the job is submitted.
+
+
+
+By default, workers use the Compute Engine default service account of the project as the worker service account. This service account has the following email:
+    
+    
+    [[email protected]](/cdn-cgi/l/email-protection)  
+    
+
+Copy
+
+Although this service account can be used as the worker service account, it's recommended for a dedicated Dataflow worker service account to be created and used. The `dtp_dataflow_worker_service_account` variable can be used to set the desired service account to use as the Dataflow worker service account.
+
+In the following table you can find the minimal set of GCP permissions required by the Dataflow **worker service account**.
+
+Permission| Description  
+---|---  
+autoscaling.sites.readRecommendations| Allows reading autoscaling recommendations for a site (e.g., suggested capacity or scaling adjustments).  
+autoscaling.sites.writeMetrics| Allows writing custom metrics used by the autoscaler to make scaling decisions.  
+autoscaling.sites.writeState| Allows updating the autoscaling state of a site (e.g., reporting health or capacity state).  
+compute.instanceGroupManagers.update| Allows updating a managed instance group (MIG), such as changing instance templates, size, or update policies.  
+compute.instances.delete| Allows deleting virtual machine (VM) instances.  
+compute.instances.setDiskAutoDelete| Allows configuring whether attached disks are automatically deleted when the VM instance is deleted.  
+dataflow.jobs.get| Allows the fetching of Dataflow jobs.  
+dataflow.shuffle.read| Allows reading intermediate shuffled data produced during a Dataflow pipeline execution.  
+dataflow.shuffle.write| Allows writing intermediate shuffled data during a Dataflow pipeline execution.  
+dataflow.streamingWorkItems.ImportState| Allows importing state data for streaming work items (used during streaming pipeline recovery or state restoration).  
+dataflow.streamingWorkItems.commitWork| Allows committing completed streaming work items and associated state changes.  
+dataflow.streamingWorkItems.getData| Allows retrieving data associated with a streaming work item.  
+dataflow.streamingWorkItems.getWork| Allows retrieving streaming work items assigned to a worker.  
+dataflow.streamingWorkItems.getWorkerMetadata| Allows retrieving metadata about a streaming worker (e.g., configuration or assignment details).  
+dataflow.workItems.lease| Allows leasing (claiming) batch work items for processing.  
+dataflow.workItems.sendMessage| Allows sending messages between Dataflow service components or workers.  
+dataflow.workItems.update| Allows updating the status or progress of a batch work item.  
+logging.logEntries.create| Allows writing log entries to Cloud Logging.  
+logging.logEntries.route| Allows routing log entries through log sinks to supported destinations.  
+monitoring.timeSeries.create| Allows writing custom metric data points to Cloud Monitoring time series.  
+pubsub.subscriptions.consume| Allows the consumption of Pub/Sub topic messages by a subscription.  
+pubsub.subscriptions.create| Allows the creation of a Pub/Sub subscription.  
+pubsub.topics.attachSubscription| Allows attaching a subscription to a Pub/Sub topic.  
+pubsub.topics.get| Allows the fetching of Pub/Sub topics.  
+storage.buckets.get| Allows reading metadata of GCS buckets.  
+storage.objects.create| Allows the creation of objects in GCS buckets.  
+storage.objects.delete| Allows the deletion of objects in GCS buckets.  
+storage.objects.get| Allows the fetching of objects in GCS buckets.  
+  
+For more details regarding the service accounts that Dataflow uses and how, refer to the following documentation:
+
+  * [Security and permissions for pipelines on Google Cloud](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#permissions)
+  * [Dataflow service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#df-service-account)
+  * [Worker service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#worker-service-account)
+
+
+
+### GCP Permission required for using CMEKâ
+
+The `Cloud KMS CryptoKey Encrypter/Decrypter` role must be granted to the Service Account associated with the following services to enabled CMEK integration:
+
+  * Dataflow: `service-<PROJECT_NUMBER>@dataflow-service-producer-prod.iam.gserviceaccount.com`
+  * Compute Engine: `service-<PROJECT_NUMBER>@compute-system.iam.gserviceaccount.com`
+  * Pub/Sub: `service-<PROJECT_NUMBER>@gcp-sa-pubsub.iam.gserviceaccount.com`
+
+
+
+Here, `<PROJECT_NUMBER>` refers to the project number (not the project ID) of your Google Cloud project.
+
+For more details, refer to the following documentation:
+
+  * [Dataflow CMEK integration](https://cloud.google.com/dataflow/docs/guides/customer-managed-encryption-keys#grant)
+  * [Pub/Sub CMEK roles and permissions](https://cloud.google.com/pubsub/docs/encryption#required-roles-and-permissions)
+
+
+
+## Networkâ
+
+By default all Dataflow jobs will be configured to use the `default` network. Given this network usage is usually more restricted in production environments, a different network and/or subnetwork may need to be configured.
+
+This can be achieved by using the following deployment variables:
+
+  * `dtp_dataflow_network`: sets the Dataflow job network. If omitted along with `dataflow.subNetwork` the jobs will run on the `default` network
+  * `dtp_dataflow_subnetwork`: sets the Dataflow job subnetwork. If specified, GCP will determine the network and `dataflow.network` can be omitted. This configuration has to be set in the format `regions/REGION_NAME/subnetworks/SUBNETWORK_NAME`
+
+
+
+For more details on Dataflow networking refer to [Specify a network and subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks).

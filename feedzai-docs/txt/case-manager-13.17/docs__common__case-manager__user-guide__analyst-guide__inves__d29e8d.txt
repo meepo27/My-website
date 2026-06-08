@@ -1,0 +1,90 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases
+Title: Access Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/)
+  * Access Cases
+
+
+
+On this page
+
+# Access Cases
+
+Access all cases in the **Cases** page. You can use the filters to narrow down the cases that require your analysis. This page includes the different ways to access the cases that are up for review.
+
+info
+
+The **Channel** information explained on this page is only visible if the product is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+## List casesâ
+
+Access the **Cases** page using the main menu.
+
+## Filter casesâ
+
+Use filters to refine the cases displayed on the list. This could be helpful, for example, to view all cases linked to a specific queue.
+
+  * **All Channels** : Lists cases from multiple channels or from a specific channel. _For example, Open Banking_.
+  * **Type** : Lists only cases from the selected type: _AML_ or _Fraud_.
+  * **Source** : Lists only cases from the selected source. For example, _Legal request_.
+  * **Tenants** : Lists only cases from the selected tenant. For example: McDonalds.
+  * **Queues** : Lists only cases from the selected queue. For example, _Urgent_.
+  * **No. of cases per page:** Lists only the selected number of cases per page.
+
+
+
+## Export cases listâ
+
+Analysts can export the list of filtered cases to better support the investigation and reporting processes.
+
+To export cases, select **Export** button. A file is then downloaded with the list of cases. Notice that only the columns displayed in the table will be exported.
+
+File format
+
+The cases are exported either on a CSV or XLSX file depending on the product's configuration.
+
+## Get cases automaticallyâ
+
+The **Get Next** button automatically fetches the next unassigned and unreviewed case by queue without the need to perform a manual search. This way, analysts can have a more efficient access to their workload. In addition, it also enables a better team workload management as it ensures that cases are evenly distributed between the different analysts.
+
+info
+
+The fields that correspond to the unreviewed state of cases is configured by the system administrator.
+
+Imagine that you have an _Urgent_ queue with cases that need to be reviewed as soon as possible.
+
+  1. Select the **Cases Queues** option.
+
+  2. Select the queue that includes the cases that you need to review, in this case, **Urgent**.
+
+  3. Select **Get Next.** You are then redirected to the details page of a case from that queue that is both unassigned and unreviewed.
+
+
+
+
+info
+
+The order according to which the cases are fetched is configured by the system administrator.
+
+  4. Review the case. You can navigate to other pages and then select **Back to Case** when you're ready to make a decision.
+
+
+
+  5. After you make a decision, select **Get Next** to fetch the next case.
+
+
+
+### Automatic review nextâ
+
+The **Automatic review next** option takes the Get Next feature one step further. With this option enabled, after making a decision on a case, analysts are automatically redirected to the case without having to select **Get Next**.
+
+tip
+
+Make sure that **Cases Queues** option is selected. Then, press `.` on your keyboard to display the shortcuts menu and select the **Get Next** option.
+
+## Learn moreâ
+
+Now that you know the cases that are up for review, you can start [reviewing cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases).

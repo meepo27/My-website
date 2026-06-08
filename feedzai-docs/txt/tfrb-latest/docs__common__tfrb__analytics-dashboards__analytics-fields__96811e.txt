@@ -1,0 +1,261 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields
+Title: Analytics Dashboards' Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Analytics Dashboards](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview)
+  * Analytics Dashboards' Fields
+
+
+
+On this page
+
+# Analytics Dashboards' Fields
+
+Was this page helpful?Â 
+
+This page includes all the relevant fields you can use in each index-pattern to refine the scope of your analysis.
+
+## Cardsâ
+
+  * `@timestamp`
+  * `calculated.cardholder_bill_amount_usd`
+  * `common.country_code`
+  * `common.queueName`
+  * `feedback.fraud.history.realOutcome`
+  * `feedback.fraud.history.type.reportInstant`
+  * `feedback.fraud.latest.realOutcome`
+  * `feedback.fraud.latest.reportInstant`
+  * `fields.cardholder_bill_amount`
+  * `fields.customer_region`
+  * `fields.event_occurred_at`
+  * `fields.event_type`
+  * `fields. feedback_type`
+  * `fields.info_type`
+  * `fields.lifecycle_id`
+  * `fields.channel_type`
+  * `fields.customer_segment`
+  * `fields.transaction_status`
+  * `psd2_domain.amount`
+  * `psd2_domain.authentication`
+  * `psd2_domain.authorization`
+  * `psd2_domain.channel`
+  * `psd2_domain.exemption`
+  * `psd2_domain.initiation`
+  * `psd2_domain.paymentInstrument`
+  * `psd2_domain.transactionType`
+  * `fdz_domain.cm.alert`
+  * `fdz_domain.cm.assignedAt`
+  * `fdz_domain.cm.assigneeUserId`
+  * `fdz_domain.cm.assigneeUsername`
+  * `fdz_domain.cm.channel`
+  * `fdz_domain.cm.decisionAt`
+  * `fdz_domain.cm.TimeSinceAssigned`
+  * `fdz_domain.cm.TimeSinceCreated`
+  * `fdz_domain.cm.decisionUserId`
+  * `fdz_domain.cm.decisionUsername`
+  * `fdz_domain.cm.eventStates.decision.stateId`
+  * `fdz_domain.cm.eventStates.operational_status.stateId`
+  * `fdz_domain.cm.eventStates.status_cards.stateId`
+  * `fdz_domain.cm.eventStates.status.stateId`
+  * `fdz_domain.cm.id`
+  * `fdz_domain.cm.queueId`
+  * `fdz_domain.cm.reasons.status_cards.reasonName`
+  * `fdz_domain.cm.reasons.status_cards.reasonId`
+  * `fdz_domain.cm.reasons.status_cards.stateId`
+  * `fdz_domain.cm.states`
+  * `fdz_domain.cm.timestamp`
+  * `fdz_domain.cm.updatedAt`
+  * `fdz_domain.cm.userId`
+  * `fdz_domain.cm.username`
+  * `fdz_domain.cm.versionId`
+  * `fdz_domain.cm.versionTimestamp`
+  * `pulse.id`
+  * `pulse.instant`
+  * `pulse.tenantKey`
+  * `pulse.sourceId`
+  * `pulse.outcomes.decision.outcomeDecision`
+  * `pulse.outcomes.decision.score`
+  * `pulse.outcomes.sca_required.score`
+  * `pulse.outcomes.sca_required.outcomeDecision`
+  * `pulse.outcomes.fraud.outcomeDecision`
+  * `pulse.outcomes.fraud.score`
+  * `pulse.outcomes.suspicious.outcomeDecision`
+  * `pulse.outcomes.suspicious.score`
+  * `pulse.results.result.originalRuleId`
+  * `pulse.results.result.ruleId`
+  * `pulse.results.result.targetOutcome`
+  * `pulse.results.result.targetOutcomeLabel`
+  * `pulse.results.result.outcome`
+  * `pulse.results.sourceId`
+  * `pulse.results.weight`
+  * `pulse.results.explanations`
+  * `pulse.triggeredActions.name`
+  * `pulse.triggeredActions.nestedSourceId`
+  * `pulse.triggeredActions.sourceId`
+
+
+
+## Inbound Paymentsâ
+
+  * `@timestamp`
+  * `calculated.cardholder_bill_amount_usd`
+  * `common.country_code`
+  * `common.queueName`
+  * `feedback.fraud.history.realOutcome`
+  * `feedback.fraud.history.type.reportInstant`
+  * `feedback.fraud.latest.realOutcome`
+  * `feedback.fraud.latest.reportInstant`
+  * `fields.event_type`
+  * `fields. feedback_type`
+  * `fields.info_type`
+  * `fields.payment_type`
+  * `fields.lifecycle_id`
+  * `fields.payment_status`
+  * `fields.channel_type`
+  * `fields.customer_segment`
+  * `fields.channel_type`
+  * `fields.receiver_account_id`
+  * `fields.sender_account_id`
+  * `psd2_domain.amount`
+  * `psd2_domain.authentication`
+  * `psd2_domain.authorization`
+  * `psd2_domain.channel`
+  * `psd2_domain.exemption`
+  * `psd2_domain.initiation`
+  * `psd2_domain.paymentInstrument`
+  * `psd2_domain.transactionType`
+  * `fdz_domain.cm.alert`
+  * `fdz_domain.cm.assignedAt`
+  * `fdz_domain.cm.assigneeUserId`
+  * `fdz_domain.cm.assigneeUsername`
+  * `fdz_domain.cm.channel`
+  * `fdz_domain.cm.decisionAt`
+  * `fdz_domain.cm.TimeSinceAssigned`
+  * `fdz_domain.cm.TimeSinceCreated`
+  * `fdz_domain.cm.decisionUserId`
+  * `fdz_domain.cm.decisionUsername`
+  * `fdz_domain.cm.eventStates.decision.stateId`
+  * `fdz_domain.cm.eventStates.operational_status.stateId`
+  * `fdz_domain.cm.eventStates.breach_status.stateId`
+  * `fdz_domain.cm.eventStates.status.stateId`
+  * `fdz_domain.cm.id`
+  * `fdz_domain.cm.queueId`
+  * `fdz_domain.cm.reasons.status_cards.reasonName`
+  * `fdz_domain.cm.reasons.status_cards.reasonId`
+  * `fdz_domain.cm.reasons.status_cards.stateId`
+  * `fdz_domain.cm.states`
+  * `fdz_domain.cm.timestamp`
+  * `fdz_domain.cm.updatedAt`
+  * `fdz_domain.cm.userId`
+  * `fdz_domain.cm.username`
+  * `fdz_domain.cm.versionId`
+  * `fdz_domain.cm.versionTimestamp`
+  * `pulse.id`
+  * `pulse.instant`
+  * `pulse.tenantKey`
+  * `pulse.sourceId`
+  * `pulse.outcomes.decision.outcomeDecision`
+  * `pulse.outcomes.decision.score`
+  * `pulse.outcomes.sca_required.score`
+  * `pulse.outcomes.sca_required.outcomeDecision`
+  * `pulse.outcomes.fraud.outcomeDecision`
+  * `pulse.outcomes.fraud.score`
+  * `pulse.outcomes.suspicious.outcomeDecision`
+  * `pulse.outcomes.suspicious.score`
+  * `pulse.results.result.originalRuleId`
+  * `pulse.results.result.ruleId`
+  * `pulse.results.result.targetOutcome`
+  * `pulse.results.result.targetOutcomeLabel`
+  * `pulse.results.result.outcome`
+  * `pulse.results.sourceId`
+  * `pulse.results.weight`
+  * `pulse.results.explanations`
+  * `pulse.triggeredActions.name`
+  * `pulse.triggeredActions.nestedSourceId`
+  * `pulse.triggeredActions.sourceId`
+
+
+
+## Outbound Transfersâ
+
+  * `@timestamp`
+  * `calculated.cardholder_bill_amount_usd`
+  * `common.country_code`
+  * `common.queueName`
+  * `feedback.fraud.history.realOutcome`
+  * `feedback.fraud.history.type.reportInstant`
+  * `feedback.fraud.latest.realOutcome`
+  * `feedback.fraud.latest.reportInstant`
+  * `fields.event_type`
+  * `fields. feedback_type`
+  * `fields.info_type`
+  * `fields.payment_type`
+  * `fields.lifecycle_id`
+  * `fields.payment_status`
+  * `fields.channel_type`
+  * `fields.customer_segment`
+  * `fields.channel_type`
+  * `fields.receiver_account_id`
+  * `fields.sender_account_id`
+  * `psd2_domain.amount`
+  * `psd2_domain.authentication`
+  * `psd2_domain.authorization`
+  * `psd2_domain.channel`
+  * `psd2_domain.exemption`
+  * `psd2_domain.initiation`
+  * `psd2_domain.paymentInstrument`
+  * `psd2_domain.transactionType`
+  * `fdz_domain.cm.alert`
+  * `fdz_domain.cm.assignedAt`
+  * `fdz_domain.cm.assigneeUserId`
+  * `fdz_domain.cm.assigneeUsername`
+  * `fdz_domain.cm.channel`
+  * `fdz_domain.cm.decisionAt`
+  * `fdz_domain.cm.TimeSinceAssigned`
+  * `fdz_domain.cm.TimeSinceCreated`
+  * `fdz_domain.cm.decisionUserId`
+  * `fdz_domain.cm.decisionUsername`
+  * `fdz_domain.cm.eventStates.decision.stateId`
+  * `fdz_domain.cm.eventStates.operational_status.stateId`
+  * `fdz_domain.cm.eventStates.breach_status.stateId`
+  * `fdz_domain.cm.eventStates.status.stateId`
+  * `fdz_domain.cm.id`
+  * `fdz_domain.cm.queueId`
+  * `fdz_domain.cm.reasons.status_cards.reasonName`
+  * `fdz_domain.cm.reasons.status_cards.reasonId`
+  * `fdz_domain.cm.reasons.status_cards.stateId`
+  * `fdz_domain.cm.states`
+  * `fdz_domain.cm.timestamp`
+  * `fdz_domain.cm.updatedAt`
+  * `fdz_domain.cm.userId`
+  * `fdz_domain.cm.username`
+  * `fdz_domain.cm.versionId`
+  * `fdz_domain.cm.versionTimestamp`
+  * `pulse.id`
+  * `pulse.instant`
+  * `pulse.tenantKey`
+  * `pulse.sourceId`
+  * `pulse.outcomes.decision.outcomeDecision`
+  * `pulse.outcomes.decision.score`
+  * `pulse.outcomes.sca_required.score`
+  * `pulse.outcomes.sca_required.outcomeDecision`
+  * `pulse.outcomes.fraud.outcomeDecision`
+  * `pulse.outcomes.fraud.score`
+  * `pulse.outcomes.suspicious.outcomeDecision`
+  * `pulse.outcomes.suspicious.score`
+  * `pulse.results.result.originalRuleId`
+  * `pulse.results.result.ruleId`
+  * `pulse.results.result.targetOutcome`
+  * `pulse.results.result.targetOutcomeLabel`
+  * `pulse.results.result.outcome`
+  * `pulse.results.sourceId`
+  * `pulse.results.weight`
+  * `pulse.results.explanations`
+  * `pulse.triggeredActions.name`
+  * `pulse.triggeredActions.nestedSourceId`
+  * `pulse.triggeredActions.sourceId`
+
+

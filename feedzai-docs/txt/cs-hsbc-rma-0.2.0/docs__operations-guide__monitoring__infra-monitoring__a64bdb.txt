@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/infra-monitoring
+Title: Monitoring the Infrastructure | Feedzai RMA Documentation
+============================================================
+
+# Monitoring the Infrastructure  
+  
+##### info
+
+Note that the following list is simply a reference to the most important metrics, and should not be considered as the single source of monitoring the healthiness of the system.
+
+While monitoring the application is important, it is not possible to have a useful monitoring system if the infrastructure and the operating system are not monitored as well. There are many metrics that could be listed here, but the truth is that some are more important than others, and that list may vary with the system. For example, systems that are prone to spill data to disk should be provisioned with more storage, and disk usage monitoring is an absolute must, as if the disk runs out of space, we may end up with corrupted data and a crashed service.
+
+These are the metrics that should absolutely be monitored for all VMs or containers:
+
+  * CPU stats (user, system, iowait & idle percentages)
+  * Memory usage (used, buffered, cached & free percentages)
+  * Virtual Memory statistics (dirty page flushes, writeback volume)
+  * Disk I/O (operations & amount of data transferred per unit time, time to service operations)
+  * Free disk space on the mount used for data directory
+  * File descriptors used by `beam.smp` process vs. max system limit 
+  * Network throughput (bytes received, bytes sent) & maximum network throughput
+  * Network latency (particularly between replicas from the same service)
+
+

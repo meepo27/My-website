@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/field/
+Title: field - DS API
+============================================================
+
+#  `` field Â¶
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` FieldTemplate `dataclass` Â¶
+    
+    
+    FieldTemplate(name: str, native_type: [NativeType](../types/#ds_api.types.NativeType "            NativeType \(ds_api.types.NativeType\)"), datascience_field: [DataScienceField](../types/#ds_api.types.DataScienceField "            DataScienceField \(ds_api.types.DataScienceField\)"))
+    
+
+Defines a field template used to add fields to a schema.
+
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`self.name` |  `str` |  Name of the field.  
+`self.native_type` |  `[NativeType](../types/#ds_api.types.NativeType "            NativeType \(ds_api.types.NativeType\)")` |  The native type of the field.  
+`self.datascience_field` |  `[DataScienceField](../types/#ds_api.types.DataScienceField "            DataScienceField \(ds_api.types.DataScienceField\)")` |  The DataScienceField class corresponding to this field.  
+  
+###  `` datascience_field `instance-attribute` Â¶
+    
+    
+    datascience_field: [DataScienceField](../types/#ds_api.types.DataScienceField "            DataScienceField \(ds_api.types.DataScienceField\)")
+    
+
+###  `` name `instance-attribute` Â¶
+    
+    
+    name: str
+    
+
+###  `` native_type `instance-attribute` Â¶
+    
+    
+    native_type: [NativeType](../types/#ds_api.types.NativeType "            NativeType \(ds_api.types.NativeType\)")
+    

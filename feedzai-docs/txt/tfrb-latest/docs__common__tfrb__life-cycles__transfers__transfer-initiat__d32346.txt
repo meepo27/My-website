@@ -1,0 +1,81 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transfer-initiation
+Title: Transfer Initiation Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * Transfer Initiation Endpoint
+
+
+
+On this page
+
+# Transfer Initiation Endpoint
+
+Was this page helpful?Â 
+
+The Transfer Initiation endpoint allows you to leverage Feedzai's data science capabilities to generate a recommendation (e.g. approve/decline) according to the transfer's risk. The recommendation is configured at the risk engine level and may vary with the use case.
+
+This page shows the end-to-end process. Note that the examples described in this page apply to a simplified processing model. To learn more about processing models, check the following pages which cover the transfer initiation use case with more details on the end-to-end life cycle:
+
+  * [Automated Clearing House](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach)
+  * [Corresponding Model](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/correspondent-banking)
+  * [Real-time Gross Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/real-time-gross-transfers)
+  * [Peer-to-Peer](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/peer-to-peer)
+
+
+
+## Funds transfer initiationâ
+
+The following image illustrates the integration between the sender bank and Feedzai.
+
+  1. The sender (i.e. originator) initiates a transfer directly with the sender bank.
+  2. The sender bank sends an API request via the **Transfer Initiation** endpoint.
+
+
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities (e.g. Card, Customer, or Account) have a match in the Reference Data Storage.
+
+info
+
+Note that any new data from transfer initiation events (e.g. new `sender_card_category`) will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  3. Feedzai sends the recommendation, i.e marks the event as legitimate or fraudulent. If the event is marked as legitimate, the instructions go to the [Clearing House](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach).
+  4. After the transfer is approved by Feedzai and accepted by the sender bank, the latter sends the transfer instructions to the receiver bank.
+  5. The receiver's account is updated with the funds.
+
+
+
+## Funds transfer confirmationâ
+
+The following image illustrates the integration between the receiver bank and Feedzai.
+
+  1. The sender (i.e. originator) initiates a transfer directly with the sender bank.
+  2. The receiver (i.e. beneficiary) bank receives the instructions to credit the receiver's account.
+  3. The receiver bank sends an API request via the **Transfer Initiation** endpoint.
+  4. Feedzai sends the recommendation, i.e marks the event as legitimate or fraudulent. If the event is marked as legitimate, the bank can forward the transfer instructions to the processing entity (e.g [Clearing House](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach)).
+  5. After the transfer is approved by Feedzai and accepted by the receiver bank, the receiver's account is updated with the funds.
+
+
+
+Note that, if you don't require a recommendation but still need the incoming transfers to contribute to metrics, you can invoke Feedzai's **Info** endpoint as follows:
+
+  1. The sender (i.e. originator) initiates a transfer directly with the sender bank.
+  2. The receiver (i.e. beneficiary) bank receives the instructions to credit the receiver's account.
+  3. The receiver's bank invokes Feedzai's **Info** endpoint.
+  4. Feedzai processes the transaction, which contributes to segment-of-one-profiles. If the event is marked as legitimate, the bank can forward the transfer instructions to the processing entity (e.g the [Clearing House](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach)).
+  5. The receiver's account is updated with the funds.
+
+
+
+tip
+
+At any point after the real-time event processing, an analyst can investigate the event. The information is sent back to the risk engine and can be leveraged by rules and models.
+
+## Learn moreâ
+
+Check the [Info Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/info) page to continue learning about the endpoints' life cycles.

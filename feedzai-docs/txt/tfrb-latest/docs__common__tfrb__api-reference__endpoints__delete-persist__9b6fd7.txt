@@ -1,0 +1,44 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/delete-persisted-entity-tagging
+Title: Delete from list | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [List Management](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/list-management)
+  * Delete from list
+
+
+
+Was this page helpful?Â 
+
+# Delete from list
+    
+    
+    DELETE 
+    
+    ## /api/entitytagging/:appSlug/:listName/:key
+
+Allows you to remove an item from a list
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 400
+  * 401
+  * 404
+  * 500
+
+
+
+OK
+
+Bad Request
+
+Unauthorized
+
+Transaction was not found
+
+The system encountered an unexpected internal error.

@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/about/chargeback-life-cycle
+Title: Chargeback Life Cycle | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)  
+  * [About Transaction Fraud for PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/about/overview)
+  * Chargeback Life Cycle
+
+
+
+# Chargeback Life Cycle
+
+Learn about TFP's chargeback life cycle.
+
+  1. The merchant delivers goods to the customer.
+  2. The customer receives the goods.
+  3. Funds are settled.
+  4. The customer initiates a chargeback.
+  5. The Payment Service Provider (PSP) informs Feedzai about the chargeback that is taking place through the Payments API.
+
+info
+
+**Endpoint** : The PSP invokes the _Feedback_ PUT endpoint. This request is registered in the `feedback_type` with the `chargeback` value.
+
+  6. Feedzai's risk engine processes the feedback to update metrics.
+  7. The updated metrics are used in Merchant Monitoring's rules and analytics dashboards, thus making fraudulent chargeback prevention more accurate.
+
+

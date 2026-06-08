@@ -1,0 +1,75 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/paginated-widget
+Title: Paginated Widget | Case Manager
+============================================================
+
+On this page
+
+# Paginated Widget
+
+This Widget structure is identical to Box Widget. The main difference is that it receives a resource from where it will fetch the data to show.
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+fields| Array<Object>| No| List of fields to be displayed in the Box. Each item is an object that can have [these properties](/docs/common/case-manager/reference/user-interface/widgets/box#fields).  
+resource| string| No| Resource of the paginated widget, it can be something like `/resource/{{id}}?timestamp={{createdAt}}`  
+title| String| Yes| I18n key to the message to show in the box title.  
+cssClass| String| Yes| Box custom CSS classes, separated by space.  
+fieldsPerRow| String| Yes| Number of fields displayed per row. Default: 1.  
+headerClassName| String| Yes| Box header custom classes, separated by space.  
+rowClassName| String| Yes| Custom classes, separated by space, for each Box row.  
+groupClassName| String| Yes| Custom classes, separated by space, for each Box field.  
+name| String| Yes1| A unique identifier representing the widget.  
+resource| String| Yes| Resource name that points to the endpoint that populates the widget. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+filter| String| Yes| Filter for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderBy| String| Yes| OrderBy for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+limit| Number| Yes| Limits the number of results for the external resource.  
+noBorder| Boolean| Yes. Default: false| If set to true, the widget won't have any border.  
+  
+1 Mandatory if **resource** is present.
+
+### fieldsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| Yes| I18n key to the message that represents the field title.  
+type| String| No| Field data type. Please check the [Data Types](/docs/common/case-manager/reference/user-interface/data-types) section for more info about the available data types.  
+key| String| No| Path to fetch the value in the data object. When configuring a field of type template or custom, it is not required to provide a path to a data object property, but instead you can provide any string you like.  
+cssClass| String| Yes| Custom CSS classes, separated by space, to add to the element that wraps the field.  
+dynamicCssClassKey| String| Yes| Contains a key to the data object. If present, it will add a CSS class with the cell key and the value of the key passed in this property. The CSS class will have the following template: `fdz-css-{key}-{data[dynamicCssClassKey]}`.  
+fieldTooltip| Object| Yes| Configures a tooltip in the field value. The object can have the following properties:
+
+  * **key** (String) - Path to fetch the value in the data object, to show in the tooltip.
+  * **type** (String) - Tooltip value type. Please check the [Data Types](/docs/common/case-manager/reference/user-interface/data-types) section for more info about the available data types.
+
+  
+linkIcons| Array<Object>| Yes| List of link icons to be added to the field. Each item must be an object with [these **linkicon** properties](/docs/common/case-manager/reference/user-interface/widgets/box#linkicons-extensions).  
+valueCssClass| String| Yes| Custom CSS classes, separated by space, to be added to the field value.  
+titleCssClass| String| Yes| Custom CSS classes, separated by space, to be added to the field title.  
+fieldLinkUrl| String| Yes| URL to where the box field should point to. You can pass a simple string or you can use a string with the same format as the one used in the [template](/docs/common/case-manager/reference/user-interface/data-types) data type.  
+openInNewTab| Boolean| Yes| Whether the URL, associated with the field, should open in a new tab or not.  
+externalLink| Boolean| Yes| Whether the URL is internal or external.  
+permissions| string | Array<string>| Yes| Specifies the necessary user permissions to view this field. When passing a list of permissions, the user must have **all** the permissions in order to view the field.  
+  
+#### linkIconsâ
+
+Property| Type| Description  
+---|---|---  
+iconCssClass| String| Icon CSS class to give the link an icon.  
+url| String| Link to where the icon points to.Note: This URL supports a string template, where the values inside {{}} are replaced by the correspondent values.E.g. "[https://www.facebook.com/search/top/?q=&#123;&#123;enrichers.customer.email&#125;&#125](https://www.facebook.com/search/top/?q=&#123;&#123;enrichers.customer.email&#125;&#125);"  
+tooltipKey| String| I18n key to the message to show in the tooltip.  
+openInNewTab| Boolean| Whether the URL, associated with the icon, should open in a new tab or not.  
+externalLink| Boolean| Whether the URL is internal or external.  
+matchingFields (since 4.2.3)| Array<Object>| Holds the list of fields that should match in order to the widget to appear. For more detail about this property, see [matchingFields](/docs/common/case-manager/reference/user-interface/widgets/widgets-overview#matchingfields).  
+  
+#### linkIcons (Extensions)â
+
+Property| Type| Description  
+---|---|---  
+iconCssClass| String| Icon CSS class to give the link an icon.  
+action| String| The name of the external action to be executed.  
+tooltipKey| String| I18n key to the message to show in the tooltip.  
+entityType| String| A string to be sent to the extension action representing the entity where it was triggered.  
+data| Object| Represents a Context and it is not mandatory.  
+matchingFields (since 4.2.3)| Array<Object>| Holds the list of fields that should match in order to the widget to appear. For more detail about this property, see [matchingFields](/docs/common/case-manager/reference/user-interface/widgets/widgets-overview#matchingfields).

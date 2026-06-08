@@ -1,0 +1,11 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/sampling/
+Title: Index - DS API
+============================================================
+
+#  `` sampling Â¶  
+  
+Efficient sampling utilities through PySpark. This sub-package provides a stratified and a random sampling strategy, but can be easily extended to user defined strategies.
+
+It supports smart optimized sampling that preserves the minimal history of entities, so historical profiles can be correctly computed while maximizing the sampling reduction power.
+
+If you intend to implement your own sampling algorithm, that's fine: there's a [`BaseSampler`](base_sampler/#ds_api.sampling.base_sampler.BaseSampler "            BaseSampler") that takes care of the integration with Pulse through the ds-api.

@@ -1,0 +1,11 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/api-deprecation-hint-old
+Title: api-deprecation-hint-old | Case Manager
+============================================================
+
+# api-deprecation-hint-old
+
+Deprecated API specification
+
+Case Manager is currently moving to an API specification generated with Swagger. Due to Case Manager's API size and complexity, the resources are being gradually moved to the new format. Until this transition is complete, please make sure that you check both this page and the [new API specification](/case-manager/13.17/api/).
+
+When all resources are moved to the new format, this page will be deleted.

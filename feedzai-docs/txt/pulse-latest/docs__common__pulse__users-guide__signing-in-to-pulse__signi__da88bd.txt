@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-idp-initiated
+Title: Signing in via IdP-initiated | Feedzai Pulse
+============================================================
+
+On this page
+
+# Signing in via IdP-initiated
+
+Was this page helpful?Â 
+
+## Whyâ
+
+IdP-initiated is a scenario of SSO that is supported by Pulse. In this case, the user signs in to the IdP domain and then has access to the applications configured in the IdP.
+
+## How Toâ
+
+For this example, two pulse instances have been [configured in the IdP as SPs](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-a-relying-party-trust):
+
+  * A Demo environment configured in the IdP as PULSE DEMO.
+  * A Local environment configured in the IdP as PULSE.
+
+
+
+SP applications
+
+Note that the two Pulse instances are used here as an example. In a production system the IdP could be configured with any application used by the client.
+
+To use the example of sign in to Pulse via IdP-initiated execute the following actions (assuming that you are not already signed in to the IdP):
+
+  1. Access the IdP webpage configured for user authentication.
+
+  2. Choose the option _Sign in to this site_ and click on Continue to Sign In. The following sign in form is provided:
+
+  3. Enter your credentials to Sign In. This user credentials should have been already [configured in the IdP](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-new-users).
+
+  4. Choose the Pulse instance (e.g. PULSE DEMO) that you would like to access and click on Go. Note that, if the user does not exist in the Pulse instance as a Pulse User, the user will be created automatically by user provisioning at the first sign in to the Pulse instance.
+
+Note that you are redirected to an active session of the PULSE DEMO.
+
+  5. Navigate to the  Administration tool.
+
+  6. Open the Security view and select that you have signed in. Note that the fields are read-only because users that have SSO enable can only be created with the concept of user provisioning. User information previously configured in the IdP is mapped to the Pulse User. This information may contain **User** **Description** , **Language** , **Groups** , **Roles** , and **Tenants**.
+
+
+
+
+## Next Stepsâ
+
+Learn more about the login scenario in which a user access a Pulse instance directly:
+
+  * [Signing in via SP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-sp-initiated)
+
+
+
+Learn how to configure SPs and users in the IdP:
+
+  * [Add a Relying Party Trust](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-a-relying-party-trust)
+  * [Add new users](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-new-users)
+
+

@@ -1,0 +1,270 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/analytics-fields
+Title: Analytics Dashboards' Fields | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)  
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Analytics Dashboards' Fields
+
+
+
+On this page
+
+# Analytics Dashboards' Fields
+
+This page includes all the relevant fields you can use in each `index-pattern` to refine the scope of your analysis.
+
+## `rmpsp-pulse-cm-events`â
+
+  * @timestamp
+  * date
+  * system_decision
+  * alerted
+  * feedback.fraud.history.realOutcome
+  * feedback.fraud.history.type.reportInstant
+  * feedback.fraud.latest.realOutcome
+  * feedback.fraud.latest.reportInstant
+  * pulse.rules_names
+  * pulse.id
+  * pulse.instant
+  * pulse.outcomes.decision.outcomeDecision
+  * pulse.outcomes.decision.score
+  * pulse.outcomes.fraud.outcomeDecision
+  * pulse.outcomes.fraud.score
+  * pulse.outcomes.sca_required.outcomeDecision
+  * pulse.outcomes.results.enrich.createdAt
+  * pulse.outcomes.results.enrich.createdBy
+  * pulse.outcomes.results.enrich.description
+  * pulse.outcomes.results.enrich.isSelfServiceRule
+  * pulse.outcomes.results.enrich.name
+  * pulse.outcomes.results.enrich.originalId
+  * pulse.outcomes.results.enrich.ruleId
+  * pulse.outcomes.results.enrich.ruleProjectId
+  * pulse.outcomes.results.enrich.ruleProjectSnapshotId
+  * pulse.outcomes.results.enrich.scoreEnabled
+  * pulse.outcomes.results.enrich.targetVarValue
+  * pulse.outcomes.results.enrich.workflowRuleBlockName
+  * pulse.outcomes.result.outcome
+  * pulse.outcomes.result.ruleId
+  * pulse.outcomes.result.scores
+  * pulse.outcomes.result.targetOutcome
+  * pulse.outcomes.result.targetOutcomeLabel
+  * pulse.outcomes.result.originalRuleId
+  * pulse.triggeredActions.name
+  * pulse.triggeredActions.nestedSourceId
+  * pulse.triggeredActions.sourceId
+  * pulse.alerted
+  * pulse.channel_id
+  * fields.amount_unified_currency
+  * fields.event_type
+  * fields.info_type
+  * fields.feedback_type
+  * fields.lifecycle_id
+  * fields.merchant_id
+  * fields.merchant_mcc
+  * fields.merchant_country_code
+  * fields.merchant_name
+  * fields.merchant_url
+  * fields.payment_3ds_status_code
+  * fields.payment_auth_status_code
+  * fields.payment_card_country_code
+  * fields.payment_method_type
+  * fields.terminal_ip_country_code
+  * fields.terminal_latitude
+  * fields.terminal_longitude
+  * fields.device_ip_country_code
+  * fields.terminal_ip_location
+  * fields.device_ip_location
+  * fields.amount_decimal
+  * fields.customer_region
+  * fields.alert_id
+  * fields.payment_region
+  * fields.tenant_alert
+  * fields.channel
+  * fields.merchant_parent_merchant_id
+  * fields.card_presence_flag
+  * cm.alert
+  * cm.versionTimestamp
+  * cm.assignedAt
+  * cm.decisionUserId
+  * cm.decisionUsername
+  * cm.decisionAt
+  * cm.decisionTimeSinceCreated
+  * cm.decisionTimeSinceAssigned
+  * cm.first_assignee_user_id
+  * cm.first_assignee_username
+  * cm.channel
+  * cm.eventStates.mm_status.stateId
+  * cm.eventStates.mm_analyst_decision.stateId
+  * cm.eventStates.rmpsp_operational_status.stateId
+  * cm.eventStates.status.stateId
+  * cm.eventStates.status_payments.stateId
+  * cm.eventStates.rmpsp_status.stateId
+  * cm.id
+  * cm.reasons
+  * cm.states
+  * cm.status
+  * cm.timestamp
+  * cm.userId
+  * cm.username
+  * cm.versionId
+  * cm.fraud_label
+  * cm.analyst_decision
+  * cm.state
+
+
+
+## `rmpsp-triggered-rules`â
+
+  * @timestamp
+  * enrich.createdAt
+  * enrich.createdBy
+  * enrich.description
+  * enrich.isSelfServiceRule
+  * enrich.name
+  * enrich.originalId
+  * enrich.ruleId
+  * enrich.ruleProjectId
+  * enrich.ruleProjectSnapshotId
+  * enrich.scoreEnabled
+  * enrich.targetVarValue
+  * enrich.workflowRuleBlockName
+  * fields.alert_id
+  * fields.amount_decimal
+  * fields.amount_unified_currency
+  * fields.channel
+  * fields.customer_region
+  * fields.device_ip_country_code
+  * fields.event_type
+  * fields.ip_location
+  * fields.lifecycle_id
+  * fields.merchant_country_code
+  * fields.merchant_id
+  * fields.merchant_mcc
+  * fields.merchant_name
+  * fields.merchant_parent_merchant_id
+  * fields.merchant_url
+  * fields.payment_3ds_status_code
+  * fields.payment_card_country_code
+  * fields.payment_method_type
+  * fields.terminal_ip_country_code
+  * fields.terminal_ip_location
+  * fields.device_ip_location
+  * fields.payment_region
+  * fields.card_presence_flag
+  * pulse.channel_id
+  * pulse.alerted
+  * pulse.id
+  * pulse.instant
+  * pulse.outcomes.decision.outcomeDecision
+  * pulse.outcomes.decision.score
+  * pulse.outcomes.fraud.outcomeDecision
+  * pulse.outcomes.fraud.score
+  * pulse.result.result.originalRuleId
+  * pulse.result.result.ruleId
+  * pulse.result.result.targetOutcome
+  * pulse.result.result.targetOutcomeLabel
+  * pulse.result.result.outcome
+  * pulse.result.sourceId
+  * pulse.result.weight
+  * pulse.sourceId@timestamp
+  * enrich.createdAt
+  * enrich.createdBy
+  * enrich.description
+  * enrich.isSelfServiceRule
+  * enrich.name
+  * enrich.originalId
+  * enrich.ruleId
+  * enrich.ruleProjectId
+  * enrich.ruleProjectSnapshotId
+  * enrich.scoreEnabled
+  * enrich.targetVarValue
+  * enrich.workflowRuleBlockName
+  * fields.alert_id
+  * fields.amount_decimal
+  * fields.amount_unified_currency
+  * fields.channel
+  * fields.customer_region
+  * fields.device_ip_country_code
+  * fields.event_type
+  * fields.ip_location
+  * fields.lifecycle_id
+  * fields.merchant_country_code
+  * fields.merchant_id
+  * fields.merchant_mcc
+  * fields.merchant_name
+  * fields.merchant_parent_merchant_id
+  * fields.merchant_url
+  * fields.payment_3ds_status_code
+  * fields.payment_card_country_code
+  * fields.payment_method_type
+  * fields.terminal_ip_country_code
+  * fields.terminal_ip_location
+  * fields.device_ip_location
+  * fields.payment_region
+  * fields.card_presence_flag
+  * pulse.channel_id
+  * pulse.alerted
+  * pulse.id
+  * pulse.instant
+  * pulse.outcomes.decision.outcomeDecision
+  * pulse.outcomes.decision.score
+  * pulse.outcomes.fraud.outcomeDecision
+  * pulse.outcomes.fraud.score
+  * pulse.result.result.originalRuleId
+  * pulse.result.result.ruleId
+  * pulse.result.result.targetOutcome
+  * pulse.result.result.targetOutcomeLabel
+  * pulse.result.result.outcome
+  * pulse.result.sourceId
+  * pulse.result.weight
+  * pulse.sourceId
+
+
+
+## `rmpsp-cm-cases`â
+
+  * created_at
+  * channel
+  * closed_at
+  * timeSinceCreated
+  * case_source_type
+  * state
+  * updatedAt
+  * assignee_id
+  * assignee_username
+  * id.identifier
+  * case_source_id
+
+
+
+## `rmpsp-cm-report-1`â
+
+  * timestamp
+  * rule_name
+  * rule_original_id
+  * user
+  * rule_status
+
+
+
+## `rmpsp-cm-report-2`â
+
+  * @timestamp
+  * app_id
+  * rules.app
+  * rules.comment
+  * rules.createdAt
+  * rules.createdBy
+  * rules.desc
+  * rules.enabled
+  * rules.id
+  * rules.name
+  * rules.rulesProjectId
+  * rules.scoreEnabled
+  * rules.targetVarValue
+  * rules.updatedAt
+  * rules.updatedBy
+  * rules.weight
+
+

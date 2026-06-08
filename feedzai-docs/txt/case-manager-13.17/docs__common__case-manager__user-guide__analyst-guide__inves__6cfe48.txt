@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-customers/searching-customers
+Title: Search by Customer | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * Investigate Customers
+  * Search by Customer
+
+
+
+# Search by Customer
+
+Besides searching alerts, you can also perform searches on customers. Access the **Search by Customer** page by hovering the **Search** Â option in the main menu.
+
+By default, the page displays a field to input the Customer ID.
+
+To search by customer, enter a customer's ID and select **Search**. The page displays the general details regarding that customer.
+
+If you need more information, select a specific customer to see its details. This can be helpful to understand a customer's behavior so that you can better support your decision upon related alerts.
+
+Learn more about [reviewing customers](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-customers/reviewing-customers).
+
+After you perform a search, the ID that you input is saved. This way, you can reuse your latest three searches without needing to input the customer ID again.
+
+The **Latest** searches are displayed in order of their occurence, from the most recent to the oldest. This is reset when you clear your browser's cache.
+
+Be aware that the most recent search and its results are kept on the page until you perform a new search, even when navigating to other pages. This is reset at the end of each day or upon logout.
+
+In case you want to reuse certain recurrent searches for multiple days or even weeks, save them by selecting the  button. You can always find and access them in the **Saved** tab. This is reset when you clear your browser's cache.
+
+To remove the searches that you no longer need, hover over the search and deselect the  button.

@@ -1,0 +1,193 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-money-laundering-rules
+Title: Money Laundering Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Money Laundering Rules
+
+
+
+On this page
+
+# Money Laundering Rules
+
+### Descriptionâ
+
+Merchants with abnormal activity indicating potential business fronts used to process transactions for products and/or services that are unknown and/or illegal.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## High-Amount-Count-ML1
+
+### Comment
+
+> The number of high amount transactions, in one day, is equal to or above a set threshold.
+
+### Actions
+
+  * [High-Amount-Count-ML1]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["aml_count_list"].threshold ?? default_threshold_list["aml_count_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+
+### Condition
+    
+    
+    // The number of payments in the last day with amount >= 15 000
+    event.aml_cnt_1d >= threshold
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) number of payments in the last day with amount above 15 000 ({event.aml_cnt_1d} payments) is equal/above the limit of {localvar.threshold}. 
+
+### Mark As
+
+N/A
+
+## Sanctions-List-ML2
+
+### Comment
+
+> Merchant name or merchant UBO names are part of a sanctions list.
+
+### Actions
+
+  * Auto-Decline-MID
+  * [Sanctions-List-ML2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    name=event.merchant_name;
+    ubos=event.merchant_ubo_names;
+    match_name=terrorist_sanctions_list.contains(name);
+    match_ubos=terrorist_sanctions_list.contains(ubos);
+
+### Condition
+    
+    
+    match_name or match_ubos 
+
+### Explanation
+
+> Merchant name ({event.merchant_name}) or merchant beneficiary name(s) ({event.merchant_ubo_names}) are part of a sanctions list.
+
+### Mark As
+
+N/A
+
+## High-Risk-Countries-ML3
+
+### Comment
+
+> Number of transactions using cards from high-risk countries, in this merchant, is equal or above a set threshold.
+
+### Actions
+
+  * [High-Risk-Countries-ML3]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["high_risk_card_country_count"].threshold ?? default_threshold_list["high_risk_card_country_count"].threshold; 
+    
+
+### Condition
+    
+    
+    event.high_risk_cntries_1m >= threshold 
+
+### Explanation
+
+> Merchant ({event.merchant_id}) processed {event.high_risk_cntries_1m} transactions with cards from high-risk countries, in one month, which is equal/above the limit of {localvar.threshold}
+
+### Mark As
+
+N/A
+
+## Inactivity_Period_ML4
+
+### Comment
+
+> Merchant has been inactive for at least 60 days
+
+### Actions
+
+  * Alert
+  * [Inactivity_Period_ML4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.cnt_60d <= 0 
+      and (event.merchant_id ?? '' != '') and !exclusion_mid_list.contains(event.merchant_id) 
+
+### Explanation
+
+> Merchant ({event.merchant_id}) has been inactive for at least 60 days.
+
+### Mark As
+
+N/A
+
+## First_Trx_6months_ML5
+
+### Comment
+
+> First transaction was processed after the merchant has been inactive for over 6 months.
+
+### Actions
+
+  * [First_Trx_6months_ML5]
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.cnt_6m_1d_dlay <= 0 
+      and event.cnt_1d > 0
+      and (event.merchant_id ?? '' != '') and !exclusion_mid_list.contains(event.merchant_id) 
+
+### Explanation
+
+> Merchant ({event.merchant_id}) had his first transaction after being innactive for 6 months.
+
+### Mark As
+
+N/A

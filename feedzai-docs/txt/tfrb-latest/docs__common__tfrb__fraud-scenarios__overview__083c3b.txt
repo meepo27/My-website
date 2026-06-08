@@ -1,0 +1,43 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview
+Title: Fraud Scenarios | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * Fraud Scenarios
+
+
+
+On this page
+
+# Fraud Scenarios
+
+Was this page helpful?Â 
+
+Learn about the TFB strategy to fight different fraud schemes using default rules that are provided out-of-the-box. This is a critical step to help fraud teams to identify suspicious behavior and stop attacks before they happen.
+
+TFB is a solution that provides out-of-the-box capabilities to fight multiple payment methods:
+
+  * **[Card Payments](/tfrb/latest/docs/common/tfrb/fraud-scenarios/cards):** The fraud scenarios and detection strategy that applies to card payments accounting for both card-present and card-not-present payments.
+  * **[Transfers](/tfrb/latest/docs/common/tfrb/fraud-scenarios/transfers):** The fraud scenarios and detection strategy that applies to transfers account for different models such as ACH, Wire, SEPA instant credit, and SEPA direct debit.
+  * **[Digital Activity](/tfrb/latest/docs/common/tfrb/fraud-scenarios/digital-activity)** : The fraud scenarios and their threats, which apply to transfers related to banking sessions.
+  * **[Device and Behavior](/tfrb/latest/docs/common/tfrb/fraud-scenarios/device-and-behavior)** : The fraud scenarios and their threats, which apply to device and behavior patterns in banking sessions.
+  * **[Inbound Payments](/tfrb/latest/docs/common/tfrb/fraud-scenarios/inbound-payments)** : The fraud scenarios and their threats, which apply to inbound payments.
+
+
+
+Each page provides a thorough description of the different fraud scenarios associated with the payment method and how TFB prevents them from occurring. The fraud-fighting strategy comes with clear examples of how rules can detect unusual behavior.
+
+For each payment method, the solution provides a set of default rules. Most rules are common to multiple fraud scenarios as they share similarities. For example, in card payments, triggering a rule that looks at a maximum amount per card within 24 hours is one of the traces for carding, card testing, account takeover, skimming, card phishing, among other fraud scenarios. In transfers, the maximum transaction amount per sender or receiver or transactions without sender/receiver information are also an indicator of multiple fraud scenarios, including, for example, account takeover, phishing, money mules and fake invoice fraud.
+
+## Learn moreâ
+
+To complement the fraud scenarios and detection strategy, this documentation includes a catalog of default rules containing all the information on how they are structured (such as rule explanations, conditions, actions, etc.). Check the [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview) overview to learn more about this.
+
+You can also check the [Work with Rules and Lists](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview) guide to learn:
+
+  * Writing rules specific to your business.
+  * Configuring your work in the runtime workflow.
+  * Testing rules using the Transaction Fraud for Banking API.
+
+

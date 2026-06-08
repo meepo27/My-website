@@ -1,0 +1,141 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/expression_template/
+Title: expression_template - DS API
+============================================================
+
+#  `` expression_template Â¶  
+  
+Module to handle the parsing and conversion of a Pulse ExpressionTemplate containing Pulse schema fields and a string expression.
+
+##  `` ExpressionTemplateJava `module-attribute` Â¶
+    
+    
+    ExpressionTemplateJava = autoclass([MODEL_CLASSPATH](../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'datascience.ExpressionTemplate')
+    
+
+##  `` ExpressionTemplate Â¶
+    
+    
+    ExpressionTemplate(fields: List, expression: str, raw_expression: str)
+    
+
+Util class to handle conversion from expression templates to indexed strings and vice versa.
+
+###  `` FIELD_PATTERN `class-attribute` `instance-attribute` Â¶
+    
+    
+    FIELD_PATTERN = '\\$\\{(.+?)\\}'
+    
+
+###  `` INDEX_PATTERN `class-attribute` `instance-attribute` Â¶
+    
+    
+    INDEX_PATTERN = '\\$\\{(\\d+)\\}'
+    
+
+###  `` expression `instance-attribute` Â¶
+    
+    
+    expression = expression
+    
+
+###  `` fields `instance-attribute` Â¶
+    
+    
+    fields = fields
+    
+
+###  `` raw_expression `instance-attribute` Â¶
+    
+    
+    raw_expression = raw_expression
+    
+
+###  `` from_java_template `classmethod` Â¶
+    
+    
+    from_java_template(exp_template: JavaClass) -> ExpressionTemplate
+    
+
+Converts a Pulse API ExpressionTemplate to a string with indexed fields.
+
+If a field is used multiple times the field is duplicated and the index incremented.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `exp_template` Â¶
+
+|  `ExpressionTemplate` |  Pulse API ExpressionTemplate |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ExpressionTemplate` |  ExpressionTemplate  
+  
+###  `` from_string `classmethod` Â¶
+    
+    
+    from_string(indexed_str: str)
+    
+
+Creates a new ExpressionTemplate from a string with indexed fields.
+
+Fields must be enclosed with the pattern ${field}.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `indexed_str` Â¶
+
+|  `str` |  String with indexed fields eg. "${TransactionAmount} > 10" |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ExpressionTemplate` |  ExpressionTemplate  
+  
+###  `` rename_fields Â¶
+    
+    
+    rename_fields(old_name: str, new_name: str)
+    
+
+Renames all the fields matching the old_name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `old_name` Â¶
+
+|  `str` |  Old name to change from. |  _required_  
+  
+####  `new_name` Â¶
+
+|  `str` |  New name to change to. |  _required_  
+  
+###  `` to_java Â¶
+    
+    
+    to_java() -> JavaClass
+    
+
+Converts to DS-API object.
+
+Returns:
+
+Type | Description  
+---|---  
+`JavaClass` |  ExpressionTemplate Java class

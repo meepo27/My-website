@@ -1,0 +1,170 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/import-resources
+Title: Import Resources | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Migrate Pulse Resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview)
+  * Import Resources
+
+
+
+On this page
+
+# Import Resources
+
+Was this page helpful?Â 
+
+Learn how to **import resources** to upload resources to your application in the new environment.
+
+danger
+
+Make sure you perform a backup of the environment that you want to update. If you already performed this backup in the [export resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/export-resources) step, ignore the following steps:
+
+  1. Open Pulse in the new environment.
+  2. Select the options menu  in your Pulse application.
+  3. Select the **Export Application** option to download the file with the application.
+
+
+
+To import resources:
+
+  1. Open the **Options** menu in the Pulse application of your new environment.
+  2. Select the **Import Resources** option:
+
+
+
+  3. Execute the sequence of steps.
+
+
+
+## Upload fileâ
+
+  1. **Drag & Drop** the zip file containing the export bundle to the dashed box. Alternatively, **browse for a file** to upload the zip file.
+  2. Use the  button to go to the next step.
+
+
+
+## Choose resourcesâ
+
+info
+
+To make sure that all resources are selected, keep a list of all the model projects, models, plans, plan executions, rules projects, and snapshots that you want to import and insert the name of each resource on the corresponding field.
+
+You can choose the resources that you want to import by navigating through each resource tab. Note that the **Lists** resource does not have a specific tab because its configurations are automatically imported as follows:
+
+  * Lists that do not exist in the new environment are created without items.
+  * Lists that already existed in the new environment are updated with the new metadata. However, their items are not affected by the import into the new environment.
+
+
+
+### Modelsâ
+
+  1. In the **Import Resources** pop-up window, the **Models** tab is selected by default.
+  2. Use the checkbox to select the models that you want to import. Note that in Pulse, it is not possible to bulk import models from a model project, and therefore you should import them individually.
+  3. For each model, choose the **Local Model Project** to which you want to store the model in the new Pulse application. Note that you must have a model project in the new application in order to import the new model.
+  4. Optionally, if you want to include a file with the model object, select the **Include Binary** option. This option is only available if you include the binary in the [export resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/export-resources) step.
+
+
+
+info
+
+**Dummy Data Source** : When you import a model that does not have a compatible data source available in the new environment, Pulse automatically creates a new data source. This new data source only contains the schema with no data associated.
+
+### Plansâ
+
+  1. Select the **Plans** tab.
+
+  2. Use the checkbox to select the plans that you want to import.
+
+  3. Choose the **Local Plan Name** for the plan in the new Pulse application.
+
+info
+
+**Local Plan Name** :
+
+i. You can save the plan as a new plan by choosing the option _project_name_ . The _new_ option creates a resource named _resource_name (N)_ , where N is a number that increments over the highest value of this resource in your new application. Feedzai recommends that you use this approach when you want to version your resources.
+
+ii. You can replace an existing plan by choosing the same name as the one that you are importing. This keeps your environment clean.
+
+  4. Choose the plan executions that you want to import by expanding the menu under the **Plan Executions** column. By default, all the plan executions are selected. For traceability and history purposes, Feedzai recommends that you import all the executions.
+
+tip
+
+**Executions persistency** : Pulse only keeps the executions that you select. Imagine that you choose option 3 and you only select the most recent plan execution. The current plan in the new application will be replaced with the selected execution (i.e. all the executions in the new environment will be deleted).
+
+info
+
+**Dummy Data Source** : When importing a plan with executions that do not have a compatible data source available in the new environment, Pulse automatically creates a new data source for each execution that you choose to import. This new data source only contains the schema with no data associated.
+
+
+
+
+### Rules projectsâ
+
+  1. Select the **Rules Projects** tab.
+
+  2. Use the checkbox to select the rules projects that you want to import.
+
+  3. Choose the **Local Rules Project Name** for the rules project in the new Pulse application:
+
+info
+
+**Local Rules Project Name** : When you choose the **Local Rules Project Name** , do the same as step 3 for Plans.
+
+  4. Select the rule snapshots that you want to import by expanding the menu under the **Snapshots** column. By default, all snapshots are selected. For traceability and history purposes, Feedzai recommends that you import all the executions.
+
+
+
+
+tip
+
+**Snapshots persistency** : Pulse keeps snapshots as explained in Plans' step 4.
+
+Once you have chosen all the resources that you want to import (i.e. models, plans, and rules projects), go to the **Next** step.
+
+## Schema conflictsâ
+
+You are prompted with this step only when the plans' or rules projects' schema previously selected doesn't match the schema of the resources that you currently have in the new environment. Select the schema that you want to keep for each resource:
+
+  * **Keep imported** : for the given **Resource Type** and **Resource Name** (i.e. the resource that is being imported), the schema that is selected is kept in the resource that you are importing.
+  * **Keep local** : for the given **Resource Type** and **Resource Name** (i.e. the resource that is being imported), the schema that is selected is kept in the resource in the new environment.
+
+
+
+Once you have chosen the schema for each resource on the list, go to the **Next** step.
+
+## Workflowâ
+
+tip
+
+This step is optional since you can also manually update resources in the workflow after importing resources. The workflow's manual update is required in case you decide to perform resource versioning when choosing [plans](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/import-resources#plans) and [rules projects](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/import-resources#rules-projects) in the new environment. This option is recommended if you import a resource that shares the same schema as the one in the new environment (e.g. update a rule that has a new condition).
+
+In this step, associate the resources that you are importing with the new environment's workflow services:
+
+  1. Select the **Resource Type** that you want to map to a workflow service.
+  2. Choose the **Workflow** name that you want to update with the new resource.
+  3. Choose the **Workflow Service** to which you want to map the resource.
+  4. After associating the resources with the workflow, select the  button.
+
+
+
+If the workflow element does not exist in the Workflow yet, you must create the element on the target environment Workflow by taking the following steps:
+
+  1. Drag and drop the desired workflow element to match the one from the source environment. Make sure to configure it correctly by selecting the **Edit** icon.
+
+  2. Once your workflow element is created, create the connection to the other elements by dragging the **Drag to connect services** icon of the source element to the target element.
+
+Note that, for data to navigate the workflow from an element to another, schemas have to match. Make sure the schema used in your new element matches the output schema of the previous one. To compare them, select the new element's **Edit** icon and, in the workflow configuration pop-up window, open the **Schemas** tab.
+
+In case there are schema conflicts, you can adapt the schema of the element -> create a snapshot -> and use it in the new workflow element.
+
+  3. The connection between the existing element and the new one can be conditional based on a filter expression. Configure the connection the hovering over the connection arrow and selecting the **Edit** icon.
+
+
+
+
+## Next stepsâ
+
+Now that you have imported the new resources in the new application, learn more about the final [configurations](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/configure-resources) to make sure that all the resources are working as expected. The next step is also important if you have decided to version your resources.

@@ -1,0 +1,208 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/dtp/extractions-dtp
+Title: DTP Extractions Schema | Feedzai Documentation
+============================================================
+
+On this page
+
+# DTP Extractions Schema
+
+The DTP extracts two types of messages in `JSON` format:
+
+  * Workflow messages
+  * Feedback updates
+
+
+
+This page provides information about the schema of both types of messages when they are published to the GCP Pub/Sub topic.
+
+## Workflow Messagesâ
+
+The workflow messages are published in JSON format and contain the schema fields plus fields present in extra-fields, according to the following snippet:
+    
+    
+    {  
+      "timestamp": 1721125213611,  
+      "uuid": "aa628b9a-fcb8-4114-875b-6c2436eadd65",  
+      "lifecycle_id": "cc891616-745d-42e2-8e7e-",  
+      "bulk_id": "b398a9e1-3900-",  
+      "payment_type": "sepa",  
+      "payment_sub_type": "credit_transfer",  
+      "payment_status": "entered",  
+      "created_at": 1554198919000,  
+      ...  
+      "metricA": 0.5,  
+      "metricB": 100,  
+      "decision": "approve",  
+      "decision_scores": [0.0, 0.0, 0.0],  
+      "risk_level": "low",  
+      "risk_level_scores": [0.0, 0.0, 0.0],  
+      "fraud": false,  
+      "fraud_score": 0.0,  
+      "sca_required": true,  
+      "sca_required_score": 0.0,  
+      "treatment_strategy": "none",  
+      "FDZ_TRIGGERED_ACTIONS": "[]",  
+      "FDZ_OUTCOMES": "",  
+      "FDZ_RESULTS": "[]",  
+      ...  
+    }  
+    
+
+Copy
+
+Please note that the section of the payload regarding metrics will change frequently, for instance, each time a new metric is added to the risk strategy.
+
+### Extra fieldsâ
+
+Please find the list of extra fields that are sent in the messages payload.
+
+#### Unique identifier (`FDZ_UUID`)â
+
+This field is a unique identifier for every event extracted.
+    
+    
+    "FDZ_UUID": "524f8eff-2bf7-4eea-ad0f-f40f5710bf8c"  
+    
+
+Copy
+
+#### Actions triggered (`FDZ_TRIGGERED_ACTIONS`)â
+
+This field is a **stringified** list of JSON Objects that contains all the triggered actions. Every JSON Object has a field `name` with the name of the triggered action.
+    
+    
+    "FDZ_TRIGGERED_ACTIONS": [  
+        {  
+            "arguments": {},  
+            "name": "Alert",  
+            "nestedSourceId": "o271PYG0ipWMJ4BgR2xINw",  
+            "sourceId": "34a95d87-6934-4a99-a0a0-0ddb7e485fc2"  
+        },  
+        {  
+            "arguments": {},  
+            "name": "Alert",  
+            "nestedSourceId": "t0vgfqUux9meytwbnj9Bxw",  
+            "sourceId": "e112ef90-899a-4d9f-854c-4d4307f2d2a6"  
+        }  
+    ]  
+    
+
+Copy
+
+#### Rules triggered and explanations (`FDZ_RESULTS`)â
+
+This field is a **stringified** list of JSON Objects that contains all the rules that were triggered by the extracted event and their explanation.
+
+Every **triggered rule** has two fields:
+
+  * **ruleId** : the triggered rule id
+  * **reason** : the explanation of why the rule was triggered
+
+
+    
+    
+    "FDZ_RESULTS": [  
+        {  
+            "explanations": [  
+                {  
+                    "@type": "rule",  
+                    "reason": "Customer name is Fraudulent Joe"  
+                }  
+            ],  
+            "result": {  
+                "@type": "clarule",  
+                "originalRuleId": "mI_NayHmjUkeQiG8ByNK1g",  
+                "outcome": "true",  
+                "ruleId": "o271PYG0ipWMJ4BgR2xINw",  
+                "scores": [],  
+                "targetOutcome": "fraud",  
+                "targetOutcomeLabel": "fraud"  
+            },  
+            "sourceId": "34a95d87-6934-4a99-a0a0-0ddb7e485fc2",  
+            "weight": 0  
+        }  
+    ]  
+    
+
+Copy
+
+#### Outcomes (`FDZ_OUTCOMES`)â
+
+This field is a **stringified** JSON object that contains all the configured **outcomes** (e.g. `fraud`, `decision`).
+
+Every **outcome** has two fields:
+
+  * **outcomeDecision** : the value chosen for the outcome
+  * **score** : the score of the outcome. If the outcome is a multi-classifier (e.g. `decision`), it will be a list of scores for each of the possible values
+
+
+    
+    
+    "FDZ_OUTCOMES": {  
+        "fraud": {  
+            "@type": "bincla",  
+            "outcomeDecision": true,  
+            "score": 0.0  
+        },  
+        "decision": {  
+            "@type": "mulcla",  
+            "outcomeDecision": "approve",  
+            "score": [  
+                0.0, # approve  
+                0.0, # decline  
+                0.0  # review  
+            ]  
+        }  
+    }  
+    
+
+Copy
+
+#### Metrics/Plan operatorsâ
+
+For every metric and plan operator there will be a field with the name of the metric/operator, e.g. `count_benefname_90d`.
+
+Every field will have the metric value that was fetched when the event was consumed by Pulse:
+    
+    
+    "count_benefname_90d": 10  
+    
+
+Copy
+
+## Feedback Updatesâ
+
+If enabled, DTP will also extract feedback updates which are messages that refer to feedback events.
+
+The feedback update extraction contains the following key fields:
+
+  * **feedbackLabel** : The feedback label for which the update refers
+  * **feedback.realOutcome** : The actual outcome value provided for the feedback label
+
+
+    
+    
+    {  
+        "@type": "insert",  
+        "appId": "599912dbf381eb06",  
+        "eventId": "ce3ffbc5-b388-4e68-a8fd-b2732102235e",  
+        "feedback": {  
+            "@type": "bincla",  
+            "metadata": {  
+                "inject": false,  
+                "lifecycle_id": "b99e215f-6823-4cf0-b82e-afd857bacfa9",  
+                "__eventTimestamp__": [  
+                    "java.time.Instant",  
+                    1731081106.106000000  
+                ]  
+            },  
+            "realOutcome": true,  
+            "reportInstant": 1731081106106  
+        },  
+        "feedbackLabel": "fraud",  
+        "timestamp": 1731081106.117000000,  
+        "workflowId": "daef64964ee3b9b9"  
+    }  
+    
+
+Copy

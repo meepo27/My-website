@@ -1,0 +1,113 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder
+Title: Strategy Builder | Rule Monitoring
+============================================================
+
+On this page
+
+# Strategy Builder
+
+Was this page helpful?Â 
+
+The starting point for your [journey](/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules#user-journey) is the **Strategy Builder** page. This page allows you to access and manage your rule strategies by creating or adjusting rules inside specific channels. These rules are grouped along with other rules with the same decision criteria in decision group tables.
+
+Here you can perform different actions such as:
+
+  * Assemble the rule strategy for each of your channels;
+  * Create, adjust and delete rules;
+  * Find additional information on each rule:
+    * Current state of a rule;
+    * New state of a rule after the strategy is published;
+    * And when the rule was last updated.
+
+
+
+You can also find information on the total number of rules present in the decision group tables.
+
+In the **Strategy Builder** page, you can assemble the rule strategy for each of your channels by prioritizing your rules by decision. Every decision group has an automated action when any rule of that group triggers.
+
+## Assemble and manage your strategyâ
+
+You can **add** a rule to the strategy with a contextualized decision or **adjust** an existing rule inside of any of the groups:
+
+  * You can [add](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing#create-a-rule) a rule by selecting the **New rule** button inside of the correspondent decision group to which you want to add the rule;
+  * Or [adjust](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing#adjust-a-rule) a rule by selecting the  icon next to the rule you want to adjust.
+
+
+
+See the [rule writing](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing) process page for more information.
+
+Additionally, you can also **delete** a rule. To do this, do the following steps:
+
+  1. Select the  icon next to the rule you want to delete.
+
+  2. Select the **Delete** option on the dropdown list.
+
+
+
+
+  3. You will receive a prompt asking you to confirm your action. Select the **Delete** button to proceed.
+
+
+
+While assembly your strategy, before publication, you can select which state each rule will take after the strategy is published. There are **three** different states a rule can be in: **live** , **draft** or **shadow**.
+
+  * **Live** : the rule will be activated and effective.
+  * **Draft** : the rule will still be present in the table, but will be deactivated until a new publication.
+  * **Shadow** : the rule will be activated but won't be effective to the client. See Rule monitoring and Shadow mode for more information.
+
+
+
+After you are done assemblying your strategy, select the **Publish** button to review the changes made to your strategy and make them effective. You can also revert your strategy to the previous publication if something goes wrong. 
+
+### Check the live view of the strategyâ
+
+In the Strategy Builder page, you can find a toggle that allows you to switch environments from the builder to the live view of the strategy in place.
+
+In the live view, you can monitor the status of your current strategy. This then allows you to fine tune it in the strategy builder environment.
+
+info
+
+This view is **read-only** and intended for monitoring purposes. If you wish to make changes to your strategy, you can do so in the strategy builder view.
+
+Each of your channels has its own live and builder environments.
+
+## Retrieve audit informationâ
+
+The **Strategy Builder** also includes a button to export your audit document. Select the **Export audit** button to download a `.cvs` file detailing all past audits done to the strategy.
+
+## Rule monitoring and Shadow modeâ
+
+When defining a rule state, you have the option to define your rule to launch in **shadow mode**.
+
+This is used for testing, as the rule will be up and running but all actions and informations pertaining to that rule will be gathered and stored internally for analysis purposes.
+
+After the strategy is published, select the **Monitoring panel** button to open the **rule monitoring panel**. This panel contains with the details of the **live rules** and **shadow rules** results of the publication.
+
+The user can now see the results for both the live and shadow rules and compare them. This area shows the **alert rate** , **approve rate** and **decline rate** for both live and shadow rules in the following time windows:
+
+  * Last hour
+  * Last day
+  * Last week
+  * Last two weeks
+  * Since publication
+
+
+
+To choose your time window, open the dropdown list in the panel and select the desired time window. You can refresh your results at any given time by selecting the  icon next to the dropdown list in the panel.
+
+To close the panel, either select the  icon or switch to another channel in the channel navigation bar.
+
+## Define decision group table display densityâ
+
+The decision group tables can be adjusted for a more suitable look for the user. You can choose between **three** different display density options: **default** , **comfortable** and **compact**. This can be set individually for each of the decision group tables.
+
+To do this, select the  button and select your desired display density from the dropdown list.
+
+## Next stepsâ
+
+Now that you have learned about the Strategy Builder page and its features, you can proceed in different ways:
+
+  * If your strategy needs adjustments, you can continue to the rules writing process to add new rules or adjust existing rules;
+  * Once you are done building and adjusting your strategy, you can publish it by selecting the **Publish** button.
+
+

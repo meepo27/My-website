@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3226-Fix-error-when-adding-Notes-to-Customers
+Title: HSBC-3226-Fix-error-when-adding-Notes-to-Customers | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3226-Fix-error-when-adding-Notes-to-Customers
+
+### Fix error when adding Notes to Customersâ
+
+Bug FixFTMT-26842HSBC-3226
+
+We've resolved an issue that occurred when adding notes to a Customer from the Event Details page.
+
+The bug was triggered for events where the `lifecycle_id` exceeded 40 characters, which caused the note creation to fail. To address this, we've increased the allowed length of the `lifecycle_id` field to support longer values.

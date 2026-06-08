@@ -1,0 +1,56 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/reviewing-rule-changes-in-a-snapshot
+Title: Reviewing Rule Changes in a Snapshot | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Reviewing Rule Changes in a Snapshot
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Reviewing Rule Changes in a Snapshot
+
+Rule snapshots capture the current state of the rules in a rules project. In addition, snapshots represent a unit of rules that is deployable to other environments.
+
+If you edited existing rules, you may want to validate if you made the right changes, before using the new rule version. This topic describes how you can compare rules in two different snapshots of Pulse, to validate if you have made the changes you planned to.
+
+The same procedure can be used for audit purposes, if you want to understand what changed in the rules compared to an earlier state.
+
+## Prerequisitesâ
+
+A rule snapshot is available for comparison if the following conditions are true:
+
+  * The snapshot was created in Pulse version 20.0 or later.
+  * The snapshot was created for a rule project that is not stateful.
+
+
+
+## How toâ
+
+To compare the rules in two snapshots, execute the following steps.
+
+  1. In the **Data Science** tab, select the rules project that the snapshots were created from.
+  2. In the **Snapshots** area, select the snapshot that you want to review.
+  3. Select the **Compare with Snapshot** button, which takes you to the Compare Snapshots page.
+  4. In the **With** field, select the other snapshot you want the first to be compared with. Typically, this second snapshot is an older version.
+  5. In the **Snapshot Comparison** area, you can see the list of the rules included in the snapshots, and what changed from one to the other. The following statuses are possible:
+     * **No change** : the rule is present in both snapshots, in an identical form.
+
+     * **Deleted** : a rule that existed in the second snapshot isn't present anymore.
+
+     * **New** : a new rule that didn't exist in the second snapshot.
+
+     * **Edited** : a rule that is present in both snapshots, but with different content.
+
+  6. To see a side-by-side comparison of the two versions of an edited rule in the two snapshots, select the rule. The pane below the Snapshot Comparison area displays the two versions.
+  7. In addition, if the rule order is different in the two snapshots, you see this stated at the top of the Snapshot Comparison list.
+
+
+
+## Learn moreâ
+
+Learn more about [auditing in Pulse](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/audit), and how to [investigate changes and user actions](/pulse/latest/docs/common/pulse/users-guide/investigating-changes-and-user) using the audit logs.

@@ -1,0 +1,186 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/pages/search-listing-page
+Title: Search/Listing Page | Case Manager
+============================================================
+
+On this page  
+  
+# Search/Listing Page
+
+This page describes the Form (used only in Search) and Table schemas (used by Listing and Search)
+
+## Search Config Schemaâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+form| Object| No| Object with the properties to configure the fields that appear on the search page. Please check the Form Schema section for more details about the schema.  
+table| Object| No| Object with properties to configure the table to show the search results. Please check the Table Schema section for more details about the schema.  
+exportButton| Object| Yes| Object to configure the export button. Please check the [Export Resources](/case-manager/13.17/docs/internal/case-manager/configuration-guide/user-interface-configuration/export-resources) page for more details about this configuration.  
+searchOnLoad| Boolean| Yes| Enables or disables a search to be done when the page is loaded, without pressing the search button.  
+maxFilters| Number| No| If configured, allows you to set a maximum number of filters used in the search.  
+channels **(since v8.0)**|  Object| Yes| Extends the configuration defined in by the Table property. Please check Channel Schema for more details.  
+  
+## Listing Config Schemaâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+table| Object| No| Table configuration, please check the Table Schema section for more details about the schema.  
+channels **(since v8.0)**|  Object| Yes| Extends the configuration defined in by the Table property. Please check Channel Schema for more details.  
+  
+## Form Schemaâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+fieldPerRow| Number| Yes| Number of fields that should appear per line.  
+searchButtonTitle| String| Yes| Search button title.  
+searchButtonCssClass| String| Yes| Search button CSS classes, separated by space.  
+searchButtonKind| String| Yes| Search button kind [ default , primary, danger, warning, success, info ]  
+iconCssClass| String| Yes| Search button icon CSS class.  
+resetButtonTitle| String| Yes| Reset button title.  
+resetButtonCssClass| String| Yes| Reset button CSS classes, separated by space.  
+resetButtonKind| String| Yes| Reset button kind [ default , primary, danger, warning, success, info ]  
+advancedSearchButton| Object| Yes| Advanced search button configuration object. This object can have these properties.  
+fields| Array<Object>| Yes| List of form fields. Each item is an object that can have these properties.  
+advancedFields| Array<Object>| Yes| List of advanced fields. This fields are hidden by default and only become visible when the user click the button to expand them. Each item is an object that can have the same properties as the fields' properties.  
+  
+### advancedSearchButtonâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| string| Yes| Advanced search button title.  
+cssClass| string| Yes| Advanced search button CSS classes, separated by space.  
+  
+### fieldsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| string| Yes| Field title.  
+type| string| Yes| Field type. Please check the [Fields](/case-manager/13.17/docs/common/case-manager/reference/user-interface/fields) section to see all the available types.  
+cssClass| string| Yes| Field CSS classes, separated by space.  
+kind| string| Yes| Button kind [ default , primary, danger, warning, success, info ]  
+placeholder| string| Yes| Field placeholder.  
+key| string | Array<string>| No| Data object key that this field will use to filter the data. Multiple keys might be used to filter the data.  
+  
+E.g: "id eq X OR name eq X"  
+  
+  
+  
+Since **v8.0** when Case Manager is running in Omnichannel mode we need to identify what fields are Common or Channel specific. we do this by prefixing the Channel Id to the field key.  
+  
+E.g: **channel1#**field1  
+filter| string| No| Filter operator to be used in the query string along with this field. The available filters can be found [here](/case-manager/13.17/docs/common/case-manager/reference/user-interface/filters).  
+permissions| string | Array<string>| Yes| Specifies the necessary user permissions to view this field. When passing a list of permissions, the user must have all the permissions in order to view the field.  
+required **(Since 10.2.0)**|  Boolean| Yes| Used only on the event search page to make fields mandatory.   
+  
+Fields with this property set to "true" are flagged with a red indication next to the title. If users select the search button without completing these fields, a message is displayed.  
+  
+## Table Schemaâ
+
+Property | Type | Optional | Description  
+---|---|---|---  
+bulkActionsConfig | Object | Array<Object> | Yes | Configures the bulk actions. This property accepts an object or a list of objects of type [Alert Button List](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/action-button-list).  
+bulkActionsConfig | Object | Array<Object> | Yes | Configures the bulk actions. This property accepts an object or a list of objects of type [Alert Button List](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/action-button-list).  
+inlineActions | Array<Object> | Yes | List of inline actions that will be mapped into small button icons and be placed in each table row. Each action will only take effect on a specific alert, instead of a set of alerts like the previous property. Each inline action must be an object with these properties.  
+columns | Array<Object> | No | List of columns that should appear in the Table. Each column is represented by an object that can have these properties.  
+filter | String | Yes | Query string to filter the initial table values.   
+  
+Available filters can be found [here](/case-manager/13.17/docs/common/case-manager/reference/user-interface/filters).  
+filters **(since v8.0)** | Object | Yes |  Filter object that is used to filter the initial table values in Omnichannel. Since we can filter by common or specific fields we need to specify the filter as: 
+    
+    
+      
+            {"{"}  
+            {"\n\t"}"COMMON": "alerts eq 'true'",  
+            {"\n\t"}"o4b": "custumer_id eq 1234"  
+            {"\n"}{"}"}  
+            
+      
+  
+orderBy | String | Yes | Initial data order. This string must be have the following format: "{"{"}column_key{"}"} {"{"}sort_direction{"}"}".   
+  
+E.g. "fieldname asc".  
+sortable | Boolean | Yes | Whether the table can be sortable or not.  
+resultsInfoItemsText | String | Yes | Custom label to be added after the total number of data items.  
+selectedRowsInfoText | String | Yes | Custom label to be added after the total number of selected rows.  
+showNumberOfResults | Boolean | Yes | Whether the Table shows the total number of results or not.  
+showNumberOfSelectedRows | Boolean | Yes | Whether the Table shows the number of selected rows or not.  
+showNumberOfResultsPerPage | Boolean | Yes | Whether the option of choosing the number of rows per page is enabled or not.  
+cssClass | String | Yes | Custom CSS classes, separated by spaces.  
+quickFilters | Array<Object> | Yes | List of filters to quickly filter the table values. Each object must have these properties.  
+quickPreview | String | Yes | Enables the quick preview functionality. Points to a details page configuration or to a drawer configuration. Learn more about the [Quick Preview](/case-manager/13.17/docs/internal/case-manager/configuration-guide/user-interface-configuration/quick-preview).  
+linkTo | String | Yes | Specifies the first route level where one should be redirected when clicking in a table row.  
+resultsPerPageList | Array<Integer> | Yes | Overrides the default list of results per page.  
+limit | Integer | Yes | Initial number of items that should appear in the table.  
+fixedRowSelection | Boolean | Yes | The column to select table rows is fixed by default. Set the value of this property fo false to change that default behaviour.  
+verticalScroll | Boolean | Yes | Adds vertical scroll within the table.  
+maxHeight | Number | Yes | Sets the table's max height. This is going to be applied only when vertical scroll is set (see property above).  
+  
+### inlineActionsâ
+
+Property | Type | Description  
+---|---|---  
+label | String | Action label. (Please note that from **v10.1** it is important that you configure this field in order for the title to appear on the Inline Actions dropdown)  
+type | String |  The action type. Currently, we only support the following type of actions: state - Action to change the alert state move-to-queue - Action to move a set of alerts to a queue assign-to-user - Action to assign a user to a set of alerts link-event-case - Action to link an event to a case. This should only be added to a table of events. unlink-event-case - Action to unlink an event from a case. This should only be added to the Link Events table of the Case Details page. reveal-all - Action that allows the users to unlock all fields for a given Event. **This action is only meant to be used in Event Tables and as an inline action.**  
+statusId | String |  The alert status unique identifier assigned to this action. Note: This property is only required when defining an action of type "state"  
+iconCssClass | String | (Optional) Icon CSS class to give the action button an icon.  
+kind | String | (Optional) Inline action kind [ default , primary, danger, warning, success, info ]  
+permissions | Array<String> |  (Optional) Holds a set of permissions the user must have in order to see and act over the action being configured here. The permissions added in this property are a complement to the permission "cm:action::create:*". This means that you don't need to add that permission to this set, because it will be evaluated anyway. **Example**
+    
+    
+      
+                      {"\n"}{"  "}For the following inline action configuration:{"\n"}{"  "}{"{"}{"\n"}{"     "}type: "state",{"\n"}{"     "}statusId: "fraud",{"\n"}{"     "}permissions: ["cm:channels:aml:create:*"]{"\n"}{"  "}{"}"}{"\n"}{"\n"}{"  "}The user must have the following permissions in order to see that action:{"\n"}{"  "}"cm:action:state:create:*"{"\n"}{"  "}"cm:channels:aml:create:*"{"\n"}  
+                        
+      
+  
+### columnsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| Yes| Column header label.  
+cssClass| String| Yes| Custom class names, separated by spaces.  
+headerCssClass| String| Yes| Custom class names, separated by spaces, to be added to the column header.  
+cellCssClass| String| Yes| Custom class names, separated by spaces, to be added to each column cell.  
+type| String| Yes| The type of data for each column cells. This type will be used by the formatter function to format the data.   
+  
+Example of types: "string", "timestamp", "currency",...  
+key| String| No| The key used to fetch the field value from the data object. If configuring a column of type template or custom, it is not required to provide a path to the data object but instead you can provide any string you like.  
+sortable| Boolean| Yes| Whether the column is sortable or not.  
+dynamicCssClassKey| String| Yes| Contains a key to the data object. If present, it will add a CSS class with the cell key and the value of the key passed in this property. The CSS class will have the following template: "fdz-css-{key}-{data[dynamicCssClassKey]}".  
+cellAttributes| Object| Yes| HTML attributes to be added to each <td> element. E.g. `{title: "Title"}` will be produce the following HTML attributes: `&lt;td title=&quot;Title&quot;&gt;&lt;/td&gt;`  
+headerTooltip| String| Yes| I18n key to the message that should appear in the tooltip for the column title.  
+cellTooltip| Object| Yes| Object with properties to configure a tooltip when hovering a table cell. This object must contain the following properties: * key (String) - Path to the value in the data object   
+  
+* type (String) - Data type. Please check the [Data Types](/case-manager/13.17/docs/common/case-manager/reference/user-interface/data-types) section to see all the available types.  
+linkTo| String| Yes| Specifies a link for each cell of the column. Supports [template data type](/case-manager/13.17/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+permissions| string   
+  
+Array<string>| Yes| Specifies the necessary user permissions to view this column. When passing a list of permissions, the user must have all the permissions in order to view the column.  
+totalThreshold| Integer| Yes| When present, enables the [Best Effort Count](/case-manager/13.17/docs/internal/case-manager/configuration-guide/database-performance/events-count-overhead).  
+fixed| String| Yes| Possible values are: "left" and "right". It is recommended to add the "left" flag on the first columns and the "right" flag on last columns of the table.  
+  
+### quickFiltersâ
+
+Property  |  Type  |  Optional  |  Description   
+---|---|---|---  
+title | string | Yes | Field title. (Please note that from **v10.1** it is important that you configure this field in order for the title to appear on the Quick Filters UI)  
+type | string | Yes | Field type. Please check the [Fields](/case-manager/13.17/docs/common/case-manager/reference/user-interface/fields) section to see all the available types.  
+cssClass | string | Yes | Field CSS classes, separated by space.  
+placeholder | string | Yes | Field placeholder.  
+key | string | No |  Data object key that this field will use to filter the data. Since **v8.0** when Case Manager is running in Omnichannel mode we need to identify what filters are Common or Channel specific. we do this by prefixing the Channel Id to the field key. E.g: channel1#field1  
+permissions | string | Array<string> | Yes | Specifies the necessary user permissions to view this filter. When passing a list of permissions, the user must have all the permissions in order to view the filter.  
+filter | string | No |  Operator that should be used when comparing the value of the filter. Can be of one: eq (Equal)  
+eqb (Equal Boolean)  
+gt (Greater Than)  
+gte (Greater Than or Equal)  
+gteq (Greater Than or Equal)  
+ieq (Equal Ignore case)  
+lt (Less Than)  
+lte (Less Than or Equal)  
+lteq (Less Than or Equal)  
+neq (Not Equal)  neqb (Not Equal Boolean) in (a shorthand for multiple OR conditions)  
+defaultValue | Object | String | Yes |  The default value option is supported both for Datepickers (since v10.2.1) and Select fields. Example:  Datepicker: ``` "defaultValue": {'{'} "type": "subtractTime", "value": 1, "unit": "year" {'}'} ``` Select: ``` "defaultValue": {'{'} "label": "placeholder.assigned.all" {'}'}, ```   
+  
+## Channels Schemaâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+{ChannelId}| Object| Yes| The Channel Id is a dynamic property that match's the channel identifier defined in the backend configuration. The properties defined in this object follow the Table Schema and extend (overriding the existing ones and adding the new properties) the configuration defined by the table property.

@@ -1,0 +1,378 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-posneg-rules
+Title: Cards - PosNeg Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - PosNeg Rules
+
+
+
+On this page
+
+# Cards - PosNeg Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_PosNeg Rules_ allow you to mark transactions that have entities in PosNeg Lists as "fraud" or "not fraud". By default, the solution contains rules that act on the value âdeclinedâ and mark the transaction as "fraud". These rules act only on Authorization or Info events with the pre-defined subtype. For each rule, check the filter inside the condition code block to know which entities are being tested.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-PN1
+
+### Comment
+
+> Decline cards that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.card_id ?? '' != '')
+    and 
+    event.posneg_card_value == 'decline'
+
+### Explanation
+
+> [Cards-PN1] - Decline - '{eventname.card_id}' {event.card_id} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN2
+
+### Comment
+
+> Decline acceptor ZIPs that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.acceptor_zip ?? '' != '')
+    and
+    event.posneg_zip_value == 'decline'
+
+### Explanation
+
+> [Cards-PN2] - Decline - '{eventname.acceptor_zip}' {event.acceptor_zip} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN3
+
+### Comment
+
+> Decline acceptor country codes that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.acceptor_country_code ?? '' != '')
+    and
+    event.posneg_country_value == 'decline'
+
+### Explanation
+
+> [Cards-PN3] - Decline - '{eventname.acceptor_country_code}' {event.acceptor_country_code} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN4
+
+### Comment
+
+> Decline customers that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.customer_id ?? '' != '')
+    and
+    event.posneg_customer_value == 'decline'
+
+### Explanation
+
+> [Cards-PN4] - Decline - '{eventname.customer_id}' {event.customer_id} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN5
+
+### Comment
+
+> Decline MCCs that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.mcc ?? '' != '')
+    and
+    event.posneg_mcc_value == 'decline'
+
+### Explanation
+
+> [Cards-PN5] - Decline - '{eventname.mcc}' {event.mcc} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN6
+
+### Comment
+
+> Decline acceptors that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN6]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.acceptor_id ?? '' != '')
+    and
+    event.posneg_acceptor_value == 'decline'
+
+### Explanation
+
+> [Cards-PN6] - Decline - '{eventname.acceptor_id}' {event.acceptor_id} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN7
+
+### Comment
+
+> Decline terminals that are listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN7]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.terminal_id ?? '' != '')
+    and
+    event.posneg_terminal_value == 'decline'
+
+### Explanation
+
+> [Cards-PN7] - Decline - '{eventname.terminal_id}' {event.terminal_id} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN8
+
+### Comment
+
+> Decline device id that is listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN8]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.device_id ?? '' != '')
+    and
+    event.posneg_device_id_value == 'decline'
+
+### Explanation
+
+> [Cards-PN8] - Decline - '{eventname.device_id}' {event.device_id} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN9
+
+### Comment
+
+> Decline card countries that are in blacklist
+
+### Actions
+
+  * [Cards-PN9]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.card_country_code ?? '' != '')
+    and
+    event.posneg_card_country_value == 'decline'
+
+### Explanation
+
+> [Cards-PN9] - Decline - '{eventname.card_country_code}' {event.card_country_code} is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN10
+
+### Comment
+
+> Decline IP that is listed to be auto declined.
+
+### Actions
+
+  * [Cards-PN10]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.device_ip ?? '' != '')
+    and
+    event.posneg_device_ip_value == 'decline'
+
+### Explanation
+
+> [Cards-PN10] - Decline - Device IP ({event.device_ip}) is listed to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-PN11
+
+### Comment
+
+> Approve cards that are listed to be auto approved.
+
+### Actions
+
+  * [Cards-PN11]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    (event.card_id ?? '' != '')
+    and 
+    event.posneg_card_value == 'approve'
+
+### Explanation
+
+> [Cards-PN11] - Approve - '{eventname.card_id}' {event.card_id} is listed to be auto approved.
+
+### Mark As
+
+The outcome of this rule is: **approve**

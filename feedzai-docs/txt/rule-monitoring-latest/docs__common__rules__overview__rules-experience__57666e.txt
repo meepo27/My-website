@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/rules-experience
+Title: About Rules | Rule Monitoring
+============================================================
+
+On this page
+
+# About Rules
+
+Was this page helpful?Â 
+
+The Rules Strategy platform, part of Feedzai's RiskOps Studio, allows financial institutions to quickly create a rule, test, and publish it directly in production without the need of specialized support by Feedzai.
+
+Feedzai's risk engine platform has a set of standard rules that are used in combination with lists to detect fraud or money laundering scenarios. However, criminals are constantly coming up with new ways to trick the detection systems. Counteracting new waves of financial crime might require tweaking a rule or even create a new one.
+
+The Rules Strategy tool allows you to quickly write, test, and publish rules using an intuitive interface directly into production. As an example, you can use this platform to create a rule with a different threshold and publish in production to have it live with zero downtime. This way, you can implement completely new processes and achieve higher operational efficiencies while managing the ever-changing dynamics of financial crime.
+
+Once a rule is created, analysts can test it with previous events and check how the rule will perform to understand if the rule achieves the goal it was created for. If needed, analysts can tune the rule and repeat the test.
+
+## Learn moreâ
+
+Now that you have the basic knowledge on the Rules Strategy tool, you can start [understanding](/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules) how the Rules Strategy tool works and learning how to [manage](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules) your rules and strategies to improve your detection system.

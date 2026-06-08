@@ -1,0 +1,98 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/transfer-list-items
+Title: Transfer List Items | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Migrate Pulse Resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview)
+  * Transfer List Items
+
+
+
+On this page
+
+# Transfer List Items
+
+Was this page helpful?Â 
+
+Lists are simple resources that can be migrated by exporting the list items from the source environment and importing them in the target environment.
+
+In the process of detecting fraud, it is very common to define lists to block transactions from certain cards, or even to send transactions with common parameters for review (e.g. triggering an alarm every time a transaction occurs). Lists allow you to group and manage these values by storing them in items to further use them with rules and plans.
+
+The resource transfer process allows you to export and import lists metadata, but not list items. List items are exported and imported through a CSV file.
+
+## Export list itemsâ
+
+To export list items, take the following steps:
+
+  1. Go to the **Lists** tab.
+  2. Open the list that has the items that you want to export.
+
+
+
+  3. Export all or only the active list items by selecting the download button. A CSV file is downloaded.
+
+
+
+## Import list itemsâ
+
+To import list items, take the following steps:
+
+  1. Go to the **Lists** tab.
+
+  2. Make sure the corresponding list items exist in the target environment. If this is not the case, create a new list by selecting the **New List** button.
+
+tip
+
+You can access the List configuration to make sure the lists from both environments match.
+
+  3. Open the list where you want to import the items to.
+
+  4. Select the  button.
+
+  5. **Drag & Drop** or browse the CSV file containing the list items and **Save**.
+
+Upload Limit Recommendation
+
+To ensure reliable processing and avoid straining system resources, it is recommended that each uploaded list file contains at most 40,000 items. Note that this figure is a general guideline; the actual threshold for optimal performance can vary depending on the specific contracted resource sizing. If your list is larger than that, split it into multiple files before uploading.
+
+
+
+
+### CSV file formattingâ
+
+When importing CSV files, notice that if you try to upload a list with duplicate entries, Pulse will generate a silent error, and therefore won't notify you.
+
+Consider the following formatting to ensure list items are correctly imported:
+
+#### Example of a simple listâ
+
+  * Card listed to be declined
+
+
+    
+    
+    ## Header: Key, Description, Start Date (UNIX timestamp), End Date (UNIX timestamp), Enabled  
+      
+    "0000-0000-0000-0000","Stolen card, made multiple transactions in different countries separated by minutes",,,"true"  
+    "1111-1111-1111-1111","Duplicated card, attempted several withdraws trying to determine the maximum amount permitted.","1381708800",,"true"  
+    "2222-2222-2222-2222","Two months ban for breaking rule R102","1381708800","1386633600","true"  
+    
+
+#### Example of a complex listâ
+
+  * PosNeg list
+
+
+    
+    
+    ## Header: Key, Value, Description, Start Date (UNIX timestamp), End Date (UNIX timestamp), Enabled  
+      
+    "AAA","{"value":"review"}","Card to be reviewed",,,"true"  
+    "BBB","{"value":"decline}","Card to be declined",,,"true"  
+    
+
+info
+
+By default, if no dates are set in the **Active from** \- **To** fields, new list items become enabled and active with no expiration date.

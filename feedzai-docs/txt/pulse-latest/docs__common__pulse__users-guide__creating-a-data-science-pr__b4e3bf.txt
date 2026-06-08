@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/interacting-with-pulse-via-jupyterlab
+Title: Interacting with Pulse via JupyterLab | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * Interacting with Pulse via JupyterLab
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Interacting with Pulse via JupyterLab
+
+JupyterLab is one of the most widespread tools used by data scientists to work with data. Pulse provides integration with JupyterLab, in the form of a service and an API that allows JupyerLab users to interact with Pulse data.
+
+This topic contains information about how you can interact with Pulse using JupyterLab.
+
+# Prerequisites
+
+The following are the prerequisites to interact with Pulse using JupyterLab:
+
+  * The JupyterLab Service of the Pulse server has to be enabled.
+  * The client computer has to be set up  for the interaction.
+
+
+
+# Using JupyterLab to interact with Pulse
+
+When in Pulse, select the  button in the [toolbar](/pulse/latest/docs/common/pulse/users-guide/navigating-pulse) at the top of the page to use JupyterLab with Pulse. It opens a new tab in your browser with Jupyterlab, and shows a set of notebooks that demonstrate how to interact with Pulse.
+
+The commands shown in the notebooks use the DS-API, an API provided by Pulse that allows you to explore the data and train models via JupyterLab, among other actions.
+
+The possible actions are documented in the JupyterLab notebooks that are included with the JupyterLab integration on the client computer.
+
+## JupyerLab notebooksâ
+
+The following list gives you an overview of the notebooks that are available with the JupyterLab integration:
+
+  * **Getting Started** notebook  
+First steps of using the DS-API: loading data from/to Pulse and converting data to a format that you can use in JupyterLab.
+  * **Datasources** , **Plans** , and **Models** notebooks  
+How to interact with Pulse's data sources, plans and models using the DS-API.
+  * **Data Loading** notebook  
+How to use the DS-API to programmatically load data into Pulse.
+  * **Data Exploration** notebook  
+How to perform efficient data exploration, for instance, during the pre-modelling stage of a data science project. It shows how to compute descriptive statistics, perform semantic validation of features, and generate a report of the dataset. It also introduces the interaction with the exploration API to get more details of each feature, including distributions and plots.
+  * **Data Sampling** notebook  
+How to make use of Feedzai's sampling library to apply appropriate sampling strategies on large datasets.
+  * **Join Data Labels Plan** notebook  
+How to create and run a data science plan that joins two data sources.
+  * **Bias Audit** notebook  
+This notebook allows you to run a bias audit on your ML model for a given dataset.
+  * **Rule Recommendation** notebook  
+This notebook suggests which rules can be removed or reprioritized without affecting the system performance negatively, or sometimes even improving it. It's useful for reducing complexity in large rule sets.
+  * **Indexers** notebook  
+This notebook describes how to train and fit an indexer for a string field, how to customize indexer clipping, and how to fit multiple indexers in bulk.
+  * **Feature Investigation** notebook This notebook allows you to uncover changes in data distribution in your feature space. This can be useful to understand and debug unexpected losses of performance in your models and rule systems.
+
+

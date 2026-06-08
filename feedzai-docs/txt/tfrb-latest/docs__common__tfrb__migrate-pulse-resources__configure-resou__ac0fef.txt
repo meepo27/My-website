@@ -1,0 +1,179 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/configure-resources
+Title: Configure Resources | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Migrate Pulse Resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview)
+  * Configure Resources
+
+
+
+On this page
+
+# Configure Resources
+
+Was this page helpful?Â 
+
+This page helps you configure your resources in the **new environment**. This process includes the following tasks:
+
+  * **Resource versioning** : Guides you through the process of changing the name of your resources for versioning.
+  * **Resource cleanup** : Helps you remove schemas and plans that are not being used, as well as outdated rules projects.
+  * **Resource checkup** : Helps you make sure that all the resources are configured as expected.
+
+
+
+## Resource versioningâ
+
+To version plans in Pulse, execute the following steps:
+
+### Duplicate plansâ
+
+  1. In the **Data Science** tab, duplicate  the most recent version of the plans that you want to version (e.g. assume _Custom Plan m1/d1_ as an example, following the nomenclature _project-name mm/dd_).
+
+
+
+info
+
+**Duplicate Plans** : Plan executions are not transferred from the original plan to the duplicate version. The next subsection explains how to add executions to duplicate plans.
+
+  2. Rename the plans according to your versioning nomenclature (e.g. assume _Custom Plan m1/d2_).
+
+
+
+### Add executions to plansâ
+
+  1. Select the options menu  in the Pulse application where you have duplicated the plans.
+  2. Select the  option.
+  3. Choose the same resource bundle that you have used to import the plans you are working on, and upload it using the  button.
+  4. In the **Choose Resources** step, open the **Plans** tab and add executions as follows:
+  5. Use the checkbox to choose the plans that you have duplicated (e.g. _Custom Plan m1/d1_).
+  6. Choose the **Local Plan Name** that you have duplicated (i.e. _Custom Plan m1/d2_).
+  7. Make sure you have all the plan executions that you want to keep in the new plans by expanding the collapse button under **Plan Executions**.
+  8. Continue to the **Next** step.
+  9. Since you are importing the plan executions to the duplicate plan, the schema should always match and the **Schema Conflicts** step should not be prompted. If after duplicating the plan in the Duplicate plans subsection the plan schema is changed, the **Schema Conflicts** step is prompted. Solve the conflicts by choosing **Keep Imported** for each plan execution.
+  10. Continue to the **Next** step and select the  button to complete the import.
+  11. In the **Data Science** tab, open the executions list using the  button in each of the new plans and confirm if they have the correct plan executions.
+
+
+
+### Create new executionsâ
+
+In your Pulse application, you may have plans that use an existing schema as input and generate a new schema as output. You may also have plans that use the output schema generated from another plan as an input. Start by creating snapshots for the plans that use the existing schema:
+
+  1. In the **Data Science** tab, open the plan in which you want to create the new snapshot (e.g. _Custom Plan m1/d2_).
+
+  2. In the **More Actions** button, select **Plan Settings** and execute the following steps:
+
+  3. In the **Schema** option, choose the schema that applies to the plan (e.g. _Extended Schema [last version]_), and **Confirm** the change using the button in the warning box.
+
+  4. In the **Timestamp Field** option, select `event_occurred_at`.
+
+  5. **Save** your changes.
+
+  6. Select the  button and execute the following steps:
+
+  7. Rename the execution according to your versioning nomenclature (e.g. _Custom Plan m1/d2 vN_ , where N increments the version number).
+
+  8. In the **Data Sink** section, tick the export box and rename the new schema (e.g. _Custom Plan m1/d2 vN_). For traceability purposes, Feedzai recommends using the same name for the execution and the schema.
+
+  9. the plan execution.
+
+  10. Create executions for the plans that input the schema generated in the previous steps (e.g. _Standard Plan m1/d2_):
+
+info
+
+Consider the scenario in which you need to edit a Standard Plan. Repeat Steps 2 and 3, and consider the following:
+
+
+
+  * **Schema** : In this example, the input of the _Standard Plan d1/m2_ is the output schema of the Custom Plan generated in Step 3.
+  * **Execution name** : Example, _Standard Plan m1/d2 vN_ , where N increments the version number.
+  * **Schema name** : Example, _Standard Plan m1/d2 vN_ , where N increments the version number.
+
+
+
+For traceability purposes, Feedzai recommends using the same name for the execution and the schema. :::
+
+### Version rules projects and snapshotsâ
+
+  1. In the **Data Science** tab, select the options  button in the **Rules Projects** panel to configure each rules project.
+  2. Name the rules project according to your versioning nomenclature (e.g. _name_of_rules_project mm/dd_).
+  3. Select the **Schema** created in Create new executions' step 4.
+  4. Set the **Target Variable** using the one that applies to your use case (e.g. `decision` in a typical application).
+  5. **Save** your changes.
+  6. For each non-self-service rules project (non-SSR):
+  7. Open the rules project.
+  8. In the **Snapshots** panel, create a new  snapshot.
+  9. Name the snapshot according to your versioning nomenclature (e.g. _name_of_rules_project mm/dd vN_).
+  10. the snapshot.
+
+
+
+info
+
+The snapshots for self-service rules (SSR) projects will be created in the next subsection.
+
+  7. Publish your application using the  button.
+  8. Apply your changes to complete the process using the  button.
+
+
+
+info
+
+Feedzai recommends that you use the **Rolling Publish** option. This option publishes application changes on one Pulse replica at a time, thus reducing the downtime, as there may be other online replicas still able to handle events.
+
+### Update the workflowâ
+
+  1. In the **Workflow** tab, open the workflow that you want to update.
+  2. In the **Schema** , make sure the correct schema is selected (e.g. _Input Schema vN_ , where N increments the version number). If you don't have the correct schema, select it from the list and **Confirm** the change using the button in the warning box.
+  3. In the diagram, edit  each operator (e.g. plans and rules) and execute the following actions:
+  4. In the **Main** tab, select the resource's and snapshot's latest versions.
+  5. **Save** your changes.
+  6. For the operator containing SSR projects, select the rules project's latest version. If you have changed the name of the SSR projects as specified in the previous version's step 2, you need to publish the application to create new snapshots. Pulse will automatically recognize the new snapshot and replace the current value of the snapshot field with the new one. To activate this behavior, execute the following:
+  7. **Save** and exit the workflow.
+  8. Publish your SSRs using the  button.
+  9. Apply your changes to complete the process using the  button.
+
+
+
+info
+
+Feedzai recommends that you use the **Rolling Publish** option. This option publishes application changes on one Pulse replica at a time, thus reducing the downtime, as there may be other online replicas still able to handle events.
+
+  5. Return to the workflow and make sure that the schema of the SSR project has been updated with the new snapshot.
+
+
+
+## Resource cleanupâ
+
+  1. In the **Data Configuration** tab, delete  the schemas that are not being used. The final resources are specific to each use case. As a rule of thumb, you should have an Input Schema and Extended Schema.
+  2. In the **Data Science** tab:
+     1. Delete  the data sources that were created when importing the resources.
+     2. Delete  the plans that are not being used.
+     3. Delete the outdated rules projects.
+
+
+
+## Resource checkupâ
+
+  1. In the **Data Configuration** tab, under the **Schema** panel, ensure that the new schemas have the new inserted fields.
+  2. In the **Data Science** tab, under the **Plans** and **Rules Projects** panels, confirm if:
+     1. The version is correct.
+     2. The input schema is correct.
+     3. The **Target Variable** for rules projects is correct.
+     4. The new executions and snapshots have been created for plans and rules.
+  3. In the **Workflow** tab, ensure that each operator has the latest resource and snapshot versions.
+  4. In the **Lists** tab, make sure that the lists are correctly configured.
+
+
+
+## Next stepsâ
+
+Now that you finished configuring your resources:
+
+  * Make sure you use the Update the Workflow section as reference for publishing further workflow changes.
+  * Read the [Transfer list items](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/transfer-list-items) page.
+
+

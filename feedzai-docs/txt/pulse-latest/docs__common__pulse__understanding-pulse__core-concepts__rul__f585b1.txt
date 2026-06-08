@@ -1,0 +1,74 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/how-rules-work
+Title: How Rules Work | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules)
+  * How Rules Work
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# How Rules Work
+
+Rules can have lasting effects on both the workflow and the event itself.
+
+Workflow-halting rules
+
+A single rule can stop an entire workflow. You must be careful when configuring the control flow of a rule.
+
+If a rule is enabled and the [condition of a rule](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/rules-components) is _true_ , then Pulse executes the following actions:
+
+  1. An entry is added to score tracking.
+  2. One or more actions are triggered immediately.
+  3. The target variable of the event is set with a value as specified in the rule. For example, setting the _fraud_ field as _true_.
+  4. The execution of the workflow proceeds as specified in the rule.
+
+
+
+Changes to "event" are not visible to other rules
+
+Note that any changes made to score results, target variable or outcome are not visible to other rules in the same rule service element. This enforces that rules evaluate independently of their order.
+
+## Execution orderâ
+
+There are several key aspects of how a rule is executed. For a rule to be executed or have any effect at all it needs to be enabled. This, however, doesn't guarantee that the rule is executed. You must consider both how the control flow works and the order of the rules, as defined in your project.
+
+Each rule service has its own set of rules defined in a rules project. These rules are unique to the service instance and have a specific order by which they are executed. This is important because triggering one rule can cause others to be skipped.
+
+Another key aspect of the rules is that they are executed independently from each other and in an ordered fashion.
+
+If you need to reuse variables in several rules, check [this section about environments](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/rules-components/#integration-with-environment-metrics-and-variables).
+
+## Triggering actionsâ
+
+Rules can have a great impact on the whole workflow. One of the things they can do when fired is to trigger [actions](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/actions-and-action-listeners), which will be caught and processed by action handlers.
+
+Actions can have parameters whose value is defined in the rules. For example, a "sendEmail" action can have the parameters "to" and "subject" with values "[[email protected]](/cdn-cgi/l/email-protection#d9b4b8b0b599bca1b8b4a9b5bcf7bab6b4)" and "Rule Alert".
+
+For details on how to define which parameters should be available in each action check the [Actions and Action Listeners](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/actions-and-action-listeners) page.
+
+## Controlling the workflow executionâ
+
+Each rule can define what should happen to the workflow when the rule is fired.
+
+This is especially useful when you want to ignore the evaluation of further rules, or even abort the rest of the workflow, as soon as one rule is triggered. Available options are as follows:
+
+  * **Continue**
+
+The execution continues to the next rule or, if there is none, to the next workflow element.
+
+  * **Stop Workflow**
+
+The workflow execution stops. Actions resulting from the current rule will be triggered for the current event.
+
+  * **Next Workflow Element**
+
+No more rules are executed in this rule service instance and the execution continues to the next workflow element.
+
+
+

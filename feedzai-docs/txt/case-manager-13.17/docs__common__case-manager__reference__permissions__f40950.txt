@@ -1,0 +1,401 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/permissions
+Title: Permissions | Case Manager
+============================================================
+
+On this page  
+  
+# Permissions
+
+This document contains all permissions required to use Case Manager. There are two types of permissions:
+
+  * **Backend** permission that control access to REST resources available from the backend.
+
+  * **Frontend** permissions that control Case Manager's frontend resources.
+
+info
+
+The **cm:section:..** permissions are dynamic and depend on the `gui-config.json` pages.
+
+
+
+
+## Generalâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:*"`| Grants the user all CM permissions.| Type  
+`"cm:resource:configuration:read:*"`| Lets the user read the UI configuration.| Backend  
+`"cm:resource:configuration:create:*" `| Represents the necessary permission to create Case Manager's configuration.| Backend  
+`"cm:resource:configuration:update:*" `| Represents the necessary permission to update Case Manager's configuration.| Backend  
+`"cm:resource:configuration:delete:*" `| Represents the necessary permission to delete Case Manager's configuration.| Backend  
+`"cm:resource:language:read:*" `| Lets the user read the available languages.| Backend  
+`"cm:resource:language:create:*" `| Lets the user create languages.| Backend  
+`"cm:resource:language:update:*" `| Lets the user update languages.| Backend  
+`"cm:resource:language:delete:*" `| Lets the user delete languages.| Backend  
+`"cm:resource:timezone:read:*" `| Lets the user read timezones.| Backend  
+`"cm:resource:timezone:create:*" `| Lets the user create new timezone.| Backend  
+`cm:resource:timezone:update`| Lets the user update timezone.| Backend  
+`"cm:resource:timezone:delete:*" `| Lets the user delete timezone.| Backend  
+`"cm:resource:configuration-rules-block:read:*" `| Lets the user read the configuration of rules blocks.| Backend  
+`"cm:resource:session:read:*" `| Lets the user read session information in Case Manager.| Backend  
+`"cm:resource:message:read:*" `| Lets the user read the translated messages.| Backend  
+`"cm:resource:pulse-app:read:*" `| Gets the Pulse application status and lists.| Backend  
+`"cm:resource:event-status:create:*" `| Lets the user create status for events.| Backend  
+`"cm:action:edit-resource:update:*" `| Lets the user edit the resource (example: update note in inline actions).| Frontend  
+`"cm:section:review-next:read:*" `| Lets the user see the review next function.| Frontend  
+`"cm:action:link-to" `| Lets the user navigate to a custom link.| Frontend  
+  
+## Login and Logoutâ
+
+Permission| Description| Type  
+---|---|---  
+`"pulseviews:login" `| Lets the user log into pulse and case manager.| Backend  
+`"cm:login" `| Lets the user log into case manager.| Backend  
+`"security:ownership:read" `| Lets the user see the ownership details of Pulse user groups (toggle "advanced" option).| Backend  
+`"security:permissions:read" `| Lets the user read the permissions.| Backend  
+`"security:users:read" `| Lets the user read the list of users.| Backend  
+`"security:users:update" `| Lets the user update the list of users.| Backend  
+`"cm:resource:session:create:*" `| Lets the user create a session.| Backend  
+`"cm:resource:session:update:*" `| Lets the user update a session.| Backend  
+`"cm:resource:session:delete:*" `| Lets the user delete a session.| Backend  
+  
+## Access Groupsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:group:read:*" `| Lets the user search groups.| Backend  
+`"cm:resource:event-visibility:read:*" `| Gives the user full event visibility (i.e: users with this permission are allowed to see every event regardless of the event's access group).| Backend  
+`"cm:resource:event-visibility:create:*" `| Lets the user set the access group ID of events.| Backend  
+`"cm:action:change-access-group:create:*" `| Lets the user change the access group of the event.| Backend  
+  
+## Channel-based Permissionsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:channel:<channel_id>:read-write" `| Lets the users see and edit <channel_id>'s events and artifacts| Backend  
+`"cm:channel:<channel_id>:read-only" `| Users can see <channel_id>'s events and artifacts, but cannot edit them (except for notes and file-uploading)| Backend  
+`"cm:channel:<channel_id>:none" `| Users do not have access to <channel_id>| Backend  
+  
+Learn more on [Channel-based Permissions](/case-manager/13.17/docs/internal/case-manager/configuration-guide/channel-based-permissions) page.
+
+## 3rd Party Integrationsâ
+
+### Tokenizerâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:reveal-<FIELD>" `| Lets the user reveal a field value using tokenizer. (The <field_path> has to be replaced with the field path in the object).| Backend  
+`"cm:resource:reveal-all"`| Lets the user automatically reveal all encrypted fields when entering an event details page.   
+When the user enters an event details page and has this permission, a call to reveal all of the encrypted fields in the event is made. In this call, single field reveal permissions (`"cm:resource:reveal-<FIELD>"`) are bypassed.| Backend  
+`"cm:resource:search-by-<FIELD>"`| Lets the user perform a search operation by a specified field in plain text using tokenizer.   
+**DEPRECATED**|  Backend  
+`"cm:resource:search-by:<FIELD>"`| Lets the user perform a search operation by a specified field in plain text using tokenizer. This permission combined with the user permission `cm:resource:search-by:*` allows users to search for all tokenized elements.| Backend  
+`"cm:action:reveal-<field_path>"`| Lets the user see the reveal icon to reveal a field.| Frontend  
+`"cm:resource:secure-metadata"`| Lets the user see encrypted metadata.| Backend  
+  
+### Insightsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:dashboard:<DASHBOARD_ID>:read:*" `| Lets the user see the dashboard with DASHBOARD_ID id.| Backend  
+`"cm:resource:dashboards-user-sync:update:*" `| Lets the user synchronize dashboards' users.| Backend  
+  
+## Multiple State Machines (Pulse)â
+
+Permission| Description| Type  
+---|---|---  
+`"cm:state-machine:event:read:<STATEMACHINE>"`| Lets the user read event states for a given state machine (whose id is `<STATEMACHINE>` ).| Frontend  
+`"cm:state-machine:event-status:write:<STATEMACHINE>"`| Lets the user change the status for a given state machine (whose id is `<STATEMACHINE>` ).| Frontend  
+`"cm:state-machine:status-reason:<OPERATION>:<STATEMACHINE>"`| Lets the user read or write ( `<OPERATION>` = read or write) a status change reason for a given state machine (whose id is `<STATEMACHINE>` ).| Frontend  
+  
+## Multi-tenancyâ
+
+Permission| Description| Type  
+---|---|---  
+`"security:tenants:read" `| Lets the user read the list of tenants.| Backend  
+`"cm:resource:landlord:*" `| Lets the user have landlord permissions.| Backend  
+`"cm:resource:tenant:read:*" `| Lets the user read the tenant list.| Backend  
+`"cm:resource:event-users:read:*" `| Retrieves a list of users that can be used for assignment according to the tenant provided. This means that if no tenant is provided, we assume that can only be assigned to landlord users (Global entities).| Backend  
+`"cm:resource:event-queues:read:*" `| Retrieves a list of queues that are associated with event's tenant.| Backend  
+`"cm:element:tenant:read:*" `| Lets the user access UI elements accessible to landlords. We should only have this permission if the user has more than one tenant.| Backend  
+  
+## Eventsâ
+
+Name| Description| Type  
+---|---|---  
+General  
+`"cm:resource:event:read:*"`| Lets the user read an event.| Backend  
+`"cm:resource:assign:*"`| Gives the user rights to assign an event that is already assigned to another user to itself. Permission only relevant for [Assign and Lock](/docs/internal/case-manager/configuration-guide/assign-and-lock-configuration).| Backend  
+`"cm:resource:assign-no-steal:*"`| Allows users to assign unassigned events to themselves and to others. Permission only relevant for [Assign and Lock](/docs/internal/case-manager/configuration-guide/assign-and-lock-configuration).| Backend  
+`"cm:resource:manager:*"`| Gives the user rights to have all actions permissions even if is not assigned the event. Permission only relevant for [Assign and Lock](/docs/internal/case-manager/configuration-guide/assign-and-lock-configuration).| Backend  
+`"cm:resource:event:update:*"`| Lets the user update events.| Backend  
+`"cm:resource:event-user:create:*"`| Lets the user assign users to event.| Backend  
+`"cm:action:event-user:create:*"`| Lets the user assign users to event.| Frontend  
+`"cm:resource:event-queue:create:*"`| Lets the user move events to queues.| Backend  
+`"cm:action:event-queue:create:*"`| Lets the user move events to queues.| Frontend  
+`"cm:resource:event-note:create:*"`| Lets the user create notes in events.| Backend  
+`"cm:action:event-note:create:*"`| Lets the user create notes in events.| Frontend  
+`"cm:action:event-note:read:*"`| Lets the user see Event Notes widget in events details page.| Frontend  
+`"cm:resource:event-export:read:*"`| Lets the user export the results.| Backend  
+`"cm:action:event-export:create:*"`| Lets the user see the export button.| Frontend  
+`"cm:resource:event-file:create:*"`| Lets the user create N-to-N relations between events and files.| Backend  
+`"cm:action:event-status:create:*"`| Lets the user set event statuses| Frontend  
+`"cm:action:event-case:create:*"`| Lets the user link events to case.| Frontend  
+`"cm:action:event-case:delete:*"`| Lets the user unlink events from cases.| Frontend  
+Event Details  
+`"cm:resource:user:read:*"`| Lets the user read available users.| Backend  
+`"cm:resource:status:read:*"`| Lets the user read event status options.| Backend  
+`"cm:resource:status-reason:read:*"`| Lets the user read event status reasons.| Backend  
+`"cm:resource:file:read:*"`| Lets the user read files.| Backend  
+`"cm:resource:file:create:*"`| Lets the user create files.| Backend  
+`"cm:resource:file:update:*"`| Lets the user update an existing file.| Backend  
+`"cm:resource:file:delete:*"`| Lets the user delete an existing file.| Backend  
+`"cm:resource:file:event-file:read:*"`| Lets the user list all the files associated with an event.| Backend  
+`"cm:resource:file:event-file:create:*"`| Lets the user upload an existing file in Event Details page (Attached Files widget).| Backend  
+`"cm:resource:file:event-file:update:*"`| Lets the user update an existing file in Event Details page(widget: Attached Files).| Backend  
+`"cm:resource:locale:read:*"`| Lets the user read locales.| Backend  
+`"cm:resource:locale:create:*"`| Lets the user create locales.| Backend  
+`"cm:resource:locale:update:*"`| Lets the user update locales.| Backend  
+`"cm:resource:locale:delete:*"`| Lets the user delete locales.| Backend  
+  
+## Casesâ
+
+Name| Description| Type  
+---|---|---  
+General  
+`"cm:resource:case:read:*"`| Lets the user read cases.| Backend  
+`"cm:section:case:read:*"`| Lets the user read cases.| Frontend  
+`"cm:resource:case:create:*"`| Lets the user create cases.| Backend  
+`"cm:section:case:create:*"`| Lets the user create cases.| Frontend  
+`"cm:resource:case:update:*"`| Lets the user update cases.| Backend  
+`"cm:section:case:update:*"`| Lets the user update cases.| Frontend  
+`"cm:resource:case:delete:*"`| Lets the user delete cases.| Backend  
+`"cm:resource:event-case:read:*"`| Lets the user read events in cases.| Backend  
+`"cm:resource:event-case:create:*"`| Lets the user add events to cases.| Backend  
+`"cm:resource:event-case:update:*"`| Lets the user update events in cases.| Backend  
+`"cm:resource:event-case:delete:*"`| Lets the user delete events in cases.| Backend  
+`"cm:action:case*-global:read:*"`| Lets the user see channels in cases.| Frontend  
+`"cm:action:case-global:create:*"`| Lets the user select channels in cases. Note that, for Omnichannel Multichannel, the channel field should be hidden and for Omnichannel Single channel (Default), visible.| Frontend  
+`"cm:resource:case-queue:create:*"`| Lets the user create queues for cases.| Backend  
+`"cm:resource:case-user:create:*"`| Lets the user assign users to cases.| Backend  
+`"cm:resource:case-state:create:*"`| Lets the user create states for cases.| Backend  
+`"cm:action:case-state:create:*"`| Lets the user open or close case states for cases.| Frontend  
+`"cm:resource:case-export:read:*"`| Lets the user export the results from the cases search page, or any other table that only uses those cases fields.| Backend  
+`"cm:action:case-export:create:*"`| Lets the user see the export button in the cases search page.| Frontend  
+`"cm:resource:casetype:<CASE_TYPE_NAME>:read"`| Gives read-level permission over the case type given by <CASE_TYPE_NAME>, where the case type name is given by the configured case type name without the `type.` prefix (example: for a configured case type of `type.aml`, the permission is `cm:resource:casetype:aml:read`).| Backend  
+`"cm:resource:casetype:<CASE_TYPE_NAME>:write"`| Gives both read and write-level permission over the case type given by <CASE_TYPE_NAME>, where the case type name is given by the configured case type name without the `type.` prefix (example: for a configured case type of `type.fraud`, the permission is `cm:resource:casetype:fraud:write`).| Backend  
+Case Details  
+`"cm:section:case-details:read:*"`| Lets the user see the Case Details page.| Frontend  
+`"cm:resource:case-details:create:*"`| Lets user list all the files associated with the current case.| Backend  
+`"cm:resource:case-file:create:*"`| Lets the user upload file in Case Details.| Backend  
+`"cm:resource:file:case-file:update:*"`| Lets the user update file in Case Details.| Backend  
+`"cm:resource:file:case-file:read:*"`| Lets the user download file in Case Details.| Backend  
+`"cm:resource:case-note:read:*"`| Lets the user read notes in cases.| Backend  
+`"cm:action:case-note:read:*"`| Lets the user see case notes on Notes widget.| Frontend  
+`"cm:resource:case-note:create:*"`| Lets the user create notes in cases.| Backend  
+`"cm:action:case-note:create:*"`| Lets the user add a note to a case in the Case Details page.| Frontend  
+`"cm:resource:case-note:update:*"`| Lets the user update notes in cases.| Backend  
+`"cm:resource:case-note:delete:*"`| Lets the user delete notes in cases.| Backend  
+  
+For self-serviceable case sources, check this section.
+
+## Queuesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:queue-user:*"`| Lets the user perform CRUD operations over the current queues assigned to a user.| Backend  
+`"cm:resource:queue-user:read:*"`| Lets the user read its own queues.| Backend  
+`"cm:resource:queue:read:*"`| Lets the user read queues.| Backend  
+`"cm:section:settings-queue:read:*"`| Lets the user see the queues page in the Settings section.| Frontend  
+`"cm:resource:queue:create:*"`| Lets the user create queues.| Backend  
+`"cm:section:settings-queue:create:*"`| Lets the users create queues in the Settings section.| Frontend  
+`"cm:resource:queue:update:*"`| Lets the user update queues.| Backend  
+`"cm:section:settings-queue:update:*"`| Lets the user update queues in the Settings section.| Frontend  
+`"cm:resource:queue:delete:*" `| Lets the user delete queues.| Backend  
+`"cm:section:settings-queue:delete:*"`| Lets the user delete queues in the Settings section.| Frontend  
+`"cm:resource:queue-user:assign:*"`| Lets the user assign queues to users.| Backend  
+`"cm:resource:user-queue:*" `| Lets the user see the working queues, in the context of the review next feature.| Backend  
+  
+## Reasonsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-reason:read:*"`| Enables the user to list the available reasons.| Frontend  
+`"cm:section:settings-reason:create:*"`| Enables the user to create new reasons.| Frontend  
+`"cm:action:reason:delete:*"`| Enables the user to remove reasons.| Frontend  
+`"cm:state-machine:status-reason:read:<state-machine-id>"`| enables the user to list the status reasons for a state machine with a given id.| Backend  
+`"cm:state-machine:status-reason:write:<state-machine-id>"`| Enables the user to create a status reason for a state machine with a given id.| Backend  
+`"cm:state-machine:status-reason:delete:<state-machine-id>"`| Enables the user to delete a status reason for a state machine with a given id.| Backend  
+`"cm:state-machine:event:read:<state-machine-id>"`| Enables the user to read the state machine information.| Backend  
+  
+## Entitiesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:entity-export:read:*"`| Lets the user export the results from any entity's search page, or any other table that only uses that entity's fields.| Backend  
+`"cm:action:entity-export:create:*" `| Lets the user see the export button in an entity' search page.| Frontend  
+  
+### Entity Dataâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:customer-details:read:*" `| Lets the user see the customer page. To be used with the permission below.| Frontend  
+`"cm:entity-data:<entity_type>:read:*" `| Lets the user read data about an entity with a given type (e.g. customers, cards, etc.) in places such as the customer page.| Backend  
+  
+### Entity Notesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:entity-note:create:*" `| Allows the user to assign notes to data entities.| Backend  
+`"cm:resource:entity-note:read:*" `| Allows the user to see notes assigned to data entities.| Backend  
+`"cm:action:entity-note:create:*" `| Allows the user to add entity notes (e.g., customer notes).| Frontend  
+`"cm:action:entity-note:read:*" `| Allows the user to see Notes widget (e.g., customer notes widget) on an entity details page (e.g., Customer details page).| Frontend  
+  
+info
+
+Learn more about [Entity Notes](/case-manager/13.17/docs/internal/case-manager/configuration-guide/user-interface-configuration/entity-notes).
+
+### Entity Filesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:file:entity-file:create:*" `| Lets the user add files to entities (e.g. customers, cards, etc.) in places such as the customer page.| Backend and Frontend  
+`"cm:resource:file:entity-file:read:*" `| Lets the user read files associated with entities (e.g. customers, cards, etc.) in places such as the customer page.| Backend and Frontend  
+  
+## Lists Managementâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-lists:read:*" `| Lets the user see List Management option in the menu Settings section.| Frontend  
+`"cm:resource:list:search:*" `| Lets the user search for entities in lists.| Backend  
+`"cm:resource:list:update:*" `| Lets the user update lists content and values.| Backend  
+`"cm:resource:event-posneg:read:*" `| Lets the user read posneg lists for events.| Backend  
+`"cm:resource:event-posneg:create:*" `| Lets the user create posneg lists for events.| Backend  
+`"cm:action:event-list:create:*" `| Lets the user add events to lists.| Frontend  
+`"cm:action:view-entity-audit:read:*" `| Lets the user view the "view-entity-audit" inline action.| Frontend  
+`"cm:action:add-entity:create:*" `| Lets the user add a EntityValue to a List.| Frontend  
+`"cm:action:event-posneg:create:*" `| Lets the user add events to posneg lists.| Frontend  
+`"cm:action:remove-entity:delete:*" `| Lets the user remove an EntityValue from the List.| Frontend  
+  
+## Self-service Rulesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-rules:read:*"`| Lets the user see rules in the Self-Service Rules page.| Frontend  
+`"cm:section:settings-rules:create:*"`| Lets the user create rules in the Self-Service Rules page.| Frontend  
+`"cm:section:settings-rules:update:*"`| Lets the user update rules in the Self-Service Rules page.| Frontend  
+`"cm:section:settings-rules:delete:*"`| Lets the user delete rules in the Self-Service Rules page.| Frontend  
+`"cm:section:settings-rules:publish:*"`| Lets the user publish rules in the Self-Service Rules page.| Frontend  
+`"cm:resource:settings-rules-test:create:*"`| Lets the user test rules, either the user is a landlord or contains the permission.| Backend  
+`"cm:section:settings-rules-test:create:*"`| Lets the user test rules, either the user is a landlord or contains the permission.| Frontend  
+`"cm:resource:settings-rules-custom-test:create:*"`| Lets the user test rules with custom properties, either the user is a landlord or contains the permission.| Backend  
+` "cm:resource:self-service-rules:audit:*"`| Lets the user access rules audit entries.| Backend  
+  
+## Automation Rulesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-automation:read:*" `| Lets the user see the Automation Rules page| Frontend  
+`"cm:resource:automation:read:*" `| Lets the user read automation rules.| Backend  
+`"cm:resource:automation:create:*" `| Lets the user create automation rules.| Backend  
+`"cm:section:settings-automation:create:*" `| Lets the user create automation rules in the Automation Rules page| Frontend  
+`"cm:resource:configuration-automation:read:*" `| Lets the user read the automation rules configuration.| Backend  
+`"cm:resource:automation:update:*" `| Lets the user update automation rules.| Backend  
+`"cm:section:settings-automation:update:*" `| Lets the user update automation rules in the Automation Rules page| Frontend  
+`"cm:resource:automation:delete:*" `| Lets the user delete automation rules.| Backend  
+`"cm:section:settings-automation:delete:*" `| Lets the user delete automation rules in the Automation Rules page| Frontend  
+  
+## SLAsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-slas:read:*" `| Lets the user see the SLAs page in the Settings section.| Frontend  
+`"cm:resource:sla:read:*" `| Lets the user read SLAs.| Backend  
+`"cm:resource:sla:create:*" `| Lets the user create SLAs.| Backend  
+`"cm:section:settings-slas:create:*" `| Lets the user create SLAs in the Settings section.| Frontend  
+`"cm:resource:sla:update:*" `| Lets the user update SLAs.| Backend  
+`"cm:section:settings-slas:update:*" `| Lets the user update SLAs in the Settings section.| Frontend  
+`"cm:resource:sla:delete:*" `| Lets the user delete SLAs.| Backend  
+`"cm:section:settings-slas:delete:*" `| Lets the user delete SLAs in the Settings section.| Frontend  
+  
+## Messagesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-message:read:*"`| Lets the user see the Messages page in the Settings section.| Frontend  
+`"cm:resource:message:read:*"`| Lets the user read messages.| Backend  
+`"cm:action:settings-message:create:*"`| Lets the user create messages in the Settings section.| Frontend  
+`"cm:resource:message:create:*"`| Let's the user create messages.| Backend  
+`"cm:action:settings-message:update:*"`| Lets the user update messages in the Settings section.| Frontend  
+`"cm:resource:message:update:*"`| Lets the user update messages.| Backend  
+`"cm:action:settings-message:delete:*"`| Lets the user delete messages in the Settings section.| Frontend  
+`"cm:resource:message:delete:*"`| Lets the user delete messages.| Backend  
+  
+## Reportsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:report:read:*"`| Lets the user read reports.| Backend  
+`"cm:section:report:read:*"`| Lets the user read reports.| Frontend  
+`"cm:resource:report:create:*"`| Lets the user create reports.| Backend  
+`"cm:section:report:create:*"`| Lets the user create reports| Frontend  
+`"cm:resource:report:update:*"`| Lets the user update reports.| Backend  
+`"cm:resource:report:delete:*"`| Lets the user delete reports.| Backend  
+`"cm:action:delete-generated-report:delete:*"`| Lets the user delete a generated report.| Frontend  
+`"cm:resource:file:report:read:*" `| Lets the user download reports.| Backend  
+  
+### Report Templatesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:report-template:read:*" `| Lets the user read report templates.| Backend  
+`"cm:section:settings-report-template:read:*" `| Lets the user see report templates in the Report Templates page.| Frontend  
+`"cm:resource:report-template:create:*" `| Lets the user create report templates.| Backend  
+`"cm:section:settings-report-template:create:*" `| Lets the user create report templates in the Report Templates page.| Frontend  
+`"cm:resource:report-template:update:*" `| Lets the user update report templates.| Backend  
+`"cm:section:settings-report-template:update:*" `| Lets the user update report templates in the Report Templates page.| Frontend  
+`"cm:resource:report-template:delete:*" `| Lets the user delete report templates.| Backend  
+`"cm:section:settings-report-template:delete:*" `| Lets the user delete report templates in the Report Templates page.| Frontend  
+`"cm:resource:file:report-template:read:*" `| Lets the user download report templates.| Backend  
+  
+Multi-tenancy
+
+To manage report templates in a multi-tenancy setup, add the `cm:resource:landlord:*` permission.
+
+## Custom Extensionsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:action:extension:<EXTENSION_NAME>"`| Lets the user execute a custom extension given by its configured extension name.| Backend and Frontend  
+  
+## Self-service configurationsâ
+
+### Details Page Widgetsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:action:self-service-config:normal-mode"`| Lets the user have access to the Normal edit mode in the UI.| Frontend  
+`"cm:action:self-service-config:advanced-mode"`| Lets the user have access to the Advanced edit mode in the UI.| Frontend  
+`"cm:action:gui-config:edit"`| Lets the user have access to the edit mode in the UI. This permission is deprecated - use `"cm:action:self-service-config:normal-mode"` for normal edit mode or `"cm:action:self-service-config:advanced-mode"` for advanced edit mode.| Frontend  
+`"cm:resource:self-service-config"`| Lets the user list active preferences.| Backend  
+`"cm:resource:gui-config:edit"`| Lets the user add UI preferences. This permission is deprecated - use `"cm:resource:self-service-config"` for any self-service configuration related API.| Backend  
+`"cm:resource:gui-config:reset-to-default"`| Lets the user reset a UI preference to its default state. This permission is deprecated - use `"cm:resource:self-service-config"` for any self-service configuration related API.| Backend  
+`"cm:resource:gui-config:list-active"`| Lets the user list active preferences. This permission is deprecated - use `"cm:resource:self-service-config"` for any self-service configuration related API.| Backend  
+  
+### Case Sourcesâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:section:settings-case-source:read:*"`| Lets the user have access to the case sources page.| Frontend  
+`"cm:section:settings-case-source:create:*"`| Lets the user create new case sources.| Frontend  
+`"cm:section:settings-case-source:update:*"`| Lets the user edit (enable/disable) existing case sources.| Frontend  
+`"cm:resource:case-source:read:*"`| Lets the user list case sources.| Backend  
+`"cm:resource:case-source:create:*"`| Lets the user create case sources.| Backend  
+`"cm:resource:case-source:update:*"`| Lets the user edit case sources.| Backend  
+  
+## Import/Export Settingsâ
+
+Permission| Description| Type  
+---|---|---  
+`"cm:resource:settings:import-export:*"`| Lets the user import/export settings.| Backend  
+`"cm:section:settings:import-export:*"`| Lets the user have access to the import/export button in the UI.| Frontend

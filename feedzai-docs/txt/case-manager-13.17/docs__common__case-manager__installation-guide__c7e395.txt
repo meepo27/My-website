@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/installation-guide/
+Title: Installation Guide | Case Manager
+============================================================
+
+# Installation Guide
+
+In order to run Case Manager, you have to make sure some of the things are already in place in advance. Learn more about what is necessary to run Case Manager and how to install it in the following pages:
+
+| [Installing Case Manager](/docs/internal/case-manager/installation-guide/installing-case-manager)  
+---|---  
+Learn the different steps to take in order to install a Case Manager machine.  
+| [Requirements](/docs/common/case-manager/installation-guide/requirements)  
+---|---  
+Learn about minimal and high available setups and Case Manager's software and Hardware Requirements.  
+| [Configuring Firewalls](/docs/common/case-manager/installation-guide/configuring-firewalls)  
+---|---  
+Learn about the configuration of firewalls, and Case Manager's inbound and outbound services.

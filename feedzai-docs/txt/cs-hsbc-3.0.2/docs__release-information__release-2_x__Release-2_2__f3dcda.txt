@@ -1,0 +1,96 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.2
+Title: Release 2.2 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.2.0`â
+
+### Add functionality to remove null byte from the payloadâ
+
+Bug Fix
+
+We have implemented a functionality to remove null bytes from the payload to prevent errors when storing events in the Pulse and Case Manager databases.
+
+### Add placeholder inbound payments applicationâ
+
+Feature
+
+We have added a placeholder Pulse application to real-time Pulse for inbound payments, to begin supporting the inbound payments use case. The schema used for now is the one used by the outbound payments application. As each application can be independently deployed, this does not have an impact on existing installations, but unblocks a future inbound payments installation.
+
+### Input and Workflow Schema Updateâ
+
+Feature
+
+The following fields were added to the `Payments` and `Payments + Outcomes` schemas and Pulse APIs:
+
+Field| Datatype| Description  
+---|---|---  
+bioc.push_score| double| Push API score as received from BioCatch  
+customer_id_hashed| string| Hashed version of puidUserId used to call Vendor Tech  
+  
+These fields were also added in Case Manager as follows:
+
+  * `customer_id_hashed`
+    * Transfers Originator Details widget
+    * Digital Activity Event Summary widget
+  * `bioc.push_score`
+    * Digital Activity Vendor Risk Data widget
+
+
+
+### Add channel based permissionsâ
+
+Feature
+
+We have created the below new permissions for inbound payments.
+
+  * `cm:channel:inbound:read-only`
+  * `cm:channel:inbound:read-write`
+  * `cm:state-machine:event-status:write:status_inbound_payments`
+  * `cm:state-machine:event:read:status_inbound_payments`
+  * `cm:state-machine:event-status:write:status_inbound_payments`
+  * `cm:state-machine:status-reason:delete:status_inbound_payments`
+  * `cm:state-machine:status-reason:read:status_inbound_payments`
+  * `cm:state-machine:status-reason:write:status_inbound_payments`
+
+
+
+### Add Self Serve Strategy outcomeâ
+
+Feature
+
+Please find below the changes regarding the new Serf Service Strategy outcome.
+
+Pulse:
+
+  * We have added the Self Serve Strategy outcome to the Payments workflow
+  * The corresponding field was added to the `Payments + Outcomes` schema
+
+
+
+Case Manager:
+
+  * A matching field was added to Case Manager so it can be used in Automation Rules and SLAs
+  * Transaction widget in Event Details page was updated to show the Serve Self Strategy field
+  * External notifications payload was updated to send both Serve Self Strategy and Treatment Strategy
+
+
+
+ETL:
+
+  * The outcome will be extracted in the outcomes column
+
+
+
+### New Ansible task to revert Case Manager changes in Databaseâ
+
+Feature
+
+We've created a new Ansible task to facilitate reverting Case Manager database changes.
+
+This means that if for some reason there are compatibility issues between Case Manager versions, we can quickly revert the changes and keep Case Manager running.
+
+The `Rolling Upgrades` documentation was updated. Please check it at [Rolling Upgrades](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/rolling-upgrades)

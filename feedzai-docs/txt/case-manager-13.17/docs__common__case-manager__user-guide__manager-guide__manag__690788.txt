@@ -1,0 +1,204 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports
+Title: Manage Reports | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Monitor Performance
+  * Manage Reports
+
+
+
+On this page
+
+# Manage Reports
+
+Reports allow you to capture and download a snapshot of how your system performed during a given timeframe.
+
+To generate a report and analyze the results, you must first design a **Report Template** that fits your custom monitoring requirements. Report templates don't have any actual data - they define which data will be consumed, how to transform it, and how to present the output when you generate a report.
+
+In this page, you will learn how to create templates for reports, create reports based on those templates, and manage the reports - edit and download.
+
+tip
+
+If you have already uploaded Report Templates, you can move to the Creating Reports section.
+
+## Manage report templatesâ
+
+Access the **Report Templates** page using the **Settings** option in the main menu.
+
+### Create report templatesâ
+
+To create report templates, perform the following steps:
+
+  1. Select the **New Template** button.
+
+  2. Complete the fields with the information that best describes the new template.
+
+
+
+
+  * **Tenancy Type** : Defines the template visibility in a Multi-Tenancy environment.
+    * **Private** templates are only visible by landlord users.
+    * **Public** templates are visible by all tenants.
+    * **Tenanted** templates are only visible by specific tenants.
+  * **Template Type** : Defines if the template will be used for cases or reports.
+  * **File Types** : Defines the template format. Note that the format options displayed in this field depend on the selected **Template Type**.
+
+
+  4. **Upload** a file with the template. The following section includes detailed information on how to create the template to be uploaded.
+
+
+
+#### Upload report templatesâ
+
+Reports use TIBCO Jasper Reports 6.3 to create reports templates. Follow the links provided to download and learn more about the tool:
+
+  * <http://community.jaspersoft.com/project/jaspersoft-studio>
+  * <https://docs.tibco.com/products/tibco-jaspersoft>
+
+
+
+Templates include the following parameters:
+
+  * **REPORT_CONNECTION** : A JDBC connection to Case Manager database.
+  * **REPORT_LOCALE** : The locale to be used to format numbers and dates.
+  * **REPORT_TIME_ZONE** : The timezone to be used to format dates.
+  * **REPORT_FILE_RESOLVER** : To resolve report resources relatively.
+  * **START_DATE** : Custom parameter (java.lang.Long) used to filter lower-bound time queries.
+  * **END_DATE** : Custom parameter (java.lang.Long) used to filter upper-bound time queries.
+  * **USERS** : Custom parameter (java.util.Map) used to lookup a user's name by his user identifier.
+
+
+
+**Additional configuration details** :
+
+**START_DATE and END_DATE**
+
+The "**START_DATE** " and "**END_DATE** " parameters should be defined if the template is constrained by time. These parameters should have default values if they are not specified:
+    
+    
+    <parameter name="START_DATE" class="java.lang.Long">  
+        <parameterDescription><![CDATA[]]></parameterDescription>  
+        <defaultValueExpression><![CDATA[Long.MIN_VALUE]]></defaultValueExpression>  
+    </parameter>  
+    <parameter name="END_DATE" class="java.lang.Long">  
+        <defaultValueExpression><![CDATA[Long.MAX_VALUE]]></defaultValueExpression>  
+    </parameter>  
+    <parameter name="USERS" class="java.util.Map">  
+        <defaultValueExpression><![CDATA[Collections.EMPTY_MAP]]></defaultValueExpression>  
+    </parameter>  
+    
+
+  * Example query with time constraints:
+
+
+    
+    
+    SELECT  
+      COUNT(*)                                                              AS "TOTAL",  
+      COALESCE(SUM(CASE WHEN "EVENT_ALERT"           THEN 1 ELSE 0 END), 0) AS "TOTAL_ALERT",  
+      COALESCE(SUM(CASE WHEN "STATUS_ID" = 'unknown' THEN 1 ELSE 0 END), 0) AS "TOTAL_UNKNOWN",  
+      COALESCE(SUM(CASE WHEN "STATUS_ID" = 'genuine' THEN 1 ELSE 0 END), 0) AS "TOTAL_GENUINE",  
+      COALESCE(SUM(CASE WHEN "STATUS_ID" = 'fraud'   THEN 1 ELSE 0 END), 0) AS "TOTAL_FRAUD",  
+      COALESCE(SUM(CASE WHEN "STATUS_ID" = 'none'    THEN 1 ELSE 0 END), 0) AS "TOTAL_NONE"  
+    FROM AM_EVENT  
+    WHERE "EVENT_TIMESTAMP" >= $P{START_DATE}  
+      AND "EVENT_TIMESTAMP" < $P{END_DATE}  
+    
+
+**Locale and TimeZone**
+
+Locale and TimeZone may be used two ways:
+
+  * Manually in expressions (can't apply TimeZone, only Locale):
+
+
+    
+    
+    DateFormat  
+        .getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE})  
+     // .setTimeZone($P{REPORT_TIME_ZONE}) can't manage to do this...  
+        .format(new Date($P{START_DATE}))  
+    
+    
+    
+    NumberFormat  
+        .getInstance($P{REPORT_LOCALE})  
+        .format($P{START_DATE})  
+    
+
+  * Using the UI formatters (automatically applies both):
+
+
+
+  * Example Result:
+
+
+
+**USERS**
+
+User's name lookup can be used as follows:
+    
+    
+    - $P{USERS}.size()  
+    - $P{USERS}.get("107027353")  
+    
+
+Best Practices
+
+When creating report templates, take the following guidelines into account:
+
+  * The uploaded file must be:
+    * a **.jrxml** file or a **.zip** file containing a **.jrxml** file inside with matching names. E.g. a _BusinessOverview.zip_ file containing a _BusinessOverview.jrxml_ file.
+  * External resources such as images and sub-reports must have a relative path. E.g. **feedzai.png** or **./feedzai.png**
+
+
+
+### View Report Templatesâ
+
+When viewing report templates, you can perform several actions, namely edit, delete, or download a template.
+
+  * To edit, hover over the template and select to **Edit** . Edit the fields and **Save** the changes.
+
+  * To delete, hover over the template and select to **Delete** . Since this is a sensitive operation, the page displays a dialog for you to confirm the deletion.
+
+  * To download, hover over the template and select to **Download** . Downloading templates allows you, for example, to adjust the parameters to better suit your needs.
+
+
+
+
+## Manage Reportsâ
+
+After uploading a report template, you can start creating and managing reports.
+
+Access the **Reports** page using the **Settings** option in the main menu.
+
+### Create Reportsâ
+
+To create a report, perform the following steps:
+
+  1. Select the **New Report** button.
+
+  2. Complete the fields with the information that best describes the new report.
+
+
+
+
+  3. **Create** the report.
+
+
+
+### View Reportsâ
+
+When viewing reports, you can download them in different formats such as CSV, PDF, or XLSX. Downloading reports is useful, for example, to send them to specific stakeholders within your organization.
+
+## Learn moreâ
+
+Get a better grasp of reports and the next steps to take by reading the following pages:
+
+  * [Reports](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reports): Learn more about reports, a snapshot of how your system performed during a given timeframe.
+  * [Analyzing Metrics](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics): Learn more about dashboards and metrics and how they can help you monitor system and team performance.
+  * [Managing Workload](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview#manage-workload): Now that you know how to monitoring performance, learn more on how you can manage your team's workload.
+
+

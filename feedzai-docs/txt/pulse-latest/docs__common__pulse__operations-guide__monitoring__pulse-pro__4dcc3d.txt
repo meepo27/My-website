@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/operations-guide/monitoring/pulse-probes/pkernel-probes
+Title: PKernel Probes | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Project Organization
+  * [Monitoring](/pulse/latest/docs/common/pulse/operations-guide/monitoring/)
+  * [Pulse Probes](/pulse/latest/docs/common/pulse/operations-guide/monitoring/pulse-probes/)
+  * PKernel Probes
+
+
+
+On this page
+
+# PKernel Probes
+
+Was this page helpful?Â 
+
+PKernel probes, like the Pulse ones, provide a means to expose PKernel internal instrumentation data, allowing it to be stored in a central location for subsequent analysis.
+
+## Existing Probesâ
+
+The following probes are built-in in the PKernel 2.0 (with RocksDB):
+
+Description| Probe Name| Schema| Notes  
+---|---|---|---  
+The time that an Event took to be processed inside of PKernel.| pkernel_post_event| timestamp : Long| Current timestamp in milliseconds.  
+latency_ns : Long| Latency measured in nanoseconds.  
+The time that an Event took to be processed inside of PKernel after acquiring the lock.  
+This allows to understand the true time spent inside PKernel, ignoring possible queue effects of the lock.  
+(Available from PKernel 2.1.0+)| pkernel_post_event_inside_lock| timestamp : Long| Current timestamp in milliseconds.  
+latency_ns : Long| Latency measured in nanoseconds.  
+The time that an Array of Events took to be processed inside of PKernel.| pkernel_post_events| timestamp : Long| Current timestamp in milliseconds.  
+latency_ns : Long| Latency measured in nanoseconds.

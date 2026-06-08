@@ -1,0 +1,143 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/fraud-scenarios/cards
+Title: Card Payments | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Fraud Scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview)
+  * Cards
+
+
+
+On this page
+
+# Card Payments
+
+Was this page helpful?Â 
+
+This page covers the fraud scenarios and the detection strategy for card payments.
+
+## Cardingâ
+
+Carding is a term for criminals who attempt to access credit or debit card credentials for their personal interest. To steal a person's card details, fraudsters may resort to methods such as manipulating bots and botnets. These criminals usually sell this information on the dark web with the purpose of increasing their income.
+
+The goal of this detection scenario is to prevent attackers from attempting to access card credentials to perform transactions.
+
+**How Feedzai prevents carding**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A card must be declined and flagged to be limited if the number of high amount transactions made by the same card in the past day exceeds the threshold. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+  * A transaction must be declined and card flagged to be limited if count and sum amount in the same acceptor in the last 24 hours exceeds threshold.
+
+
+
+## Card testingâ
+
+While in the carding scenario criminals use methods to steal card information, in card testing they use the stolen card information to attempt to make transactions. This scenario is common within e-commerce, where 'card testers' make several attempts until they succeed at purchasing goods or services.
+
+The goal of this detection scenario is to prevent card testers from succeeding at purchasing goods or services with stolen card information.
+
+**How Feedzai prevents card testing**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction must be declined if a CNP transaction has been performed after several attempts in an MCC known for card testing in the past 24 hours.
+  * A rule is triggered if the ratio of distinct `card_id` and distinct expiration dates per BIN and Merchant in the last 10 minutes does not exceed the threshold. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+  * A rule is triggered if the ratio of distinct `card_id` and distinct expiration dates per BIN and MCC in the last 10 minutes does not exceed the threshold.
+
+
+
+## Account takeoverâ
+
+Account takeover is one of the most common forms of credit card fraud. In this scenario, a fraudster gets access to a person's information (e.g. credentials, relevant documents), typically by hacking that person's online accounts (e.g. bank accounts, emails, subscriptions).
+
+These criminals may use this information for several purposes. As an illustration, they may contact that person's credit card company and ask for an address change. The company grants this request because these individuals provide proof of identity, by confirming the person's details. As a result, the company replaces the person's card with a new one and sends it to the new fake address.
+
+**How Feedzai prevents account takeover**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction must be declined and card flagged to be limited if the transaction is performed at a high fraud rate acceptor, without card activity in the past 6 months. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the Resources section.
+  * A rule is triggered if the count of distinct devices per card in the last 24 hours exceeds threshold.
+  * A rule is triggered if, in the past hour, IP exceeds traveling velocity.
+
+
+
+## Lost & stolenâ
+
+The lost & stolen scenario occurs when a person is victim of physical theft, i.e. a criminal accesses the victim's pocket or purse and uses the card for unauthorized transactions. These individuals use the card until the cardholder reports to the issuing bank, which blocks the account.
+
+**How Feedzai prevents lost & stolen**
+
+Since within this type of scenario it is common for criminals to make many transaction in short periods of time, other rules capture user patterns associated with this fraud scenario. Here are some examples:
+
+  * A card must be flagged to be limited if two transactions with the same amount were performed in the same acceptor in the past 24 hours. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+  * A transaction must be declined and card flagged to be limited if the amount spent in the past 4 weeks exceeds the threshold.
+  * A transaction must be declined and card flagged to be limited if the number of distinct devices per card is exceeds the threshold.
+
+
+
+## Card phishingâ
+
+Card phishing is the act of sending fraudulent emails to extract card credential information from the victims. In these emails fraudsters pretend to be from a legitimate source by using an official company's logo and wording. Usually, the content of the email varies in nature (e.g. email compromise, urgent requests, bank account irregular activity). Fraudsters succeed at phishing when the victims access a seemingly legitimate link, which in reality is a cloned version of the official company's link.
+
+Similarly to the lost & stolen scenario, high amounts of transactions are made in a short time.
+
+**How Feedzai prevents card phishing**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction must be declined if the device is infected with malware.
+  * A transaction must be declined and card flagged to be limited if the sum amount in the last 4 weeks exceeds threshold.
+  * A card must be declined and flagged to be limited if there is a high amount transaction with an unusual currency (CNP). To understand how this is achieved with a rule included in the standard package, check the [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+
+
+
+## Skimmingâ
+
+Skimming is a type of fraud that consists in stealing a person's card details and using them in a fraudulent card, i.e. electronic copying card information to make cloned cards. Fraudsters may use several methods to do this. For instance, they may use a skimming device that swipes the victims' card information, or simply use the victim's receipts to extract the card details from there. They then proceed to create "fake plastic" cards to store the stolen victim's information.
+
+This scenario is common in touristic countries and may take place in ATMs, gas stations, restaurants, etc. Victims may only notice their card details were stolen when they go back to their home country. They confirm through the bank account movements that their card is being used to purchase goods in a different currency, i.e. the currency from the country they just visited.
+
+**How Feedzai prevents skimming**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction must be declined if the device is infected with malware. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+  * A transaction must be declined and card flagged to be limited if the number of distinct devices per card is exceeds the threshold.
+  * A rule is triggered if the distance between current and previous IP location in the last hour exceeds 1000 km.
+
+
+
+## Card-not-Present fraudâ
+
+Card-not-present (CNP) fraud is prevalent in transactions made over the internet, but may also take place over the phone. In the CNP scenario, fraudsters are able to purchase goods without a physical card, since they have already managed to access the victim's card credentials. To steal a victim's card details, fraudsters typically resort to methods such as hacking, phishing or skimming. CNP transactions are difficult to prevent due to the lack of a physical card, which makes it impossible for merchants to detect any anomalies in the card (e.g. lack of either a magnetic stripe or a chip).
+
+**How Feedzai prevents CNP fraud**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction must be declined and card flagged to be limited if total amount spent by card in the past 24 hours at single merchant (acceptor_id) exceeds the threshold.
+  * A card must be flagged to be limited if there are multiple CNP transactions in several unique merchants (acceptor_id) in the past 5 minutes. To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+  * A transaction must be declined and card flagged to be limited if number of transactions in the past 24 hours exceeds the threshold.
+
+
+
+## CNP (bot/velocity)â
+
+A bot is a software or configurable script that runs scripts over the internet and attacks e-commerce merchants and financial institutions. This is usually performed by botnets, a group of internet devices running one or more bots. Fraudsters can easily rent bots and adapt botnets (for different malicious purposes) to deploy them fast. Dozens of purchases with the same card in a short period of time (e.g. within 5 minutes) is a good example of a bot attack.
+
+**How Feedzai prevents CNP (bot/velocity)**
+
+This solution provides a set of default rules that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A transaction must be declined and card flagged to be limited if travel velocity between the last transaction and the current transaction in past hour is unreasonably high (card present). To understand how this is achieved with a rule included in the standard package, check the relevant [rule information](/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules) under the References section.
+  * A transaction must be declined and card flagged to be limited if the number of transactions and total amount spent by card in the past hour exceeds the threshold.
+  * A transaction must be declined if the number of transactions in the past 3 minutes exceeds the threshold.
+
+
+
+## Learn moreâ
+
+Now that you have learned about the most common card payment fraud scenarios, [Mapping rules to fraud scenarios](/tfrb/latest/docs/common/tfrb/rules-projects/overview#mapping-rules-to-fraud-scenarios) provides you with a detailed overview of which card rules are used to detect each of these scenarios.

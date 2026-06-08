@@ -1,0 +1,12 @@
+Source: https://cam.feedzai.com/rules/latest/search
+Title: Search the documentation
+============================================================
+
+Skip to main content
+
+[**Rule Monitoring**](/rules/latest/)[Overview](/rules/latest/docs/common/rules/overview)[User Guide](/rules/latest/docs/common/rules/user-guide)
+
+# Search the documentation
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#a2c6cdc1d7cfc7ccd6c3d6cbcdcce2c4c7c7c6d8c3cb8cc1cdcf).   
+Copyright Â© 2026 Feedzai.

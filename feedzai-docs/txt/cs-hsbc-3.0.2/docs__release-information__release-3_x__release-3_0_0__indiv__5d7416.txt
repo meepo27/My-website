@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4029
+Title: HSBC-4029 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4029
+
+### Add Reference Data fields to the Outbound workflow schemasâ
+
+FeatureFTMT-34648HSBC-4029
+
+We've added the following fields to Transfers and Digital Activity to be enriched with Account Reference Data information:
+
+New Transfers and Digital Activity Fields
+
+Field Name| Datatype| Entity  
+---|---|---  
+sender_business_start_date| Long| Accounts  
+sender_customer_occupation_status| String| Accounts  
+sender_customer_reported_income_dbl| Double| Accounts  
+sender_line_of_business| String| Accounts  
+sender_product_type| String| Accounts  
+receiver_business_start_date| Long| Accounts  
+receiver_customer_occupation_status| String| Accounts  
+receiver_customer_reported_income_dbl| Double| Accounts  
+receiver_line_of_business| String| Accounts  
+receiver_product_type| String| Accounts  
+  
+We've added the following fields to the Account Reference Data API:
+
+New Fields
+
+Field Name| Datatype| Entity  
+---|---|---  
+business_start_date| Long| Accounts  
+customer_occupation_status| String| Accounts  
+customer_reported_income_dbl| Double| Accounts  
+line_of_business| String| Accounts  
+product_type| String| Accounts

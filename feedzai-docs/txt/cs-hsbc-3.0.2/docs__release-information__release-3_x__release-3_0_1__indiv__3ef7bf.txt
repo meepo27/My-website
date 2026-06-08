@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.1/individual-release-notes/HSBC-4358
+Title: HSBC-4358 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4358
+
+### Fix database error preventing SLAs from breachingâ
+
+Bug FixFTMT-36820HSBC-4358
+
+Also In:2.11.3
+
+We've fixed an inconsistency between database column sizes that prevented SLAs from breaching when Case Manager was deployed on machines with very long hostnames (70 or more characters).

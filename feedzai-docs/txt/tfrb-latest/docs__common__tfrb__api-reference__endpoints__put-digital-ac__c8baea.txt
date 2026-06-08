@@ -1,0 +1,50 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-digital-activity-feedback
+Title: Feedback | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Digital ActivityÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/digital-activity)
+  * Feedback
+
+
+
+Was this page helpful?Â 
+
+# Feedback
+    
+    
+    PUT 
+    
+    ## /api/activity/digital/:lifecycle_id/feedback/:feedback_label
+
+The Feedback endpoint allows you to label digital activity events, for instance, as 'Fraud' or 'Not Fraud'. The labeling of an event is highly recommended since it gives feedback so that Feedzai's risk engine can learn and consolidate fraud patterns
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 404
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+Transaction was not found
+
+The system encountered an unexpected internal error.

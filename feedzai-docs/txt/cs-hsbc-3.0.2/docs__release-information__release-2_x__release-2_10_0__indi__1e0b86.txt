@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3393-Add-back-pulse-configure-and-case-manager-configure-tags-to-Pulse-and-Case-Manager-810-Ansible-tasks
+Title: HSBC-3393-Add-back-pulse-configure-and-case-manager-configure-tags-to-Pulse-and-Case-Manager-810-Ansible-tasks | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3393-Add-back-pulse-configure-and-case-manager-configure-tags-to-Pulse-and-Case-Manager-810-Ansible-tasks
+
+### Add back pulse.configure and case-manager.configure tags to Pulse and Case Manager 810 Ansible tasksâ
+
+Bug FixFTMT-29677HSBC-3393
+
+Also In:2.8.22.9.1
+
+We have added back the `pulse.configure` and `case-manager.configure` tags to Pulse and Case Manager Ansible tasks `810.1`, respectively, so that these task are not skipped during Pulse or Case Manager deployment. These tasks was being skipped in releases `2.8`, `2.8.1`, and `2.9`, leading to certain Pulse server or Case Manager Ansible variables being ignored (such as Pulse Java options, which includes the Pulse server heap memory size parameter).

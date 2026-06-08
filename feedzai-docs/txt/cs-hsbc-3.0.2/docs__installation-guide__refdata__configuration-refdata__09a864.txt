@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/refdata/configuration-refdata
+Title: Configuration Recommendations | Feedzai Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+### Ansibleâ
+
+##### note
+
+Available ansible variables for running the ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+reference_data_app_port| 8080| Reference data connection port  
+reference_data_admin_port| 8081| Reference data administration connection port  
+reference_data_cassandra.tableName| feedzai_reference_data| Cassandra table name  
+reference_data_cassandra.keyspaceName| hsbc| Cassandra keyspace name  
+reference_data_cassandra.username| cassandra| Cassandra username  
+reference_data_cassandra.password| cassandra| Cassandra password  
+reference_data_cassandra.cluster| rds cluster| Cassandra cluster name  
+reference_data_cassandra.contactPoints| ["localhost:9042"]| Cassandra contact points  
+reference_data_cassandra.consistencyLevel| "LOCAL_ONE"| Cassandra consistency level  
+reference_data_cassandra.replicationStrategy| "'class':'NetworkTopologyStrategy', 'dc1': 1"| Cassandra replication strategy  
+reference_data_jwt_secret| "0jd40327td208347t02k3487t23k40t87320t"| JWT secret, needs to be set  
+reference_data_use_https| false| When `true` RDS will use https for connection  
+keyStorePath| "{{ reference_data_home_path }}/conf/keystore.jks"| Keystore path, needs to be set when reference_data_use_https is `true`  
+keyStorePassword| N/A| Keystore password, needs to be set when reference_data_use_https is `true`  
+keyStoreType| "JKS"| Key store type, needs to be set when reference_data_use_https is `true`  
+keyManagerPassword| N/A| Key manager password, needs to be set when reference_data_use_https is `true`  
+validateCerts| true| Set to validate certificates, needs to be set when reference_data_use_https is `true`  
+validatePeers| true| Set to validate peers, needs to be set when reference_data_use_https is `true`  
+supportedProtocols| [TLSv1.2]| Set supported protocols, needs to be set when reference_data_use_https is `true`  
+supportedCipherSuites| [TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256]| Set supported ciphers, needs to be set when reference_data_use_https is `true`  
+allowRenegotiation| true| Set to allow renegotiation, needs to be set when reference_data_use_https is `true`  
+reference_data_secret_value| N/A| Value used to encrypt sensitive properties  
+reference_data_properties_to_encrypt| []| List of properties to encrypt. Encrypted properties can be used by adding the suffix `_encrypted` to the original property name, i.e `<PROPERTY_NAME>_encrypted`. Doesn't support dictionary variables  
+reference_data_grace_period_ms| 30000| The number of milliseconds the service will stay available after a shutdown request is received  
+reference_data_log_level| INFO| Default log level for all components in RDS. Please note that changing this value may impact the amount of produced logs.  
+reference_data_loggers| {}| Controls extra loggers in RDS, allowing to override the default value per logger. Keys in this dictionary are the loggers and the values the log level for that logger.  
+  
+##### info
+
+There are no configuration recommendations for this service besides the ones already described in the guide.

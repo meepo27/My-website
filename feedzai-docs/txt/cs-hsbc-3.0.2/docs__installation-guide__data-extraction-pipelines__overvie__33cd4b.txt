@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/overview-dep
+Title: Data Extraction Pipelines Overview | Feedzai Documentation
+============================================================
+
+On this page
+
+# Data Extraction Pipelines Overview
+
+## Data Extraction Pipelinesâ
+
+In order to feed the FDR (Fraud Date Repository - HSBC data lake solution), it is required to export data from Case Manager.
+
+The information will be used for reporting / dashboard and audit purposes.
+
+The designed mechanism is based on [Case Manager External Notifications](https://cam.feedzai.com/case-manager/13.8.0/docs/common/configuration-guide/external-notifications/). Case Manager has the ability of notifying external systems of modifications made to its data (i.e. events and cases). These notifications are sent in the form of messages via a message broker (e.g. RabbitMQ) and then read by a set of logstash pipelines that will store the information in Google Cloud Storage bucket.
+
+### Logstash Pipelinesâ
+
+#### Case Manager real-time data exportâ
+
+Case Manager "actions" export pipeline. Reads data from RabbitMQ and stores the data in a GCS bucket. To store the data, this pipeline will use the json_lines logstash plugin.
+
+Pipeline Name| Description| Schedule  
+---|---|---  
+case-manager-cases-case| Action: new case creation| near-real-time  
+case-manager-cases-event| Action: case event(s) update| near-real-time  
+case-manager-cases-queue| Action: case queue update| near-real-time  
+case-manager-cases-status| Action: case status updates| near-real-time  
+case-manager-cases-user| Action: case assignee changes| near-real-time  
+case-manager-events-event| Action: new event arrival| near-real-time  
+case-manager-events-queue| Action: event queue change| near-real-time  
+case-manager-events-status| Action: event status change| near-real-time  
+case-manager-events-user| Action: event assignee change| near-real-time  
+  
+#### Rules Metadata informationâ
+
+Runs periodically and extract the rules metadata currently deployed in payments workflow.
+
+Pipeline Name| Schedule  
+---|---  
+rules-metadata| 0 * * * *  
+  
+#### Pulse Workflow Audit informationâ
+
+Runs periodically and extracts the workflow information for each app publish performed in the last hour.
+
+Pipeline Name| Schedule  
+---|---  
+pulse-workflow-audit| 0 * * * *  
+  
+#### Pulse Workflow Audit Recovery informationâ
+
+Runs based on events that were not correctly processed and were spilled to disk. This pipeline uses [Logstash Dead Letter Queueing System (DLQ)](https://www.elastic.co/docs/reference/logstash/dead-letter-queues).
+
+The pipeline will attempt to process the events again, taking their original timestamps to gather the necessary resource information from Pulse.
+
+Pipeline Name| Schedule  
+---|---  
+pulse-workflow-audit| On DLQ event

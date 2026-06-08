@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/adaptive_partitioning_config/
+Title: adaptive_partitioning_config - DS API
+============================================================
+
+#  `` adaptive_partitioning_config Â¶
+
+##  `` AdaptivePartitioningConfig Â¶
+    
+    
+    AdaptivePartitioningConfig(predominant_count: int = DEFAULT_PREDOMINANT_COUNT, partition_capacity: Optional[int] = None)
+    
+
+Bases: `[PartitioningConfig](../partitioning_config/#ds_api.partitioning_config.PartitioningConfig "            PartitioningConfig \(ds_api.partitioning_config.PartitioningConfig\)")`
+
+Represents an Adaptive Partitioning configuration.
+
+Create a new Adaptive Partitioning configuration.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `predominant_count` Â¶
+
+|  `int` |  The maximum number of values to compute the cardinality for when collecting statistics about the partitioning fields. By default, `AdaptivePartitioningConfig.DEFAULT_PREDOMINANT_COUNT`. |  `DEFAULT_PREDOMINANT_COUNT`  
+  
+###  `partition_capacity` Â¶
+
+|  `int` |  The maximum number of instances that should be allocated to each partition. By default, None. If this is not set, then a capacity shall be inferred automatically. |  `None`  
+  
+###  `` DEFAULT_PREDOMINANT_COUNT `class-attribute` `instance-attribute` Â¶
+    
+    
+    DEFAULT_PREDOMINANT_COUNT = DEFAULT_PREDOMINANT_COUNT
+    
+
+###  `` partition_capacity `property` Â¶
+    
+    
+    partition_capacity: Optional[int]
+    
+
+Get the maximum number of instances that should be allocated to each partition.
+
+###  `` predominant_count `property` Â¶
+    
+    
+    predominant_count: int
+    
+
+Get the maximum number of values to compute the cardinality for.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    

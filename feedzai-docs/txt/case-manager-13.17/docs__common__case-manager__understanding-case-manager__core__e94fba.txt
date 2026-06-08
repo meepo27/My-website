@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/slas
+Title: SLAs | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * SLAs
+
+
+
+On this page
+
+# SLAs
+
+Service Level Agreements (SLAs) allow to automatically perform actions on events and cases based on a time and schedule.
+
+SLAs work similarly toÂ automation rules, following a When-If-Then structure, and allow you to have automated processes to distribute workload. For example, you can configure an SLA that sends an alert to a specific queue depending on the time that alert has been in the system.
+
+Syntax Explanation
+
+**When** two days have passed since activated, **if** the event has not been reviewed, **then** move the event to the _Urgent_ queue.
+
+## Learn Moreâ
+
+Learn more about configuring and creating SLAs in the following sections:
+
+  * [Managing SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas)
+
+

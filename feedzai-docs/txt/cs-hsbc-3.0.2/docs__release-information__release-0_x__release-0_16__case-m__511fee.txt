@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-session
+Title: Digital Activity - Session | Feedzai Documentation
+============================================================
+
+# Digital Activity - Session  
+  
+Before:
+
+After:
+
+**Field Modifications** :
+
+Change| Field  
+---|---  
+Added| CAM Level  
+Added| Login Last Authentication  
+Fixed| BionicID  
+Removed| Account ID  
+Removed| Session First Seen

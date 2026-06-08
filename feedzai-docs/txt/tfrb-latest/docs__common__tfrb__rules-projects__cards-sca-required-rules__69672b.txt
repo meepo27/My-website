@@ -1,0 +1,366 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-sca-required-rules
+Title: Cards - SCA Required Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - SCA Required Rules
+
+
+
+On this page
+
+# Cards - SCA Required Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+This rules project is part of the [PSD2 compliance](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance) strategy offered by TFB. If this regulation does not apply to the customer's jurisdiction, this rules project can be removed from the Pulse workflow without the risk of compromising the fraud detection rate.
+
+The _Cards - SCA Required_ rules project provides a recommendation on whether Feedzai's customers should request SCA to a consumer performing a card payment.
+
+The rules within this rules project focus on transaction risk analysis defined in the PSD2 Article 18 ([download the compliance matrix](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance#compliance-matrix---download) to learn more about this article). This article establishes that issuer banks are allowed to exempt SCA when the payer initiates a remote electronic payment transaction identified by the payment service provider as low risk level. Therefore, these rules evaluate risk factors defined in Article 18 and generate the `sca_required = true` outcome when the transaction is considered risky.
+
+Note that when a rule within this rules project is triggered, the remaining rules are not evaluated (i.e. the workflow is stopped). This also includes rules within the _Cards - SCA Exemption_ rules project - the rules project that follows the _Cards - SCA Required_ block in the Pulse workflow. This mechanism prevents exemption rules to trigger on top of an SCA-required rule since the SCA exemption cannot be granted anyway.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ sca_required
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-SCAR1
+
+### Comment
+
+> Mismatch between acceptor country code and card country code and acceptor is new (6 months)
+
+### Actions
+
+  * [Cards-SCAR1]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    ((event.acceptor_country_code ?? '' != '') and (event.card_country_code ?? '' != ''))
+    and (event.auth_cardid_acceptorid_count_6 == 0) 
+    and (event.acceptor_country_code != event.card_country_code)
+
+### Explanation
+
+> [Cards-SCAR1] - SCA Required - There's a mismatch between the Acceptor country ({event.acceptor_country_code}) and the Card Country ({event.card_country_code}) and Acceptor is new
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR2
+
+### Comment
+
+> Customer country changed
+
+### Actions
+
+  * [Cards-SCAR2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.customer_country_code_change_f ?? false
+
+### Explanation
+
+> [Cards-SCAR2] - SCA Required - Customer country changed
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR3
+
+### Comment
+
+> Customer email changed
+
+### Actions
+
+  * [Cards-SCAR3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.customer_email_change_flag ?? false
+
+### Explanation
+
+> [Cards-SCAR3] - SCA Required - Customer email changed
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR4
+
+### Comment
+
+> Customer phone changed
+
+### Actions
+
+  * [Cards-SCAR4]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.customer_phone_change_flag ?? false
+
+### Explanation
+
+> [Cards-SCAR4] - SCA Required - Customer phone changed
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR5
+
+### Comment
+
+> Currency changed and MCC is new (6 months)
+
+### Actions
+
+  * [Cards-SCAR5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+     event.auth_cnp_currency_changed_24h == 1 and event.auth_cardid_mcc_count_6m == 0
+
+### Explanation
+
+> [Cards-SCAR5] - SCA Required - The currency changed ({event.currency_code}) and MCC is new ({event.mcc})
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR6
+
+### Comment
+
+> Transaction amount is higher than 90% of the card balance
+
+### Actions
+
+  * [Cards-SCAR6]
+
+
+
+### Variables
+    
+    
+    RATIO_AMOUNT_BALANCE_LIMIT = cards__rules_thresholds["max_sca_ratio_amount_balance"].threshold;
+    
+    formatted_ratio = RATIO_AMOUNT_BALANCE_LIMIT * 100;
+
+### Condition
+    
+    
+    event.cardholder_bill_amount ?? 0 != 0 
+      and event.card_available_balance ?? 0 != 0 and
+    Maths.safeDivision(event.cardholder_bill_amount,event.card_available_balance) >= RATIO_AMOUNT_BALANCE_LIMIT
+
+### Explanation
+
+> [Cards-SCAR6] - SCA Required - This transaction exhausted {localvar.formatted_ratio} % or more of the available card balance.
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR7
+
+### Comment
+
+> Password changed more than 2 times (24hours)
+
+### Actions
+
+  * [Cards-SCAR7]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_count_pw_changed_24h"].threshold;
+
+### Condition
+    
+    
+    event.auth_cnp_cardid_count_pw_chang >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-SCAR7] - SCA Required - The password changed {localvar.COUNT_LIMIT} or more times in the last 24 hours
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR8
+
+### Comment
+
+> Device language changed and IP country code or device id are new (6 months)
+
+### Actions
+
+  * [Cards-SCAR8]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.auth_device_language_changed_2 == 1 and (event.auth_cardid_device_ip_country_ == 0 or event.auth_cardid_deviceid_count_6m == 0)
+
+### Explanation
+
+> [Cards-SCAR8] - SCA Required - In the last 24 hours, device language changed and device ip country or device id are new
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR9
+
+### Comment
+
+> Authentication type changed and login session_id changed and MCC is new (6 months)
+
+### Actions
+
+  * [Cards-SCAR9]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.auth_cnp_login_session_id_chan == 1 and event.auth_cnp_auth_type_changed_24h == 1 and event.auth_cardid_mcc_count_6m == 0
+
+### Explanation
+
+> [Cards-SCAR9] - SCA Required - In the last 24 hours the authentication type and login session_id changed and MCC is new
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR10
+
+### Comment
+
+> Transaction amount higher than average amount per transaction in mcc (1 month)
+
+### Actions
+
+  * [Cards-SCAR10]
+
+
+
+### Variables
+    
+    
+    Ratio = Maths.safeDivision((event.cardholder_bill_amount ?? 0)*1.0,event.auth_cardid_mcc_avg_amount_1m);
+    RATIO_LIMIT = cards__rules_thresholds["max_ratio_amount_avg_amount_card_mcc_1m"].threshold;
+    
+    ratio_for_explanation = (RATIO_LIMIT - 1) * 100;
+
+### Condition
+    
+    
+    Ratio >= RATIO_LIMIT
+
+### Explanation
+
+> [Cards-SCAR10] - SCA Required - Transaction amount is at least {localvar.ratio_for_explanation} % higher than this card's average transaction amount at this MCC
+
+### Mark As
+
+The outcome of this rule is: **true**
+
+## Cards-SCAR11
+
+### Comment
+
+> Proxy has been detected
+
+### Actions
+
+  * [Cards-SCAR11]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    event.proxy_flag ?? false
+
+### Explanation
+
+> [Cards-SCAR11] - SCA Required - Proxy has been detected
+
+### Mark As
+
+The outcome of this rule is: **true**

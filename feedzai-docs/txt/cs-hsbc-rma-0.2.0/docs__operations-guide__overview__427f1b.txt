@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/overview
+Title: Operations Guide | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Operations Guide
+
+Welcome to the Feedzai Operations Guide. In this document you will find useful information on how to operate Feedzaiâs products.
+
+## Monitoringâ
+
+  * [Building a Monitoring Solution](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-solution)
+  * [Monitoring Feedzai Services](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/on-prem-monitoring)
+  * [Monitoring Third-Party Services](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/thirdparty-monitoring)
+  * [Monitoring the Infrastructure](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/infra-monitoring)
+
+

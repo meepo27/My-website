@@ -1,0 +1,165 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/ad-hoc-customer-investigations
+Title: Ad-hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * [Analyze Events](/tfrb/latest/docs/common/tfrb/investigate-alerts/select-and-analyze-events)
+  * Ad-hoc Customer Investigations
+
+
+
+On this page
+
+# Ad-hoc Customer Investigations
+
+Was this page helpful?Â 
+
+Ad-hoc customer investigations provide fraud prevention agents with a generic investigation page to log any intelligence gathered from investigations outside the usual event flow. These events allow agents to leave notes and attachments, track the status of investigations and add them to a case.
+
+About widgets
+
+This page documents the available widgets in a standard order; however, the order in Case Manager may vary depending on your setup. Use the table of contents on the right to navigate to widget-specific documentation and learn more about the information available in each section.
+
+## Assign alerts to yourselfâ
+
+Before starting the investigation process, start by assigning a single or a set of alerts to yourself.  The product can be configured to prevent fraud prevention agents from performing any action on an alert until it is assigned either to them or to another agent. In turn, this prevents different agents from reviewing the same alert at the same time.
+
+To unlock the event, open the **Unassigned** dropdown in the header and select **Assign to me.**
+
+Assign alerts to other agents
+
+The **Choose Assignee** option is only available to some users upon a specific permission.
+
+In addition, you can use the **Assign All** option to assign all linked alerts to yourself. This enables you to easily act on, for example, all unreviewed alerts from the same customer at the same time.
+
+When assigning all linked alerts, a new widget is added to the **Event Details** page with the list of linked alerts to better support the investigation process.
+
+Depending on the configuration, there may be a limit to the number of linked alerts that can be assigned at once. If a limit is set and the **Assign All** action exceeds that number, a message appears specifying how many alerts were assigned.
+
+The remaining alerts that were not assigned to you during this action will remain available for you or another agent to assign and review.
+
+info
+
+The criteria that links the alerts is defined during the product's configuration.
+
+Alternatively, you can also assign alerts in the **Alerts** page or in the Event Details page by selecting the **More actions** drop-down menu and then the **Assign to me** option. Assigning multiple alerts is helpful to, for example, assign all alerts from a specific queue to yourself.
+
+assign-and-lock rules
+
+**Fraud Prevention Agents - L1** and **Fraud Prevention Agents - L2** need to assign alerts to themselves to act on them.
+
+**Fraud Prevention Agents - L2** and **Fraud Prevention Managers** can reassign to themselves alerts that have already been assigned to other agents.
+
+Only **Fraud Prevention Managers** can act on alerts assigned to other agents; therefore, they don't need to assign alerts to themselves.
+
+## Event headerâ
+
+The following fields provide general information about the event to the fraud prevention agent:
+
+  * **Event ID** : The event's ID, which can be copied to share with other agents or track later in the system.
+  * **Assignee** : Indicates if the event is assigned to an agent. The dropdown button lets you assign the event.
+  * **Labeling** : Includes the final decisions an agent can take after investigating a customer. The possible options are:
+    * **Drop**
+    * **Confirm Drop** (in case another agent had already dropped the event)
+    * **Action**
+  * **Alerted** : Indicates whether the ad-hoc event comprises an alert (e.g. triggered one or more alerting rules).
+  * **Date** : The date and time the ad-hoc investigation was generated for that customer.
+  * **Customer ID** : The unique ID number of the customer under investigation.
+  * **Customer Name** : The name of the customer under investigation.
+  * **Fraud Operational Status** : Indicates the ad-hoc investigation stage. Possible values are:
+    * **Unreviewed** : Has not undergone investigation.
+    * **In progress** : Under review by an agent.
+    * **On hold** : Temporarily paused while waiting for extra information.
+    * **Closed** : Final status after making a decision.
+  * **Analyst Decision** : The decision to either take action or drop the event. The possible values are:
+    * **Action taken** (i.e. risky)
+    * **Dropped** (i.e. not risky)
+  * **Reasons** : Indicates the reasons why the agent considered the alert irrelevant (**Dropped**) or needed further investigation (**Action taken**).
+  * **Queue** : Indicates in which queue the ad-hoc investigation event is, based on the investigation priority. [Queues](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-queues) can be configured by a fraud prevention manager.
+
+
+
+## Summaryâ
+
+### Customer Detailsâ
+
+This widget contains information about the customer under investigation, such as the customer ID, customer email and phone number.
+
+You may also come across a situation that requires adding the customer to a list, or reviewing the customer if they are already in a list. Information fields that are eligible for lists have the **Update Lists** icon. Selecting the icon opens the **Update Lists** dialog.
+
+### Investigation Detailsâ
+
+This widget shows where the investigation originated from and the reasons for creating the ad-hoc customer investigation.
+
+## Transaction Activityâ
+
+### Transaction Historyâ
+
+This widget displays the transactional events associated with the alert under investigation. It places alerts in a more general picture, thus allowing agents to act upon them in a more efficient way.
+
+Available data varies depending on the value or combination of values selected to fine-tune your results. For instance, by selecting _Customer Name_ , the list shows all transactions made by the same customer as the event under investigation.
+
+note
+
+Note that you must _select at least one value_ for transactional data to be displayed.
+
+Additionally, you can reduce the volume of information by selecting a time window, which allows you to choose the period appropriate to your analysis (e.g. Last year, Last day, Last month).
+
+It helps uncover fraud evidence such as:
+
+Description| Examples and details  
+---|---  
+Multiple same amount transactions within a small timeframe| Over 10 transactions of the same amount were alerted for the same Customer Name within 30 minutes.  
+High number of fraudulent past transactions| Customer has had over 15 transactions marked as **Fraud** in the past, indicating there's a high likelihood of suspicious behavior.  
+  
+tip
+
+On top of the information available on the **Transaction History** widget, you can refer to:
+
+  * The **Notes** widget to check if the parties involved were recently contacted and any other information previously left by other agents, for example, when investigating related alerts or the customer.
+  * Your internal systems to check for other transactions by the same customer that werenât alerted (as the information in this widget only refers to alerted transactions). This can help you uncover patterns that might otherwise not look fraudulent/suspicious.
+
+
+
+## Alert Activityâ
+
+### Attached Filesâ
+
+This widget also provides a convenient storage for any information that is not currently represented or supported by Case Manager's interface. It allows you to add information that may be useful to support the investigation and for subsequent investigation steps, legal action, or auditing.
+
+You can use this widget to **upload** , **download** and/or **delete** files, as well as **update** files (e.g. to the latest version) by selecting the update  icon.
+
+### Notesâ
+
+While investigating alerts, you may need to document any steps taken during your investigation to share with other agents that may look into the same alert. To do so:
+
+  1. Select **Add Note**.
+  2. Select what your note refers to (e.g. event, merchant, customer). Note that depending on the option selected, you might need to enter additional information
+  3. Enter your **Note**.
+  4. Select **Save**.
+
+
+
+All notes added to the alert (either by you or another agent) are then displayed in this widget, allowing you to check, for example:
+
+  * If the parties involved were recently contacted.
+  * If other agents flagged any related alerts or information that might impact your decision.
+  * If additional information has been requested and hasn't yet been received.
+
+
+
+### Activity Logâ
+
+This widget displays the different actions performed in relation to the alert. For example, attached files, notes added, updates to lists, etc.
+
+You can use the dropdown at the top right to filter the list by different actions, such as **Event created** or **Status**.
+
+## Next stepsâ
+
+  * Learn how to [manage cases](/tfrb/latest/docs/common/tfrb/investigate-alerts/manage-cases).
+  * [Classify Events](/tfrb/latest/docs/common/tfrb/investigate-alerts/classify-events) as "Fraud" or "Not Fraud".
+
+

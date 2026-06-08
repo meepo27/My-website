@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/jupyterlab-persistent-notebooks
+Title: How to persist JupyterLab notebooks | Feedzai RMA Documentation
+============================================================
+
+# How to persist JupyterLab notebooks
+
+##### warning
+
+This page is only applicable to Pulse Data Science installations
+
+This is Feedzai's proposed solution to persist JupyterLab notebooks when VM boot disks are deleted upon VM recreation.
+
+A new JupyterLab docker container spawns for each user that accesses it, allowing management of notebooks per-user. Those Docker containers have a volume bound to the host - Pulse DS.
+
+When Pulse DS bootable disk is persistent, user notebooks are kept on VM recreation. In cases where the host bootable disk is not persistent the notebooks will be lost on machine recreation. To mitigate this problem Pulse DS instances can be configured to have two different disks:
+
+  * A non-persistent bootable disk. Pulse can be installed / configured in this disk since those steps should be achievable by the original image.
+  * A persistent disk that is attached to Pulse VMs during VM creation
+
+
+
+The persistent disk mount target should be set to the directory where Pulse DS stores user notebooks (`/opt/feedzai/pulse/jupyterlab`). This ensures that, when a docker container is spawn, Jupyter Lab working directory for that specific user will be mapped to the persistent disk and will load its notebooks, even if Pulse DS VM was recreated.
+
+To create and mount non-boot disks on Linux VMs follow the steps in [Add a persistent disk to your VM](https://cloud.google.com/compute/docs/disks/add-persistent-disk#format_and_mount_linux). After mounting the persistent disk, permissions on mount target should be set to the following:
+
+  * owner should be user `feedzai`
+  * group should be group `1450` which is the group id mapping to group `feedzai-jupyterlab` in the docker containers
+
+
+
+> ð **Note:** Google recommends the non-boot to be formatted as `ext4`. Doing so will create a `lost+found` file which breaks JupyterLab when Pulse tries to create the docker containers.
+> 
+> To prevent this from happening permissions for this file should be change by running the following command:
+> 
+> `sudo chmod 6776 /opt/feedzai/pulse/jupyterLab/lost+found/`
+
+After everything is set up, validate installation by opening JupyterLab from Pulse DS UI and create/edit notebooks.
+
+> ð **Note:** If `Permission denied` pop up appears to the user when creating or saving a notebook, the error is likely due to permission changes during the persistent disk mount.
+> 
+> If SSH to the machine is enabled one can verify this by using `ls -la /opt/feedzai/pulse/jupyterLab`. The results should have every file and directory (aside from the top directory) with owner `feedzai` and group `feedzai-jupyterlab`.
+> 
+> To set proper permissions run the following command:
+> 
+> `sudo chown feedzai:1450 -R /opt/feedzai/pulse/jupyterLab`

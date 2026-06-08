@@ -1,0 +1,571 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-fraud-rules
+Title: Digital Activity - Fraud Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Digital Activity - Fraud Rules
+
+
+
+On this page
+
+# Digital Activity - Fraud Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Fraud Rules_ look for common fraud patterns in digital events (non-financial events). If triggered, the rules included in this rules project mark the event as `high`, `medium` or `low` risk. Decision Rules block will then provide the final recommendation to whether a financial institution should accept, challenge, or decline a given event, according to the correspondent risk level. Check [Decision Rules](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-decision-rules) for more details about Feedzaiâs final recommendation.
+
+info
+
+Note that events marked as `medium` or `low` risk do not trigger an alert in TFBâs pre-packaged resource, but this option is configurable.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Digital Activity - FR1
+
+### Comment
+
+> Login attempt from a Device Id linked to multiple customers (last 7d) and with a high number of logins (last 90m)
+
+### Actions
+
+  * [DA-FR1]
+
+
+
+### Variables
+    
+    
+    max_customers_per_device = digital_activity__rules_thresholds['max_customers_per_device'].threshold; 
+    
+    max_logins_per_device = digital_activity__rules_thresholds['max_logins_per_device'].threshold; 
+
+### Condition
+    
+    
+    //Filters
+    (event.device_id ?? '' != '') and (event.customer_id ?? '' != '') 
+    and 
+    (event.event_type == 'authentication' and event.challenge_requested != true)
+    and
+    //Limits  
+    event.distinct_customer_id_per_devic >= max_customers_per_device 
+    and 
+    event.count_logins_per_device_id_90m >= max_logins_per_device  
+      
+
+### Explanation
+
+> [DA-FR1] - Medium Risk - Multiple customers per device, last 7d, ({{event.distinct_customer_id_per_devic}}) above [{localvar.max_customers_per_device}] and logins, last 90m, ({event.count_logins_per_device_id_90m}) above [{localvar.max_logins_per_device}]
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR2
+
+### Comment
+
+> Login attempt from an IP Address linked to multiple customers and with a high number of login attempts, in the last hour
+
+### Actions
+
+  * [DA-FR2]
+
+
+
+### Variables
+    
+    
+    max_customers_per_ip_addr = digital_activity__rules_thresholds['max_customers_per_ip_addr'].threshold; 
+    
+    max_logins_per_ip_addr = digital_activity__rules_thresholds['max_logins_per_ip_addr'].threshold; 
+
+### Condition
+    
+    
+    //Filters
+    (event.device_ip_address ?? '' != '') and (event.customer_id ?? '' != '') 
+    and 
+    (event.event_type == 'authentication' and event.challenge_requested != true) 
+    and 
+    //Limits
+    event.distinct_customer_id_per_devsr >= max_customers_per_ip_addr 
+    and 
+    event.count_logins_per_device_ip_asr >= max_logins_per_ip_addr  
+      
+
+### Explanation
+
+> [DA-FR2] - Medium Risk - Multiple customers per IP, last 1h, ({event.distinct_customer_id_per_devsr}) above [{localvar.max_customers_per_ip_addr}] and logins attempts ({event.count_logins_per_device_ip_asr}) above [{localvar.max_logins_per_ip_addr}]
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR3
+
+### Comment
+
+> Login attempt from an unseen device with a high number of failed login attempts, in the last 90m 
+
+### Actions
+
+  * [DA-FR3]
+
+
+
+### Variables
+    
+    
+    max_failed_logins_per_device = digital_activity__rules_thresholds['max_failed_logins_per_device'].threshold; 
+    
+    min_succ_logins_per_account = digital_activity__rules_thresholds['min_succ_logins_per_account'].threshold; // min of 10 logins per week  
+
+### Condition
+    
+    
+    //Filters
+    (event.device_id ?? '' != '')
+    and 
+    (event.event_type == 'authentication' and event.challenge_requested != true)      
+    and 
+    //Account Behavior
+    event.count_succ_logins_per_accounsr >= min_succ_logins_per_account 
+    and  
+    event.count_logins_per_device_id_1m == 0 
+    and   
+    //Limits   
+    event.count_failed_logins_per_device >= max_failed_logins_per_device 
+      
+
+### Explanation
+
+> [DA-FR3] - Medium Risk - Device Id ({event.device_id}) not seen in the last month and number of failed logins per device, in the last 90m ({event.count_failed_logins_per_device}), is above limit [{localvar.max_failed_logins_per_device}] 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR4
+
+### Comment
+
+> Login attempt from an unseen IP Address with a high number of failed login attempts, in the last 90min
+
+### Actions
+
+  * [DA-FR4]
+
+
+
+### Variables
+    
+    
+    max_failed_logins_per_ip_addr = digital_activity__rules_thresholds['max_failed_logins_per_ip_addr'].threshold; 
+    
+    min_succ_logins_per_account = digital_activity__rules_thresholds['min_succ_logins_per_account'].threshold; // min of 5 logins per week  
+
+### Condition
+    
+    
+    //Filters
+    (event.device_ip_address ?? '' != '')
+    and 
+    (event.event_type == 'authentication' and event.challenge_requested != true)      
+    and 
+    //Limits
+    event.count_succ_logins_per_accounsr >= min_succ_logins_per_account 
+    and   
+    event.count_logins_per_device_ip_add == 0
+    and 
+    event.count_failed_logins_per_devisr >= max_failed_logins_per_ip_addr 
+      
+
+### Explanation
+
+> [DA-FR4] - Medium Risk - IP Address ({event.device_ip_address}) not seen in the last month and number of failed logins per IP Address, in the last 90m ({event.count_failed_logins_per_devisr}), is above limit [{localvar.max_failed_logins_per_ip_addr}] 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR5
+
+### Comment
+
+> High number of failed login attempts per account, in the last minute
+
+### Actions
+
+  * [DA-FR5]
+
+
+
+### Variables
+    
+    
+    max_failed_logins_per_account_1min = digital_activity__rules_thresholds['max_failed_logins_per_account_1min'].threshold; 
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '')
+    and 
+    (event.event_type == 'authentication' and event.challenge_requested != true)     
+    and 
+    //Limits
+    event.count_failed_logins_per_accoun >= max_failed_logins_per_account_1min  
+    
+    
+      
+
+### Explanation
+
+> [DA-FR5] - Medium Risk - Number of failed logins per account ({event.account_id}), in the last minute ({event.count_failed_logins_per_accosr}), is above limit [ {localvar.max_failed_logins_per_account_1min} ] 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR6
+
+### Comment
+
+> Login attempts from different locations than the account location are above a set threshold, in the last hour
+
+### Actions
+
+  * [DA-FR6]
+
+
+
+### Variables
+    
+    
+    max_distinct_locations_per_account = digital_activity__rules_thresholds['max_distinct_locations_per_account'].threshold;
+    
+    customer_region_to_lower_case = com.feedzai.commons.udfs.StringTools.lowerCase(event.customer_region);  
+    device_ip_region_to_lower_case = com.feedzai.commons.udfs.StringTools.lowerCase(event.device_ip_region); 
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '') and (event.customer_region ?? '' != '') and (event.device_ip_region ?? '' != '')
+    and 
+    (event.event_type == 'authentication' and event.challenge_requested != true)   
+    and 
+    customer_region_to_lower_case != device_ip_region_to_lower_case 
+    and 
+    //Limits
+    event.distinct_login_locations_per_a >= max_distinct_locations_per_account 
+      
+
+### Explanation
+
+> [DA-FR6] - Medium Risk - Login attempts ({event.distinct_login_locations_per_a}) from distinct locations than customer location ({event.customer_region}) are above [{localvar.max_distinct_locations_per_account}] 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR7
+
+### Comment
+
+> Multiple account changes in one session
+
+### Actions
+
+  * [DA-FR7]
+
+
+
+### Variables
+    
+    
+    max_account_changes = digital_activity__rules_thresholds['max_account_changes'].threshold; 
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '') and (event.session_id ?? '' != '') 
+    and 
+    event.event_type != 'authentication' 
+    and   
+    event.challenge_requested != true 
+    and 
+    //Limits
+    event.count_account_changes_per_sess >= max_account_changes 
+
+### Explanation
+
+> [DA-FR7] - Medium Risk - Number of account changes ({event.count_account_changes_per_sess}) per session ({event.session_id}) is above limit [{localvar.max_account_changes}]
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR8
+
+### Comment
+
+> Number of new payee requests per account is above a set threshold, in the last minute
+
+### Actions
+
+  * [DA-FR8]
+
+
+
+### Variables
+    
+    
+    max_new_payee_per_account_1min = digital_activity__rules_thresholds['max_new_payee_per_account_1min'].threshold; 
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '')
+    and 
+    event.event_type == 'new_payee' 
+    and 
+    event.challenge_requested != true   
+    and 
+    //Limits
+    event.count_new_payee_per_account_1m >= max_new_payee_per_account_1min 
+      
+
+### Explanation
+
+> [DA-FR8] - Medium Risk - Number of new payee requests per account ({event.account_id}), in the last minute ({event.count_new_payee_per_account_1m}), is above limit [ {localvar.max_new_payee_per_account_1min} ]
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR9
+
+### Comment
+
+> New trusted device added followed by an account change request or new payee request, in the last 24h
+
+### Actions
+
+  * [DA-FR9]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '')
+    and
+     (event.event_type == 'profile_update' or event.event_type == 'new_payee')
+    and
+     event.challenge_requested != true
+    and
+    //Previous event
+     event.account_previous_change_is_new == 1
+    
+
+### Explanation
+
+> [DA-FR9] - Medium Risk - New trusted device added followed by account change request ({event.event_type}
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR10
+
+### Comment
+
+> Failed login attempts per account followed by a successful login and an account change request, in the last 24h
+
+### Actions
+
+  * [DA-FR10]
+
+
+
+### Variables
+    
+    
+    max_failed_logins_per_account_24h = digital_activity__rules_thresholds['max_failed_logins_per_account_24h'].threshold;  
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '')
+    and 
+    event.event_type != 'authentication' 
+    and 
+    event.challenge_requested != true
+    and 
+    //Previous Event   
+    event.account_previous_activity_is_s == 1   
+    and 
+    //Limits
+    event.count_failed_logins_per_accosr >= max_failed_logins_per_account_24h  
+
+### Explanation
+
+> [DA-FR10] - Medium Risk - Failed login attempts per account ({event.count_failed_logins_per_accosr}) followed by a successful login and an account change ({event.event_type}; {event.event_sub_type}), in the last 24 hours
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR11
+
+### Comment
+
+> First successful login in the last month, followed by credentials or profile update request, in the last 24h
+
+### Actions
+
+  * [DA-FR11]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    //Filters
+    ((event.account_id ?? '' != '') and event.account_age ?? 0 > 30)   
+    and 
+    (event.event_type == 'profile_update' or event.event_type == 'credentials_update')
+    and 
+    //Previous event
+    event.account_previous_activity_is_s == 1
+    and   
+    //Account historical behavior  
+    event.count_succ_logins_per_accounsr == 0 
+
+### Explanation
+
+> [DA-FR11] - Medium Risk - First successful login in 1 month followed by an account update ({event.event_type}; {event.event_sub_type}), in the last hour 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR12
+
+### Comment
+
+> Login followed by a password reset at unusual hours, in the last 24h
+
+### Actions
+
+  * [DA-FR12]
+
+
+
+### Variables
+    
+    
+    max_account_activity_time_of_day_3m_th = digital_activity__rules_thresholds['max_account_activity_time_of_day_3m_th'].threshold; // max of 5% logins at this time of day
+    
+    min_account_activity_3m_th = digital_activity__rules_thresholds['min_account_activity_3m_th'].threshold; // min 10 logins per week = 120 logins in 3 months
+    
+    percentage_account_activity_time_of_day_3m = Maths.safeDivision(event.count_succ_logins_per_account_, event.count_succ_logins_per_accountr); 
+
+### Condition
+    
+    
+    //Filters
+    (event.account_id ?? '' != '') and (event.account_age ?? 0 > 90)  
+    and 
+    (event.event_type == 'credentials_update' and event.event_sub_type == 'password_reset')
+    and 
+    event.challenge_requested != true
+    and
+    //Previous event
+    event.account_previous_activity_is_s == 1   
+    and   
+    //Account historical behavior
+    percentage_account_activity_time_of_day_3m <= max_account_activity_time_of_day_3m_th 
+    and 
+    event.count_succ_logins_per_accountr >= min_account_activity_3m_th   
+      
+
+### Explanation
+
+> [DA-FR12] - Medium Risk - Login followed by a password reset at unusual hours ({event.event_occurred_at}). 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - FR13
+
+### Comment
+
+> Password change followed by new device request from an unusual location, different than customer location, in the last 24h
+
+### Actions
+
+  * [DA-FR13]
+
+
+
+### Variables
+    
+    
+    min_account_activity_1m = digital_activity__rules_thresholds['min_account_activity_1m'].threshold; // min 10 logins per week = 40 logins in 1 month
+    
+    customer_region_to_lower_case = com.feedzai.commons.udfs.StringTools.lowerCase(event.customer_region);  
+    device_ip_region_to_lower_case = com.feedzai.commons.udfs.StringTools.lowerCase(event.device_ip_region);  
+
+### Condition
+    
+    
+    //Filters
+    ((event.account_id ?? '' != '') and event.account_age ?? 0 > 30)  
+    and 
+    (event.event_type == 'device' and event.challenge_requested != true)  
+    and 
+    customer_region_to_lower_case != device_ip_region_to_lower_case    
+    and 
+    //Previous event  
+    event.account_previous_change_is_pas == 1 
+    and   
+    //Account historical behavior
+    event.count_login_per_account_and_ip == 0 
+    and 
+    event.count_succ_logins_per_accounsr >= min_account_activity_1m 
+
+### Explanation
+
+> [DA-FR13] - Medium Risk - Password change followed by new device request ({event.new_device_id}) from an unusual ({event.device_ip_region}) different than customer location ({event.customer_region}), in the last 24 hours 
+
+### Mark As
+
+The outcome of this rule is: **medium**

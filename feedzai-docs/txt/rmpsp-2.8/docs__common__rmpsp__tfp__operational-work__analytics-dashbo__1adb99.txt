@@ -1,0 +1,92 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/view-agent-performance-dashboard-cases
+Title: Agent Performance Review - Cases | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Manager](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview)
+  * [Analytics Dashboards Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/analytics-dashboards-guide)
+  * Agent Performance Review - Cases
+
+
+
+On this page
+
+# Agent Performance Review - Cases
+
+Fraud prevention managers need to regularly manage and measure their fraud prevention agents' performance on an individual level. The **Agent Performance Review - Cases** dashboard measures fraud prevention agents' performance, such as the case's average resolution time. The Transaction Fraud for PSPs' Analyst Performance dashboard addresses this need, and consequently allows managers to make decisions that enhance their agents' performance more efficiently.
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by fields. For instance, the `cm.first_assignee_username` field allows you to filter by a specific agent name.
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [field](/rmpsp/2.8/docs/common/rmpsp/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. To finalize the creation of your condition, enter a value.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for. 
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most common used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+The **Analyst Performance Review - Cases** dashboard provides other filters to refine your search such as:
+
+  * **Analyst**
+  * **Source type**
+  * **Case state** : Closed, Pending review, or Review in progress
+
+
+
+## Casesâ
+
+  * **Cases by assignee** : The total number of created cases.
+  * **Decision time since created** : The average decision time since the case was created.
+  * **Average decision time over the selected time range** : The distribution of the average decision time within a 24-hour period.
+
+
+
+* * *
+
+  * **Cases by assignee** : The number of cases per assignee.
+  * **Cases by status** : The number of cases in status **Closed** , **Pending** , and/or **Review in progress** over a 24-hour window.
+
+
+
+caution
+
+Note that selecting bars or line dots works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.
+
+* * *
+
+  * **Average decision time by analyst** : The average decision time per analyst over a 24-hour window.
+
+
+
+caution
+
+Note that selecting line dots works like a filter, and therefore this action results in changes to all the results of the **Analyst Performance Review - Cases** dashboard.

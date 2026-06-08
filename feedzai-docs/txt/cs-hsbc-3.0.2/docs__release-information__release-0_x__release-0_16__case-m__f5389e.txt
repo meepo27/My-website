@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-network
+Title: Transfers - Network | Feedzai Documentation
+============================================================
+
+# Transfers - Network  
+  
+Before:
+
+After:
+
+**Field Modifications**
+
+Change| Field  
+---|---  
+Fixed| IP Address  
+Renamed| Device IP Address Location -> IP City  
+Removed| Device ISP  
+Removed| Proxy

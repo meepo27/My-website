@@ -1,0 +1,51 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-slas
+Title: Configure SLAs | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * [Operationalize Fraud Teams](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview)
+  * Configure SLAs
+
+
+
+On this page
+
+# Configure SLAs
+
+Was this page helpful?Â 
+
+Service Level Agreements (SLAs) allow you to automate the organization of events into queues based on a time period. This page helps you create SLAs in Case Manager.
+
+tip
+
+**Out-of-the-box settings:** Note that Case Manager offers default configurations for SLAs. Check them [here](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/out-of-the-box-settings#slas).
+
+## Create SLAs in Case Managerâ
+
+To create SLAs in Case Manager, execute the following steps:
+
+  1. In the general menu, hover over the **Settings** icon.
+  2. Select the **SLAs** option.
+  3. Use the  button to open the SLA creation panel.
+
+
+
+The next section shows you an example of an SLA that you can add to Case Manager.
+
+### Prioritize events without analysisâ
+
+This SLA adds events to a queue when they are not analyzed within a certain period.
+
+  * **SLA name:** Event - High Priority
+  * **Description field:** Events without analysis for more than 2 hours are sent to a queue with higher priority.
+
+
+
+The following image shows you how to configure the remaining fields:
+
+## Learn moreâ
+
+The configuration of SLAs is the last step of the user journey to operationalize fraud teams. However, you may need to manually add events/alerts or cases to queues, or to manually assign fraud analysts to events/alerts or cases. You can learn more about this in [Organize Workload Manually](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/organize-workload-manually).

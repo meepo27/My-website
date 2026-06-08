@@ -1,0 +1,44 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-entity-tagging-tags
+Title: Entity Tagging Possible Tags | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Entity Tagging](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/entity-tagging)
+  * Entity Tagging Possible Tags
+
+
+
+Was this page helpful?Â 
+
+# Entity Tagging Possible Tags
+    
+    
+    GET 
+    
+    ## /api/entitytagging/:entityType/tags/categories
+
+The Get Entity Tagging Possible Tags Endpoint allows you to know what are the possible tags available to use for a particular entity type. You only need to include the Entity Type in the URL (cards, for example), and the response would include all the possible tags.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 400
+  * 401
+  * 404
+  * 500
+
+
+
+OK
+
+Bad Request
+
+Unauthorized
+
+Transaction was not found
+
+The system encountered an unexpected internal error.

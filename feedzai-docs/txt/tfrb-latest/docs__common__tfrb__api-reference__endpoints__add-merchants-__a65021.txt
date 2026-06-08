@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/add-merchants-reference-data
+Title: Reference Data: merchants | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Reference Data: merchants
+
+
+
+Was this page helpful?Â 
+
+# Reference Data: merchants
+    
+    
+    PUT 
+    
+    ## /api/referenceData/merchants/:key
+
+The Reference Data Provisioning endpoint allows you to send 'merchants' data to Feedzai that will enrich the real time scoring events.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+
+
+
+OK
+
+Unauthorized

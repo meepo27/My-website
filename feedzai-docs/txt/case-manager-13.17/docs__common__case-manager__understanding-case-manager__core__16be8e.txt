@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/alerts
+Title: Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Alerts
+
+
+
+On this page
+
+# Alerts
+
+**Alerts** are the backbone of Case Manager. Analysts can decide upon dubious events that arrive in your Fraud Management System. A transaction considered suspicious by Feedzai Pulse generates an alert that can be manually reviewed.Â Every one of these events that match patterns and present attributes defined as suspicious will trigger an **Alert** , sending the information to Case Manager.
+
+There are several reasons why alerts are very useful:
+
+  * By establishing rules for incoming transactions, you can **automatize** the creation of **Alerts** for analysts to work on.Â 
+  * **Alerts** can have **multiple reasons** (e.g. the event may be regarded as an **Alert** with two different reasons: it could trigger two differentÂ [Pulse Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules), as the values in the event can meet different rules that generate **Alerts**.
+
+
+
+## Events vs. Alertsâ
+
+Case Manager will display all events processed by Pulse.
+
+Events in Case Manager
+
+You will see all the events in Case Manager, not only the **Alerts**. This allows you to take action on events that have already been processed by Pulse and decide upon them otherwise, improving the machine-learning models and closing the feedback loop. For example, by deciding that an event marked as **Not Fraud** by Pulse was actually not legitimate.
+
+However, the **Alerts** that Case Manager displays depend on the configuration you establish in Pulse. You can specify which conditions events must meet to be considered an **Alert**.Â According to the different Pulse rules that have been configured, matching events will be marked as **Alerts**.Â 
+
+## Creating Alertsâ
+
+As there are two default actions in Pulse:Â **Block** andÂ **Accept** , and thisÂ can incur in inaccuracy and arbitrariness, Pulse rules are created to mark suspicious events: Pulse will send those events marked as **Alert.**
+
+Definining Alerts
+
+Establish the criteria to decide which events need manual review by creating rules in a [Pulse project](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/users-guide).
+
+For instance, if you want to trigger an **Alert** for any event whose amount exceeds $15, Pulse must have a rule configured as displayed in the following picture.
+
+Now, every transaction that stands by that rule will be presented as an **Alert** to analysts working with Case Manager.
+
+## Working with Alerts in Case Managerâ
+
+Once everything is correctly configured, you can manage the **Alerts** in Case Manager. Pulse rules can select Block, Accept and Alert statuses for events, meaning that even though Pulse consider those events as blocked/accepted, they will, however, require human reviewing.
+
+Every event that meets the criteria established by your rules appears in Case Manager as an **Alert**. You can then manually take action on them, assign them to analysts, group them in [Queues](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/queues), etc. You can also see theirÂ details and perform actions on them, as displayed in the following picture.
+
+When analyzingÂ **Alerts** , different sectionsÂ will show you all the relevant information that there is. You will find different sections that offer details about the eventÂ and a transaction history in which you will be able to track the changes undergone by the event.
+
+Alert Details
+
+These sections are configurable and can be adapted to show the most relevant information according to your requirements.
+
+## Learn moreÂ â
+
+For a better grasp of how alerts work, check the following pages:
+
+  * [Pulse Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules): Learn how Pulse Rules work and how you can configure them to mark events asÂ **Alerts**.
+  * [Reviewing Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-modern): Learn more about Case Manager helps you work with Â **Alerts**.
+  * [Acting on Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts): Learn how to take actions on theÂ **Alerts**.
+
+

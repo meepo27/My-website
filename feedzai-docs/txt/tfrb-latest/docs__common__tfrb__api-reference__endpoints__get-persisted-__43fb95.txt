@@ -1,0 +1,44 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-persisted-entity-tagging
+Title: Get items from list | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [List Management](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/list-management)
+  * Get items from list
+
+
+
+Was this page helpful?Â 
+
+# Get items from list
+    
+    
+    GET 
+    
+    ## /api/entitytagging/:appSlug/:listName
+
+Returns all items in a list. The endpoint is additionally set up for pagination with optional offset and limit query parameters.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 400
+  * 401
+  * 404
+  * 500
+
+
+
+OK
+
+Bad Request
+
+Unauthorized
+
+Transaction was not found
+
+The system encountered an unexpected internal error.

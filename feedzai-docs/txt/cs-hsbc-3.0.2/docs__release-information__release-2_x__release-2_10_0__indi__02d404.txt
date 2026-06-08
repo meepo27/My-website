@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3430-Add-support-for-distinct-RabbitMQ-brokers-for-Pulse-and-Case-Manager
+Title: HSBC-3430-Add-support-for-distinct-RabbitMQ-brokers-for-Pulse-and-Case-Manager | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3430-Add-support-for-distinct-RabbitMQ-brokers-for-Pulse-and-Case-Manager
+
+### Add support for distinct RabbitMQ brokers for Pulse and Case Managerâ
+
+FeatureHSBC-3430
+
+We've added support for distinct RabbitMQ brokers for Pulse and Case Manager. The following Ansible variables were changed:
+
+Component| New Ansible Variable| Old Ansible Variable  
+---|---|---  
+Pulse| `rabbitmq_casemanager_brokers`| N/A  
+Case Manager| `rabbitmq_casemanager_brokers`| `rabbitmq_brokers`  
+Logstash| `rabbitmq_casemanager_brokers`| `rabbitmq_brokers`  
+Logstash| `rabbitmq_casemanager_username`| `rabbitmq_insights_logstash_username`  
+Logstash| `rabbitmq_casemanager_password`| `rabbitmq_insights_logstash_password`  
+Logstash| `rabbitmq_casemanager_vhost_blue`| `rabbitmq_pulse_vhost_blue`  
+Logstash| `rabbitmq_casemanager_vhost_green`| `rabbitmq_pulse_vhost_green`  
+  
+Note that `rabbitmq_brokers` is still required in Pulse and defines the RabbitMQ brokers for Pulse internal communication.
+
+For more details please refer to:
+
+  * [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse)
+  * [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager)
+  * [Data Extraction Pipelines Configurations](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/configuration-dep)
+
+
+
+##### Default values for the new variables
+
+The new Ansible variables default to the variables they are replacing (e.g. `rabbitmq_casemanager_brokers` defaults to `rabbitmq_brokers`, if not defined). This means that this change is backwards compatible and the default behaviour is to continue using a single RabbitMQ for all components.
+
+For clarity, we recommend changing the variable names in the HSBC Ansible Variables files to use the new ones instead.

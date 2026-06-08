@@ -1,0 +1,132 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/pipeline-definition
+Title: Pipeline Definition | Feedzai Documentation
+============================================================
+
+On this page
+
+# Pipeline Definition
+
+In this page you can find the cleanup pipeline definition and how to configured and run it.
+
+## Cleanup Pipelineâ
+
+The cleanup pipeline is an Ansible pipeline that can be configured and executed independently of Pulse, and will run the following set of cleanup patches for each of the configured application:
+
+  * Plan executions
+  * Schemas
+  * Rule Snapshots
+  * Workflows
+
+
+
+To also enabled automation of the process, the pipeline was designed to be a one shot executor, meaning that the machine were it runs can be removed after execution and allowing it to run any number of times with different configurations.
+
+The pipeline follows the same strategy of the other components by having install and configure stages. This is useful to create an immutable image that can be used in all environments but configured individually for each. The install tasks are identified by the tag `cleanup.install` while the configuration tasks by `cleanup.configure`.
+
+Although it runs independently of Pulse it will connect to a running Pulse cluster via Zookeeper and to the metadata database to fetch the data to clean. To determine to which Pulse and Database the pipeline will connect to the `deployment_color` and `database` variables should be used.
+
+##### warning
+
+Since the pipeline will connect to Pulse via Zookeeper, the VM running it should be able to connect to Zookeper's port 2181.
+
+## Configurationâ
+
+##### info
+
+Find a detailed description of all available configurations in [Configuration Recommendations](/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/cleanup-configuration)
+
+Cleanup patch configuration depends on the patch type. The only configuration that is shared between all patches is `cleanup_apps`, which should contain the list of applications key to cleanup, where the key should match the configuration in `apps_enabled`.
+
+Please find below each patch description and configuration.
+
+### Plan executionsâ
+
+The plan executions cleanup patch removes the oldest configured plan executions while keeping the configured most recent ones:
+
+  * `cleanup_last_days`: number of days to retain. For example, if set to 30, resources that were not updated in the last 30 days are eligible for cleanup
+  * `cleanup_recent`: number of most recent resources to keep
+
+
+
+### Clean schemasâ
+
+The clean schemas patch removes schemas that are not being used in workflows, plans, rules projects, datasources and models. Similarly to the plans patch, it can be configured to remove only the oldest schemas, although it can also be configured to whitelist a set of schemas or to keep all schemas that appear on the UI:
+
+  * `cleanup_last_days`: number of days to retain
+  * `whitelist_by_name`: list of schemas names to keep
+  * `keep_ui_schemas`: `true` to keep all schemas that show on the UI, `false` otherwise
+
+
+
+### Rule Snapshotsâ
+
+Similar to the plan executions cleanup patch but to clean rules project snapshots:
+
+  * `cleanup_last_days`: number of days to retain
+  * `cleanup_recent`: number of most recent resources to keep
+
+
+
+### Workflowsâ
+
+Removes all Workflow scoring elements that have an external datasource, for example, a datasource stored on a GCS bucket. This patch does not have any additional configuration.
+
+## Executionâ
+
+Executing the pipeline is fairly straightforward and only requires the inclusion of the provided defaults and the environment specific `variables.yml` file, which can be configured in its own inventory (e.g. `project-qa/uk`).
+
+As an example, to run a cleanup on all UK applications for the last 5 days while keeping the 10 most recent executions of a resource you would need to:
+
+  1. Add a new base inventory for the portfolio/environment you are configuring, e.g. `project-qa/uk/group_vars`
+
+  2. Add a new host inventory for Cleanup, e.g. `project-qa/uk/group_vars/cleanup`
+
+  3. Inside a new variables file (`variables.yml`), under the inventory created previously, add the overrides for the specific portfolio/environment
+         
+         cleanup_apps:  
+           - uk_outbound_payments  
+           - uk_reference_data  
+           - uk_inbound_payments  
+           
+         cleanup_last_days: 5  
+         cleanup_recent: 10  
+         
+
+Copy
+
+
+
+
+Then you would need to run the pipeline as shown below:
+    
+    
+    python3.6 ansible-playbook \  
+        --connection=local \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-qa/uk \  
+        pulse-app-cleanup.yml  
+        -e deployment_color=<current_color>  
+    
+
+Copy
+
+##### info
+
+All execution logs are stored in `/opt/feedzai/cleanup/tools/commands/`
+
+## Control patch executionâ
+
+To provide greater flexibility and control over which cleanup patches are executed, app cleanup has a mechanism where cleanup patches are managed through distinct contexts instead of a single one.
+
+To control which patches are executed the `cleanup_pulse_commands_contexts` Ansible variable can be used with the following context options:
+
+  * `cleanup-plan-executions`: run the [clean plan execution patch](/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/pipeline-definition#plan-executions)
+  * `cleanup-schemas`: run the [clean schema patch](/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/pipeline-definition#clean-schemas)
+  * `cleanup-rule-snapshots`: run the [clean rule snapshots patch](/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/pipeline-definition#rule-snapshots)
+  * `cleanup-workflow`: run the [clean workflow patch](/cs-hsbc/3.0.2/docs/operations-guide/papp-cleanup/pipeline-definition#workflows)
+
+
+
+To specify multiple patch contexts each of the context should be separated by a comma. For instance, to run only schema and plan execution cleanup patches we would use `cleanup_pulse_commands_contexts: "cleanup-schemas,cleanup-plan-executions"`.

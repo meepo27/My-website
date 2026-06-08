@@ -1,0 +1,50 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide
+Title: About the User Guide | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * About the User Guide
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# About the User Guide
+
+The **User Guide** leads you on the recommended tasks you must perform in Pulse throughout the complete lifecycle of your project. It provides instructions on what you should do to perform each task and how you should keep moving forward, often complemented with examples and always providing more context and [conceptual details](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts).
+
+**Pulse** focuses on a democratization of Data Science allowing data scientists and fraud experts to use the platform without losing any of the performance that Feedzai always delivers. All of the tasks in the user journey are initiated, heavily influenced, or built around Data Science and Machine Learning This guide focuses on providing you a clear path on how you should progress from beginning to a complete project in Pulse. The **User Guide** includes the following sections.
+
+## How Pulse projects workâ
+
+Provides an overview of how Pulse is able to seamlessly integrate a Data Science stage with a Production stage, with a unified modeling and runtime environment.
+
+The main goal is to provide you with important context so that you fully understand the big picture, and how these two main stages are connected.
+
+Learn [how Pulse projects work](/pulse/latest/docs/common/pulse/users-guide/how-pulse-projects-work).
+
+## Creating a data science projectâ
+
+Helps you map typical data science stages to Pulse, so that your learning curve is minimized, and you quickly get up to speed with Pulse.
+
+The main goal is to allow you to become more productive by allowing you to focus on real data science instead of engineering.
+
+Learn how to [create a data science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project).
+
+## Deploying a project into Productionâ
+
+Teaches you to easily configure a runtime workflow to process real-time events, based on all the work accomplished during the Data Science stage.
+
+The main goal is to make it extremely simple to transport all Data Science work to Production, minimizing the effort spent on engineering issues.
+
+See [how to deploy a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production).
+
+## Working with applicationsâ
+
+Explains how you can interact with your applications through Pulse by performing actions such as importing and exporting them, publishing changes or versioning their resources.
+
+The main goal is give you an overview on Pulse applications lifecycle as well as how you can manage them throughout these stages.
+
+Read about [working with applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications).

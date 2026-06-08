@@ -1,0 +1,239 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/navigating-pulse
+Title: Navigating Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Navigating Pulse
+
+
+
+On this page
+
+# Navigating Pulse
+
+Was this page helpful?Â 
+
+This reference will help you understand how your Pulse application works and all the sections, pages and information it offers. It serves as a tool to understand how Pulse works quickly, but also as a source for consulting whenever you are not sure about the functionalities and options that Pulse offers.
+
+## Toolbarâ
+
+On the top of the screen, the toolbar displays the following information and offers the following options:
+
+Icon| Functionality| Observation  
+---|---|---  
+| Open JupyterLab IDE| Opens JupyterLab, if the integration is enabled and the current computer is set up for it.  
+| Settings|   
+| Audit|   
+| Help| Opens the lateral help panel.  
+| Administration| Opens the Administration page of Pulse, where you can perform administrative tasks like configuring clusters, security settings and multi-tenancy, viewing server logs, and so on.  
+| Log out|   
+  
+## Applicationsâ
+
+When you log in to Pulse, the first screen you see is the list of applications you have in your environment.
+
+### Application-level optionsâ
+
+Once you select an application, you can find the following application-level options using the **Options** menu located in the top-right corner, below the logout button:
+
+Let's see each of these options in more details.
+
+#### Editing the applicationâ
+
+You can **Edit** the name and the description of the application.
+
+In addition to the name and description, the following options are also available:
+
+  * **Auto-Healing** : When toggled, it monitors the state of the cluster and decides whether it needs to be repaired. If the application is in an invalid state, Pulse automatically triggers repair actions on the respective components.
+  * **Lock Simple Rules Projects** : When toggled, Pulse stops all modifications to the Simple Rules Projects, depriving fraud analysts in Case Manager from adding any new rules to Simple Rules Projects.
+
+
+
+#### Evaluation metricsâ
+
+Under **Evaluation Metrics** , you can add custom metrics to the application and use them when evaluating a model or rules. This allows you to inspect their performance based on their business value.
+
+#### Export and import optionsâ
+
+With the **Export Application** option, you can download the application in a .papp file. You can choose to export the application using the legacy version. However, it is recommended to stick with the newer implementation since it's more efficient.
+
+With the **Export Resources** and **Import Resources** options, you can download/upload resources (features, rules, models, etc.) to transfer them from one Pulse environment to another.
+
+### Application sidebarâ
+
+Once you open an application, you can navigate through its areas using the available tabs:
+
+Icon| Tab  
+---|---  
+| Data Configuration  
+| Data Science  
+| Workflows  
+| Lists  
+| Jobs  
+| Backfills  
+| History  
+  
+#### Data Configuration tabâ
+
+In the **Data Configuration** tab, you can manage [schemas](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources#data-schemas), [custom services](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows#custom-services) and [outcome combinators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator).
+
+You can  the list of resources or add  a new resource. Also, you can duplicate , delete  or configure  these resources.
+
+##### Schemasâ
+
+In the **Schemas** section, you can see the list of schemas created. You can also  enter the schemas creation screen:
+
+In here, you can see:
+
+  1. **Schema definition** : The necessary fields to create a new schema.
+  2. **Advanced options** : The advanced options will show when you click on the dropdown button.
+  3. **Actions** : The buttons to save (and create one after it, if needed) and cancel the creation of the schema.
+
+
+
+#### Data Science tabâ
+
+In the **Data Science** tab, you can create an AutoML run, or manage data sources, plans, model projects, rules projects and sandbox evaluations.
+
+You can  the list of resources or add  a new resource. Also, you can duplicate , delete  or configure  these resources.
+
+##### AutoMLâ
+
+When entering the AutoML run creation, there are two screens in which you can configure it.
+
+  1. **Data Source and Basic Settings** : Define the data source for the AutoML run, add a semantic file for tagging, and define some basic settings for the models.
+  2. **Training Configuration** : Define how the data will be split, configure which metric you want to optimize, and set advanced options for the model training.
+
+
+
+##### Data Sourcesâ
+
+When entering the **Data Source** creation, there are three screens in which you can configure it.
+
+  1. **Data Source Selection** : Define the source of the Data used.
+  2. **Data Source Preview** : Preview the first lines of the data.
+  3. **Data Source Characterization** : Configure the fields of the Data Source.
+
+
+
+##### Plansâ
+
+In the **Plans** section, you can see the list of plans created. By adding  a new plan, you can enter the plan creation screen:
+
+  1. **Plan definition** : The general fields about that Plans's information: its name and whether it is deployable.
+  2. **Advanced options** : The advanced options on the dropdown button.
+  3. **Actions** : The buttons to save (and create one after it in the dropdown arrow) and cancel the creation of the plan.
+
+
+
+You can also copy [plan operators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference) to the clipboard  in order to paste them in other plans.
+
+##### Model Projectsâ
+
+In the **Model Projects** section, you can see the list of models created. You can also add  a new model project:
+
+  1. **Model definition** : The name field of that model.
+  2. **Advanced options** : The advanced options on the dropdown button.
+  3. **Actions** : The buttons to save (and create one after it in the dropdown arrow) and cancel the creation of the plan.
+
+
+
+##### Rules Projectsâ
+
+In the **Rules** section, you can see the list of rules created. You can add  a new rules project and enter the rules creation screen:
+
+  1. **Rules Options** : The basic fields of the plan: the name, origin schema, actions and multi-tenancy configuration.
+  2. **Advanced options** : The advanced options on the dropdown button.
+  3. **Actions** : The buttons to save (and create one after it in the dropdown arrow) and cancel the creation of the rule.
+
+
+
+You can also copy rules and templates to the clipboard  in order to paste them in other rules projects.
+
+##### Sandbox Evaluationsâ
+
+When entering the screen to create a **Sandbox Evaluation** , there are three screens in which you can configure it.
+
+  1. **Data source** : Define the Data Source and outcome variable.
+  2. **Resources** : Specify the resources and the Outcome Combinator.
+  3. **Reporting** : Define the configuration for reporting.
+
+
+
+#### Workflows tabâ
+
+In the **Workflows** tab, you can manage workflows.
+
+You can  the list of workflows or add  a new workflow. Also, you can delete  workflows.
+
+##### Workflowsâ
+
+When adding a workflow, the screen shows two tabs: the configuration of the **Workflow** and the **Advanced** configuration.
+
+The **Workflows** tab allows you to configure:
+
+  1. **General fields** : Name and Origin schema.
+  2. **Workflow design** : The services and diagram.
+  3. **Actions** : The buttons to save (and create one after it in the dropdown arrow) and cancel the creation of the plan.
+
+
+
+The **Advanced** tab allows you to configure:
+
+  1. **Actions configuration** : The actions and listeners.
+  2. **Event storage and recover**.
+  3. **Partition Keys definition**.
+  4. **Properties definitions**.
+  5. **Advanced options** : The advanced options on the dropdown button.
+  6. **Actions** : The buttons to save (and create one after it in the dropdown arrow) and cancel the creation of the rule.
+
+
+
+#### Lists tabâ
+
+In the **Lists** tab, you can see all of the lists created.
+
+You can  for a list or add  a new one. Also, you can delete  or configure  these resources. In addition, you can see if a list is simple  or complex .
+
+##### Listsâ
+
+When adding  a new list, the following screen appears, in which you will be able to specify:
+
+  1. **List definition** : The general information of that list.
+  2. **Key Type** : whether string or number.
+  3. **Advanced Options** : The advanced options through a dropdown button.
+  4. **Actions** : The buttons to save (and create one after it in the dropdown arrow) and cancel the creation of the rule.
+
+
+
+#### Jobs tabâ
+
+In the **Jobs** tab, you can see job executions, registered jobs and job configuration profiles:
+
+  2. **Jobs executions:** List of jobs that have been executed.
+  3. **Registered Jobs:** List of jobs scheduled to run as configured in the scheduled metrics jobs.
+  4. **Job Configuration Profiles:** List of profiles including the Pulse Properties Profile which has the configurations that are loaded from a source file (e.g. pulse.properties), and Job Profiles with custom configurations.
+
+
+
+You can also  the list of jobs and you can use the button  to associate a profile to a resource type.
+
+#### Backfills tabâ
+
+In the **Backfills** tab, you can see the list of backfill jobs and manually manage the backfill jobs queue:
+
+In the **Trigger Backfill** section, you can configure and manually trigger a new backfill job.
+
+In the **Triggered Jobs History** table you can review the list of backfill jobs, including their status, start and end time, trigger method, and the affected metrics. You can also cancel a backfill job that is in progress.
+
+#### History tabâ
+
+In the **History** tab, you can see the history of your resources and interact with it.
+
+You can see the associated operations  or revert  that change.
+
+## Help panelâ
+
+On the right side of the screen in Pulse's interface, you can open a lateral panel giving further information on the actions you can perform on the screen that is shown. This panel helps you understand the concepts in each of the interface's tabs and links to a complete online documentation regarding that matter.
+
+To open this panel, select the **Help** button in the toolbar.

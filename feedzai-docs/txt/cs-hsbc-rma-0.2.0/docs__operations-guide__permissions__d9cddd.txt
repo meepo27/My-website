@@ -1,0 +1,589 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/permissions/
+Title: Permissions Guide | Feedzai RMA Documentation
+============================================================
+
+# Permissions Guide
+
+Â 
+
+  
+
+
+Functionality Tool| Action| Permission| Description| **Fraud Prevention Agents â L1**| **Fraud Prevention Agents â L2**| **Fraud Prevention Manager**| **Fraud Strategist**| **Fraud Strategist Manager**| **Monitoring and Auditing**  
+---|---|---|---|---|---|---|---|---|---  
+**Case Manager and Pulse****Common Permissions**|  Login| cm:loginpulseviews:login| Lets the user log into pulse and case manager.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+**Case Manager****Events**|  View| cm:resource:event:read:*| Lets the user read an event.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Update| cm:resource:event:update:*| Lets the user update events.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+Assign/Unassign Event| cm:resource:event-user:create:* - **Backend** cm:action:event-user:create:* - **Frontend**|  Lets the user assign users to event.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:assign:*| Gives the user rights to assign an event that is already assigned to another user to itself. Permission only relevant for Assign and Lock.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:action:event-case:delete:*| Lets the user unlink events from cases.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+Notes| cm:resource:event-note:create:* - **Backend** cm:action:event-note:create:* - **Frontend**|  Lets the user create notes in events.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+(1) cm:action:event-note:read:*(2) cm:resource:event-note:read:*| (1) Lets the user see Event Notes widget in events details page. (2) Lets the user see notes in events.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+**Yes**  
+Move to Queue| cm:resource:event-queue:create:* - **Backend** cm:action:event-queue:create:* - **Frontend**|  Lets the user move events to queues.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+Move to Close| cm:action:manual-close-alert| Lets the user manually move events to close status| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Resource Manager| cm:resource:manager:*| Gives the user rights to have all actions permissions even if is not assigned the event. Permission only relevant for Assign and Lock.| **Yes**| **Yes**| **Yes**| **Yes**| **No**| **Yes**  
+Export/download search  
+results| cm:resource:event-export:read:*| Lets the user export the results.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+cm:action:event-export:create:*| Lets the user see the export button.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+Status| cm:action:event-status:create:*| Lets the user set event statuses| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:status:read:*| Lets the user read event status options.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+  
+  
+  
+  
+Files| (1) cm:resource:event-file:create:*(2) cm:resource:file:create:*| (1) Lets the user create N-to-N relations between events and files.(2) Lets the user create files.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+cm:resource:file:read:*| Lets the user read files.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+cm:resource:file:update:*| Lets the user update an existing file.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:file:delete:*| Lets the user delete an existing file| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+(1) cm:resource:file:event-file:create:*(2) cm:resource:file:event-file:update:*| Lets the user upload an existing file in Event Details page (Attached Files widget).Lets the user update an existing file in Event Details page(widget: Attached Files).| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+**No**  
+cm:resource:file:event-file:read:*| Lets the user list all the files associated with an event.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+Locale| cm:resource:locale:create:*| Lets the user create locales.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:locale:read:*| Lets the user read locales.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+cm:resource:locale:update:*| Lets the user update locales.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:locale:delete:*| Lets the user delete locales.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+Users| cm:resource:user:read:*| Lets the user read available users.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+  
+  
+  
+**Case Manager****Lists**|   
+  
+View| cm:resource:list:search:*| Lets the user search for entities in lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+cm:section:settings-lists:read:*| Lets the user see List Management option in the menu Settings section.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+cm:action:view-entity-audit:read:*| Lets the user view the "view-entity-audit" inline action.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Update| cm:resource:list:update:*| Lets the user update lists content and values.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+  
+Create| cm:action:add-entity:create:*| Lets the user add a EntityValue to a List.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+cm:action:event-list:create:*| Lets the user add events to lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| cm:action:remove-entity:delete:*| Lets the user remove an EntityValue from the List.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+  
+Posneg| cm:action:event-posneg:create:*| Lets the user add events to posneg lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+cm:resource:event-posneg:create:*| Lets the user create posneg lists for events.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+cm:resource:event-posneg:read:*| Lets the user read posneg lists for events.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+  
+  
+  
+**Case Manager****SLAs**|   
+View SLAs| cm:resource:sla:read:* - **Backend** cm:section:settings-slas:read:* - **Frontend**  
+|   
+Lets the user read SLAs. | **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+**Yes**  
+  
+Create SLAs| cm:resource:sla:create:* - **Backend** cm:section:settings-slas:create:* - **Frontend**|   
+Lets the user create SLAs. | **No**| **No**| **Yes**| **No**| **No**| **No**  
+**No**  
+  
+Edit SLAs| cm:resource:sla:update:* - **Backend** cm:section:settings-slas:update:* - **Frontend**|   
+Lets the user update SLAs. | **No**| **No**| **Yes**| **No**| **No**| **No**  
+**No**  
+  
+Delete SLAs| cm:resource:sla:delete:* - **Backend** cm:section:settings-slas:delete:* - **Frontend**|   
+Lets the user delete SLAs. | **No**| **No**| **Yes**| **No**| **No**| **No**  
+**No**  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+**Case Manager****Cases**  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+|   
+  
+View Cases| cm:resource:case:read:* - **Backend** cm:section:case:read:* - **Frontend**|  Lets the user read cases.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+cm:section:case-details:read:*| Lets the user see the Case Details page.| **No**| **Yes**| **Yes**| **No**| **Yes**| **Yes**  
+cm:section:case-details:*| Lets the user access all case-details pages and functionalities.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Search Cases| cm:section:case-search:*| Lets the user search for cases| **No**| **Yes**| **Yes**| **No**| **Yes**| **Yes**  
+Create Cases| cm:resource:case:create:* - **Backend** cm:section:case:create:* - **Frontend**|  Lets the user create cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Update case| cm:resource:case:update:* - **Backend** cm:section:case:update:* - **Frontend**|  Lets the user update cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Delete case| cm:resource:case:delete:*| Lets the user delete cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Assign Case| cm:resource:case-user:create:*| Lets the user assign users to cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+  
+Link events/alerts to cases  
+  
+  
+  
+| cm:action:event-case:create:*| Lets the user link events to case.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:event-case:create:*| Lets the user add events to cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:event-case:delete:*| Lets the user delete events in cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:event-case:read:*| Lets the user read events in cases.| **No**| **Yes**| **Yes**| **No**| **Yes**| **Yes**  
+cm:resource:event-case:update:*| Lets the user update events in cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Move case to queue| cm:resource:case-queue:create:*| Lets the user create queues for cases.  
+| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Set case status| cm:action:case-state:create:*| Lets the user open or close case states for cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+Upload/Download Files| (1) cm:resource:case-file:create:*(2) cm:resource:file:case-file:read:*| (1) Lets the user upload file in Case Details.(2) Lets the user download file in Case Details.| **Yes**| **Yes**| **Yes**| **No****Yes**| **No****Yes**| **No****Yes**  
+  
+Files| cm:resource:case-details:create:*| Lets user list all the files associated with the current case.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:resource:file:case-file:update:*| Lets the user update file in Case Details.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+Channels| cm:action:case*-global:read:*| Lets the user see channels in cases.| **No**| **Yes**| **Yes**| **No**| **Yes**| **Yes**  
+cm:action:case-global:create:*| Lets the user select channels in cases.Note that, for Omnichannel Multichannel, the channel field should be hidden and for Omnichannel Single channel (Default), visible.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+Export| (1) cm:action:case-export:create:*(2) cm:resource:case-export:read:*| (1) Lets the user see the export button (2) Lets the user export the results from the cases search page, or any other table that only uses those cases fields.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+Notes| (1) cm:action:case-note:create:* - **Frontend** cm:resource:case-note:create:* - **Backend**(2) cm:action:case-note:read:* - **Frontend** cm:resource:case-note:read - **Backend**(3) cm:resource:case-note:update(4) cm:resource:case-note:delete| (1) Lets the user add a note to a case in the Case Details page.(2) Lets the user see case notes on Notes widget.(3) Lets the user update notes in cases.(4) Lets the user delete notes in cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+States| cm:resource:case-state:create:*| Lets the user create states for cases.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+  
+  
+  
+  
+Casetype| cm:resource:casetype:<CASE_TYPE_NAME>:read(e.g cm:resource:casetype:fraud:read)| Gives read-level permission over the case type given by <CASE_TYPE_NAME>, where the case type name is given by the configured case type name without the type. prefix (example: for a configured case type of type.aml, the permission is cm:resource:casetype:aml:read)| **No**| **Yes**| **Yes**| **No**| **Yes**| **Yes**  
+cm:resource:casetype:<CASE_TYPE_NAME>:write(e.g cm:resource:casetype:fraud:write)| Gives both read and write-level permission over the case type given by <CASE_TYPE_NAME>, where the case type name is given by the configured case type name without the type. Prefix (example: for a configured case type of type.fraud, the permission is cm:resource:casetype:fraud:write).| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+**Case Manager****Reasons**|  View Reasons| cm:resource:status-reason:read:* - **Backend** cm:section:settings-reason:read:* - **Frontend**|  Enables the user to list the available reasons.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create Reasons| cm:section:settings-reason:create:*| Enables the user to create new reasons.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Delete Reasons| cm:action:reason:delete:*| Enables the user to remove reasons.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+  
+  
+  
+  
+  
+**Case Manager****Automation Rules**|  View Automation Rule| (1) cm:resource:automation:read:*(2) cm:resource:configuration-automation:read:(3) cm:section:settings-automation:read:*| (1) Lets the user read automation rules. (2) Lets the user read the automation rules configuration. (3) Lets the user see the Automation Rules page | **No**| **No**| **Yes**| **No**| **No**| **No**  
+Create Automation Rule| cm:section:settings-automation:create:* - **Frontend** cm:resource:automation:create:* - **Backend**  
+|  Lets the user create automation rules in the Automation Rules page| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Edit Automation Rule| cm:resource:automation:update:* - **Backend** cm:section:settings-automation:update:* - **Frontend**|  Lets the user update automation rules in the Automation Rules page| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Delete Automation Rule| cm:resource:automation:delete:* - **Backend** cm:section:settings-automation:delete:* - **Frontend**|  Lets the user delete automation rules in the Automation Rules page| **No**| **No**| **Yes**| **No**| **No**| **No**  
+  
+  
+  
+  
+  
+  
+  
+  
+**Case Manager****Queue**|   
+  
+View Queue| (1) cm:resource:queue:read:*(2) cm:resource:queue-user:read:*(3) cm:resource:queue-user:*(4) cm:section:settings-queue:read:*| (1) Lets the user read queues. (2) Lets the user read its own queues. (3) Lets the user perform CRUD operations over the current queues assigned to a user.(4) Lets the user see the queues page in the Settings section.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+Create Queue| cm:resource:queue:create:* - **Backend** cm:section:settings-queue:create:* - **Frontend**|  Lets the users create queues in the Settings section.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Edit Queue| cm:resource:queue:update:* - **Backend** cm:section:settings-queue:update:* - **Frontend**|  Lets the user update queues in the Settings section.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Delete Queue| cm:resource:queue:delete:* - **Backend** cm:section:settings-queue:delete:* - **Frontend**|  Lets the user delete queues in the Settings section.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Assign Queues| cm:resource:queue-user:assign:*| Lets the user assign queues to users.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+Import and Export Queues| cm:resource:settings:import-export:* - **Backend** cm:action:settings:import-export:* - **Frontend**|  Lets the user import and export queues| **No**| **No**| **No**| **No**| **No**| **No**  
+Get Next| cm:resource:user-queue:*| Lets the user see the working queues, in the context of the review next feature.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+**Case Manager****Self Service Rules**|  View SSR| cm:section:settings-rules:read:*| Lets the user see rules in the Self-Service Rules page.| **No**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create SSR| cm:section:settings-rules:create:*| Lets the user create rules in the Self-Service Rules page.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Edit SSR| cm:section:settings-rules:update:*| Lets the user update rules in the Self-Service Rules page.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete SSR| cm:section:settings-rules:delete:*| Lets the user delete rules in the Self-Service Rules page.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Publish SSR| cm:section:settings-rules:publish:*| Lets the user publish rules in the Self-Service Rules page.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+  
+Test SSR| (1) cm:resource:settings-rules-custom-test:create:*(2) cm:resource:settings-rules-test:create:* cm:section:settings-rules-test:create:*| (1) Lets the user test rules with custom properties, either the user is a landlord or contains the permission.(2) Lets the user test rules, either the user is a landlord or contains the permission.| **No**| **Yes**| **Yes**| **No**| **Yes**| **No**  
+cm:section:settings-rules-test:create:*| Lets the user test rules, either the user is a landlord or contains the permission.| **No**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Rules Audit| cm:resource:self-service-rules:audit:*| Lets the user access rules audit entries.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+  
+**Case Manager****Reports**  
+  
+  
+  
+|  View reports| cm:resource:report:read:* - **Backend** cm:section:report:read:* - **Frontend**|  Lets the user read reports.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Create reports| cm:resource:report:create:* - **Backend** cm:section:report:create:* - **Frontend**|  Lets the user create reports.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Update reports| cm:resource:report:update:*| Lets the user update reports.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Delete reports| cm:resource:report:delete:* - **Backend** cm:action:delete-generated-report:delete:* - **Frontend**|  Lets the user delete reports.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Download reports| cm:resource:file:report:read:*| Lets the user download reports.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+  
+  
+  
+**Case Manager****Report Templates**|  View| cm:resource:report-template:read:* - **Backend** cm:section:settings-report-template:read:*- **Frontend**|  Lets the user read report templates.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Create| cm:resource:report-template:create:* - **Backend** cm:section:settings-report-template:create:*- **Frontend**|  Lets the user create report templates.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Update| cm:resource:report-template:update:* - **Backend** cm:section:settings-report-template:update:*- **Frontend**|  Lets the user update report templates.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Delete| cm:resource:report-template:delete:* - **Backend** cm:section:settings-report-template:delete:*- **Frontend**|  Lets the user delete report templates.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+Download| cm:resource:file:report-template:read:*| Lets the user download report templates.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+  
+**Case Manager****Entity Notes**|   
+View| cm:action:entity-note:read:* - **Frontend** cm:resource:entity-note:read:* - **Backend**|  Allows the user to see Notes widget (e.g., customer notes widget) on an entity details page (e.g., Customer details page).| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| cm:action:entity-note:create:* - **Frontend** cm:resource:entity-note:create:* - **Backend**|  Allows the user to assign notes to data entities.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+  
+**Case Manager****Entity Data**|   
+View| (1) cm:section:customer-details:read:* - **Frontend**(2) cm:entity-data:<entity_type>:read:* - **Backend**(entity_type available right now are accounts, cards and customers)| (1) Lets the user see the customer page.(2) Lets the user read data about an entity with a given type (e.g. customers, cards, etc.) in places such as the customer page| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+**Case Manager****Entity Files**|   
+View| cm:resource:file:entity-file:read:*| Lets the user read files associated with entities (e.g. customers, cards, etc.) in places such as the customer page.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+**Case Manager****Cases Sources**  
+  
+|  View| cm:resource:case-source:read:* - **Backend** cm:section:settings-case-source:read:* - **Frontend**|  Lets the user have access to the case sources page and list case sources| **Yes**| **Yes**| **Yes**| **No**| **Yes**| **Yes**  
+Create| cm:resource:case-source:create:* - **Backend** cm:section:settings-case-source:create:* - **Frontend**|  Lets the user create new case sources.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Update| cm:resource:case-source:update:* - **Backend** cm:section:settings-case-source:update:* - **Frontend**|  Lets the user edit (enable/disable) existing case sources.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+**Case Manager****Custom Extensions**|  onEventStatusUpdate| cm:action:extension:onEventStatusUpdate| Lets the user execute the custom extension given by onEventStatusUpdate| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+**Case Manager****Channel Based Permissions**|  Read and Write| cm:channel:<channel_id>:read-write| Lets the users see and edit <channel_id>'s events and artifacts (cards, digital activity, transfers, inbound-payments, non-mon)| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Read Only| cm:channel:<channel_id:resource:group:readel_id>:read-only| Users can see <channel_id>'s events and artifacts, but cannot edit them (except for notes andfile-uploading)| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+None| cm:channel:<channel_id:resource:group:readel_id>:none| Users do not have access to <channel_id>. | **No**| **No**| **No**| **No**| **No**| **No**  
+**Case Manager****Access Groups**|  Search| cm:resource:group:read:*| Lets the user search groups.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+**Case Manager****Multi-tenancy**|  Landlord| cm:resource:landlord:*| Lets the user have landlord permissions.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Tenant| cm:resource:tenant:read:*| Lets the user read the tenant list.| **No**| **No**| **Yes**| **No**| **No**| **Yes**  
+  
+  
+  
+**Case Manager****Multiple State Machines**|  Change Status| cm:state-machine:event-status:write:<STATEMACHINE>| Lets the user change the status for a given state machine (whose id is <STATEMACHINE> )| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Read| cm:state-machine:event:read:<state-machine-id>| Enables the user to read the state machine information.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+List Reasons| cm:state-machine:status-reason:read:<state-machine-id>| Enables the user to list the status reasons for a state machine with a given id.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create Reasons| cm:state-machine:status-reason:write:<state-machine-id>| Enables the user to create a status reason for a state machine with a given id.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+  
+**Case Manager****Tokenizer**|  Reveal| (1) cm:action:reveal-<field_path>(2) cm:resource:reveal-all(3) cm:resource:reveal-<FIELD>(4) cm:resource:reveal:*(5) cm:resource:search-by:<FIELD>| (1) Lets the user see the reveal icon to reveal a field.(2) Lets the user automatically reveal all encrypted fields when entering an event details page.(3)Lets the user reveal a field value using tokenizer. (The <field_path> has to be replaced with the field path in the object).(4) Give user all permissions regarding reveal(5) Lets the user perform a search operation by a specified field in plain text using tokenizer. This permission combined with the user permission cm:resource:search-by:* allows users to search for all tokenized elements.| **No**| **Yes**| **Yes**| **No**| **No**| **No**  
+**Case Manager****Details Page**|  Widgets| (1) cm:action:self-service-config:advanced-mode(2) cm:resource:self-service-config| (1) Lets the user have access to the Advanced edit mode in the UI. (2) Lets the user list active preferences.| **No**| **No**| **Yes**| **No**| **No**| **No**  
+**Case Manager****Login and Logout**|  Login and Logout| (1) security:ownership:read(2) security:permissions:read| (1) Lets the user see the ownership details of Pulse user groups (toggle "advanced" option).(2) Lets the user read the permissions.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+**Case Manager****Manage Message**|  Manage Message| (1) cm:section:settings-message:read:*(2) cm:resource:message:read:*(3) cm:action:settings-message:create:*(4) cm:resource:message:create:*(5) cm:action:settings-message:update:*(6) cm:resource:message:update:*(7) cm:action:settings-message:delete:*(8) cm:resource:message:delete:*| (1) Lets the user see the Messages page in the Settings section.(2) Lets the user read messages.(3) Lets the user create new messages in the Settings section.(4) Lets the user create new messages.(5) Lets the user update messages in the Settings section.(6) Lets the user update messages.(7) Lets the user delete messages in the Settings section.(8) Lets the user delete messages.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+**Case Manager General Permissions**  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+|  Dashboards| cm:section:dashboard-analyst-performance:*cm:section:dashboard-business-overview:*cm:section:dashboard-psd2:*cm:section:rules-monitoring-rules-filter:*cm:resource:dashboards-user-sync:update:*cm:section:rules-monitoring-transactions-filter:*| Allows the users to see the dashboards. (Requires enabling Insights)| **No**| **No**| **Yes**| **No**| **Yes**| **Yes**  
+Get Next| cm:section:review-next:read:*| Lets the user see the review next function.| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+UI Configuration| cm:resource:configuration:read:*cm:resource:configuration:create:*cm:resource:configuration:update:*cm:resource:configuration:delete:*cm:action:gui-config:editcm:resource:gui-config:editcm:resource:gui-config:reset-to-defaultcm:resource:gui-config:list-active:*| Lets the user read and modify the UI configuration.| **No**| **No**| **No**| **No**| **No**| **No**  
+Language Configuration| cm:resource:language:read:*cm:resource:language:create:*cm:resource:language:delete:*cm:resource:language:update:*| Lets the user read and modify the available languages.| **No**| **No**| **No**| **No**| **No**| **No**  
+Time Configuration| cm:resource:timezone:read:*cm:resource:timezone:create:* cm:resource:timezone:delete:*cm:resource:timezone:update:*| Lets the user read and modify timezones.| **No**| **No**| **No**| **No**| **No**| **No**  
+Translated Messages| cm:resource:message:read:* | Lets the user read the translated messages.| **No**| **No**| **No**| **No**| **No**| **No**  
+Event Status| cm:resource:event-status:create:* | Lets the user create status for events.| **No**| **No**| **No**| **No**| **No**| **No**  
+Edit Resource| cm:action:edit-resource:update:*| Lets the user edit the resource.| **No**| **No**| **No**| **No**| **No**| **No**  
+Custom Link| cm:action:link-to| Lets the user navigate to a custom link.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Pulse App| (1) cm:resource:pulse-app:read:*(2) cm:resource:pulse-rules:read:*| (1) Gets the Pulse application status and lists.(2) Gets the Pulse application rules| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Session| cm:resource:session:read:* cm:resource:session:create:* cm:resource:session:update:* cm:resource:session:delete:* | Lets the user read and modify session information in Case Manager.| **No**| **No**| **No**| **No**| **No**| **No**  
+Event Visibility| cm:resource:event-visibility cm:resource:event-visibility:create:* | Gives the user full event visibility.| **No**| **No**| **No**| **No**| **No**| **No**  
+Customer Page| cm:section:customer:read:*| Lets the user have access to Customer Page details| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Event Details| cm:section:event-details:*| Lets the user have access to all Event Details operations| **Yes**| **Yes**| **Yes**| **No**| **No**| **Yes**  
+cm:section:event-details:read:*cm:section:event:*| Lets the user have access to read Event Details| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+cm:resource:event-users:read:*| Retrieves a list of users that can be used for assignment according to the tenant provided.| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:resource:event-queues:read:*| Retrieves a list of queues that are associated with an event's tenant.| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:section:event:read:*| Lets the user have access to read Event Details| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:section:event:create:*| Lets the user have access to create Event Details| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:section:event:delete:*| Lets the user have access to delete Event Details| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:section:event:update:*| Lets the user have access to update Event Details| **No**| **No**| **No**| **No**| **No**| **No**  
+Fraud Alerts| cm:section:fraud-alerts:*| Lets the user have access to all Fraud alerts operations| **Yes**| **Yes**| **Yes**| **No**| **No**| **No**  
+cm:section:fraud-alerts:read:*| Lets the user have access to read Fraud alerts| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Rules Block| cm:resource:configuration-rules-block:read:*| Lets the user read the configuration of rules blocks.| **No**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Search| cm:action:search-by-schema.card_pan| Lets the user search by Card Pan| **No**| **No**| **Yes**| **No**| **No**| **No**  
+Assign| cm:resource:assign-no-steal:*| Allows users to assign unassigned events to themselves and to others.| **No**| **No**| **No**| **No**| **No**| **No**  
+Export Entity| cm:resource:entity-export:read:*cm:action:entity-export:create:*| Lets the user export the results from any entity's search page.| **No**| **No**| **No**| **No**| **No**| **No**  
+Edit Mode| cm:action:self-service-config:normal-mode| Lets the user have access to the Normal edit mode in the UI.| **No**| **No**| **No**| **No**| **No**| **No**  
+  
+  
+  
+  
+**Pulse****App Management**  
+  
+|  Create| application:apps:create| Permission to create new applications.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:apps:delete| Permission to delete applications.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Manage| application:apps:manage| Permission to start/stop/publish/export applications.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+View| application:apps:read| Permission to read applications.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Update| application:apps:update| Permission to update applications.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Import| application:apps:partialImport| Permission to partially import applications.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Export| application:apps:partialExport| Permission to partially export applications.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+All CRUD Permissions| application:*| Permission to perform all CRUD actions in application models.| **No**| **No**| **No**| **No**| **No**| **No**  
+Read Applications| application:*:read| Permission to read applications.| **No**| **No**| **No**| **No**| **No**| **No**  
+  
+**Pulse****Sandbox Evaluations**|  View| application:sandbox_evaluations:read| Permission to read sandbox evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Create| application:sandbox_evaluations:create| Permission to create sandbox evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:sandbox_evaluations:update| Permission to update sandbox evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:sandbox_evaluations:delete| Permission to delete sandbox evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Custom Services**|  View| application:dependencies:read| Permission to read custom service.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Create| application:dependencies:create| Permission to create new custom service.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:dependencies:update| Permission to update custom service.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:dependencies:delete| Permission to delete custom service.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Application History**|  View| application:history:global:readapplication:history:resource:read| Permission to read history log application-wide.Permission to read history log of a single resource.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+**Pulse****Job Executions**|  Create| application:jobexecutions:create| Permission to create new job execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+View| application:jobexecutions:read| Permission to read job execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:jobexecutions:update| Permission to update job execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:jobexecutions:delete| Permission to delete job execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Start| application:jobexecutions:start| Permission to start job executions| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Abort| application:jobexecutions:abort| Permission to abort job executions| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Job Profiles**|  View| application:job_profiles:read| Permission to read job profiles.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Create| application:job_profiles:create| Permission to create job profiles.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:job_profiles:update| Permission to update job profiles.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:job_profiles:delete| Permission to delete job profiles.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Managed Lists**  
+|  View| application:managedlists:read| Permission to read managed lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:managedlists:create| Permission to create managed lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:managedlists:update| Permission to update managed lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:managedlists:delete| Permission to delete managed lists.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+  
+  
+  
+**Pulse****Managed List Items**|  View| application:managedlistitems:read| Permission to read managed list items.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:managedlistitems:create| Permission to create managed list items.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:managedlistitems:update| Permission to update managed list items.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:managedlistitems:delete| Permission to delete managed list items.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+Decrypt| application:managedlistitems:decrypt| Permission to download encrypted values of managed list items in plain text format. The plain text download needs to be enabled using the pulse.global.lists.allowListDownloadInPlainText property.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **No**  
+View Revision| application:managedlistitems:revision:read| Permission to read managed list revision.| **No**| **No**| **No**| **No**| **No**| **No**  
+Update Revision| application:managedlistitems:revision:update| Permission to update managed list revision.| **No**| **No**| **No**| **No**| **No**| **No**  
+Create Revision| application:managedlistitems:revision:create| Permission to create managed list revision.| **No**| **No**| **No**| **No**| **No**| **No**  
+  
+**Pulse****Outcome Combinators**|  View| application:outcome_combinators:read| Permission to read outcome combinators.| **No**| **Yes**| **Yes**| **Yes**| **No**| **No**  
+Create| application:outcome_combinators:create| Permission to create a new outcome combinator.| **No**| **Yes**| **Yes**| **Yes**| **No**| **No**  
+Update| application:outcome_combinators:update| Permission to update outcome combinators.| **No**| **Yes**| **Yes**| **Yes**| **No**| **No**  
+Delete| application:outcome_combinators:delete| Permission to delete a outcome combinator.| **No**| **Yes**| **Yes**| **Yes**| **No**| **No**  
+  
+**Pulse****Workflows**|  View| application:rte_workflows:read| Permission to read workflow.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:rte_workflows:create| Permission to create new workflow.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:rte_workflows:update| Permission to update workflow.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:rte_workflows:delete| Permission to delete workflow.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****User Management**|  View| security:users:read| Permission to read user.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| security:users:create| Permission to create new user.| **No**| **No**| **Yes**| **No**| **Yes**| **Yes**  
+Update| security:users:update| Permission to update user.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Delete| security:users:delete| Permission to delete user.| **No**| **No**| **Yes**| **No**| **Yes**| **Yes**  
+**Pulse****Admin Rights**|  Admin| admin:view| Permission to access the administration screens.| **No**| **No**| **Yes**| **No**| **Yes**| **Yes**  
+Read Logs| admin:logs:read| Permission that grants access to the logs.| **No**| **No**| **No**| **No**| **No**| **No**  
+Manage Cluster| admin:cluster:manage| Permission that grants management access to the cluster.| **No**| **No**| **No**| **No**| **No**| **No**  
+Read Cluster| admin:cluster:read| Permission that grants read access to the cluster.| **No**| **No**| **No**| **No**| **No**| **No**  
+Delete Configuration| admin:configuration:delete| Permission to delete configurations on the administration screens.| **No**| **No**| **No**| **No**| **No**| **No**  
+Read Configuration| admin:configuration:read| Permission to read configurations on the administration screens.| **No**| **No**| **No**| **No**| **No**| **No**  
+Update Configuration| admin:configuration:update| Permission to update configurations on the administration screens.| **No**| **No**| **No**| **No**| **No**| **No**  
+Deploy Services| admin:deploy| Permission to deploy services through the REST API.| **No**| **No**| **No**| **No**| **No**| **No**  
+Reload Security| admin:security:reload| Permission to reload security through REST API.| **No**| **No**| **No**| **No**| **No**| **No**  
+Control Services| admin:service:control| Permission to start and stop services via the Administration API.| **No**| **No**| **No**| **No**| **No**| **No**  
+**Pulse****Tabs**|  Management Tabs| pulseviews:management:tabs:*| Permission to allow the user to access all pulseviews tabs.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+  
+**Pulse****SSR Audit**|  View| (1) application:ssr_audit:privilegedView(2) application:ssr_audit:read| (1) Permission to read Self-Service Rules Audit entries in privileged views, for instance, retrieving the audit respective to all Rules present in a given application.(2) Permission to read self-service rule audit entries.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****SSR Test**|  View| application:ssr_test:read| Permission to read self-service rule test results.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Run| application:ssr_test:run| Permission to run a self-service rule test.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:ssr_test:update| Permission to update self-service rule test results| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+**Pulse****Security**|   
+  
+  
+Security  
+  
+  
+  
+| application:streams:read:*| Permission to read streams (stream corresponds to a schema)| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+security:tenants:read| Permission to read tenants.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+security:audit:*| Permission to read audit logs.| **No**| **No**| **Yes**| **No**| **Yes**| **Yes**  
+useride:management| Permission to manage users| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+security:roles:read| Permission to read role| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+security:logging:update| Permission to update the logging level| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:resource:secure-metadata| Lets the user see encrypted metadata.| **No**| **No**| **No**| **No**| **No**| **No**  
+cm:element:tenant:read:*| Lets the user access UI elements accessible to landlords.| **No**| **No**| **No**| **No**| **No**| **No**  
+**Pulse****Datascience****Datasources**|  View| application:datascience_datasources:read| Permission to read data science data sources.| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_datasources:create| Permission to create data science data sources.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_datasources:update| Permission to update data science data sources.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_datasources:delete| Permission to delete data science data sources.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Datascience****Evaluation Metrics**|  View| application:datascience_evaluationmetrics:read| Permission to read data science evaluation metrics.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_evaluationmetrics:create| Permission to create data science evaluation metrics.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_evaluationmetrics:update| Permission to update data science evaluation metrics.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_evaluationmetrics:delete| Permission to delete data science evaluation metrics.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Datascience****Model Projects**|  View| application:datascience_modelprojects:read| Permission to read data science model projects.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects:create| Permission to create data science model projects.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects:update| Permission to update data science model projects.| **No**| **No**| **Yes**| **Yes**| **Yes**|   
+  
+Delete| application:datascience_modelprojects:delete| Permission to delete data science model projects.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Datascience****Model Projects Evaluations**|  View| application:datascience_modelprojects_evaluations:read| Permission to read data science model evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects_evaluations:create| Permission to create data science model evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects_evaluations:update| Permission to update data science model evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_modelprojects_evaluations:delete| Permission to delete data science model evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Datascience****Model Projects****Feature Importance**|  View| application:datascience_modelprojects_featureimportance:read| Permission to read feature importance.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects_featureimportance:create| Permission to create feature importance.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects_featureimportance:update| Permission to update feature importance.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_modelprojects_featureimportance:delete| Permission to delete feature importance.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Datascience****Model Projects****Hyperparameter Tuning**|  View| application:datascience_modelprojects_hyperparam_tuning:read| Permission to read hyperparameter tuning.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects_hyperparam_tuning:create| Permission to create hyperparameter tuning.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects_hyperparam_tuning:update| Permission to update hyperparameter tuning.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_modelprojects_hyperparam_tuning:delete| Permission to delete hyperparameter tuning.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+**Pulse****Datascience****Model Projects****Hyperparameter Tuning Eval**|  View| application:datascience_modelprojects_hyperparam_tuning_eval:read| Permission to read hyperparameter tuning eval.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects_hyperparam_tuning_eval:create| Permission to create hyperparameter tuning eval.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects_hyperparam_tuning_eval:update| Permission to update hyperparameter tuning eval.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_modelprojects_hyperparam_tuning_eval:delete| Permission to delete hyperparameter tuning eval.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Model Projects****Models**|  View| application:datascience_modelprojects_models:read| Permission to read Data Science models.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects_models:create| Permission to create Data Science models.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects_models:update| Permission to update Data Science models.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_modelprojects_models:delete| Permission to delete Data Science models.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Model Projects****Targets**|  View| application:datascience_modelprojects_targets:read| Permission to read Data Science targets.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_modelprojects_targets:create| Permission to create Data Science targets.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_modelprojects_targets:update| Permission to update Data Science targets.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_modelprojects_targets:delete| Permission to delete Data Science targets.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Plans**|  View| application:datascience_plans:read| Permission to read Data Science Plans.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_plans:create| Permission to create Data Science Plans.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_plans:update| Permission to update Data Science Plans.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_plans:delete| Permission to delete Data Science Plans.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Run| application:datascience_plans:run| Permission to run Data Science Plans.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Plans Exectutions**|  View| application:datascience_plans_executions:read| Permission to read Data Science Plans Execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_plans_executions:create| Permission to create Data Science Plan Execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_plans_executions:update| Permission to update Data Science Plans Execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_plans_executions:delete| Permission to delete Data Science Plans Execution.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Rules Projects**|  View| application:datascience_rulesprojects:read| Permission to read data science rules projects.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_rulesprojects:create| Permission to create data science rules projects.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_rulesprojects:update| Permission to update data science rules project.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_rulesprojects:delete| Permission to delete data science rules projects.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Self Service Publish| application:datascience_rulesprojects:self-service-publish| Permission to publish self-service rules.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Rules Projects****Evaluations**|  View| application:datascience_rulesprojects_evaluations:read| Permission to read data science rules project evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_rulesprojects_evaluations:create| Permission to create data science rules project evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_rulesprojects_evaluations:update| Permission to update data science rules project evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_rulesprojects_evaluations:delete| Permission to delete data science rules project evaluations.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse****Datascience****Rules Projects****Rules**|  View| application:datascience_rulesprojects_rules:read| Permission to read data science rules.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_rulesprojects_rules:createapplication:datascience_rulesprojects_rules:create:*| Permission to create Data Science Rules| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_rulesprojects_rules:updateapplication:datascience_rulesprojects_rules:update:*| Permission to update data science rules| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_rulesprojects_rules:delete| Permission to delete data science rules.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+**Pulse****Datascience****Rules Projects****Snapshots**|  View| application:datascience_rulesprojects_snapshots:read| Permission to read data science rules project snapshots.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_rulesprojects_snapshots:create| Permission to create data science rules project snapshots.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_rulesprojects_snapshots:update| Permission to update data science rules project snapshots.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_rulesprojects_snapshots:delete| Permission to delete data science rules project snapshots.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+**Pulse****Datascience****Rules Projects****Templates**|  View| application:datascience_rulesprojects_templates:read| Permission to read data science rules project templates.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_rulesprojects_templates:create| Permission to create data science rules project templates.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_rulesprojects_templates:update| Permission to update data science rules project templates.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_rulesprojects_templates:delete| Permission to delete data science rules project templates.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse Datascience Schemas**|  View| application:datascience_schemas:read| Permission to read Data Science Schemas.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_schemas:create| Permission to create Data Science Schemas.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_schemas:update| Permission to update Data Science Schemas.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_schemas:delete| Permission to delete Data Science Schemas.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse Datascience****Tag Groups**|  View| application:datascience_tag_groups:read| Permission to read Data Science Tag Groups.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_tag_groups:create| Permission to create Data Science Tag Groups.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_tag_groups:update| Permission to update Data Science Tag Groups.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_tag_groups:delete| Permission to delete Data Science Tag Groups.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+**Pulse Datascience****Tag Types**|  View| application:datascience_tag_types:read| Permission to read Data Science Tag Types.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_tag_types:create| Permission to create Data Science Tag Types.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_tag_types:update| Permission to update Data Science Tag Types.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_tag_types:delete| Permission to delete Data Science Tag Types.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+  
+**Pulse Datascience****White Box Explanations**|  View| application:datascience_white_box_explanations:read| Permissions to read White Box Explanation configuration.| **No**| **No**| **Yes**| **Yes**| **Yes**| **Yes**  
+Create| application:datascience_white_box_explanations:create| Permissions to create White Box Explanation configuration.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Update| application:datascience_white_box_explanations:update| Permissions to update White Box Explanation configuration.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+Delete| application:datascience_white_box_explanations:delete| Permissions to delete White Box Explanation configuration.| **No**| **No**| **Yes**| **Yes**| **Yes**| **No**  
+  
+  
+
+
+Â 

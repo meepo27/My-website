@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/
+Title: Sign in | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Sign in
+
+
+
+On this page
+
+# Sign in
+
+Case Manager provides a default sign-in form in which you can enter your username and password to start a Case Manager session.Â The sign-in process may include the following additional validations:
+
+  * **Two-Factor Authentication (2FA)** , in which you are prompted with a sign-in form to enter your credentials (i.e. username and password), followed by a second form to enter a security code.
+
+
+
+  * **Single Sign-OnÂ (SSO)** , which can be done via a Service Provider or via an Identity Provider.
+
+
+
+Interface language
+
+Reach out to Case Manager's system administrator to learn more about the available interface languages.
+
+## Learn moreâ
+
+  * How to [sign in with Two-Factor Authentication (2FA)](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-2fa).
+  * How to [sign in with Single Sign-On](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-sso).
+  * How to [change your current password](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/changing-the-password).
+  * How to [recover access](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/user-password-recovery) if you can't remember your password.
+
+

@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.1/individual-release-notes/HSBC-3599
+Title: HSBC-3599 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3599
+
+### Add multi tenancy support in the Case Manager alert cleanup scriptâ
+
+FeatureFTMT-31365HSBC-3599
+
+We have added multi tenancy support in the Case Manager alert cleanup script.
+
+This change adds two new script options that allows the script to filter events based on all tenants or a specific set of tenant ids.
+
+For more information please refer to the new filtering section in the [Case Manager alert queue cleanup page](/cs-hsbc/3.0.2/docs/operations-guide/cm-queue-cleanup/cleanup-alerts#tenants).

@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/ad-hoc-investigations/overview
+Title: Ad-hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * Ad-hoc Customer Investigations
+
+
+
+On this page
+
+# Ad-hoc Customer Investigations
+
+Was this page helpful?Â 
+
+Learn how the Ad-hoc Investigations API is used in the different event stages.
+
+## Investigation (`POST`)â
+
+  1. An Investigation request (POST) is sent to Feedzai.
+  2. The investigation event is created in Case Manager's Ad-hoc Investigations channel.
+
+
+
+Event creation in Case Manager
+
+To ensure investigation events are generated in Case Manager's Ad-hoc Customer Investigations channel, reach out to the person responsible for API integrations.
+
+More information on how to send Investigation event requests in this [page](/tfrb/latest/docs/common/tfrb/api-reference/ad-hoc-investigations/overview).
+
+## Info (`PUT`)â
+
+The `info` endpoint allows you to update and add new information to a previously created investigation, e.g. to signal that the investigation can be closed.
+
+## Feedback (`PUT`)â
+
+The `feedback` endpoint allows you to label the outcome of an ad-hoc investigation as **risky** (i.e. take action on the event) or **not risky** (i.e. drop the event). The labelling of an event is highly recommended, as it gives feedback to Feedzai's risk engine, which uses this information to learn and consolidate fraud patterns.
+
+## Learn moreâ
+
+  * Learn how to send [ad-hoc investigation](/tfrb/latest/docs/common/tfrb/api-reference/ad-hoc-investigations/overview) requests using the API.
+
+

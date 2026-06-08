@@ -1,0 +1,70 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/
+Title: Deploying a project into Production | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Deploying a project into Production
+
+
+
+On this page
+
+# Deploying a project into Production
+
+Was this page helpful?Â 
+
+Pulse delivers a full Data Science platform aimed at helping data scientists do their jobs, with increased performance. Additionally, Pulse makes Data Science much more accessible to other user profiles, such as risk analysts, without requiring them to acquire the same set of skills a data scientist must have.
+
+Similarly, Pulse is also a platform that makes life easier for engineers whose task is to take the work of a Data Science team to Production. In reality, since Pulse is focused on removing barriers for every user profile, deploying a project to Production and managing its lifecycle can even be performed by data scientists themselves with minimal assistance from engineers.
+
+It is quite common for engineers to struggle when translating offline Data Science and Machine Learning work into executable software that runs properly in a real-time Production environment. It may take a lot of iterations to finally deploy the Data Science work into Production and keep the same semantics and results that Data Scientists have designed and achieved previously.
+
+Therefore, Pulse projects are designed to work in a way that abstracts away a lot of the complexity that engineers usually have to deal with. With a fully integrated Data Science modeling and run-time environment, Pulse enables a direct and seamless deployment, without any major effort.
+
+How Pulse projects work
+
+To learn more about how Pulse fully integrates Data Science with deployment and run-time, make sure to learn more about [how Pulse projects work](/pulse/latest/docs/common/pulse/users-guide/how-pulse-projects-work).
+
+Once you have sign-off to deploy a Data Science project into Production, you must execute the following tasks:
+
+  * [Creating a schema](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/creating-a-schema)
+
+
+  * [Designing a workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow)
+
+  * [Managing the project life cycle](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/managing-the-project-life-cycle)
+
+
+
+
+Configuring components directly in Production
+
+Since in Production, data comes into Pulse in real-time, there are some activities in Production that are not mandatory to be started in the Data Science stage. For example:
+
+  * It is very simple to generate a **Schema** from a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources). However, in Production you only need the data structure, not data itself, so you can [define a data Schema](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/creating-a-schema) manually,
+  * Pulse provides a way to treat and evaluate the performance of **Rules** much alike a Data Science approach to evaluate, compare and iterate over **Models**. However, you can [deploy a Rules Snapshot](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules) with only the definition of a block of **Rules** into Production, without evaluating it against test data.
+
+
+
+Additionally, it is recommended that you fully acquire all the necessary context and understand what concepts you are manipulating in your project. To learn more about how Data Science works in Pulse, and Pulse's core concepts, check the following pages:
+
+  * [Data Science Loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop)
+  * [Channels](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/channels)
+  * [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources)
+  * [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans)
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models)
+  * [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules)
+  * [Sandbox Evaluations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/sandbox-evaluations)
+  * [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows)
+  * [Outcome Combinator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator)
+  * [Lists](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists)
+  * [Jobs and Job Profiles](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/jobs-and-job-profiles)
+  * [User-Defined Functions](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions)
+  * [Audit](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/audit)
+  * [Concepts Glossary](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary)
+
+
+
+## Getting Startedâ
+
+Start working on your deployment by learning how to [configure your input data schema](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/creating-a-schema) and [how to consume external data](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-custom-services).

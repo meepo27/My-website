@@ -1,0 +1,200 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/case-manager/overview
+Title: Case Manager Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Manager](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview)
+  * Case Manager Guide
+
+
+
+On this page
+
+# Case Manager Guide
+
+This guide helps you manage your team's workload using:
+
+  * **Automation rules**
+  * **Service-level agreements (SLAs)**
+  * **Queues**
+
+
+
+To improve system configurations available to agents, you will learn about: 
+
+  * **Reasons**
+
+
+
+fraud prevention agent guide 
+
+For information on fraud prevention agents' operational flow, refer to the following documentation:
+
+  * [Case Manager for fraud prevention agents](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+
+
+
+## Automation rulesâ
+
+Automation rules allow you to automatically perform actions on events and cases based on certain conditions. These rules allow to automatically move alerts to queues, assign alerts to agents, link alerts to cases, or even change the alert status.
+
+### View automation rulesâ
+
+Access the Automation Rules page using the **Settings** option in the main menu.
+
+### Filter automation rulesâ
+
+Use filters to refine the rules displayed on the list. This can be helpful, for example, to view all rules with a specific name.
+
+The **Search** filter lists rules whose name or description matches the text inserted in this field.
+
+### Create automation rulesâ
+
+Create rules to automate what should happen when certain actions occur. For example, you can configure a rule that automatically sets a status when an alert arrives to Case Manager.
+
+  1. Select the **New Rule** button.
+
+  2. Start by adding the rules's basic information:
+
+     1. **Name** : Rule's name. For example, "Set new alerts as unreviewed".
+     2. **Description** : Explanation of the rule's purpose. For example, "Set all incoming alerts as unreviewed".
+     3. **Channel** : Defines that only events from the selected channel are considered in the rule's conditions.
+     4. **Type** : Defines if the rule should be triggered based on **Events** or **Cases**.
+  3. Specify the rule's conditions according to your needs. In this example, the conditions would be the following:
+
+  4. Select the **Enabled** option to indicate if the rule should go into effect immediately or not.
+
+  5. **Create** the rule.
+
+
+
+
+info
+
+After creating automation rules, you are still able to edit or delete them from the automation rules list.
+
+tip
+
+For more information on how to manage automation rules, reach out to Feedzai.
+
+## SLAsâ
+
+Service Level Agreements (SLAs) allow you to automatically perform actions on events and cases based on a time and schedule.
+
+### View SLAsâ
+
+Access the **SLAs** page using the **Settings** option in the main menu.
+
+### Filter SLAs Listâ
+
+Use filters to refine the SLAs displayed on the list. This can be helpful, for example, to view all SLAs with a specific name.
+
+The **Search** filter lists only SLAs whose name or description match the text inserted in this field.
+
+### Create SLAsâ
+
+Create SLAs to automate what should happen when certain conditions occur. For example, you can configure an SLA that sends an alert to a specific queue depending on the time that alert has been in the system.
+
+  1. Select the **New SLA** button to open the SLA creation form.
+
+  2. Start by adding the SLA's basic information:
+
+     1. **Name** : SLA's identification. For example: Daily Escalation.
+     2. **Description** : Explanation of the SLA's purpose. For example: Move all unreviewed alerts to Urgent queue.
+     3. **Channel** : Defines that only events from the selected channel are considered in the SLA's conditions.
+     4. **Type** : Defines if the SLA should be triggered based on **Events** or **Cases**.
+  3. Specify the SLA conditions according to your needs. In this example, the conditions would be the following:
+
+Exclude weekends 
+
+When this option is selected, the SLA does not take weekends (Saturdays and Sundays) into consideration. For instance, a 24-hour SLA due on a Saturday at 2:00 PM will be triggered on the following Monday at 2:00 PM. Likewise, a 48-hour SLA due on a Sunday will be triggered on the following Tuesday.
+
+  4. **Create** the SLA.
+
+
+
+
+info
+
+After creating SLAs, you are still able to edit or delete them from the SLAs list.
+
+tip
+
+For more information on how to manage SLAs, reach out to Feedzai.
+
+## Queuesâ
+
+Queues help you to manage and track alerts and cases. You can think of queues as containers in which you can store alerts or cases and assign them to agents.
+
+### View queuesâ
+
+Access the **Queues** page using the **Settings** option in the main menu.
+
+### Filter queuesâ
+
+Use filters to refine the queues displayed on the list. This can be helpful, for example, to view all queues from a specific channel.
+
+  * **Channels** : Lists only queues from the selected channel.
+  * **Tenants** : Lists only queues from the selected tenant. Note that this is a multiple choice, so you can discriminate among the queues of various tenants.
+  * **Type** : Lists only queues from the selected type: Event or Case.
+  * **Search** : Lists only queues whose name or description match the text inserted in this field.
+
+
+
+### Create queuesâ
+
+Create queues to store your events and cases in a more organized manner:
+
+  1. Select the **New Queue** button.
+
+  2. Complete the fields with the information that best describes the new queue.
+
+     1. **Name** : Queue's name (e.g. "Urgent").
+     2. **Description** : Brief description of the queue's purpose (e.g. "Alerts to be reviewed in 24h.").
+     3. **Type** : Defines if the queue is specific to Events or Cases.
+     4. **Channel** : Ensures that only events from the select channel are added to the queue.
+     5. **Tenant** : As a landlord in a Multi-Tenancy environment, you can create different queues for different tenants. Adding tenants to queues ensures that only events from the select tenant are added to the queue. In addition, it ensures that the queue is only visible to users with permissions to view that specific tenant.
+     6. **Users** : Ensures that the queue is only visible for the selected users.
+  3. Specify the queue conditions according to your needs. In this example, the conditions would be the following:
+
+  4. **Create** the queue.
+
+
+
+
+info
+
+After creating queues, you are still able to edit or delete them from the queues list.
+
+tip
+
+For more information on how to manage queues, reach out to Feedzai.
+
+## Reasonsâ
+
+When agents classify an alert, they can select the reason behind their decision. This section explains how you can manage the reasons used by them when classifying alerts.
+
+### View reasonsâ
+
+Access the **Reasons** page using the **Settings** option in the main menu.
+
+### Filter reasonsâ
+
+Use the filters to refine the reasons displayed on the list. This can be helpful, for example, to view all reasons from a specific state machine.
+
+### Create reasonsâ
+
+Create reasons for agents to use when classifying alerts.
+
+  1. Select the **New Reason** button.
+  2. Complete the fields with the information that best describes the new reason.
+     1. **Name** : Reasons's name.
+     2. **Status** : Select the status associated with the new reason. Reach out to Feedzai for more information on states.
+  3. **Create** the reason.
+
+
+
+info
+
+After creating reasons, you are still able to edit or delete them from the reasons list.

@@ -1,0 +1,94 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/server/
+Title: server - DS API
+============================================================
+
+#  `` server Â¶
+
+##  `` KEYTAB_SPARK_PROP `module-attribute` Â¶
+    
+    
+    KEYTAB_SPARK_PROP = 'spark.yarn.keytab'
+    
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` PulseGlobalConfiguration `module-attribute` Â¶
+    
+    
+    PulseGlobalConfiguration = autoclass('com.feedzai.pulse.server.api.config.PulseGlobalConfiguration')
+    
+
+##  `` Server Â¶
+    
+    
+    Server(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Server class that connects to the Pulse API.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` connect `classmethod` Â¶
+    
+    
+    connect(address: str = 'localhost', port: int = 1099, timeout: int = 10000, **kwargs)
+    
+
+Creates a new instance of com.feedzai.commons.dsapi.Server to connect to Pulse
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `address` Â¶
+
+|  `str` |  The hostname. |  `'localhost'`  
+  
+####  `port` Â¶
+
+|  `int` |  The RMI port. |  `1099`  
+  
+####  `timeout` Â¶
+
+|  `int` |  Maximum time to wait until timeout. |  `10000`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Server` |  The reference to the Pulse API.  
+  
+###  `` get_datascience_config Â¶
+    
+    
+    get_datascience_config()
+    
+
+Return the DataScienceConfig object.
+
+###  `` get_distributed_job_config Â¶
+    
+    
+    get_distributed_job_config()
+    
+
+Return the DistributedJobServiceConfig object.
+
+###  `` get_kerberos_config Â¶
+    
+    
+    get_kerberos_config() -> dict
+    
+
+Return the DataScience Kerberos configuration as a dict.

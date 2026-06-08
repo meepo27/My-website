@@ -1,0 +1,71 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-self-service-rules-project
+Title: Creating a self-service rules project | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Creating a self-service rules project
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating a self-service rules project
+
+## Whyâ
+
+You must set up Self-Service **Rules** in Pulse so that users in Case Manager can write **Rules** themselves. These simple Rules are written in a language that is a subset of the RDL language used in Pulse. They differ from the regular **Rules** by not having windows (i.e. metrics), although they can use them if they are computed by a **Plan** and not by the **Rules** themselves.
+
+The first step of Self-Service **Rules** configuration is to create a simple **Rules Project** that will store the custom **Rules** that analysts write in Case Manager.
+
+## How Toâ
+
+### Creating a Simple Rules Projectâ
+
+In order to create a Simple **Rules Project** in Pulse, you have to follow the usual workflow. To create a Rules Project, execute the following actions:
+
+  1. In the  **Data Science** tab,  add a new a Rules Project.
+
+  2. Set the Rules Project as **Simple**.
+
+Self-Service Rules Projects
+
+This kind of Rules Project is read-only in the UI after its creation and has an empty snapshot by default.
+
+
+
+
+#### Managing Multi-Tenancy in simple rules projectsâ
+
+Simple rules projects are associated to a workflow element that belongs to a workflow inside an application.
+
+There are two kinds of Rules Projects that can be created: Global and ByTenant.
+
+  * For non-tenanted solutions, the Rule Project must be configured as Global.
+
+  * For tenanted solutions, landlords view Global rules separately from the Tenant ones so the project can be of two kinds:
+
+Multi-Tenanted Scenarios
+
+In a Multi-Tenant scenario you might need to have two projects:
+
+    * One project set as **Global** : rules shared across tenants
+    * One project set as **By-tenant** : with tenant-specific rules
+
+    * Global: This kind of Rules Project contains the information (schema, decisions, etc) for the global rules.
+
+    * ByTenant: This kind of Rules Project contains the information for the tenants rules. Tenant Groups are not supported.
+
+
+
+
+## Next Stepsâ
+
+Learn more about Self-Service Rules and how to enable them in the following pages:
+
+  * [Adding rules](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules): Learn how to add the Rules projects you have created to the workflow.
+  * [App Collaboration Loop](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop): Understand the constant integration between the work developed in offline environments and the work in Production.
+
+

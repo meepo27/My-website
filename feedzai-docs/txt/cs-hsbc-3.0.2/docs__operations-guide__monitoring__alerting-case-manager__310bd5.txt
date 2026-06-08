@@ -1,0 +1,67 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/alerting-case-manager
+Title: Alerting in Case Manager | Feedzai Documentation
+============================================================
+
+# Alerting in Case Manager  
+  
+In this page you can find a set of alerts that can be added to the monitoring solution in order to improve awareness over Case Manager stability.
+
+##### info
+
+Note that these alerts are solemnly suggestions that might require new dashboards or alert adjustments based on HSBC specific environments.
+
+Alert| Configuration| Description  
+---|---|---  
+New Event Throughput| alert level: Critical  
+for alert: 1m  
+frequency: 2h  
+threshold value: 0.0000003 (messages per second)| Monitors the throughput of event processing in Case Manager. If throughput falls below the threshold, an alert is triggered.  
+New Event Latency| alert level: High  
+for alert: 10m  
+frequency: 10m  
+threshold value: 60 (seconds)| Monitors the maximum latency for processing "new event" requests, specifically at the 99th percentile.  
+Queue Occupancy| alert level: High  
+for alert: 10m  
+frequency: 10m  
+threshold value: 0.85 (percentage)| Monitors the average occupancy of the event processing queue. If the average occupancy exceeds 85% over the specified time span, an alert is triggered.  
+Event Queue Deadletter| alert level: High  
+for alert: 5m  
+frequency: 1h  
+threshold value: 10 (events)| Monitors the total number of event queue deadletter events. If the sum of deadletters exceeds the defined threshold of 10 over the last hour, an alert is triggered.  
+Event Storage Deadletter| alert level: High  
+for alert: 5m  
+frequency: 1h  
+threshold value: 10 (events)| Monitors the total number of event storage deadletter events. If the sum of deadletters exceeds the defined threshold of 10 over the last hour, an alert is triggered.  
+Event Automations Throughput| alert level: Moderate  
+for alert: 10m  
+frequency: 10m  
+threshold value: 0 (events)| Monitors the overall throughput count when executing automation rules. If errors exceed the defined threshold of 0 over the last 10 minutes, an alert is triggered.  
+Event Automations Errors| alert level: Moderate  
+for alert: 10m  
+frequency: 10m  
+threshold value: 0 (events)| Monitors the overall error count when executing automation rules. If errors exceed the defined threshold of 0 over the last 10 minutes, an alert is triggered.  
+Pulse Requests Errors| alert level: Moderate  
+for alert: 10m  
+frequency: 1m  
+threshold value: 0.01 (percentage)| Monitors the throughput of requests to Pulse instances and tracks the occurrence of errors.  
+Database Connection Pool| alert level: Low  
+for alert: 10m  
+frequency: 5m  
+threshold value: 0.90 (percentage)| Monitors the usage of the database connection pool, ensuring it does not exceed the defined threshold.  
+Messaging Healthcheck| alert level: Critical  
+for alert: 5m  
+frequency: 1m  
+threshold value: 1 (event)| Monitors the messaging server healthcheck from Case Manager.  
+Database Connection| alert level: Critical  
+for alert: 5m  
+frequency: 1m  
+threshold value: 1 (event)| Monitors the database healthcheck for Case Manager.  
+  
+##### note
+
+  * alert level : The severity of the alert (Low, Moderate, High, Critical).
+  * for alert : The duration for which the alert condition must persist before an alert is triggered.
+  * frequency : The interval at which the monitoring system checks the specified metrics or conditions.
+  * threshold value : A predefined limit or value that, when exceeded, triggers an alert.
+
+

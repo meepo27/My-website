@@ -1,0 +1,179 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/features/feature/
+Title: feature - DS API
+============================================================
+
+#  `` feature Â¶  
+  
+Base class for all Plan Features.
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` BaseFeature Â¶
+    
+    
+    BaseFeature(name: str, description: Optional[str] = None, operator: Optional[[BaseFeaturesOperator](../../operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")] = None)
+    
+
+Bases: `ABC`
+
+Abstract base class for all Features in a Plan.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `name` Â¶
+
+|  `str` |  Name of the feature |  _required_  
+  
+###  `description` Â¶
+
+|  `str` |  description of the feature. |  `None`  
+  
+###  `operator` Â¶
+
+|  `[BaseFeaturesOperator](../../operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")` |  Operator where the feature is in. |  `None`  
+  
+###  `` description `property` `writable` Â¶
+    
+    
+    description
+    
+
+###  `` name `property` `writable` Â¶
+    
+    
+    name
+    
+
+###  `` operator `property` Â¶
+    
+    
+    operator
+    
+
+###  `` from_dict `abstractmethod` `classmethod` Â¶
+    
+    
+    from_dict(feat_dict: Dict[str, str]) -> BaseFeature
+    
+
+Creates a Feature from a dict type to facilitate importing features from a tabular format.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feat_dict` Â¶
+
+|  `dict` |  Dictionary containing the feature in a tabular format. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`BaseFeature` |  Feature initiated with the attributes from the dict.  
+  
+###  `` from_java_feature `abstractmethod` `classmethod` Â¶
+    
+    
+    from_java_feature(feature: JavaClass, operator: [BaseFeaturesOperator](../../operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")) -> BaseFeature
+    
+
+Converts a Java DS-API Feature to a Python feature class.
+
+###  `` get_dependencies `abstractmethod` Â¶
+    
+    
+    get_dependencies() -> Set[str]
+    
+
+Gets the list of other features names that are used to create the feature.
+
+Dependencies are not recursive.
+
+Returns:
+
+Type | Description  
+---|---  
+`set` |  Set of feature names.  
+  
+###  `` get_dependencies_by_type `abstractmethod` Â¶
+    
+    
+    get_dependencies_by_type() -> Dict[str, List[str]]
+    
+
+Gets the lists (by type of dependency) of other features names that are used to create the feature.
+
+Dependencies are not recursive.
+
+Returns:
+
+Type | Description  
+---|---  
+`Dict[str, List[str]]` |  Dictionary of dependencies, the keys are the dependency types and the values are the list of feature names.  
+  
+###  `` rename_dependencies `abstractmethod` Â¶
+    
+    
+    rename_dependencies(old_name: str, new_name: str)
+    
+
+Renames the feature dependencies matching the old name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `old_name` Â¶
+
+|  `str` |  Old name to change from. |  _required_  
+  
+####  `new_name` Â¶
+
+|  `str` |  New name to change to. |  _required_  
+  
+###  `` to_dict `abstractmethod` Â¶
+    
+    
+    to_dict(with_operator: bool = True) -> dict[str, str | float | int | bool | None]
+    
+
+Converts the feature to a dict type to facilitate exporting features into a tabular format.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `with_operator` Â¶
+
+|  `bool` |  When 'false', returns the object without its operator attributes. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict` |  Dictionary containing all the editable fields from the plan to create this feature.  
+  
+Raises:
+
+Type | Description  
+---|---  
+`AttributeError` |  When `with_operator` is true and the feature has not been added to an operator.  
+  
+###  `` to_java_feature_builder `abstractmethod` Â¶
+    
+    
+    to_java_feature_builder() -> JavaClass
+    
+
+Converts a Python feature class to a Java DS-API Feature Builder.

@@ -1,0 +1,67 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/installation-guide/configuring-firewalls
+Title: Configuring Firewalls | Case Manager
+============================================================
+
+On this page  
+  
+# Configuring Firewalls
+
+When it comes to configuring firewalls, you should have in mind that ports are repeated to allow each service to be self-contained:
+
+  * **Inbound** \- Other services connects to "me".
+  * **Outbound** \- "I" connect to external services.
+
+
+
+## Case Managerâ
+
+Outbound Service| Outbound Port  
+---|---  
+Feedzai Pulse LB| TCP 80  
+RabbitMQ| TCP 15672  
+RDBMS (PostgreSQL)| TCP 5432  
+Inbound Service| Inbound Port  
+---|---  
+Case Manager - Load Balancer| TCP 8080  
+  
+## Feedzai Pulseâ
+
+Outbound Service| Outbound Port  
+---|---  
+RabbitMQ| TCP 15672  
+Inbound Service| Inbound Port  
+---|---  
+Pulse - Load Balancer| TCP 8080  
+  
+## RabbitMQ (Messaging)â
+
+Inbound Service| Inbound Port  
+---|---  
+Case Manager| TCP 15672  
+Feedzai Pulse| TCP 15672  
+  
+## RDBMS (PostgreSQL)â
+
+Inbound Service| Inbound Port  
+---|---  
+Case Manager| TCP 5432  
+  
+## Case Manager / Pulse Load Balancer(s)â
+
+Outbound Service| Outbound Port  
+---|---  
+Feedzai Pulse| TCP 8080  
+Case Manager| TCP 8080  
+Inbound Service| Inbound Port  
+---|---  
+Web Browser| TCP 443  
+  
+## Next Stepsâ
+
+Continue by configuring Case Manager according to your needs:
+
+  * [Pulse Fraud Application Configuration](/case-manager/13.17/docs/internal/case-manager/configuration-guide/pulse-fraud-application-configuration)
+  * [Core Configuration](/case-manager/13.17/docs/internal/case-manager/configuration-guide/core-configuration)
+  * [Security Configuration](/case-manager/13.17/docs/internal/case-manager/configuration-guide/security-configuration/security-configuration-overview)
+
+

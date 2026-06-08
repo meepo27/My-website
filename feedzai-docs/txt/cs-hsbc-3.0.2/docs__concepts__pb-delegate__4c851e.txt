@@ -1,0 +1,126 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/concepts/pb-delegate
+Title: PB Delegate | Feedzai Documentation
+============================================================
+
+On this page
+
+# PB Delegate
+
+As of version 2.8.0 we have introduced a set of changes to make the PB Delegate use case ready for use, to allow a customer to delegate another customer to make payments on their behalf.
+
+This page focuses on explaining the changes made to both Pulse and Case Manager to support this feature.
+
+## Pulse API Changesâ
+
+In this section you can find a description of the API changes to support this feature.
+
+All of the fields described in this section were also added to the `Payments` and `Payments + Outcomes` schemas to allow events to be enriched when received by Pulse and also to enable them to be used in the fraud strategy.
+
+### Channel fieldsâ
+
+As described in the [2.8.0 Release Notes](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.8) we have added a set of new fields to Pulse Transfers and Digital Activity APIs.
+
+Please find below a list of the new added fields:
+
+Field Name| Datatype| Endpoints  
+---|---|---  
+delegate_id| String| Transfers & Digital Activity  
+delegate_initiated| Boolean| Transfers & Digital Activity  
+approver_id| String| Transfers & Digital Activity  
+transaction_id| String| Transfers & Digital Activity  
+account_holder_customer_id| String| Transfers & Digital Activity  
+  
+### Reference Data fieldsâ
+
+The Reference Data API was also changed with the addition of the following fields:
+
+Field Name| Datatype| Description  
+---|---|---  
+delegate_of| List of Objects| List of delegate ids (their customer id in HSBC) and the date when the delegate was assigned  
+delegates| List of Objects| List of customers whom the customer serves as a delegate  
+  
+Each entry of `delegate_of` and `delegates` has the following fields:
+
+Field Name| Datatype  
+---|---  
+customer_id| String  
+date_added| Long  
+  
+In the below snippet you can find an example of customer data that acts as a delegate for two different customers:
+    
+    
+    {  
+       "delegate_of": [  
+         {  
+            "customer_id": "customer_id_1",  
+            "date_added": 1603207359060  
+         },  
+         {  
+            "customer_id": "customer_id_2",  
+            "date_added": 1603207359061  
+         }  
+       ]  
+    }  
+    
+
+Copy
+
+A customer can have multiple delegates and a single delegate can also represent multiple customers. The following example illustrates a scenario where a customer has more than one delegate acting on their behalf:
+    
+    
+    {  
+       "delegates": [  
+         {  
+            "customer_id": "customer_id_3",  
+            "date_added": 1603207359060  
+         },  
+         {  
+            "customer_id": "customer_id_4",  
+            "date_added": 1603207359061  
+         }  
+       ]  
+    }  
+    
+
+Copy
+
+## Case Managerâ
+
+Similarly to Pulse, we also made changes to Case Manager in order to support this feature. In this section you can find a description of the changes.
+
+### Event Details Pageâ
+
+In the Event Details Page we have created a new field mapping (`By Delegate`) linked to the delegate id that acted on behalf of a customer, added to the following widgets:
+
+  * Transfers `Transaction` widget
+  * Digital Activity `Event Summary` widget
+
+
+
+In the same page, the `Transaction History` widget now features a new Delegate CIN column and filter.
+
+##### note
+
+In order for an event to appear when filtering by `Delegate CIN`, the `customer_id` must match the `delegate_id` field of an event
+
+### Customer Details Pageâ
+
+In the Customer Details Page we have added the `Transaction History Delegate` widget, similar to `Transaction History`, where events in which a customer acted as a delegate will be shown.
+
+This new widget will only show the `Transfers` and `Digital Activity` channels and have specific filters for `Delegate CIN`.
+
+##### note
+
+In order for an event to appear when filtering by `Delegate CIN`, the `customer_id` must match the `delegate_id` field of an event
+
+In addition we have also added two new widgets to show the current delegations the customer has in place and also to which customers it is delegated to.
+
+Each of the entries links to the given customer page.
+
+### Enable new features in the Case Manager UIâ
+
+The new widgets can be enabled/disabled via a new Ansible variable `show_delegate_transaction_history_widget`, set to `true` by default.
+
+This can be used, for instance, to hide the widgets if a specific region or market does not require the PB Delegate use case.
+
+Please refer to [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information.

@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4145
+Title: HSBC-4145 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4145
+
+### Add Breach Status option to Cards and Non-Mon SLAsâ
+
+FeatureFTMT-34982HSBC-4145
+
+We've enabled the `Set Breach Status` and `Set Initial Breach Status` options in Breach Actions for SLAs in the Cards and Non-Mon channels.

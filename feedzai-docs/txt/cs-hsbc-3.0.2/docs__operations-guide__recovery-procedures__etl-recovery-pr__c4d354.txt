@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/recovery-procedures/etl-recovery-procedure
+Title: ETL Recovery Procedure | Feedzai Documentation
+============================================================
+
+On this page
+
+# ETL Recovery Procedure
+
+This page describes the recovery procedure for ETL, from detecting errors in the extraction to generating a new extraction.
+
+## Detecting failuresâ
+
+In order to detect failures, we must rely on the [monitoring capabilities provided by the ETL](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-etl). After each extraction, the values for `etl.execution.extract.error` and `etl.execution.publish.error` should be used to detect if any error occurred.
+
+Recovery may also be needed if events failed to be written to the Event Storage database and were successfully retried only after the ETL process executed for that period of time. The [events spilled to disk metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse) can help identify these situations.
+
+##### WARNING - ETL metrics
+
+ETL metrics are only exposed while the ETL process is executing. The process stays running for 20 seconds after the extraction finishes to allow fetching the metrics.
+
+## Generating new extractionsâ
+
+See [fixed extraction interval](/cs-hsbc/3.0.2/docs/installation-guide/etl/etl-pulse-rt-to-dse#fixed-extraction-interval) as a reference on how to run ETL for a specific interval. 
+
+For compliance with HSBC reports, all extractions must span a time interval of exactly one hour. If recovery needs to be performed over a period larger than one hour, then multiple executions should be performed. The start timestamp of each extraction must be the start of the hour and the end timestamp must be the last millisecond of that same hour. For example, if we wanted to recover the period between `01/01/2024 10:00:00` and `01/01/2024 12:00:00` then we would need two extractions:
+
+  1. The first extraction between `01/01/2024 10:00:00.000` (UNIX timestamp `1704103200000`) and `01/01/2024 10:59:59.999` (UNIX timestamp `1704106799999`)
+  2. The second extraction between `01/01/2024 11:00:00.000` (UNIX timestamp `1704106800000`) and `01/01/2024 11:59:59.999` (UNIX timestamp `1704110399999`)
+
+
+
+## Consuming the new extractionsâ
+
+The previous step generates a new extraction that is published to a Google Cloud Storage bucket containing all events from a given period. It is crucial for downstream systems to ensure the events that were previously successfully extracted are not duplicated when ingesting the new extraction. If the downstream systems are idempotent, the `FDZ_UUID` column can as the idempotency key. Otherwise, we recommend removing all events that match the new extraction period before ingesting.

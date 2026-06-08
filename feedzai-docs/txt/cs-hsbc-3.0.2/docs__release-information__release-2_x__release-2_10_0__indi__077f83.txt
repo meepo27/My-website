@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3202-Add-support-for-externally-created-PubSub-subscriptions-for-DTP
+Title: HSBC-3202-Add-support-for-externally-created-PubSub-subscriptions-for-DTP | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3202-Add-support-for-externally-created-PubSub-subscriptions-for-DTP
+
+### Add support for externally created Pub/Sub subscriptions for DTPâ
+
+FeatureFTMT-27152HSBC-3202
+
+Also In:2.8.12.9.0
+
+We've added support for the DTP to connect to Pub/Sub subscriptions externally created in Google Cloud Platform. Three new Ansible variables control this behaviour:
+
+  * `dtp_pubsub_subscription_enable_creation`: a boolean flag that determines if the DTP should create the Pub/Sub subscription when starting (defaults to _false_)
+  * `dtp_pubsub_subscription_id`: the subscription id for the DTP to use
+    * This value is used only when `dtp_pubsub_subscription_enable_creation` is set to `false`
+  * `inactivity.subscription.enableCreation`: a boolean flag that determines if the DTP should create the Inactivity Service Pub/Sub subscription when starting (defaults to _false_)
+
+
+
+Please refer to the [DTP Configuration page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp) for more details.
+
+##### warning
+
+The new boolean flags that determine if the DTP automatically creates the subscriptions default to `false`. This means that if not explicitly configured otherwise, the DTP will expect the subscriptions to already exist in GCP. This is a departure from the previous behaviour which always created the subscriptions on start.

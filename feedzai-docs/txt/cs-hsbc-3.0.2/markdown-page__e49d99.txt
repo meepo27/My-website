@@ -1,0 +1,7 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/markdown-page
+Title: Markdown page example | Feedzai Documentation
+============================================================
+
+# Markdown page example
+
+You don't need React to write simple standalone pages.

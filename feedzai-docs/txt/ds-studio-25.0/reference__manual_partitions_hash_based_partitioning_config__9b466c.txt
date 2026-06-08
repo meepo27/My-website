@@ -1,0 +1,44 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/manual_partitions_hash_based_partitioning_config/
+Title: manual_partitions_hash_based_partitioning_config - DS API
+============================================================
+
+#  `` manual_partitions_hash_based_partitioning_config Â¶  
+  
+##  `` ManualPartitionsHashBasedPartitioningConfig Â¶
+    
+    
+    ManualPartitionsHashBasedPartitioningConfig(num_partitions: int = DEFAULT_PARTITIONS)
+    
+
+Bases: `[PartitioningConfig](../partitioning_config/#ds_api.partitioning_config.PartitioningConfig "            PartitioningConfig \(ds_api.partitioning_config.PartitioningConfig\)")`
+
+Represents Manual Partitions Hash-Based Partitioning configuration.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `num_partitions` Â¶
+
+|  `int` |  The number of partitions to use. By default, `ManualPartitionsHashBasedPartitioningConfig.DEFAULT_PARTITIONS`. |  `DEFAULT_PARTITIONS`  
+  
+###  `` DEFAULT_PARTITIONS `class-attribute` `instance-attribute` Â¶
+    
+    
+    DEFAULT_PARTITIONS = DEFAULT_PARTITIONS
+    
+
+###  `` num_partitions `property` Â¶
+    
+    
+    num_partitions: int
+    
+
+Get The number of partitions to use.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    

@@ -1,0 +1,83 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/card-issuing
+Title: Card Issuing Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * Card Issuing Endpoint
+
+
+
+On this page
+
+# Card Issuing Endpoint
+
+Was this page helpful?Â 
+
+Card issuing, also known as card enrollment, is the process of registering a new payment card (i.e. credit card or debit card) with, for instance, a mobile wallet (e.g. Google Pay, Apple Pay), or a subscription service (e.g. Netflix). It involves a process similar to the following:
+
+  1. The customer adds a card to a Wallet, such as ApplePay, by providing the card details, which usually include the card number, expiration date, and CVV (the 3-digit number on the back of the card).
+  2. After confirming that the card details are correct, the service asks the customer to confirm their identity, for instance, by asking them for an extra layer of security (e.g. [3D Secure](/tfrb/latest/docs/common/tfrb/psd2/psd2-compliance#3-d-secure)).
+  3. The service sends the enrollment request to the customer's issuing bank. The bank then confirms that everything is accordingly and approves the enrollment.
+  4. The customer receives a confirmation from the service (e.g. by email) that their card was successfully enrolled.
+  5. Certain services like Apple Pay, replace the customer's card number with a unique digital identifier or token, which will be used for transactions, instead, thus enhancing security.
+
+
+
+This page explains how Transaction Fraud for Banking integrates the card enrollment process for fraud prevention.
+
+## Endpoint life cycleâ
+
+  
+
+
+  1. The customer adds a card to a service (e.g. Apple Pay).
+
+  2. The issuing bank receives the request from the mobile wallet and invokes Feedzai's Digital Activity card issuing endpoint.
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities have a match in the Reference Data Storage.
+
+data precedence in reference data storage
+
+Note that any new data from new payee events will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  3. Feedzai conducts real-time data analysis and makes a decision on whether to approve or decline the card issuing event.
+
+  4. The issuing bank makes an automated decision based on Feedzai's recommendation.
+
+  5. If the issuing bank approves the event, the card is successfully enrolled.
+
+  6. Optionally, the issuing bank calls Feedzai as soon as they get the token from the Token Service Provider (TSP). The Card Update endpoint with `card_status = active` will tell Feedzai that the token has become active, and that subsequent Authorizations with that token can be scored. At this point, the customer is allowed to perform transactions. Any new card event requires the issuing bank to call Feedzai's [Cards API](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle) to prevent a fraudulent transaction.
+
+
+
+
+## Reference Data updatesâ
+
+You can trigger updates to the Reference Data Storage via the Digital Activity API. These updates apply exclusively to fields starting with the `new_*` prefix as described in the following examples:
+
+  * The customer wants to update the status of his card. He opens the app and momentarily disables the card. The bank calls the Update Card endpoint in Digital Activity and sets `new_card_status` = `blocked`. If approved, this will update the `card_status` for the Card entity in the Reference Data Storage.
+  * The customer changes his phone number on the bank's app. The bank sends a Profile Update request to Feedzai with `new_customer_phone_number` = `1-970-664-2654`. If approved, this will update the `customer_phone_number` = `1-970-664-2654` for the Customer entity in the Reference Data Storage.
+
+
+
+Notice that updates from the Digital Activity API occur under the following conditions:
+
+  * `POST` events whose system decision is `approve`.
+
+  * `PUT` events regardless of the system decision.
+
+caution
+
+To amend information, you need to resend the entire entity data (i.e. populate all the `new_*` fields). If you want to update pieces of information instead of updating the entire entity, use the Reference Data API with the PATCH method. Refer to the [Reference Data Operations](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle#reference-data-operations) section to understand the difference between these methods.
+
+
+
+
+## Learn moreâ
+
+Read the [Credentials Update Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/credential-update) page to continue learning about the endpoints' life cycles.

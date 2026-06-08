@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/collect-metrics
+Title: Collect Metrics | Feedzai Documentation
+============================================================
+
+On this page
+
+# Collect Metrics
+
+Feedzai products and components expose monitoring metrics on a per request fashion. They are [Dropwizard metrics](https://metrics.dropwizard.io/4.1.2/manual/json.html) formatted in JSON and available on the following HTTP endpoints. The metrics endpoint should be used for consumption purposes, typically by a third-party tool such as Grafana or Prometheus. A companion _"rich metrics"_ endpoint is also available for some components, which includes descriptions for the metrics to help users understand their purpose. Refer to the following endpoints per component:
+
+  * Pulse:
+    * `https://<host:port>/metrics`
+    * `https://<host:port>/metrics/rich`
+  * Case Manager:
+    * `https://<host:port>/api/metrics`
+    * `https://<host:port>/api/metrics/rich`
+  * Reference Data Service:
+    * `https://<host:management_port>/metrics` (note the use of the management port, typically 8081)
+    * `https://<host:management_port>/metrics/rich` (note the use of the management port, typically 8081)
+  * ETL:
+    * `http://<host:port>/metrics` (port is typically 5567)
+
+
+
+##### info
+
+Note that these endpoints donât require authentication.
+
+##### warning
+
+All metrics are published to a single node. It's the operator's responsibility to use an external monitoring system to aggregate them afterwards.
+
+##### WARNING - ETL metrics
+
+ETL metrics are only exposed while the ETL process is executing. The process stays running for 20 seconds after the extraction finishes to allow fetching the metrics.
+
+## Next stepsâ
+
+Learn how to interpret the [available metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/understand-available-metrics), and how to use the `/metrics/rich` endpoint to understand the meaning of each metric.

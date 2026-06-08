@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/gcp-resources-creation
+Title: GCP Resources Creation | Feedzai Documentation
+============================================================
+
+On this page
+
+# GCP Resources Creation
+
+### GCP Resourcesâ
+
+Some GCP Resources needs to be created manually, as they are not created by Pulse.
+
+**1-Storage Bucket:**
+
+The purpose of the Storage Bucket is to archive the DS Events that are sent to to PUB/SUB topic, they will ve saved as avro files.
+
+##### tip
+
+The name of the Bucket must be **globally unique** so that it is recommended to create buckets name based on their Stage. For example for prod we can call it "DS-Events-PROD" and for QA "DS-Events-QA".
+
+**2-Dataflow Job:**
+
+This Dataflow job is the one that transfers data from the PUB/SUB Topic to the previously mentioned Storage Bucket.
+
+From the **GCP Console navigate** to **Dataflow** \-->**Jobs** , and click **"Create job from template"** , and do the following:
+
+  * for **Job Name** : assign a proper name, for example **"ds-stream-archive-job"**.
+  * for **Dataflow template** : choose the option **"Pub/Sub to Avro files on Cloud Storage"**.
+
+
+
+After choosing the template, it will show 1 drop down list and n 3 text input areas to enter:
+
+  * for the **Input Pub/Sub Topic** choose the pulse configured topic where ds-events are published.
+  * for the **Output directory** create a new folder called **"output"** in the previously created Storage bucket and select it.
+  * for the **Temporary Avro write directory** create a new folder called **"tmp-avro"** in the previously created Storage bucket and select it.
+  * for the **Temporary location** create a new folder called **"tmp"** in the previously created Storage bucket and select it.
+
+

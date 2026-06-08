@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-case-manager
+Title: Case Manager | Feedzai RMA Documentation
+============================================================
+
+# Case Manager
+
+In this section you will find the key metrics to monitor, a detailed guide to the important tables used and the relevant alerts in Case Manager.
+
+In this guide you will find:
+
+  * Which [metrics are especially relevant for Case Manager](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-casemanager).
+  * Which [tables are important in Case Manager](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/database-table-structure).
+  * Which [alerts are especially relevant for Case Manager](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/alerting-case-manager).
+
+

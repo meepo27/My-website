@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3412
+Title: HSBC-3412 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3412
+
+### Extend improved currency to all amount and currency columnsâ
+
+FeatureWPB-349833HSBC-3412
+
+We've standardized the event tables across Case Manager using a single Amount column to represent currency amounts along with the respective currency symbol. This change uses the improved currency support added in [Improve currency display in Case Manager](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.10#improve-currency-display-in-case-manager).
+
+##### warning
+
+Please note that the Currency table column no longer exists in any event tables.

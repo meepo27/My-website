@@ -1,0 +1,104 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-lists-and-adding-list-items
+Title: Creating Lists and Adding List Items | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Creating Lists and Adding List Items
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Creating Lists and Adding List Items
+
+A list stores items, for example blocked credit card numbers. A list can be used in rules to check if at your organization a field of a transaction is known for a specific characteristic. For example, the blocked credit card numbers are known for being correlated with fraud.
+
+This page describes how to create a new list, and how to add list items to a list.
+
+## Creating a listâ
+
+To create a new list, complete the following steps:
+
+  1. Go to the **Lists** tab and add  a new list.
+
+The **New List** form is prompted, as shown in the following image: 
+
+  2. **Name** your list.
+
+  3. Select the **Value Type** , which determines what kind of list items the list will store.
+
+     1. **Simple lists** consist of list items that contain data only in one field: the key. For example, a suspicious country list is a simple list if the only information that the list stores is the country code of suspicious countries.
+
+     2. **Complex lists** consist of list items that have more than one field. The key field is still the identifier of the list item, but additionally there are other value fields. For example, a suspicious country list is a complex list if besides the country code (key), it stores a riskiness rate as well.
+
+If you want to create a complex list, you need to specify the **Fields** that the list will store together with the key.
+
+  4. Select the **Key Type** , which determines if the unique key for the list items is a _string_ or a _number_.
+
+  5. Select a **Case Matching** option: _Sensitive_ or _Insensitive_. These options are only available for lists with the key type selected as string. After saving the form, the case matching cannot be edited.
+
+Case-insensitive lists
+
+In case-insensitive lists, the match between the list items and the value of the field of events processed by rules accessing this list is done by comparing case-insensitive strings. For example, consider a case-insensitive list of countries with the item _Portugal_ (i.e. upper case). Imagine that you are processing transactions with a country field and a given transaction has an entry with a string _portugal_ (i.e. lower case). In this case, a rule comparing these two values will be triggered.
+
+  6. Enter a **Key Label**. This is the name of the field that is the list's key.
+
+  7. Select a **Multi-Tenancy** option: _Global_ , _By Tenant_ , or _By Tenant Group_. This attribute controls who has access to the list items. In the case of options _By Tenant_ or _By Tenant Group_ , items added to a list of a tenant or tenant group are available only in that tenant or tenant group.
+
+This attribute cannot be changed after saving the form.
+
+  8. Use the  button to save your list preferences and start adding list items.
+
+
+
+
+## Adding list itemsâ
+
+To add items to a list, perform the following steps:
+
+  1. Go to the **Lists** tab and select the list you want to edit.
+
+  2. If you are adding items to a multi-tenant list, then use the **View as Tenant** or **View as Tenant Group** dropdown box to select the tenant or tenant group to which you want to add items.
+
+  3. Add  items to the list.
+
+By default, new list items are enabled and active, if no dates are set in the **Active from - To** fields.
+
+
+
+
+### Importing list itemsâ
+
+Instead of adding each list item individually, you can import list items in bulk from a CSV file.
+
+To do so, complete the following steps:
+
+  1. Go to the **Lists** tab and select the list you want to edit.
+
+  2. If you are adding items to a multi-tenant list, then use the **View as Tenant** or **View as Tenant Group** dropdown box to select the tenant or tenant group to which you want to add items.
+
+  3. Select .
+
+  4. Upload or drag-and-drop the CSV file that contains the list items you want to import.
+
+The fields and data type in the file must match the fields and data types of the list in Pulse. To see the CSV file format Pulse expects, add a couple of items manually to the list, and export them. Then examine the export file for the necessary info.
+
+  5. Select if you want to **Add items** or **Replace all items**.
+
+     1. The **Add items** option adds every item in the file, overriding any existing key.
+
+If you select the **Do not overwrite duplicated items** checkbox, Pulse tries to add all items that are in the file. If any of the keys already exists, the import is cancelled with an error. Select this option if you want to avoid updating existing items.
+
+     2. The **Replace all items** option deletes the whole list, and creates only the list items defined in the import file.
+
+  6. **Save** the import settings to start the import and return to the list. Pulse will show a notification when the import is finished.
+
+
+
+
+### Reviewing list changesâ
+
+By default, changes to lists can only be reviewed after the fact. However, it is possible to set up 4-eye check functionality for lists, which places edits made to lists into a review queue, and only applies the changes if they are approved by a second person. To learn more, see [Reviewing List Changes - Four Eyes Check](/pulse/latest/docs/common/pulse/operations-guide/reviewing-list-changes).

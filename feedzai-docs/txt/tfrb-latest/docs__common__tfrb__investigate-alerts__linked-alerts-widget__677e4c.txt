@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/linked-alerts-widget
+Title: linked-alerts-widget | Transaction Fraud for Banking
+============================================================
+
+On this page
+
+# linked-alerts-widget
+
+Was this page helpful?Â 
+
+When assigning alerts, users can choose whether to assign a single alert or all alerts linked to it (see Assign alerts to yourself). This widget displays other existing alerts that are assigned to the fraud prevention agent as the one under review. All linked alerts belong to the same channel and share the same .
+
+note
+
+The **Linked alerts** widget only includes:
+
+  * Alerts assigned to the same user as the alert being reviewed.
+  * Alerts from the past 30 days, by default. To extend this timeframe, reach out to your Feedzai contact.
+
+
+
+With this widget, fraud prevention agents can easily act on all linked alerts at the same time, thus improving the efficiency of the investigation process.
+
+You can use the checkboxes to select one or multiple linked alerts and **Move to Queue** , **Choose Assignee** and **Unlink from Case**.
+
+Linked alerts vs. Transaction History
+
+Alerts displayed in the **Linked alerts** widget are flagged alerts that remain open for review, while the alerts displayed in the **Transaction History** also include alerts that have already been reviewed.
+
+#### Preview linked alertsâ
+
+While viewing the linked alerts list, select each alert's row to quickly preview its details.

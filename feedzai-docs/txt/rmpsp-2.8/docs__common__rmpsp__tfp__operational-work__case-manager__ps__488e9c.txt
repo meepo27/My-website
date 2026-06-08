@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/event-flow
+Title: Event Flow | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide)
+  * [PSP](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/overview)
+  * Event Flow
+
+
+
+On this page
+
+# Event Flow
+
+As a fraud prevention agent, understanding the event flow is a key step to managing the alert investigation efficiently. This page helps fraud prevention agents follow the status of alerted events, e.g. investigation is in progress, or on hold.
+
+In this page, you will also learn how the out-of-the-box automation rules play a role in the event flow. These settings integrate an automated process that sorts the alerts by priority for you.
+
+## Event statusesâ
+
+Case Manager displays the event's statuses in the **Event** 's page as follows:
+
+  * **System Decision** : Indicates the outcome processed by the Feedzai's risk engine. The possible values are:
+    * Accept
+    * Decline
+  * **Operational Status** : Indicates the alerted event's investigation stage. The possible values are:
+    * Unreviewed
+    * In progress
+    * On hold
+    * Closed
+  * **Fraud Label** : Indicates the fraud prevention agent's final decision. The possible values are:
+    * Fraud
+    * Not Fraud
+
+
+
+## Event status flowâ
+
+The following figure shows the event flow, from the moment it arrives to Case Manager until the fraud prevention agent marks it as `fraud` or `not fraud`.
+
+The system decision is set by the risk engine and won't change during the investigation.
+
+TFP includes out-of-the-box automation rules that fully automate each operational status:
+
+  1. Event arrives to Case Manager: a rule sets the operational status to "Unreviewed".
+  2. Fraud prevention agent is assigned to the event: a rule sets the operational status to "In Progress".
+  3. Fraud prevention agent takes a `fraud` or `not fraud` decision: a rule sets the operational status to "Closed".
+
+
+
+Feedback output for refunds / OCTs / chargebacks
+
+For refunds and OCTs, any decision that the fraud prevention agent takes (i.e. `fraud` or `not fraud`) will reflect in the alerted events as follows:
+
+  * All the events associated with a payment's `lifecyle_id` will be updated according to the fraud prevention agent's decision, i.e. `fraud` or `not fraud`.
+  * For refunds and OCTs with no associated payments, a new feedback event will be generated with the same `lifecycle_id` as the refund or OCT event, and the `fraud` or `not fraud` decision label updated on the refund / OCT.
+
+
+
+For chargebacks, which are sent via API, a new feedback event will be generated with the same `lifecycle_id` as the chargeback event, and the `fraud` or `not fraud` decision label updated on all payment / refund / OCT events associated with the same `lifecycle_id`.

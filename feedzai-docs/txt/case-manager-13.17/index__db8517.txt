@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/case-manager/13.17/
+Title: Case Manager
+============================================================
+
+Skip to main content  
+  
+[**Case Manager**](/case-manager/13.17/)[Release Information](/case-manager/13.17/docs/common/case-manager/release-information/release-information-overview)[What is Case Manager](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/what-is-case-manager)[User Guides](/case-manager/13.17/docs/common/case-manager/user-guide/user-guide-overview)
+
+# Case Manager
+
+Bring the power of AI into your Risk Operations. Boost the efficiency of financial crime prevention and increase detection accuracy.
+
+[Get started](/case-manager/13.17/)
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#9efaf1fdebf3fbf0eaffeaf7f1f0def8fbfbfae4fff7b0fdf1f3).   
+Copyright Â© 2025 Feedzai.

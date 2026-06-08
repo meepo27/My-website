@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/overview
+Title: API Resources | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * API Resources
+
+
+
+# API Resources
+
+This section provides you with the information you need to work with the Investigations API.
+
+  * [Ad-Hoc Investigation Endpoints' Life Cycles](/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/endpoint-life-cycles)
+  * [Ad-Hoc Investigations' Endpoints](/rmpsp/2.8/api/rmpsp#tag/Merchant-Provisioning-API)
+  * [Additional Resources](/rmpsp/2.8/docs/common/rmpsp/mm/api-resources/additional-resources)
+
+

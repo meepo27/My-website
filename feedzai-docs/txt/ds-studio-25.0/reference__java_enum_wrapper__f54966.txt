@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/java_enum_wrapper/
+Title: java_enum_wrapper - DS API
+============================================================
+
+#  `` java_enum_wrapper Â¶
+
+##  `` JavaEnumWrapper Â¶
+
+Bases: `str`, `Enum`
+
+Class to represent Java Enums as native Python Enums.
+
+This enum is a proxy for Java Enums. It's preferred to using the pyjnius wrapped object so that we keep the advantages of having the Enum, such as identifying invalid types at compile time, thereby catching bugs early on. Additionally, this decouples the user's code from our Java or Pulse's implementation.
+
+When using this enum, the use of the `auto` function from the enum package is recommended, which will set the value of an attribute be the same as the name. The values of attributes are given to the `JavaEnumWrapper.__new__` method upon attribute creation, which override the attribute's value with Java Enum attribute corresponding to the given value. Therefore, the use of `auto` is recommended, which will assign the value to be the same as the name of the python enum attribute. However, if you want to give any of the attributes a name different from the java counterpart, you can go without using `auto` and assigning the value from the java counterpart to the new name in python.

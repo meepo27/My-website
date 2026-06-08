@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reasons
+Title: Manage Reasons | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage System Configurations
+  * Manage Reasons
+
+
+
+On this page
+
+# Manage Reasons
+
+You can manage the [reasons](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/reasons) used by analysts when [classifying alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts). This page details how to view, filter, create, and delete reasons.
+
+## View reasonsâ
+
+Access the **Reasons** page using the **Settings** option in the main menu.
+
+## Filter reasonsâ
+
+Use the filters to refine the reasons displayed on the list. This could be helpful, for example, to view all reasons from a specific state machine.
+
+## Create reasonsâ
+
+Create reasons for analysts to use when classifying alerts.
+
+  1. Select the **New Reason** button.
+  2. Complete the fields with the information that best describes the new reason.
+     * **Name** : Reasons's name (e.g. "Educated Guess").
+     * **Status** : Select the status associated with the new reason. Learn more about states.
+  3. **Create** the reason.
+
+
+
+## Delete reasonsâ
+
+Delete the reasons that are no longer relevant to your needs:
+
+  1. In the reasons list, hover over the reason that you want to delete and select **Delete** .
+
+  2. Since this is a sensitive operation, the page displays a dialog for you to confirm the deletion.
+
+
+
+
+Delete reasons already in use
+
+When you delete a reason, the events that already have that reason are not affected. Deleting reasons only prevents analysts from using them in future actions.
+
+## Learn moreâ
+
+See [States and Outcomes](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/states-and-outcomes) to learn more about **states** and **state machines**.

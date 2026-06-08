@@ -1,0 +1,82 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/model_project/
+Title: model_project - DS API
+============================================================
+
+#  `` model_project Â¶  
+  
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` ModelProject Â¶
+    
+    
+    ModelProject(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a Model Project in Pulse.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` create `classmethod` Â¶
+    
+    
+    create(app, name)
+    
+
+###  `` train Â¶
+    
+    
+    train(name: str, input_datasource: [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)"), target: str, model_config: [TrainingConfig](../models/#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)"), job_profile: [JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)") | None = None, job_properties: dict[str, str] | None = None, wait: bool = False) -> [Model](../model/#ds_api.model.Model "            Model \(ds_api.model.Model\)")
+    
+
+Creates and trains a given model with TrainingConfig using DataSource with target label field, with the option of using the default job profiles, a specific job profile, or custom spark_job_properties.
+
+Note: if both job_properties and job_profile are specified and there is intersection between their properties, the job_properties property will prevail over the job_profile property.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  Model name visible to the user. |  _required_  
+  
+####  `input_datasource` Â¶
+
+|  `[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")` |  Datasource used in the model training. |  _required_  
+  
+####  `target` Â¶
+
+|  `str` |  Name of the label field. |  _required_  
+  
+####  `model_config` Â¶
+
+|  `[TrainingConfig](../models/#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)")` |  Training configuration used in the model training. |  _required_  
+  
+####  `job_profile` Â¶
+
+|  `[JobProfile](../job_profile/#ds_api.job_profile.JobProfile "            JobProfile \(ds_api.job_profile.JobProfile\)")` |  Pulse UI custom job profile. |  `None`  
+  
+####  `job_properties` Â¶
+
+|  `Mapping` |  Map containing spark job configurations. It will apply default configurations (Pulse Properties Profile) and job_properties. |  `None`  
+  
+####  `wait` Â¶
+
+|  `bool` |  Whether to wait for the model training to finish. The training outcome will be logged. By default, False. |  `False`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[Model](../model/#ds_api.model.Model "            Model \(ds_api.model.Model\)")` |  The trained model.

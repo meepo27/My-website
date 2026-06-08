@@ -1,0 +1,20 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules/cost-fields-in-rules
+Title: Cost Fields in Rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules)
+  * Cost Fields in Rules
+
+
+
+Was this page helpful?Â 
+
+# Cost Fields in Rules
+
+A **cost field** is a field of the instances that is used as a weight for the metrics of the evaluations (of both models and rules), typically the transaction amount in a fraud detection scenario.
+
+Using cost fields in model evaluations or rule evaluations allows you to transform any metric (which by default is count-based, e.g. Recall, Precision, etc.) into a cost-based metric (e.g. Money Recall, if the field chosen is a form of cost of the instance).
+
+The following image displays cost fields included in a rule evaluation. This example depicts an evaluation of a block of rules where the plot shows the cost performance and the _Results_ table displays the cost FPR and Recall.

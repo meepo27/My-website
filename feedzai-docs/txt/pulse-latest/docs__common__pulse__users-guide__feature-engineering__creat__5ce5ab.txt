@@ -1,0 +1,49 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics/using-cross-channel-metrics
+Title: Using Cross-channel Metrics | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/)
+  * [Creating Metrics](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/creating-metrics)
+  * Using Cross-channel Metrics
+
+
+
+# Using Cross-channel Metrics
+
+Was this page helpful?Â 
+
+caution
+
+Cross-channel metrics are only supported when using the [Railgun Engine](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine).
+
+Pulse supports [Cross-channel metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/metrics#cross-channel-metrics), when using [Railgun](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine), and the following section explains how to create these type of metrics, in which only one Pulse application workflow calculates the metric and another workflow can fetch and use the metric value without contributing to it.
+
+If your Risk Strategy needs to use some of these metrics, follow the guidelines below to know how to create them in Pulse.
+
+Assuming that the **secondary workflow** already exists, then, to create some **Cross-channel** metrics via Pulse UI, it's necessary to do the following:
+
+  * Create a **schema** for the **Primary workflow** :
+
+    * Since this is the main schema, it doesn't need to have any fields that the **Cross-channel** metric might use.
+  * Create an **Omnichannel plan** :
+
+    * Since **Cross-channel** metrics is just a subset of **Omnichannel** metrics, the type of the plan should be set as **Omnichannel**.
+
+Make sure to tick the **Omnichannel** as enabled, and configure both schemas properly.
+
+  * Create a **Cross-channel** metric:
+
+    * Now, when adding a new metric to this **Omnichannel** plan, it will ask to configure both channels.
+
+Note that the fields used by the metric will only be the ones in the secondary channel.
+
+  * Then, when saving the **Cross-channel** metric:
+
+    * The metric called `mainfielda_avg_1h` is a **Cross-channel** metric, meaning that only events from the **secondary workflow** (that use the `secondary_schema` schema) can contribute to the metric, and the saved plan can also use it's value.
+  * Now, save the **plan** and create a **snapshot**.
+
+  * Finally, you can create/edit the **primary workflow** to use the **Omnichannel plan** with the **Cross-channel** metric.
+
+
+

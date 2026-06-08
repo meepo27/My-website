@@ -1,0 +1,72 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/operations-guide/monitoring/monitoring-cassandra
+Title: Monitoring Cassandra | Feedzai Documentation
+============================================================
+
+On this page
+
+# Monitoring Cassandra
+
+##### tip
+
+For a complete reference of the metrics provided by Cassandra, refer to the [official documentation](https://cassandra.apache.org/doc/latest/cassandra/operating/metrics.html). Make sure to refer to the version being used.
+
+## Collecting metricsâ
+
+Metrics in Cassandra are managed using the [Dropwizard Metrics](http://metrics.dropwizard.io/) library. The recommendation from the Cassandra maintainers is to query the metrics via JMX.
+
+Feedzai recommends the usage of [Jolokia](https://jolokia.org/), a JMX-HTTP bridge plugin that makes JMX-based systems more suitable to agent-based solutions. This allows agents like [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) to easily poll the metrics from individual nodes and send them to a centralised metric storage.
+
+##### note
+
+The [recommendation from Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) for monitoring Cassandra is also to use a Jolokia plugin.
+
+## Top Metrics to Monitorâ
+
+In this section you will find which metrics are important to monitor in **Cassandra**.
+
+##### info
+
+Note that the following list is simply a reference to the most important metrics, and should not be considered as the single source of monitoring the healthiness of the system.
+
+### Table Operation Latencyâ
+
+The metric names are all appended with the specific `Keyspace` and `Table` name: `org.apache.cassandra.metrics.Table.<MetricName>.<Keyspace>.<Table>`
+
+Metric Name| Description  
+---|---  
+`ReadLatency`| Local read latency for this table.  
+`WriteLatency`| Local write latency for this table.  
+`PendingFlushes`| Estimated number of flush tasks pending for this table.  
+`PendingCompactions`| Estimate of number of pending compactions for this table.  
+`TotalDiskSpaceUsed`| Total disk space used by SSTables belonging to this table, including obsolete ones waiting to be GCâd.  
+  
+##### tip
+
+Table-specific metrics should be monitored for all the relevant tables in the system. In particular, the profiles table maintained for Pulse (i.e. the Profile Store) and the entity table maintained by the Reference Data Service.
+
+### Commit Logâ
+
+Metrics specific to the `CommitLog`: `org.apache.cassandra.metrics.CommitLog.<MetricName>`.
+
+Metric Name| Description  
+---|---  
+`CompletedTasks`| Total number of commit log messages written since [re]start.  
+`PendingTasks`| Number of commit log messages written but yet to be fsyncâd.  
+`TotalCommitLogSize`| Current size, in bytes, used by all the commit log segments.  
+`WaitingOnCommit`| The time spent waiting on CL fsync; for Periodic this is only occurs when the sync is lagging its sync interval.  
+  
+### Compactionâ
+
+Metrics specific to the `Compaction`: `org.apache.cassandra.metrics.Compaction.<MetricName>`.
+
+Metric Name| Description  
+---|---  
+`PendingTasks`| Estimated number of compactions remaining to perform.  
+`CompletedTasks`| Number of completed compactions since server [re]start.  
+`TotalCompactionsCompleted`| Throughput of completed compactions since server [re]start.  
+  
+##### note
+
+The pending compactions per table are also reported under `org.apache.cassandra.metrics.Table.<MetricName>.<Keyspace>.<Table>.PendingCompactions`
+
+### JVM metricsâ

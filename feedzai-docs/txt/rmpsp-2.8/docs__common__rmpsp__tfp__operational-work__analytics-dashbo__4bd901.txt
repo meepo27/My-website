@@ -1,0 +1,122 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/analytics-dashboards/view-rule-monitoring-dashboard
+Title: Rule Monitoring | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Manager](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/overview)
+  * [Analytics Dashboards Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-manager/analytics-dashboards/analytics-dashboards-guide)
+  * Rule Monitoring
+
+
+
+On this page
+
+# Rule Monitoring
+
+The rule monitoring dashboard identifies which rules are being triggered by the risk engine platform and which are not. It also provides information about rules hit rate and precision. Based on this information, you can write self-service rules to control and improve fraud prevention.
+
+Understanding if the rules behave as expected, or quickly discovering which need to be adjusted, or even deleted, is critical to improve your fraud prevention system.
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by fields. For instance, the `enrich.name: allpaymentsvelocityfr1` field allows you to filter by a specific rule.
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [field](/rmpsp/2.8/docs/common/rmpsp/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. A **Value** field appears after selecting the operator. Enter a value to finalize the creation of your condition.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for. 
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most common used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+The **Rule Monitoring** dashboard provides other filters to refine your search such as:
+
+  * **Rule block**
+  * **Rule owner**
+  * **Is self-service rule?**
+  * **Name**
+  * **Customer region**
+  * **Event type** : `info`, `merchant monitoring`, `payment`
+  * **Feedzai channel** : `mmchannel`, `payments`
+  * **Merchant ID**
+  * **Merchant name**
+  * **Merchant MCC**
+  * **Payment region**
+
+
+
+## Rule KPIsâ
+
+  * **Number of triggered rules** : The total number of rules triggered.
+  * **Number of transactions with triggered rules** : The total number of transactions that triggered rules.
+  * **Overall rule(s) false positives** : The false positive rate.
+  * **Overall rule(s) true positives** : The true positive rate.
+
+
+
+  * **Total transactions amount by rule name distributed over time** : The total transaction amount and the corresponding triggered rule(s) in the selected interval over a defined period (e.g. 7 hours).
+  * **Number of transactions by rule name distributed over time** : The number of transactions and the corresponding triggered rule(s) in the selected interval over a defined period (e.g. 7 hours).
+
+
+
+  * **Total transaction amount by rule name** : The total transaction amount and the corresponding triggered rule.
+  * **Number of transactions by rule name** : The number of transactions that triggered a specific rule.
+
+
+
+caution
+
+Note that selecting bars or line dots works like a filter, and therefore this action results in changes to all the results of the **Rule Monitoring** dashboard.
+
+* * *
+
+## Rule detailsâ
+
+The following table includes the top rules triggered and their respective transaction counts over a defined period.
+
+* * *
+
+### Drill down by merchantâ
+
+The table below shows the top triggered rules and their corresponding transaction counts per merchant over a defined period.
+
+tip
+
+  * These are sortable tables. You can arrange data into ascending or descending order according to a column.
+  * By hovering over each **rule name** , **rule description** , **is SSR?** , **merchant ID** , or **merchant name** , you can use the **magnifying glass** icon to either filter out or filter by a specific value.
+  * You can also export the table by selecting **Raw** or **Formatted**.
+
+
+
+* * *
+
+### Rules triggered by terminal locationâ
+
+The following geographical map shows the regions where specific rules triggered. Select a location and use the pagination to see all triggered rules for that specific region. Note that selecting a specific rule will result in changes to all the results of the **Rule Monitoring** dashboard.

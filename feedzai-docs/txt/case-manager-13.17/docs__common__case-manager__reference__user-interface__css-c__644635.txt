@@ -1,0 +1,111 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/css-classes
+Title: CSS Classes | Case Manager
+============================================================
+
+On this page
+
+# CSS Classes
+
+## Fontâ
+
+Class| Description  
+---|---  
+.fdz-css-text--light| Sets font weight to 300.  
+.fdz-css-text--regular| Sets font weight to 400.  
+.fdz-css-text--semibold| Sets font weight to 500.  
+.fdz-css-text--bold| Sets font weight to 700.  
+.fdz-css-text--xsmall| Sets font size to 12px.  
+.fdz-css-text--small| Sets font size to 14px.  
+.fdz-css-text--medium| Sets font size to 16px.  
+.fdz-css-text--large| Sets font size to 18px.  
+.fdz-css-text-xlarge| Sets font size to 2rem.  
+.fdz-css-text--xxlarge| Sets font size to 3rem.  
+.fdz-css-text--italic| Sets font as italic.  
+  
+## Colorsâ
+
+Classes| Description  
+---|---  
+.fdz-css-colorâblue| Sets color to #38a2e0.  
+.fdz-css-color--green| Sets color to #5cb85c.  
+.fdz-css-color--yellow| Sets color to #f2a638.  
+.fdz-css-color--red| Sets color to #eb5d4b.  
+.fdz-css-color--darkgrey| Sets color to #555657.  
+.fdz-css-color--black| Sets color to #2d2e2e.  
+  
+## Buttonsâ
+
+info
+
+The button's color should not be applied directly with CSS but with the property kind instead: `default`, `success`, `warning`, `danger` or `info`.
+
+Classes| Description  
+---|---  
+.fdz-css-button-border| Sets a transparent background with the border color of the button's kind.  
+.fdz-css-button--link| Sets the button color to it's kind and removed shadow and background color.  
+.fdz-css-button-block| Sets the button width to **100%**  
+  
+## Iconsâ
+
+To use icons in Case Manager, you can use either our core icons or use the icons available at [font-awesome](https://fontawesome.com/icons/). When using the latter, please follow the instructions to properly add an icon to an element.
+
+Case Manager's core icons are listed below:
+
+## Floatsâ
+
+Attention
+
+Float usage to position elements is discouraged as [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout) provides a much more streamlined approach.
+
+Classes| Description  
+---|---  
+.fdz-css-fr| Sets element to float **right**  
+.fdz-css-fl| Sets element to float **right**  
+.fdz-css-fn| Sets element to not float (**none**)  
+  
+## Spacingâ
+
+### Paddingâ
+
+Classes| Description  
+---|---  
+.fdz-css-pv-small| Sets the vertical padding (top and bottom) to **.5em**  
+.fdz-css-pv-small-medium| Sets the vertical padding (top and bottom) to **.75em**  
+.fdz-css-pv-medium| Sets the vertical padding (top and bottom) to **1em**  
+.fdz-css-ph-small| Sets the horizontal padding (left and right) to **.5em**  
+.fdz-css-ph-medium| Sets the horizontal padding (left and right) to **1em**  
+.fdz-css-ph-large| Sets the horizontal padding (left and right) to **2em**  
+  
+### Marginâ
+
+Classes| Description  
+---|---  
+.fdz-css-mt-small| Sets the top marginÂ to **.5em**  
+.fdz-css-mb-small| Sets the bottom marginÂ to **.5em**  
+.fdz-css-mb-small-medium| Sets the bottom marginÂ to **.75em**  
+.fdz-css-mb-medium| Sets the bottom marginÂ to **1em**  
+.fdz-css-mb-large| Sets the bottom marginÂ to **2em**  
+.fdz-css-mr-medium| Sets the right marginÂ to **1em**  
+.fdz-css-m-large| Sets all margins (top right bottom left)Â to **2e**  
+  
+## Line Heightâ
+
+Classes| Description  
+---|---  
+.fdz-css-lh--normal| Sets line-height to **1**  
+.fdz-css-lh--medium| Sets line-height to **1.5**  
+.fdz-css-lh--large| Sets line-height to **2**  
+  
+## Othersâ
+
+Classes| Description  
+---|---  
+.fdz-css-noborder-left| Removes any free space on the component left side.  
+.fdz-css-noborder-right| Removes any free space on the component right side.  
+.fdz-css-align-left| Aligns text to the left.  
+.fdz-css-align-right| Aligns text to the right.  
+.fdz-css-align-center| Aligns text to the centre.  
+.fdz-css-show| Adds the _display :block_ rule to the element.  
+.fdz-css-hidden| Adds the _display :none_ rule to the element.  
+.fdz-css-invisible| Adds the _display :hidden_ rule to the element.  
+.fdz-css-text-truncate| Forces the text to not break into multiple lines.

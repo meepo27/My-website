@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/
+Title: Analyzing and sampling your data | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Processing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/)
+  * Analyzing and sampling your data
+
+
+
+# Analyzing and sampling your data
+
+Was this page helpful?Â 
+
+Pulse provides a toolset to help you in uncovering interesting data insights, which you can explore as features in your models. It also helps you in balancing your data to make it easier to manipulate and understand.
+
+With Pulse you can perform the following operations over your data in your Data Science project:
+
+  1. [Identifying patterns](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/identifying-patterns)  
+Run statistical analyses on your data to reveal patterns and gain some initial insight on both the contents and quality of your dataset, without writing any code. Pulse generates histograms, minimum, maximum, median, count and percentiles over each specific data field of the dataset and allows you to further explore these analytics by breaking them down by other fields of the dataset.
+  2. [Creating a stratified sample](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/creating-a-stratified-sample)  
+Learn how to design a [Plan](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) to generate a stratified sample out of the original data and start your [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) work from a stable and more balanced dataset.
+
+

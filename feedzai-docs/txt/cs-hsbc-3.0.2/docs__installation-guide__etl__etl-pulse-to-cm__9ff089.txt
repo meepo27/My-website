@@ -1,0 +1,97 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/etl/etl-pulse-to-cm
+Title: Recover events from Pulse to Case Manager | Feedzai Documentation
+============================================================
+
+On this page
+
+# Recover events from Pulse to Case Manager
+
+The goal of Case Manager event recovery is to sync Pulse Event Storage with the Case Manager database if they become out of sync.
+
+To support this process we have created a new playbook `etl-pulse-to-cm-single-run.yml` that is meant to run on demand. This playbook can be executed either with or without a time range but our suggestion is to use a fixed interval to prevent overflowing RabbitMQ and Case Manager and also to avoid duplication of events.
+
+### Executionâ
+
+The recovery process can be executed with the following command:
+    
+    
+    python3 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        etl-pulse-to-cm-single-run.yml  
+    
+
+Copy
+
+##### info
+
+The recovery process behavior depends on the chosen routing strategy. For the DIRECT strategy, recovery only supports one channel per execution. For the MULTICHANNEL strategy, the process can handle multiple event types in a single run, routing them to their respective queues as defined in the configuration.
+
+#### Execute for a fixed extraction intervalâ
+
+Our recommendation is to run recovery only for a small time interval to prevent RabbitMQ and Case Manager to overflow with messages. This can be achieved by running the process with the following Ansible variables:
+    
+    
+    etl_extraction_interval:  
+      start_event_timestamp: <unix-timestamp>  
+      end_event_timestamp: <unix-timestamp>  
+    
+
+Copy
+
+#### Routing strategiesâ
+
+The ETL offers two routing strategies to send events to Case Manager, configured via the `etl_cm_route_strategy` variable.
+
+  * `DIRECT` (Default): This strategy sends all recovered events to a single RabbitMQ queue. This is the preferred method for recovering events of workflows that process a single channel (e.g. Inbound Payments or Cards).
+  * `MULTICHANNEL`: This strategy routes events to different RabbitMQ queues based on an event field. This is the preferred method to recover events from a single workflow that should be routed to different Case Manager channel (e.g. Outbound Payments or Digital Activity).
+
+
+
+For a `DIRECT` strategy, simply define the strategy and the queue:
+    
+    
+    etl_cm_route_strategy: DIRECT  
+    etl_cm_rabbitmq_event_queue: "<event queue>"  
+    
+
+Copy
+
+For the `MULTICHANNEL` routing strategy the channel mappings are required. For example, to recover Outbound events (Transfers and Digital-Activity):
+    
+    
+    etl_cm_route_strategy: MULTICHANNEL  
+    etl_cm_route_fieldName: fdz_channel  
+    etl_cm_channel_queue_mappings:  
+      DIGITAL_ACTIVITY: "<digital activity queue>"  
+      TRANSFERS: "<transfers queue>"  
+    
+
+Copy
+
+To recover Cards events (Cards and Non-Mon) the channel mappings would be:
+    
+    
+    etl_cm_channel_queue_mappings:  
+      CARDS: "<cards queue>"  
+      NON_MON: "<non mon queue>"  
+    
+
+Copy
+
+### Configurationâ
+
+Please find below the available configuration options.
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+etl_cm_route_strategy| STRING| | DIRECT| The routing strategy to use. Can be DIRECT (all events to a single queue) or MULTICHANNEL (events routed based on channel).  
+etl_rabbitmq_cm_brokers| STRING| X| | The broker address and port in the format `host:port` (e.g. `rabbitmq:5672`).  
+etl_rabbitmq_cm_username| STRING| X| | The username to be used when authenticating in RabbitMQ.  
+etl_rabbitmq_cm_password| STRING| X| | The password to be used when authenticating in RabbitMQ.  
+etl_rabbitmq_cm_vhost| STRING| X| /| The vhost value that Pulse should use when connecting to RabbitMQ.  
+etl_cm_rabbitmq_event_queue| STRING| X| EVENT_QUEUE| The name of the targeted topic(e.g. `EVENT_QUEUE_CARDS`).  
+etl_cm_route_fieldName| STRING| X (for the MULTICHANNEL strategy)| "fdz_channel"| The field from the event payload that will be used to identify the channel. (e.g. `fdz_channel`).  
+etl_cm_channel_queue_mappings| DICTIONARY| X (for the MULTICHANNEL strategy)| { 'TRANSFERS': 'EVENT_QUEUE_TRANSFERS', 'DIGITAL_ACTIVITY': 'EVENT_QUEUE_DIGITAL-ACTIVITY' }| For MULTICHANNEL strategy, this maps the channel type to a specific queue. Possible values: { 'TRANSFERS': 'EVENT_QUEUE_TRANSFERS', 'DIGITAL_ACTIVITY': 'EVENT_QUEUE_DIGITAL-ACTIVITY', 'CARDS': 'EVENT_QUEUE_CARDS', 'NON_MON': 'EVENT_QUEUE_NON-MON' }

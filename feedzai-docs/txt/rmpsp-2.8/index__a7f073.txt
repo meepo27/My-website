@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/
+Title: Risk Management for PSPs
+============================================================
+
+Skip to main content
+
+[**Home**](/rmpsp/2.8/)[Risk Management for PSPs](/rmpsp/2.8/docs/common/rmpsp/overview)[Transaction Fraud for PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/overview)[Merchant Monitoring](/rmpsp/2.8/docs/common/rmpsp/mm/overview)
+
+[FAQ](/rmpsp/2.8/docs/common/rmpsp/faq)
+
+# Risk Management for PSPs
+
+Risk Management for PSPs is a solution designed for acquirers, gateways, and Payments Service Providers (PSPs), which face the challenge of detecting abnormal payment behavior in order to build trust with their clients as well as to save costs. At the same time, this solution implements a scheduled behavioral analysis over PSPs' complete merchant portfolio, which spots abnormal merchant behavior.
+
+[Get started](/rmpsp/2.8/docs/common/rmpsp/overview)
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#05616a667068606b7164716c6a6b45636060617f646c2b666a68).   
+Copyright Â© 2025 Feedzai.

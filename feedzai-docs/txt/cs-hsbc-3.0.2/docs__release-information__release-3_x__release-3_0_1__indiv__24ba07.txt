@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.1/individual-release-notes/HSBC-4353
+Title: HSBC-4353 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4353
+
+### Add network configuration for DTPâ
+
+FeatureHSBC-4353
+
+We've added support to configure the network and subnetwork in which DTP Dataflow worker nodes are created. This can be configured during deployment using the following Ansible variables:
+
+  * `dtp_dataflow_network`: sets the Dataflow job network
+  * `dtp_dataflow_subnetwork`: sets the Dataflow job subnetwork
+
+
+
+##### warning
+
+Note that the two parameters are not required to be set at the same time. For example, when setting `subnetwork` the `network` can be omitted and GCP will determine the network automatically.
+
+For more details on Dataflow networking refer to [Specify a network and subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks).
+
+We've also added a new property to configure if worker pool machines should be created with public IP addresses. This is available via the `dtp_dataflow_use_public_ips` variable and defaults to `false`.
+
+Please refer to [DTP Network Configuration](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup#network) and to the [DTP Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp) for more information.

@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/admin-reference/manage-users
+Title: Manage Users | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Admin Reference](/rmpsp/2.8/docs/common/rmpsp/admin-reference/overview)
+  * [Multi-Tenancy in Case Manager](/rmpsp/2.8/docs/common/rmpsp/admin-reference/multi-tenancy)
+  * Manage Users
+
+
+
+# Manage Users
+
+PSPs need to manage their merchants' accounts so that they can access Case Manager in order to investigate fraud. This page helps fraud prevention managers understand the steps they must take to successfully create users for their merchants to access Case Manager with the right permissions.
+
+  1. **Invoke the Merchant Provisioning endpoint** : Before a new merchant's first payment, you must invoke the [_Merchant Provisioning_](/rmpsp/2.8/api/rmpsp#tag/Merchant-Provisioning-API) endpoint to add the new merchant entity to Feedzai.
+
+  2. **Create user** : To successfully create a user and associate it with the merchant, read the [Manage Users](https://cam.feedzai.com/pulse/25.0.0/docs/common/operations-guide/manage-users/) page from the Pulse documentation. While creating the new user, make sure to assign the role and the tenant in the **Create User** form (see image below). Note that Risk Management for PSPs delivers out-of-the-box roles and their respective permissions, which you can check in the [Roles and Permissions](/rmpsp/2.8/docs/common/rmpsp/admin-reference/roles-and-permissions) page.
+
+
+

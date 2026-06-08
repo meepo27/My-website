@@ -1,0 +1,63 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-access-groups
+Title: Manage Access Groups | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * Manage Access Groups
+
+
+
+On this page
+
+# Manage Access Groups
+
+Access groups ensure that alerts/events are only visible to those who should have access to it. For example, when teams from different countries use the same Case Manager, the alerts that enter the system should only be investigated by analysts from the same country as the alert. This ensures that the investigation complies with the rules for exposure of personal data during the investigation of financial crimes.
+
+Create and Use User Groups
+
+See [Creating and Using Groups](https://cam.feedzai.com/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application/creating-and-using-groups) in the Pulse documentation to learn how to create and use access groups.
+
+## View events by access groupâ
+
+When searching events, managers can view events from multiple access groups using the **Access Groups** search field.
+
+## Change access groupâ
+
+At some point in the investigation, an alert may need to be escalated to a different team that will be responsible for further investigation. This can be done manually on the Events Details page or automatically through an automation rule. The following sections explain how to change an alert's access group with both methods.
+
+### Manuallyâ
+
+In the **Event Details** page, Managers can change an alert's access group, for example, to unblock the review of the alert by the right user group. To change the access group:
+
+  1. In the **More actions** dropdown, select the **Change Access Group** option.
+
+  2. Select an **Access group** from the list and add any additional **Note** about the access group change.
+
+
+
+
+info
+
+The options displayed in the **Access Group** field represent groups from Pulse. To add groups, users, or roles, go to the Security section of your Pulse application.
+
+  3. Select **Submit** to apply the changes.
+
+
+
+tip
+
+In the Event Details page, press `.` on your keyboard to display the shortcuts menu and select the **Change Access Group** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+### Automaticallyâ
+
+Access groups can be automatically changed using automation rules. Let's take a look at two examples:
+
+#### When alert arrivesâ
+
+When an alert arrives from a specific country, its access group can be automatically changed. For example, if an alert is from the _UK_ , it can be automatically added to the _Europe_ access group.
+
+#### When alert status changesâ
+
+When an alert's status changes, its access group can be automatically changed. For example, if an alert's status changes to _Suspicious_ , it can be automatically added to the _Managers_ access group.

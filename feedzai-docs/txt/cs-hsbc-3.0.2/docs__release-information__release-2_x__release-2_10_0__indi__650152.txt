@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3411-Add-Decision-Typology-outcome-to-Inbound-Payments
+Title: HSBC-3411-Add-Decision-Typology-outcome-to-Inbound-Payments | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3411-Add-Decision-Typology-outcome-to-Inbound-Payments
+
+### Add Decision Typology outcome to Inbound Paymentsâ
+
+FeatureFTMT-29925HSBC-3411
+
+We've added the `decision_typology` outcome to the **Inbound Payments** workflow. The field was also added to the **Inbound Payments + Outcomes** schema.
+
+This outcome can have the following values:
+
+  * `approve_fraud`
+  * `approve_scam`
+  * `review_fraud`
+  * `review_scam`
+  * `decline_fraud`
+  * `decline_scam`
+  * `none`
+
+
+
+##### note
+
+The values added to the outcome are the same that as the **Outbound Payments** baseline. It is possible that some values have since been added to the **Outbound Payments** outcome. If that's the case, any missing values should be added manually to the **Inbound Payments** outcome to ensure consistency between both workflows.

@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/overview
+Title: Merchant Monitoring | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Merchant Monitoring
+
+
+
+# Merchant Monitoring
+
+### [About Merchant MonitoringLearn the basics to have a solid understanding of how the solution works](/rmpsp/2.8/docs/common/rmpsp/mm/about/overview)
+
+### [Operational WorkExplore MM's practical guides to help data scientists and fraud prevention agents use the software](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+
+### [Out-of-the-Box ResourcesLearn about the resources that come with the solution, namely rules and lists](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)

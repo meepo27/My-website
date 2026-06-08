@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4205
+Title: HSBC-4205 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4205
+
+### Add `customer_country_code` to Cards, Token and Account Reference Data entitiesâ
+
+FeatureFTMT-34393FTMT-34969HSBC-4205
+
+We've added the `customer_country_code` field to the Cards, Token and Account Reference Data entities.
+
+This changes ensures that all entities have a common field where the tenant can be specified and allow the enrichment of events in multi-tenanted environments.
+
+The default value of the variable `reference_data_tenant_api_payload_field` has been changed to `customer_country_code`.
+
+For more information, refer to the [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).

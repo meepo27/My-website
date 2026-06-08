@@ -1,0 +1,33 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/field_types/
+Title: field_types - DS API
+============================================================
+
+#  `` field_types Â¶
+
+##  `` FieldType Â¶
+
+Bases: `str`, `Enum`
+
+###  `` CATEGORICAL `class-attribute` `instance-attribute` Â¶
+    
+    
+    CATEGORICAL = 'string'
+    
+
+###  `` DATETIME `class-attribute` `instance-attribute` Â¶
+    
+    
+    DATETIME = 'timestamp'
+    
+
+###  `` NUMERICAL `class-attribute` `instance-attribute` Â¶
+    
+    
+    NUMERICAL = 'numeric'
+    
+
+###  `` get_values `classmethod` Â¶
+    
+    
+    get_values() -> set[str]
+    

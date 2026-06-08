@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/
+Title: Investigate Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)  
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * Investigate Alerts
+
+
+
+On this page
+
+# Investigate Alerts
+
+As an analyst, you are challenged to review suspicious transactions, understand fraud signals, and identify and block new fraud schemes. The volume of transactions that need to be manually reviewed is huge, and thus, you must act quickly to clear your workload.
+
+This guide helps you to become proficient in reviewing suspicious transactions using Case Manager. The following user journey shows the different steps associated with a complete fraud analysis:
+
+## Next stepsâ
+
+Start your investigation by [accessing the alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts) that are up for review.

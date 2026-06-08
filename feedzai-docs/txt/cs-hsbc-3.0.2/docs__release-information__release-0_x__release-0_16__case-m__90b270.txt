@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/digital-activity-network
+Title: Digital Activity - Network | Feedzai Documentation
+============================================================
+
+# Digital Activity - Network  
+  
+Before:
+
+After:
+
+**Field Modifications** :
+
+Change| Field  
+---|---  
+Added| True IP City  
+Added| True IP Geo  
+Added| IP Country  
+Fixed| IP Location  
+Removed| Proxy

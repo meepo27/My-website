@@ -1,0 +1,95 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/glossary
+Title: Rules Glossary | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Rules Glossary
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Rules Glossary
+
+Here you can find a short definition for the most important concepts that this guide refers to.
+
+### Listâ
+
+A list stores items, for example blacklisted credit card numbers. It can be used in rules, to check if at your organization a field of a transaction is known for a specific characteristic. For example, in your organization the blacklisted credit card numbers are known for being correlated with fraud.
+
+Lists can apply to the entire Pulse environment, or a single tenant, or a group of tenants.
+
+You can set the expiration date of a list item, meaning that after a certain date the list item will be inactive. It doesnât get deleted from the list, but it gets disabled. Rules donât consider disabled list items.
+
+### Outcome combinatorâ
+
+Outcome combinators define how workflows and sandbox evaluations calculate the partial and final decisions and scores for an outcome. The default outcome combinator calculates a weighted average. However, you can develop your own outcome combinator service.
+
+### Planâ
+
+Plans define a transformation flow of one data source into another data source. In a plan it is possible to add, update and remove fields, calculate metrics on the data, and even join two data sources.
+
+They are useful to systematize data cleaning, data processing and feature engineering, both in a data science pipeline and in production.
+
+A plan doesn't have any data bound to it, only the data schema. To actually compute the output data source it is necessary to run the plan; see plan execution.
+
+### Plan executionâ
+
+When your plan is ready, you can test it by running it. Running the plan generates a plan execution and an output data source. A plan execution represents a snapshot of the plan at the moment it was executed. You can analyze the performance of a plan by looking at the statistics in the plan execution.
+
+To deploy a plan to production, for example a features plan, you must run it in advance and create a plan execution. This means that you must always test and sign off on a plan for production before it can be deployed.
+
+### Ruleâ
+
+A rule is an elementary part of the real-time scoring system. A rule defines a set of consequences that happen if the current event of the workflow satisfies a certain condition. The consequences can be a combination of the following:
+
+  * Making an outcome decision about the event, such as marking a transaction as fraud.
+  * Contributing to the score of the event.
+  * Calling actions, which are asynchronous notifications. Custom services catch the action calls, and as a result they perform a specific task. You have to implement custom services using Java.
+  * Controlling the workflow, by determining what happens with it after the action is executed. You can continue with the next rule, or stop the workflow, or jump to the next workflow element.
+
+
+
+### Rule snapshotâ
+
+A rule snapshot represents a static picture of a set of rules. It contains an evaluation of the included rules, which lets you assess the rule performance.
+
+To use a block of rules in a workflow, you must create a snapshot about the rules first. Running a rule evaluation for the snapshot ensures that you always test and sign off rule blocks for production before they can be used.
+
+### Rule templateâ
+
+Rule templates allow to reuse the rule definition in several rules. Sometimes it is useful to define the same rule with different parameters several times. For example, you may want to generate alerts if the total transaction amount for a card number in the last 4 hours is above a tenant-specific threshold. In this case, you don't have to copy and paste the rule's whole code for each tenant. You can create a rule template with the rule's code using a parameter for the threshold. Then you can instantiate that template in a rule, using the parameter to inject the right value.
+
+### Rules projectâ
+
+A rules project contains a group of rules that target the same variable of a specific data source, and can be executed in sequence.
+
+Additionally, rules projects can contain the following components:
+
+  * Rule templates, which make it easier to create many similar rules.
+  * Rule snapshots, which serve to evaluate the performance of rules, and to sign them off for usage.
+
+
+
+### Schemaâ
+
+A schema describes the available data fields of a data source, as well as their types.
+
+### Tenantâ
+
+Tenants are useful for partners of Feedzai, to separate their customers' data. Each tenant can represent a customer, having access to that tenant's data exclusively.
+
+### Tenant groupâ
+
+Tenants are organized into tenant groups. They help partners of Feedzai to manage similar tenants in a centalized way. For example, they can apply the same configurations to all tenants in a group.
+
+### Tokenizerâ
+
+The Tokenizer is a component of Pulse that transforms sensitive information (e. g. customer name and credit card number) into tokens that can be shared without security risks. Data tokenization creates a more secure system that complies with PCI-DSS security standards.
+
+### Workflowâ
+
+Workflows represent the life cycle of an event through the system. They define the path that information traverses between components that may filter and/or transform the event, so that Pulse can calculate decisions and scores.

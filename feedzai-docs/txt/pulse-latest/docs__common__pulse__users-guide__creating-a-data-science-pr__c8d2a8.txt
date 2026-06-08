@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/identifying-patterns
+Title: Identifying Patterns | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Processing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/)
+  * [Analyzing and sampling your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/)
+  * Identifying Patterns
+
+
+
+On this page
+
+# Identifying Patterns
+
+Was this page helpful?Â 
+
+Before you generate metrics and design features you must first understand your data, and what are the clues that might indicate how each record should be classified in the end. For example, clues that point to fraudulent and non-fraudulent transactions.
+
+To start gaining some initial insight into your dataset and uncover patterns, you must run a preliminary analysis on a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources). Pulse lets you visualize statistics for each data field and break them down, for example, by fraud or not-fraud.
+
+info
+
+Alternatively, you can perform these actions from the JupyterLab  user interface. Standard notebooks are available within [JupyterLab](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/interacting-with-pulse-via-jupyterlab) â in particular the Data Exploration Standard Notebook, which demonstrates how to perform efficient data exploration using Feedzai's exploration library.
+
+## How toâ
+
+To perform an analysis on your [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and, as an example, start identifying some fraud patterns, execute the following actions:
+
+  1. In the  **Data Science** tab, select your **Data Source** from the **Data Sources list**.
+  2. Use the  option to generate statistics for the **Data Source**. Select which are the breakdown fields and values to slice the results into. For example, **Fraud**.
+  3. Use the  **View Statistics** option to go in depth into the generated insight for each field. When looking into the analysis details to understand the data, you can:
+     1. **Analyze statistics**  
+For example, look for negative values in _Numerical_ fields such as _TransactionAmount_. This may suggest that there is work to do, namely [cleaning up your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/cleaning-up-the-data).
+
+     2. **Breakdown the statistics** , for example by **Fraud**  
+This lets you observe your data and start to identify patterns, such as different distributions when you look at the _CardholderPresent_ field in fraudulent and non-fraudulent instances separately. This may hint at some correlation between the _TransactionAmount_ and _Fraud_ fields that you should further explore when [processing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data).
+
+
+
+
+Generated statistics
+
+Depending on the data types you defined for each field when [importing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/importing-your-dataset-into-pulse), Pulse [generates different metrics](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-source-analysis).
+
+For _Numerical_ fields, Pulse generates arithmetic metrics such as mean, minimum and maximum, while for _Categorical_ data, Pulse only generates the total count and distinct values.
+
+Breakdowns
+
+When you [analyze a Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-source-analysis), you must always select for which breakdown fields and values you want Pulse to calculate statistics.
+
+Skipping this action and simply calculating broken-down metrics for all possible combination of fields and values could rapidly cause performance degradation due to lack of computational resources.
+
+## Next Stepsâ
+
+You are now able to perform a high-level analysis on your historical data and have raised some insights, e.g. how the cardholder being present at the transaction or how the transaction country correlates with fraud.
+
+You are ready to [sample your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/creating-a-stratified-sample) and start [designing features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) for your model.

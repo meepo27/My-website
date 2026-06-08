@@ -1,0 +1,154 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/publishing-application-changes
+Title: Publishing Application Changes | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * Publishing Application Changes
+
+
+
+On this page
+
+# Publishing Application Changes
+
+Was this page helpful?Â 
+
+In Pulse, you can make changes to the application even when it is running. However, these changes are not immediately applied to the running application. Instead, they are applied only when you explicitly re-publish the application.
+
+To publish changes made to a Pulse application, complete the following steps:
+
+  1. Select the âÂ  button in the top right corner.
+
+  2. Review the changes that were made since the last publish.
+
+  3. Select the **Rolling Publish** button to start publishing.
+
+Workflow validations
+
+The **Rolling Publish** button will be disabled while Pulse validates all workflows in the application, or if those validations fail. For more details on this integrity protection mechanism, refer to the Pre-publish workflow validations section.
+
+Pulse publishes application changes on only one node/application replica at a time to avoid going offline entirely. Only minor delays in some events may occur.
+
+**In very rare cases** , if you want to publish the changes on all nodes at the same time, select the arrow  next to **Rolling Publish** , and select the **Publish** option.
+
+Publish option causes downtime
+
+If you select the **Publish** option instead of **Rolling Publish** , Pulse will have a downtime. In production environments, the **Publish** option should be used only in exceptional cases by users that are very knowledgeable about the system.
+
+Note that if you made changes to the schema that is in use in the workflow (and select the new version of the schema for the workflow), Rolling Publish cannot be used.
+
+  4. Pulse shows the progress during the publish process:
+
+  5. If you select the **Close** button during the publish process, Pulse still finishes publishing in the background. You can see that it was successful if the **Publish** button disappears from Pulse. This means that there are no changed waiting to be published.
+
+  6. If you select the **Abort** button during the publish process, Pulse stops the process at that point. The state of the application after the abort is not predictable. You can roll back the application to the state at which it was before the publish. Read more about rollbacks in the Error handling section.
+
+  7. If you keep the **Publish application** window open, it shows the result of the publish process. See the Error handling section if you encounter an issue.
+
+
+
+
+## Advanced usageâ
+
+### Live publishâ
+
+If the update to the application can be done without the necessity to restart Pulse nodes, Pulse performs a **live publish**. Only minor delays in the processing of some events may occur.
+
+You can see on the **Publish** button when a change is eligible for a live publish:
+
+Live publish is restricted to changes in rules and lists.
+
+More specifically, if any of the following have changed since the last publish, the application is not eligible for a live publish:
+
+  * input schema
+  * name and description
+  * outcome configuration
+  * outcome combinator
+  * the connections between workflow elements
+  * partition keys
+  * advanced properties
+  * action handlers
+  * event storage enabled state
+  * the set of workflow elements comprising the workflow
+  * for workflow elements:
+    * id
+    * name
+    * output and input mapping
+    * outcome configuration
+
+
+
+Even when everything in the previous list remains unchanged, if the workflow element configuration changes (e.g. referencing a different plan snapshot), the workflow will require a full publish. The only exception to this is that rule snapshots referenced in a rules workflow element may be updated while still allowing a live publish.
+
+### Synchronizing inconsistent versionsâ
+
+When Pulse is running different versions of an application in different cluster nodes, Pulse warns you to synchronize all nodes to use the same version before publishing.
+
+To manually fix inconsistent versions, complete the following steps:
+
+  1. Select the  button.
+  2. Optionally, view unstable nodes to see which application versions are running on different nodes.
+  3. Choose the application version to publish in all nodes. By default, Pulse synchronizes all nodes with the most recent stable version.
+
+
+
+### Order of changes on each app replicaâ
+
+When Pulse completes a **Rolling Publish** on a cluster with many app replicas, it proceeds in the following order:
+
+  1. App replicas that are not published.
+  2. App replicas that are published but not on the target version.
+  3. App replicas that are published on the target version.
+  4. Inside each category of the previous points, the leader app replica of each data center is the last one to be rolled out.
+
+
+
+If you change the publish type to **Publish** instead of **Rolling Publish** , the rules are the following:
+
+  * Pulse takes offline all nodes.
+  * The "Stop", "Bootstrap", and "Publish" operations are executed on all data centers in parallel.
+  * Other than the operations mentioned in the previous point, Pulse completes every operation on one data center at a time. The primary data center is always updated first. For all others, no order is guaranteed. If anything fails on one data center, it does not proceed to the next one.
+
+
+
+### Error handlingâ
+
+When an error occurs, you have the following options:
+
+  * **Retry** : The application will be published again in all the replicas. Replicas that already applied the application changes will not do any work since they are already in the expected state.
+  * **Rollback** : Every replica will recover its last stable version of the application, i.e., the last version successful published in all the replicas. The rollback preserves the operation configurations (e.g., restart, rolling vs parallel, etc...)
+  * **Abort** : The application publish will be stopped. Notice that nothing else will be done. This means the state after the abort is not defined.
+
+
+
+When publishing fails on a replica, the whole operation is considered as failed. Pulse will not publish the application in the remaining replicas. It shows the error and waits for the user to decide how to proceed.
+
+### Schema changesâ
+
+Rolling Publish does not apply when you change a schema that is used in a workflow, and select the new version of the schema for the workflow. Changing the schema makes messaging inconsistent and error prone since there could be replicas using an older version of the application. For example:
+
+  * Trying to process rules that match removed schema fields.
+  * Adding new fields to the schema. In this case, when persisting the events in the [Event Storage](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/event-storage), they will have more columns than expected.
+
+
+
+### Multiple rollbacksâ
+
+When there is an error during a publishing operation and the rollback also fails, you can use the **Rollback** button again.
+
+Instead of restoring another previous version of the application, this will work as a retry to restore the last stable version of the application in all replicas.
+
+### Multiple online versionsâ
+
+When an update operation fails, there may be two or more application replicas with different versions of the same application.
+
+If this occurs, then the application state will be set to _DEGRADED_. Whenever there are different versions of the same application in the data center, [workflow synchronization](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows#workflow-synchronization) messages from replicas running a different version of an application will be discarded to keep consistency.
+
+In addition, if the [Auto-Repair](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/automatic-application-repair) capabilities of Pulse are enabled, then Pulse will correct the inconsistent versions automatically, otherwise, it is the responsibility of the user to manually synchronize the applications as shown in this page.
+
+## Pre-publish workflow validationsâ
+
+Workflow validations occur when users open or modify a workflow. It is possible to save changes to a workflow before the validation phase is complete, or even if validation fails, to allow users to do incremental work on workflows without being blocked by validation errors. However, publishing an app with invalid workflows would result in an error and set the App into a degraded state (which in turn would create pressure on the remaining healthy apps). To prevent this, Pulse only allows publishing an application when all its workflows are successfully validated.
+
+When an app's Publish button is selected, Pulse displays the Publish window, allowing the user to review the changes made since the last publish. At this point, Pulse automatically validates all the workflows in that app, and only enables the **Rolling Publish** button if all workflow validations succeed.

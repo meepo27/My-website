@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/overview
+Title: API Resources | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * API Resources
+
+
+
+# API Resources
+
+This section provides you with the information you need to work with the API.
+
+### [EndpointsLearn all the operations you can do with Feedzai's API and how to communicate with its multiple endpoints.](/rmpsp/2.8/api/rmpsp)
+
+### [Additional ResourcesFind information about schema mapping, authentication and other necessary resources to successfully work with the API.](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/additional-resources)

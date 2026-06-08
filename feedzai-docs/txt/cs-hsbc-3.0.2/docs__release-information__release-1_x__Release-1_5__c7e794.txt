@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.5
+Title: Release 1.5 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.5.0`â
+
+### Fix `saf_ind` field not being available on Consent and Behaviour endpointsâ
+
+Bug Fix
+
+On a previous release, we added support for the `saf_ind` field on most endpoints. However, due to a bug, the field was not available on the Consent and Behaviour endpoints.
+
+This release adds `saf_ind` as a valid field on the Consent and Behaviour endpoints.
+
+### Add new property to enable Pulse Authentication when behind a proxyâ
+
+Feature
+
+After changing Pulse Load Balancer to an Application Load Balancer we started facing issues in authentication via Keycloak due to a proxy redirection to an insecure (HTTP) Pulse URL.
+
+To fix this we have added a new Ansible property (`pulse_sso_force_https`) that when set to `true` will force a redirection to the secure Pulse URL.
+
+For the complete description and default variables values see [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible).
+
+### Add Case Manager Rolling Upgrades documentationâ
+
+Feature
+
+We have added documentation and two new Ansible playbooks to support Case Manager Rolling Upgrades.
+
+Documentation can be found in [Rolling Upgrades](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/rolling-upgrades).
+
+### Fix ETL documentation field names inconsistenciesâ
+
+Rework
+
+We have fixed the ETL documentation field name inconsistencies. Please refer to the table below for the fixed mappings.
+
+Field name in documentation| Field name in Extraction  
+---|---  
+sender_transaction_bank_accoun| sender_transaction_bank_account_number  
+receiver_transaction_bank_acco| receiver_transaction_bank_account_number  
+instant_transfers_review_outco| instant_transfers_review_outcome  
+sender_transaction_original_am| sender_transaction_original_amount  
+sender_transaction_original_cu| sender_transaction_original_currency  
+receiver_transaction_origin_am| receiver_transaction_original_amount  
+receiver_transaction_origin_cu| receiver_transaction_original_currency  
+receiver_transaction_amount_db| receiver_transaction_amount_dbl  
+customer_fiv_marker_last_updat| customer_fiv_marker_last_updated_at  
+customer_earnings_amt_snapshot| customer_earnings_amt_snapshot_dt  
+currentaccount_monthly_debit| current_account_monthly_debit_amount  
+customer_current_account_balan| customer_current_account_balance  
+customer_home_address_last_upd| customer_home_address_last_update_at  
+customercorresp_address_last| customer_corresp_address_last_update_at  
+customer_hmphone_last_update_a| customer_hmphone_last_update_at  
+customer_mbphone_last_update_a| customer_mbphone_last_update_at  
+customerwrkphone_last_update| customer_wrkphone_last_update_at  
+customer_businessphone_last_up| customer_businessphone_last_update_at

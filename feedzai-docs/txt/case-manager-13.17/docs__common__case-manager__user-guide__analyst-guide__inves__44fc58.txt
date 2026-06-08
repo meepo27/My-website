@@ -1,0 +1,141 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/searching-for-alerts
+Title: Search Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/)
+  * [Access Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts)
+  * Search Alerts
+
+
+
+On this page
+
+# Search Alerts
+
+The **Search** page displays all the events received by the system, including those already reviewed and the ones that didn't trigger an alert. This allows you to take action on events that have already been processed by the system and decide upon them otherwise, thus improving the machine-learning models and closing the feedback loop.
+
+You can use the **Search** page to access the alerts that are up for review or distribute them among your team by [moving alerts to queues](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#move-alerts-to-queues) or [assign them to analysts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#escalate-alerts).
+
+## Filter alertsâ
+
+Access the **Search** page using the main menu.
+
+Use the available filters to refine the alerts. You can also select **Advanced Search** for a wider range of search options.
+
+Note that, when you select multiple values in the same filter (for example, queue A and queue B), the search list displays the matches for queue A **or** queue B. However, when you select multiple values in different filters (for example, queue A and analyst B), the search list displays the matches for queue A **and** analyst B.
+
+Let's take a look at some examples of searches that you can perform.
+
+  * Search all alerts assigned to a specific **Analyst** :
+
+
+
+  * Search all alerts within a specific **Queue** :
+
+
+
+  * Search all alerts that triggered the same rule(s) by selecting one or multiple **Rule Names** and/or by inputting one or multiple **Rule IDs** :
+
+
+
+  * As a [Multi-Tenancy](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/multi-tenancy) landlord, you can search alerts according to the **Tenant** :
+
+
+
+  * For Omnichannel configurations, you can also filter the alerts within a specific channel. For example, if you have alerts of the 04B channel, you can filter them by **MCC** to see all alerts from the same business category. Note that depending on the channel, the search filters vary.
+
+
+
+## View search historyâ
+
+After you perform a search, the selected filters remain available. This way, you can reuse your latest five searches without needing to select each filter again.
+
+The **Latest** searches are displayed in order of their occurence, from the most recent to the oldest. This is reset when you clear your browser's cache.
+
+Be aware that the most recent search and its results are kept on the page until you perform a new search, even when navigating to other pages. This is reset at the end of each day or upon logout.
+
+In case you want to reuse certain recurrent searches for multiple days or even weeks, save them by selecting the  button. You can always find and access them in the **Saved** tab. This is reset when you clear your browser's cache.
+
+To remove the searches that you no longer need, hover over the search and deselect the  button.
+
+info
+
+The **Latest** and **Saved** areas display only the filters for which you selected specific values. For example, when you perform a search by a specific analyst, that value (i.e. the analyst's name) is displayed in this area.
+
+## View search resultsâ
+
+After you perform a search, the page displays the results that match the selected criteria.
+
+  * The **All Channels** tab displays alerts from all channels. When viewing this tab, you can use the **Link to Case** button to organize the alerts in cases.
+  * The channel-specific tab displays only alerts from the selected channel. In this tab, you can filter alerts, move them to queues, assign them to analysts, or classify them.
+
+
+
+Depending on the product's configuration and your user permissions, you can only perform actions on alerts that are assigned to you. If you cannot act on an alert, see the information displayed on the interface and recheck your selection.
+
+info
+
+Note that the **All Channels** tab may not include the sum of the results from all the channel-specific tabs.
+
+Channels have fields in common with other channels. The **All Channels** tab shows results based only on search criteria that includes those common fields. On the other hand, the channel-specific tabs break the common results down by channel.
+
+Imagine that you want to find all data connected to a customer name. The result is 10 events in the **All Channels** tab and the breakdown per channel with 2 bank transfers and 8 card payments. Now, you want to further break down the card payments, so you add a specific card bin to your query. The result is still 10 events in the **All Channels** tab and 2 for bank transfers, but card payments are now further filtered down to only 2 events.
+
+If you are not using Omnichannel, the list does not display the channel tabs.
+
+### Preview alertsâ
+
+While viewing the search results, select each result to quickly preview its details.
+
+### Manage search listâ
+
+You can adjust how the alert list is displayed to fit your preference. This way, you can ensure that you focus on the most relevant information, thus making the investigation process more efficient.
+
+The **Settings** dropdown allows you to:
+
+  * Use the **Manage Columns** option to select which columns you want to see and which you want to hide.
+
+
+
+  * Use the **Manage Columns** option to change the order of the columns. Note the **Score** and **Timestamp** columns in the following example:
+
+
+
+Reordering fixed columns
+
+When reordering columns, make sure that you keep the fixed columns to the left to ensure a more efficient investigation process.
+
+  * Use the **Display Density** option to adjust the font density to your preference, namely Default, Comfortable, or Compact.
+
+
+
+By selecting the top of any column, you can sort the alerts according to such values in an ascending or descending order. In addition, you can specify the number of alerts that you want to see per page. This may be very efficient when performing bulk actions, meaning that, for instance, you could link all alerts from a specific customer to a case.
+
+## Export search resultsâ
+
+You can export the list of filtered alerts to better support the investigation and reporting processes.
+
+In Omnichannel configurations, you can export the list on the **All channels** tab and on each channel-specific tab.
+
+To export events, open the **Settings** dropdown and select the **Export** option. A file is then downloaded with the list of events. Notice that only the columns displayed in the table will be exported.
+
+File format
+
+The events are exported either on a CSV or XLSX file depending on the product's configuration.
+
+tip
+
+Press `.` on your keyboard to display the shortcuts menu and select the **Export** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Next stepsâ
+
+After searching for alerts, there are some things that you can do with them:
+
+  * [Reviewing Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-intro): Learn more about the different alerts details displayed and how they can help you to classify alerts.
+  * [Acting on Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts): Learn about how to classify alerts and events, move them to queues, assign them to other analysts, or link them to cases.
+  * [Assigning Alerts and Events](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/assigning-alerts-and-cases): Improve your team's efficiency by assigning alerts and events to a specific analyst.
+  * [Moving Alerts to Queues](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#moving-alerts-to-queues): Use queues to store events and segregate them according to the criteria that better fits your needs.
+
+

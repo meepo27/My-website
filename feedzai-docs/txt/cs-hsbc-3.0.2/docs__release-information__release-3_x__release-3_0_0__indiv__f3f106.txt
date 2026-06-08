@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3132
+Title: HSBC-3132 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3132
+
+### Add `customer_id_number` to the Case Manager `Customer ID` search filterâ
+
+FeatureWPB-349829HSBC-3132
+
+We've added the `customer_id_number` field to the Case Manager `Customer ID` search filter, which now includes this field plus `customer_id` and `customer_citizen_id_number`.

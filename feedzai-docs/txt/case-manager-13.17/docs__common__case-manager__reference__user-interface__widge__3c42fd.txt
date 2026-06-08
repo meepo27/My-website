@@ -1,0 +1,36 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/linked-alerts
+Title: Linked Alerts | Case Manager
+============================================================
+
+On this page  
+  
+# Linked Alerts
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| No| I18n key to the widget title.  
+cssClass| String| Yes| Widget custom class names, separated by space.  
+checkboxLabel| String| Yes| I18n key to the checkbox label.  
+name| String| No| A unique identifier representing the widget. It is a mandatory prop if resource is present.  
+resource| String| No| Resource name that points to the endpoint that populates the widget. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+filter| String| Yes| Filter for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderBy| String| Yes| OrderBy for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+limit| Number| Yes| Limits the number of results for the external resource.  
+tableConfiguration| Object| No| Table configuration which supports these properties.  
+  
+### tableConfigurationâ
+
+Same as the [Table](/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/table) widget, except for the _title, key, cssClass and selectConfiguration_ properties that are not necessary.
+
+Additionally, you can configure bulk and inline actions using the following properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+inlineActions| Array<Object>| Yes| List of inline actions that will be mapped into small button icons and be placed in each table row. Each action will only take effect on a specific item. Each inline action must be an object withÂ [these properties](/docs/common/case-manager/reference/user-interface/pages).  
+bulkActions| Array<Object>| Yes| Configures the bulk actions. Please check theÂ [Alert Button List](/docs/common/case-manager/reference/user-interface/widgets/action-button-list)Â section to see the available properties.  
+  
+### channelsâ
+
+The channels property lets you define in what events this widget will be displayed, for the event displayed the component will fetch the specific channel configuration. For each channel you have to define a specific table configuration.

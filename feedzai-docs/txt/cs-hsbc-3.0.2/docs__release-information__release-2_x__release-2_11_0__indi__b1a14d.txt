@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3431
+Title: HSBC-3431 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3431
+
+### Create RabbitMQ segregation guide for Pulse and Case Managerâ
+
+DocsFTMT-476HSBC-3431
+
+We have created a guide on how to segregate a RabbitMQ cluster by component, focused on Pulse and Case Manager. The guide focus on a migration with no message loss and minimal downtime.
+
+For more information please refer to the [RabbitMQ Segregation for Pulse and Case Manager page](/cs-hsbc/3.0.2/docs/operations-guide/how-to/rabbitmq-segregation).

@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3786
+Title: HSBC-3786 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3786
+
+### Add support for Zookeeper version 3.9â
+
+FeatureFTMT-30224HSBC-3786
+
+This release officially adds support for Zookeeper 3.9.

@@ -1,0 +1,151 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/generic/
+Title: generic - DS API
+============================================================
+
+#  `` generic Â¶  
+  
+##  `` GenericConfig Â¶
+    
+    
+    GenericConfig(provider: str, name: str, parameters: dict[str, str], undersampling: float | None = None, oversampling: float | None = None, seed: int | None = None, ignored_fields: set[str] | None = None, schema: [Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[TrainingConfig](../#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)")`
+
+Training configuration object that can be used to train any supported algorithm in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `provider` Â¶
+
+|  `str` |  Provider for the algorithm to be trained, for example "H2O". |  _required_  
+  
+###  `name` Â¶
+
+|  `str` |  Name of the algorithm to be trained, for example "Gradient Boosting Machine". |  _required_  
+  
+###  `parameters` Â¶
+
+|  `dict[str, str]` |  |  _required_  
+  
+###  `undersampling` Â¶
+
+|  `float` |  The value for undersampling. Only this or oversampling can be used. |  `None`  
+  
+###  `oversampling` Â¶
+
+|  `float` |  The value for oversampling. Only this or undersampling can be used. |  `None`  
+  
+###  `seed` Â¶
+
+|  `int` |  The seed value. |  `None`  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when training a model. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+Examples:
+    
+    
+    >>> # training an H2O Gradient Boosting Machine
+    >>> model_config = GenericConfig(
+    ...     name="Gradient Boosting Machine",
+    ...     provider="H2O",
+    ...     parameters={
+    ...         "col_sample_rate": "0.9",
+    ...         "max_depth": "5",
+    ...         "learn_rate": "1.0",
+    ...         "sample_rate": "1.0",
+    ...         "nbins": "20",
+    ...         "min_rows": "10.0",
+    ...         "ntrees": "50",
+    ...     },
+    ...     undersampling=0.98
+    ... )
+    >>> model = model_project.train(
+    ...     "model_name",
+    ...     datasource,
+    ...     "target_field",
+    ...     model_config
+    ... )
+    >>> model.waitUntilModelTrained()
+    >>> config_from_model = model.get_config()
+    
+
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` name `property` Â¶
+    
+    
+    name
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` parameters `property` Â¶
+    
+    
+    parameters
+    
+
+###  `` provider `property` Â¶
+    
+    
+    provider
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(config: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")) -> GenericConfig
+    
+
+Creates a GenericConfig from the java object.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  Java configuration object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`GenericConfig` |  Configuration object according to its python representation.

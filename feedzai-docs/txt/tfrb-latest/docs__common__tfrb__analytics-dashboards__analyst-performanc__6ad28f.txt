@@ -1,0 +1,127 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/analytics-dashboards/analyst-performance
+Title: Analyst Performance | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Analytics Dashboards](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview)
+  * Analyst Performance
+
+
+
+On this page
+
+# Analyst Performance
+
+Was this page helpful?Â 
+
+Fraud prevention managers need to regularly manage and measure their fraud prevention analysts' performance on an individual level. The Analyst Performance dashboard measures fraud prevention analysts' performance, such as alerts' average resolution time. The Analyst Performance dashboard addresses this need, and consequently allows managers to make decisions that enhance their analysts' performance more efficiently.
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by creating queries.
+
+Confirm which [fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) you can use to create queries for the outputs you need.
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. A **Value** field appears after selecting the operator. Enter a value to finalize the creation of your condition.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for.
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most commonly used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+  * **Channel** : The channel that you want to analyze (e.g. inbound payments).
+  * **Queue** : The different priority categories that each transaction event is assigned to.
+  * **Assign analyst** : The assigned analyst.
+  * **Decision analyst** : The analyst who made the decision.
+  * **Status** : The event's status (e.g. unreviewed, closed).
+  * **Country code** : The 2-letter code for countries.
+
+
+
+## Data visualizationâ
+
+  * **Average resolution time** : The average time an alert is open until reaching the Fraud or Not Fraud status.
+
+  * **Alerts by status** : The number of alerts per status, with each bar corresponding to a status. Hover over each bar to see the number of alerts per status.
+
+  * **Average resolution time per day** : The average event resolution time per day, with the y-axis representing the average resolution time in seconds, and the x-axis showing the time in hours. For instance, imagine that you hover over the bar at 9:00 and the information provided says that the average resolution time for that hour is 28 seconds.
+
+  * **Average resolution time by assign analyst** : The average time each assigned fraud analyst takes to close an alert.
+
+  * **Average resolution time by decision analyst** : The average time each decision-making analyst takes to close an alert.
+
+tip
+
+    * The table is sortable. You can arrange data into ascending or descending order according to a column.
+    * By hovering over each cell, you can use the **Plus** `+` or **Minus** `-` icons to either filter out or filter by that specific value only.
+    * You can also export the table. Select the **Ellipsis** `...` icon --> **Inspect** \--> **Download CSV**.
+
+  * The table maps the total number of events and the average resolution time to the corresponding assigned and decision-making analyst per day.
+
+
+
+
+caution
+
+Selecting bars or dragging the cursor over any chart works like a filter. Any of these actions will change the results in all data vizualizations.
+
+* * *
+
+  * **TFB - Resolution time per analyst over time** : The resolution time (in milliseconds) for events over time, with a threshold line at 300,000 milliseconds. For instance, if the time window is set to 24 hours, the chart displays the amount of time spent on average analyzing alerts per each 10 minutes. The threshold line highlights the maximum acceptable resolution time for events.
+  * **Team workload** : The team's workload distribution over a defined period, i.e. the number of alerts assigned to each fraud analyst per hour over 9 hours (e.g. 9 am to 6 pm).
+
+
+
+* * *
+
+  * **Analyst accuracy** : The number of events approved by the system, broken down into two categories based on analyst decision, i.e. genuine or fraud.
+
+  * **Analyst accuracy per analyst** : Maps the total volume of events classified by each analyst as fraud or genuine to the events approved by the system for each analyst.
+
+tip
+
+    * The table is sortable. You can arrange data into ascending or descending order according to a column.
+    * By hovering over each cell, you can use the **Plus** `+` or **Minus** `-` icons to either filter out or filter by that specific value only.
+    * You can also export the table. Select the **Ellipsis** `...` icon --> **Inspect** \--> **Download CSV**.
+
+  * **TFB - Average resolution time per region** : A geographical map that allows you to hover over any country to see the average resolution time in minutes. The darker the region color, the longer the average resolution time.
+
+caution
+
+Selecting a region works like a filter. This action will change the results in all data vizualizations.
+
+
+
+
+caution
+
+Selecting bars or dragging the cursor over any chart works like a filter. Any of these actions will change the results in all data vizualizations.

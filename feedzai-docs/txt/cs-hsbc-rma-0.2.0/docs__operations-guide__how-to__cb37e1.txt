@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to
+Title: How-to Guides | Feedzai RMA Documentation
+============================================================
+
+# How-to Guides
+
+Welcome to the Operations How-to Guides.
+
+In this section you will find the following set of tutorials with information on how to authenticate via the Pulse API, changing log levels at runtime and how to import/export Pulse applications:
+
+  * [API Authentication](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/logging-api-authentication)
+  * [Export and Import Pulse applications](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/import-export-pulse-applications)
+  * [Export HAR files](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/export-har-files)
+  * [Migrate Cassandra Profile Store](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/cassandra-profiles-migration)
+
+

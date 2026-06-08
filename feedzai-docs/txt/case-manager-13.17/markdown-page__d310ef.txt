@@ -1,0 +1,7 @@
+Source: https://cam.feedzai.com/case-manager/13.17/markdown-page
+Title: Markdown page example | Case Manager
+============================================================
+
+# Markdown page example
+
+You don't need React to write simple standalone pages.

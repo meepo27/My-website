@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-gcp
+Title: Monitoring in GCP | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Monitoring in GCP
+
+##### info
+
+Note that this section is simply a reference to the monitoring service from Google Cloud Platform, and is not a guide on how to implement a monitoring solution leveraging that service. For more details about that refer to the [official documentation](https://cloud.google.com/logging/docs/how-to).
+
+## Operations Suite (formerly Stackdriver)â
+
+When designing a new system, one of the parts you will need to consider is your [monitoring solution](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/monitoring-solution). That can be a daunting task with all the decisions that need to be taken technology and architecture-wise. However, if you are on Google Cloud Platform, the [Operations Suite](https://cloud.google.com/products/operations) service provides an integrated option for monitoring and logging for any system running on GCP.
+
+### Ops Agentâ
+
+There are some metrics that it is impossible for applications to report as they often only have visibility about their process. Likewise, there are metrics that the hypervisor managing the instances can report, such as the memory allocated to a particular instance, but it cannot report which portion of that memory is actually being used. The typical approach to address such observability limitations is to install another process in the same virtual machine, such as an _agent_. This is why Google created the [Ops Agent](https://cloud.google.com/monitoring/agent/ops-agent).
+
+The Ops Agent is the primary agent for collecting logs and metrics from individual VMs. This agent uses [Fluent Bit](https://fluentbit.io/) and [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) for collecting logs and metrics, respectively. In addition to collecting Google Compute Engine metrics, this agent can also be [configured for third-party applications](https://cloud.google.com/logging/docs/agent/ops-agent/third-party), such as ZooKeeper and Cassandra.
+
+##### tip
+
+If Ops Agent is not compatible with all the systems you want to monitor, a great alternative is Telegraf, one of the best server-based agents for collecting metrics, and can be configured with a [Google Cloud Monitoring output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/stackdriver/README.md).

@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/map
+Title: Map | Case Manager
+============================================================
+
+On this page  
+  
+# Map
+
+## Propertiesâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| String| Yes| I18n key to the map title.  
+cssClass| String| Yes| Map CSS classes, separated by space.  
+headerClassName| String| Yes| Map header class names, separated by spaces.  
+markers| Array<Object>| Yes| List of markers that should appear on the map. Each item must be an object with these properties.  
+height| String| Yes| Map mininum height. It can be any valid CSS height value. Default value: "350px"  E.g. "100px", "20%", "calc(100%-20px)", ....  
+defaultCenter| Object| Yes| Default map center. This object must have the following properties:
+
+  * **lat** (number) - Latitude of the map center position.
+  * **lon** (number) - Longitude of the map center position.
+
+Note: This property is only used when there are not markers.  
+defaultZoom| Number| Yes| Default zoom. If the configured **defaultZoom** is smaller (furthest from Earth) than the actual zoom calculated from the visible markers, the **defaultZoom** is assumed.  
+name| String| Yes1| A unique identifier representing the widget.  
+resource| String| Yes| Resource name that points to the endpoint that populates the widget. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the URL.  
+filter| String| Yes| Filter for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+orderBy| String| Yes| OrderBy for the external resource. Supports [template data type](/docs/common/case-manager/reference/user-interface/data-types) to format the string.  
+limit| Number| Yes| Limits the number of results for the external resource.  
+  
+1 Mandatory if **resource** is present.
+
+### markersâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+keyLat| String| Yes| Data object key to look for the latitude value.  
+keyLon| String| Yes| Data object key to look for the longitude value.  
+cssClass| String| Yes| Marker CSS classes, separated by spaces.  
+iconPath| String| Yes| Path to a custom icon. It can be either an URL or a relative path to a local file.

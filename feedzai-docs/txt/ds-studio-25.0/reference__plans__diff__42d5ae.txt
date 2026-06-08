@@ -1,0 +1,129 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/diff/
+Title: diff - DS API
+============================================================
+
+#  `` diff Â¶
+
+Module to enable Plans diff creation.
+
+##  `` DIFF_NAME_PLACEHOLDER `module-attribute` Â¶
+    
+    
+    DIFF_NAME_PLACEHOLDER = '{plan_a}_diff_{plan_b}_{datetime:%Y%m%d%H%M%S}'
+    
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` PlanDiff Â¶
+    
+    
+    PlanDiff(plan_a: [Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)"), plan_b: [Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)"))
+    
+
+Encapsulates the logic to find the difference between two plans.
+
+Note
+
+The generated diff plan allows the difference between two plans to be executed. This means it not only has the diff but also all the relevant ancestors required to make the plan valid, as well as any downstream features that would be impacted by upstream changes.
+
+Let's say feature X changed. We need to include:
+
+  * Feature X's ancestors to allow the computation of X.
+  * Feature X's descendants because they need to be updated.
+  * Feature X's descendants ancestors to make the plan valid.
+
+
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `plan_a` Â¶
+
+|  `[Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")` |  Base plan for the difference. |  _required_  
+  
+###  `plan_b` Â¶
+
+|  `[Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")` |  Secondary/"new" plan. |  _required_  
+  
+###  `` features_to_keep `instance-attribute` Â¶
+    
+    
+    features_to_keep: [FeatureContainer](../features/feature_container/#ds_api.plans.features.feature_container.FeatureContainer "            FeatureContainer \(ds_api.plans.features.feature_container.FeatureContainer\)") = _diff()
+    
+
+###  `` new_feature_dependencies `instance-attribute` Â¶
+    
+    
+    new_feature_dependencies: [FeatureContainer](../features/feature_container/#ds_api.plans.features.feature_container.FeatureContainer "            FeatureContainer \(ds_api.plans.features.feature_container.FeatureContainer\)")
+    
+
+###  `` new_features `instance-attribute` Â¶
+    
+    
+    new_features: [FeatureContainer](../features/feature_container/#ds_api.plans.features.feature_container.FeatureContainer "            FeatureContainer \(ds_api.plans.features.feature_container.FeatureContainer\)")
+    
+
+###  `` to_pulse Â¶
+    
+    
+    to_pulse(name: Optional[str] = None) -> [Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")
+    
+
+Create the diff plan and persist it in Pulse.
+
+If no name is given, it will create a plan named after the two plans used to create the diff: `{plan_a}_diff_{plan_b}_<timestamp>`.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the diff plan. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")` |  The diff plan.  
+  
+##  `` validate_plan_compatibility Â¶
+    
+    
+    validate_plan_compatibility(a: [Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)"), b: [Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)"))
+    
+
+Validate if two plans are compatible.
+
+Two conditions must be met for two plans to be compatible:
+
+  1. Same schema
+  2. Same timestamp field.
+
+
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `a` Â¶
+
+|  `[Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")` |  One plan. |  _required_  
+  
+###  `b` Â¶
+
+|  `[Plan](../../plan/#ds_api.plan.Plan "            Plan \(ds_api.plan.Plan\)")` |  Another plan. |  _required_  
+  
+Raises:
+
+Type | Description  
+---|---  
+`ValueError` |  When plans are incompatible.

@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/delete-merchants-reference-data
+Title: Delete Reference Data: merchants | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Delete Reference Data: merchants
+
+
+
+Was this page helpful?Â 
+
+# Delete Reference Data: merchants
+    
+    
+    DELETE 
+    
+    ## /api/referenceData/merchants/:key
+
+The Reference Data Delete endpoint allows you to delete 'merchants' data from Feedzai.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+
+
+
+OK
+
+Unauthorized

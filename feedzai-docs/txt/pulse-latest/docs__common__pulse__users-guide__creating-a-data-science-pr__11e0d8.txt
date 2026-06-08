@@ -1,0 +1,61 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/
+Title: Testing your work in a Sandbox environment | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * Testing your work in a Sandbox environment
+
+
+
+On this page
+
+# Testing your work in a Sandbox environment
+
+Was this page helpful?Â 
+
+Pulse supports your Data Science loop by enabling you to quickly train your [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) and [Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) as a whole and evaluate their results.
+
+With Sandbox Evaluation, you can simulate the work of your system and check its accuracy before it is deployed. This way, you are able to improve the performance of the metrics of your system, understanding these metrics more precisely than by analyzing Models and Rules separately.
+
+Testing your work in a Sandbox Environment involves:
+
+  * [Creating a Sandbox Evaluation](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/creating-a-sandbox-evaluation)
+  * [Evaluating your Sandbox Results](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/evaluating-your-sandbox-results)
+
+
+
+## Viewing Sandbox Evaluationsâ
+
+The View Sandbox Evaluation page allows you to analyze the results of your Sandbox Evaluation. This page contains the following areas:
+
+### Results by Scoreâ
+
+  1. **Outcome value**  
+Defines the target value and model comparisons for your evaluation. Select the Target Value you want to analyze in your Sandbox Evaluation. This allows for the evaluation of any value of your variables. For example, both Fraud and Not Fraud. Select the Sandbox Evaluation you want to compare it with to have their evaluations plotted on the ROC Curve area and displayed in the Metrics table.
+
+  2. **ROC curve**  
+Graphically displays the typical evaluation metrics of Machine Learning models, such as _Recall_ and False-Positive Rate (_FPR_) . Adjust the X-Axis Range and Y-Axis Range sliders to zoom in and out of your model's results. Select the X-Axis and Y-Axis metrics to generate a custom chart in the X/Y Plot. Any count and cost-based metrics are available.
+
+  3. **Metrics per breakdown table and per services tables**  
+Displays the results plotted in the ROC Curve area in a tabular manner. Includes all metrics for all possible combinations of the configured breakdowns and services for the evaluation.
+
+Adjust the Threshold slider to define the confidence you have in the model. Select the  View ROC option in a row to display the graphical evaluation in the ROC Curve area for the selected breakdown. You can â to decide what data to analyze and .
+
+
+
+
+### Results by Outcomeâ
+
+  1. **Metrics per breakdown and per services tables**  
+Displays the results plotted in the ROC Curve area in a tabular manner. Includes all metrics for all possible combinations of the configured breakdowns for the evaluation. Adjust the Threshold slider to define the confidence you have in the model. You can â to decide what data to analyze and .
+
+
+
+### Configurationâ
+
+In the Configuration tab, you can see all of the configuration information of the Sandbox Evaluation you have chosen to analyze.
+
+## Getting Startedâ
+
+To start working on your Models, learn how you can [create a Sandbox Evaluation](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/creating-a-sandbox-evaluation).

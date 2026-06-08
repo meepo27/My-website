@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3663
+Title: HSBC-3663 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3663
+
+### Add Operational Status 'Unresolved'â
+
+FeatureFTMT-31854HSBC-3663
+
+We've added a new Operational status `Unresolved`, with the same functionality as `On-Hold`. It can be selected by clicking on the drop-down option `Move to Unresolved`, which is available in Alert Details and as a bulk action in Transaction History.

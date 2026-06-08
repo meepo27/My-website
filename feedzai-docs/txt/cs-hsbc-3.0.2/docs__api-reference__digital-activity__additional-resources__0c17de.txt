@@ -1,0 +1,11 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/digital-activity/additional-resources/asynchronous-operation
+Title: Asynchronous Operation | Feedzai Documentation
+============================================================
+
+# Asynchronous Operation
+
+The Digital Activity Connector is configured with synchronous operation out of the box. However, it also supports asynchronous operation. This page covers the foundational aspects to help you with the integration process.
+
+Non-get endpoints support an `async` query parameter which, if `true`, will trigger the request's asynchronous processing. If the `async` query parameter is set to false, the system will assure the synchronous operation. The default value for the `async` query parameter can be defined per endpoint using the configuration.
+
+When invoking an endpoint that is using the asynchronous operation mode, request validations such as authentication (e.g. schema validations and timestamp validations) are executed immediately. Any invalid request will fail immediately as it would in the synchronous operation mode.

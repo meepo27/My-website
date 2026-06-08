@@ -1,0 +1,97 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/whats-changed
+Title: What's Changed | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.16.1`â
+
+### Add Release Notesâ
+
+Docs
+
+We've now added `0.16.0` Release Notes as the release was previously issued without them.
+
+### Standardize amount fieldsâ
+
+Bug Fix
+
+We've noticed a slight discrepancy on the amount fields being shown in Case Manager User Interface.
+
+In [Transfers - Transaction](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-transaction), we were already displaying the decimal amount, which isn't the one used in this schema version.
+
+As of 0.16.1, we standardized all amount fields to look the same across all screens. For release 0.17.0 we plan to use the new fields on the schema.
+
+## Release `0.16.0`â
+
+### Case Manager Workflow MVPâ
+
+Rework
+
+We have customized the CM Workflow according with the MVP specification. See [Case Manager Workflow MVP](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-workflow-mvp/workflow-changes) for a comprehensive list of changes.
+
+### Allow setting status reason via APIâ
+
+FeatureFTMT-1085
+
+Previously, tagging via feedback API wouldn't set any status reason in Case Manager. This can now be set via the `external_status_reason` field in the feedback API.
+
+### Case Manager UI MVPâ
+
+Rework
+
+We have customized the CM UI according with the MVP specification. See [Case Manager UI MVP](/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/ui-changes) for a comprehensive list of changes.
+
+### Add Linked Events widget to Case Manager event details pageâ
+
+Feature
+
+Adds a widget to the event details page that shows all linked events.
+
+### Update commons UDFs to support UK postal codesâ
+
+Feature
+
+Adds support to zip Code with less than 3 characters.
+
+### Add Workflow Monitoring Service to workflowâ
+
+Feature
+
+These new metrics are separated by channel (Transfers and Digital Activity). The [Workflow Events](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse) section was updated with the new metric.
+
+### Set correct Zulu version in documentationâ
+
+Docs
+
+We've updated our requirements to link to the correct Zulu version. Example: [Case Manager requirements - Java Environment](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/requirements-casemanager)
+
+### Add dead letter system documentationâ
+
+Docs
+
+[Dead Letter System](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/dead-letter-system).
+
+### Integrate Liquibase Sessionlock extensionâ
+
+Feature
+
+Change Liquibase lock mechanism from "database entry" to a native RDBMS lock. With this change, when our pipelines terminate unexpectedly, the lock will automatically release soon after. Previously, the database entry would remain there until it was manually dropped, causing a crashloop.
+
+### Add lifecycle_id index in Event Storageâ
+
+Bug Fix
+
+Adds a DB index on the `lifecycle_id` column, avoiding `504 gateway timeouts` when calling the Feedback API.
+
+##### warning
+
+Creating the index is a concurrent operation that won't affect significantly the running application but it will require a long deployment window that should be tested in Pre-Production against relevant data.
+
+### Create UDF and list for TMX risk scoreâ
+
+Feature
+
+Created UDF `Tmx.risk` which receives the chain of codes and returns the respective risk. This is documented in [Custom UDFs](/cs-hsbc/3.0.2/docs/pulse/custom-udfs).

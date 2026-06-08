@@ -1,0 +1,81 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/load-prepare-data
+Title: Load your Data Source | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Use Models](/tfrb/latest/docs/common/tfrb/models/use-models)
+  * [AutoML](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/journey-overview)
+  * Load your Data Source
+
+
+
+On this page
+
+# Load your Data Source
+
+Was this page helpful?Â 
+
+The first step of the AutoML journey is to import historical data into Pulse. You will use this data to run AutoML to generate features and train models.
+
+danger
+
+**Environment to run AutoML:** Since the AutoML computation is quite resource-intensive for the system, Feedzai recommends running AutoML in a staging environment dedicated to the data science work (i.e. typically a Data Science environment). This is important to ensure that the production environment is not compromised by this functionality. Once you achieve results that meet your business needs, you can [migrate](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview) the AutoML model and plan to the production environment and [integrate these new resources into the runtime workflow](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/integrate-resources-runtime).
+
+info
+
+The applicability of this user journey step depends on your product setup. If you already have a historical data source loaded in your Pulse application, you can skip this step entirely. In that case, check the [Complete the Schema](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/complete-schema) page to ensure that the schema of your data source is compliant with the workflow schema.
+
+## Import dataâ
+
+  1. In the **Data Science** tab, under the Data Sources table, select the  button to add a new data source.
+  2. Select the path from which you want to import the data and select **Next** to go to the next stage.
+
+info
+
+**File storage:** For cloud projects, this step may require further assistance from your project team to access and store the data source in the right location, depending on the system architecture and permissions. For on-premise projects, the data source storage is highly dependent on each customer's architecture. Note that if you have the file in a local folder, for example, _/tmp_ , the path is _file://tmp/_.
+
+  3. See how your data will be imported by previewing the sample provided by the wizard. If your data is not displayed correctly with the values separated by columns, try different delimiter options. This adjustment is common because there are different methods to separate values in data source files, e.g. using ',' or '|'. Adjust **Quotes** , **Line Separator** and **Missing Values** fields to define how Pulse should interpret and import the data from your file. Select **Next** to go to the data source characterization stage.
+  4. In this stage, Pulse automatically defines the schema and infers a data type. However, you may have to change the type and configuration based on your schema definition. This is a key step because the data type needs to match the meaning of the tags in the [semantic file](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/automl-stages#semantic-file) used to run AutoML. For example, all the `longitude` and `latitude` fields need to be configured as numerical of double type since this is the expected type of 'latitude' and 'longitude' semantic tags.
+
+tip
+
+**Categorical values:** Pay special attention to the categorical fields, as all the possible values must be defined, and Pulse infers from a subset of rows only.
+
+info
+
+**Immutability:** Data sources are immutable. This means that after saving your changes you won't be able to edit this data source. However, you can use the **Duplicate and Change** Pulse option to generate a new data source based on the original and quickly make new changes in the schema.
+
+You can configure the schema using the following methods.
+     * Manually:
+       * Select the **Type** field.
+       * Under **Data Configuration** , you can further specify the type, for example, define a numerical type as 'integer', 'long', 'float', or 'double', or define a categorical type as 'string', 'integer', 'long' or 'boolean'.
+     * Based on an existing schema:
+       * Use the  button and select the target schema.
+  5. Once you have defined the full schema, select the **Create Data Source** button.
+
+
+
+## Duplicate and change a data sourceâ
+
+Since data schemas in data sources are immutable, if you need to make changes to a data source, you must create a new one. However, you can use an existing data source as your starting point by selecting the **Duplicate** option in the **Data Science** tab. This will open a configuration panel for you to edit the schema (see the Import data section).
+
+## Prepare the data valuesâ
+
+To be able to run AutoML against a data source, first you need to prepare the data.
+
+  * Date and datetime fields, which are not supposed to be in the YYYYMMDD or YYMM format as described in the API specification pages, need to be converted to Unix timestamp format.
+  * Values associated with amount fields need to be normalized into a single currency.
+  * The data cannot contain NULL values. Instead, you need to add the default values:
+    * Strings should be coalesced to an empty string, for example 'EMPTY'. However, it cannot be ('').
+    * Categoricals should be coalesced to an existing value or to a new categorical value representing the NULL, typically a value called 'other'.
+    * Numericals should be coalesced to a meaningful number, for example -999, -1 or 0, depending on their valid range.
+    * Dates and datetimes should be coalesced to a default value, for example -2208988800, which corresponds to 01-01-1900 in the Unix timestamp format.
+  * The input data source cannot use empty string ('') as NULL.
+
+
+
+## Next stepsâ
+
+To complete the preparation steps for AutoML, check the [Complete the Schema](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/complete-schema) page. The page will help you extend your data source so that it has the same fields as the ones used by the Pulse rules. This will eliminate schema conflicts when integrating the recommended model with the standard rules in the runtime workflow.

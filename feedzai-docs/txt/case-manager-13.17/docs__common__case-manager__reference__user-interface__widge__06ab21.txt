@@ -1,0 +1,11 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/container
+Title: Container | Case Manager
+============================================================
+
+# Container  
+  
+This Widget should be used to contain more than one sub-widgets. **The child widgets wills always adapt to the parent size.**
+
+Property| Type| Optional| Description  
+---|---|---|---  
+childWidgets| Array<Object>| No| List of widgets to be aggregated in a container. Each item is must have a schema equal to one of the available widgets.

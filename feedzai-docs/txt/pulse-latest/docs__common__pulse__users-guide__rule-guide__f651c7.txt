@@ -1,0 +1,79 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/
+Title: Rule Guide | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Rule Guide
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Rule Guide
+
+This guide helps you write and maintain rules in Pulse. It also gives a short overview of how rules are deployed from the data science environment to production.
+
+The following topics are not in the scope of this guide:
+
+  * Self-service rules
+  * Stateful rules
+
+
+
+## Prerequisitesâ
+
+This guide presumes the following:
+
+  * The rules will be created in a data science environment by a data scientist or analyst who is familiarized with the [basic concepts of Pulse](/pulse/latest/docs/common/pulse/users-guide/rule-guide/glossary).
+
+  * The data science environment has [cleaned historical data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data) that represents well the real-time data.
+
+  * The data science environment has job profiles set up for resource-intensive plan executions. Contact Feedzai if you need help with this.
+
+  * In the case of writing rules for an existing production environment, the data science environment is in the same state as the production environment.
+
+This means that rules, models, plans and lists are identical in the two environments.
+
+
+
+
+## The objective of rulesâ
+
+Pulse rules can be used to control what happens with the transactions that have been previously scored by machine learning models. They can also be used to directly score and act upon events, a common case for starting projects with no available data yet to train models. Here business and compliance rules can be put in place to fight fraud.
+
+In summary, with Pulse rules you can:
+
+  * control what happens with a transaction that falls into a score threshold;
+  * reflect business restrictions;
+  * implement compliance rules;
+  * react on newly found fraud patterns by implementing and testing a rule, without training a new model right ahead. This can be advantageous when a new fraud pattern is found and there is not enough historical data with that pattern to train a model.
+
+
+
+### Rule life cycleâ
+
+When setting up Pulse to process events, rules are put in place to reflect business rules, compliance rules, and other preventive measurements.
+
+Besides creating the rules when setting up Pulse for the first time, you may need to add new rules to your environment later on as well.
+
+This happens when you detect new financial crime trends, or when there is a new compliance or business rule in your organization.
+
+The following image shows the life cycle of rules that are created in Pulse. Note that self-service rules created in Case Manager are not included in this life cycle, as they follow a completely different creation process.
+
+The rule life cycle has the following stages:
+
+  1. [Creating necessary lists](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-lists-and-adding-list-items): if the rules you want to create use lists, those need to be created before writing the rules.
+  2. [Creating necessary features](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-features): analyze whether the fields that the rule needs are available in the data schema. If not, create the necessary features in a plan of Pulse, and run the plan to create the new fields in a new data source.
+  3. [Creating or updating the rules project](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-or-updating-the-rules-project): when creating the first rules of a new Pulse setup, you first create a rules project that will group them. Rules projects are bound to the data schema. Hence, when adding rules to an existing set of rules, you have to update the data schema of the rules project if you have added new features as well. This will ensure that the new fields are available in the rules.
+  4. [Creating or editing the rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules).
+  5. [Creating a rule snapshot](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-rule-snapshot), and [evaluating rule performance using the snapshot](/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-rules-using-a-snapshot). A rule snapshot is a "photo" of the current rule configurations. It can be deployed and used later on in production. In addition, it can contain an evaluation of the included rules, which lets you assess the rule performance. The evaluation shows metrics like FPR and Recall for the rules. You can also export individual rule contribution during the evaluation, for further analysis.
+  6. [Creating a sandbox evaluation](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-a-sandbox-evaluation), and [evaluating rule performance in sandbox](/pulse/latest/docs/common/pulse/users-guide/rule-guide/evaluating-your-rules-with-sandbox-evaluation). To evaluate decisions on transaction level, create a sandbox evaluation. Sandbox evaluations allow you to see the outcome of the rules project for each transaction.
+  7. [Rule review](/pulse/latest/docs/common/pulse/users-guide/rule-guide/reviewing-rule-changes-in-a-snapshot). To ensure that you made the right changes and created the right rules, you can request a review from a peer.
+  8. [Deploying the rules to the production environment](/pulse/latest/docs/common/pulse/users-guide/rule-guide/deploying-rules-to-the-production-environment): when the new set of rules matches your expectations, you export the created entities from the data science environment. Engineers of the production environment then import the exported entities to the production environment.
+  9. [Monitoring rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide/monitoring-rules): Feedzai Insights provides customizable dashboards to monitor the performance of rules.
+
+
+
+To understand the basic concepts (rules, rule snapshots, plans, workflows, outcomes, etc.), check the [glossary](/pulse/latest/docs/common/pulse/users-guide/rule-guide/glossary).

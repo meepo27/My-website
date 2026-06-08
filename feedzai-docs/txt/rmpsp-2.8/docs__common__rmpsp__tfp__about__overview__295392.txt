@@ -1,0 +1,37 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/about/overview
+Title: About Transaction Fraud for PSPs | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * About Transaction Fraud for PSPs
+
+
+
+On this page
+
+# About Transaction Fraud for PSPs
+
+Every merchant that processes payments with a Payment Service Provider (PSP) poses a threat to fraud and subsequent losses. As a result, Feedzai's Transaction Fraud for PSPs (TFP) offers real-time fraud prevention to detect and stop risky payment transactions. By understanding what each customer's behavior looks like, TFP creates contextual awareness that allows for accurate fraud detection. Rules and machine learning models receive this information to score each payment transaction for PSPs to make accept/decline decisions.
+
+TFP evaluates payment transactions over their entire [life cycle](/rmpsp/2.8/docs/common/rmpsp/tfp/about/transaction-life-cycle) through the Payments API. The following sections focus on those specifics.
+
+## Paymentsâ
+
+The integration with the Payments API allows PSPs to score payment transactions. It provides a RESTful API that allows customers to send information at different stages of the payment's life cycle. Payments API is built based on ISO 8583 and ISO 20022 international standards, and gives customers the ability to consume payment-related data via a unified API for all payment types.
+
+New payment types can be easily and quickly integrated into the Payments API, thus ensuring customers remain agile in the evolving payment landscape. A unified channel prevents issues caused by multiple payment channels.
+
+Feedzai's Payments API consumes real-time transactions as well as subsequent updates to transactions, such as chargebacks.
+
+## End-to-end packageâ
+
+These are the out-of-the-box capabilities that respond to the use case end to end:
+
+  * REST API: Sends information via REST API at different stages of the transaction life cycle.
+  * Reference data: Sends merchant information upfront via a standard API. This information is then used in the payment's scoring process.
+  * Pre-configured risk engine: Processes transactions, generates real-time accept/decline decisions, as well as challenge recommendations that require manual decision.
+  * Pre-configured fraud rules: Detect and prevent the most sophisticated fraud typologies.
+  * Pre-configured alert and case management interface: Reviews suspicious payments that require manual decision. This interface includes visual link analysis and graph technology (i.e. Genome) to find and visualize complex financial crime patterns.
+  * Analytics dashboards: Display information about fraud prevention agent and rule performance.
+
+

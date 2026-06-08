@@ -1,0 +1,273 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/grafana/rds-grafana-suggestions
+Title: Reference Data Setup | Feedzai RMA Documentation
+============================================================
+
+On this page  
+  
+# Reference Data Setup
+
+In this page you can find a set of suggestions for Reference Data monitoring using Grafana.
+
+## Suggestionsâ
+
+##### info
+
+There are VM resource related metrics (CPU, Memory, IO, etc) that can also be added to Grafana. These were left out on purpose Google already has out of the box monitoring support for these resources.
+
+These suggestions can be either new dashboards, changes to existing dashboards or completely new dashboard pages. Please find the metric description in [Reference Data Top Metrics](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-refdata).
+
+### Cluster pageâ
+
+Currently there is only one page where we can filter metrics by each of the instances. Although useful, having a cluster view monitoring page gives a view of how the overall cluster health. Given this, our suggestion is to add a new page with the following metrics:
+
+Row Title| Title| Description| Query Details  
+---|---|---|---  
+Healthchecks - RDS| Reference Data Service| Displays reference data server healthcheck. The outcome is a bool, meaning that it assumes the value one when everything is okay with  
+the service itself, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'reference-data-server' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - RDS| Deadlocks| Displays deadlocks healthcheck. This healthcheck is carried out by reference data service in order to validate  
+if some of its threads entered in deadlock. The outcome is a bool, meaning that it was successfully executed  
+when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'deadlocks' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - RDS| Entity Repository| Displays entity repository healthcheck. This healthcheck is carried out by reference data service in order to validate  
+if it is able to reach entity repository, which is an abstraction for a non-sql db. The outcome is a bool, meaning that it  
+was successfully executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'entity-repository' , $timeFilter  
+**Group By:** time($__interval), "host"  
+HTTP Requests| HTTP Throughput| Measures reference-data HTTP throughput.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.requests"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| HTTP Throughput per Method| Measures reference-data HTTP throughput per method.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.get-requests"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| 2XX Requests Rate| Measures reference-data HTTP throughput with return code falls into 2xx.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.2xx-responses"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| 4XX Errors| Measures the number of 4xx errors returned by reference-data.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.4xx-responses"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| 5XX Errors| Measures the number of 5xx errors returned by reference-data.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.5xx-responses"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host"  
+Global Database Requests| Global Database Throughput| Measures the overall database throughput, considering all operations executed by reference-data. It also shows a break  
+down per operation.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host", "operation"  
+Global Database Requests| Global Database Latency at Percentile 99| Measures global database latency at percentile 99 considering all operations executed by reference-data.| **Query A**  
+**Field:** "p99"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "operation"  
+Global Database Requests| Global Database Errors| Measures the total number of errors registered while performing some operations onto the database.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository.error"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Global Database Requests| Global Database Errors - Entities Not Found| Measures the total number of errors caused by entities not found, registered while performing some operations onto the database.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository.entitynotfound"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+Database Operations| Database Throughput Per Entity| Measures reference-data throughput per entity.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** $timeFilter  
+**Group By:** time($interval), "host", "entityType", "operation"  
+Database Operations| Global Database Latency at Percentile 99 per Entity| Measures database latency at percentile 99 per entity, considering all operations executed by  
+reference-data.| **Query A**  
+**Field:** "p99"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "entityType", "operation"  
+JVM| JVM Heap Usage| Measures the jvm heap usage per component instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Usage After GC| Measures the jvm heap usage after gc per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.after-gc.usage"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Garbage Collector Time| Measures maximum JVM GC duration. Long garbage collection pause durations indicate that the heap size is not  
+adjusted for the actual usage.| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Old-Generation.time"  
+**Where:** $timeFilter  
+**Group By:** "host"  
+JVM| JVM Active Threads Count| Measures the current number of active threads in the JVM per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.threads.count"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM File Descriptors Ratio| Measures the jvm file descriptors usage ratio per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.filedescriptor"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+The `Row Title` column refers to a Grafana feature to group dashboards by type. This is only a suggestion and thus not mandatory.
+
+### Node pageâ
+
+These suggestions relate to the existing Reference Data dashboard page. You may find some new dashboards or changes to existing ones.
+
+Our suggestions are to add the dashboards in the following table with a filter by each of the available nodes and applications:
+
+Row Title| Title| Description| Query Details  
+---|---|---|---  
+Healthchecks - RDS| Reference Data Service| Displays reference data server healthcheck. The outcome is a bool, meaning that it assumes the value one when everything is okay with  
+the service itself, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'reference-data-server' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Healthchecks - RDS| Deadlocks| Displays deadlocks healthcheck. This healthcheck is carried out by reference data service in order to validate  
+if some of its threads entered in deadlock. The outcome is a bool, meaning that it was successfully executed  
+when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'deadlocks' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Healthchecks - RDS| Entity Repository| Displays entity repository healthcheck. This healthcheck is carried out by reference data service in order to validate  
+if it is able to reach entity repository, which is an abstraction for a non-sql db. The outcome is a bool, meaning that it  
+was successfully executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'entity-repository' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+HTTP Requests| HTTP Throughput| Measures reference-data service HTTP throughput on the selected instance.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.requests"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| HTTP Throughput per Method| Measures reference-data service HTTP throughput per method on the selected instance.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.get-requests"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| 2XX Requests Rate| Measures reference-data service HTTP throughput, on the selected instance, with return code falls into 2xx.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.2xx-responses"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| 4XX Errors| Measures the number of 4xx errors returned by the selected instance.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.4xx-responses"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($interval), "host"  
+HTTP Requests| 5XX Errors| Measures the number of 5xx errors returned by the selected instance.| **Query A**  
+**Field:** "count"  
+**From:** "io.dropwizard.jetty.MutableServletContextHandler.5xx-responses"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($interval), "host"fill(none)  
+Global Database Requests| Global Database Throughput| Measures the overall database throughput, considering all operations executed by the selected instance. It also shows a break  
+down per operation.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($interval), "host", "operation"  
+Global Database Requests| Global Database Errors| Measures the total number of errors registered, on the selected instance, while performing some operations onto the database.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository.error"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Global Database Requests| Global Database Errors - Entities Not Found| Measures the total number of errors caused by entities not found, registered on the selected instance while performing some  
+operations onto the database.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository.entitynotfound"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval), "host"fill(none)  
+Global Database Requests| Global Database Latency per Percentile for Operation| Measures global database latency at percentile 99 considering all operations executed by the selected instance.| **Query A**  
+**Field:** "p50", "p95", "p99", "p999", "max"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** "host" = '$host' , operation='$operation' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Database Operation| Operation throughput for Entity| Measures the database throughput, considering the operations executed by the selected instance using the selected entity type.| **Query A**  
+**Field:** "count"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** "host" = '$host' , operation='$operation' , entityType = '$entity' , $timeFilter  
+**Group By:** time($__interval), "host", "operation"  
+Database Operation| Operation for Entity Latency Per Percentile| Measures the latency per percentile to execute the specified operation on the selected entity type using the selected instance.| **Query A**  
+**Field:** "p50", "p95", "p99", "p999", "max"  
+**From:** "reference-data-service.entity-repository"  
+**Where:** "host" = '$host' , operation='$operation' , entityType = '$entity' , $timeFilter  
+**Group By:** time($__interval), "host", "operation"  
+JVM| JVM Heap| Measures the jvm heap usage of the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.used"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.max"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Used (By Gen)| For the selected instance, considering the heap used, displays the usage of each generation.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.pools.G1-Old-Gen.used"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Heap Used After GC (By Gen)| For the selected instance, considering the heap used, displays the usage of each generation after gc.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.pools.G1-Old-Gen.used-after-gc"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Heap Usage After GC| Measures the jvm heap usage after gc on the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.after-gc.usage"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM Garbage Collector Time| Measures the JVM GC duration on the selected instance. Long garbage collection pause durations indicate that the  
+heap size is not adjusted for the actual usage.| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Old-Generation.time"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** N/A  
+JVM| JVM Active Threads Count| Measures the current number of active threads in the JVM on the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.threads.count"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+JVM| JVM File Descriptors Ratio| Measures the jvm file descriptors usage ratio of the selected instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.filedescriptor"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)

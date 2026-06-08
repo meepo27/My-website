@@ -1,0 +1,187 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model/
+Title: Training a Model | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * Training a Model
+
+
+
+On this page
+
+# Training a Model
+
+Was this page helpful?Â 
+
+Once you have [designed features for your data](/pulse/latest/docs/common/pulse/users-guide/feature-engineering), the next stage is to assess whether they are useful for fraud detection, or for predicting any other variable.
+
+At this point you need the [data source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) that contains the features you have generated, to train a [model](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) and to validate it.
+
+Importing a Model
+
+Instead of training a model in Pulse, it is also possible to import a model that you created and trained externally. See [Importing an external model](/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model/importing-an-external-model).
+
+## How toâ
+
+To train a model, execute the following actions:
+
+  1. In the **Data Science** tab , select a model project from the model projects list.
+
+  2. Add  a new model.
+
+Duplicating an existing model
+
+Instead of creating a model from scratch, you can duplicate an existing model that is similar to the one you want to create. For that, use the **Duplicate and Change** option. This option loads a copy of the model, with all the properties and values that were selected when the model was originally created.
+
+This way you can fine-tune a model that needs only some adjustment.
+
+  3. Select **Train model**.
+
+  4. Configure the training properties for your new model as follows:
+
+     1. Select the **Data Source** you will use to train the model. Typically one that has been the output of [running a features plan](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/generating-instance-features-dataset), or the result of splitting your dataset into training and testing subsets.
+
+     2. Select the Algorithm. See the limitations that you need to consider.
+
+At the end of the line in the Algorithm drop-down box, you can select the  button to get information about the algorithm.
+
+     3. Set the **Target Variable** that the model will predict. For example, _Fraud_. This step is not required when using an unsupervised machine learning algorithm.
+
+Target variables
+
+Although the main goal of Pulse is to detect fraud, models can target any [categorical](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types) variable.
+
+     4. Choose which **Fields** in your Data Source the model will use in the prediction. Only _Numeric_ and _Categorical_ fields are available.
+
+Removing fields from the model
+
+If you suspect that some of the fields add only noise to the model, you can just remove them. Run an analysis on your Data Source, as you would do to [detect fraud patterns](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data/analyzing-and-sampling-your-data/identifying-patterns), and examine the statistics for each suspected field. For example, categorical fields with only one category, e.g. _empty value_ , should not be considered when training your model.
+
+You can also compute the [Feature Importance](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/feature-importance) and remove the features that had a negative impact on the previous model iteration.
+
+In the case of an **unsupervised machine learning algorithm** (e. g. Isolation Forest), remove the target variable. This avoids label leakage, since a realistic anomaly detection model does not have access to the label.
+
+
+
+
+### Training parametersâ
+
+When training a model, there are some typical configurations that control how Pulse will execute the training.
+
+To configure the training, execute the following actions while you are adding a new model:
+
+  1. Set a **Random Seed**. If you evaluate models with the same parameter configurations and the same seed, you should be able to replicate results for different models. If you execute several validations for the same model parameters configuration with different seeds, you should obtain statistically similar results.
+
+  2. Select the **Sampling Type** and the Sample Percentage to define how to undersample or oversample your data.
+
+  3. Configure the **Parameters** of the selected algorithm. For information on the parameters, select the Info button  at the end of each line.
+
+  4. Configure the [White-box Explanations](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/white-box-explanations) (WBE).
+
+If WBE is set up for a trained model, Pulse calculates the features that led to a transaction's score in run time when the model is used. The output is available in Case Manager. You can select the following:
+
+     * **Algorithm** : the algorithm that Pulse uses to calculate the contribution of the features.
+
+     * **Number of Explanations** : the number of explanations that users want to obtain in Case Manager.
+
+Only the most important features (i.e. the features that influence the transaction's score the most) will be shown in Case Manager.
+
+     * **Target Value** : the value that the user wants to predict (e.g. false vs. true). This component is crucial, given that WBE are agnostic to any value.
+
+  5. After selecting the above parameters, you have to edit the explanations. To do so, expand the White-box Explanations area using the  button.
+
+There are 2 ways to edit the explanations:
+
+     * Direct editing in the Pulse UI:
+
+       1. Use the checkboxes under **Features** to select which features' explanations you want to take into consideration when analyzing a score in Case Manager.
+
+       2. Optionally, add the features to an existing or new **Group**. If you group features, they will count as one in the list, leaving room for other important features to be on the list as well. For example, you can create a group called âamountâ, and use it to group several features that have the same property (e.g. amount).
+
+       3. Add an **Explanation Message** to the features you selected. This message will be visible in the features that contributed most to the score.
+
+The explanation can include the value of any feature or data field of the current event. To do so, start typing `/` followed by the name of the field, and select the desired field from the suggestions. You can use the `/current_value` shorthand to insert the value of the feature whose explanation you're currently editing.
+
+     * Editing in an external editor:
+
+       1. Select **Export Explanations** to save the current explanations as a CSV file, containing 4 columns: "Selected", "Feature", "Group" and "Explanation Message", and listing all the features with the current information.
+
+       2. Edit the file in your preferred CSV editor (e.g. Excel).
+
+The "Selected" column should have an 'X' for features you want to select, and be empty otherwise.
+
+The "Explanation Message" column can contain `/`-prefixed references to a feature name that will be replaced by the actual value, as described above for editing via the Pulse UI.
+
+       3. Select **Import Explanations** to upload the edited file back to Pulse and replace the explanations with the file's content.
+
+caution
+
+All the information in Pulse will be replaced by the file's content, which means you can lose explanations that may have been added in Pulse and are not present in the file.
+
+If there are fewer features in the file than in the model, or if some features are not fully filled, a warning will be displayed to alert you to of the missing information.
+
+tip
+
+Export the files after filling all the fields, so that when editing the explanations on a similar model you just need to import the file you saved before. This can also be done by going to the edit page of a model and exporting the explanations it currently has.
+
+
+
+
+While editing, you can search for features with a specific text, sort the order of the features by their name or their group, and hide the features that you have filled by clicking the "Show only incomplete features" button.
+
+caution
+
+After creating a model with WBE, it is possible to edit explanations again. In that case, do not forget to update the [**Scoring Service**](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models) afterwards.
+
+### Testing and validating your modelâ
+
+When training a model, Pulse can automatically generate an initial Model Evaluation.
+
+To configure how the initial Model Evaluation is performed, execute the following actions while you are adding a new model:
+
+  1. Define the Validation Type to generate the initial evaluation. The following validation types are possible:
+
+     * **Cross Validation** : Configure the number of folds in the dataset to generate the evaluation.
+
+     * **Split Percentage** : Configure which percentage of the dataset you will use to train and which percentage you will use to test the model.
+
+     * **No validation** : Pulse will not create an initial evaluation.
+
+  2. Select the **Validation Data Source** that will provide the data for the initial model evaluation. It must have the same schema as the training data source.
+
+  3. In the case of an unsupervised machine learning algorithm, select the **Target Variable** to be used for the evaluation. This is the field that the model aims to predict.
+
+  4. Enable  an **Additional Cost Field** to be available for the model evaluation. Typically, you can select a field that represents the transaction amount to have metrics such as the _money recall_ and _money FPR_.
+
+  5. Select which are the **Breakdown** fields and values to slice the results into. For example, _Card Present_ vs _Card Not-Present_. Pulse will automatically display the number of possible breakdown combinations.
+
+Breakdowns
+
+The higher the number of possible combinations, the more computational resources will be consumed during training time, and the longer will take to train your model.
+
+  6. Configure the **Output Result** to generate a new Data Source and a CSV file in your filesystem, adding a Pulse risk assessment to each instance. The new Data Source includes extra fields containing the score distribution of the model among all possible target values of the Target Variable. For example, in a fraud scenario, Pulse adds two fields, one with the score for fraud, and the other representing the score for not fraud.
+
+
+
+
+After Pulse finishes training your model, it automatically generates a Model Evaluation in your Model Project. For a model named _MyModelV1_ , Pulse generates a Model Evaluation named _mymodelv1-trainEvaluation_.
+
+## Limitationsâ
+
+When training models with DataRobot algorithms, consider the following limitations:
+
+Provider| Limitation| Workaround  
+---|---|---  
+DataRobot| DataRobot converts binary categorical field values with the following content to "True/False":
+
+  * 1/0
+  * true/false
+  * TRUE/FALSE
+
+However, when using the model to score transactions in Pulse, the input data may contain values in the above listed format. In those cases, the scoring of the transaction fails with an error.| n/a  
+DataRobot| Although string values can be used for features in DataRobot, they cannot be used for that purpose in Pulse.| Use a Categorical field instead.  
+  
+## Next Stepsâ
+
+Now that your model is trained, you can [evaluate its performance](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model), [tune parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters) and [compare it with other models](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models).

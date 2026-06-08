@@ -1,0 +1,75 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/automated-model-monitoring
+Title: Automated Model Monitoring | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows)
+  * Automated Model Monitoring
+
+
+
+On this page
+
+# Automated Model Monitoring
+
+Was this page helpful?Â 
+
+Automated Model Monitoring (AMM) is a feature that automatically generates alarms when there are significant changes in the model scores distribution after a model is deployed. Such anomalies can constitute threats, such as bot attacks, data corruption issues or sudden increase of a certain type of transactions.
+
+A schematic overview of the algorithm is presented in the figure below:
+
+In the **Data stream** graph (top), the normal events are represented with blue circles and the anomalous events with red circles. In the **Machine Learning Model** graph (middle), the algorithm computes a signal by using the output scores of a ML model. The anomalous periods are colored in red again. In the **Automated Model Monitoring** graph (bottom), the signal is represented in a black solid line. If the signal, as to be further explained, is larger than a given automatically computed threshold (i.e. blue dashed line), an alarm is triggered. This is represented with red flags.
+
+This system works without any input on the true label of the transactions, hence it is unsupervised.
+
+## Signalâ
+
+The signal is a number - between 0 and 1 - that measures the dissimilarity between the model scores histogram in a **reference window** (various options described below) and the model scores histogram in a fixed-size **target window**. If the signal is small, it means that the reference and target windows are very similar.If it is close to 1, the reference and target windows are maximally different. The target window contains the last collected events (e.g., in the last 6 hours). The reference window contains events in a reference period, which is prior to the target period (e.g., in the 3 days before the target window).
+
+This signal is designed to detect sudden changes in behavior, i.e. when unusual events suddenly enter the target window. The reference window defines the recent normal behavior for the signal's calculation.
+
+Having this into consideration, there are two types of windows that are configurable and suitable for different use cases, as follows:
+
+### Contiguous windowsâ
+
+In this configuration, the reference window has a fixed-size (i.e. a fixed number of events) similarly to the target window. The size ðð  of the reference window is larger than the size ðð of the target window. The diagram below represents this configuration, where the reference window is immediately before the target window. The configuration slides to the right whenever a new event in the data stream is processed.
+
+### Homologous windowsâ
+
+This configuration is suitable for use cases suffering from a strong seasonal behavior (e.g. banking datasets). The reference window is defined as a set of ðð  replica windows occurring in the same period of the day as the target window but on previous days (i.e. homologous periods). For example, if the target window occurs between 12:30 and 13:45 on a Monday, a homologous window configuration with three replicas (e.g. see figure below) would contain events from the three previous days (i.e. Friday, Saturday and Sunday, from 12:30 to 13:45).
+
+## Thresholdâ
+
+An adaptive threshold is used to trigger alarms whenever the signal becomes too large. The threshold is computed, whenever a new event arrives, together with the signal. The alarm is triggered when the signal becomes larger than the threshold. The AMM threshold uses a definition of outlier based on Tukey Fences, a method that focuses on the width of the central part of the distribution of past signal values. To estimate the percentiles of the distribution we employ an algorithm that estimates the percentiles giving higher weight to more recent signal values. The bare Tukey threshold ð is defined by calculating ð = ð3 \+ ð¾(ð3âð1), where ð1 and ð3 correspond, respectively, to the 25th and 75th percentile of the signal values distribution. ð¾ is a free parameter to control how conservative the threshold is (larger K values correspond to a more conservative threshold). An additional delay is used to suppress the effect of the target window events. This delay and a smoothing are applied to obtain the final threshold used in the system.
+
+## Alarmsâ
+
+Alarms consist in automatic notifications that are triggered every time the signal rises above the threshold.
+
+The various types of alarms (depending on the Scoring Service configuration) are described in the following sub-sections:
+
+### Email alarmsâ
+
+The email alarm is an optional feature. Pulse uses a Simple Mail Transport Protocol (SMTP) to automatically send emails. Configuring the SMTP is optional, which means that users can enable or disable the SMTP by setting up the properties of the host and recipients in the Scoring Service configuration.
+
+If the Scoring Service's SMTP properties are not defined, the system will fallback to the global Pulse SMTP properties.
+
+Typically, the email shows the following information:
+
+  * Model: <model id>
+  * Timestamp where the alarm was raised: <timestamp of the alarm>
+  * Signal valuel: <signal value>
+  * Threshold: <threshold value>
+  * Application Id: <application id>
+  * Hostname: <machine that sent the alert>
+
+
+
+### Logging alarmsâ
+
+Logging alarms are also optional notifications. They are written to the logging file of the Pulse application. This type of notification displays only a subset of the information that is visible in the email. To receive logging alarms, users must enable the logging property by setting `com.feedzai.modelmonitoring.alert.LoggingModelAlertSink` to WARN level.
+
+### Alarm cooldownâ
+
+The alarm cooldown prevents alarm spamming. This means that users can configure the time interval in which all alarms are suppressed after an alarm is triggered.

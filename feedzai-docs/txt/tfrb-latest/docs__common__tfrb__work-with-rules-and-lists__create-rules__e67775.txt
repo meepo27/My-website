@@ -1,0 +1,372 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules
+Title: Create Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * Create Rules
+
+
+
+On this page
+
+# Create Rules
+
+Was this page helpful?Â 
+
+Rules allow you to implement your business logic by defining actions that are taken when a transaction matches a criterion that you define. To help you get started, this page gives you an example of how a typical rule specified in your business language can be translated to Pulse using a Cards' default velocity rule that is included in the Fraud rules project.
+
+## Rule configurations in Pulseâ
+
+To define a rule in Pulse, you have the following main configurations available:
+
+  * **Variables** : Allows you to declare variables that are further used in the rule's condition including thresholds or transformation/conversion of the input value (e.g. variable that converts an amount from cents to US dollar). Variables are useful to avoid having large condition statements, which are error-prone and difficult to maintain.
+  * **Conditions** : The condition expression must return a boolean value that dictates whether the event triggers a rule.
+  * **Explanations** : Allows you to understand why a rule has triggered in a human-readable way. If an event triggers, the explanation is displayed in Case Manager to provide additional insights to analysts.
+  * **Actions** : Operations that are performed when the **rule is triggered**. The standard values that help you meet your custom business logic are:
+    * "**Alert** ": Sends the transaction to the Case Manager's alerts page for manual revision by analysts.
+    * "**Limit/Review** ": Flags entities such as cards, accounts, devices, among others, to be added to the PosNeg list with the **review** value. See the [List Management Service](list-management-service#review-list) section for more information about automatic list transitions.
+    * "**Auto Decline** ": Flags entities such as cards, accounts, devices, among others, to be added to the PosNeg list with the **decline** value. See the [List Management Service](list-management-service#decline-list) section for more information about automatic list transitions.
+    * "**Auto Approve** ": Flags entities such as cards, accounts, devices, among others, to be added to the PosNeg list with the **approve** value. See the [List Management Service](list-management-service#approve-list) section for more information about automatic list transitions.
+  * "**Mark As** ": The rule decision on the outcome of the transaction. The standard values that help you meet your custom business logic are:
+    * "**approve** ": The decision of this rule is to approve the event.
+    * "**decline** ": The decision of this rule is to decline the event.
+    * "**\--** ": This rule does not decide the event's outcome.
+    * "**Review** ": This rule does not decide the event's outcome. However, the 'Review' label recommends that an analyst should further investigate the event in Case Manager.
+  * **Control Flow** : Allows you to choose what happens after your rule triggers.
+    * "**Continue** ": Continues to the next rule.
+    * "**Stop Workflow** ": Stops the workflow immediately after the your rule is triggered.
+    * "**Next Workflow Element** ": Skips all rules within the same rules project and moves on to the next element / block.
+
+
+
+## Custom business logicâ
+
+The combination of rule actions and decisions described in the previous section allows you to easily define custom business logic. For example, imagine that you want to define the transaction responses:
+
+  * **Soft decline** : This use case involves rules that decline the transaction and that limit card transactions and spending amount for a certain period of time (i.e. through the "Limit/Review Card" action). Furthermore, the transaction should be displayed in Case Manager's alert page, for analyst review.
+  * **Hard decline** : This use case involves rules that decline the transaction and that send the card to an auto-decline list (i.e. through the "Auto Decline Card" action).
+  * **Soft approve** : This use case involves rules that do not decide the outcome of the transaction but limit the card transactions and spending amount for a period of time (i.e. through the "Limit/Review Card" action). Furthermore, the transaction should be displayed in Case Manager's alert page, for analyst review.
+  * **Hard approve** : This use case involves rules that approve the transaction without further actions.
+  * **Review** : This use case involves rules that do not decide the card or transfer event's outcome.
+  * **Challenge** : This use case involves rules that do not decide the digital event's outcome.
+
+
+
+The following image shows how these responses are achieved by combining the standard actions and decisions.
+
+## How to write a ruleâ
+
+Consider the following Cards-Velocity-4 rule example:
+
+To implement this rule in Pulse, consider the following main configurations:
+
+  1. **Template** : leave it as `none`.
+
+  2. **Variables** : If you are creating a variable for a threshold, the threshold can be hardcoded initially. However, you should change it to looking up the value in a list.
+
+**Example:**
+         
+         COUNT_LIMIT = cards__rules_thresholds["max_card_appr_count_3min"].threshold;  
+         
+
+tip
+
+Always end each variable with a semicolon, including the final one (as shown in the example above).
+
+  3. Add **Conditions** , such as:
+
+**Example:**
+         
+         // Lists  
+         card_id_not_blacklisted_nor_whitelisted  
+         and  
+         // Filters  
+         (card_id ?? '' != '')  
+         and  
+         // Limits  
+         APPR_AUTH_cardId_count_3m >= COUNT_LIMIT  
+         
+
+info
+
+As opposed to variables, you don't need to add a semicolon when adding conditions.
+
+  4. **Explanation**
+
+Typically starts with the rule name.
+
+**Example:**
+         
+         [Cards-Velocity-4] - Decline - Card transactions ({event.appr_auth_cardid_count_3m}) in the last 3 minutes is over the limit ({localvar.COUNT_LIMIT}).  
+         
+
+  5. **Actions** : `Alert` `[Cards-Velocity-4]`
+
+As a best practice, it is common to add an action with the name of the rule (e.g. Cards-Velocity-4) to easily identify which [rules are triggering](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview#response---rules-triggered) for debugging purposes. Note that, if you write a new rule, you also need to make this label available in **Actions** by editing the rules project configurations  in the Pulse **Data Science** tab.
+
+  6. **Mark As** : `decline`
+
+info
+
+To put the rule in shadow (NO-OP) mode, select None. The rule will still trigger, but no decision will be made on this rule.
+
+  7. **Score contribution** : This function is currently deprecated, please leave it as `none`.
+
+  8. **Control flow** : after this rule is triggered, you can choose what happens next.
+
+     * Continue: continue to the next rule
+     * Stop workflow: stop the workflow immediately after this rule is triggered.
+     * Next workflow element: it will skip all rules within the same project and move on to the next element/ block.
+
+
+
+## How to write a rule with Digital Trust's enriched fieldsâ
+
+Consider the following configuration when creating a rule that depends on Digital Trust's enriched fields.
+
+info
+
+The examples used in this section refer to the [Digital Activity - DNI9](/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-device-and-network-intelligence-rules) rule configuration.
+
+  1. **Variables** contain user-defined functions (UDFs), such as `existsAlertOfType` (see example below). The Digital Trust Enricher includes [out-of-the-box UDFs](/tfrb/latest/docs/common/tfrb/references/dt-enricher-udfs) that you can use in new rules.
+
+     1. For custom UDFs, create a new rule on the [Digital Trust](https://cam.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/console/rules)'s console. Make sure that the Digital Trust's rule is also raising a [risk indicator](https://cam.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/console/digital-trust-risk-indicators). This is important if you want the rule to trigger an alert in TFB as well (see **step 4.i**).
+
+**Example:**
+    
+    is_RAT =  
+        (  
+            Revelock.existsAlertOfType(event.revelock_alerts ,'RAT') ?? false  
+            or Revelock.existsAlertOfType(event.revelock_alerts ,'RAT TeamViewer') ?? false  
+        )  
+        and (event.revelock_score ?? 0 >= 90 and event.revelock_score ?? 0 <= 99)  
+        ;   
+    
+
+tip
+
+Always end each variable with a semicolon, including the final one (as shown in the example above).
+
+  2. Add **Conditions** , such as:
+         
+         is_RAT  
+         
+
+info
+
+As opposed to variables, you don't need to add a semicolon when adding conditions.
+
+  3. **Explanation** : Typically starts with the rule name, as follows:
+         
+         [DA-DNI9] - Medium Risk - Device ({event.device_id}) is suspected to be running a RAT  
+         
+
+  4. **Actions** : As a best practice, it is common to add a rules project action with the name of the rule (e.g. `[DA-DNI9]`) to easily identify which [rules are being triggered](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview#response---rules-triggered) for clarity purposes. Note that, if you write a new rule, you also need to make this label available in **Actions** by editing the rules project configurations  in the Pulse **Data Science** tab.
+
+     1. If you're using a custom Digital Trust [action](https://cam.feedzai.com/digitaltrust/latest/docs/common/digitaltrust/console/rules#setting-up-rule-actions), which is defined when creating the rule in Digital Trust's console - as recommended in **step 1.i** -, add the name of that action here too. This means that, if the rule that you created in the Digital Trust console triggers that action, the rule that you are creating in Pulse will trigger that action too.
+  5. **Mark As** : `medium`
+
+info
+
+To put the rule in shadow (NO-OP) mode, select None. The rule will still trigger, but no decision will be made on this rule.
+
+  6. **Score contribution** : This function is currently deprecated, please leave it as `none`.
+
+
+
+
+Rules that include Digital Trust's enriched fields are typically used in the Digital Activity and Transfers use cases and will have an impact in Case Manager's **Event** widgets, namely in the score:
+
+  * Digital Activity:
+    * [Session](/tfrb/latest/docs/common/tfrb/investigate-alerts/digital-activity#session)
+    * [Session Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/digital-activity#session-alerts)
+  * Outbound Transfers:
+    * [Session](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#session)
+    * [Session Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers#session-alerts)
+
+
+
+## How to write a rule using TrustScoreâ
+
+Consider the following configuration when creating a rule that scores a card event with TrustScore.
+
+info
+
+The examples used in this section refer to the [Cards-DR1](/tfrb/latest/docs/common/tfrb/rules-projects/cards-decision-rules) rule configuration.
+
+  1. **Template** : Leave it as `none`.
+
+  2. **Variables** : For threshold variables, you can begin by hardcoding the value. Later, you should modify this to look up the value from a [list](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists).
+         
+         ## Example  
+         HIGH_SCORE_THRESHOLD = cards__rules_thresholds["model_high_score"].threshold;  
+           
+         score = fraud_score * 1000;  
+         
+
+tip
+
+Always end each variable with a semicolon, including the final one (as shown in the example above).
+
+TrustScore - `fraud_score`
+
+By adding `fraud_score` to your variables, TrustScore will start scoring events based on its [intelligent scoring system](/tfrb/latest/docs/common/tfrb/about/how-it-works#trustscore).
+
+  3. **Conditions**
+         
+         ## Example  
+         (score ?? 0) >= HIGH_SCORE_THRESHOLD  
+         
+
+info
+
+As opposed to variables, you don't need to add a semicolon when adding conditions.
+
+  4. **Explanation** : Typically starts with the rule name.
+         
+         ## Example  
+         [Cards-DR1] - Decline - Model score ({localvar.score}) was above the threshold ({localvar.HIGH_SCORE_THRESHOLD}).  
+         
+
+  5. **Actions** : As a best practice, it is common to add an action with the name of the rule (e.g. `[Cards-DR1]`) to easily identify which [rules are triggering](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/send-test-transactions/overview#response---rules-triggered) for debugging purposes. Note that, if you write a new rule, you also need to make this label available in **Actions** by editing the rules project configurations  in the Pulse **Data Science** tab.
+
+  6. **Mark As** : `decline`
+
+info
+
+To put the rule in shadow (NO-OP) mode, select None. The rule will still trigger, but no decision will be made on this rule.
+
+  7. **Score contribution** : This function is currently deprecated, leave it as `none`.
+
+
+
+
+## Create snapshotsâ
+
+After finishing creating / changing rules, you need to create a rule snapshot. A rule snapshot is the collection of rule objects to be [deployed in a workflow](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/publish-rules/overview) for production. You can select which ones to enable or disable.
+
+  1. In the **Data Science** tab, open the rules project that you have created.
+  2. In the **Snapshots** widget, create a new snapshot using the **New Snapshot** button.
+  3. Select the rules that you want to include in the snapshot.
+
+
+
+## Request a rule snapshot review / review a rule snapshot (four-eyes check)â
+
+Ensuring every change is reviewed by a second pair of eyes helps prevent unwanted or unplanned changes in production. As such, the Four-Eyes Check feature allows you to request reviews from your colleagues.
+
+info
+
+The four-eyes check capability is disabled by default. Reach out to your Customer Success Manager to enable it.
+
+tip
+
+By default, requesting reviews is an optional action. To make reviews mandatory, reach our to your Customer Success Manager. With mandatory reviews, you won't be able to approve your own rule snapshots. This also means that if rule snapshots don't go through the four-eyes check process, they won't be saved into the workflow.
+
+### Request a reviewâ
+
+info
+
+Typically, fraud strategists are entitled to request reviews for rule snapshots.
+
+To request a review of a snapshot, execute the following steps:
+
+  1. In the **Data Science** tab, go to the rules project that contains the rule snapshot. Under **Snapshots** , select the snapshot that you created.
+
+  2. Use the **Request Review** button to submit the snapshot for review.
+
+  3. In the **Submit Snapshot for Review** window, fill in the following fields:
+
+     1. **Change Description** : Describe the changes you made to rules, data fields and lists. Include the name of the snapshot that contains the rule's previous state for reference, if there is such a snapshot. This will let the reviewer know the name of the snapshot they should compare yours to. Usually it is the snapshot that was last published live.
+     2. **Notify User(s)** : Type the name of the Pulse users that you want to invite to review the snapshot. In this field, you can select only users that have an email address configured in Pulse. If you don't find a user, contact your Pulse administrator.
+  4. Use the **Submit** button to send the snapshot for review and request the selected users to review the changes included in the snapshot.
+
+  5. As a result, the users you selected will receive an email with the following information:
+
+     1. Review submitted on your behalf.
+     2. The name of the rules project.
+     3. The name of the snapshot.
+     4. A link to the snapshot.
+  6. You can follow up on the status of the review next to the snapshot's name:
+
+  7. You will receive an email notification when the snapshot is accepted or rejected.
+
+
+
+
+### Review rulesâ
+
+info
+
+Typically, fraud strategist managers are entitled to review rule snapshots.
+
+If you are asked to review a rule snapshot, perform the following steps:
+
+  1. Open the link from your email, or go to Pulse in the **Data Science** tab and look for the snapshot submitted for review.
+
+  2. If there is a previous snapshot that you want to compare it with, use the **Compare with another Snapshot** button to see the differences.
+
+  3. When you have decided whether the snapshot should be published or not, select the **Review Snapshot** button.
+
+  4. Add your feedback in the **Explanation** field, and select the **Accept** or **Reject** button according to your decision about the snapshot.
+
+  5. The user who requested this review will be notified of your decision via email.
+
+
+
+
+## New rule - practical exampleâ
+
+tip
+
+The following scenario assumes the new metric example described in [Change Plan](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/change-plan#new-metric---practical-example).
+
+#### Assumptionsâ
+
+  * Casino transactions are identified as MCC = 7800.
+  * A new metric called `c_cardid_sum_amt_3h_mcc7800` has been created.
+  * A new rules project has been created with the **Action** code `[Cards-Gambling-1]`.
+
+
+  1. Open the new rules project.
+  2. Select **New Rule**.
+     1. **Name** : Cards-Gambling-1.
+     2. **Comment** : Declines transactions from a card that has spent over $1,000.00 on casino transactions over the past 3 hours.
+     3. **Template** : None.
+     4. **Variables** :
+        1. `SPENT_LIMIT = cards__rules_thresholds["gamble-1_spent_limit"].threshold;`
+           * `cards__rules_thresholdsCards` (i.e. "Cards - Rules Thresholds") is a list that contains all the thresholds.
+           * Add `gamble-1_spent_limit` as a new item in Cards - Rules Thresholds (learn how to add list items in [Create List Items](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists)).
+           * `Gamble-1_spent_limit"` is an element from the "Cards - Rules_Thresholds" list.
+           * `.threshold` is the threshold stored in `gamble-1_spent_limit`.
+        2. `SPENT_LIMITED_FORMATTED = SPENT_LIMIT/100.0;`
+           * This variable will be used in the **Explanation** section. Since the amount is stored in cents, you need to convert it to dollars for better interpretation in Case Manager.
+     5. **Condition** : `event.c_cardid_sum_amt_3h_mcc7800 >= SPENT_LIMIT and event.mcc == '7800'`.
+     6. **Explanation** : [Cards-Gambling-1] - Decline - Gambling transactions (mcc=7800) over the past 3 hours are above the limit ($SPENT_LIMITED_FORMATTED).
+     7. **Actions** : `Alert`, `[Cards-Gambling-1]`, `NO-OP` \- you can choose to remove `Alert` in the shadow (NO-OP) mode.
+     8. **Mark As** : `decline` (or leave it as `None` for shadow (NO-OP) mode).
+     9. **Score contribution** : `None`
+     10. **Control Flow** : Continue
+
+
+
+## Evaluate the right rules projectsâ
+
+You can use conditions to control the rules that should be triggered for cards that are unlisted, listed to be declined, approved, or reviewed. Feedzai recommends processing the following rules projects when a card, transfer or digital event is in a certain list:
+
+When card, transfer, or digital event is:| PosNeg rules| Fraud rules| Entity Limit rules  
+---|---|---|---  
+listed to be declined| yes| \--| \--  
+listed to be approved| yes| \--| \--  
+listed to be reviewed| yes| yes| yes  
+unlisted| yes| yes| \--  
+  
+## Next stepsâ
+
+Learn how cards, transfers and digital events are listed to be approved, declined, or reviewed in Pulse using _[PosNeg lists](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists)_.
+
+Alternatively, jump to [Migrate Pulse Resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview), in case you're ready to publish your rules to production, but need to import your changes to the **production environment** first.

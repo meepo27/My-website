@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/entity-tagging
+Title: Entity Tagging | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * Entity Tagging
+
+
+
+# Entity Tagging
+
+Was this page helpful?Â 
+
+The Entity Tagging API brings a new way of managing the contents of lists, i.e. new entities or fragments can be easily added to lists without requiring access to Case Manager or Pulse.
+
+## [ðï¸ Fragment TaggingThe Fragment Tagging endpoint allows you to give feedback on certain fragments, like Card PAN's, Tokens, etc., and flag that fragment in a Whitelist / Blacklist / Risky List.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-fragment-tagging)## [ðï¸ UntaggingThe Untagging endpoint allows you to unflag a specific Entity / Fragment from a Whitelist / Blacklist / Risky List.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-untagging)## [ðï¸ Entity TaggingThe Entity Tagging endpoint allows you to give feedback on certain entities, like Cards, Customers, Accounts, etc., and flag that entity in a Whitelist / Blacklist / Risky List.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-entity-tagging)## [ðï¸ Entity Tagging Possible TagsThe Get Entity Tagging Possible Tags Endpoint allows you to know what are the possible tags available to use for a particular entity type. You only need to include the Entity Type in the URL (cards, for example), and the response would include all the possible tags.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-entity-tagging-tags)## [ðï¸ SearchingThe Search Fragment Tag endpoint allows you to search for tags of a fragment.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-search-fragment-tags)## [ðï¸ Entity TaggingThe Get Entity Tagging Endpoint returns all the tags for a given entityType, scope, category, and tenant or tenant group (if the scope is tenant or group, respectively). The endpoint is additionally setup for pagination with optional offset and limit query parameters.](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-entity-tagging)

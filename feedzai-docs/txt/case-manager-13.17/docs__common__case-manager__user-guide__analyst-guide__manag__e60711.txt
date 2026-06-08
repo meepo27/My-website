@@ -1,0 +1,86 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/operators-in-rule-writing
+Title: Operators in Rule Writing | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Manage Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/)
+  * Operators in Rule Writing
+
+
+
+On this page
+
+# Operators in Rule Writing
+
+Operators provide flexible writing capabilities that enable you to write rules according to your business needs. The Self-Service Rules (SSRs) creation form displays different operators depending on the selected conditions.
+
+This page details the different available operators by type:
+
+  * Defined values comparison
+  * List values
+  * Schema comparison
+  * Strings check
+
+
+
+## Defined values comparisonâ
+
+These operators compare the selected field with a specific value defined in the rule. For example, you can use this operator to check if the amount is greater than or equal to 1000.
+
+  
+  
+
+
+This type includes the following operators: **=** , **!=** , **>** , **> =**, **<** , **< =**, **is NULL** and **is NOT NULL**.
+
+## List valuesâ
+
+These operators allow you to validate if a field is in a **Defined** or **Custom** list.
+
+This type includes the following operators: **IS IN Defined List** , **IS NOT IN Defined List** , **IS IN Custom List** , and **IS NOT IN Custom List**.
+
+  * The **Is IN Defined List** and **IS NOT IN Defined List** operators are used to validate if the select field is in both simple and complex lists. For example, you can use this operator to check if a customer ID is in a block list.
+
+
+
+info
+
+If you select a complex list such as the example displayed, then **Value** field is populated with the possible values according to the [list's configuration](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/block-allow-lists), for example, Block, Allow, Review.
+
+  * The **IS IN Custom List** and **IS NOT IN Custom List** operators allow you to create your own list when creating the rule. For example, you can create a custom list that includes currencies from a specific country.
+
+
+
+tip
+
+Add items to the **Value** field by selecting the Space or Enter key.
+
+The rule will then find a match between the selected field and any of the items added to the condition.
+
+## Schema comparisonâ
+
+These operators are used to compare different fields. For example, you can check if a card's last 4 digits are equal to a card's bin.
+
+This type includes the following operators: **=** , **!=** , **>** and **<**.
+
+  * **=** and **!=** compare fields of the same type (i.e. numeric vs numeric, alphanumeric vs alphanumeric and alphabetic vs alphabetic).
+  * **>** and **<** compare numeric fields.
+
+
+
+## Strings checkâ
+
+These operators are used to search for a certain value in a specific event field. For example, you can check if a customer's phone number contains 1234.
+
+This type includes the following operators: **Contains** and **DOES NOT Contain**.
+
+## Learn Moreâ
+
+Learn more about:
+
+  * What [Self-Service Rules](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules) are and how they work.
+  * How to [manage Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules) \- create, view, edit, delete, and use the audit capabilities to have a clear understanding of all changes made.
+  * How to [test Self-Service Rules](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/testing-self-service-rules) so that you make the most out of them.
+
+

@@ -1,0 +1,240 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/list-management/overview
+Title: List Management | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * List Management
+
+
+
+On this page
+
+# List Management
+
+Was this page helpful?Â 
+
+Data scientists or fraud prevention agents can insert, update or delete items for simple and complex lists via [Pulse's user interface](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists) (UI). To give them the autonomy to manage list items through different systems other than Pulse (e.g. via an integration between systems), the List Management API can be used.
+
+The List Management API allows you to insert items into simple and complex lists as global, by tenant, or by tenant group. Learn the different requests you can send to manage list items end to end.
+
+## Insert list items `[POST]`â
+
+caution
+
+To insert a list item, ensure the list has been created via UI beforehand.
+
+Note that you can only insert list items individually (i.e. bulk action is not possible).
+
+### Simple listâ
+
+The following payload includes the fields required for a simple list. Send a request through `POST <>/api/entitytagging` as follows:
+    
+    
+    {  
+       // required fields for a complex list  
+       "appSlug": "tfrb", // the Pulse App where the list belongs to  
+       "listName": "my-travel-abroad-list", // the name of the list you're inserting this item into  
+       "scope": "global", // must match the scope configured in the list, i.e. global, by tenant or by tenant group  
+       "key": "4174337685469288", // the entity's ID, e.g. card number  
+       // optional fields that provide more context about this item:  
+       "note": "The client will be travelling abroad next weekend",  
+       "startTime": "2025-01-25T00:00:00+00:00", // specifies the period in which the item will become enabled  
+       "endTime": "2025-01-27T23:59:59+00:00", // specifies the period in which the item will become disabled  
+    }  
+    
+
+### Complex listâ
+
+A complex list includes adding a field called `value`. If this field is not set, you won't be able to insert items to that list via API.
+
+The following payload includes the fields required for a complex list. Send a request through `POST <>/api/entitytagging` as follows:
+    
+    
+    {  
+       // required fields for a complex list  
+       "appSlug": "tfrb", // the Pulse App where the list belongs to  
+       "listName": "my-travel-abroad-list", // the name of the list you're inserting this item into  
+       "scope": "tenant", // must match the scope configured in the list, i.e. global, by tenant or by tenant group  
+       "tenant": "feedzai", // if the scope's value is "tenant" or "group", a `tenant` or `group` field, respectively, is required with the corresponding `tenantId`  
+       "key": "4174337685469288", // the entity's ID, e.g. card number  
+       "value": "true", // the accepted value for the list item (e.g. true means `decline`)  
+       // optional fields that provide more context about this item:  
+       "note": "The client will be travelling abroad next weekend",  
+       "startTime": "2025-01-25T00:00:00+00:00", // specifies the period in which the item will become enabled  
+       "endTime": "2025-01-27T23:59:59+00:00", // specifies the period in which the item will become disabled  
+    }  
+    
+
+warning
+
+Note that, if any of the required fields is not included in the payload, you will get a `400 Bad Request` error response.
+
+items' time to live
+
+Consider the following timeframes when inserting list items:
+
+  * **Defined`startTime`**: enables the item at the specified `startTime`.
+  * **No`startTime` defined**: enables the item as soon as the item is added to the list.
+  * **Defined`endTime`**: disables the item at the specified `endTime`.
+  * **No`endTime` defined**: does not disable the item, i.e. the item will be enabled indefinitely unless you set an `endTime` or remove it from the list.
+
+
+
+## Fetch list item `[GET]`â
+
+To send the inserted item to the UI for any list, send a request through `GET <>/api/entitytagging/:appSlug/:listName?scope=tenant&tenant=feedzai&offset=0&limit=10`. Ensure the URL includes all required path and query parameters.
+
+#### Required path parametersâ
+
+  * `:appSlug`
+  * `:listName`
+
+
+
+tip
+
+Replace the aforementioned variables with their corresponding values.
+
+* * *
+
+#### Required query parametersâ
+
+The following query parameters must be used according to the scope defined on the list via UI, i.e. **Global** , **By Tenant** , or **By Tenant Group** :
+
+  * `scope=global`
+
+**OR**
+
+  * `scope=tenant&tenant=tenantID`
+
+**OR**
+
+  * `scope=group&group=groupID`
+
+
+
+
+* * *
+
+#### Optional query parametersâ
+
+If you have a list of `100` items, and you want to fetch items `11` to `20`, set:
+
+  * `offset=10` to skip the first `10` items.
+  * `limit=10` to delete the next `10` items.
+
+
+
+* * *
+
+warning
+
+Note that, if any of the required path or query parameters are not included in the URL, you will get the following error responses:
+
+  * **Missing path parameter** : `404 Transaction was not found`
+  * **Missing query parameter** : `400 Bad Request`
+
+
+
+## Update list items `[PUT]`â
+
+### Simple listâ
+
+To update items on a simple list, send a request through `PUT <>/api/entitytagging` with the updated values as follows:
+    
+    
+    {  
+        // required fields  
+        "appSlug": "tfrb", // the app where the list belongs to  
+        "listName": "my-travel-abroad-list", // the name of the list where you're updating this item  
+        "scope": "tenant", // must match the scope configured in the list, i.e. global, by tenant or by tenant group  
+        "tenant": "feedzai",  // if the scope's value is "tenant" or "group", a `tenant` or `group` field, respectively, is required with the corresponding `tenantId`  
+        "key": "4174337685469288", // the entity's ID, e.g. card number  
+        // optional fields  
+        "note": "The client will be travelling abroad next weekend",  
+        "startTime": "2025-01-25T00:00:00+00:00", // specifies the period in which the item will become enabled  
+        "endTime": "2025-01-27T23:59:59+00:00", // specifies the period in which the item will become disabled  
+    }  
+    
+
+warning
+
+Note that, if any of the required fields is not included in the payload, you will get a `400 Bad Request` error response.
+
+### Complex listâ
+
+To update items on a complex list, send a request through `PUT <>/api/entitytagging` with the updated values as follows:
+    
+    
+    {  
+        // required fields  
+        "appSlug": "tfrb", // the app where the list belongs to  
+        "listName": "my-travel-abroad-list", // the name of the list where you're updating this item  
+        "scope": "global", // must match the scope configured in the list, i.e. global, by tenant or by tenant group  
+        "key": "4174337685469288", // the entity's ID, e.g. card number  
+        "value": "true", // the accepted value for the list item (e.g. true means `decline`)  
+        // optional fields  
+        "note": "The client will be travelling abroad next weekend",  
+        "startTime": "2025-01-25T00:00:00+00:00", // specifies the period in which the item will become enabled  
+        "endTime": "2025-01-27T23:59:59+00:00", // specifies the period in which the item will become disabled  
+    }  
+    
+
+warning
+
+Note that, if any of the required fields is not included in the payload, you will get a `400 Bad Request` error response.
+
+## Delete list items `[DEL]`â
+
+To delete items on any list, send a request through `DEL <>/api/entitytagging/:appSlug/:listName/:key?scope=tenant&tenant=feedzai` with the removed item. Ensure the URL includes all required path and query parameters.
+
+#### Required path parametersâ
+
+  * `:appSlug`
+  * `:listName`
+  * `:key`
+
+
+
+tip
+
+Replace the aforementioned variables with their corresponding values.
+
+* * *
+
+#### Required query parametersâ
+
+The following query parameters must be used according to the scope defined on the list via UI, i.e. **Global** , **By Tenant** , or **By Tenant Group**.
+
+  * `scope=global`
+
+**OR**
+
+  * `scope=tenant&tenant=tenantID`
+
+**OR**
+
+  * `scope=group&group=groupID`
+
+
+
+
+* * *
+
+warning
+
+Note that, if any of the required path or query parameters are not included in the URL, you will get the following error responses:
+
+  * **Missing path parameter** : `404 Transaction was not found`
+  * **Missing query parameter** : `400 Bad Request`
+
+
+
+## Read moreâ
+
+  * Learn about the available [endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/list-management) in the List Management API.
+  * Understand how [lists](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists) impact system decisions.
+
+

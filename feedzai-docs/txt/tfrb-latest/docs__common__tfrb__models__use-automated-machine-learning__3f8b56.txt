@@ -1,0 +1,71 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/complete-schema
+Title: Complete the Schema | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Use Models](/tfrb/latest/docs/common/tfrb/models/use-models)
+  * [AutoML](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/journey-overview)
+  * Complete the Schema
+
+
+
+On this page
+
+# Complete the Schema
+
+Was this page helpful?Â 
+
+This page helps you complete the schema of the data source that will be used to set up AutoML. This step is important to prevent schema conflicts during the integration of the AutoML output (i.e. plan and model) with the existing resources in the runtime workflow.
+
+danger
+
+**Environment to run AutoML:** Since the AutoML computation is quite resource-intensive for the system, Feedzai recommends running AutoML in a staging environment dedicated to the data science work (i.e. typically a Data Science environment). This is important to ensure that the production environment is not compromised by this functionality. Once you achieve results that meet your business needs, you can [migrate](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview) the AutoML model and plan to the production environment and [integrate these new resources into the runtime workflow](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/integrate-resources-runtime).
+
+info
+
+The applicability of this step depends on your product setup. If you already have a data source loaded in your Pulse application that has a schema compatible with the one used by the rules, you can skip this step entirely. In that case, check the [Create an AutoML Run](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/create-automl-run) page to complete the next user journey step.
+
+## Whyâ
+
+The goal of running AutoML is to generate a model to integrate into the runtime workflow. To perform this integration, you need to add the AutoML plan and model inline with other operators that are already in your workflow (i.e. the standard plan and rule blocks).
+
+To prevent schema conflicts in the workflow integration, it is important to set up an AutoML run with a data source that has the same schema as the one used by the rules. You can prepare the data source with such schema using plans in the **Pulse Data Science** tab. The general idea is to run the plans with the data source to mimic the changes that a schema undergoes in the runtime workflow. This is explained in more detail in the following section.
+
+## Howâ
+
+To make the schema of your data source identical to the rules' schema, it is important to understand the different schemas that flow through each operator in the workflow. The following image shows the operators that are configured in the standard workflow and highlights the schemas along the workflow path:
+
+tip
+
+**Main goal:** You need to prepare the schema of your data source so that it contains the fields that are in the 'Workflow Schema' plus any additional fields. By doing so, you ensure that the AutoML plan output keeps the fields that are required for your rules in addition to creating new fields that are relevant for the model.
+
+To prepare your data source:
+
+  1. Identify the current schema of your data source. It should match one of the schemas highlighted in the figure.
+  2. Use Pulse plans to mimic the transformations that a schema undergoes to reach the 'Workflow Schema'. For example, if your data source has a schema identical to the 'Input Schema', you need to transform it into the 'Extended Schema' and then into the 'Workflow Schema'. The next section shows an example of a data source's schema transformation from 'Extended Schema' to 'Workflow Schema'.
+
+
+
+## Modify the schema with Pulse plansâ
+
+You can add fields to the schema of your data source with Pulse plans.
+
+As an example, consider that you have the data source with a schema identical to the 'Extended Schema'. To extend this schema and make it identical to the 'Workflow Schema', perform the following steps:
+
+  1. Open the **Data Science** tab.
+  2. Open the standard plan that is responsible for adding the extra fields in the runtime workflow (i.e. 'Plan v_N').
+  3. Select the  button to open the **Configure Plan Execution** menu and:
+  4. Select the data source that has the initial schema.
+  5. Select  to execute the job.
+  6. Select the  button to open the **Configure Plan Snapshot** menu and:
+  7. Select the **Export** box.
+  8. Choose the new schema name.
+  9. Select the  button to create a new data source with the target schema. The new data source is stored under the **Data Sources** table in the **Data Science** tab.
+
+
+
+## Next stepâ
+
+Now that you have completed the schema, read the [Create an AutoML Run](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/create-automl-run) page to generate features and models automatically.

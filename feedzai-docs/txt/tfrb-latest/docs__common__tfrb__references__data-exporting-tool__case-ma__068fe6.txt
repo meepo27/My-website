@@ -1,0 +1,78 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-adhoc-customer-investigations
+Title: Case Manager Event - Ad-hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Case Manager
+  * Case Manager Event - Ad-hoc Customer Investigations
+
+
+
+# Case Manager Event - Ad-hoc Customer Investigations
+
+Was this page helpful?Â 
+
+The **Case Manager Event - Ad-hoc Customer Investigations** entity stores all events from the Ad-hoc Customer Investigations channel.
+
+It comprises the [Case Manager Event - Base Schema](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event) and the following fields:
+
+Name| Type| Description| Example  
+---|---|---|---  
+`event_payload`| row| The event payload for the adhoc customer investigations event.|   
+âââ`lifecycle_id`| string| |   
+âââ`customer_id`| string| |   
+âââ`customer_city`| string| |   
+âââ`customer_country_code`| string| |   
+âââ`customer_email`| string| |   
+âââ`customer_name`| string| |   
+âââ`customer_phone`| string| |   
+âââ`customer_region`| string| |   
+âââ`customer_street_addr`| string| |   
+âââ`customer_zip`| string| |   
+âââ`customer_dob`| string| |   
+âââ`customer_occupation`| string| |   
+âââ`customer_segment`| string| |   
+âââ`is_client`| boolean| |   
+âââ`outcome_decision`| string| |   
+âââ`origin`| string| |   
+âââ`reason_code`| string| |   
+âââ`description`| string| |   
+âââ`event_external_id`| string| |   
+âââ`event_occurred_at`| double| |   
+âââ`event_received_at`| double| |   
+âââ`event_type`| string| |   
+âââ`feedback_label`| string| |   
+âââ`feedback_type`| string| |   
+âââ`feedback_value`| string| |   
+âââ`info_type`| string| |   
+âââ`tenant`| string| |   
+âââ`source`| string| |   
+âââ`req_9483_review_trigger_type`| string| |   
+âââ`req_9483_screening_tags`| string| |   
+âââ`req_9483_sanctions_outcome_decision`| string| |   
+âââ`score`| double| |   
+âââ`req_9483_session_id`| string| |   
+âââ`req_9483_system_risk_rating`| string| |   
+âââ`req_9483_system_risk_rating_color`| string| |   
+âââ`req_9483_system_score`| double| |   
+âââ`req_9483_total_number_of_hits`| double| |   
+âââ`req_9483_max_hit_score`| double| |   
+âââ`req_9483_sanctions_alert`| boolean| |   
+âââ`req_9483_merchant_country_code`| string| |   
+âââ`req_9483_merchant_id`| string| |   
+âââ`req_9483_merchant_mcc`| string| |   
+âââ`req_9483_merchant_name`| string| |   
+âââ`req_9483_merchant_url`| string| |   
+âââ`req_9483_amount`| double| |   
+âââ`req_9483_beneficiary_name`| string| |   
+âââ`req_9483_currency_code`| string| |   
+âââ`req_9483_device_id`| string| |   
+âââ`req_9483_alert_reasons`| string| |   
+âââ`req_9483_aml_version`| string| |   
+âââ`req_9483_parent_merchant_id`| string| |   
+âââ`prodserv_148_originator_name`| string| |   
+âââ`req_9483_alert_close_at`| double| |   
+âââ`req_9483_onboarding_origin`| string| |   
+âââ`req_9483_assessment_type`| string| | 

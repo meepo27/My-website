@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-sp-initiated
+Title: Sign in via SP-initiated | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Sign in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/)
+  * [Sign in with SSO](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-sso)
+  * Sign in via SP-initiated
+
+
+
+On this page
+
+# Sign in via SP-initiated
+
+SP-initiated is a use case of Single Sign-On (**SSO**) that is supported by Case Manager. A typical scenario of SP-initiated is when the user receives a URL by e-email or the user wants to access a Feedzai product using a bookmark. E.g.:
+    
+    
+    http://<BASE_CASE_MANAGER_ADDRESS>/alert  
+    
+
+## How Toâ
+
+For this example, a Case Manager instance has been configured in the IdP as a Service Provider (SP) and acts as proxy of a Pulse instance. Check [Configuring AD FS](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs) in the Pulse documentation to learn how to add Case Manager as an SP.
+
+  * A Demo environment configured in the IdP as CaseManager
+  * A Demo environment configured in the IdP as PULSE DEMO.
+
+
+
+SP applications
+
+Note that the Case Manager and the Pulse instances are used here as an example. In a production system, the IdP could be configured with any application used by the client.
+
+To use the example of signing in to Case Manager via SP-initiated, perform the following steps (assuming that you are not already signed in to the IdP):
+
+  1. Access one of the URLs that have been configured as SP in the IdP. Note that you are redirected to the IdP URL to enter your credentials.
+
+
+
+  2. Enter your SSO credentials to sign in. These credentials should have been already [configured in the IdP](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-new-users). As a result, you are redirected to the Case Manager URL entered initially, _i.e._ to the internal path corresponding to the URL that you were trying to access on Step 1. Note that, if your credentials are not yet associated to a Pulse User in the Pulse instance, a new user is created on-the-fly by [user provisioning](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single#user-provisioning) when you sign in to the Case Manager instance.
+
+
+
+## Learn moreâ
+
+Learn more about [signing in via IdP-initiated](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/signing-in-via-idp-initiated).
+
+In addition, check Pulse Documentation to learn how to configure SPs and users in the IdP:
+
+  * [Add a Relying Party Trust](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-a-relying-party-trust)
+  * [Add new users](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/administrators-guide/securing-an-environment/single-sign-on/configuring-ad-fs#add-new-users)
+
+

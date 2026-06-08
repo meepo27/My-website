@@ -1,0 +1,263 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/monitoring-guide/
+Title: Monitoring Guide | Case Manager
+============================================================
+
+On this page
+
+# Monitoring Guide
+
+Case Manager uses [LetMeKnow](https://techdocs.feedzai.com/commons/com.feedzai.commons.letmeknow/site/1.14.3/) library to export different application metrics.
+
+The metrics are available in the following HTTP endpoints:
+
+URI| Description  
+---|---  
+`/api/metrics`| The metrics in the dropwizard format.  
+`/api/metrics/rich`| The metrics in the LetMeKnow format.  
+`/api/metrics/prometheus`| The metrics in the Prometheus format.  
+`/api/healthchecks`| CM healthchecks in CSV format.  
+  
+## Health Checksâ
+
+CM is exporting the following health checks to check if the following dependencies are working properly:
+
+  * Database
+  * Messaging Server
+  * Pulse
+  * Tokenizer
+  * Event Ingestion
+
+
+
+The Health Checks catch all the exceptions thrown and log them. If any of the healthchecks fail, please refer to the CM logs for more details on the error.
+
+### Database Health Checkâ
+
+The database health check relies on the shared CM's connection pool to execute the statement SELECT 1. If the connection is successfully retrieved and the statement finishes, the health check succeeds, if any error occurs in any of the steps the check fails. A timeout of 5 seconds was given when retrieving a connection to avoid hanging the health check response.
+
+### Messaging Health Checkâ
+
+The Messaging Server Health Check is achieved by trying to initialize a new connection with the messaging server.
+
+### Tokenizer Health Checkâ
+
+The tokenizer health checks validates if there is a tokenizer instance reachable and if the authorization configured is valid.
+
+### Pulse Health Checkâ
+
+The Pulse Health Check when triggered tries to connect to Pulse and tries to login, if it succeeds the check will also succeed.
+
+### Event Ingestion Health Checkâ
+
+The Event Health Check checks if the current Case Manager node is taking events from the event RabbitMQ, or if it is blocking this action.
+
+## Metricsâ
+
+CM already exports the default metrics provided by [LetMeKnow](https://techdocs.feedzai.com/commons/com.feedzai.commons.letmeknow/site/1.12.2/metrics/). On top of these metrics, CM also exports metrics related to the following components:
+
+### Connection Poolâ
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.db.connection.pool.size`| The current size of the connection pool (If pool is lazy the value can grow over time)| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Gauge  
+`cm.db.connection.pool.used`| The number of used database connections.| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Gauge  
+`cm.db.connection.pool.free`| The number of free database connections.| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Gauge  
+`cm.db.connection.pool.waiting`| The number of threads waiting for a database connection| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Gauge  
+`cm.db.connection.pool.usage`| The current usage of the database connection pool (used/size in percent)| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| PercentGauge  
+  
+### Event Ingestionâ
+
+The latency metric has 3 dimensions specified by the tag "eventType" each dimension refers to the type of the event the metric is measuring.
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.event.processing.deadletter.count`| The total number of dead letters since CM's startup.| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Counter  
+`cm.event.processing.latency`| The event processing latency and rate aggregated over a 10 minute sliding window.| appType=CASE_MANAGER   
+  
+metricType=APPLICATION   
+  
+eventType={NEW_EVENT, STATUS_CHANGE, NEW_EXPLANATION}| Timer  
+`cm.event.processing.queue.used.count`| The number of events waiting to be processed.| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Gauge  
+`cm.event.processing.queue.ratio`| The percentage of the event processing queue being used.| appType=CASE_MANAGER   
+  
+metricType=APPLICATION| Gauge  
+  
+### CM APIâ
+
+The metrics below can have several dimensions defined by the tag "path" which indicates the URI of the API the metric is measuring.
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.request.api`| The latency of the endpoint described in the path tag, aggregated in a 10 minutes bucket.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+path={ The API path the metrics refers to}| Timer  
+`cm.request.api.error`| The rate of errors returned by the endpoint described in the path tag.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+path={ The API path the metrics refers to}| Meter  
+  
+### Tokenizer / Encryptionâ
+
+The metrics below can have two dimensions defined by the tag "operation" which indicates the operation the metric is measuring.Â 
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.request.tokenizer`| The latency of the Tokenizer operation described, aggregated in a 10 minutes bucket.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+operation={ The operation the metrics refers to (getToken, getPlainText, getBulkToken, getBulkPlainText, encryptData)}| Timer  
+`cm.request.tokenizer.error`| The number of errors returned by the Tokenizer operation described.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+operation={ The operation the metrics refers to (getToken, getPlainText, getBulkToken, getBulkPlainText, encryptData)}| Gauge  
+`cm.request.tokenizer.error.percent`| The percentage of errors returned by the Tokenizer operation described.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+operation={ The operation the metrics refers to (getToken, getPlainText, getBulkToken, getBulkPlainText, encryptData)}| PercentGauge  
+  
+### Pulse Requestsâ
+
+The metrics below can have several dimensions defined by the tag "path" which indicates the URI of the API the metric is measuring.
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.request.pulse.api`| The latency of the Pulse endpoint described in the path tag, aggregated in a 10 minutes bucket.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+path={ The API path the metrics refers to}| Timer  
+`cm.request.pulse.api.error`| The rate of errors returned by the Pulse endpoint described in the path tag.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+path={ The API path the metrics refers to}| Meter  
+  
+### Automation Rulesâ
+
+The metrics below can have several dimensions defined by the tag "ruleName" which indicates the Automation Rule the metric is measuring.
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.automation`| The latency of the automation execution.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+ruleName={ The rule name the metrics refers to}| Timer  
+`cm.automation.error`| The rate of errors returned by the automation execution.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+ruleName={ The rule name the metrics refers to}| Meter  
+  
+### Loginâ
+
+Metric |  Description |  Tags |  Type   
+---|---|---|---  
+`cm.request.login`| The number of login requests.| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.request.login.2fa`  
+|  The number of 2fa challenges requested during login requests.  
+| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.request.login.error`| The number of login requests with errors.| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.request.login.error.percent`| The current percentage of login requests with errors.| appType=CASE_MANAGER metricType=APPLICATION| PercentGauge  
+  
+### CM's Worker Threads - Event Ingestionâ
+
+Metric |  Description |  Tags |  Type   
+---|---|---|---  
+`cm.executor.pool.activeThreadsCount`  
+  
+|  The total number of active threads in the executor.  
+| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.executor.pool.taskQueueEventsCount`  
+|  The total number of tasks submitted to the executor and pending for execution.  
+| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.executor.pool.maxPoolSize`| The current size of the thread pool executor.| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.executor.pool.threadsUsageRatio`| The current usage of the thread pool executor.| appType=CASE_MANAGER metricType=APPLICATION| PercentGauge  
+  
+### CM's Worker Threads - Automation Rules Processingâ
+
+Metric |  Description |  Tags |  Type   
+---|---|---|---  
+`cm.executor.automations.pool.activeThreadsCount`  
+  
+|  The total number of active threads in the executor.  
+| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.executor.automations.pool.taskQueueEventsCount`  
+|  The total number of tasks submitted to the executor and pending for execution.  
+| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.executor.automations.pool.maxPoolSize`| The current size of the thread pool executor.| appType=CASE_MANAGER metricType=APPLICATION| Gauge  
+`cm.executor.automations.pool.threadsUsageRatio`| The current usage of the thread pool executor.| appType=CASE_MANAGER metricType=APPLICATION| PercentGauge  
+  
+### CM's Batchesâ
+
+Case Manager uses several batches to persist data in the database. The following metrics measure the batch's queue occupancy percentage and the flush latency.
+
+Metric |  Description |  Tags |  Type   
+---|---|---|---  
+`cm.event.processing.queue.occupancy.[batch-name]`  
+  
+|  The occupancy percentage of batch's queue.  
+This queue is used as a buffer before sending events to the batch. | appType=CASE_MANAGER metricType=APPLICATION| PercentGauge  
+`cm.event.processing.batch.flush.latency.[batch-name]`  
+|  The latency to flush a batch to the database in entries/s.  
+| appType=CASE_MANAGER metricType=APPLICATION| Timer  
+  
+### Dead Letter Metricsâ
+
+Learn more on the dead letter metrics in the [Dead Letters System](/case-manager/13.17/docs/common/case-manager/monitoring-guide/dead-letters-system) page.
+
+### Async Extensionsâ
+
+The following metrics can have several dimensions defined by the tag "extension" which indicates the name of the Extension the metric is measuring.
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.extension`| The latency of the async extension execution.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+extension={ The extension name the metrics refers to}| Timer  
+`cm.extension.error`| The rate of errors returned by the extensions execution.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+extension={ The extension name the metrics refers to}| Meter  
+  
+Learn more on [Monitoring Extensibility](/case-manager/13.17/docs/internal/case-manager/configuration-guide/extension-points/monitoring-extensibility).
+
+### Webhook Metricsâ
+
+The following metrics can have several dimensions defined by the tag URL which indicates the webhook URL that the metric is measuring.
+
+Metric| Description| Tags| Type  
+---|---|---|---  
+`cm.webhook.total`| The total of executed webhook requests.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+url={ The webhook URL }| Counter  
+`cm.webhook.error`| The total of failed webhook requests.| appType=CASE_MANAGER  
+  
+metricType=APPLICATION  
+  
+url={ The webhook URL }| Counter

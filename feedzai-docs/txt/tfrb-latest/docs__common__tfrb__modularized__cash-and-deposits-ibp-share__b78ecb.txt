@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/modularized/cash-and-deposits-ibp-shared
+Title: cash-and-deposits-ibp-shared | Transaction Fraud for Banking
+============================================================
+
+# cash-and-deposits-ibp-shared
+
+Was this page helpful?Â 
+
+To correctly map cash and ATM deposits to inbound payments, and hence score cash and ATM deposits, some fields need to be populated to identify cash or ATM deposit events as follows:
+    
+    
+        {  
+            // Required fields  
+            "event_external_id": "4048611b295e993d1b561d9030c53424bbf2b95e",   
+            "lifecycle_id": "1df7a7qg78vd7fs",  
+            "channel_type": "atm", // To indicate it's ATM  
+            "payment_status": "entered",    
+            "created_at": 1603207359060,  
+            "sender_transaction_amount": 1603207359060,  
+            "sender_transaction_currency": "GBP",  
+            "sender_transaction_bank_account_number": "5a800244-325a-4086-ab8a-23ecbb927be5",  
+            "direction": "incoming",  
+            "event_occurred_at": 1684492270092,  
+      
+            // Recommended for mapping cash and ATM deposits  
+            "payment_type": "sepa", // To indicate it's a deposit  
+            "payment_sub_type": "direct_deposit", // Use the `direct_deposit` value to indicate it's a direct deposit  
+        }  
+    
+
+Read the [Inbound Transfer Initiation [POST]](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-inbound-transfer-initiation) documentation for more information on other fields you can use in the payload.

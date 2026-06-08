@@ -1,0 +1,34 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/schema-migrator/fix-pulse-clock
+Title: Fix Pulse Clock | Feedzai Documentation
+============================================================
+
+On this page
+
+# Fix Pulse Clock
+
+Playbook to fix _Pulse_ clock to ensure that the _Event Storage_ won't have events in the future/past.
+
+## Configurationâ
+
+All the following variables are **mandatory**.
+
+Variable| Type| Default Value| Description  
+---|---|---|---  
+schema_migrator_range_start| integer| | Number specifying at which position to start  
+schema_migrator_range_end| integer| | Number specifying at which position to stop  
+schema_migrator_range_step| integer| | Number specifying the incrementation  
+schema_migrator_database_username| string| lookup('gcp_secret_manager', secret='schema_migrator_database_username')| Database username  
+schema_migrator_database_password| string| lookup('gcp_secret_manager', secret='schema_migrator_database_password')| Database password  
+  
+## Running the Playbookâ
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        fix-pulse-clock.yml  
+    
+
+Copy

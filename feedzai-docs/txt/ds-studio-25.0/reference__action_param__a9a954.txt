@@ -1,0 +1,114 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/action_param/
+Title: action_param - DS API
+============================================================
+
+#  `` action_param Â¶
+
+##  `` ActionParamTypeEnum Â¶
+
+Bases: `[JavaEnumWrapper](../java_enum_wrapper/#ds_api.java_enum_wrapper.JavaEnumWrapper "            JavaEnumWrapper \(ds_api.java_enum_wrapper.JavaEnumWrapper\)")`
+
+The type of parameters of a rules project action parameter.
+
+This allows the user that defines an action to characterize the parameters with a type. With this type, the screens that allow users to trigger an action will also be able to have an optimized UI to provide a better UX.
+
+###  `` EXPRESSION `class-attribute` `instance-attribute` Â¶
+    
+    
+    EXPRESSION = auto()
+    
+
+###  `` MANAGED_LIST `class-attribute` `instance-attribute` Â¶
+    
+    
+    MANAGED_LIST = auto()
+    
+
+###  `` MANAGED_LIST_ITEMS `class-attribute` `instance-attribute` Â¶
+    
+    
+    MANAGED_LIST_ITEMS = auto()
+    
+
+###  `` NUMERIC `class-attribute` `instance-attribute` Â¶
+    
+    
+    NUMERIC = auto()
+    
+
+###  `` STRING `class-attribute` `instance-attribute` Â¶
+    
+    
+    STRING = auto()
+    
+
+##  `` WorkflowActionParam Â¶
+    
+    
+    WorkflowActionParam(desc: str, action_type: ActionParamTypeEnum, is_mandatory: bool, resource_id: Optional[str] = None)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Define a parameter of a rules project action.
+
+Create a parameter for a workflow action.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `desc` Â¶
+
+|  `str` |  The description / user visible name of the action parameter. |  _required_  
+  
+###  `action_type` Â¶
+
+|  `ActionParamTypeEnum` |  The type of the action parameter. |  _required_  
+  
+###  `is_mandatory` Â¶
+
+|  `bool` |  A flag defining if the parameter is mandatory or not. |  _required_  
+  
+###  `resource_id` Â¶
+
+|  `str` |  The Id of the resource used if the type requires that information (e.g.: ActionParamTypeEnum.MANAGED_LIST). Default is None |  `None`  
+  
+###  `` action_type `instance-attribute` Â¶
+    
+    
+    action_type = require_type(action_type, ActionParamTypeEnum)
+    
+
+###  `` desc `instance-attribute` Â¶
+    
+    
+    desc = require_type(desc, str)
+    
+
+###  `` is_mandatory `instance-attribute` Â¶
+    
+    
+    is_mandatory = require_type(is_mandatory, bool)
+    
+
+###  `` resource_id `instance-attribute` Â¶
+    
+    
+    resource_id = require_type_or_none(resource_id, str)
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> WorkflowActionParam
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.

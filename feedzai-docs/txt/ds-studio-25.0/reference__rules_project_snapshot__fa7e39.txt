@@ -1,0 +1,140 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/rules_project_snapshot/
+Title: rules_project_snapshot - DS API
+============================================================
+
+#  `` rules_project_snapshot Â¶
+
+Java ds-api counterpart in :java: `com.feedzai.commons.dsapi.RulesProjectSnapshot`.
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` RulesProjectSnapshot Â¶
+    
+    
+    RulesProjectSnapshot(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Represents a Rules Project Snapshot in Pulse.
+
+###  `` actions `property` Â¶
+    
+    
+    actions: Dict[str, Any]
+    
+
+Get the actions that the snapshot can take.
+
+###  `` app `property` Â¶
+    
+    
+    app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")
+    
+
+###  `` desc `property` Â¶
+    
+    
+    desc: str
+    
+
+Gets the user visible name of this rules project snapshot.
+
+###  `` evaluation `property` Â¶
+    
+    
+    evaluation: Optional[[RulesProjectEvaluation](../rules_project_evaluation/#ds_api.rules_project_evaluation.RulesProjectEvaluation "            RulesProjectEvaluation \(ds_api.rules_project_evaluation.RulesProjectEvaluation\)")]
+    
+
+Gets the last evaluation ran for this snapshot, if any.
+
+###  `` id `property` Â¶
+    
+    
+    id: str
+    
+
+Gets the id of this rules project snapshot.
+
+###  `` original_rules_project `property` Â¶
+    
+    
+    original_rules_project: [RulesProject](../rules_project/#ds_api.rules_project.RulesProject "            RulesProject \(ds_api.rules_project.RulesProject\)")
+    
+
+Gets the rules project from which this snapshot was generated.
+
+###  `` rules `property` Â¶
+    
+    
+    rules: List[[Rule](../rule/#ds_api.rule.Rule "            Rule \(ds_api.rule.Rule\)")]
+    
+
+Gets the snapshot's rules.
+
+###  `` schema `property` Â¶
+    
+    
+    schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")
+    
+
+Gets the schema associated with the snapshot.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` target_field `property` Â¶
+    
+    
+    target_field: str
+    
+
+Gets the target field of RulesProject associated to this snapshot.
+
+###  `` evaluate Â¶
+    
+    
+    evaluate(input_datasource: [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)"), evaluation_config: [RulesProjectEvaluationConfig](../rules_project_evaluation_config/#ds_api.rules_project_evaluation_config.RulesProjectEvaluationConfig "            RulesProjectEvaluationConfig \(ds_api.rules_project_evaluation_config.RulesProjectEvaluationConfig\)"), profile_name: Optional[str] = None, spark_job_properties: Optional[Mapping] = None, wait: bool = True) -> [RulesProjectEvaluation](../rules_project_evaluation/#ds_api.rules_project_evaluation.RulesProjectEvaluation "            RulesProjectEvaluation \(ds_api.rules_project_evaluation.RulesProjectEvaluation\)")
+    
+
+Run a snapshot evaluation on an input data source.
+
+Both spark job profile name and profile properties can be passed at the same time, but the profile name is prioritized.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `input_datasource` Â¶
+
+|  `[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")` |  Data to run through the rules project to calculate alerts. |  _required_  
+  
+####  `evaluation_config` Â¶
+
+|  `RulesProjectEvalConfig` |  Configuration for the snapshot evaluation. |  _required_  
+  
+####  `profile_name` Â¶
+
+|  `str` |  Job profile name, by default None. |  `None`  
+  
+####  `spark_job_properties` Â¶
+
+|  `Mapping` |  Job profile properties, by default None. |  `None`  
+  
+####  `wait` Â¶
+
+|  `bool` |  Waits for the snapshot evaluation to finish before returning the evaluation object. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[RulesProjectEvaluation](../rules_project_evaluation/#ds_api.rules_project_evaluation.RulesProjectEvaluation "            RulesProjectEvaluation \(ds_api.rules_project_evaluation.RulesProjectEvaluation\)")` |  The evaluation object containing its status and results.

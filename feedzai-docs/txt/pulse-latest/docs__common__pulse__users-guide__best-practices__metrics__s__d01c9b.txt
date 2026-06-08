@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/scheduled-metrics-jobs
+Title: Scheduled Metrics Jobs | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Best Practices
+  * [Metrics](/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/)
+  * Scheduled Metrics Jobs
+
+
+
+Was this page helpful?Â 
+
+# Scheduled Metrics Jobs
+
+When writing metrics in the Data Science Platform, one must always be aware how these impact computation in runtime. As mentioned before, metrics with long windows should be defined as scheduled. This scheduling will make the aggregation update in a tumbling fashion (i.e., "every X time"), instead of sliding (i.e., "every event").
+
+While in the Data Science Platform the implications of using SMJs are relatively easy to manage, there are important considerations to take into account for **runtime** :
+
+  * SMJs are optimized expressions that run as one-shot, i.e., only the minimum needed data is fetched from past events and the result is stored as a map between grouping entities and respective values. These data are stored in the so-called **profile storage**.
+  * There will be 1 Spark Shuffle per metrics operator inside a Plan. Remember this is the heaviest computation, as it reorganizes data per grouping entity.
+  * There are a few automatic plan optimizations specific to SMJs in the workflow:
+    * operators removed if they don't impact SMJs;
+    * operators merged if they have no inter-dependency (also in DS);
+    * unused fields are not read from the event storage (remember SMJs in runtime read events pulled from Event Storage, i.e., events that already went through the Workflow).
+  * Null values in grouping entities are automatically filtered out. This leads to less data being used to compute the SMJ _and_ it usually reduces skewness of grouping entities.
+  * There is an option to automatically select which grouping entities are used for the shuffle. Having this option enabled will reduce the number of shuffles, thus reducing the running time of SMJs. However, it does not take into account the grouping entity cardinality. If you are using low-cardinality entities in many aggregations (independently of being the first, second, or third grouping entity of the aggregation), disable this option.
+  * If you have SMJs that are dependent on one another (i.e. two subsequent Metrics blocks inside a Plan), **you must enable cascading scheduled metrics** in the workflow. If you don't, due to the one-shot nature of SMJs, the downstream SMJ won't be able to fetch the output of the upstream SMJ.
+
+

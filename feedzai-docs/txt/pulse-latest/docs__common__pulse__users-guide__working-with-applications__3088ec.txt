@@ -1,0 +1,72 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/comparing-resource-versions
+Title: Comparing resource versions | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * [Exporting resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/)
+  * Comparing resource versions
+
+
+
+On this page
+
+# Comparing resource versions
+
+Was this page helpful?Â 
+
+## Whyâ
+
+In a typical project, as you are evolving a given Pulse resource, a common workflow is to export the resource and version the bundle using a distributed version control system to keep track of the changes. At some point, you might have the need to compare the JSON file of two resource versions to check the differences between the versions.
+
+The JSON files are structured in a human readable format that allows you to quickly compare changes between two files.
+
+## How toâ
+
+As a typical scenario, imagine that you need to compare a resource that is versioned in a storing system with a resource that is currently on your **Pulse app**. To do so, execute the following steps:
+
+  1. Select the Options  button to open the application options menu:  
+
+  2. Select the option â  to open the export wizard.
+  3. Select the tab corresponding to the resource that you want to export.
+  4. Add the resource that you want to compare to the export list.
+  5. Use the button â  to save the resource bundle in your operating system.
+  6. Use any standard software that allows comparing two JSON files. See the next subsections that cover examples of different use cases.
+
+
+
+### Use casesâ
+
+The aim of this guide is not to provide a solution to the possible use cases, but rather to give some examples to help you understand how to perform comparisons. You might have to adapt the method according to your needs.
+
+#### Modelsâ
+
+Imagine the following scenario:
+
+  * You have two **Models** with the same Data Source but using different fields.
+
+
+
+When you compare the two **Models** , you can quickly inspect the features included in each **Model** by looking at "ignoredFields" as shown below:
+
+#### Plansâ
+
+Imagine the following scenario:
+
+  * You have a map operator to add the field Is Fraud. This operator converts the values of the feature _Fraud_ from "True" or "False" to numerical values 1 or 0 and stores them in the new field.
+  * By mistake, this field was configured with the type Data Time, and once the bug was identified it was changed to the type Numeric. The following image shows the results between two JSON files:
+
+
+
+#### Rules Projectsâ
+
+Imagine the following scenario:
+
+  * A new **Rule** has been added since the last time that the resource was exported.
+  * This **Rule** blocks credit card transactions whose number match the card number in a _Black List_. The following image shows the result between two JSON files, with and without the **Rule** :
+
+
+
+## Learn Moreâ
+
+Now that you know how to export resources and compare different versions, check the page [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to learn how to import your resource bundle.

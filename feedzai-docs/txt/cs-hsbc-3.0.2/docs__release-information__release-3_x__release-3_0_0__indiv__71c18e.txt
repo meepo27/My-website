@@ -1,0 +1,69 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3880
+Title: HSBC-3880 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3880
+
+### Add new fields to the Case Manager Cards/Non-Mon external notificationsâ
+
+FeatureFTMT-27481FTMT-34765HSBC-3880HSBC-4032
+
+We've added the following fields to the Case Manager Cards and Non-Mon external notifications payload:
+
+New Fields
+
+**Field Name**| **Datatype**  
+---|---  
+lifecycle_id_alt| String  
+card_transaction_ref_number| String  
+card_transaction_component_type| String  
+source| String  
+customer_portfolio_region| String  
+customer_portfolio_country| String  
+customer_portfolio_channel| String  
+customer_portfolio_product| String  
+customer_portfolio_type| String  
+customer_portfolio_class| String  
+customer_portfolio| String  
+account_id| String  
+account_number| String  
+card_phone_banking_user_id| String  
+customer_id| String  
+customer_email| String  
+customer_name| String  
+customer_id_personal| String  
+customer_id_business| String  
+customer_id_number| String  
+customer_id_global| String  
+card_txn_sub_type| String  
+trans_message_type| String  
+acquirer_id| String  
+amount_dbl| Number  
+trans_model_amt| Number  
+cardholder_bill_amount| Number  
+cardholder_bill_currency_code| String  
+trans_currency_code| String  
+currency_code| String  
+treatment_strategy| String  
+oob_comm_type| String  
+oob_notes| String  
+oob_feedback_notes| String  
+oob_response_type| String  
+feedback_type| String  
+feedback_label| String  
+external_status_reason| String  
+channel_type| String  
+card_pan| String  
+saf_ind| String  
+sender_initiated_at| Timestamp  
+sender_initiated_at_local| String  
+local_datetime| String  
+event_occurred_at| Timestamp  
+crypto_transaction_info| String  
+card_type| String  
+outcome_decision| String  
+wallet_decision| String  
+  
+For more details please refer to the [Notifications Schema page](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/notifications-schema).

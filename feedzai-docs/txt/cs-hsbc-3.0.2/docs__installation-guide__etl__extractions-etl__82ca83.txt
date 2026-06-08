@@ -1,0 +1,211 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/etl/extractions-etl
+Title: ETL Extractions Schema | Feedzai Documentation
+============================================================
+
+On this page
+
+# ETL Extractions Schema
+
+The ETL extractions contain the schema fields obtained directly from the Pulse Workflow of the live Pulse cluster and may include a set of additional fields depending on the configuration.
+
+Below you can find a CSV example of an extraction, taking into account that it may not represent the exact structure since the fields are obtained from the current Pulse workflow:
+    
+    
+    lifecycle_id,bulk_id,payment_type,payment_sub_type,product_code,payment_status,created_at,cutoff_at,sender_initiated_at,requested_execution_at,number_of_payments,recurring_payment,sender_transaction_amount,sender_transaction_currency,sender_transaction_bank_account_number,sender_transaction_notes,sender_bank_name,sender_bank_postal_code,sender_bank_address,sender_bank_city,sender_bank_country_code,receiver_bank_bic,receiver_bank_name,receiver_bank_postal_code,receiver_bank_address,receiver_bank_city,receiver_bank_country_code,receiver_transaction_amount,receiver_transaction_currency,receiver_transaction_bank_account_number,receiver_city,receiver_country_code,device_type,device_longitude,device_latitude,event_type,event_external_id,info_type,dispute_start_date,dispute_reason,dispute_notes,dispute_submitted_by,dispute_end_date,dispute_feedback_notes,dispute_refunded,oob_start_date,oob_comm_type,oob_notes,oob_end_date,oob_feedback_notes,oob_response_type,feedback_type,feedback_label,sender_name,sender_email,sender_phone,sender_zip,sender_dob,sender_occupation_status,sender_account_bic,sender_account_type,sender_account_currency,sender_account_balance,receiver_id,receiver_name,receiver_email,receiver_phone,receiver_street_addr,receiver_zip,receiver_region,receiver_dob,receiver_account_type,receiver_account_currency,direction,device_id,channel_type,sender_bank_sort_code,sender_bank_branch_id,receiver_bank_sort_code,receiver_bank_routing_number,event_occurred_at,segment_channel_type,auth_type,device_ip_country_code,session_id,device_language,sender_alias_type,text_for_receiver,device_user_agent,device_fingerprint,instant_transfers_review_outcome,device_browser,device_ip_region,feedback_value,sender_account_zip,sender_bank_type,condor_rule_code,receiver_cop_name,receiver_cop_match_name,office_id,recurring_payment_schdl_info,sender_account_ownership,payment_sca_proc_code,customer_market_segment,sender_transaction_type,sender_transaction_auth_type,payment_message_type,payment_revision_code,receiver_account_bank_id,receiver_bank_type,tpp_name_alt,tpp_payee_payer,number_of_payments_count,sender_phone_chg_date,customer_home_branch,recurring_payment_ref,payment_remittance_info,sender_transaction_ref,phone_session_id,user_guid,customer_onboarding_method,sender_transaction_cat_code,sender_orig,payment_related_ref,sender_transaction_narrative,sender_transaction_cop_name,sender_transaction_cop_matname,sender_bank_status,sender_account_number_external,receiver_email_chg_date,sender_email_chg_date,receiver_bank_status,receiver_merchant_category,receiver_details,tpp_name,payment_saf,customer_total_balance,customer_reported_income,customer_citizen_id_number,customer_preferred_language,customer_work_phone1_chg_date,customer_work_phone2_chg_date,customer_home_phone1_chg_date,customer_home_phone2_chg_date,customer_mob_phone1_chg_date,customer_mob_phone2_chg_date,customer_account_type,lifecycle_id_alt,customer_number_of_accounts,receiver_bank_addr_city,sender_transaction_original_amount,sender_transaction_original_currency,receiver_transaction_original_amount,receiver_transaction_original_currency,receiver_transaction_product,sender_transaction_reason,sender_transaction_product,sender_transaction_amount_usd,payment_message_source,sender_transaction_cop_result,browser_timezone,tpp_id,device_datetime,device_platform_type,customer_portfolio_region,customer_portfolio_product,customer_portfolio_channel,customer_portfolio_country,customer_portfolio_type,device_tdl,customer_change_new,customer_change_old,consent_id,device_cpu_class,device_fingerprint_type,device_banking_type,device_ip_address_v6,website_name,channel_user_id,pinpoint_risk_score,source,sender_transaction_exp_date,sender_transaction_code,auth_cam_level,customer_number,sender_transaction_sign_status,device_platform_type_reason,account_type,auth_method,request_type,customer_portfolio,customer_id_global,customer_id_external,customer_address_chg_date,customer_phone_chg_date,customer_email_chg_date,sender_transaction_sole_ind,customer_account_number,customer_account_currency,customer_account_zip,customer_account_country,customer_account_nr_external,user_id_type,channel_daily_limit_currency,channel_name,staff_id,workstation_id,device_token_serial_no,device_mac_address,payment_entity,sender_transaction_details_ind,sender_transaction_category,sender_transaction_ref_nr,sender_transaction_ref_nr_alt,sender_transaction_stat,sender_transaction_stat_reason,sender_transaction_effect_date,customer_change_reason_alt,customer_change_delivery,user_indicator,user_string,user_amount,customer_card_number,entity_id,entity_type,idv_session_id,event_code,device_geo_ip_city,device_geo_ip_country_code,device_geo_ip_isp,device_geo_longitude,device_geo_latitude,website_refferer_url,device_geo_timezone,device_gps_enabled,device_data_enabled,device_wifi_bssid_connected,device_wifi_in_range,sanction_check,device_bluetooth_enabled,device_bluetooth_devices_conn,device_bluetooth_detected_list,device_imsi,device_mcc,device_untrusted_keyboard,device_untrusted_screen_reader,device_hooking_frameworkds,devide_native_codehooks,device_application_repackaged,device_debugger_attached,device_javascript_malformed,device_print,device_raw_jsc,device_is_desktop,device_is_gameconsole,device_rooted,device_risk_score,device_timezone,device_ip_city,device_ip_latitude,device_ip_longitude,event_status,customer_country_code,customer_zip_code,customer_segment,customer_name,customer_dob,customer_address,customer_phone_number,customer_email,customer_branch_id,customer_id,account_id,device_emulator,device_java_script_enabled,fdz_channel,sender_transaction_held,payment_restricted_template,sender_transaction_new_bene,payment_type_direct_debit,payment_type_self_acc,device_wifi_status,sender_urgency,device_timezone_offset,sender_initiated_at_local,sender_account_avg_balance,channel_daily_limit,event_server_validated_at,event_updated_at,user_id,receiver_account_bank_name,payment_ref,device_os,customer_change_data_new,payment_type_sub_type,device_es_id,txn_type,device_dev_id,external_status_reason,external_preliminary_decision,device_isp,is_scoring,billing_currency_code,change_event_delivery,customer_change_data_old,device_ip_address,overnight_acc_ledger_bal,receiver_transaction_amount_dbl,sender_account_balance_dbl,sender_account_open_date,sender_transaction_amount_dbl,var_recurring_payment,vocalink,receiver_creation_date,sender_registration_date,event_received_at,event_created_at,customer_fiv_marker,customer_fiv_marker_last_updated_at,customer_gender_code,customer_earnings_amt_snapshot_dt,current_account_monthly_debit_amount,phone_bank_use_code,customer_current_account_balance,customer_salary_amount,customer_forname,customer_surname,customer_home_street_addr,customer_home_city,customer_home_zip,customer_home_zip_area_code,customer_home_region,customer_home_country_code,customer_home_address_last_update_at,customer_corresp_street_addr,customer_corresp_city,customer_corresp_zip,customer_corresp_zip_area_code,customer_corresp_region,customer_corresp_country_code,customer_corresp_address_last_update_at,customer_email_last_update_at,customer_home_phone,customer_mobile_phone,customer_daytime_work_phone,customer_business_phone,customer_hmphone_last_update_at,customer_mbphone_last_update_at,customer_wrkphone_last_update_at,customer_businessphone_last_update_at,customer_registration_date,customer_citizenship,customer_portfolio_class,is_historic,saf_ind,customer_fiv_markers,customer_pb_marker,customer_portfolio_segment,customer_voice_id,customer_voice_id_last_change_date,customer_annual_turnover,customer_business_type,customer_chinese_comm_code,customer_rm_info,customer_marital_status,invalid_email_indicator,sender_account_channel_limit_double,sub_channel_name,customer_id_number,gift_indicator_code,customer_status,customer_rel_status,customer_type,tmx,customer_id_hashed,bioc,model_risk_score,bank_processing_application,bank_processing_type,reversal_indicator,check_book_request_date,cash_form,check_number,thailand_fps_ind,gpb_manual_payment_ind,scameter_warning,sender_billing_amount,new_customer_flag,customer_id_type,new_receiver_flag,receiver_creation_date_customer,customer_occupation_start_date,count_months_beneficiary_received_funds,avg_total_daily_transfer_out,avg_monthly_transfer_in,browser_os_version,costumer_id_global,customer_portfolio_phys_type,customer_portfolio_remote_type,ds_transaction_id,payment_message_source_d,sender_transaction_origin_amount,sender_transaction_origin_currency,sender_transaction_reason_d,sender_transaction_sign_stts_d,customer_change_reason,sender_account_channel_limit,delegate_id,delegate_initiated,approver_id,transaction_id,delegate_of,delegates,sender_transaction_extra_1,sender_transaction_extra_2,sender_transaction_extra_3,customer_additional_info_1,customer_additional_info_2,customer_additional_info_3,customer_additional_info_4,account_holder_customer_id,payment_above_limit,FDZ_UUID,action_alert,Customer average payment amount last day,rules_triggered,formatted_results,outcomes_and_scores  
+    f415b143-1a03-4bb7-a47d-230c478c7931,b398a9e1-3900-4753-ad45-8310ea583724,sepa,credit_transfer,,entered,1554198919000,1554198919000,1554196919000,1554996919000,1,true,155000.0,GPB,7b37bd8c-0936-46aa-83cc-196255497783,Notes on the transaction.,Gringotts,WC2N 5DU,Diagon Alley 33,London,UK,4ad3fe88-317b-4b31-ad9b-9136424c17ad,Receiver Bank,WC7N 7EW,Some Avenue 77,Manchester,UK,155000.0,826,9a08f316-df1f-4096-9a2d-a904a82bb65e,receiver_city,PT,smartphone,43.98,-19.56,transfer_initiation,,out_of_band,1554196919000,test,Very fraudulent.,test,1554196919000,,,1554196919000,test,Contacted John Doe to confirm.,1535477895438,The client called to confirm it was not him making that transaction.,call,out_of_band,,Sender Joe Doe,[[email protected]](/cdn-cgi/l/email-protection),001122334455,sender_zip,19900101,looking for a new project,PTCDG,CREDIT,USD,1110000.0,receiver_id,Receiver Joe Doe,[[email protected]](/cdn-cgi/l/email-protection),001122334455,receiver_street_addr,receiver_zip,receiver_region,19900101,CREDIT,USD,outgoing,a8d92e56-a6c8-45ea-8db4-427a9337e68e,mobile,,,,,1743690403724,,pin,GB,02fb50a1-56ce-42d9-97db-a5209094cf3a,he-RW,,,Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko,,false,Edge,IX,false,,,,,,,,,,,,,,,,,,,1742989536163,0001-01-01,,,,,,,,,,,,,,,,0001-01-01,0001-01-01,,,,,,,,,,,,,,,,,,916,,395.75,978,,,,,,155000.0,,,,,1742989536163,,,,,feedzai,,,,,,,,,,,,,,0001-01-01,,,,,,,,,,,,0001-01-01,0001-01-01,0001-01-01,,,,,,,,,,,,,,,,,,,,,0001-01-01,,,"[""Brian78""]","[""Elenor.Olson""]",[828.0],,,,,,,,,-90.1443,-16.7286,,,true,false,,false,false,true,,,,,true,true,false,true,true,true,true,,,true,false,false,21,-01:00,Jonesborough,-40.5059,114.5007,fail,JE,13615-680,commercial_banking,Dr. Jenna Satterfield,0001-01-01,7526 Layla Parkways,208-474-1633,[[email protected]](/cdn-cgi/l/email-protection),,cutomer_1,d41b6343-c375-463e-a204-8cc266b0c1ed,false,true,TRANSFERS,false,true,false,true,false,true,,,,130.0,312.0,1742989536163,,,,,Android,,,,,,,,,,826,55551222,,165.44.6.29,100.5,400.75,1200.75,1668683369590,400.75,0,"{""vocalink_score"":20.0,""mastercard_id"":""""}",1736206933068,1354398919000,1743690403890,1742989536163,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,true,13800.0,BS,0HKHSXXXXXX796256,964,Insane,,,"{""fuzzy_device_id"":"""",""ip_city"":"""",""ip_country"":"""",""ip_longitude"":152.2752,""ip_latitude"":-84.8857,""chall_policy_score"":716.0,""ip_address"":"""",""digital_id"":"""",""device_isp"":"""",""summary_reason_code"":"""",""policy_score"":21.0,""risk_score"":21.0,""device_dev_id"":"""",""request_id"":""""}",2d18c716ba930802d187654c99fd097f5530f1479065428caa1a3ee1q7421,"{""is_bot"":true,""is_emulator"":false,""voice_scam_score"":486,""is_malware"":false,""is_rat"":true,""is_recent_rat"":true,""custom_risk"":21.0,""risk_score"":21.0,""custom_risk_aliases"":""risk_alias"",""push_score"":null,""is_mobile_rat"":null}",0.89,,,,1716369476000,,,,,,1.2345233222E8,D,V,,,,,,,,,,,,,10,,,,,,,false,,,,,Sender Transaction Additional Info 1,Sender Transaction Additional Info 2,Sender Transaction Additional Info 3,Customer Additional Info 1,Customer Additional Info 2,Customer Additional Info 3,Customer Additional Info 4,account_holder_customer_id,false,dac5d527-15b1-4ba0-89e4-6c35eb9dfb8b,true,,,[],"{""scam"":{""outcomeDecision"":false,""score"":0.0},""fraud"":{""outcomeDecision"":false,""score"":0.0},""decision"":{""outcomeDecision"":""approve"",""score"":[0.0,0.0,0.0]},""risk_level"":{""outcomeDecision"":""low"",""score"":[0.0,0.0,0.0]},""shadow_scam"":{""outcomeDecision"":false,""score"":0.0},""sca_required"":{""outcomeDecision"":true,""score"":0.0},""shadow_fraud"":{""outcomeDecision"":false,""score"":0.0},""treatment_strategy"":{""outcomeDecision"":""none"",""score"":[0.0,0.0,0.0,0.0]},""self_serve_strategy"":{""outcomeDecision"":""none"",""score"":[0.0,0.0,0.0,0.0,0.0]}}"  
+    
+
+Copy
+
+## ETL Data Extraction and Loading Processâ
+
+The ETL tool extracts data from either the pulse event storage or a CSV file.
+
+During the extraction process, the tool can include various configurations, such as whether to include scheduled metrics, internal state, or triggered actions. Scheduled metrics are specifically included as part of the internal state.
+
+After transformation, the data is loaded into a target format, typically a CSV file in a Google Cloud Storage bucket. This allows the analytics team to access the data for further analysis and model training.
+
+The ETL tool is configured to run periodically (e.g., every hour) to extract data from the previous hour, ensuring that the analytics team has access to relatively up-to-date information.
+
+Additionally, the ETL tool can be utilized to load historical data into the event storage, which is essential for initializing scheduled metrics when launching new markets or features.
+
+## Extra fieldsâ
+
+The following fields are added by enabling some properties in the tool configuration file.
+
+### Internal State (scheduled metrics)â
+
+The internal state field contains, along with other information, the schedule metrics that enriched each event when it was processed by Pulse.
+
+It can be enabled by setting the Ansible variable `etl_include_internal_state` to `true`.
+
+This field is a JSON object contains various information including the metrics that were fetched for the event, identified by the `_METRICS` key as shown in the example below:
+    
+    
+    {  
+      "states": {  
+        "34a95d87-6934-4a99-a0a0-0ddb7e485fc2": {  
+          "data": {  
+            "NORMAL_MSG_CTRL_FLOW": [  
+              "com.feedzai.pulse.api.apps.enums.RuleControlFlow",  
+              0  
+            ]  
+          }  
+        },  
+        "5342a480-e9d9-4ec2-b8b2-b80bd868537b": {  
+          "data": {  
+            "_EXEC_ID": "mzJuEfUgOaLhbu60d2JM2Q",  
+            "_METRICS": {  
+              "@class": "com.feedzai.pulse.datascience.rte.runtime.MetricsWrapper",  
+              "values": [155000.0]  
+            }  
+          }  
+        }  
+      },  
+      "globalState": { "data": { "ALL_SCHEDULED_METRICS_FETCHES_HANDLED": true } }  
+    }  
+    
+
+Copy
+
+For the above example let's assume the metric was created by `Metrics Plan A` with the name `Customer average payment amount last day` and its value for a given customer is `155000.0`.
+
+During extraction ETL will look for each of the `_METRICS` key and create a new entry in the CSV file with the name and value of the metric. In this case ETL will look for the Plan snapshot given by `_EXEC_ID`, fetch the name of the metric and value from the `values` array.
+
+The end result is a new column in the CSV file with the name `Customer average payment amount last day` and the value `155000.0`:
+    
+    
+    lifecycle_id,...,Customer average payment amount last day,...,  
+    f415b143-1a03-4bb7-a47d-230c478c7931,...,155000.0,...  
+    
+
+Copy
+
+If `Plan A` had more than one metric, let's say for example `Customer max number of payments in the last 30 days` with a value of `20`, the CSV would look like the following (not necessarily in this order):
+    
+    
+    lifecycle_id,...,Customer average payment amount last day,Customer max number of payments in the last 30 days,...,  
+    f415b143-1a03-4bb7-a47d-230c478c7931,...,155000.0,20,...  
+    
+
+Copy
+
+### Unique identifier (`FDZ_UUID`)â
+
+This field is a unique identifier for every event extracted.
+
+The name of the field is equal to the attribute in the configuration (e.g.: `FDZ_UUID`).
+
+It is enabled with the following property configuration: `eventstorageetl.csv.serializerConfig.schemaDetails.uuidField=FDZ_UUID`
+    
+    
+    524f8eff-2bf7-4eea-ad0f-f40f5710bf8c  
+    
+
+Copy
+
+### Actions triggered (`action_X`)â
+
+When this option is enabled the configured actions on the workflow are extracted as multiple fields, there's a field for every action.
+
+Every field is a concatenation of `action_` with the name of the configured action, e.g.: `action_alert`. Then, for every field, it is said if the action was triggered or not (true/false).
+
+It can be enabled by setting `eventstorageetl.extraction.includeTriggeredActions` or the Ansible variable `etl_include_triggered_actions` to `true`.
+
+Example:
+    
+    
+    lifecycle_id,...,action_alert,...,  
+    f415b143-1a03-4bb7-a47d-230c478c7931,...,true,...  
+    
+
+Copy
+
+### Rules triggered (`rules_triggered`)â
+
+This field includes a semicolon-separated list of rule ids that were triggered by the extracted event.
+
+It can be enabled by setting `eventstorageetl.extraction.includeResultTracking` or the Ansible variable `etl_include_result_tracking` to `true`.
+
+Example:
+    
+    
+    lifecycle_id,...,rules_triggered,...,  
+    f415b143-1a03-4bb7-a47d-230c478c7931,...,lB3aZuzDthoLQmFrIHxMtw;g7GdIzY6kF5txP1Qu4JMaQ,...  
+    
+
+Copy
+
+### Rules explanations (`formatted_results`)â
+
+This field is a list of triggered rules with an explanation of why it was triggered.
+
+It can be enabled by setting `eventstorageetl.extraction.includeFormattedResultTracking` or the Ansible variable `etl_include_formatted_result_tracking` to `true`.
+
+Every **triggered rule** has two fields:
+
+  * **ruleId** : the triggered rule id.
+  * **explanation** : the explanation of why the rule was triggered.
+
+
+    
+    
+    [  
+        {  
+            "explanation": "Customer name is Fraudulent Joe",  
+            "ruleId": "k5guIAH53oJMrBh2Jl1IfQ"  
+        }  
+    ]  
+    
+
+Copy
+
+Example:
+    
+    
+    lifecycle_id,...,formatted_results,...,  
+    f415b143-1a03-4bb7-a47d-230c478c7931,...,{"explanation":"Customer name is Fraudulent Joe","ruleId":"k5guIAH53oJMrBh2Jl1IfQ"},...  
+    
+
+Copy
+
+### Outcomes (`outcomes_and_scores`)â
+
+This field is a JSON object that contains all the configured **outcomes** (e.g.: `fraud`, `decision`).
+
+It can be enabled by setting `eventstorageetl.extraction.outcomesInSingleField` or the Ansible variable `etl_outcomes_in_single_field` to `true` and also the property `eventstorageetl.extraction.includeOutcomes` (or the Ansible variable `etl_include_outcomes_extraction`).
+
+Every **outcome** has two fields:
+
+  * **outcomeDecision** : the value chosen for the outcome.
+  * **score** : the score of the outcome, if the outcome is a multi-classifier (e.g.: `decision`), it will be a list of scores for each of the possible values.
+
+
+    
+    
+    {  
+        "fraud": {  
+            "outcomeDecision": true,  
+            "score": 0.0  
+        },  
+        "decision": {  
+            "outcomeDecision": "approve",  
+            "score": [  
+                0.0, # approve  
+                0.0, # decline  
+                0.0  # review  
+            ]  
+        }  
+    }  
+    
+
+Copy
+
+Example:
+    
+    
+    lifecycle_id,...,outcomes_and_scores,...,  
+    f415b143-1a03-4bb7-a47d-230c478c7931,...,{"fraud":{"outcomeDecision":true,"score":0.0},"decision":{"outcomeDecision":"approve","score":[0.0,0.0,0.0]}},...  
+    
+
+Copy

@@ -1,0 +1,92 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/managing-notes-in-cases
+Title: Manage Notes in Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/)
+  * [Review Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases)
+  * Manage Notes in Cases
+
+
+
+On this page
+
+# Manage Notes in Cases
+
+While investigating cases, you may need to add additional information, for example, to give other analysts more context on a specific customer's behavior. The **Notes** widget displays the different notes added to the case.
+
+This widget allows you to filter, add, duplicate, and delete notes, as explained in the following sections.
+
+## Add notesâ
+
+To add notes to cases, perform the following steps:
+
+  1. Open the case in which you want to add a note.
+
+  2. Select the **Add Note** button in the **Notes** widget. Alternatively, select to **Add Note** button in the case header.
+
+
+
+
+tip
+
+Press `.` on your keyboard to display the shortcuts menu and select the **Add note** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+  3. In the **Add Note** window, select a **Type** from the list and add any relevant information in the **Note**.
+
+
+
+  4. Select **Submit** to save your note.
+
+
+
+info
+
+The **Type** field is available only when the product includes the note type feature.
+
+In case you no longer want to add the note, select the **Discard** option to delete it.
+
+tip
+
+Use the  and  icons to minime or expand the **Add Note** window, respectively.
+
+info
+
+Draft mode is also available. If you need to gather additional information from a different page, you can navigate through Case Manager and still return to your note. For that, select **Add note** upon returning to the page of your original note and the drafted message will still be there.
+
+However, note that if you close the browser tab, sign out or if your session times out before saving, the note will be lost.
+
+## Filter notes by typeâ
+
+In the **Notes** widget, you can filter the notes according to their type. By inserting one or several types into the **Filter** field, the list is filtered by the notes that match the selected types.
+
+info
+
+This option is available only when your product includes the note type feature.
+
+## Duplicate notesâ
+
+  1. In the notes' list, hover over a note and select to **Duplicate** it.
+
+  2. Make the necessary changes to the **Type** and **Note** fields.
+
+
+
+
+  3. Select **Submit** to save your note.
+
+
+
+## Delete Notesâ
+
+  1. In the notes list, hover over a note and select to **Delete** it.
+
+  2. To prevent any mistake, the page displays a dialog for you to confirm the deletion.
+
+
+
+
+  3. Select **Delete** to delete your note.
+
+

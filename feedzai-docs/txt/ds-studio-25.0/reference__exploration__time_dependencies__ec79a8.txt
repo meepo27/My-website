@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/time_dependencies/
+Title: time_dependencies - DS API
+============================================================
+
+#  `` time_dependencies Â¶
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` compute_time_dependencies Â¶
+    
+    
+    compute_time_dependencies(df, time_field, sample_size=100000, missing_value_strategy='impute')
+    
+
+Computes a list of fields ordered by their dependency with time. To obtain the degree of dependency, a model is trained to predict the timestamp field. The dependency score of each feature is its feature importance on that regression model.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `df` Â¶
+
+|  `DataFrame` |  a PySpark DataFrame. |  _required_  
+  
+###  `time_field` Â¶
+
+|  `str` |  name of the reference time field over which the dependencies are calculated. |  _required_  
+  
+###  `sample_size` Â¶
+
+|  `int` |  Number of instances to keep after sampling. The sampled dataset will be fed to the model. This is needed in order for the computation to run in a feasible time, for large datasets. If the dataframe is smaller than sample_size, then all instances are used. Default is 100k. |  `100000`  
+  
+###  `missing_value_strategy` Â¶
+
+|  `str` |  method to use for missing value treatment. Possible values are "impute" and "drop". "Impute" fills missing values with the mean, for numerical and datetime fields, and with the constant values "(missing)", for string fields. "Impute" may cause the dependency to be inflated if the missing values of a field are concentrated in the same region of time. Default is "impute". |  `'impute'`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`Series` |  Pandas Series where each row contains the name of a feature (as the index) and a value representing its dependency with time. Sorted in descending order. The higher the value, the stronger the dependency.

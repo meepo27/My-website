@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/connectors/
+Title: connectors - DS API
+============================================================
+
+#  `` connectors Â¶
+
+##  `` Connectors Â¶
+    
+    
+    Connectors(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Connectors class that allows users to define if the connectors should use encryption or not.
+
+Note
+
+By connectors we mean the PulseConnector and AppEngineConnector that are used by the Java DS API to connect to Pulse or the AppEngine respectively.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` with_encryption `staticmethod` Â¶
+    
+    
+    with_encryption()
+    
+
+Sets the Connectors to use encryption.
+
+###  `` without_encryption `staticmethod` Â¶
+    
+    
+    without_encryption()
+    
+
+Resets the connectors to use no encryption.

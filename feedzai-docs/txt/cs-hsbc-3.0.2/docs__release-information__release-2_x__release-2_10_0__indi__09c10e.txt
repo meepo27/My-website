@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3460-Add-Ansible-variable-to-control-HSBCNet-Advanced-Search-fields
+Title: HSBC-3460-Add-Ansible-variable-to-control-HSBCNet-Advanced-Search-fields | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3460-Add-Ansible-variable-to-control-HSBCNet-Advanced-Search-fields
+
+### Add Ansible variable to control HSBCNet Advanced Search fieldsâ
+
+FeatureFTMT-30368HSBC-3460
+
+We've introduced a new Ansible variable `show_hsbcnet_search_fields` that allows showing or hiding the HSBCNet specific Advanced Search fields.
+
+By default these fields are hidden but can be enabled in HSBCNet markets by setting the variable to `True` during deployment.

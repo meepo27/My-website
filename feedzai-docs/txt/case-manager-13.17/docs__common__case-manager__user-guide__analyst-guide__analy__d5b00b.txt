@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview
+Title: Analyst Guide | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Analyst Guide
+
+
+
+# Analyst Guide
+
+Intended for analysts, this guide will walk you through all the actions that you can perform while using Case Manager. It provides you with instructions on the steps to follow in order to perform different tasks and how you can proceed while performing them. Also, you will be shown examples for each of the tasks and will be able to get a better insight by following the contextual reference and [conceptual details](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview).
+
+Case Managers allows you to manage and work with alerts or cases, and each of the actions you can take regarding them will be explained and exemplified in this guide. For any doubt regarding broader concepts within the functioning of Case Manager, you can rely on the introductory section of [Case Manager's documentation](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/what-is-case-manager).
+
+The different tasks that you will be able to perform are broken down into the following sections:
+
+### Work with Alerts
+
+| 
+
+### Work with Cases  
+  
+---|---  
+Learn how to use Case Manager to review alerts| Learn how to use Case Manager to investigate cases  
+[Accessing Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts)   
+[Reviewing Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts)  
+[Acting on Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts)  
+[Moving Alerts to Queues](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts#move-alerts-to-queues)  
+[Managing Notes in Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/managing-notes-in-alerts)  
+[Managing Files in Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/managing-files-in-alerts)| [Accessing Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases)  
+[Reviewing Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases)  
+[Managing Notes in Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/managing-notes-in-cases)  
+[Managing Files in Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/managing-files-in-cases)  
+[Acting on Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/acting-on-cases)

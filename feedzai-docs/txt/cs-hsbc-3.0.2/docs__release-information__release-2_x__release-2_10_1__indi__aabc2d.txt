@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.1/individual-release-notes/HSBC-3579
+Title: HSBC-3579 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3579
+
+### Enable the `External Status Reason Updater` extension for Inbound Paymentsâ
+
+FeatureFTMT-30475HSBC-3579
+
+We have updated the `External Status Reason Updater` extension to allow Inbound Payments events.
+
+The extension will now set the event's status reason based on the `external_status_reason` field value sent in the feedback event if it matches any Case Manager configured reasons.

@@ -1,0 +1,67 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/csv_headers/
+Title: csv_headers - DS API
+============================================================
+
+#  `` csv_headers Â¶  
+  
+Module containing the headers used in the tabular version of features.
+
+##  `` CSV_FILTER_OP_SCHEMA `module-attribute` Â¶
+    
+    
+    CSV_FILTER_OP_SCHEMA = Enum('CSV_OP_SCHEMA', FILTER_OP_HEADERS)
+    
+
+##  `` CSV_LIST_OP_SCHEMA `module-attribute` Â¶
+    
+    
+    CSV_LIST_OP_SCHEMA = Enum('CSV_OP_SCHEMA', LIST_OP_HEADERS)
+    
+
+##  `` CSV_MAP_OP_SCHEMA `module-attribute` Â¶
+    
+    
+    CSV_MAP_OP_SCHEMA = Enum('CSV_OP_SCHEMA', MAP_OP_HEADERS)
+    
+
+##  `` CSV_METRIC_OP_SCHEMA `module-attribute` Â¶
+    
+    
+    CSV_METRIC_OP_SCHEMA = Enum('CSV_OP_SCHEMA', METRIC_OP_HEADERS)
+    
+
+##  `` FILTER_OP_HEADERS `module-attribute` Â¶
+    
+    
+    FILTER_OP_HEADERS: list[str] = OP_HEADERS + ['expression']
+    
+
+##  `` LIST_OP_HEADERS `module-attribute` Â¶
+    
+    
+    LIST_OP_HEADERS: list[str] = OP_HEADERS + ['description', 'expression', 'list_operation', 'list_id', 'list_field', 'list_timestamp_field']
+    
+
+##  `` MAP_OP_HEADERS `module-attribute` Â¶
+    
+    
+    MAP_OP_HEADERS: list[str] = OP_HEADERS + ['description', 'expression', 'map_field_type', 'map_field_config', 'map_remove_fields']
+    
+
+##  `` METRIC_OP_HEADERS `module-attribute` Â¶
+    
+    
+    METRIC_OP_HEADERS: list[str] = OP_HEADERS + ['description', 'metric_groupby_fields', 'metric_aggregation', 'metric_window_size', 'metric_is_real_time', 'metric_scheduled_cron_expression', 'metric_filter', 'metric_delay', 'metric_is_tumbling', 'metric_is_infinite', 'metric_filter_incomplete_instances', 'metric_timestamp_field', 'metric_lookup_fields', 'metric_main_channel_contributes', 'metric_cascaded_scheduled_metrics', 'metric_coalesce', 'metric_secondary_channels']
+    
+
+##  `` OP_HEADERS `module-attribute` Â¶
+    
+    
+    OP_HEADERS: list[str] = ['operator_name', 'operator_type', 'feature_name']
+    
+
+##  `` PLAN_HEADERS `module-attribute` Â¶
+    
+    
+    PLAN_HEADERS: list[str] = list(fromkeys(OP_HEADERS + MAP_OP_HEADERS + METRIC_OP_HEADERS + FILTER_OP_HEADERS + LIST_OP_HEADERS))
+    

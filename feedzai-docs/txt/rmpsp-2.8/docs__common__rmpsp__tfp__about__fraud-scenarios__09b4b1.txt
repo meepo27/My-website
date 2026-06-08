@@ -1,0 +1,108 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/about/fraud-scenarios
+Title: Fraud Scenarios | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [About Transaction Fraud for PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/about/overview)
+  * Fraud Scenarios
+
+
+
+On this page
+
+# Fraud Scenarios
+
+This page covers the fraud scenarios and the detection strategy for fraudulent customers. The standard package delivers out-of-the-box rules that capture user patterns associated with each fraud scenario.
+
+## Card-not-Present fraudâ
+
+Card-not-present (CNP) fraud is prevalent in transactions made over the internet, but may also take place over the phone. In the CNP scenario, fraudulent customers are able to purchase goods without a physical card, since they have already managed to access the victim's card credentials via hacking, phishing, or skimming schemes.
+
+### How TFP prevents CNP fraudâ
+
+Here are some examples of rules that help detect a CNP fraud scenario:
+
+  * **Cards-Behavior-FR17:** Alert payment if multiple transactions with the same amount have been approved by the same merchant over the last 24 hours.
+  * **Cards-Behavior-FR18:** Decline payment and block customer email if the number of distinct rejected cards per customer email, over the last 7 days, is above a set threshold.
+  * **Cards-CNP-FR27:** Alert payment if the card has made multiple CNP transactions in a high number of unique merchants over the last 5 minutes.
+
+
+
+## Cardingâ
+
+Carding is a term used for fraudulent customers who attempt to access credit or debit card credentials for their personal interest. Fraudulent customers may use methods such as manipulating bots and botnets to steal a person's card details in order to sell their information on the dark web.
+
+### How TFP prevents cardingâ
+
+Here are some examples of rules that help detect a carding scenario:
+
+  * **Cards-Mismatch-FR28:** Alert payment for listed merchants if there is a mismatch between card and merchant countries.
+  * **Cards-Behavior-FR20:** Decline payment if, over the last 24 hours, the number of distinct emails from the same card and merchant is above a set threshold.
+
+
+
+## Skimmingâ
+
+Skimming is a type of fraud that consists in stealing a person's card details and using them in a fraudulent card, i.e. electronic copying card information to make cloned cards. Fraudulent customers may use several methods to do this. For instance, they may use a skimming device that swipes the victims' card information, or simply use the victim's receipts to extract their card details. They then proceed to create "fake plastic" cards to store the stolen victim's information.
+
+### How TFP prevents skimmingâ
+
+Here is an example of a rule that helps detect a skimming scenario:
+
+  * **MagStripe-Fallback-CP1:** Decline a fallback payment if the amount is above a set threshold. This rule will check if a transaction's Card Entry Mode is "Magnetic Stripe" and if the authentication mode is "PIN Bypassed".
+
+
+
+## Card testingâ
+
+A bot is a software or configurable script that runs scripts over the internet and attacks e-commerce merchants and financial institutions. This is usually performed by botnets, a group of internet devices running one or more bots. Fraudsters can easily rent bots and adapt botnets (for different malicious purposes) to deploy them fast. Dozens of purchases with the same card in a short period of time (e.g. within 5 minutes) is a good example of a bot attack.
+
+### How TFP prevents card testingâ
+
+Here are some examples of rules that help detect a card testing scenario:
+
+  * **Cards-Velocity-FR14:** Decline payment if, over the last minute, the number of distinct cards with failed payments per merchant is above a set threshold.
+  * **Cards-MCC-FR24:** Decline payment if, over the last 15 minutes, the number of small amount card transactions per merchant with listed merchant category codes (MCC) is above a set threshold (e.g. digital goods, in-app purchases).
+  * **Cards-CNP-FR27:** Alert payment if, over the last 5 minutes, the card has made multiple CNP transactions in a high number of unique merchants.
+
+
+
+## BIN attackâ
+
+A bank identification number (BIN) corresponds to the first 6 or 8 digits of a credit card number. A BIN attack occurs when a fraudster uses those digits and runs software to generate the rest of the numbers. These auto-generated card numbers will then be used in fraudulent transactions.
+
+### How TFP prevents BIN attackâ
+
+Here is an example of a rule that helps detect a BIN attack scenario:
+
+  * **Cards-BinAttack-FR29:** Decline payment if, over the last 10 minutes, the ratio of distinct cards and distinct expiration dates per BIN and merchant is below a set threshold.
+
+
+
+## Lost & stolenâ
+
+The lost & stolen scenario occurs when a person is a victim of physical theft, i.e. a criminal accesses the victim's pocket or purse and uses the card for unauthorized transactions. These individuals use the card until the cardholder reports to the issuing bank, which blocks the account.
+
+### How TFP prevents lost & stolenâ
+
+Here is an example of a rule that helps detect a lost & stolen scenario:
+
+  * **Cards-Behavior-FR15:** Decline payment if, over the last 24 hours, the number of transactions per Card ID and merchant is above a set threshold.
+  * **Cards-Behavior-FR16:** Decline payment if, over the last 24 hours, the amount of transactions per Card ID and merchant is above a set threshold.
+  * **Cards-Behavior-FR17:** Alert payment if, over the last 24 hours, multiple transactions with the same amount have been approved by the same merchant.
+
+
+
+## Unusual activityâ
+
+Unusual activity includes transactions that are not part of a customer's usual behavior, i.e. they start spending large amounts, or making several transactions in a short time period.
+
+### How TFP prevents unusual activityâ
+
+Here are some examples of rules that help detect unusual activity:
+
+  * **All-Payments-Velocity-FR1:** Decline payment if, over the last 24 hours, the number of transactions per customer ID and merchant is above a set threshold.
+  * **All-Payments-Velocity-FR7** : Decline payments if, over the last 24 hours, the number of transactions per Shipping Address and merchant is above a set threshold.
+  * **Velocity-APM1:** Alert payment if, over the last 24 hours, the total amount per alternative payment method (APM) - e.g Paypal, Neteller -, merchant, and customer email is above a set threshold.
+
+

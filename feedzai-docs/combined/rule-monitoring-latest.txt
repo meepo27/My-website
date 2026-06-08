@@ -1,0 +1,920 @@
+Feedzai Rule Monitoring (Latest)
+================================================================================
+Combined documentation — 12 pages
+================================================================================
+
+TABLE OF CONTENTS
+----------------------------------------
+    1. Rule Monitoring
+       https://cam.feedzai.com/rules/latest/
+    2. Search the documentation
+       https://cam.feedzai.com/rules/latest/search
+    3. About Rule Monitoring | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/overview/
+    4. Rule Monitoring | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/
+    5. Concepts glossary | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/overview/glossary
+    6. About Rules | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/overview/rules-experience
+    7. RiskOps Studio | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/overview/user-interface
+    8. Manage Rules | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/
+    9. Understand the Rules Strategy Tool | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules
+   10. Rule Writing | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing
+   11. Strategy Builder | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder
+   12. Operators in Rule Writing | Rule Monitoring
+       https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing-pages/operators
+
+================================================================================
+
+
+
+================================================================================
+  PAGE 1 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/
+Title: Rule Monitoring
+============================================================
+
+Skip to main content
+
+[**Rule Monitoring**](/rules/latest/)[Overview](/rules/latest/docs/common/rules/overview)[User Guide](/rules/latest/docs/common/rules/user-guide)
+
+# Rule Monitoring
+
+Feedzai's Rule Monitoring gives Feedzai customers autonomy to monitor their rules-based risk strategy from a central dashboard. Customers can, thus, swiftly decide when to act to update their strategy whenever it is needed.
+
+[Get started](/rules/latest/docs/common/rules/overview)
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#57333834223a32392336233e383917313232332d363e7934383a).   
+Copyright Â© 2026 Feedzai.
+
+
+
+================================================================================
+  PAGE 2 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/search
+Title: Search the documentation
+============================================================
+
+Skip to main content
+
+[**Rule Monitoring**](/rules/latest/)[Overview](/rules/latest/docs/common/rules/overview)[User Guide](/rules/latest/docs/common/rules/user-guide)
+
+# Search the documentation
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#a2c6cdc1d7cfc7ccd6c3d6cbcdcce2c4c7c7c6d8c3cb8cc1cdcf).   
+Copyright Â© 2026 Feedzai.
+
+
+
+================================================================================
+  PAGE 3 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/
+Title: About Rule Monitoring | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * About Rule Monitoring
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# About Rule Monitoring
+
+Within [RiskOps Studio](/rules/latest/docs/common/rules/overview/user-interface), the **Rule Monitoring** component provides a central dashboard to review and evaluate the performance of [rules](/rules/latest/docs/common/rules/overview/glossary#rules), monitor global statistics, and to identify trends, anomalies, and areas for improvement in the Risk Strategy. Besides providing overall performance metrics across all rules, individual rules can be analyzed in detail, or accessed for configuration when adjustments are needed.
+
+Feedzai's customers often need to evaluate how the rules defined in their Risk Strategy are performing. Manually collecting the relevant data and creating visualizations to monitor the performance of the rules can be time-consuming and inefficient, requiring custom procedures and integration of various different tools to produce relevant insights. The Rule Monitoring dashboard automates this process, providing continually updated analysis features to all customers.
+
+dashboard updating frequency
+
+The Rule Monitoring dashboard is updated on an hourly basis. However, KPIs that rely on the labels assigned to events (i.e. the [standard statistical KPIs](/rules/latest/docs/common/rules/overview/glossary#standard-statistical-kpis) such as False Positives, Precision and Recall) are only updated on a daily basis.
+
+A regular practice of Rule Monitoring has a critical impact on the manual work needed to review alerts generated by rules, the cumulative value saved by appropriately fine-tuned rules, and overall effectiveness in detecting fraud or other financial crime.
+
+## Main list pageâ
+
+The main page of the Rule Monitoring module provides a summary of the performance of all rules, including both [SSR](/rules/latest/docs/common/rules/overview/glossary#self-service-rules-ssr) (defined in Case Manager) and [advanced rules](/rules/latest/docs/common/rules/overview/glossary#advanced-rules) (defined in Pulse). It focuses on a table listing all rules and their primary characteristics, and a set of [key performance indicators](/rules/latest/docs/common/rules/overview/glossary#kpis) (KPIs) that summarize their behavior and efficiency, such as the number of alerts generated, the currency amounts affected, or the system decision taken when the rule is triggered.
+
+The table can be sorted by each header, as well as filtered by various criteria, allowing a focused analysis of given time periods or specific sets of rules based on their properties or statistics.
+
+Maximum time period length
+
+The time period that can be selected for analysis in Rule Monitoring is up to 7 days.
+
+## Rule details pageâ
+
+Each rule listed in the main table can be accessed in a separate page that provides a detailed view of its properties, along with key statistical information.
+
+Depending on the use case selected, this view can display one or two interactive line charts that represent the events processed by the rule over time, as well as an overlay of the moments in time corresponding to changes made to the risk strategy. In the case of SSR, you can see when all the SSR were published, while for a Pulse rule, you can see when a risk strategy was published on Pulse.
+
+These charts allow exploring the history of the rule's performance in a visual manner, including focusing on different time periods to identify trends, temporal patterns, or anomalies thereof.
+
+From this page, it is also possible to access the configuration page for the rule, where its definition can be adjusted in response to the insights gained from its evaluation.
+
+
+
+================================================================================
+  PAGE 4 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/
+Title: Rule Monitoring | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * Rule Monitoring
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Rule Monitoring
+
+The **Rule Monitoring** user guide provides you with the necessary information for you to monitor your risk strategy using the Rule Monitoring tool.
+
+Monitoring your rules allows you to identify potential issues before they escalate, as well as opportunities to optimize the performance and effectiveness of your risk strategy.
+
+By regularly following the steps described next, you can detect anomalies early, identify unusual patterns, ensure your risk strategy is functioning optimally, and take preventive measures before they impact your operations.
+
+## Step 1: Assess the overall performance of your rulesâ
+
+The first step is to review the overall performance of your rules. This can be done by checking the [rule list](/rules/latest/docs/common/rules/overview#main-list-page), where you can get an overview of the data.
+
+rules displayed
+
+In the Rule Monitoring dashboard you can view all existing rules, triggered and non-triggered. Bear in mind that the non-triggered rules include both the rules that are published in a production environment as well as the rules that are not published.
+
+Take this information into account when interpreting the metrics displayed, namely the [Trigger Rate](/rules/latest/docs/common/rules/overview/glossary#trigger-rate) metric.
+
+For each of the focus areas of monitoring described below, make sure to review the data corresponding to different time periods, by modifying the parameters of the time period selector.
+
+### Examine global metricsâ
+
+In the **General Data** area, look for unexpected increases or decreases in the following metrics:
+
+  * **[Trigger Rate](/rules/latest/docs/common/rules/overview/glossary#trigger-rate)** : The percentage of events that have triggered at least one rule within a specific time period.
+  * **[Rules](/rules/latest/docs/common/rules/overview/glossary#rules) triggered**: The number of times rules have been triggered in the selected time period.
+  * **[Total Amount](/rules/latest/docs/common/rules/overview/glossary#total-amount) affected**: The accumulated value of the transactions affected by the rules.
+
+
+
+Besides looking for unusual changes in the increase/decrease markers, also check the absolute and relative numbers for each metric, and consider whether these are aligned with the expected behavior of your business's financial activity and the risk strategy you have put in place.
+
+### Analyze the rules tableâ
+
+The **Rules** table provides detailed information about each rule. You can use this table to identify potential behavior outliers.
+
+The table can be scrolled horizontally to reveal additional columns, and the columns can be individually added, removed, or reordered to customize the view. The table is also paginated with a default of 10 rows per page, but you can adjust the number of rows per page to access more information at once.
+
+Typical actions that you can take to locate possible deviations from the expected behavior are:
+
+  * **Sort columns** (e.g.,[Trigger Rate](/rules/latest/docs/common/rules/overview/glossary#trigger-rate)) by ascending or descending order and look for rules with metrics that deviate significantly from the norm of the other rules.
+  * **Apply filters** to narrow down the table to specific subsets of rules that you want to focus your investigation on.
+
+
+
+The available filters include:
+
+  * _Rule Type_ : Filter by the type of rule (e.g., SSR or advanced rule).
+  * _Rule Project*_ : Filter by the project to which the rule belongs.
+  * _Outcome_ : Filter by the outcome of the rule (e.g., approve or decline).
+  * _Trigger Rate_ : Filter by rules with zero or nonzero trigger rates.
+  * _Time Period_ : Customize the window of time over which the statistics are calculated.
+  * _Search_ : Filter by arbitrary keywords present in the rule's name.
+
+
+
+Rule Project*
+
+Note that Watch List Management Payment Screening (WLM PS) rules are listed within Transaction Fraud for Banking (TFB) use case. You can view WLM PS specific rules by using the _Rule Project_ filter. To do that, make sure of the following:
+
+  * Have the TFB use case [selected](/rules/latest/docs/common/rules/overview/user-interface#navigation-menus);
+  * Select the **Sanctions Rule Project** filter.
+
+
+
+time period
+
+Take note of the following:
+
+  * The _Time Period_ filter is always active; it is not possible to remove it to show all rules triggered over time.
+  * You can only select date ranges up to 7 days in length.
+  * Rule Monitoring operates in the GMT+1 timezone. This may lead to slight discrepancies in the number of events displayed in Rule Monitoring for a given period, compared e.g. to Case Manager, whose time filters are timezone-aware.
+
+
+
+## Step 2: Investigate specific rulesâ
+
+Once you have identified individual rules with potential issues in the rule list page, the next step is to dive deeper into these rules' details to narrow down the possible causes.
+
+This analysis can be done in the [rule details page](/rules/latest/docs/common/rules/overview#rule-details-page), which can be accessed by selecting the rule name in the table of rules.
+
+The rule details page provides in-depth information about a rule's performance, as well as its historical evolution over a given time period. Drilling down into this information can help you determine the nature of the problem, and when it started to occur.
+
+### Review rule detailsâ
+
+The **General Data** section serves a similar purpose as the one in the rule list page, but focused on a specific rule.
+
+Review the data about the **total events** processed by the rule in the selected time period, and the **total amount** impacted by the rule's operation. Significant variations in these numbers are likely to indicate a change in the rule's effectiveness.
+
+### Evaluate key metricsâ
+
+In the KPIs panel, review the values of the various metrics for the selected time period. Use these metrics to gain insights into rule effectiveness during the chosen timeframe. Look also for unexpectedly high or low values, by comparing current performance against historical baselines in other time periods.
+
+tip
+
+Comparison of KPI values between the currently selected time period and the previous period of the same length is available directly in the interface, via the amount variation badges next to each KPI.
+
+Proceed to the performance evolution graph to identify more precisely when these changes might have occurred and whether they coincide with risk strategy changes.
+
+### Analyze performance trendsâ
+
+The performance graph provides a visual representation of the rule's performance over time. This interactive timeline supports various modes of exploring the available data:
+
+  * **Adjust the time granularity** : Toggle the graph's temporal sampling frequency (daily vs. hourly) to reveal spikes that may be obscured by periodic fluctuations.
+  * **Change time span** : Modify the time period displayed to focus on different intervals and compare trends between them.
+  * **Cross-reference strategy changes** : Look for correlations between risk strategy changes (which are shown as vertical lines) with inflections in the graphed performance metrics. Follow the "See Strategy Changes History" link to access the full log of risk strategy changes.
+
+
+
+## Step 3: Make adjustments to the risk strategyâ
+
+If a rule is identified as problematic or having potential for improvement, you can modify the risk strategy accordingly.
+
+This can be done in Case Manager for the [SSRs](/rules/latest/docs/common/rules/overview/glossary#self-service-rules-ssr), or in Pulse for [advanced rules](/rules/latest/docs/common/rules/overview/glossary#advanced-rules).
+
+For SSRs, select the "See SSR list" button, available in either the Rules list and the Rule details page, to navigate to the Case Manager interface where SSRs can be configured. For advanced rules, select the "Edit" button to go directly to the rule page in Pulse for modification.
+
+For more details, refer to the documentation for [editing SSRs in Case Manager](https://documentation.feedzai.com/case-manager/latest/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/#editing-ssrs), and for [editing advanced rules in Pulse](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/), respectively.
+
+## Step 4: Conduct periodic reviewsâ
+
+Establish a regular practice of conducting this systematic review of your rules.
+
+By regularly following these steps, you'll maintain an optimized risk strategy that adapts to emerging threats while minimizing false positives and operational disruptions.
+
+
+
+================================================================================
+  PAGE 5 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/glossary
+Title: Concepts glossary | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * Concepts glossary
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Concepts glossary
+
+This glossary provides definitions for the key concepts and terms used in the context of Rule Monitoring.
+
+## Eventsâ
+
+In Feedzai's real-time data processing flow, an event is any packet of information within a given data stream. Usually these events correspond to financial transactions, but they may also represent changes in customer data, authentication actions, attempted transactions, or other kinds of data that is captured and processed by the systems where the data streams originate.
+
+## KPIsâ
+
+A Key Performance Indicator (KPI) is a measurable value that can be used to assess the performance and effectiveness of a rule. Some KPIs are directly related to the nature of rules, such as their trigger rate or total amount affected, whereas others correspond to standard statistical metrics, such as false positive rate or precision.
+
+### Business-specific KPIsâ
+
+#### Total Eventsâ
+
+The Total Events KPI indicates the number of events that trigger a given rule's conditions within a specific time period. This reflects the volume of instances where a rule is put into action, and affects the potential rate of alert generation.
+
+Although this metric is independent of the KPIs that assess a rule's effectiveness and accuracy, it must be considered alongside them to determine whether adjustments in the rule's sensitivity are needed, or to identify emerging trends in the data stream that may require further investigation.
+
+#### Trigger Rateâ
+
+The Trigger Rate KPI represents the percentage of events that trigger a given rule within a specific time period, out of all the events processed by the workflow that contains that rule.
+
+This is a relative version of the total events KPI, providing a metric of the rule's activity that is normalized to the total volume of events processed by the system.
+
+#### Total Amountâ
+
+The Total Amount KPI is the accumulated sum of the amounts of each event that trigger a given rule.
+
+This metric is useful in determining the financial impact of the rule's decisions, and when combined with the effectiveness-focused statistical KPIs, it can help sorting out the potential financial impact of a rule versus the real savings it provides.
+
+### Standard statistical KPIsâ
+
+The descriptions of the statistical metrics in the sections below are based on the following diagram of a binary classifier, where the light red and light green areas represent the rule's decision field between fraud and non-fraud cases, respectively and the shape and color of individual elements represent the actual classification of each case:
+
+Diagram of a binary classifier. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:False_positives_and_false_negatives.svg), CC-BY-SA 4.0.
+
+#### False Positives (FP)â
+
+The False Positives (FP) KPI is the total number of cases where a rule is incorrectly triggered, determining a condition to be true when it is actually false.
+
+Visually, these correspond to red crosses () in the green area () of the diagram above.
+
+#### False Negatives (FN)â
+
+The False Negatives (FN) KPI is the total number of cases where a rule fails to be triggered, incorrectly determining a condition to be false when it is actually true.
+
+Visually, these correspond to green circles () in the red area () of the diagram above.
+
+#### Precisionâ
+
+The Precision KPI represents the percentage of cases where a rule _correctly_ determines a condition to be true, out of all cases where the rule determined the condition to be true (correctly or not).
+
+Visually, these correspond to the fraction of green circles () out of all values ( \+ ) in the light green () area of the diagram.
+
+Mathematically, the formula is:
+
+Precision=TPTP+FPPrecision = \frac{TP}{TP + FP}Precision=TP+FPTPâ
+
+#### Recallâ
+
+The Recall KPI (also called Sensitivity) represents the percentage of cases where a rule correctly determines a condition to be true, out of all cases where the condition was actually true.
+
+Visually, this corresponds to the fraction of green circles () in the light green () area of the diagram, out of all green circles anywhere in the diagram.
+
+Mathematically, the formula is:
+
+Recall=TPTP+FNRecall = \frac{TP}{TP + FN}Recall=TP+FNTPâ
+
+## Rulesâ
+
+A rule is a set of conditions and actions that automate the processing of events from a data stream, allowing the system to identify and act upon anomalous or suspicious behavior.
+
+Specifically, a rule defines conditions based on the fields of the data source to which the event belongs, and returns a binary result for each record that matches the condition.
+
+### Advanced Rulesâ
+
+Advanced rules can be defined in the Pulse interface. They can be more complex and expressive than self-service rules, allowing for more sophisticated logic and data transformations. This provides a more versatile and powerful tool to combat fraud, but it also requires data science expertise to use effectively.
+
+To learn more about advanced rules, refer to the [Pulse documentation](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules).
+
+### Self-Service Rules (SSR)â
+
+Self-Service Rules (SSR) are rules that can be created and managed by analysts directly in Case Manager. These are less expressive than the advanced rules that can be created by data scientists in Pulse, but in contrast they provide a more intuitive interface to compose, evaluate, and deploy rules to production.
+
+To learn more about self-service rules, refer to the [Case Manager documentation](https://documentation.feedzai.com/case-manager/latest/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules).
+
+
+
+================================================================================
+  PAGE 6 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/rules-experience
+Title: About Rules | Rule Monitoring
+============================================================
+
+On this page
+
+# About Rules
+
+Was this page helpful?Â 
+
+The Rules Strategy platform, part of Feedzai's RiskOps Studio, allows financial institutions to quickly create a rule, test, and publish it directly in production without the need of specialized support by Feedzai.
+
+Feedzai's risk engine platform has a set of standard rules that are used in combination with lists to detect fraud or money laundering scenarios. However, criminals are constantly coming up with new ways to trick the detection systems. Counteracting new waves of financial crime might require tweaking a rule or even create a new one.
+
+The Rules Strategy tool allows you to quickly write, test, and publish rules using an intuitive interface directly into production. As an example, you can use this platform to create a rule with a different threshold and publish in production to have it live with zero downtime. This way, you can implement completely new processes and achieve higher operational efficiencies while managing the ever-changing dynamics of financial crime.
+
+Once a rule is created, analysts can test it with previous events and check how the rule will perform to understand if the rule achieves the goal it was created for. If needed, analysts can tune the rule and repeat the test.
+
+## Learn moreâ
+
+Now that you have the basic knowledge on the Rules Strategy tool, you can start [understanding](/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules) how the Rules Strategy tool works and learning how to [manage](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules) your rules and strategies to improve your detection system.
+
+
+
+================================================================================
+  PAGE 7 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/user-interface
+Title: RiskOps Studio | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * RiskOps Studio
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# RiskOps Studio
+
+The **RiskOps Studio** is a unified platform incorporating different Feedzai products. This platform wrapps these components in a common interface for you to navigate across the various environments and use cases, as well as to manage users and permissions across all the integrated components.
+
+available components
+
+Note that [Rule Monitoring](/rules/latest/docs/common/rules/overview) is the component that the RiskOps Studio currently provides you with.
+
+## Navigation menusâ
+
+RiskOps Studio provides a picker that allows you to choose from the different environments available, such as the Production and Testing environments.
+
+Selecting **Feedzai Apps** opens a dropdown menu where you can navigate between applications, going from RiskOps Studio, to Case Manager or Pulse.
+
+You can also switch among the Feedzai solutions that are available within the RiskOps Studio, thus providing you convenient access to use cases such as Transaction Fraud for Banking (TFB) or Anti-Money Laundering Transaction Monitoring (AML TM).
+
+WLM PS
+
+Although the Watch List Management Payment Screening (WLM PS) use case is not listed for selection, you can still access its rules within the TFB use case.
+
+Check [Analyse the rules table](/rules/latest/docs/common/rules/user-guide#analyze-the-rules-table) for more information on this.
+
+## Administration areaâ
+
+The **RiskOps Studio** platform provides an administration feature for Feedzai products. But note that only users with the relevant permissions can access the **Administration** area.
+
+By selecing  in the header, you access **User Management** within the **Administration** area.
+
+### User Managementâ
+
+In **User Management** , you view a table listing all registered users, as well as information such as their email details and roles assigned to them.
+
+This table can be filtered by various search criteria, allowing to narrow down the list by role, or locate a user by name or email.
+
+The **User Management** area in RiskOps Studio also allows you to manage user roles and permissions, provided the users have been created in Feedzai Pulse. For scenarios when SSO (Single Sign-On) is configured, users are created through an external Identity Provider (IdP) and the process to manage roles and permissions is different altogether.
+
+Check the following sections for details on how user roles and permissions are managed in the scenarios previously described.
+
+#### User Management in RiskOps Studioâ
+
+Provided you have the necessary permissions, you can control the users' access grants by assigning new roles to them, or modifying existing ones. To do so, select  in the **Actions** column.
+
+These roles are specific to **RiskOps Studio** , i.e. they are available only for Studio features, and can be added to users created on Pulse.
+
+The interface also provides an in-product panel with role descriptions to further explain what each role allows the user to do.
+
+#### User management when SSO (Single Sign-On) is configuredâ
+
+When SSO is configured, user roles and permissions are managed through your Identity Provider (IdP). RiskOps Studio automatically grants you authorization to access Rule Monitoring, matching the OOTB (Out-of-the-Box) user roles that are configured for your solution, without any need to set up this access in your IdP.
+
+Refer to the relevant solution documentation for more information on the roles and permissions that are available OOTB:
+
+  * [Transaction Fraud for Banking (TFB)](https://documentation.feedzai.com/tfrb/latest/docs/common/tfrb/roles-and-permissions)
+  * [Risk Management for Acquirers (RMA)](https://cam.feedzai.com/rma/latest/docs/common/rma/admin-reference/roles-and-permissions)
+  * [Anti-Money Laundering Transaction Monitoring (AML-TM)](https://documentation.feedzai.com/aml/latest/docs/common/aml/references/roles-permissions)
+  * [Know Your Customer/Customer Due Diligence (KYC/CDD)](https://documentation.feedzai.com/cdd/latest/docs/common/cdd/references/roles)
+  * [Watchlist Management Customer Screening (WLM CS)](https://cam.feedzai.com/cdd/latest/docs/common/cdd/references/roles-cs)
+  * [Watchlist Management Payment Screening (WLM PS)](https://documentation.feedzai.com/transaction-screening/latest/docs/common/transaction-screening/references/roles-and-permissions)
+
+
+
+custom roles
+
+Note that if you have custom roles, you must reach out to your Feedzai contact point to define what custom roles should have access to Rule Monitoring.
+
+
+
+================================================================================
+  PAGE 8 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/
+Title: Manage Rules | Rule Monitoring
+============================================================
+
+# Manage Rules
+
+Was this page helpful?Â 
+
+The Rules Strategy platform allows financial institutions to quickly create a rule, test, and publish it directly in production without the need of specialized support by Feedzai. This page helps you to understand how to manage [rules](/rules/latest/docs/common/rules/overview) \- create, edit, test, delete, and use the audit capabilities to have a clear understanding of all changes made.
+
+
+
+================================================================================
+  PAGE 9 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules
+Title: Understand the Rules Strategy Tool | Rule Monitoring
+============================================================
+
+On this page
+
+# Understand the Rules Strategy Tool
+
+Was this page helpful?Â 
+
+Rules Strategy is a tool that allows the user to create [rules](/rules/latest/docs/common/rules/overview) and manage them according to the financial institutionâs business needs. Each business solution works with different business types. These business types be cards, transfers, and others. These are called **channels**.
+
+The tool provides pre-selected channels customized to the clientâs needs that can be accessed in the [Strategy Builder](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder) page in the top navigation bar. With this solution, you can create a rule strategy for each individual channel to better suit its needs.
+
+## User journeyâ
+
+The following section details how to navigate the Rules Strategy tool.
+
+When using this tool, the starting point for your journey is the [Strategy Builder](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder) page. This is your dashboard where you can access the rule strategies for each of your channels. From this page you can manage your strategies: you can create or adjust rules inside a specific channel which will be grouped along with other rules with the same decision criteria.
+
+For detailed instructions on employing these flows, see [Manage Rules](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules).
+
+
+
+================================================================================
+  PAGE 10 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing
+Title: Rule Writing | Rule Monitoring
+============================================================
+
+On this page
+
+# Rule Writing
+
+Was this page helpful?Â 
+
+The rule writing process is a fundamental part of your strategy assembly, as this is where you will create your rules with the necessary conditions and details. In this step, you can either create a rule from scratch or adjust the conditions and details for an existing rule in your strategy.
+
+## Create a ruleâ
+
+As an example, imagine that you want to create a rule that blocks all transactions above $1000. The following steps show how you can complete the form to create a rule accordingly:
+
+  1. In the **Strategy Builder** page, use the **Channels** navigation bar to select the channel in which you wish to add a new rule.
+
+
+
+  2. Select the **New rule** button of the desired decision group list to open the rule creation form.
+
+
+
+The rule creation form includes two main areas: **Rule writing** and **Details**. The following sections explain how to use these areas in more detail.
+
+info
+
+If, at any point in the form filling, you want to cancel the rule writing process, select the **Cancel** button.
+
+### Rule writingâ
+
+Here you will create **conditions** that must be met for the rule to trigger and run the action that follows it.
+
+In this page, you also have two important bits of information regarding your rule:
+
+  * In which channel the rule is located.
+  * The decision assigned to that rule, and therefore, in which decision group the rule is included.
+
+
+
+info
+
+If you want to change one or both of these parameters, you need to go back to the **Strategy Builder** page. Follow the two steps on the Create a rule section to learn how to choose the channel and decision group of your new rule.
+
+  
+
+
+To define the **conditions** that will trigger your new rule, perform the following steps:
+
+  1. Specify the first field for the comparison. You have three type of selectors in the field dropdown list: **lists** , **fields** and **profiles**. They are not categorized and are displayed by alphabetical order in the dropdown list.
+
+
+
+Here you have an overview of each selector type:
+
+  * **List** : Entity list with items tagged as approved, decline or review with a defined set of rules applied to the entities in the list.
+  * **Field** : Fields enable Feedzai to improve fraud detection performance (e.g. terminal latitude/longitude, device ID, and acceptor risk).
+  * **Profile** : Contains the field definition that represent the behaviour of a given entity, such as card or merchant, in a specific type frame (i.e. average amount spent by a given card in the last month, and number of transactions in the last month).
+
+
+
+info
+
+If you want to search for a specific selector, you can write the name of the selector in the box and all attributes that contain the search words will appear in the dropdown list.
+
+Let's say you want to search for a profile named `Count of transactions per mobile phone`. If you write `mobile` in the selector box, the dropdown list will display all attributes (lists, fields and profiles) that contain **mobile** in the name.
+
+  2. Assign an operator.
+
+
+
+info
+
+Depending on the specified selector in the left side field, you will find a dropdown list with the applicable operators. For example, if you choose a list field like `Acceptor Country`, you will find the applicable operators like **Contains** and is **Equal** , but if you choose a numerical field like `Amount` you will find operators like **Greater than** and **Less than**. For more information, see [Operators in Rule Writing](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing-pages/operators).
+
+  3. Choose your right side field type. There are two types of selectors: **Attribute** , pre-determined fields you can choose from, or **Value** , free range value you can enter manually.
+
+
+
+  4. Specify the second field for comparison.
+
+
+
+Depending on the type of selector you chose previously, you can either:
+
+  * Choose from a dropdown list, if you chose the `Attribute` type.
+
+
+
+info
+
+The attributes from the second field's dropdown list are the same as the dropdown list for the first field.
+
+  * Enter a custom value, if you chose the `Value` type, i.e. 1000.
+
+
+
+  5. If needed, you can add **multiple** conditions according to your use case. To add additional conditions, select the  button and then add an **AND** condition or an exception **OR** condition.
+
+
+
+  6. Once you finish adding all the required conditions, select the **Next** button.
+
+
+
+Info
+
+If the conditions are incomplete or set incorrectly, the **Next** button will be greyed-out. In case this happens, check your conditions before proceeding.
+
+### Detailsâ
+
+Here you can add details to your rule for better strategy management.
+
+  1. Fill in these fields with the correspondent information:
+
+
+  * **Name** : Add a name to your rule.
+  * **Description** : Add relevant information to your rule.
+  * **Explanation** : Explain the rule in detail to help the analyst better understand why it triggered. If needed, you can hover over the  tooltip to help you understand what sort of information is required.
+
+
+
+info
+
+The **Name** and **Explanation** fields are mandatory. The **Description** field is optional.
+
+  2. Select the **Create** button to finish the rule writing process.
+
+
+
+## Adjust a ruleâ
+
+As an example, imagine that you want to change the condition of your newly created rule that blocks all transactions above $1000, to block all transactions above $500.
+
+You can adjust an existing rule by following the same steps for creating a rule. Do the following steps to access the rule creation form and make the necessary changes:
+
+  1. Locate the rule inside the correspondent decision group table.
+
+  2. Select the  icon next to the rule.
+
+  3. Select **Edit**.
+
+  4. Follow the same steps for creating a rule, where you will make all the changes necessary to the rule instead of creating a rule from scratch.
+
+     * **Add** new conditions or **change** the existing ones.
+     * **Add** or **change** existing details.
+
+
+
+## Next stepsâ
+
+Once you're done with the rule writing process, you will be taken back to the [Strategy Builder](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder) page.
+
+In the Strategy Builder page:
+
+  * If you still want to make more changes, you can continue adjusting your strategy by creating new rules or adjusting existing rules.
+  * If you are happy with your strategy, you can publish it by selecting the **Publish** button.
+
+
+
+
+
+================================================================================
+  PAGE 11 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/strategy-builder
+Title: Strategy Builder | Rule Monitoring
+============================================================
+
+On this page
+
+# Strategy Builder
+
+Was this page helpful?Â 
+
+The starting point for your [journey](/rules/latest/docs/common/rules/user-guide/rules-experience/understand-rules#user-journey) is the **Strategy Builder** page. This page allows you to access and manage your rule strategies by creating or adjusting rules inside specific channels. These rules are grouped along with other rules with the same decision criteria in decision group tables.
+
+Here you can perform different actions such as:
+
+  * Assemble the rule strategy for each of your channels;
+  * Create, adjust and delete rules;
+  * Find additional information on each rule:
+    * Current state of a rule;
+    * New state of a rule after the strategy is published;
+    * And when the rule was last updated.
+
+
+
+You can also find information on the total number of rules present in the decision group tables.
+
+In the **Strategy Builder** page, you can assemble the rule strategy for each of your channels by prioritizing your rules by decision. Every decision group has an automated action when any rule of that group triggers.
+
+## Assemble and manage your strategyâ
+
+You can **add** a rule to the strategy with a contextualized decision or **adjust** an existing rule inside of any of the groups:
+
+  * You can [add](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing#create-a-rule) a rule by selecting the **New rule** button inside of the correspondent decision group to which you want to add the rule;
+  * Or [adjust](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing#adjust-a-rule) a rule by selecting the  icon next to the rule you want to adjust.
+
+
+
+See the [rule writing](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing) process page for more information.
+
+Additionally, you can also **delete** a rule. To do this, do the following steps:
+
+  1. Select the  icon next to the rule you want to delete.
+
+  2. Select the **Delete** option on the dropdown list.
+
+
+
+
+  3. You will receive a prompt asking you to confirm your action. Select the **Delete** button to proceed.
+
+
+
+While assembly your strategy, before publication, you can select which state each rule will take after the strategy is published. There are **three** different states a rule can be in: **live** , **draft** or **shadow**.
+
+  * **Live** : the rule will be activated and effective.
+  * **Draft** : the rule will still be present in the table, but will be deactivated until a new publication.
+  * **Shadow** : the rule will be activated but won't be effective to the client. See Rule monitoring and Shadow mode for more information.
+
+
+
+After you are done assemblying your strategy, select the **Publish** button to review the changes made to your strategy and make them effective. You can also revert your strategy to the previous publication if something goes wrong. 
+
+### Check the live view of the strategyâ
+
+In the Strategy Builder page, you can find a toggle that allows you to switch environments from the builder to the live view of the strategy in place.
+
+In the live view, you can monitor the status of your current strategy. This then allows you to fine tune it in the strategy builder environment.
+
+info
+
+This view is **read-only** and intended for monitoring purposes. If you wish to make changes to your strategy, you can do so in the strategy builder view.
+
+Each of your channels has its own live and builder environments.
+
+## Retrieve audit informationâ
+
+The **Strategy Builder** also includes a button to export your audit document. Select the **Export audit** button to download a `.cvs` file detailing all past audits done to the strategy.
+
+## Rule monitoring and Shadow modeâ
+
+When defining a rule state, you have the option to define your rule to launch in **shadow mode**.
+
+This is used for testing, as the rule will be up and running but all actions and informations pertaining to that rule will be gathered and stored internally for analysis purposes.
+
+After the strategy is published, select the **Monitoring panel** button to open the **rule monitoring panel**. This panel contains with the details of the **live rules** and **shadow rules** results of the publication.
+
+The user can now see the results for both the live and shadow rules and compare them. This area shows the **alert rate** , **approve rate** and **decline rate** for both live and shadow rules in the following time windows:
+
+  * Last hour
+  * Last day
+  * Last week
+  * Last two weeks
+  * Since publication
+
+
+
+To choose your time window, open the dropdown list in the panel and select the desired time window. You can refresh your results at any given time by selecting the  icon next to the dropdown list in the panel.
+
+To close the panel, either select the  icon or switch to another channel in the channel navigation bar.
+
+## Define decision group table display densityâ
+
+The decision group tables can be adjusted for a more suitable look for the user. You can choose between **three** different display density options: **default** , **comfortable** and **compact**. This can be set individually for each of the decision group tables.
+
+To do this, select the  button and select your desired display density from the dropdown list.
+
+## Next stepsâ
+
+Now that you have learned about the Strategy Builder page and its features, you can proceed in different ways:
+
+  * If your strategy needs adjustments, you can continue to the rules writing process to add new rules or adjust existing rules;
+  * Once you are done building and adjusting your strategy, you can publish it by selecting the **Publish** button.
+
+
+
+
+
+================================================================================
+  PAGE 12 of 12
+
+================================================================================
+
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing-pages/operators
+Title: Operators in Rule Writing | Rule Monitoring
+============================================================
+
+On this page
+
+# Operators in Rule Writing
+
+Was this page helpful?Â 
+
+Operators provide flexible writing capabilities that enable you to write rules according to your business needs. The rule [creation form](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules/rule-writing#create-a-rule) displays different operators depending on the selected conditions.
+
+This page details the different available operators by type:
+
+  * Defined values comparison
+  * List values
+  * Schema comparison
+  * Strings check
+
+
+
+## Defined values comparisonâ
+
+These operators compare the selected field with a specific value defined in the rule. For example, you can use this operator to check if the amount is greater than or equal to 1000.
+
+This type includes the following operators:
+
+  * **Equal to** ;
+  * **Not equal to** ;
+  * **Greater than** ;
+  * **Equal or greater** ;
+  * **Less than** ;
+  * **Equal or less** ;
+  * **Is empty** ;
+  * **Is not empty**
+
+
+
+## List valuesâ
+
+These operators allow you to validate if a field is present (or not) in a specific list or if a list contains a specific field.
+
+This type includes the following operators:
+
+  * **Is present** ;
+  * **Is not present** ;
+  * **Contains** ;
+  * **Does not contain**
+
+
+
+The **Is present** and **Is not present** operators are used to validate if the select field is (or not) present in a specific list. For example, you can use this operator to check if the _Acceptor Country_ value is in the _Very High Risk Geographies_ block list.
+
+The **Contains** and **Does not contain** operators are used to validate if a specific list contains (or not) a specific value. For example, you can use this operator to check if the Posneg Listed Countries contains a specific country.
+
+## Schema comparisonâ
+
+These operators are used to compare different fields. For example, you can check if a card's last 4 digits are equal to a card's bin.
+
+This type includes the following operators: **Equal** , **Not equal to** , **Greater than** and **Less than**.
+
+  * **Equal** and **Not equal to** compare fields of the same type (i.e. numeric vs numeric, alphanumeric vs alphanumeric, and alphabetic vs alphabetic).
+  * **Greater than** and **Less than** compare numeric fields.
+
+
+
+## Strings checkâ
+
+These operators are used to search for a certain value in a specific event field. For example, you can check if a customer's phone number contains 1234.
+
+This type includes the following operators: **Contains** and **Does not contain**.
+
+## Learn moreâ
+
+Learn more about:
+
+  * What [rules](/rules/latest/docs/common/rules/overview) are and how they work.
+  * How to [manage](/rules/latest/docs/common/rules/user-guide/rules-experience/manage-rules) rules - create, edit, test, delete, and use the audit capabilities to have a clear understanding of all changes made.
+
+
+

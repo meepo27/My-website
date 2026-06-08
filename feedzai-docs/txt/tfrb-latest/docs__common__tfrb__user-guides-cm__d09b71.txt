@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/user-guides-cm
+Title: Fraud Prevention Agent | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * Fraud Prevention Agent
+
+
+
+# Fraud Prevention Agent
+
+Was this page helpful?Â 
+
+### [Investigate alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+
+### [File SAR](/tfrb/latest/docs/common/tfrb/file-sar)

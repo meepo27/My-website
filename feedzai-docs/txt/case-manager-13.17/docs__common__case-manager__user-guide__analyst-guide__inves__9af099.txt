@@ -1,0 +1,79 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/managing-notes-in-alerts
+Title: Manage Notes in Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/)
+  * [Review Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-intro)
+  * Manage Notes in Alerts
+
+
+
+On this page
+
+# Manage Notes in Alerts
+
+Notes help to support the investigation process. This page explains how to add and view notes while reviewing alerts or [entities](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/technical-concepts/entities) such as Customer, Merchant, or Account.
+
+## Add notesâ
+
+To add notes to alerts, perform the following steps:
+
+  1. Open the alert in which you want to add a note.
+  2. In the **Notes** widget, select the **Add Note** button. Alternatively, open the **More options** drop-down menu in the alert header and select the **Add Note** option.
+
+
+
+tip
+
+Press `.` on your keyboard to display the shortcuts menu and select the **Add note** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+  4. In the **Add Note** window, select what the note will be about, i.e. the current **Event** , or any of the entities (e.g. Customer, Merchant, Account, etc.) related to the event.
+
+
+
+Adding entity notes allows analysts to easily gather all available information about previous and related topics around a specific entity in a few seconds (for example, any other interactions and notes regarding the customer, or any previous alerts).
+
+  5. If you select to add an entity note, the **Note Type** field is displayed. Select a type to better categorize the new note, for example, _Customer Screening_ or _Screening Findings_.
+  6. Add any relevant information in the **Note** box and **Submit** your note.
+
+
+
+Besides adding notes to specific alerts, you can also add notes in the entity's page:
+
+  1. Open the entity (e.g. Customer, Merchant, Account, etc.) in which you want to add a note.
+  2. In the **Notes** widget, select the **Add Note** button. Alternatively, open the **More options** drop-down menu in the entity header and select the **Add Note** option.
+  3. In the **Add Note** window, select a type to better categorize the new note, for example, _Customer Screening_ or _Screening Findings_.
+
+
+
+  4. Add any relevant information in the **Note** box and **Submit** your note.
+
+
+
+In case you no longer want to add the note, select the **Discard** option to delete it.
+
+tip
+
+Use the  and  icons to minime or expand the **Add Note** window, respectively.
+
+info
+
+Draft mode is also available. If you need to gather additional information from a different page, you can navigate through Case Manager and still return to your note. For that, select **Add note** upon returning to the page of your original note and the drafted message will still be there.
+
+However, note that if you close the browser tab, sign out or if your session times out before saving, the note will be lost.
+
+## View notesâ
+
+In the Event Details page, the **Notes** widget includes all the notes added to the event, to the entities (e.g. Customer, Merchant, Account, etc.) related to the event, and to the other events involving the same entities. The **Origin** column shows where each note was added, i.e. the current event, another event, or the entity page.
+
+In the Event Details page, you can also see the notes in the **Activity Log** widget.
+
+In the entity's details page, the **Notes** widget includes all the notes added to the entity and to other events involving the same entity. The **Origin** column shows where each note was added, i.e. the current entity or an event.
+
+Use note types to categorize your notes in more detail, for example, Customer Screening. Then, by inserting one or several types into the Filter field, the list is filtered by the notes that match the selected types.
+
+## Learn moreâ
+
+Now that you know how to add notes to alerts, learn more about [Managing Files in Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/managing-files-in-alerts).

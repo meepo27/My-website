@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/creating-a-sandbox-evaluation
+Title: Creating a Sandbox Evaluation | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Testing your work in a Sandbox environment](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/)
+  * Creating a Sandbox Evaluation
+
+
+
+On this page
+
+# Creating a Sandbox Evaluation
+
+Was this page helpful?Â 
+
+## Whyâ
+
+By creating a Sandbox Evaluation, you will be able to test your Rule and Model projects as in a production environment. After setting up the rules and models you have specified, you will be able to test their performance over your [Data Sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) as if they were in Production, before deploying them.
+
+You can evaluate your rules and models, therefore being able to identify potential problems before deploying them and predict the performance of your system.
+
+## How toâ
+
+To create a Sandbox Evaluation, execute the following actions:
+
+  1. In the  **Data Science** tab, â add a Sandbox Evaluation.
+
+  2. Specify the **Data Source** , i.e. the data that will be tested in your Sandbox Evaluation. By choosing the **Partitioning Fields** , the Sandbox evaluates the performance of rules and models as it would do in workflows, once the solution is deployed. For example, select **Card** as a partition field: When the Sandbox Evaluation is created, all transactions from that card will have been processed together. Therefore, the node in charge of processing it will not have visibility of the transactions not associated to that card.
+
+  3. If the resources you are configuring require time-based metrics, specify the field of the **Data Source** that is to be used as the timestamp field.
+
+  4. Select the **Outcome Variable** , i.e. the ground truth: the value against which the evaluation will process its results.
+
+  5. Choose the **Resources** and [Outcome Combinator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/outcome-combinator). You can select as resources the **Models** and **Rules projects** you have created, the **Resource Parent** being such project.
+
+Reordering
+
+Bear in mind that you can reorder the resources so that your sandbox evaluations simulate a workflow as close as possible to the one that will be later deployed in production. By reordering the resources, the Sandbox Evaluation will simulate exactly the order in which events are processed.
+
+  6. Choose your **Reporting** configuration and create the evaluation. In this step, you will choose how the results of the evaluation will be presented. By selecting no **Additional Cost** and no **Breakdowns** , you will see all metrics in general. If you add an additional cost field, the system will collect all those metrics that are also weighed by a data source field (e.g. making rows with higher values of the field impact the metrics more).
+
+  7. You can also choose **Breakdowns** to analyze metrics according to the possible values of a categorical field in the data source. Breakdowns allow users to understand the impact of Rules and Models as segmented by the particular values of the breakdown fields that are selected, similarly to rules and models evaluations.
+
+
+
+
+## Next Stepsâ
+
+After creating your Sandbox Evaluation, you will be able to [Evaluate your Sandbox Results](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/testing-your-work-in-a-sandbox-environment/evaluating-your-sandbox-results). When the evaluation of the results is satisfactory, you will be able to move on to the [deployment of your work into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production).
+
+Check also [how Pulse projects work](/pulse/latest/docs/common/pulse/users-guide/how-pulse-projects-work) for some background to understand what is involved at this stage.

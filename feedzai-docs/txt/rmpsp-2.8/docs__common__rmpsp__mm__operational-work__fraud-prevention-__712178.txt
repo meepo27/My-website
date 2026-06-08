@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/overview
+Title: Daily Monitoring (standard) | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Fraud Prevention Agent](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/case-manager-guide)
+  * Daily Monitoring (standard)
+
+
+
+# Daily Monitoring (standard)
+
+Each merchant is assessed on a daily basis (i.e. every 24 hours), with each assessment resulting in a new event. The standard out-of-the-box configuration provides a comprehensive overview of merchant activity and risk within the specified cycle, with optimal performance.
+
+This guide provides you with the following information:
+
+  * [Event flow](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/event-flow)
+  * [Investigation flow](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/investigation-flow)
+  * [Investigate alerted events](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/fraud-prevention-agent/case-manager/daily-monitoring/investigate-alerts)
+
+

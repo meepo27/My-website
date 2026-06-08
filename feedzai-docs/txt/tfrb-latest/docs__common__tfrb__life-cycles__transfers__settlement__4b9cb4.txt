@@ -1,0 +1,86 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/settlement
+Title: Settlement Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * Settlement Endpoint
+
+
+
+On this page
+
+# Settlement Endpoint
+
+Was this page helpful?Â 
+
+The Settlement endpoint allows you to inform Feedzai when a transaction is settled. Note that this endpoint is non-scorable, i.e. it does not flow through rules in order to generate a decision. However, the information is used by the Feedzai's risk engine platform to calculate metrics and profiles, and thus, impacts subsequent transfers associated with the same customer. It is also shown in the fraud analyst interface (Case Manager) as a new event to support the alert investigation.
+
+Since the settlement of a transfer is strongly dependent on the processing model, this section presents the end-to-end life cycle for the most common processing models.
+
+The following diagram shows the end-to-end process for the ACH model:
+
+The steps depicted in the previous image for the integration at the **sender bank (top figure)** are the following:
+
+  1. The sender initiates a transfer directly with the sender bank.
+  2. The sender bank sends an API request via the **Transfer Initiation** endpoint.
+  3. The sender bank sends the transfer instructions corresponding to several senders to the clearing mechanism (e.g. ACH) via batch.
+  4. The clearing mechanism processes the transfers instructions, and reconciles them.
+  5. The ACH **accepts/acknowledges** to initiate the settlement.
+  6. The sender bank sends an API request via the **Settlement** endpoint to inform Feedzai about this process.
+
+
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities (e.g. Card, Customer, or Account) have a match in the Reference Data Storage.
+
+info
+
+Note that any new data from transfer settlement events (e.g. new `sender_card_category`) will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  7. The ACH sends the transfer instructions to the receiver bank.
+  8. The RGTS sends the settlement message to the receiver bank.
+
+
+
+The steps for the API integration at the receiver bank follow the same logic as the sender bank end; however, in this case, the receiver bank sends the API calls with the transfer initiation and settlement.
+
+The following diagram shows the end-to-end process for the Correspondent Banking and Peer-to-Peer models:
+
+The steps depicted in the previous image for the integration at the **sender bank (top figure)** are the following:
+
+  1. The sender initiates a transfer directly with the sender bank.
+  2. The sender bank sends an API request via the **Transfer Initiation** endpoint.
+  3. The sender bank receives the transfer instructions and debits the sender's account. The sender bank sends the transfer instructions to the receiver bank.
+  4. The receiver bank receives the message from the sender bank, **accepts/acknowledges** and deducts a transaction fee. It also receives the instructions to credit the receiver's account.
+  5. Based on the **accept/acknowledge** message, the sender bank sends the settlement instructions to the receiver bank.
+  6. The receiver bank receives the settlement instructions.
+  7. The sender bank sends an API request via the **Settlement** endpoint to inform Feedzai about this process.
+  8. The receiver's account is updated with the funds.
+
+
+
+For the integration with the receiver bank (example on the bottom figure), the transfer needs to be sent to Feedzai for scoring (see step 4) before the settlement take place (see step 5).
+
+The following diagram shows the end-to-end process for the Real-time Gross Transfer model:
+
+The steps depicted in the previous image for the integration at the **sender bank (top figure)** are the following:
+
+  1. The sender initiates a transfer directly with the sender bank.
+  2. The sender bank sends an API request via the **Transfer Initiation** endpoint.
+  3. The sender bank receives the transfer instructions and debits the sender's account. The sender bank sends the transfer instructions to the RGTS (i.e. settlement platform).
+  4. The RGTS **accepts/acknowledges** to initiate the settlement.
+  5. The sender bank sends an API request via the **Settlement** endpoint to inform Feedzai about this process.
+  6. The RGTS sends the transfer instructions to the receiver bank.
+  7. The RGTS sends the settlement message to the receiver bank.
+
+
+
+The steps for the API integration at the receiver bank follow the same logic as the sender bank end; however, in this case, the receiver bank sends the API calls with the transfer initiation and settlement.
+
+## Learn moreâ
+
+Check the [Feedback Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/feedback) page to continue learning about the endpoints' life cycles.

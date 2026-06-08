@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse-dsf
+Title: Configuration Recommendations for Data Science Environment | Feedzai Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations for Data Science Environment
+
+##### tip
+
+For the full Pulse configuration refer to the official [Configuration Reference](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=1272), the recommended [Production Setup](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=926) and [Data Science Setup](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=911).
+
+### Ansibleâ
+
+##### note
+
+Available ansible variables for running the Data Science ansible playbook. These variables are an addition to the variables described in [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+Variable| Default Value| Description  
+---|---|---  
+jupyterlab_docker_image| docker.feedzai.com/feedzai/jupyterlab:{{ jupyterlab_version }}| Feedzai JupyterLab Docker Image  
+hdfs_feedzai_user| pulse| User that will be the owner of the folders created on Hadoop master nodes  
+hadoop_master_node| "hadoop_master"| Hadoop master node hostname  
+hadoop_conf_path| "/etc/hadoop/conf"| Hadoop configuration folder in the master nodes  
+spark_libs_install_path| "{{ pulse_install_path }}/product-pulse-{{ pulse_version }}"| Source path to Spark libs on the Pulse node  
+pulse_jupyterlab_setup_docker| true| Flag to enable setup of JupyterLab  
+model_training_directory| "hdfs:///user/pulse/models"| The directory location where trained models should be saved. This directory can be a local or distributed (HDFS) filesystem.  
+model_storage_directory| "hdfs:///user/pulse/models"| The directory location where imported models through App Collaboration should be saved. This directory can be a local or distributed (HDFS) filesystem  
+model_hpt_directory| "hdfs:///user/pulse/hpt-models"| The directory location where the hyperparameter tuning models should be saved between model training and evaluation. This directory can be a local or distributed (HDFS) filesystem.  
+pulse_jupyterlab_container_max_memory| 8589934592 (8GB)| The maximum memory (in KB) allowed for JupyterLab containers. Other units can be used instead, e.g. `512m` would set maximum memory to 512 MB.  
+pulse_loggers| {}| Controls extra loggers to be enabled in Pulse. Keys in this dictionary are the loggers and the values the log level for that logger.

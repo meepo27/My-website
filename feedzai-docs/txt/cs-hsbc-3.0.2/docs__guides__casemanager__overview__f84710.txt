@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/guides/casemanager/overview
+Title: Overview | Feedzai Documentation
+============================================================
+
+# Overview
+
+This page provides you with a set of Case Manager Guides.
+
+| Automation Rules  
+---|---  
+This page provides you with the first version of HSBC operations flows with the corresponding [Automation Rules](/cs-hsbc/3.0.2/docs/guides/casemanager/automation-rules).  
+| SLAs  
+This page provides you with the first version of HSBC operations flows with the corresponding [SLAs](/cs-hsbc/3.0.2/docs/guides/casemanager/slas).  
+| Case Manager Event Enrichment via Pulse Lists  
+This page provides you with a guide on how to use [Event Enrichment](/cs-hsbc/3.0.2/docs/guides/casemanager/event-enrichment) via Pulse Lists.

@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4239
+Title: HSBC-4239 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4239
+
+### Add Transaction Block Code to Cardsâ
+
+FeatureFTMT-30641FTMT-34449HSBC-3667
+
+FeatureFTMT-34504FTMT-34504HSBC-3984HSBC-4044
+
+FeatureFTMT-32330HSBC-4031
+
+FeatureFTMT-29506FTMT-34942HSBC-4120
+
+FeatureFTMT-32330HSBC-4143
+
+FeatureFTMT-27481HSBC-4212
+
+We've added a set of changes for both Pulse and Case Manager to introduce the Transaction Block Code feature, for Cards event.
+
+Given this work has been done in multiple tasks, we've outlined the major changes in [Transaction Block Page](/cs-hsbc/3.0.2/docs/concepts/transaction-block).

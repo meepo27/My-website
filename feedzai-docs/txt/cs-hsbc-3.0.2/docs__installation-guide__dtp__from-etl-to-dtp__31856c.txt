@@ -1,0 +1,344 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/dtp/from-etl-to-dtp
+Title: Migrating from ETL to DTP | Feedzai Documentation
+============================================================
+
+On this page
+
+# Migrating from ETL to DTP
+
+This page explains the key differences between **ETL** and **DTP** extractions, with a focus on the additional fields each tool retrieves beyond the standard schema fields.
+
+For detailed schema information, see:
+
+  * [DTP Extractions Schema](/cs-hsbc/3.0.2/docs/installation-guide/dtp/extractions-dtp)
+  * [ETL Extractions Schema](/cs-hsbc/3.0.2/docs/installation-guide/etl/extractions-etl)
+
+
+
+## ETLâ
+
+Below you can find a CSV example of an extraction, take into account that it may not represent the exact structure since the fields are obtained from the current Pulse workflow:
+    
+    
+    lifecycle_id,bulk_id,payment_type,payment_sub_type,product_code,payment_status,created_at,cutoff_at,sender_initiated_at,requested_execution_at,number_of_payments,recurring_payment,sender_transaction_amount,sender_transaction_currency,sender_transaction_bank_account_number,sender_transaction_notes,sender_bank_name,sender_bank_postal_code,sender_bank_address,sender_bank_city,sender_bank_country_code,receiver_bank_bic,receiver_bank_name,receiver_bank_postal_code,receiver_bank_address,receiver_bank_city,receiver_bank_country_code,receiver_transaction_amount,receiver_transaction_currency,receiver_transaction_bank_account_number,receiver_city,receiver_country_code,device_type,device_longitude,device_latitude,event_type,event_external_id,info_type,dispute_start_date,dispute_reason,dispute_notes,dispute_submitted_by,dispute_end_date,dispute_feedback_notes,dispute_refunded,oob_start_date,oob_comm_type,oob_notes,oob_end_date,oob_feedback_notes,oob_response_type,feedback_type,feedback_label,sender_name,sender_email,sender_phone,sender_zip,sender_dob,sender_occupation_status,sender_account_bic,sender_account_type,sender_account_currency,sender_account_balance,receiver_id,receiver_name,receiver_email,receiver_phone,receiver_street_addr,receiver_zip,receiver_region,receiver_dob,receiver_account_type,receiver_account_currency,direction,device_id,channel_type,sender_bank_sort_code,sender_bank_branch_id,receiver_bank_sort_code,receiver_bank_routing_number,event_occurred_at,segment_channel_type,auth_type,device_ip_country_code,session_id,device_language,sender_alias_type,text_for_receiver,device_user_agent,device_fingerprint,instant_transfers_review_outcome,device_browser,device_ip_region,feedback_value,sender_account_zip,sender_bank_type,condor_rule_code,receiver_cop_name,receiver_cop_match_name,office_id,recurring_payment_schdl_info,sender_account_ownership,payment_sca_proc_code,customer_market_segment,sender_transaction_type,sender_transaction_auth_type,payment_message_type,payment_revision_code,receiver_account_bank_id,receiver_bank_type,tpp_name_alt,tpp_payee_payer,number_of_payments_count,sender_phone_chg_date,customer_home_branch,recurring_payment_ref,payment_remittance_info,sender_transaction_ref,phone_session_id,user_guid,customer_onboarding_method,sender_transaction_cat_code,sender_orig,payment_related_ref,sender_transaction_narrative,sender_transaction_cop_name,sender_transaction_cop_matname,sender_bank_status,sender_account_number_external,receiver_email_chg_date,sender_email_chg_date,receiver_bank_status,receiver_merchant_category,receiver_details,tpp_name,payment_saf,customer_total_balance,customer_reported_income,customer_citizen_id_number,customer_preferred_language,customer_work_phone1_chg_date,customer_work_phone2_chg_date,customer_home_phone1_chg_date,customer_home_phone2_chg_date,customer_mob_phone1_chg_date,customer_mob_phone2_chg_date,customer_account_type,lifecycle_id_alt,customer_number_of_accounts,receiver_bank_addr_city,sender_transaction_original_amount,sender_transaction_original_currency,receiver_transaction_original_amount,receiver_transaction_original_currency,receiver_transaction_product,sender_transaction_reason,sender_transaction_product,sender_transaction_amount_usd,payment_message_source,sender_transaction_cop_result,browser_timezone,tpp_id,device_datetime,device_platform_type,customer_portfolio_region,customer_portfolio_product,customer_portfolio_channel,customer_portfolio_country,customer_portfolio_type,device_tdl,customer_change_new,customer_change_old,consent_id,device_cpu_class,device_fingerprint_type,device_banking_type,device_ip_address_v6,website_name,channel_user_id,pinpoint_risk_score,source,sender_transaction_exp_date,sender_transaction_code,auth_cam_level,customer_number,sender_transaction_sign_status,device_platform_type_reason,account_type,auth_method,request_type,customer_portfolio,customer_id_global,customer_id_external,customer_address_chg_date,customer_phone_chg_date,customer_email_chg_date,sender_transaction_sole_ind,customer_account_number,customer_account_currency,customer_account_zip,customer_account_country,customer_account_nr_external,user_id_type,channel_daily_limit_currency,channel_name,staff_id,workstation_id,device_token_serial_no,device_mac_address,payment_entity,sender_transaction_details_ind,sender_transaction_category,sender_transaction_ref_nr,sender_transaction_ref_nr_alt,sender_transaction_stat,sender_transaction_stat_reason,sender_transaction_effect_date,customer_change_reason_alt,customer_change_delivery,user_indicator,user_string,user_amount,customer_card_number,entity_id,entity_type,idv_session_id,event_code,device_geo_ip_city,device_geo_ip_country_code,device_geo_ip_isp,device_geo_longitude,device_geo_latitude,website_refferer_url,device_geo_timezone,device_gps_enabled,device_data_enabled,device_wifi_bssid_connected,device_wifi_in_range,sanction_check,device_bluetooth_enabled,device_bluetooth_devices_conn,device_bluetooth_detected_list,device_imsi,device_mcc,device_untrusted_keyboard,device_untrusted_screen_reader,device_hooking_frameworkds,devide_native_codehooks,device_application_repackaged,device_debugger_attached,device_javascript_malformed,device_print,device_raw_jsc,device_is_desktop,device_is_gameconsole,device_rooted,device_risk_score,device_timezone,device_ip_city,device_ip_latitude,device_ip_longitude,event_status,customer_country_code,customer_zip_code,customer_segment,customer_name,customer_dob,customer_address,customer_phone_number,customer_email,customer_branch_id,customer_id,account_id,device_emulator,device_java_script_enabled,sender_transaction_held,payment_restricted_template,sender_transaction_new_bene,payment_type_direct_debit,payment_type_self_acc,device_wifi_status,sender_urgency,device_timezone_offset,sender_initiated_at_local,sender_account_avg_balance,channel_daily_limit,event_server_validated_at,event_updated_at,user_id,receiver_account_bank_name,payment_ref,device_os,customer_change_data_new,payment_type_sub_type,device_es_id,txn_type,device_dev_id,external_status_reason,external_preliminary_decision,device_isp,is_scoring,billing_currency_code,change_event_delivery,customer_change_data_old,device_ip_address,overnight_acc_ledger_bal,receiver_transaction_amount_dbl,sender_account_balance_dbl,sender_account_open_date,sender_transaction_amount_dbl,var_recurring_payment,receiver_creation_date,sender_registration_date,event_received_at,event_created_at,customer_fiv_marker,customer_fiv_marker_last_updated_at,customer_gender_code,customer_earnings_amt_snapshot_dt,current_account_monthly_debit_amount,phone_bank_use_code,customer_current_account_balance,customer_salary_amount,customer_forname,customer_surname,customer_home_street_addr,customer_home_city,customer_home_zip,customer_home_zip_area_code,customer_home_region,customer_home_country_code,customer_home_address_last_update_at,customer_corresp_street_addr,customer_corresp_city,customer_corresp_zip,customer_corresp_zip_area_code,customer_corresp_region,customer_corresp_country_code,customer_corresp_address_last_update_at,customer_email_last_update_at,customer_home_phone,customer_mobile_phone,customer_daytime_work_phone,customer_business_phone,customer_hmphone_last_update_at,customer_mbphone_last_update_at,customer_wrkphone_last_update_at,customer_businessphone_last_update_at,customer_registration_date,customer_citizenship,customer_portfolio_class,is_historic,saf_ind,customer_fiv_markers,customer_pb_marker,customer_portfolio_segment,customer_voice_id,customer_voice_id_last_change_date,customer_annual_turnover,customer_business_type,customer_chinese_comm_code,customer_rm_info,customer_marital_status,invalid_email_indicator,sender_account_channel_limit_double,sub_channel_name,customer_id_number,gift_indicator_code,customer_status,customer_rel_status,customer_type,customer_id_hashed,model_risk_score,bank_processing_application,bank_processing_type,reversal_indicator,check_book_request_date,cash_form,check_number,thailand_fps_ind,gpb_manual_payment_ind,scameter_warning,sender_billing_amount,new_customer_flag,customer_id_type,new_receiver_flag,receiver_creation_date_customer,customer_occupation_start_date,count_months_beneficiary_received_funds,avg_total_daily_transfer_out,avg_monthly_transfer_in,browser_os_version,costumer_id_global,customer_portfolio_phys_type,customer_portfolio_remote_type,ds_transaction_id,payment_message_source_d,sender_transaction_origin_amount,sender_transaction_origin_currency,sender_transaction_reason_d,sender_transaction_sign_stts_d,customer_change_reason,sender_account_channel_limit,delegate_id,delegate_initiated,approver_id,transaction_id,delegate_of,delegates,sender_transaction_extra_1,sender_transaction_extra_2,sender_transaction_extra_3,customer_additional_info_1,customer_additional_info_2,customer_additional_info_3,customer_additional_info_4,account_holder_customer_id,payment_above_limit,customer_alias,ecw_question_and_answer_details,ecw_final_action,ecw_answers_changed,ecw_duration,ecw_payment_details_changed,ecw_purpose_of_payment,ecw_country_payment_description,ecw_pop_cpd_mapped,ecw_response_time,payment_execution_type,request_correlation_id,sfr_moneylock_hold_bal,sfr_total_hold_bal,delegate_without_product_indicator,sender_product_type,beneficiary_proxy_account_number,vocalink,tmx,fdz_channel,bioc,FDZ_UUID,Customer average payment amount last day,rules_triggered,formatted_results,outcomes_and_scores  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,b398a9e1-3900-4753-ad45-8310ea5837234,sepa,credit_transfer,,entered,1554198919000,1554198919000,1554196919000,1554996919000,1,true,155000.0,270,5d2cf69d-2e0f-468c-981b-2e80f7419b4c,Notes on the transaction.,Gringotts,WC2N 5DU,Diagon Alley 33,London,440,4ad3fe88-317b-4b31-ad9b-9136424c17ad,Receiver Bank,WC7N 7EW,Some Avenue 77,Manchester,440,155000.0,270,9a08f316-df1f-4096-9a2d-a904a82bb65e,receiver_city,440,web browser,-31.3643,-77.4773,transfer_initiation,,out_of_band,1554196919000,test,Very fraudulent.,test,1554196919000,,,1554196919000,test,Contacted John Doe to confirm.,1535477895438,The client called to confirm it was not him making that transaction.,call,out_of_band,,Sender Joe Doe,[[email protected]](/cdn-cgi/l/email-protection),001122334455,,19900101,looking for a new project,PTCDG,CREDIT,270,1110000.0,receiver_id,Receiver Joe Doe,[[email protected]](/cdn-cgi/l/email-protection),001122334455,receiver_street_addr,receiver_zip,receiver_region,19900101,CREDIT,270,outgoing,7823d84a-6acc-43e6-84b2-dddc3122a248,branch,,,,,1764178132876,,password,440,53fcc910-f92c-4cd5-84b6-4d437da309ca,be-440,,,"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_8_6)  AppleWebKit/532.0.2 (KHTML, like Gecko) Chrome/14.0.855.0 Safari/532.0.2",,false,Brave,OT,true,,,,,,,,,,,,,,,,,,,1758901473241,0001-01-01,,,,,,,,,,,,,,,,0001-01-01,0001-01-01,,,,,,,,,,,,,,,,,,483,,395.75,270,,,,,,155000.0,,,,,1758901473241,,,,,feedzai,,,,,,,,,,,,,,0001-01-01,,,,,,,,,,,,0001-01-01,0001-01-01,0001-01-01,,,270,,,,,270,,,,,,,,,,,,,0001-01-01,,,"[""Eulah.Hammes24""]","[""Ludie_Denesik""]",[771.0],,,,,,,440,,-140.6989,2.337,,,false,true,,false,true,false,,,,,true,false,false,true,true,true,false,,,true,true,true,21,-07:00,New Dejaport,-48.0299,104.4205,success,440,66720-331,commercial_banking,Fraudulent Joe,0001-01-01,224 Benjamin Flats,836-342-5605,[[email protected]](/cdn-cgi/l/email-protection),,customer_1,d68107b9-0d6c-47e9-a547-5e6ac5103e67,false,true,true,false,true,false,false,false,,,,973.0,441.0,1758901473241,,,,,ioss,,,,,,,,,,270,55551222,,161.223.207.161,100.5,400.75,1200.75,1668683369590,400.75,0,1758364512397,1354398919000,1764178132988,1758901473241,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,true,13800.0,BS,0HKHSXXXXXX796256,964,Insane,,,2d18c716ba930802d187654c99fd097f5530f1479065428caa1a3ee1q7421,0.89,,,,1716369476000,,,,,,1.2345233222E8,D,V,,,,,,,,,,,,,10,270,,,,,,false,,,,,Sender Transaction Additional Info 1,Sender Transaction Additional Info 2,Sender Transaction Additional Info 3,Customer Additional Info 1,Customer Additional Info 2,Customer Additional Info 3,Customer Additional Info 4,account_holder_customer_id,false,,SQ1.SA2.SQ4.SA3.SQ8.SA1.W3,CON,Y,00.00.44.08,Y,RENT,RENT,Y,03.08,FDP,VRWER3452BVQR2,1225.98,1225.98,true,UFAAE,beneficiary_proxy_account_number,"{""vocalink_score"":20.0,""mastercard_id"":"""",""alert_id"":""5aa89b5b-9fc0-4faf-bfaf-c0454611d129"",""source_account_id"":""ada0e7c4-5705-4b76-8be8-6b3ccf8dafa0"",""destination_account_id"":""21837091-a0d2-4e16-a26c-c6cdd67a66fb"",""transaction_id"":""f211956c-4485-44e1-a4f5-505dffbbcb50"",""transaction_value"":123.0,""score_generated_at"":1554198919000,""transaction_currency"":""270""}","{""fuzzy_device_id"":"""",""ip_city"":"""",""ip_country"":"""",""ip_longitude"":10.1339,""ip_latitude"":50.3646,""chall_policy_score"":780.0,""ip_address"":"""",""digital_id"":"""",""device_isp"":"""",""summary_reason_code"":"""",""policy_score"":21.0,""risk_score"":21.0,""device_dev_id"":"""",""request_id"":"""",""true_isp"":null,""proxy_isp"":null,""dns_isp"":null}",TRANSFERS,"{""is_bot"":false,""is_emulator"":true,""voice_scam_score"":911,""is_malware"":false,""is_rat"":false,""is_recent_rat"":false,""custom_risk"":21.0,""custom_risk_aliases"":""risk_alias"",""push_score"":null,""is_mobile_rat"":null,""pinpoint_risk_score"":null,""risk_score"":21.0,""chall_policy_score"":null}",02348085-801c-45ff-bdc3-80204ad5e789,,lCyKop_QjP45br_tEjlNcg;lUQqjQhs2CSSxrRspC9NeQ;mGBzsBs9IOyaQn4hbg5E7g,"[{""explanation"":""Customer name is Fraudulent Joe"",""ruleId"":""lCyKop_QjP45br_tEjlNcg""}]","{""scam"":{""outcomeDecision"":false,""score"":0.0},""fraud"":{""outcomeDecision"":true,""score"":0.0},""decision"":{""outcomeDecision"":""approve"",""score"":[0.0,0.0,0.0]},""risk_level"":{""outcomeDecision"":""low"",""score"":[0.0,0.0,0.0]},""shadow_scam"":{""outcomeDecision"":false,""score"":0.0},""sca_required"":{""outcomeDecision"":true,""score"":0.0},""shadow_fraud"":{""outcomeDecision"":false,""score"":0.0},""treatment_strategy"":{""outcomeDecision"":""mobile_push_notification"",""score"":[0.0,0.0,0.0,0.0]},""self_serve_strategy"":{""outcomeDecision"":""ivr_self_no"",""score"":[0.0,0.0,0.0,0.0,0.0]}}"  
+    
+
+Copy
+
+### Unique identifier (`FDZ_UUID`)â
+
+This field is a unique identifier for every event extracted.
+    
+    
+    lifecycle_id,...,FDZ_UUID,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,02348085-801c-45ff-bdc3-80204ad5e789,...  
+    
+
+Copy
+
+### Scheduled metricsâ
+
+For every scheduled metric there will be a field with the name of the metric, e.g. `count_benefname_90d`.
+    
+    
+    lifecycle_id,...,count_benefname_90d,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,10,...  
+    
+
+Copy
+
+### Actions triggered (`action_X`)â
+
+When this option is enabled the configured actions on the workflow are extracted as multiple fields, there's a field for every action.
+
+Every field is a concatenation of `action_` with the name of the configured action, e.g.: `action_alert`. Then, for every field, it is said if the action was triggered or not (true/false).
+    
+    
+    lifecycle_id,...,action_alert,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,true,...  
+    
+
+Copy
+
+### Rules triggered (`rules_triggered`)â
+
+This field includes a semicolon-separated list of rule ids that were triggered by the extracted event.
+    
+    
+    lifecycle_id,...,rules_triggered,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,lCyKop_QjP45br_tEjlNcg;lUQqjQhs2CSSxrRspC9NeQ;mGBzsBs9IOyaQn4hbg5E7g,...  
+    
+
+Copy
+
+### Rules explanations (`formatted_results`)â
+
+This field is a list of triggered rules with an explanation of why it was triggered.
+    
+    
+    lifecycle_id,...,formatted_results,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,[{"explanation":"Customer name is Fraudulent Joe","ruleId":"lCyKop_QjP45br_tEjlNcg"}],...  
+    
+
+Copy
+
+### Outcomes (`outcomes_and_scores`)â
+
+This field is a JSON object that contains all the configured **outcomes** (e.g.: `fraud`, `decision`).
+    
+    
+    lifecycle_id,...,outcomes_and_scores,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,{"scam":{"outcomeDecision":false,"score":0.0},"fraud":{"outcomeDecision":true,"score":0.0},"decision":{"outcomeDecision":"approve","score":[0.0,0.0,0.0]},"risk_level":{"outcomeDecision":"low","score":[0.0,0.0,0.0]},"shadow_scam":{"outcomeDecision":false,"score":0.0},"sca_required":{"outcomeDecision":true,"score":0.0},"shadow_fraud":{"outcomeDecision":false,"score":0.0},"treatment_strategy":{"outcomeDecision":"mobile_push_notification","score":[0.0,0.0,0.0,0.0]},"self_serve_strategy":{"outcomeDecision":"ivr_self_no","score":[0.0,0.0,0.0,0.0,0.0]}},...  
+    
+
+Copy
+
+## DTPâ
+
+The DTP extractions are stored in parquet format, to have a CSV the output needs to be converted.
+
+Below you can find a CSV example of an extraction (converted from parquet), take into account that it may not represent the exact structure since the fields are obtained from the current Pulse workflow:
+    
+    
+    FDZ_PARTITION_INDEX,FDZ_TENANT_KEY,FDZ_UUID,FDZ_timestamp,FDZ_SCHEMA_UID,FDZ_RESULTS,FDZ_OUTCOMES,FDZ_TRIGGERED_ACTIONS,FDZ_SOURCE_ID,FDZ_WKFL_STATE,FDZ_INTERNAL_STATE,FDZ_DIFFS,FDZ_EXPOSED_SCHEMA_DIFFB,account_holder_customer_id,account_id,account_type,approver_id,auth_cam_level,auth_method,auth_type,avg_monthly_transfer_in,avg_total_daily_transfer_out,bank_processing_application,bank_processing_type,beneficiary_proxy_account_number,billing_currency_code,bioc,browser_os_version,browser_timezone,bulk_id,cash_form,change_event_delivery,channel_daily_limit,channel_daily_limit_currency,channel_name,channel_type,channel_user_id,check_book_request_date,check_number,cmd_auth_cam_level,cmd_auth_method,cmd_channel_type,cmd_event_description,cmd_payment_status,cmd_payment_type,cmd_payment_type_sub_type,cmd_receiver_bank_address,cmd_receiver_bank_name,cmd_receiver_bank_post_code,cmd_sender_account_type,cmd_sender_bank_address,cmd_sender_bank_name,cmd_sender_bank_post_code,cmd_sender_transaction_cop_result,condor_rule_code,consent_id,costumer_id_global,count_months_beneficiary_received_funds,created_at,current_account_monthly_debit_amount,Customeraveragepaymentamountlastday,customer_account_country,customer_account_currency,customer_account_nr_external,customer_account_number,customer_account_type,customer_account_zip,customer_additional_info_1,customer_additional_info_2,customer_additional_info_3,customer_additional_info_4,customer_address,customer_address_chg_date,customer_alias,customer_annual_turnover,customer_branch_id,customer_business_phone,customer_business_type,customer_businessphone_last_update_at,customer_card_number,customer_change_data_new,customer_change_data_old,customer_change_delivery,customer_change_new,customer_change_old,customer_change_reason,customer_change_reason_alt,customer_chinese_comm_code,customer_citizen_id_number,customer_citizenship,customer_corresp_address_last_update_at,customer_corresp_city,customer_corresp_country_code,customer_corresp_region,customer_corresp_street_addr,customer_corresp_zip,customer_corresp_zip_area_code,customer_country_code,customer_current_account_balance,customer_daytime_work_phone,customer_dob,customer_earnings_amt_snapshot_dt,customer_email,customer_email_chg_date,customer_email_last_update_at,customer_fiv_marker,customer_fiv_marker_last_updated_at,customer_fiv_markers,customer_forname,customer_gender_code,customer_hmphone_last_update_at,customer_home_address_last_update_at,customer_home_branch,customer_home_city,customer_home_country_code,customer_home_phone,customer_home_phone1_chg_date,customer_home_phone2_chg_date,customer_home_region,customer_home_street_addr,customer_home_zip,customer_home_zip_area_code,customer_id,customer_id_external,customer_id_global,customer_id_hashed,customer_id_number,customer_id_type,customer_marital_status,customer_market_segment,customer_mbphone_last_update_at,customer_mob_phone1_chg_date,customer_mob_phone2_chg_date,customer_mobile_phone,customer_name,customer_number,customer_number_of_accounts,customer_occupation_start_date,customer_onboarding_method,customer_pb_marker,customer_phone_chg_date,customer_phone_number,customer_portfolio,customer_portfolio_channel,customer_portfolio_class,customer_portfolio_country,customer_portfolio_phys_type,customer_portfolio_product,customer_portfolio_region,customer_portfolio_remote_type,customer_portfolio_segment,customer_portfolio_type,customer_preferred_language,customer_registration_date,customer_rel_status,customer_reported_income,customer_rm_info,customer_salary_amount,customer_segment,customer_status,customer_surname,customer_total_balance,customer_type,customer_voice_id,customer_voice_id_last_change_date,customer_work_phone1_chg_date,customer_work_phone2_chg_date,customer_wrkphone_last_update_at,customer_zip_code,cutoff_at,decision,decision_scores,delegate_id,delegate_initiated,delegate_of,delegate_without_product_indicator,delegates,device_application_repackaged,device_banking_type,device_bluetooth_detected_list,device_bluetooth_devices_conn,device_bluetooth_enabled,device_browser,device_cpu_class,device_data_enabled,device_datetime,device_debugger_attached,device_dev_id,device_emulator,device_es_id,device_fingerprint,device_fingerprint_type,device_geo_ip_city,device_geo_ip_country_code,device_geo_ip_isp,device_geo_latitude,device_geo_longitude,device_geo_timezone,device_gps_enabled,device_hooking_frameworkds,device_id,device_imsi,device_ip_address,device_ip_address_v6,device_ip_city,device_ip_country_code,device_ip_latitude,device_ip_longitude,device_ip_region,device_is_desktop,device_is_gameconsole,device_isp,device_java_script_enabled,device_javascript_malformed,device_language,device_latitude,device_longitude,device_mac_address,device_mcc,device_os,device_platform_type,device_platform_type_reason,device_print,device_raw_jsc,device_risk_score,device_rooted,device_tdl,device_timezone,device_timezone_offset,device_token_serial_no,device_type,device_untrusted_keyboard,device_untrusted_screen_reader,device_user_agent,device_wifi_bssid_connected,device_wifi_in_range,device_wifi_status,devide_native_codehooks,direction,dispute_end_date,dispute_feedback_notes,dispute_notes,dispute_reason,dispute_refunded,dispute_start_date,dispute_submitted_by,ds_transaction_id,ecw_answers_changed,ecw_country_payment_description,ecw_duration,ecw_final_action,ecw_payment_details_changed,ecw_pop_cpd_mapped,ecw_purpose_of_payment,ecw_question_and_answer_details,ecw_response_time,entity_id,entity_type,event_code,event_created_at,event_external_id,event_occurred_at,event_received_at,event_server_validated_at,event_status,event_type,event_updated_at,external_preliminary_decision,external_status_reason,fdz_channel,feedback_label,feedback_type,feedback_value,fraud,fraud_score,gift_indicator_code,gpb_manual_payment_ind,idv_session_id,info_type,instant_transfers_review_outcome,internal_event_source,internal_payment_type,invalid_email_indicator,is_historic,is_scoring,isJade,lifecycle_id,lifecycle_id_alt,model_risk_score,new_customer_flag,new_receiver_flag,number_of_payments,number_of_payments_count,office_id,oob_comm_type,oob_end_date,oob_feedback_notes,oob_notes,oob_response_type,oob_start_date,overnight_acc_ledger_bal,payment_above_limit,payment_entity,payment_execution_type,payment_message_source,payment_message_source_d,payment_message_type,payment_ref,payment_related_ref,payment_remittance_info,payment_restricted_template,payment_revision_code,payment_saf,payment_sca_proc_code,payment_status,payment_sub_type,payment_type,payment_type_direct_debit,payment_type_self_acc,payment_type_sub_type,phone_bank_use_code,phone_session_id,pib_suspended,pinpoint_risk_score,product_code,receiver_account_bank_id,receiver_account_bank_name,receiver_account_currency,receiver_account_type,receiver_bank_addr_city,receiver_bank_address,receiver_bank_bic,receiver_bank_city,receiver_bank_country_code,receiver_bank_name,receiver_bank_postal_code,receiver_bank_routing_number,receiver_bank_sort_code,receiver_bank_status,receiver_bank_type,receiver_city,receiver_cop_match_name,receiver_cop_name,receiver_country_code,receiver_creation_date,receiver_creation_date_customer,receiver_details,receiver_dob,receiver_email,receiver_email_chg_date,receiver_id,receiver_merchant_category,receiver_name,receiver_phone,receiver_region,receiver_street_addr,receiver_transaction_amount,receiver_transaction_amount_dbl,receiver_transaction_bank_account_number,receiver_transaction_currency,receiver_transaction_original_amount,receiver_transaction_original_currency,receiver_transaction_product,receiver_zip,recurring_payment,recurring_payment_ref,recurring_payment_schdl_info,request_correlation_id,request_type,requested_execution_at,reversal_indicator,risk_level,risk_level_scores,saf_ind,sanction_check,sca_required,sca_required_score,scam,scam_score,scameter_warning,segment_channel_type,self_serve_strategy,self_serve_strategy_scores,sender_account_avg_balance,sender_account_balance,sender_account_balance_dbl,sender_account_bic,sender_account_channel_limit,sender_account_channel_limit_double,sender_account_currency,sender_account_number_external,sender_account_open_date,sender_account_ownership,sender_account_type,sender_account_zip,sender_alias_type,sender_bank_address,sender_bank_branch_id,sender_bank_city,sender_bank_country_code,sender_bank_name,sender_bank_postal_code,sender_bank_sort_code,sender_bank_status,sender_bank_type,sender_billing_amount,sender_dob,sender_email,sender_email_chg_date,sender_initiated_at,sender_initiated_at_local,sender_name,sender_occupation_status,sender_orig,sender_phone,sender_phone_chg_date,sender_product_type,sender_registration_date,sender_transaction_amount,sender_transaction_amount_dbl,sender_transaction_amount_usd,sender_transaction_auth_type,sender_transaction_bank_account_number,sender_transaction_cat_code,sender_transaction_category,sender_transaction_code,sender_transaction_cop_matname,sender_transaction_cop_name,sender_transaction_cop_result,sender_transaction_currency,sender_transaction_details_ind,sender_transaction_effect_date,sender_transaction_exp_date,sender_transaction_extra_1,sender_transaction_extra_2,sender_transaction_extra_3,sender_transaction_held,sender_transaction_narrative,sender_transaction_new_bene,sender_transaction_notes,sender_transaction_origin_amount,sender_transaction_origin_currency,sender_transaction_original_amount,sender_transaction_original_currency,sender_transaction_product,sender_transaction_reason,sender_transaction_reason_d,sender_transaction_ref,sender_transaction_ref_nr,sender_transaction_ref_nr_alt,sender_transaction_sign_status,sender_transaction_sign_stts_d,sender_transaction_sole_ind,sender_transaction_stat,sender_transaction_stat_reason,sender_transaction_type,sender_urgency,sender_zip,session_id,sfr_moneylock_hold_bal,sfr_total_hold_bal,shadow_fraud,shadow_fraud_score,shadow_scam,shadow_scam_score,source,staff_id,sub_channel_name,text_for_receiver,thailand_fps_ind,timestamp,tmx,tpp_id,tpp_name,tpp_name_alt,tpp_payee_payer,transaction_id,treatment_strategy,treatment_strategy_scores,txn_type,user_amount,user_guid,user_id,user_id_type,user_indicator,user_string,uuid,var_recurring_payment,vocalink,website_name,website_refferer_url,workstation_id  
+    0,feedzai,02348085-801c-45ff-bdc3-80204ad5e789,1764178132876,pP0Nb2qKXTKLXH1Bkx5HIA,"[{""explanations"":[{""@type"":""rule"",""reason"":""Customer name is Fraudulent Joe""}],""result"":{""@type"":""clarule"",""originalRuleId"":""mI_NayHmjUkeQiG8ByNK1g"",""outcome"":""true"",""ruleId"":""lCyKop_QjP45br_tEjlNcg"",""scores"":[],""targetOutcome"":""fraud"",""targetOutcomeLabel"":""fraud""},""sourceId"":""34a95d87-6934-4a99-a0a0-0ddb7e485fc2"",""weight"":0},{""explanations"":[],""result"":{""@type"":""clarule"",""originalRuleId"":""lWdQy83xgSh81tiMYg9EDA"",""outcome"":""mobile_push_notification"",""ruleId"":""lUQqjQhs2CSSxrRspC9NeQ"",""scores"":[],""targetOutcome"":""treatment_strategy"",""targetOutcomeLabel"":""treatment_strategy""},""sourceId"":""e112ef90-899a-4d9f-854c-4d4307f2d2a6"",""weight"":0},{""explanations"":[],""result"":{""@type"":""clarule"",""originalRuleId"":""lP7bp45ioG9Og22W9YBJMw"",""outcome"":""ivr_self_no"",""ruleId"":""mGBzsBs9IOyaQn4hbg5E7g"",""scores"":[],""targetOutcome"":""self_serve_strategy"",""targetOutcomeLabel"":""self_serve_strategy""},""sourceId"":""e1fa9a8a-f9f3-436a-9493-2ecf55df48fc"",""weight"":0}]","{""treatment_strategy"":{""@type"":""mulcla"",""outcomeDecision"":""mobile_push_notification"",""score"":[0.0,0.0,0.0,0.0]},""shadow_scam"":{""@type"":""bincla"",""outcomeDecision"":false,""score"":0.0},""risk_level"":{""@type"":""mulcla"",""outcomeDecision"":""low"",""score"":[0.0,0.0,0.0]},""scam"":{""@type"":""bincla"",""outcomeDecision"":false,""score"":0.0},""decision"":{""@type"":""mulcla"",""outcomeDecision"":""approve"",""score"":[0.0,0.0,0.0]},""self_serve_strategy"":{""@type"":""mulcla"",""outcomeDecision"":""ivr_self_no"",""score"":[0.0,0.0,0.0,0.0,0.0]},""sca_required"":{""@type"":""bincla"",""outcomeDecision"":true,""score"":0.0},""shadow_fraud"":{""@type"":""bincla"",""outcomeDecision"":false,""score"":0.0},""fraud"":{""@type"":""bincla"",""outcomeDecision"":true,""score"":0.0}}","[{""arguments"":{},""name"":""Alert"",""nestedSourceId"":""lCyKop_QjP45br_tEjlNcg"",""sourceId"":""34a95d87-6934-4a99-a0a0-0ddb7e485fc2""},{""arguments"":{},""name"":""Alert"",""nestedSourceId"":""lUQqjQhs2CSSxrRspC9NeQ"",""sourceId"":""e112ef90-899a-4d9f-854c-4d4307f2d2a6""},{""arguments"":{},""name"":""Alert"",""nestedSourceId"":""mGBzsBs9IOyaQn4hbg5E7g"",""sourceId"":""e1fa9a8a-f9f3-436a-9493-2ecf55df48fc""}]",cdb5fcfe-c429-436e-879b-1bf570bcb1eb,"{""data"":{""_FDZ_WF_MSG_PATH"":{""@class"":""com.feedzai.pulse.api.types.MessagePath"",""endCause"":""END"",""path"":{""34a95d87-6934-4a99-a0a0-0ddb7e485fc2"":""e112ef90-899a-4d9f-854c-4d4307f2d2a6"",""4af67db2-e709-4665-ab10-bdef3f92ac7c"":""2166c942-a3da-43ed-9f59-a404772cad99"",""2166c942-a3da-43ed-9f59-a404772cad99"":""e1fa9a8a-f9f3-436a-9493-2ecf55df48fc"",""cdb5fcfe-c429-436e-879b-1bf570bcb1eb"":""5342a480-e9d9-4ec2-b8b2-b80bd868537b"",""e112ef90-899a-4d9f-854c-4d4307f2d2a6"":""4af67db2-e709-4665-ab10-bdef3f92ac7c"",""5342a480-e9d9-4ec2-b8b2-b80bd868537b"":""ada6320a-561a-423d-86c4-c93ca9a79022"",""ada6320a-561a-423d-86c4-c93ca9a79022"":""a2324ae4-c5a2-4d46-ac85-a9c798d58e1a"",""a2324ae4-c5a2-4d46-ac85-a9c798d58e1a"":""34a95d87-6934-4a99-a0a0-0ddb7e485fc2""}},""_FDZ_WF_CHAN_ID"":""lFP84JvtvfsabvhkkhRM-w""}}","{""globalState"":{""data"":{""ALL_SCHEDULED_METRICS_FETCHES_HANDLED"":true}},""states"":{""4af67db2-e709-4665-ab10-bdef3f92ac7c"":{""data"":{""NORMAL_MSG_CTRL_FLOW"":[""com.feedzai.pulse.api.apps.enums.RuleControlFlow"",0]}},""34a95d87-6934-4a99-a0a0-0ddb7e485fc2"":{""data"":{""NORMAL_MSG_CTRL_FLOW"":[""com.feedzai.pulse.api.apps.enums.RuleControlFlow"",0]}},""cdb5fcfe-c429-436e-879b-1bf570bcb1eb"":{""data"":{}},""e112ef90-899a-4d9f-854c-4d4307f2d2a6"":{""data"":{""NORMAL_MSG_CTRL_FLOW"":[""com.feedzai.pulse.api.apps.enums.RuleControlFlow"",0]}},""5342a480-e9d9-4ec2-b8b2-b80bd868537b"":{""data"":{""_METRICS"":{""@class"":""com.feedzai.pulse.datascience.rte.runtime.MetricsWrapper"",""values"":[null]},""_EXEC_ID"":""jUMq48XQ4sBvNqpiEkVGuQ""}},""e1fa9a8a-f9f3-436a-9493-2ecf55df48fc"":{""data"":{""NORMAL_MSG_CTRL_FLOW"":[""com.feedzai.pulse.api.apps.enums.RuleControlFlow"",0]}}}}","{""5342a480-e9d9-4ec2-b8b2-b80bd868537b"":{""data"":{}}}","{""data"":{}}",account_holder_customer_id,d68107b9-0d6c-47e9-a547-5e6ac5103e67,"","","","",password,,,"","",beneficiary_proxy_account_number,270,"{'is_bot': false, 'is_emulator': true, 'voice_scam_score': 911, 'is_malware': false, 'is_rat': false, 'is_recent_rat': false, 'custom_risk': 21.0, 'custom_risk_aliases': risk_alias, 'push_score': NULL, 'is_mobile_rat': NULL, 'pinpoint_risk_score': NULL, 'risk_score': 21.0, 'chall_policy_score': NULL}","","",b398a9e1-3900-4753-ad45-8310ea5837234,"",55551222,441.0,270,"",branch,"",1716369476000,"","","",branch,"",entered,sepa,"",Some Avenue 77,Receiver Bank,WC7N 7EW,CREDIT,Diagon Alley 33,Gringotts,WC2N 5DU,"","","","",,1554198919000,,,"",270,"","","","",Customer Additional Info 1,Customer Additional Info 2,Customer Additional Info 3,Customer Additional Info 4,224 Benjamin Flats,0001-01-01,,,"",,,,"","","","","","",,"",,,,,,,,,,,440,,,0001-01-01,,[[email protected]](/cdn-cgi/l/email-protection),0001-01-01,,,,,,,,,"",,,,"","",,,,,customer_1,"","",2d18c716ba930802d187654c99fd097f5530f1479065428caa1a3ee1q7421,0HKHSXXXXXX796256,V,,"",,"","",,Fraudulent Joe,"",483,,"",,0001-01-01,836-342-5605,"","","",feedzai,"","","","",,"",,,,,,,commercial_banking,Insane,,,"",,,"","",,66720-331,1554198919000,approve,"[0.0, 0.0, 0.0]","",false,,true,,true,"","","",false,Brave,"",true,1758901473241,true,"",false,"",,"","",440,"",2.337,-140.6989,"",false,false,7823d84a-6acc-43e6-84b2-dddc3122a248,"",161.223.207.161,"",New Dejaport,440,-48.0299,104.4205,OT,true,true,,true,false,be-440,-77.4773,-31.3643,"","",ioss,"","","","",21,true,"",-07:00,"","",web browser,true,false,"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_8_6)  AppleWebKit/532.0.2 (KHTML, like Gecko) Chrome/14.0.855.0 Safari/532.0.2","",false,false,true,outgoing,1554196919000,"",Very fraudulent.,test,"",1554196919000,test,"",Y,RENT,00.00.44.08,CON,Y,Y,RENT,SQ1.SA2.SQ4.SA3.SQ8.SA1.W3,03.08,"","","",1758901473241,,1764178132876,1764178132988,1758901473241,success,transfer_initiation,,,,TRANSFERS,"",out_of_band,true,true,0.0,964,"","",out_of_band,false,YESD,YESD,true,,,true,f9ae8116-812d-4e0c-b658-dc3de1e31f92,"",0.89,D,"",1,1758901473241,"",test,1535477895438,The client called to confirm it was not him making that transaction.,Contacted John Doe to confirm.,call,1554196919000,100.5,false,"",FDP,"","","",,"","",false,"","","",entered,credit_transfer,sepa,false,false,"",,"",YESD,"",,"",,270,CREDIT,,Some Avenue 77,4ad3fe88-317b-4b31-ad9b-9136424c17ad,Manchester,440,Receiver Bank,WC7N 7EW,"","","","",receiver_city,"","",440,1758364512397,"","",19900101,[[email protected]](/cdn-cgi/l/email-protection),0001-01-01,receiver_id,"",Receiver Joe Doe,001122334455,receiver_region,receiver_street_addr,155000.0,400.75,9a08f316-df1f-4096-9a2d-a904a82bb65e,270,,,"",receiver_zip,true,"","",VRWER3452BVQR2,"",1554996919000,"",low,"[0.0, 0.0, 0.0]","",true,true,0.0,false,0.0,"","",ivr_self_no,"[0.0, 0.0, 0.0, 0.0, 0.0]",973.0,1110000.0,1200.75,PTCDG,,13800.0,270,"",1668683369590,"",CREDIT,"","",Diagon Alley 33,"",London,440,Gringotts,WC2N 5DU,"","","",123452332.22,19900101,[[email protected]](/cdn-cgi/l/email-protection),0001-01-01,1554196919000,"",Sender Joe Doe,looking for a new project,"",001122334455,0001-01-01,UFAAE,1354398919000,155000.0,400.75,155000.0,"",5d2cf69d-2e0f-468c-981b-2e80f7419b4c,"","","","","","",270,"",0001-01-01,0001-01-01,Sender Transaction Additional Info 1,Sender Transaction Additional Info 2,Sender Transaction Additional Info 3,true,"",true,Notes on the transaction.,10,270,395.75,270,"","","","","","","","","","","","","",,53fcc910-f92c-4cd5-84b6-4d437da309ca,1225.98,1225.98,false,0.0,false,0.0,"","",BS,"","",1764178132876,"{'fuzzy_device_id': '', 'ip_city': '', 'ip_country': '', 'ip_longitude': 10.1339, 'ip_latitude': 50.3646, 'chall_policy_score': 780.0, 'ip_address': '', 'digital_id': '', 'device_isp': '', 'summary_reason_code': '', 'policy_score': 21.0, 'risk_score': 21.0, 'device_dev_id': '', 'request_id': '', 'true_isp': NULL, 'proxy_isp': NULL, 'dns_isp': NULL}","","","","","",mobile_push_notification,"[0.0, 0.0, 0.0, 0.0]","",[771.0],"","","",[Eulah.Hammes24],[Ludie_Denesik],02348085-801c-45ff-bdc3-80204ad5e789,0,"{'vocalink_score': 20.0, 'mastercard_id': '', 'alert_id': 5aa89b5b-9fc0-4faf-bfaf-c0454611d129, 'source_account_id': ada0e7c4-5705-4b76-8be8-6b3ccf8dafa0, 'destination_account_id': 21837091-a0d2-4e16-a26c-c6cdd67a66fb, 'transaction_id': f211956c-4485-44e1-a4f5-505dffbbcb50, 'transaction_value': 123.0, 'score_generated_at': 1554198919000, 'transaction_currency': 270}","","",""  
+    
+
+Copy
+
+### Unique identifier (`FDZ_UUID`)â
+
+This field is a unique identifier for every event extracted.
+    
+    
+    lifecycle_id,...,FDZ_UUID,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,02348085-801c-45ff-bdc3-80204ad5e789,...  
+    
+
+Copy
+
+### Actions triggered (`FDZ_TRIGGERED_ACTIONS`)â
+
+This field is a list of JSON Objects that contains all the triggered actions.
+    
+    
+    lifecycle_id,...,FDZ_TRIGGERED_ACTIONS,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,[{"arguments":{},"name":"Alert","nestedSourceId":"lCyKop_QjP45br_tEjlNcg","sourceId":"34a95d87-6934-4a99-a0a0-0ddb7e485fc2"},{"arguments":{},"name":"Alert","nestedSourceId":"lUQqjQhs2CSSxrRspC9NeQ","sourceId":"e112ef90-899a-4d9f-854c-4d4307f2d2a6"},{"arguments":{},"name":"Alert","nestedSourceId":"mGBzsBs9IOyaQn4hbg5E7g","sourceId":"e1fa9a8a-f9f3-436a-9493-2ecf55df48fc"}],...  
+    
+
+Copy
+
+### Rules triggered and explanations (`FDZ_RESULTS`)â
+
+This field is a list of JSON Objects that contains all the rules that were triggered by the extracted event and their explanation.
+    
+    
+    lifecycle_id,...,FDZ_RESULTS,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,[{"explanations":[{"@type":"rule","reason":"Customer name is Fraudulent Joe"}],"result":{"@type":"clarule","originalRuleId":"mI_NayHmjUkeQiG8ByNK1g","outcome":"true","ruleId":"lCyKop_QjP45br_tEjlNcg","scores":[],"targetOutcome":"fraud","targetOutcomeLabel":"fraud"},"sourceId":"34a95d87-6934-4a99-a0a0-0ddb7e485fc2","weight":0},{"explanations":[],"result":{"@type":"clarule","originalRuleId":"lWdQy83xgSh81tiMYg9EDA","outcome":"mobile_push_notification","ruleId":"lUQqjQhs2CSSxrRspC9NeQ","scores":[],"targetOutcome":"treatment_strategy","targetOutcomeLabel":"treatment_strategy"},"sourceId":"e112ef90-899a-4d9f-854c-4d4307f2d2a6","weight":0},{"explanations":[],"result":{"@type":"clarule","originalRuleId":"lP7bp45ioG9Og22W9YBJMw","outcome":"ivr_self_no","ruleId":"mGBzsBs9IOyaQn4hbg5E7g","scores":[],"targetOutcome":"self_serve_strategy","targetOutcomeLabel":"self_serve_strategy"},"sourceId":"e1fa9a8a-f9f3-436a-9493-2ecf55df48fc","weight":0}],...  
+    
+
+Copy
+
+### Outcomes (`FDZ_OUTCOMES`)â
+
+This field is a JSON object that contains all the configured **outcomes** (e.g. `fraud`, `decision`) and their scores.
+    
+    
+    lifecycle_id,...,FDZ_OUTCOMES,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,{"treatment_strategy":{"@type":"mulcla","outcomeDecision":"mobile_push_notification","score":[0.0,0.0,0.0,0.0]},"shadow_scam":{"@type":"bincla","outcomeDecision":false,"score":0.0},"risk_level":{"@type":"mulcla","outcomeDecision":"low","score":[0.0,0.0,0.0]},"scam":{"@type":"bincla","outcomeDecision":false,"score":0.0},"decision":{"@type":"mulcla","outcomeDecision":"approve","score":[0.0,0.0,0.0]},"self_serve_strategy":{"@type":"mulcla","outcomeDecision":"ivr_self_no","score":[0.0,0.0,0.0,0.0,0.0]},"sca_required":{"@type":"bincla","outcomeDecision":true,"score":0.0},"shadow_fraud":{"@type":"bincla","outcomeDecision":false,"score":0.0},"fraud":{"@type":"bincla","outcomeDecision":true,"score":0.0}},...  
+    
+
+Copy
+
+### Metricsâ
+
+For every metric (realtime and scheduled) there will be a field with the name of the metric, e.g. `count_benefname_90d`.
+    
+    
+    lifecycle_id,...,count_benefname_90d,...  
+    f9ae8116-812d-4e0c-b658-dc3de1e31f92,...,10,...  
+    
+
+Copy
+
+## ETL vs DTPâ
+
+In this section we describe the differences between ETL and DTP extractions for non-schema fields.
+
+### Unique identifierâ
+
+There's no change in the unique identifier field.
+
+Tool| Field| Example  
+---|---|---  
+ETL| FDZ_UUID| 02348085-801c-45ff-bdc3-80204ad5e789  
+DTP| FDZ_UUID| 02348085-801c-45ff-bdc3-80204ad5e789  
+  
+### Metricsâ
+
+In DTP **both** realtime and scheduled metrics are exported instead of only scheduled metrics as in the ETL.
+
+#### Scheduled metricsâ
+
+In DTP scheduled metrics are extracted just like in ETL.
+
+Tool| Field| Example  
+---|---|---  
+ETL| metric_A| 10  
+DTP| metric_A| 10  
+  
+#### Realtime metricsâ
+
+Realtime metrics are only available in DTP.
+
+Tool| Field| Example  
+---|---|---  
+ETL| N/A| N/A  
+DTP| metric_A| 10  
+  
+### Actions triggeredâ
+
+In DTP there's only a field with the triggered actions instead of a field for every action (and the value whether it was triggered or not).
+
+Tool| Field| Example  
+---|---|---  
+ETL| action_alert| true  
+DTP| FDZ_TRIGGERED_ACTIONS| 
+    
+    
+    [  
+      {  
+        "name": "Alert"  
+      }  
+    ]  
+    
+
+Copy  
+  
+### Rules triggered and explanationsâ
+
+In DTP rules triggered and explanations are available in a single field `FDZ_RESULTS`.
+
+#### Rules triggeredâ
+
+Tool| Field| Example  
+---|---|---  
+ETL| rules_triggered| lCyKop_QjP45br_tEjlNcg;lUQqjQhs2CSSxrRspC9NeQ;mGBzsBs9IOyaQn4hbg5E7g  
+DTP| FDZ_RESULTS| 
+    
+    
+    [  
+      {  
+        "result": {  
+          "ruleId": "lCyKop_QjP45br_tEjlNcg"  
+        }  
+      },  
+      {  
+        "result": {  
+          "ruleId": "lUQqjQhs2CSSxrRspC9NeQ"  
+        }  
+      },  
+      {  
+        "result": {  
+          "ruleId": "mGBzsBs9IOyaQn4hbg5E7g"  
+        }  
+      }  
+    ]  
+    
+
+Copy  
+  
+#### Rules explanationsâ
+
+Tool| Field| Example  
+---|---|---  
+ETL| formatted_results| 
+    
+    
+    [  
+      {  
+        "explanation": "Customer name is Fraudulent Joe",  
+        "ruleId": "lCyKop_QjP45br_tEjlNcg"  
+      }  
+    ]  
+    
+
+Copy  
+DTP| FDZ_RESULTS| 
+    
+    
+    [  
+      {  
+        "explanations": [  
+          {  
+            "reason": "Customer name is Fraudulent Joe"  
+          }  
+        ],  
+        "result": {  
+          "ruleId": "lCyKop_QjP45br_tEjlNcg"  
+        }  
+      }  
+    ]  
+    
+
+Copy  
+  
+### Outcomesâ
+
+Outcomes are similar for ETL and DTP extractions. The DTP extractions only have an additional field `@type`.
+
+Tool| Field| Example  
+---|---|---  
+ETL| outcomes_and_scores| 
+    
+    
+    {  
+      "scam": {  
+        "outcomeDecision": false,  
+        "score": 0.0  
+      },  
+      "fraud": {  
+        "outcomeDecision": true,  
+        "score": 0.0  
+      },  
+      "decision": {  
+        "outcomeDecision": "approve",  
+        "score": [0.0, 0.0, 0.0]  
+      },  
+      "risk_level": {  
+        "outcomeDecision": "low",  
+        "score": [0.0, 0.0, 0.0]  
+      }  
+    }  
+    
+
+Copy  
+DTP| FDZ_OUTCOMES| 
+    
+    
+    {  
+      "scam": {  
+        "@type": "bincla",  
+        "outcomeDecision": false,  
+        "score": 0.0  
+      },  
+      "fraud": {  
+        "@type": "bincla",  
+        "outcomeDecision": true,  
+        "score": 0.0  
+      },  
+      "decision": {  
+        "@type": "mulcla",  
+        "outcomeDecision": "approve",  
+        "score": [0.0, 0.0, 0.0]  
+      },  
+      "risk_level": {  
+        "@type": "mulcla",  
+        "outcomeDecision": "low",  
+        "score": [0.0, 0.0, 0.0]  
+      }  
+    }  
+    
+
+Copy

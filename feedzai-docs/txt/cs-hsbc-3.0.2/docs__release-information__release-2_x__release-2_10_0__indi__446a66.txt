@@ -1,0 +1,20 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3255-Add-Dead-Letter-Queueing-system-to-Data-Extraction-Pipelines
+Title: HSBC-3255-Add-Dead-Letter-Queueing-system-to-Data-Extraction-Pipelines | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3255-Add-Dead-Letter-Queueing-system-to-Data-Extraction-Pipelines
+
+### Add Dead Letter Queueing system to Data Extraction Pipelinesâ
+
+FeatureHSBC-3255
+
+We've upgraded the Data Extraction Pipelines to version 1.1.2, which includes:
+
+  * The possibility of enabling Logstash Dead Letter Queueing (DLQ) system to recover events that errored during processing
+  * A recovery pipeline for the `pulse-workflow-audit` events present in the DLQ
+
+
+
+For more information refer to the [Data Extraction Pipelines overview](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/overview-dep#pulse-workflow-audit-recovery-information) page.

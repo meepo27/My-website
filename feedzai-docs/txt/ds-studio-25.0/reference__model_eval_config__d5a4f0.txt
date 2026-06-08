@@ -1,0 +1,180 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/model_eval_config/
+Title: model_eval_config - DS API
+============================================================
+
+#  `` model_eval_config Â¶
+
+##  `` ModelEvalConfig Â¶
+    
+    
+    ModelEvalConfig(ignored_fields: set[str] | None = None, cost_field: str | None = None, scored_instances_filepath: str | None = None, sink_desc: str | None = None, breakdowns: list[dict[str, set[str]]] | None = None, target_variable: str | None = None, schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+A configuration used for Model evaluation.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when evaluating a model. |  `None`  
+  
+###  `cost_field` Â¶
+
+|  `str` |  Additional cost field used as weight for evaluation metrics. |  `None`  
+  
+###  `scored_instances_filepath` Â¶
+
+|  `str` |  Path to file where scored instances should be saved. |  `None`  
+  
+###  `sink_desc` Â¶
+
+|  `str` |  The sink name for the model evaluation datasource. If not provided the new datasource will take the evaluation's name. |  `None`  
+  
+###  `breakdowns` Â¶
+
+|  `list of mappings of (str-> {str...})` |  Each element of the list represents a breakdown analysis. Each element in the contained mapping represents a breakdown field, with  -> . |  `None`  
+  
+###  `target_variable` Â¶
+
+|  `str` |  The name of the target variable to be used in the model evaluation. This is required for unsupervised models and optional for supervised models. When provided for supervised models, it overrides the model's target variable. The target variable must be a binary categorical field (exactly 2 values) from the evaluation datasource and should be included in ignored_fields. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+Examples:
+    
+    
+    >>> import ds_api
+    >>> model: ds_api.Model    # Train model with a ds_api.ModelProject
+    >>> # Define ModelEvalConfig w/ breakdown per value of `caucasian`:
+    >>> test_datasource: ds_api.DataSource
+    >>> eval_config = ds_api.ModelEvalConfig(
+    ...     breakdowns=[
+    ...         {"Caucasian": {"true", "false"}},
+    ...         # {"Age Group": {"-25", "26-46", "46-65", "66-"}},
+    ...         # ...
+    ...     ],
+    ...     schema=test_datasource.getSchema(),
+    ... )
+    >>> evaluation = model.evaluate("test_eval", test_datasource, eval_config)
+    >>> evaluation.waitUntilEvaluationFinished()
+    >>> (
+    ...     (_, global_results),
+    ...     ((non_caucasian_col_val,), non_caucasian_results),
+    ...     ((caucasian_col_val,), caucasian_results),
+    ... ) = evaluation.getResultForBreakdowns("true")
+    >>> assert non_caucasian_col_val == "false" and caucasian_col_val == "true"
+    
+
+###  `` breakdowns `property` Â¶
+    
+    
+    breakdowns
+    
+
+###  `` cost_field `property` Â¶
+    
+    
+    cost_field
+    
+
+###  `` ignored_fields `property` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` scored_instances_filepath `property` Â¶
+    
+    
+    scored_instances_filepath
+    
+
+###  `` sink_desc `property` Â¶
+    
+    
+    sink_desc
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` target_variable `property` Â¶
+    
+    
+    target_variable
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(java_object) -> ModelEvalConfig
+    
+
+Helper method called when a return obj comes from java to be auto converted to python.
+
+Warning
+
+In this case the result will not have a schema attached.
+
+###  `` builder `classmethod` Â¶
+    
+    
+    builder()
+    
+
+###  `` duplicate Â¶
+    
+    
+    duplicate(ignored_fields: set[str] | None = None, cost_field: str | None = None, scored_instances_filepath: str | None = None, sink_desc: str | None = None, breakdowns: list[dict[str, set[str]]] | None = None, target_variable: str | None = None, schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None) -> ModelEvalConfig
+    
+
+Duplicate current ModelEvalConfig, with the possibility of updating its properties.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `ignored_fields` Â¶
+
+|  `set[str] | None` |  Set of names corresponding to the fields to be ignored when evaluating a model. |  `None`  
+  
+####  `cost_field` Â¶
+
+|  `str | None` |  Additional cost field used as weight for evaluation metrics. |  `None`  
+  
+####  `scored_instances_filepath` Â¶
+
+|  `str | None` |  Path to file where scored instances should be saved. |  `None`  
+  
+####  `sink_desc` Â¶
+
+|  `str | None` |  The sink name for the model evaluation datasource. If not provided the new datasource will take the evaluation's name. |  `None`  
+  
+####  `breakdowns` Â¶
+
+|  `list[dict[str, set[str]]] | None` |  Each element of the list represents a breakdown analysis. Each element in the contained mapping represents a breakdown field, with  -> . |  `None`  
+  
+####  `target_variable` Â¶
+
+|  `str | None` |  The name of the target variable to be used in the model evaluation. This is required for unsupervised models and optional for supervised models. When provided for supervised models, it overrides the model's target variable. The target variable must be a categorical field present in the evaluation datasource and should be included in ignored_fields. |  `None`  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ModelEvalConfig` |  A model evaluation configuration.

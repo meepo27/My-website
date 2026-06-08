@@ -1,0 +1,326 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/sampling/base_sampler/
+Title: base_sampler - DS API
+============================================================
+
+#  `` base_sampler Â¶
+
+If you want to implement a specific sampling algorithm, you should implement the abstract class :class:`BaseSampler`.
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` MARK_FIELD `module-attribute` Â¶
+    
+    
+    MARK_FIELD = 'fdz_sample_ismarked'
+    
+
+##  `` MS_PER_DAY `module-attribute` Â¶
+    
+    
+    MS_PER_DAY = 24 * 60 * 60 * 1000
+    
+
+##  `` S `module-attribute` Â¶
+    
+    
+    S = TypeVar('S')
+    
+
+##  `` T `module-attribute` Â¶
+    
+    
+    T = TypeVar('T')
+    
+
+##  `` TargetType `module-attribute` Â¶
+    
+    
+    TargetType = bool | int | str
+    
+
+##  `` BaseSampler Â¶
+    
+    
+    BaseSampler(seed: int | None = None)
+    
+
+Bases: `ABC`
+
+Base class for sampling implementations.
+
+All subclasses must implement the public :meth:`sample` method.
+
+Any additional configurations that your custom sampler needs, should be passed during instantiation.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `seed` Â¶
+
+|  `int` |  Seed for Spark's random number generator. |  `None`  
+  
+Examples:
+    
+    
+    >>> class RandomSampler(BaseSampler):
+    ...     '''Custom random sampler.'''
+    ...     def __init__(self, fraction: float, seed: Optional[int] = None):
+    ...         self._fraction = fraction
+    ...         super().__init__(seed=seed)
+    ...     def sample(self, df: DataFrame) -> DataFrame:
+    ...         return df.sample(fraction=self._fraction)
+    >>> # Initialize the custom sampler
+    >>> random_sampler_1pc = RandomSampler(0.01)
+    >>> # Run it against some data
+    >>> df = ...
+    >>> random_sampler_1pc.sample(df)
+    
+
+###  `` TIMESTAMP_MS_FIELD `class-attribute` `instance-attribute` Â¶
+    
+    
+    TIMESTAMP_MS_FIELD = 'fdz_timestamp_ms'
+    
+
+###  `` seed `property` Â¶
+    
+    
+    seed: int
+    
+
+###  `` sample `abstractmethod` Â¶
+    
+    
+    sample(df: _TDataFrame) -> _TDataFrame
+    
+
+Sample the input data.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `df` Â¶
+
+|  `_TDataFrame` |  Input data source. |  _required_  
+  
+##  `` full_recovery Â¶
+    
+    
+    full_recovery(marked_df: _TDataFrame, entity_field: str, recover_column_name: str, mark_field: str = MARK_FIELD)
+    
+
+Performs full entity recovery over a sampled DataFrame.
+
+That is, it recovers **all** original instances that belong to any of the sampled entities.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `marked_df` Â¶
+
+|  `_TDataFrame` |  Original pyspark DataFrame. |  _required_  
+  
+###  `entity_field` Â¶
+
+|  `str` |  Name of the entity field. |  _required_  
+  
+###  `recover_column_name` Â¶
+
+|  `str` |  Name of the column marking instances to be retrieved. |  _required_  
+  
+###  `mark_field` Â¶
+
+|  `str` |  Name of the field marking sampled instances. |  `MARK_FIELD`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  A pyspark DataFrame containing all relevant instances.  
+  
+##  `` generate_seed Â¶
+    
+    
+    generate_seed() -> int
+    
+
+Generate a random seed based on the timestamp in milliseconds.
+
+##  `` optimal_recovery Â¶
+    
+    
+    optimal_recovery(marked_df: _TDataFrame, entity_field: str, timestamp_field: str, recovery_days: int, recover_column_name: str, mark_field: str = MARK_FIELD) -> _TDataFrame
+    
+
+Performs optimal entity recovery over a sampled DataFrame.
+
+That is, for a given sampled instance, it recovers the instances belonging to the same entity and falling in a relevant time period. The relevant period of time is a window before the sampled instance, defined by the recovery_days parameter.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `marked_df` Â¶
+
+|  `_TDataFrame` |  Original pyspark DataFrame. |  _required_  
+  
+###  `entity_field` Â¶
+
+|  `str` |  Name of the entity field. |  _required_  
+  
+###  `timestamp_field` Â¶
+
+|  `str` |  Name of timestamp field. |  _required_  
+  
+###  `recovery_days` Â¶
+
+|  `int` |  Size of the recovery period. Typically this value should correspond to the maximum window size of your plan's metrics operator. |  _required_  
+  
+###  `recover_column_name` Â¶
+
+|  `str` |  Name of the column marking instances to be retrieved. |  _required_  
+  
+###  `mark_field` Â¶
+
+|  `str` |  Name of the field marking sampled instances. |  `MARK_FIELD`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  A pyspark DataFrame containing all relevant instances from the original.  
+  
+##  `` recover_entities Â¶
+    
+    
+    recover_entities(marked_df: _TDataFrame, entity_fields: dict[str, int | None], mark_field: str = MARK_FIELD, is_optimal_recovery: bool = True, timestamp_field: str | None = None) -> _TDataFrame
+    
+
+Performs entity recovery over a sampled DataFrame.
+
+That is, it recovers the relevant original instances that belong to any of the sampled entities.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `marked_df` Â¶
+
+|  `_TDataFrame` |  Original pyspark DataFrame. It should have a column marking which events were sampled. |  _required_  
+  
+###  `entity_fields` Â¶
+
+|  `dict[str, int | None]` |  Dictionary with names and respective recovery period (can be None) for each field to be recovered. |  _required_  
+  
+###  `mark_field` Â¶
+
+|  `str` |  Name of the field marking sampled instances. |  `MARK_FIELD`  
+  
+###  `is_optimal_recovery` Â¶
+
+|  `bool` |  Flags if optimal or full recovery should be performed. If 'True', then timestamp_field and recovery_days are mandatory. Default value is 'True'. |  `True`  
+  
+###  `timestamp_field` Â¶
+
+|  `str | None` |  Name of the timestamp field. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  A pyspark DataFrame containing all relevant instances from the original.  
+  
+##  `` validate_entity_fields Â¶
+    
+    
+    validate_entity_fields(entity_fields: list, recovery_days: int | None) -> tuple[dict[str, int | None], int | None]
+    
+
+Validate the types of parameter entity_fields.
+
+Returns both a properly formatted dictionary for function recover_entities's 'entity_fields' parameter input and the corresponding value for recovery_days
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `entity_fields` Â¶
+
+|  `list` |  List of field names to be recovered or list of tuples with field names and respective recovery days. |  _required_  
+  
+###  `recovery_days` Â¶
+
+|  `int | None` |  Days for recovery. When defined, this will set all entity fields to have the same recovery. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`entity_fields_dict` |  Dictionary of fields and respective recovery days.  
+`recovery_days` |  Integer value or None  
+  
+##  `` validate_target_parameters Â¶
+    
+    
+    validate_target_parameters(target_field: T, target_value: S) -> tuple[T, set]
+    
+
+Validate the types of parameters target_field and target_value.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `target_field` Â¶
+
+|  `T` |  Expected to be of str type. |  _required_  
+  
+###  `target_value` Â¶
+
+|  `S` |  Expected to be of a valid type, or a set with all elements belonging to the same valid type. Valid types are: bool, int, str. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`target_field` |   
+`target_value` |  target_value is turned into a set if it wasn't already.  
+  
+##  `` validate_timestamp_field Â¶
+    
+    
+    validate_timestamp_field(timestamp_field: str | None, exclude_kickoff_window: bool, recovery_days: int | None = None) -> None
+    
+
+Validate the timestamp field in the context of recovery and kickoff windows.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `timestamp_field` Â¶
+
+|  `str` |  Name of the timestamp field. |  _required_  
+  
+###  `exclude_kickoff_window` Â¶
+
+|  `bool` |  Whether to exclude the kickoff window. |  _required_  
+  
+###  `recovery_days` Â¶
+
+|  `int` |  Days for recovery. When defined, this will set all entity fields to have the same recovery. |  `None`

@@ -1,0 +1,176 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/templates/
+Title: templates - DS API
+============================================================
+
+#  `` templates Â¶  
+  
+Contains all templates and auxiliary functions used for generating the HTML report.
+
+##  `` base_template `module-attribute` Â¶
+    
+    
+    base_template = get_template('base.html')
+    
+
+##  `` env `module-attribute` Â¶
+    
+    
+    env = Environment(loader=pl)
+    
+
+##  `` freq_template `module-attribute` Â¶
+    
+    
+    freq_template = get_template('mini_freq_table_row.html')
+    
+
+##  `` overview_template `module-attribute` Â¶
+    
+    
+    overview_template = get_template('overview.html')
+    
+
+##  `` pl `module-attribute` Â¶
+    
+    
+    pl = PackageLoader('ds_api.exploration', 'html_templates')
+    
+
+##  `` plot_template `module-attribute` Â¶
+    
+    
+    plot_template = get_template('plot.html')
+    
+
+##  `` row_cat_template `module-attribute` Â¶
+    
+    
+    row_cat_template = get_template('row_cat.html')
+    
+
+##  `` row_constant_template `module-attribute` Â¶
+    
+    
+    row_constant_template = get_template('row_constant.html')
+    
+
+##  `` row_num_template `module-attribute` Â¶
+    
+    
+    row_num_template = get_template('row_num.html')
+    
+
+##  `` row_time_template `module-attribute` Â¶
+    
+    
+    row_time_template = get_template('row_time.html')
+    
+
+##  `` row_var_template `module-attribute` Â¶
+    
+    
+    row_var_template = {[NUMERICAL](../field_types/#ds_api.exploration.field_types.FieldType.NUMERICAL "            NUMERICAL
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.exploration.field_types.FieldType.NUMERICAL\)"): row_num_template, [CATEGORICAL](../field_types/#ds_api.exploration.field_types.FieldType.CATEGORICAL "            CATEGORICAL
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.exploration.field_types.FieldType.CATEGORICAL\)"): row_cat_template, [DATETIME](../field_types/#ds_api.exploration.field_types.FieldType.DATETIME "            DATETIME
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.exploration.field_types.FieldType.DATETIME\)"): row_time_template, 'constant': row_constant_template}
+    
+
+##  `` sample_template `module-attribute` Â¶
+    
+    
+    sample_template = get_template('sample.html')
+    
+
+##  `` time_dependencies_template `module-attribute` Â¶
+    
+    
+    time_dependencies_template = get_template('time_dependencies.html')
+    
+
+##  `` validation_template `module-attribute` Â¶
+    
+    
+    validation_template = get_template('validation.html')
+    
+
+##  `` warning_messages `module-attribute` Â¶
+    
+    
+    warning_messages = {'const': warning_message_fn('Constant value {0[value]} - '), 'cardinality': warning_message_fn('{0[cardinality]} distinct values - '), 'missing': warning_message_fn('{0[f_missing]} - '), 'empty': warning_message_fn('{0[f_empty]} - '), 'infinite': warning_message_fn('{0[f_infinites]} - '), 'zeros': warning_message_fn('{0[f_zeros]} - '), 'nan': warning_message_fn('{0[f_nan]} - ')}
+    
+
+##  `` wrapper_template `module-attribute` Â¶
+    
+    
+    wrapper_template = get_template('wrapper.html')
+    
+
+##  `` initialize_warnings Â¶
+    
+    
+    initialize_warnings()
+    
+
+Returns a correctly initialized dictionary to store the warnings
+
+##  `` make_freq_table Â¶
+    
+    
+    make_freq_table(freq_table)
+    
+
+Function that returns a formatted HTML code corresponding to a frequency table.
+
+:param freq_table: Pandas Series containing the frequency table. Indices are the category labels, values are the frequencies. :returns: frequency table in formatted HTML code.
+
+##  `` make_time_dependencies_table Â¶
+    
+    
+    make_time_dependencies_table(time_dependencies)
+    
+
+Function that returns a formatted HTML code corresponding to the time dependencies table table.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `time_dependencies` Â¶
+
+|  |  Pandas Series containing the time dependencies as returned by `time_dependencies.compute_time_dependencies`. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  frequency table in formatted HTML code.  
+  
+##  `` render_plot Â¶
+    
+    
+    render_plot(chart, chart_id, is_mini=False)
+    
+
+Given an altair chart renders an html using the plot template.
+
+##  `` warning_message_fn Â¶
+    
+    
+    warning_message_fn(message_value, message_key=None)
+    

@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/user-guides-manager
+Title: Fraud Prevention Manager | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * Fraud Prevention Manager
+
+
+
+# Fraud Prevention Manager
+
+Was this page helpful?Â 
+
+### [Manage workload and rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+
+### [View analytics dashboards](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview)

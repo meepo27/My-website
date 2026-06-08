@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/user-password-recovery
+Title: Recover password | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Sign in](/case-manager/13.17/docs/common/case-manager/user-guide/signing-in/)
+  * Recover password
+
+
+
+# Recover password
+
+User passwords can be reset by a system administrator or by the respective user. This page describes how users can reset their password without needing an administrator. To reset your password, perform the following steps:
+
+  1. Access Case Manager.
+  2. In the sign-in form, select the **Forgot Password** option.
+
+
+
+  3. If you have already received a password recovery token, select **Already have a token**. Otherwise, enter your **Username** and select **Next**.
+
+
+
+  4. If the user profile has an email address configured, Case Manager sends an email to that email address with a numeric token.
+
+
+
+info
+
+By default, tokens are valid for 1 hour after they are generated. If a token expires, you may request a new token (token requests must be at least 30 seconds apart).
+
+  5. Enter your **Username** and the respective **Token**.
+
+
+
+info
+
+If you used the link in the email sent by Feedzai, Case Manager will not request the token.
+
+  6. Enter the **New Password** , and repeat it in the **Confirm Password** field.
+
+
+
+Limited number of tries
+
+Each token allows a certain number of attempts to change the password. Consider the password policy before each new attempt to change the password.
+
+If you exceed the configured limit of attempts, you must request a new token and try again.
+
+  7. Select the **Change Password** button to save the password changes.
+
+

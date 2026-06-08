@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/put-transfer-info
+Title: Info | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Outbound TransfersÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/outbound-transfers)
+  * Info
+
+
+
+Was this page helpful?Â 
+
+# Info
+    
+    
+    PUT 
+    
+    ## /api/transfers/:lifecycle_id
+
+The Info endpoint enables you to update and add new information to an existing transfer.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

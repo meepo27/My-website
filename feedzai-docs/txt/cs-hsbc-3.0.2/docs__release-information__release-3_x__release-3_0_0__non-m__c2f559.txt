@@ -1,0 +1,112 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/non-mon-channel/non-mon-channel
+Title: Non-Mon Channel | Feedzai Documentation
+============================================================
+
+On this page
+
+# Non-Mon Channel
+
+This page highlights the main changes introduced in version 3.0.0 to support the new Non-Monetary channel. These include both Pulse and Case Manager and their corresponding FTMT ticket ids.
+
+## Pulseâ
+
+In this section you can find the changes introduced in Pulse to support the new Non-Mon Channel.
+
+### Setup custom Alert Storage Service to segregate Non-Mon events from Cards paymentsâ
+
+FeatureFTMT-30076HSBC-3689
+
+We've setup the custom Alert Storage Service to separate Non-Mon events from Cards payments. This service will now set the channel of the event based on the API that received it (similar to what happens with Digital-Activity and Outbound Payments). Cards events will have `fdz_channel` set to `CARDS` while Non-Mon events the `NON-MON` value. This field can then be used to determine to what channel each event belongs when querying the Event Storage tables.
+
+This change also includes a new RabbitMQ queue (`fdz-sq-EVENT_QUEUE_NON-MON`) to publish Non-Mon events to be consumed by Case Manager.
+
+### Add Non-Mon permissionsâ
+
+FeatureFTMT-27453FTMT-29259FTMT-30076HSBC-3690
+
+We've created the below new permissions for the Non-Mon channel.
+
+  * `cm:channel:non-mon:read-only`
+  * `cm:channel:non-mon:read-write`
+  * `cm:state-machine:event-status:write:status_non_mon`
+  * `cm:state-machine:event:read:status_non_mon`
+  * `cm:state-machine:event-status:write:status_non_mon`
+  * `cm:state-machine:status-reason:delete:status_non_mon`
+  * `cm:state-machine:status-reason:read:status_non_mon`
+  * `cm:state-machine:status-reason:write:status_non_mon`
+
+
+
+These can be used to control the user access to Non-Mon in Case Manager.
+
+For more details please refer to the [Permissions Page](/cs-hsbc/3.0.2/docs/operations-guide/permissions/).
+
+### Enable Feedback and Info Endpoints for Non-Mon eventsâ
+
+FeatureFTMT-28259HSBC-4046HSBC-4151
+
+We've added two new API endpoints for Non-Monetary events.
+
+Endpoint URLs:
+
+  * `/api/nonmon/{lifecycle_id}/feedback/fraud`
+  * `/api/nonmon/{lifecycle_id}/info`
+
+
+
+This work extends the Non-Mon endpoint delivered in [Add Non-Mon Endpoint](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.11#add-non-mon-endpoint).
+
+For more information please refer to the API documentation on the [Feedback Non-Mon](/cs-hsbc/3.0.2/api#tag/nonmon/operation/putFeedbackNonMon) and [Info Non-Mon](/cs-hsbc/3.0.2/api#tag/nonmon/operation/putInfoNonMon) endpoints.
+
+### Enable GET Endpoint for Non-Mon eventsâ
+
+FeatureFTMT-27479HSBC-3803
+
+We've added a new API endpoint that allow the retrieval of Non-Monetary events previously submitted. By using the `GET` method with a specific and valid `lifecycle_id`, the full event details can now be accessed.
+
+Endpoint URL: `/api/nonmon/{lifecycle_id}`.
+
+This work extends the Non-Mon endpoint delivered in [Add Non-Mon Endpoint](/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.11#add-non-mon-endpoint).
+
+For more information please refer to the [API documentation](/cs-hsbc/3.0.2/api#tag/nonmon/operation/getNonMon).
+
+* * *
+
+## Case Managerâ
+
+In this section you can find the changes introduced in Case Manager to support the new Non-Mon Channel.
+
+### Add Non-Mon database supportâ
+
+FeatureFTMT-27453FTMT-30076HSBC-3798
+
+We've added Non-Mon database support to Case Manager. The changes include:
+
+  * New database patches to create all the required resources in the Case Manager Non-Mon database
+  * A new set of Ansible variables to configure Case Manager's Non-Mon database connection. These follow the same structure as for all other channels by setting the channel suffix to the variable (e.g. `database_casemanager_engine_non_mon`)
+  * Updated retention scripts with the new table which can be found in [Retention Scripts](/cs-hsbc/3.0.2/docs/installation-guide/database/retention-scripts)
+
+
+
+Please refer to [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information.
+
+### Add Non-Mon channelâ
+
+FeatureFTMT-27453FTMT-29259FTMT-30076HSBC-3690
+
+We've introduced the Non-Mon channel in Case Manager. Please find below information about the new channel:
+
+  * The channel is enabled by default but users require additional permissions to see it, similar to all other channels (see [Add Non-Mon permissions](/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/non-mon-channel/non-mon-channel#add-non-mon-permissions))
+  * Non-Mon event pages are based on Cards, meaning that by default they will be alike. Please note that translations are shared and therefore a change to a Cards translation might affect Non-Mon pages
+  * Advanced search uses the same fields as Cards
+  * Logstash notifications will show the same payload as Cards
+
+
+
+### Add Non-Mon to the reasons filterâ
+
+FeatureFTMT-28765HSBC-3805
+
+We've extended the existing tactical solution where Case Manager hides reasons for channels other than the one of the current event. The solution requires all Non-Mon reasons to have `Non-Mon` as their prefix in order for them to be hidden.
+
+As an example, when marking an Outbound Payments event as Fraud/Not-Fraud in Case Manager, all the reasons that have the prefixes `Cards`, `Inbound` and `Non-Mon` will be hidden. When marking a Non-Mon event as Fraud or Not Fraud, only reasons with the `Non-Mon` prefix will be available.

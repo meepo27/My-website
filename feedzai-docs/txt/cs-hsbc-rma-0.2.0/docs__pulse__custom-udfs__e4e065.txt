@@ -1,0 +1,60 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/pulse/custom-udfs
+Title: Custom UDFs | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Custom UDFs
+
+## `Tmx`â
+
+`Tmx.risk(String reasonCodes)`
+
+Receives a String `reasonCodes`, which is a concatenation of 3 character reason codes, fetches the risk score of each and sums them all, returning a transaction risk score.
+
+## `FivMarkers`â
+    
+    
+    /**  
+     * Checks whether the FIV marker is present and not expired.  
+     *  
+     * @param fivMarkerCode  The FIV marker code being looked for.  
+     * @param fivMarkersJson Customer FIV markers list, encoded as JSON string.  
+     *                       In practice this should always be the value of the same  
+     *                       Pulse field - 'customer_fiv_markers'  
+     * @return true if the FIV marker is part of the Customer FIV markers list and has not expired,  
+     *         false otherwise.  
+     */  
+     FivMarkers.getIfNotExpired(String fivMarkerCode, String fivMarkersJson)  
+    
+
+Copy
+
+Checks whether the specified `FivMarker` exists in the customer's FIV markers JSON data and, if present, validates its expiration date if present.
+
+### Exampleâ
+
+In Pulse Rule variables:
+    
+    
+    pip_fiv_marker_present = FivMarkers.getIfNotExpired("PIP", customer_fiv_markers)  
+    
+
+Copy
+
+Where "PIP" is the FIV marker code we're looking for in `customer_fiv_markers`.
+
+##### note
+
+In practice we always expect this UDF to be called with `customer_fiv_markers` as the second argument.
+
+### Implementation Notesâ
+
+  * A FIV marker is considered expired as soon as the current date reaches expiration date, meaning if its expiration date is today, it is considered expired.
+
+  * We don't expect multiple entries with the same FIV marker code in `customer_fiv_markers`, but, if we do and in order to have consistent behavior, we only consider it not expired if none of the entries have expired.
+
+  * In entries in the `customer_fiv_markers` list are malformed according to the expected schema they will be disregarded. In that case, we'll still make a best effort to consider other valid entries in the array.
+
+
+

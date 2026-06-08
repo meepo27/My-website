@@ -1,0 +1,50 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts
+Title: Core Concepts of Pulse | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Core Concepts
+
+
+
+On this page
+
+# Core Concepts of Pulse
+
+Was this page helpful?Â 
+
+All tasks you perform with Pulse rely on a set of concepts that support the core of Pulse's functionality.
+
+This page gives you the basics about the most important concepts of Pulse. For more details or for other concepts read the pages later in this chapter.
+
+## Data science loopâ
+
+The [data science loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop) is the process of creating and testing rules and models.
+
+## Data sourcesâ
+
+[Data sources](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) are historical datasets imported to a data science environment. You can use them for data exploration, feature engineering, model training, rule testing, etc.
+
+## Plansâ
+
+[Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) define a transformation flow of one data source into another data source. They are useful to systematize data cleaning, data processing, and feature engineering, both in a data science pipeline and in runtime.
+
+## Modelsâ
+
+Pulse enables you to quickly train [machine learning models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) and evaluate the results over several iterations. It provides tools for you to extract relevant performance metrics and track your progress along each iteration of the data science loop.
+
+## Rulesâ
+
+[Rules](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules) define a pattern based on the fields of a data source that produces a binary result for each record that matches a condition. Pulse lets you define and evaluate the performance of blocks of rules using a data science approach.
+
+## Workflowsâ
+
+[Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows) represent the life cycle of a real-time event through the system. A workflow maps other concepts, such as data science concepts, into runtime components and ensures they are properly translated and orchestrated.
+
+## Listsâ
+
+A [list](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists) represents a set of values and aims at improving the efficiency of rules when the same pattern needs to be checked against a large number of entries. For example, a list of credit card numbers, a list of merchants, etc.
+
+## User-Defined functionsâ
+
+[User-defined functions](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions) (UDFs) enable you to extend Pulse beyond its off-the-shelf capabilities. They are especially useful when you need custom logic to process data, such as transforming data source fields with Plans or configuring conditions for rules.

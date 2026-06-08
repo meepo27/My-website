@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4244
+Title: HSBC-4244 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4244
+
+### Upgrade Reference Data Service to version 3.7.12â
+
+FeatureHSBC-4244
+
+Also In:2.11.2
+
+We've upgraded the Reference Data Service to version 3.7.12, which addresses the `pac4j` CVE-2026-29000 vulnerability.

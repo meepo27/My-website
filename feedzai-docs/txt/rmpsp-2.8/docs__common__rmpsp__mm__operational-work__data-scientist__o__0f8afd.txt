@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/overview
+Title: Data Scientist & Fraud Strategist | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * Data Scientist & Fraud Strategist
+
+
+
+# Data Scientist & Fraud Strategist
+
+### [Pulse GuideLearn how to detect risky merchants using rules and models in Pulse.](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/pulse/pulse-guide)

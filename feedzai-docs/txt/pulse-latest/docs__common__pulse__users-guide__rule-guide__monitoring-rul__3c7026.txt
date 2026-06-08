@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/monitoring-rules
+Title: Monitoring Rules | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Monitoring Rules
+
+
+
+Was this page helpful?Â 
+
+# Monitoring Rules
+
+Once the new rules are deployed, it is important to monitor their performance closely, so that they can be adjusted or disabled in case of unintended behavior.
+
+By using the Rule Monitoring dashboard in Feedzai Insights, you can select a rule or a group of rules and view the number of times they were triggered over time. Learn more about the Rule Monitoring dashboard in the Insights documentation.

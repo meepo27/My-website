@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/create-ad-hoc-investigation
+Title: Create Ad-Hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Create Ad-Hoc Customer Investigations
+
+
+
+# Create Ad-Hoc Customer Investigations
+
+Was this page helpful?Â 
+
+Learn how to open an ad-hoc investigation into a customer to log any intelligence gathered from investigations outside the usual event flow, even if there are no suspicious transactions detected.
+
+From the [Customer Details](/tfrb/latest/docs/common/tfrb/investigate-alerts/analyze-customers) page header, select **Create investigation** to open an ad-hoc customer investigation.
+
+Fill in the form accordingly:
+
+  * **Source** : Use case under which you're creating the investigation.
+  * **Origin** : Motive for creating the investigation into this customer. For example, 'Transaction monitoring', 'Negative media information' or 'Receipt of a search warrant'.
+  * **Reason code** : Your organization's internal reason code.
+  * **Description** : Details regarding the ad-hoc investigation.
+
+
+
+After you **Submit** the form, an [Ad-hoc Customer Investigation](/tfrb/latest/docs/common/tfrb/investigate-alerts/ad-hoc-customer-investigations) becomes available for you to review, leave notes and attachments, track its status and even add it to a case.

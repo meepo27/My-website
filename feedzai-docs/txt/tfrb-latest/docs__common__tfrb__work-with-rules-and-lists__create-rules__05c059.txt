@@ -1,0 +1,158 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists
+Title: Create Lists | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * Create Lists
+
+
+
+On this page
+
+# Create Lists
+
+Was this page helpful?Â 
+
+A list is a resource that allows you to store items (e.g. card IDs) which can be then referenced in rules.
+
+You can create lists in Pulse with different types of information. Use lists when writing rule conditions to confirm if the value of a given item is stored in a certain list. For example, you can create rules that decline or accept transactions performed by transfers, credit cards or digital events whose IDs are listed to be declined or approved.
+
+In your out-of-the-box settings, approve, decline and review lists are not configured as three different lists in Pulse. Instead, all the entities are added to a single list called _PosNeg Listed entity-name_. In general, PosNeg lists are typically configured to identify items as "approve", "decline" or "review" using a combination key-value pair and activation timeframe.
+
+## Default listsâ
+
+Transaction Fraud for Banking includes default lists to speed up your work. Check the [Lists](/tfrb/latest/docs/common/tfrb/references/pulse-lists) page under the References to learn more about out-of-the-box lists.
+
+As an example, the following sections focus on the Cards use case.
+
+## PosNeg lists in Pulseâ
+
+In Pulse, instead of using separate lists to classify a card ID listed to be declined, approved, or reviewed, all this logic is hosted in a single list named _PosNeg Listed Cards_. The tags used to classify cards are the following:
+
+  * **approve** : Card listed to be approved.
+  * **decline** : Card listed to be declined.
+  * **review** : Card listed to be reviewed.
+
+
+
+To add new list items, in the sidebar, go to **Lists** .
+
+The following image illustrates the main panel of a PosNeg Listed Cards in Pulse.
+
+## List transitionsâ
+
+The following diagram illustrates the transition between lists that a card can undergo when triggering different rules.
+
+The _Unlisted_ label in this diagram represents a card that is not included in a _PosNeg Listed Card_.
+
+info
+
+**Standard transitions** : The image shows an example of the standard transitions; however, you can configure new transitions to fulfill your business needs (e.g. transition from unlisted to listed to be declined).
+
+## Decline listâ
+
+The following image illustrates an example of a card listed to be **decline** :
+
+info
+
+**Timeframe** : As a standard configuration, a card is permanently stored as listed to be declined. Therefore, the **Active from** option only specifies the initial date.
+
+However, in the case of a fraud feedback event (e.g. cardholder response via API or fraud analyst feedback via Case Manager) identifying the transaction as _Not Fraud_ , the card is automatically tagged as `approve` (i.e. listed to be approved), thus overriding the `decline` value.
+
+## Approve listâ
+
+The following image illustrates an example of a card listed to be **approve** :
+
+info
+
+**Timeframe** : As a standard configuration, a card is listed to be approved within 2 hours (the time is [configurable](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service)). After that, the card becomes automatically an inactive item (but still on the list). The **Active from** and **To** options are used to define this time interval.
+
+## Review listâ
+
+When a card is listed as **review** , Pulse creates two entries for the same card ID in the _PosNeg Listed Cards_ :
+
+  * **Listed to be reviewed within 5 days** : This item is created with the tag **review** to keep the card as listed to be reviewed for 5 days. The **Active from** and **To** options are used to define this time interval. After the review period the card is removed from the review list. Note that after 5 days the card may still exist on the list, e.g. if within the review period the card event triggered an Entity Limit rule which listed it to be declined.
+
+
+
+  * **Transition card to`declined`**: This item is created because the card is automatically tagged as `decline` after 5 days. Therefore, this item only specifies the initial date, which is set to start immediately after the **To** date of the aforementioned pair.
+
+
+
+## Request a list review / review lists (four-eyes check)â
+
+Ensuring every change is reviewed by a second pair of eyes helps prevent unwanted or unplanned changes from being published.
+
+info
+
+The four-eyes check for lists capability is disabled by default. Reach out to your Customer Success Manager to enable it.
+
+tip
+
+By default, requesting reviews is an optional action. To make reviews mandatory, reach our to your Customer Success Manager. With mandatory reviews, changes to lists will not be published right away, since you cannot approve your own requests. Lists will be queued for review and only published after the reviewer approves them.
+
+### Request a reviewâ
+
+info
+
+Typically, fraud strategists are entitled to request reviews for lists.
+
+To request a review of a change made to a list, perform the following steps:
+
+  1. In the sidebar, select the **Lists** icon.
+  2. Select the list you want to change.
+  3. Make the desired changes to the list. For example, adding a new item, editing or deleting an existing item, or importing a batch of items from a CSV file.
+
+caution
+
+You won't be able to make changes to list items that already have pending changes. Attempting to do so will show an error message indicating the ID of the pending review.
+
+  4. Optionally, fill the **Notify users** field to indicate specific users you wish to inform of your review request.
+
+info
+
+To notify users via email, the notification settings must be configured. Contact your Customer Success Manager if you want to enable notifications.
+
+  5. Select the **Submit for review** button to add the changes to the review queue. A floating success message will be displayed confirming that the changes have been submitted for review.
+
+
+
+### Review changes to listsâ
+
+info
+
+Typically, fraud strategist managers are entitled to review list changes.
+
+To review lists, perform the following steps:
+
+  1. In the sidebar, select the  icon. Lists with pending changes will be marked with an **Unreviewed** label.
+
+  2. Open the list with pending changes. Each item with changes will be marked with a label indicating the type of change made (e.g. "Edited", "Added", "Deleted", etc).
+
+  3. Select the **Review changes (N)** button. The number in parenthesis is the count of unreviewed changes.
+
+  4. Review the overall changes to the list. Change details will at first be collapsed, as indicated by the **Plus** â symbol.
+
+  5. Expand the details of each change using the **Plus** â button. This will display a side-by-side comparison of the old and new data associated with the change.
+
+     1. Created items will have no content on the left side.
+     2. Deleted items will have no content on the right side.
+
+The image below shows an example with two changes â one adding a new item, and the other editing an existing item:
+
+caution
+
+Changes that consist of batch imports of list items will have no preview (as those can typically include thousands of items). In such cases, the only details that are shown are the number of imported items (in the "Name" column), the import mode (append without overwriting existing items, append with overwriting existing items, and complete rewrite), the change author, and the change timestamp.
+
+  6. Select "accept" (âï¸ icon) or "decline" (â icon). For either action, a confirmation dialog is shown. It's possible to disable the display of this dialog in the future, but it's strongly recommended to keep it. A floating success message will be displayed, confirming that the changes have been reviewed and (if approved) will be applied to the list.
+
+
+
+
+## Next stepsâ
+
+Now that you know how lists work, learn about the [List Management Service](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service).

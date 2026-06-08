@@ -1,0 +1,145 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/overview
+Title: About the Solution | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * About TFB
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# About the Solution
+
+**Transaction Fraud for Banking (TFB)** offers real-time fraud prevention to detect and stop risky transactions. This solution uses hypergranular profiles that encode the dynamic behavior of several dimensions and entities involved in each transaction. Such information will then become available to rules and machine learning models to score each transaction and make accept/decline decisions in the critical path.
+
+TFB takes an all-round approach to fraud transaction scoring by evaluating transactions from the perspective of each individual leg (e.g. card authorizations, clearings, transfers initiations, settlements), as well as from the perspective of the end-to-end transaction. TFB provides a RESTful interface with real-time endpoints to ingest each event throughout the transaction life cycle, scores each event individually, and builds a cumulative view of the transaction as a whole.
+
+Check the Life Cycle pages for more details about the role of each endpoint within the transaction life cycle.
+
+TFB packages three use cases, namely Transaction Fraud for Cards (issuing), Transaction Fraud for Transfers, and Transaction Fraud for Instant Transfers, into a single risk management solution.
+
+The following sections detail the specifics of each of these use cases.
+
+## Cards (issuing) use caseâ
+
+The integration with the Cards API allows issuing banks to score both card present and card not-present transactions. This API is compliant with the international standard for financial transactions (**ISO 8583**) and contains additional fields that are critical for managing fraud efficiently (e.g. terminal latitude/longitude, device ID, and acceptor risk).
+
+The Cards API supports any type of card payment including debit, credit or pre-paid cards. TFB covers the following card schemes:
+
+  * Mastercard
+  * VISA
+  * AMEX
+  * Discover
+  * UnionPay
+
+
+
+Regarding fraud prevention, TFB covers the follow schemes associated with the Cards (issuing) use case:
+
+  * Carding (e.g. access to cloned cards)
+  * Card testing (e.g. bot attacks)
+  * Account takeover (ATO)
+  * Lost and stolen
+  * Card phishing
+  * Skimming
+  * Card-not-Present fraud (i.e. perpetrated by fraudsters or by bot attacks)
+
+
+
+The solution pre-packages a set of rules that generate real-time recommendations to approve or decline transactions. Learn more about Cards' [fraud scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/cards) and endpoint [life cycles](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle).
+
+## Inbound Payments use caseâ
+
+The inbound payments use case enables the scoring of inbound events and the development of a dedicated risk strategy tailored specifically for inbound transactions.
+
+This channel allows you to make decisions at an inbound event level, as well as investigate other inbound payment events within the transaction history widgets across all payment types.
+
+Moreover, the Inbound Payments API follows the same definition as the Outbound Transfers API, thus ensuring a seamless integration process for clients. This API allows to segregate the strategy for inbound payments and leverage inbound payment data to make risk decisions not only on the legitimacy of received funds but also on any associated risks if these funds are subsequently used for outbound transactions.
+
+Learn more about Inbound Payments' [fraud scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/inbound-payments) and endpoint [life cycles](/tfrb/latest/docs/common/tfrb/life-cycles/inbound-payments/transaction-life-cycle).
+
+## Outbound Transfers & Instant Transfers use casesâ
+
+The main driver for the existence of two separate use cases - Outbound Transfers and Instant Transfers - is the structural difference regarding the timing for funds to settle (transfer cut-off time). In more traditional transfers like SEPA or WIRE, settlement windows are measured in business days. In modern, real-time payment types (like Faster Payments, SEPA Instant Credit, RTP, etc.) funds change hands instantaneously. This is a decisive difference because the operational workflow is different. As an example, it is possible to have a manual review of alerts in the critical path of allowing or stopping a transfer because there is enough time to make a final decision. That option is not available for instant payment types, and thus the manual revision is a post-mortem-like analysis.
+
+On the other hand, Outbound Transfers and Instant Transfers also share transactional aspects. For example, both require information such as:
+
+  * The name of the bank to which an individual transfers funds.
+  * The account number of the transfer's receiver.
+  * The American Bankers Association routing number of the transfer's receiver bank.
+
+
+
+Therefore, TFB tackles the two use cases with a single Outbound Transfers API. This API allows issuing banks to send information regarding traditional transfer rails (asynchronous settlement model) and real-time payments (instantaneous movement of funds). The Transfers API is compliant with the **ISO 20022** standard and provides out-of-the-box support for the following payment types:
+
+Additionally, the TFB architecture is designed to promote gradual coverage (if needed) to more payment instruments as the business grows and the landscape of offered services and payment expands. Therefore, TFB can add support for new payments because the API fields are generic and the risk strategy is oriented to fraud scenarios (i.e. not specific to the above payment methods).
+
+Regarding fraud prevention, TFB covers the following schemes associated with the Transfers & Instant Transfers use cases:
+
+  * Authorized push payment fraud
+  * ATO
+  * Phishing
+  * Money mule scams
+  * Fake invoice fraud
+  * Payroll scheme (ghost employee)
+  * Mandate fraud
+  * CEO fraud
+
+
+
+These schemes are usually perpetrated through social engineering techniques, such as the Business Email Compromised fraud, which comprises CEO Fraud, Fake Invoice, or Payroll scheme. To effectively fight these fraud scenarios, the solution uses the transaction information and evaluates the origin of the transfer using the IP address, device, and browser information. TFB pre-packages a set of rules that generate real-time recommendations to approve or decline transactions.
+
+Learn more about Transfers' [fraud scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/transfers) and endpoint [life cycles](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle).
+
+## Digital Activity use caseâ
+
+The integration with the Digital Activity API allows financial institutions to detect abnormal digital activity behavior, thus building trust and reputation with their clients.
+
+The Digital Activity connector is a plug-in component available out of the box in TFB. It provides a RESTful API that allows customers to send information at different stages of the digital activity's life cycle, including:
+
+  * Authentication
+  * Credential
+  * Device
+  * Profile updates
+  * New alias
+
+
+
+The Digital Activity connector's main goal is to enable the injection of digital events happening in a banking session, such as login attempts, changes of profile data (e.g. email, phone number, address, password reset requests, etc). All these events allow Feedzai to create high-accurate profiles on the usual patterns of the customer (e.g. normal hours, locations, devices, etc) and use them to detect and prevent fraud scenarios such as:
+
+  * ATO
+  * Authorized push payment
+
+
+
+Learn more about Digital Activity's [fraud scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/digital-activity) and endpoint [life cycles](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle).
+
+## Ad-hoc customer investigationsâ
+
+The Ad-Hoc Customer Investigations API provides a mechanism for creating ad-hoc investigation points for customers initiated from the client's side, independent of Cards, Inbound Payments, or Outbound Transfers alerts. This functionality enables external systems to trigger investigations, facilitating proactive analysis and assessments for specific customers.
+
+Learn more about Ad-hoc customer investigations' [life cycles](/tfrb/latest/docs/common/tfrb/life-cycles/ad-hoc-investigations/overview).
+
+## Device and behaviorâ
+
+Digital Trust collects and analyzes thousands of parameters such as biometric, behavioral, device, IP, network data to create a customer profile in banking sessions. The Session Risk Score is a unique digital identifier that is created for each user. Digital Trust builds a Session Risk Score by collecting the userâs full context of biometric, behavioral, device, and network data points and continuously analyzing user behavior from login to logout across every interaction.
+
+TFB offers a standard integration with Digital Trust's behavioral analysis and risk indicators, which enrich the solution's standard capabilities to assess risk on bank transfers and digital activity events. This solution combines the long-term and real-time metrics that TFB calculates (e.g. number of successful/failed logins in the last hour/days, number of distinct devices, usual locations, login hours, etc), and the profile augmentation that Digital Trust provides (e.g. Session Risk Score, Malware, Adware, RAT, Proxy, VPN indicators, etc).
+
+## End-to-end packageâ
+
+The out-of-the-box capabilities of this solution for both card transactions and transfers are:
+
+  * **REST APIs:** Send information via REST API at different stages of the transaction life cycle.
+  * **Reference data:** Send account and cardholder information upfront via a standard API. This information is then used in the Feedzai scoring process. It also eliminates the need to bundle the information in the real-time authorization call itself.
+  * **Pre-configured risk engine:** Processes transactions, generates real-time accept/decline decision in the critical path, and generates review recommendation in use cases in which the settlement is non-instantaneous (e.g. Transfers). TFB pre-packages resources (e.g. plan, rules, machine learning, etc) to help you fight fraud from day 1.
+  * **Pre-configured case and alert management interface:** Review suspicious transactions that require manual decision. This interface includes a dashboard component to give you at-a-glance information about business and rules performance.
+
+
+
+## Next stepâ
+
+Check [How the Solution Works](/tfrb/latest/docs/common/tfrb/about/how-it-works) to get started with the product. For tailored guidance, you can check the [Learning Paths](/tfrb/latest/docs/common/tfrb/about/learning-paths) page, which contains recommendations on how to access the documentation according to the user's role to get you up and running with the solution quickly.

@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/release-information/release-information-overview
+Title: About Release Information | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)  
+  * About Release Information
+
+
+
+# About Release Information
+
+Get to know the latest updates and how to upgrade Case Manager to the latest version.
+
+### [What's New](/case-manager/13.17/docs/common/case-manager/release-information/whats-new)
+
+### [What's Changed](/case-manager/13.17/docs/common/case-manager/release-information/whats-changed)
+
+### [Upgrade to the Latest Version](/case-manager/13.17/docs/common/case-manager/release-information/upgrading-guides/upgrading-guide-overview)

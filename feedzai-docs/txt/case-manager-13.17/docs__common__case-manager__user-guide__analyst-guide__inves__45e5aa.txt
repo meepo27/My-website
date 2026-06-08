@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/
+Title: Investigate Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * Investigate Cases
+
+
+
+On this page
+
+# Investigate Cases
+
+As an analyst, you are challenged to review suspicious transactions, understand fraud signals, and identify and block new fraud schemes. Alerts are often grouped in cases so that they can be investigated as a whole. This way, analysts have a central point of investigation.
+
+This guide helps you to become proficient in investigating cases using Case Manager. The following user journey shows the different steps associated with a complete investigation process:
+
+## Next stepsâ
+
+Start your investigation by [accessing the cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases) that are up for review.

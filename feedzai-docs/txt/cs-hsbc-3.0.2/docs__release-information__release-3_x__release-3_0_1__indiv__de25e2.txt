@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.1/individual-release-notes/HSBC-4382
+Title: HSBC-4382 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4382
+
+### Revert `bioc` nested fields orderâ
+
+Bug FixHSBC-4382
+
+Also In:2.11.3
+
+We've fixed an issue where the `bioc` nested fields order introduced in version 2.11 caused replica ingestion failures during cluster upgrades.
+
+The field order has been reverted to its pre-2.11 state to prevent similar issues in future upgrades.
+
+##### info
+
+This issue only affected Outbound, as the field order did not change for other channels.

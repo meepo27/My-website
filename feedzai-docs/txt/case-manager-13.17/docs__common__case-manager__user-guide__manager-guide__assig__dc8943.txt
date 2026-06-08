@@ -1,0 +1,105 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/assigning-alerts-and-cases
+Title: Assign Work | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * Assign Work
+
+
+
+On this page
+
+# Assign Work
+
+Even with a setup in place to automate the workload management, you may need to manually adjust workload distribution. For example, you may want to assign an alert that requires a specific skill set to a specific analyst. In this section, you will learn how to manually assign alerts and cases to analysts.
+
+## Assign Alertsâ
+
+Assign alerts to analysts so that they can start the investigation process. You can also reassign alerts, for example, to have a more senior analyst perform a deeper investigation.
+
+Start by listing the alerts by assignee status:
+
+  1. Go to the **Search** or **Alerts** pages.
+
+  2. Use the available filters to refine the list according to your needs.
+
+
+
+
+Now assign the alerts to a specific analyst:
+
+  1. Select one or multiple alerts from the list. Assigning multiple alerts is helpful, for example, to assign all alerts from a specific customer to a specific analyst.
+
+  2. In the **More actions** dropdown, select the **Choose Assignee** option.
+
+  3. In the **Choose Assignee** window, select the **Assignee** and provide extra information in the **Note** box. Use the **Include all linked alerts** option to decide whether you also want to assign all linked alerts to that analyst. This enables them to easily act on, for example, all unreviewed alerts from the same customer at the same time.
+
+
+
+
+info
+
+The criteria that links the alerts is defined during the product's configuration.
+
+Alternatively, you can select a specific alert from the list and perform the following actions in the alert's details page:
+
+  1. In the **Analyst** dropdown, select **Choose Assignee** or **Reassign** depending if the alert is unassigned or assigned.
+
+
+
+  2. In the **Choose Assignee** window, select the **Assignee** and provide extra information in the **Note** box. As previously explained, use the **Include all linked alerts** option to decide whether you also want to assign all linked alerts to that analyst.
+
+
+
+tip
+
+In the Event Details page, press `.` on your keyboard to display the shortcuts menu and select the **Assign to me** , **Assign all to me** , or **Choose Assignee** option depending on what you want to do. Learn more about [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Assign Casesâ
+
+Assign cases to analysts so that they can start the investigation process. You can also reassign cases, for example, to have a more senior analyst perform a deeper investigation.
+
+Start by listing the cases by assignee status:
+
+  1. Go to the **Cases** page.
+
+  2. In the cases list, reorder the **Analyst** filter so that all cases are grouped by assignment status.
+
+
+
+
+Now assign the cases to a specific analyst:
+
+  1. Select one or multiple cases from the list. Assigning multiple cases is helpful, for example, to assign all cases from a specific channel to a single analyst.
+
+  2. Select the **Choose Assignee** button.
+
+  3. In the **Choose Assignee** window, select the **Assignee** and provide extra information in the **Note** box.
+
+
+
+
+Alternatively, you can select a specific case from the list and perform the following actions in the case's details page:
+
+  1. In the **Analyst** dropdown, select **Choose Assignee.**
+
+
+
+  2. In the **Choose Assignee** window, select the **Assignee** and provide extra information in the **Note** box.
+
+
+
+tip
+
+In the Case Details page, press `.` on your keyboard to display the shortcuts menu and select the **Assign to me** , or **Choose Assignee** option depending on what you want to do. Learn more about [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Learn moreâ
+
+Improve the management of your alerts in Case Manager by reading the following pages:
+
+  * Continue to manually distribute the workload by [Managing Cases](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-cases) or [Managing Queues](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-queues).
+  * Start automating processes by [Managing Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules) or [Managing SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas).
+
+

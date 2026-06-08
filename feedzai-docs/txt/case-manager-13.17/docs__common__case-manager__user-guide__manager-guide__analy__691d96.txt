@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics
+Title: Analyzing Metrics | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Monitor Performance
+  * Analyze Metrics
+
+
+
+On this page
+
+# Analyzing Metrics
+
+The analytics tools comprise dashboards with metrics and real-time charts to provide insights into your business and rule performance. Based on these insights, you can then generate reports, or improve workload management.
+
+The analytics tools include the following dashboards:
+
+  * **Business Overview dashboard:** Gives visibility on your business activity including information about transactions: processed, approved, declined and alerted as well as loss avoided. Learn more about the [Business Overview dashboard](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/business-overview).
+  * **Rules Monitoring dashboard:** Identifies which rules are being triggered by the risk engine platform and which are not. It also provides information about rules hit rate and precision. Based on this information, you can write self-service rules to block fraud quickly. Learn more about the [Rules Monitoring dashboard](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/rules-monitoring).
+  * **Analyst Performance dashboard:** Allows to measure, compare and track workload performance of each analyst, and the team as a whole. Learn more about the [Analyst Performance dashboard](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/analyst-performance).
+
+
+
+## Next Stepsâ
+
+Start by learning more about each of the available dashboards: [Business Overview](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/business-overview), [Rules Monitoring](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/rules-monitoring), and [Analyst Performance](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/analyst-performance).
+
+Then move on to [Managing Reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports) and how you can use them to capture and download a snapshot of how your system performed during a given timeframe.

@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/about/transaction-life-cycle
+Title: Payment Life Cycle | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [About Transaction Fraud for PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/about/overview)
+  * Payment Life Cycle
+
+
+
+# Payment Life Cycle
+
+Learn about Transaction Fraud for PSPs' payment life cycle and understand what happens in each payment's stage.
+
+  1. The customer uses a card or payment app to purchase a product in the merchant's physical or online store.
+
+  2. The merchant processes the order.
+
+  3. The transaction is redirected to the Payment Service Provider (e.g. Adyen, Stripe).
+
+  4. The Payment Service Provider (PSP) calls Feedzai's Payments API to score the transaction.
+
+_Info_ and _Merchant Provisioning_ endpoints
+
+The PSP calls Feedzai's Payment API by invoking the _Payment_ endpoint. Alternatively, the PSP can send the transaction through the _Info_ endpoint in case they don't want to request a scoring.
+
+Before a new merchant's first payment, you must invoke the _Merchant Provisioning_ endpoint to add the new merchant entity to Feedzai.
+
+  5. Feedzai's risk engine processes and scores the transaction in real time, and sends the recommendation (Approve/Decline) to the PSP.
+
+  6. The PSP makes an automated decision based on the risk engine recommendation.
+
+  7. The PSP processes the payment if the transaction is approved. Note that, if the transaction is declined by the PSP, the `decline` communication is sent to the merchant (jump to step 10).
+
+_Info_ and _Feedback_ endpoints
+
+The PSP should invoke Feedzai's _Info_ endpoint to communicate a different decision from Feedzai's risk engine recommendation (`do_not_honor`).
+
+The PSP can also invoke the _Feedback_ endpoint to notify Feedzai about a fraudulent transaction.
+
+  8. The processed payment is redirected to the acquirer/network, and ultimately reaches the issuer bank.
+
+  9. The PSP receives the notification that the acquirer/network and issuer bank authorized the transaction.
+
+Declined _Infos_
+
+Declined _Infos_ are mandatory. By default, Feedzai assumes the payment is approved, unless it receives an _Info_ saying it was declined. To ensure metrics are accurate, Feedzai must receive an _Info_ on every `decline` event - regardless of who influenced the declining decision (i.e. the issuer bank, Feedzai, the PSP, etc).
+
+Approved _Infos_
+
+Approved _Infos_ are optional and do not count for metrics, as they only add context for analysts (e.g. `do_not_honor`). Feedzai recommends not to send _Infos_ for approved payments to minimize the number of events.
+
+  10. The merchant receives an `approve` message. Note that if, in step 7, the PSP rejects the transaction, the merchant receives a `decline` message.
+
+  11. If the transaction has been approved, the merchant accepts the order and the customer receives the product.
+
+  12. Later, funds are settled between the PSP and the merchant.
+
+_Settlement_ endpoint
+
+Settlement events provide information about money moves and not fraud insights. They provide analysts with context, and are only a requirement for compliance use cases, such as Anti-Money Laundering. The Transaction Fraud for PSPs' standard integration does not send settlements.
+
+  13. Fraud analysts review alerted transactions (see step 5) at any time as a post-mortem analysis to provide feedback on fraud/not fraud decisions and improve scoring of subsequent transactions.
+
+
+

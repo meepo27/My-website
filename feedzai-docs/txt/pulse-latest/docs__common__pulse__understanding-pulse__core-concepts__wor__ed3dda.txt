@@ -1,0 +1,105 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/backfills
+Title: Backfills | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * [Workflows](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows)
+  * [Railgun Engine](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/)
+  * Backfills
+
+
+
+On this page
+
+# Backfills
+
+Was this page helpful?Â 
+
+Due to Railgun's streaming nature, when a new metric is defined (or an existing one is updated), its value will initially only account for the events which are processed from that point forward. For accurate results, older data corresponding to the period covered by the metric's time window needs to be collected retroactively, in a process called a **backfill**. Backfills are triggered automatically for any new or updated metrics, forming an ordered queue.
+
+Depending on the size of the profile's windows, and frequency of events, backfilling historical data can take some time due to the potentially high volume of data to be processed. Therefore, all backfills are executed asynchronously, so they won't interfere with application updates.
+
+A UI is available to [manage the queue of backfill jobs](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/managing-metrics-backfills), so that long-running backfills can be canceled to allow for quicker or more urgent ones to proceed, and restarted later.
+
+## How backfills are triggeredâ
+
+There are two main ways that backfills can be triggered: automatically due to the app publishes that create or modify metrics, or manually via the UI.
+
+Backfills failing due to encrypted database password
+
+If triggering a backfill results in a Pulse error stating that the Pulse property `pulse.app.database.password` could not be decrypted, then you need to update Pulse to a more recent version.
+
+### Backfills triggered via app publishesâ
+
+Whenever an app publish action includes the creation or modification of metrics, Pulse will automatically trigger a backfill for the affected metrics. The exception is when only the name or [fallback value](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/railgun-engine/metrics#fallback-value) of a metric is changed.
+
+When a backfill is initiated through a publish action, new metrics or existing metrics with modifications will return the fallback value until the backfill is complete. Metrics that have not been changed remain unaffected.
+
+Preserving metrics values during backfills
+
+Refer to the [Best practices for metrics in Railgun](/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/railgun#maintaining-metric-values-during-automatic-backfills) page to learn how to preserve metrics' values when making changes that trigger automatic backfills.
+
+See the table below for more details on the kinds of changes that trigger automatic backfills, and what is the impact of each change.
+
+### Backfills triggered manually via the UIâ
+
+[Manual backfill initiation via the UI](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/managing-metrics-backfills#triggering-a-new-backfill-job) is primarily intended for maintenance and support purposes.
+
+When a backfill is manually triggered, the behavior of the affected metrics will depend on whether they had already been backfilled automatically or not:
+
+  * Metrics that had already been backfilled automatically and were outputting values computed from real-time data, will continue to output real-time computed values (based on the old definition) during the manual backfill process.
+  * Metrics that had not yet been automatically backfilled and therefore were not yet outputting values computed from real-time data (i.e. were returning their fallback values), will continue to output the fallback value during the manual backfill process.
+
+
+
+In both cases, like with automatically triggered backfills, the affected metrics will start outputting values based on the new definition once the manual backfill is complete.
+
+## Backfill optimizationâ
+
+Railgun backfill queues are automatically managed to avoid redundant work and ensure that each metric is only backfilled once.
+
+For example, when an app is published with new or updated metrics, a new backfill job is added to the queue. This job backfills those new metrics, as well as any existing, unmodified ones that aren't yet fully backfilled. However, if a new backfill job is picked up and by then the previously existing metrics are already backfilled by earlier publish jobs, the system automatically skips those metrics in the new job.
+
+Similarly, when multiple backfills are scheduled (not yet running) for the same app and workflow, the system will automatically merge them by skipping the original backfills and creating a new backfill job containing all metrics that need to be backfilled.
+
+info
+
+Backfills that are manually triggered via the UI are not affected by this optimization, and will always backfill their selected metrics, even if they have already been backfilled.
+
+This behavior allows for maintenance operations where re-backfilling specific metrics is necessary.
+
+This optimization does not apply to metrics that are updated while a backfill for their older version is still running, nor does it reorder backfill jobs in the queue to prioritize smaller or more urgent ones. For recommendations on how to handle these cases, refer to the [best practices for managing the queue of backfill jobs](/pulse/latest/docs/common/pulse/users-guide/best-practices/metrics/railgun#managing-the-queue-of-backfill-jobs).
+
+## Backfill triggers and their effectsâ
+
+The following table details the different actions that can cause a metric backfill.
+
+#| Location| Change| Impact  
+---|---|---|---  
+1| [Metrics Operator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference#metrics)| A new metric is created.| 
+
+  * The new metric will be backfilled. It will only start to output values once the backfill finishes.
+  * No impact on the remaining metrics.
+
+  
+2| [Metrics Operator](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference#metrics)| The definition of a metric is changed, e.g. window definition, group by fields, or aggregation â with the following exceptions:
+
+  * Changing the name of the metric.
+  * Changing the fallback value.
+
+| 
+
+  * The modified metric will stop outputting values. It will only restart outputting values once the backfill finishes.
+  * There's no impact on the remaining metrics.
+
+  
+3| [Plans](/pulse/latest/docs/common/pulse/users-guide/navigating-pulse#plans)| Metrics are moved from one Metrics Operator to another (existing or new one).| Same impact as #1, since this will require new metrics to be created in one of the operators, and deleted from the other.  
+4| [Plans](/pulse/latest/docs/common/pulse/users-guide/navigating-pulse#plans)| The type of a field is changed, either on the Plan Schema or in a field that is created inside the plan (e.g. by a map operator in the plan), without renaming the field, and the affected field is used in a metric.Note that if the field is renamed, then the metric definition will change and scenario #2 will apply.| Same impact as #2, since metric definition changes.  
+5| [Workflows](/pulse/latest/docs/common/pulse/users-guide/navigating-pulse#workflows-tab)| A Plan Service with metrics is deleted and a new one with the same name is created, including plan and plan execution.| All metrics in the Plan Service will be backfilled (because the internal identifier that is generated for the service changes).  
+6| [Backfills tab menu](/pulse/latest/docs/common/pulse/users-guide/navigating-pulse#backfills-tab)| A backfill is [manually triggered](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/managing-metrics-backfills#triggering-a-new-backfill-job).| 
+
+  * You can choose the **Metrics** within the **Metric Operators** of the **Workflow Plan Services** that should be backfilled.
+  * Note that the metrics that are going to be backfilled will not have their values set to null / fallback value during the backfill process, which means that, until the backfill is complete, they will return the old values from before executing the backfill.
+
+

@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/overview
+Title: Event Life Cycles | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * Event Life Cycles
+
+
+
+# Event Life Cycles
+
+Was this page helpful?Â 
+
+Learn about the life cycles of each event type and the role each endpoint plays in the different stages of each event.
+
+### [Cards](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle)
+
+### [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+
+### [Inbound Payments](/tfrb/latest/docs/common/tfrb/life-cycles/inbound-payments/transaction-life-cycle)
+
+### [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+
+### [Ad-hoc Investigations](/tfrb/latest/docs/common/tfrb/life-cycles/ad-hoc-investigations/overview)
+
+### [Reference Data](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle)

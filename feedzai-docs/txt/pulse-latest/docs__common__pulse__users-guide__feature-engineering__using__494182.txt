@@ -1,0 +1,113 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-pql-in-features/function-calls-in-pql
+Title: Function Calls in PQL | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/)
+  * [Using PQL in Features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-pql-in-features/)
+  * Function Calls in PQL
+
+
+
+On this page
+
+# Function Calls in PQL
+
+Was this page helpful?Â 
+
+Function calls allow you to execute predefined functions on current values. There are two types of functions that can be called:
+
+  * Built-in functions of Pulse
+  * User-Defined Functions (UDFs) â a set of additional functions bundled with Pulse
+
+
+
+This topic gives an overview of the possible function calls, and points you to the right topics to learn more.
+
+## Built-in functionsâ
+
+### Checking NULLsâ
+
+Return type| Method| Description  
+---|---|---  
+`bool`| `isNull(int? a)`| Checks if an integer value is null.  
+`bool`| `isNull(long? a)`| Checks if a long value is null.  
+`bool`| `isNull(double? a)`| Checks if a double value is null.  
+`bool`| `isNull(float? a)`| Checks if a float value is null.  
+`bool`| `isNull(bool? a)`| Checks if a boolean value is null.  
+`bool`| `isNull(string? a)`| Checks if a string value is null.  
+`bool`| `isNull(tuple? a)`| Checks if a tuple value is null.  
+  
+### Math functionsâ
+
+All methods of the [java.lang.Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html) package are available in PQL. Besides those methods, you can use the following math functions:
+
+Return type| Method| Description  
+---|---|---  
+`int`| `max(list_of_int)`| Returns the maximum value of a list of numbers.  
+`long`| `max(list_of_long)`| Returns the maximum value of a list of numbers.  
+`double`| `max(list_of_double)`| Returns the maximum value of a list of numbers.  
+`float`| `max(list_of_float)`| Returns the maximum value of a list of numbers.  
+`int`| `min(list_of_int)`| Returns the minimum value of a list of numbers.  
+`long`| `min(list_of_long)`| Returns the minimum value of a list of numbers.  
+`double`| `min(list_of_double)`| Returns the minimum value of a list of numbers.  
+`float`| `min(list_of_float)`| Returns the minimum value of a list of numbers.  
+`boolean`| `between(int val, int left, int right)`| Returns true if the value is greater or equal to the left boundary and lower or equal to the right boundary.  
+`boolean`| `between(long val, long left, long right)`| Returns true if the value is greater or equal to the left boundary and lower or equal to the right boundary.  
+`boolean`| `between(double val, double left, double right)`| Returns true if the value is greater or equal to the left boundary and lower or equal to the right boundary.  
+`boolean`| `between(float val, float left, float right)`| Returns true if the value is greater or equal to the left boundary and lower or equal to the right boundary.  
+  
+### Stringsâ
+
+Return type| Method| Description  
+---|---|---  
+`string`| `str(int a)`| Returns a new string that is the textual representation of `a`.  
+`string`| `str(long a)`| Returns a new string that is the textual representation of `a`.  
+`string`| `str(double a)`| Returns a new string that is the textual representation of `a`.  
+`string`| `str(float a)`| Returns a new string that is the textual representation of `a`.  
+`string`| `str(bool a)`| Returns a new string that is the textual representation of `a`.  
+`string`| `str(string a)`| Returns a new string that is the textual representation of `a`.  
+`int`| `indexOf(string s, string c)`| Returns the index within string `s` of the first occurrence of the string `c`.  
+`string`| `substring(string s, int begin)`| Returns a new string that is a substring of string `s`.  
+`string`| `substring(string s, int begin, int end)`| Returns a new string that is a substring of string `s`.  
+`bool`| `contains(string s, string c)`| Returns `true` if string `c` is a substring of string `s`, or `false` otherwise.  
+`bool`| `startsWith(string s, string c)`| Returns `true` if string `c` is a prefix of string `s`, or `false` otherwise.  
+`bool`| `endsWith(string s, string c)`| Returns `true` if string `c` is a suffix of string `s`, or `false` otherwise.  
+  
+Container functions in `Map` and `Metrics` operators
+
+Functions that operate on collections (like `List`s, `Set`s or `Map`s) are not supported in the PQL fields of [Map Operators or Metric Operators](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans/operators-reference).
+
+For example, using `contains` or `indexOf` on collections in PQL fields of such operators will result in an error.
+
+The recommended alternative is to use UDFs (User Defined Functions) instead of these built-in functions.
+
+## UDF callsâ
+
+Pulse comes with a set of [User-Defined Functions (UDFs)](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/user-defined-functions) that can be used in addition to the built-in functions.
+
+UDFs in Metrics
+
+When using UDFs in metric filters and aggregations, UDFs receive fields from a single event and not from a collection of events.
+
+You can use the following syntax to call a UDF:
+    
+    
+    <class_name>.<function_name> ( <arguments> )  
+    
+
+For example, to concatenate two strings:
+    
+    
+    Strings.strcat("One", "Two") // Returns "OneTwo"  
+    
+
+java regex syntax
+
+Pulse uses the Java regex flavor for UDFs, which means that all regular expressions must conform to the syntax and rules of Java's `java.util.regex.Pattern` class.
+
+According to the usual regex syntax, when you need to match a literal special character that has meaning in regex (e.g. `*`, `+`, `?`, `.`), you must escape it using a backslash (`\`) within the regex pattern (e.g. `\*`, `\+`, and so on).
+
+However, because the regex pattern itself is often passed as a Java String literal, the backslash (`\`) used for escaping the regex special character must itself be escaped according to Java String rules.
+
+Therefore, to include an escaped character like `\*` (match literal asterisk) in a regular expression defined as a Java string, you must write it as `\\*`.

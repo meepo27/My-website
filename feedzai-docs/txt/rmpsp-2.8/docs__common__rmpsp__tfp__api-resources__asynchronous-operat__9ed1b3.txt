@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/asynchronous-operation
+Title: Asynchronous Operation | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [API Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/overview)
+  * [Additional Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/api-resources/additional-resources)
+  * Asynchronous Operation
+
+
+
+# Asynchronous Operation
+
+The Payments API connector supports asynchronous operation. This page covers the foundational aspects to help you with the integration process.
+
+Non-get endpoints support an `async` query parameter which, if `true`, will trigger the asynchronous processing of the request. If the `async` query parameter is set to false, the system will assure the synchronous operation. The default value for the `async` query parameter can be defined per endpoint using configuration.
+
+When invoking an endpoint using the asynchronous operation mode, request validations, such as authentication, authorization and payload specific validations (e.g. schema validations and timestamp validations), are executed immediately. Any invalid request fails immediately, as in the synchronous operation mode.
+
+Once validations are successfully completed, the request is sent to a message broker (such as RabbitMQ) where it waits to be processed by the system at a controlled rate. Once the request is successfully persisted in the message broker, the asynchronous request will terminate with an HTTP 202 Accepted response, denoting that the request will eventually be processed. Since the request has not been fully processed yet, any response fields that result from processing the request (most notably the score, decision and triggered actions on the _Payment_ endpoint will not be present in this response.
+
+Requests are consumed by the message broker at a configurable rate and execute the same operations as if they were synchronous. Once the request is completed, a response will be produced and stored in a message broker. This response is the same as the one produced in synchronous operation mode. You can use the _Responses Get_ endpoint to retrieve the responses from the message broker.
+
+The responses obtained from the _Responses Get_ endpoint can be correlated to the original request using the `event_external_id` response field, which will have the same value that was sent in the equivalent request field.

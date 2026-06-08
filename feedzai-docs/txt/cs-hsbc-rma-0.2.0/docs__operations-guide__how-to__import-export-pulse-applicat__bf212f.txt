@@ -1,0 +1,81 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/import-export-pulse-applications
+Title: Export and Import Pulse applications | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Export and Import Pulse applications
+
+Pulse offers application import and export to facilitate interoperability between installations and enable precise application state backups.
+
+## Exporting an Applicationâ
+
+Applications are exported in a single PAPP file that contains all the application resources like schemas, workflows and so on. In some situations there are security resources that are also exported with the applications; more on that later.
+
+##### warning
+
+Note that application exports may contain personally-identifiable information (PII) if this data is directly used in any application resources, for example if a rule or a plan map operator checks a specific customer name. Care should be taken to ensure this is not the case before sharing an exported application.
+
+PII is more likely to be found in Pulse lists, and therefore Feedzai always recommends that applications are exported without list items.
+
+Users can easily export an application by selecting the `Export Application` option within the application configuration menu, which initiates the download of the application's PAPP file. Please note, this method of exporting the application will also export the list items stored in the application.
+
+Applications can also be exported using a REST API endpoint. The API exposes a single authenticated endpoint that can be used to export the PAPP file. Authentication details are available in [API Authentication](/cs-hsbc-rma/0.2.0/docs/operations-guide/how-to/logging-api-authentication).
+
+Calling the endpoint will return a similar PAPP file as if it has downloaded via the UI, but there are additional parameters can be tweaked.
+
+> `GET` `/pulseviews/api/apps/{id}/export?excludeItems={excludeItems}`
+
+#### Parametersâ
+
+> Name| Type| Data type| Description  
+> ---|---|---|---  
+> `id`| required| string| The ID of the application to export.  
+> `excludeItems`| optional| boolean| Whether lists should be excluded from the export. Defaults to `false` but it is recommend to set to `true`.  
+  
+#### Responsesâ
+
+> Code| Content-type| Response  
+> ---|---|---  
+> `200`| `text/plain`| `200 OK`  
+> `400`| `text/plain`| `400 Bad Request`  
+> `401`| `text/html;charset=iso-8859-1`| `Error 401 Unauthorized`  
+  
+#### Example cURLâ
+
+> 
+>     curl -X GET http://<COMPONENT_URL>/apps/123456789/export?excludeItems=true \  
+>     >   -H "Cookie: SSOcookie=b7ea8372-2108-46c8-9cae-d16a0c153dfa" \  
+>     >   -H "X-Requested-With: XMLHttpRequest" \  
+>     >   --output test_app.papp  
+>     > 
+> 
+> Copy
+
+##### warning
+
+When exporting applications with `excludeItems` set to `false` (the default), the lists are fully loaded into memory, which often results in memory issues. We recommend that application exports are done via API requests with `excludeItems=true`.
+
+## Importing an Applicationâ
+
+Importing an application is usually as simple as exporting it. The user only has to click on the `Import Application` button present in the Applications tab and an informative wizard will guide the entire process.
+
+The Import Application wizard can have one to three steps depending on the complexity of the application being imported. If the application has neither security Groups nor Multi-Tenant resources, only one step will be needed which allows the user to upload the application PAPP file.
+
+### Applications With Multi-Tenancy Enabledâ
+
+Importing and exporting applications that contain Multi-Tenancy resources do not require any additional configuration steps. However, there are a few considerations worth mentioning regarding the Application import with Multi-Tenancy. Tenants stored in the PAPP file are merged automatically by Pulse using the following algorithm:
+
+  1. If the Tenant being imported has the same Unique Id (Key) of a Tenant in the current Pulse Installation, all resources of the Tenant being imported will be added/mapped to the Tenant in the current Pulse Installation.
+
+  2. If there is no Tenant with the the same Unique Id in the current Pulse Installation, a new Tenant will be created verifying before hand that there is no naming collision.
+
+     * If there is a name collision, the Tenant Unique Id will be appended at the end of the name, e.g. "Tenant Name (Tenant Unique Id)".
+  3. All the tenants stored in the PAPP file will be imported to the current Pulse Installation. Even if they are not being explicitly used in the Application being imported. Additional details:
+
+     * Even the Tenants without any explicit resource are used in runtime in case of a Rules of the type "Shared by All Tenants".
+
+     * When Exporting an Application, all the Tenants in the Pulse installation are stored in the PAPP file.
+
+
+

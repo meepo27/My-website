@@ -1,0 +1,32 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/best-practices/automl/feature-selection
+Title: Best Practices for AutoML's Feature Selection Stage | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Best Practices
+  * [AutoML](/pulse/latest/docs/common/pulse/users-guide/best-practices/automl/)
+  * Feature Selection Stage
+
+
+
+Was this page helpful?Â 
+
+# Best Practices for AutoML's Feature Selection Stage
+
+The main concept behind AutoML's feature engineering approach is expansion-reduction. The goal is to explore as many possible features as it is computationally feasible. Then, only the most relevant features should be chosen.
+
+In the reduction step, AutoML trains a Gradient Boosted Trees (GBT) model on a sample of your development data. The GBT model is used as a surrogate to get its model feature importance. By default this step selects the top-K features so that their relative importance is 90% of the total.
+
+On the advanced options of the AutoML wizard you can select the sample size that will be used for the GBT model.
+
+Feature importance
+
+This methodology is different than the one used by Pulse for individual model importance. Speed is paramount for AutoML. Thus, it's preferable to use GBT on a sample of the training data. This enables faster iterations.
+
+Pulse's feature importance is done by computing the difference in Recall after shuffling each feature individually, for a given FP-Rate. This makes this algorithm model agnostic. However, it also makes it computationally heavy when the number of features is large and/or you have a very unbalanced data set (and thus need a larger sample).
+
+AutoML's feature importance for feature selection is a simpler algorithm that trains a GBT model and gets its feature importance. Only one model is trained, and thus it only goes through the randomly sampled data once.
+
+If your target rate is very low on your features data (e. g. 1 basis point), bear in mind you should tune your feature importance job to use approximately 1M instances.
+
+At the end of the feature selection stage, Pulse will create a new features plan with **only the selected features and their dependencies**.

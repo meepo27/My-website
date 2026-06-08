@@ -1,0 +1,112 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/dataproc-2-2-support
+Title: Google Dataproc 2.2 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# Google Dataproc 2.2
+
+With Google Dataproc 2.0 reaching end of life it becomes crucial to support the latest Dataproc releases. The limitation with Dataproc version (2.2) is that it comes with Java 11 by default and jobs triggered in Pulse require Java 8.
+
+Dataproc uses the [Adoptium Temurin JDK](https://adoptium.net/) which offers Java 8 packages for both types of OS distributions (Rocky/Debian), so in this guide Java 8 and Java 11 refer to packages offered by Adoptium.
+
+In this page you can find a description on how to install Java 8 in Dataproc 2.2 and also on how to configure Pulse to use the correct version.
+
+##### note
+
+Java 8 should be available in all cluster instances (master(s) and workers).
+
+## Set upâ
+
+As stated above Dataproc 2.2 comes with Java 11 by default. However Dataproc clusters allow other packages to be installed during the cluster creation by using two different approaches: **custom images** or **initialization scripts**.
+
+Below you can find details on how to install such packages using both approaches.
+
+### Custom Imagesâ
+
+By using this approach we can generate a custom image (either fresh or based on another one) that includes all the packages we require as follows:
+
+  * Create a customization script that installs the necessary packages:
+        
+        #! /usr/bin/bash  
+        # Install other packages if needed  
+          
+        # Install Java 8  
+        yum install temurin-8-jdk  
+        
+
+Copy
+
+  * Save the file locally
+
+  * Generate a new image, for example, using the following Python script provided by Google, passing the local path to the script in `--customization-script`:
+        
+        python3 generate_custom_image.py \  
+            --image-name=CUSTOM_IMAGE_NAME \  
+            [--family=CUSTOM_IMAGE_FAMILY_NAME] \  
+            --dataproc-version=IMAGE_VERSION \  
+            --customization-script=LOCAL_PATH \  
+            --zone=ZONE \  
+            --gcs-bucket=gs://BUCKET_NAME  
+        
+
+Copy
+
+
+
+
+##### warning
+
+The installation script should only install the Java 8 JDK and not set `JAVA_HOME`, which should be set to the default Java version shipped with Dataproc 2.2.
+
+Please find a completed description of the above steps in [Google's Create a Dataproc custom image guide](https://cloud.google.com/dataproc/docs/guides/dataproc-images#set_up_your_project).
+
+### Initialization scriptsâ
+
+This approach leverages the initialization action that is available in Dataproc clusters to run a script when the cluster instances are created as follows:
+
+  * Create a script that installs the necessary JDK version (or reuse the one in [Custom Images](/cs-hsbc/3.0.2/docs/installation-guide/pulse/dataproc-2-2-support#custom-images))
+
+  * Upload the script to a GCS Bucket accessible by the cluster
+
+  * Set the script path while creating the cluster. For example, if the cluster is created with the `gcloud` client:
+        
+        gcloud dataproc clusters create CLUSTER_NAME \  
+            --region=${REGION} \  
+            --initialization-actions=gs://my-bucket/cloud-sql-proxy/v1.0/cloud-sql-proxy.sh \  
+            ...other flags...  
+          
+        
+
+Copy
+
+
+
+
+For more information please refer to [Initialization Actions](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/init-actions).
+
+## Pulse configurationâ
+
+After a Dataproc cluster is created with the necessary Java dependencies, a new Pulse cluster will also need to be created. It should use the new Dataproc cluster and include two new Ansible variables that set the `JAVA_HOME` when creating jobs in the cluster:
+
+  * `spark_datascience_jdk_home`: sets the `JAVA_HOME` for Data Science jobs, e.g. datasource analysis
+  * `spark_distributed_jdk_home`: sets the `JAVA_HOME` for other jobs, e.g. scheduled Metrics Jobs
+
+
+
+Each of these variables should point to the Java 8 path in the Dataproc cluster which is by default installed in `/usr/lib/jvm/temurin-8-jdk`.
+
+After the Pulse cluster is created you will notice two new properties in the Pulse UI:
+    
+    
+    pulse.global.services.modules.distributed.jobs.spark.forward.spark.executorEnv.JAVA_HOME  
+    pulse.global.services.modules.datascience.spark.forward.spark.executorEnv.JAVA_HOME  
+    
+
+Copy
+
+If correctly configured, when a new job is created the Spark configuration for that job will include the `spark.executorEnv.JAVA_HOME` in its execution context and force the job to run with the Java 8 JDK.
+
+##### note
+
+In Pulse Data Science deployments these properties might need to be set manually via the UI. No restart is needed since both properties are hot reloadable.

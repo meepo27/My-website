@@ -1,0 +1,194 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/stats/
+Title: stats - DS API
+============================================================
+
+#  `` stats Â¶  
+  
+##  `` CHECKPOINT_FILE `module-attribute` Â¶
+    
+    
+    CHECKPOINT_FILE = 'checkpoint.pkl'
+    
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` compute_histograms Â¶
+    
+    
+    compute_histograms(data, stats, breakdowns, cardinality_threshold, dist_sampling, max_bins, time_resolution)
+    
+
+Computes histograms.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data` Â¶
+
+|  |  the Spark Dataframe with the data to be used in order to compute histograms. |  _required_  
+  
+###  `stats` Â¶
+
+|  |  dictionary with statistics per field relevant for the computation of histograms. |  _required_  
+  
+###  `breakdowns` Â¶
+
+|  |  a list of field names to calculate breakdowns over. |  _required_  
+  
+###  `cardinality_threshold` Â¶
+
+|  |  cardinality threshold to decide if the full value counts is to be computed for string histograms. If the estimated cardinality is smaller than this value, then the full string histogram computation will be performed. Otherwise, only the top most frequent values are to be counted. |  _required_  
+  
+###  `dist_sampling` Â¶
+
+|  |  sampling factor between 0 and 1 used for the estimation of value_counts for string fields during the compute_stats phase. |  _required_  
+  
+###  `max_bins` Â¶
+
+|  |  binning resolution for the histogram computation of numerical fields. This value define the number of uniform buckets to be computed between to minimum and the maximum value of the field. |  _required_  
+  
+###  `time_resolution` Â¶
+
+|  |  time resolution for the histogram computation of datetime fields. Supported resolutions: 'h' for hours, 'd' for days. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict` |  a dictionary with the descriptive statistics.  
+  
+##  `` compute_stats Â¶
+    
+    
+    compute_stats(data: _TDataFrame, semantics_map: dict | None = None, validations: Any = None, timestamp_field: str | None = None, cost_field: str | None = None, target: tuple | None = None, breakdowns: list[str] | None = None, breakdown_card_threshold: int = 10, cardinality_threshold: int | None = None, cardinality_sample_size: int = 100000, max_bins: int = 1000, time_resolution: str = 'h', time_dependencies_sample_size: int = 100000, checkpoint_file: str = CHECKPOINT_FILE)
+    
+
+Computes the descriptive statistics and optional validations for all the fields contained in the data. The statistics/validations will be returned in a dictionary whose keys are the fields in the dataset and the values will be dictionaries with the descriptive statistics/validations for those fields.
+
+The computation will be performed over the RDD representation of the dataset in a single pass over the data through a map and a reduce step. The map operation will be applied to an entire row and will result in a dictionary with the mapped values for each feature and statistic/validation per row. Then a single reduce operation will be applied, reducing the dataset to a single dictionary with the aggregated statistics/validations.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data` Â¶
+
+|  `_TDataFrame` |  the Spark Dataframe with the data to be used in order to compute statistics. |  _required_  
+  
+###  `semantics_map` Â¶
+
+|  `dict | None` |  dictionary matching fields (keys) to semantic tags (values). Default: None. |  `None`  
+  
+###  `validations` Â¶
+
+|  `Any` |  list/tuple/set containing list of Validation. It will be appended to the built-in set of validations. Default: None. |  `None`  
+  
+###  `timestamp_field` Â¶
+
+|  `str | None` |  name of the column to be associated as timestamp field. Will be tagged with the TIMESTAMP semantic and associated built-in validations will be performed. Default: None. |  `None`  
+  
+###  `cost_field` Â¶
+
+|  `str | None` |  name of the column to be associated as cost field. Will be tagged with the AMOUNT semantic and associated built-in validations will be performed. Default: None. |  `None`  
+  
+###  `target` Â¶
+
+|  `tuple | None` |  tuple containing (target_field, target_value). Target field is the name of the columns to be associated as the target field, will be included in the list of breakdowns. Will be tagged with the AMOUNT semantic and associated built-in validations will be performed. Target value indicate the value to be considered as 'positives'. Default: None. |  `None`  
+  
+###  `breakdowns` Â¶
+
+|  `list[str] | None` |  a list of field names to calculate breakdowns over. So far breakdowns are only relevant for histograms. |  `None`  
+  
+###  `breakdown_card_threshold` Â¶
+
+|  `int` |  cardinality threshold for breakdown fields. A protection is added so if a specified breakdown field has a cardinality larger than this threshold, then it will be removed from the list of fields to calculate breakdowns over. Default value is 10. |  `10`  
+  
+###  `cardinality_threshold` Â¶
+
+|  `int | None` |  cardinality threshold to decide if the full value counts is to be computed for string histograms. If the estimated cardinality is smaller than this value, then the full string histogram computation will be performed. Otherwise, only the top most frequent values are to be counted. Default is None, meaning that the full computation will be performed. |  `None`  
+  
+###  `cardinality_sample_size` Â¶
+
+|  `int` |  sample size used for the estimation of value_counts for string fields. If a negative value is given then the full sample will be used (not recommended for samples larger than 1M instances). If None is given, then no value_counts computation will be performed. Default is 100k. |  `100000`  
+  
+###  `max_bins` Â¶
+
+|  `int` |  binning resolution for the histogram computation of numerical fields. This value defines the number of uniform buckets to be computed between the minimum and the maximum value of the field. Default is 1000. |  `1000`  
+  
+###  `time_resolution` Â¶
+
+|  `str` |  time resolution for the histogram computation of datetime fields. Supported resolutions: 'h' for hours, 'd' for days. Default is 'd'. |  `'h'`  
+  
+###  `time_dependencies_sample_size` Â¶
+
+|  `int` |  number of instances to use in the computation of time dependencies. If a negative value is given then all instances will be used. If `None` is given then time dependencies won't be computed. Default: 100k. |  `100000`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  an instance of ExplorationResults containing the results of the computed statistics, validations and histograms.  
+  
+##  `` compute_stats_from_checkpoint Â¶
+    
+    
+    compute_stats_from_checkpoint(checkpoint_file=CHECKPOINT_FILE, data=None)
+    
+
+##  `` create_exploration_results Â¶
+    
+    
+    create_exploration_results(params, data, checkpoint_file=CHECKPOINT_FILE)
+    
+
+##  `` run_validations Â¶
+    
+    
+    run_validations(data, semantics_map, validations=None, timestamp_field=None, cost_field=None, target=None)
+    
+
+Computes the specified validations per field contained in the data. The validations will be returned in a dictionary whose keys are the fields in the dataset and the values will be dictionaries with the validations for those fields.
+
+The computation will be performed over the RDD representation of the dataset in a single pass over the data through a map and a reduce step. The map operation will be applied to an entire row and will result in a dictionary with the mapped values for each feature and validation per row. Then a single reduce operation will be applied, reducing the dataset to a single dictionary with the aggregated validations.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `data` Â¶
+
+|  |  the Spark Dataframe with the data to be used in order to compute statistics. |  _required_  
+  
+###  `semantics_map` Â¶
+
+|  |  dictionary matching fields (keys) to semantic tags (values). |  _required_  
+  
+###  `validations` Â¶
+
+|  |  list/tuple/set containing list of Validation. It will be appended to the built-in set of validations. |  `None`  
+  
+###  `timestamp_field` Â¶
+
+|  |  name of the column to be associated as timestamp field. Will be tagged with the TIMESTAMP semantic and associated built-in validations will be performed. Default: None. |  `None`  
+  
+###  `cost_field` Â¶
+
+|  |  name of the column to be associated as cost field. Will be tagged with the AMOUNT semantic and associated built-in validations will be performed. Default: None. |  `None`  
+  
+###  `target` Â¶
+
+|  |  tuple containing (target_field, target_value). Target field is the name of the columns to be associated as the target field. Will be tagged with the TARGET semantic and associated built-in validations will be performed. Target value indicate the value to be considered as 'positives'. Default: None. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`dict` |  a dictionary with the descriptive validations.

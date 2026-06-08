@@ -1,0 +1,170 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/features/list_get_feature/
+Title: list_get_feature - DS API
+============================================================
+
+#  `` list_get_feature Â¶
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` ListGetFeatureBuilder `module-attribute` Â¶
+    
+    
+    ListGetFeatureBuilder = autoclass([DS_API_CLASSPATH](../../../#ds_api.DS_API_CLASSPATH "            DS_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.DS_API_CLASSPATH\)") + 'plan.features.ListGetFeature$Builder')
+    
+
+##  `` ListGetFeature Â¶
+    
+    
+    ListGetFeature(name: str, list_id: str, expression: str, list_field: str, *, timestamp_field: str | None = None, description: str | None = None)
+    
+
+Bases: `[ListFeature](../list_feature/#ds_api.plans.features.list_feature.ListFeature "            ListFeature \(ds_api.plans.features.list_feature.ListFeature\)")`
+
+Represents a ListGet feature in Pulse.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `name` Â¶
+
+|  `str` |  Name of the feature. |  _required_  
+  
+###  `list_id` Â¶
+
+|  `str` |  id of the List in Pulse. |  _required_  
+  
+###  `expression` Â¶
+
+|  `str` |  Feature expression. Fields must be enclosed with the pattern `${field}` and the field type of the returned expression must match the type of the List key. eg. `"com.feedzai.cloud.udf.Strings.normalize( ${MerchantName} )"`. |  _required_  
+  
+###  `list_field` Â¶
+
+|  `str` |  Field to be accessed from the complex list. |  _required_  
+  
+###  `description` Â¶
+
+|  `str` |  Feature description, by default None. |  `None`  
+  
+###  `` description `property` `writable` Â¶
+    
+    
+    description
+    
+
+###  `` expression `property` `writable` Â¶
+    
+    
+    expression: str
+    
+
+###  `` list_field `property` `writable` Â¶
+    
+    
+    list_field
+    
+
+###  `` list_id `property` `writable` Â¶
+    
+    
+    list_id: str
+    
+
+###  `` name `property` `writable` Â¶
+    
+    
+    name
+    
+
+###  `` operator `property` Â¶
+    
+    
+    operator
+    
+
+###  `` timestamp_field `property` `writable` Â¶
+    
+    
+    timestamp_field: str | None
+    
+
+###  `` from_dict `classmethod` Â¶
+    
+    
+    from_dict(feat_dict: Dict[str, str]) -> ListGetFeature
+    
+
+###  `` from_java_feature `classmethod` Â¶
+    
+    
+    from_java_feature(feature: JavaClass, operator: [BaseFeaturesOperator](../../operators/operator/#ds_api.plans.operators.operator.BaseFeaturesOperator "            BaseFeaturesOperator \(ds_api.plans.operators.operator.BaseFeaturesOperator\)")) -> ListGetFeature
+    
+
+Creates a ListGetFeature from a Java DS-API ListGetFeature.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `Java DS-API ListGetFeature` |  |  _required_  
+  
+####  `operator` Â¶
+
+|  `[ListOperator](../../operators/list_operator/#ds_api.plans.operators.list_operator.ListOperator "            ListOperator \(ds_api.plans.operators.list_operator.ListOperator\)")` |  |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ListGetFeature` |  ListGetFeature  
+  
+###  `` get_dependencies Â¶
+    
+    
+    get_dependencies() -> set[str]
+    
+
+###  `` get_dependencies_by_type Â¶
+    
+    
+    get_dependencies_by_type() -> dict[str, list[str]]
+    
+
+###  `` rename_dependencies Â¶
+    
+    
+    rename_dependencies(old_name: str, new_name: str)
+    
+
+###  `` to_dict Â¶
+    
+    
+    to_dict(with_operator: bool = True) -> dict[str, str | float | int | bool | None]
+    
+
+###  `` to_java_feature_builder Â¶
+    
+    
+    to_java_feature_builder() -> JavaClass
+    
+
+From ListGetFeature to a Java DS-API ListGetFeature.Builder.
+
+Returns:
+
+Type | Description  
+---|---  
+`Builder` |  ListGetFeature.Builder

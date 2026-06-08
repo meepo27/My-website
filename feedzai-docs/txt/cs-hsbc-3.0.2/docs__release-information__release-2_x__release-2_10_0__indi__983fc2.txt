@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3493-Upgrade-Pulse-Commands-version-to-25-14-38
+Title: HSBC-3493-Upgrade-Pulse-Commands-version-to-25-14-38 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3493-Upgrade-Pulse-Commands-version-to-25-14-38
+
+### Upgrade Pulse Commands version to 25.14.38â
+
+FeatureHSBC-3493
+
+We have upgraded Pulse Commands to version 25.14.38. This is a technical change which prevents patch failures when workflow schemas are deleted or implicitly defined.

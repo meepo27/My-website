@@ -1,0 +1,171 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources
+Title: Importing Resources | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * Importing Resources
+
+
+
+On this page
+
+# Importing Resources
+
+Was this page helpful?Â 
+
+## Introductionâ
+
+After [exporting](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources) the resource bundle, you can import the zip file in another Pulse application (**Pulse App**). The following data and resources can be imported:
+
+  * Resources imported by user selection: **Models** , **Plans** , and **Rules Projects.**
+  * Metadata of resources automatically imported if the resources are included in the export bundle: **Lists** , **Tenant Groups** , and **Tenants.**
+
+
+
+This guide explains you how to import resources in Pulse using the partial import option.
+
+## How to import Pulse resourcesâ
+
+To import resources execute the following steps:
+
+First, select the Options  button to open the application options menu:  
+
+
+Then, select the option â  to open the import wizard. The wizard guides you through several stages that are displayed in different tabs as described in the sections below.
+
+### Stage 1: Upload Fileâ
+
+  1. "Drag & Drop" the zip file containing the export bundle to the dashed box, or alternatively, use the option "browse for a file".  
+
+  2. Use the button â  to proceed to Stage 2.
+
+
+
+### Stage 2: Choose Resourcesâ
+
+In the **Stage 2: Choose Resources** , you can select the resources that you want to import as described in the subsections below.
+
+Lists
+
+The resource **List** does not have a tab menu because the metadata of **Lists** is automatically imported as follows:
+
+  * **Lists** that do not exist in the target environment are created with no items.
+  * **Lists** that already exist in the target environment are updated with new metadata, however, their items are not affected by the import.
+
+
+
+#### Model Projectsâ
+
+warning
+
+If models are imported via App Collaboration and imported to a clustered environment, the model binary is not propagated to all nodes and remains only in the leader node. It is recommended to set up the binary location for the Pulse folders in the same shared drive across all nodes.
+
+To import a **Model** execute the following actions:
+
+  1. Choose the tab â . The following image shows the import wizard:
+
+  2. Use the  checkbox to choose the **Models** that you want to import. In Pulse, **Models** are imported individually by user selection rather than importing the full **Model Project** with several **Models** at once.
+
+  3. For each **Model** , choose the local **Model Project** to which you want to store the **Model** in the target **Pulse App**.
+
+Model Projects in the local Pulse app
+
+You must have a **Model Project** in the target application to be able to import a new **Model**. If you don't select a _Local Model Project Name_ you will receive a warning message to add one.
+
+  4. Optionally, choose the binary of each **Model** by selecting the â  checkbox.
+
+  5. Once you have chosen all the resources that you want to import (i.e. **Models** , **Plans** and **Rules Projects**), select the button â  to proceed to the next stage.
+
+Dummy Data Source
+
+When you import a **Model** that does not have a compatible data source available in the target environment, Pulse automatically creates a new data source. This new data source contains only the schema, without data associated to it.
+
+
+
+
+#### Plansâ
+
+To import a **Plan** execute the following actions:
+
+  1. Choose the tab â .
+
+  2. Use the  checkbox to choose the **Plans** that you want to import.
+
+  3. Choose the _Local Plan Name_ for the **Plan** in the target **Pulse app** :
+
+     1. You can replace an existing **Plan** by choosing a target name.
+     2. You can choose to save it as a new **Plan** by choosing the option _project_name_ â .
+  4. Optionally, choose the **Plan Executions** that you want to import by  expanding the menu under the _Plan Executions_ column. By default, the **Plan Executions** are selected.
+
+  5. Once you have chosen all the resources that you want to import (i.e. **Models** , **Plans** and **Rules Projects**), select the button â  to proceed to the next stage.
+
+Dummy Data Source
+
+When importing a **Plan** with **Executions** that do not have a compatible data source available in the target environment, Pulse automatically creates a new data source for each **Execution** that you choose to import. This new data sources contain only the schema, without data associated to them.
+
+
+
+
+#### Rules Projectsâ
+
+To import a **Rules Project** execute the following actions:
+
+  1. Choose the tab â .
+  2. Use the  checkbox to choose the **Rules Projects** that you want to import.
+  3. Choose the _Local Rules Project Name_ for the **Rules Project** in the target Application:
+     1. You can replace an existing **Rules Project** by choosing a target name.
+     2. You can choose to save it as a new **Rules Project** by choosing the option _project_name_ â .
+  4. Optionally, choose the **Rules Snapshots** that you want to import by â  expanding the menu under the _Snapshots_ column. By default, the **Snapshots** are selected.
+  5. Once you have chosen all the resources that you want to import (i.e. **Models** , **Plans** and **Rules Projects**) select the button â  to proceed to the next stage.
+
+
+
+### Stage 3: Schema Conflictsâ
+
+Stage display
+
+This stage is only displayed if you import a **Rules Project** or a **Plan** , and when both of these conditions are met:
+
+  * You choose to override an existing resource in the target application.
+  * The resource in the export bundle has a different schema compared to the same resource in the target application.
+
+
+
+To complete the **Stage 3: Schema Conflicts** execute the following actions:
+
+  1. For each resource, choose the schema that you want to keep:
+     * **Keep Imported** : This allows you to keep the schema that is specified in the resource that is being imported.
+     * **Keep Local** : This allows you to keep the schema that is currently in your target application.
+  2. Select the button â  to proceed to the next stage.
+
+
+
+### Stage 4: Workflowâ
+
+This stage allows you to associate the resources that you chose to import in Stage 2 to **Workflow** services. See the page [How to organize your work with blocks](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/how-to-organize-your) to understand how to map resources in the Data Science tab to corresponding services in the Workflows tab in the context of **App Collaboration**.
+
+Workflow configuration
+
+To apply the new resources to the **Workflow** you need to have a **Workflow** already created with the service operators placed in the diagram. However, the services don't need to be fully preconfigured (e.g. the service Rules doesn't need to have either a **Rules Project** or a **Snapshot**) because the import wizard allows you to add the configuration to the **Workflow**.
+
+To add or update new resources directly into the **Workflow** execute the following actions:
+
+  1. Use the  checkbox to choose the _Resource Type_ that you want to map to a **Workflow** service.
+  2. Select the name of the **Workflow** that you want to update with the new resource using the combobox under the column _Workflow_.
+  3. Select the **Workflow** service to which you want to map the resource using the combobox under the column _Workflow service_.
+  4. Repeat Steps 1-3 to map the desired resources to **Workflow** services.
+  5. Complete the Wizard stages by selecting the button â .
+
+
+
+## Learn moreâ
+
+When you export and import resources it might be useful to have the following pages at hand:
+
+  * [Bundle structure](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/bundle-structure): to learn how the folders are organized in the zip file
+  * [Errors in App Collaboration](/pulse/latest/docs/common/pulse/operations-guide/app-collaboration-loop/errors-in-app-collaboration): To learn possible errors that might occur during export and import operations.
+
+
+
+Now that you know how to export and import resources, check the page [Exporting and Importing Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-and-importing-applications) to learn how to migrate the full **Pulse App** file (`.papp`).

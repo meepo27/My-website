@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3466-Add--lifecycle-id--index-for-Cards-and-Inbound-Event-Storage
+Title: HSBC-3466-Add--lifecycle-id--index-for-Cards-and-Inbound-Event-Storage | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3466-Add--lifecycle-id--index-for-Cards-and-Inbound-Event-Storage
+
+### Add `lifecycle_id` index for Cards and Inbound Event Storageâ
+
+FeatureHSBC-3466
+
+We've added the following index to the Inbound and Cards Event Storage tables to improve the feedback processing time:
+
+  * `idx_es_<eventstorage.tableName>_lifecycle_id`: index on column `lifecycle_id`
+
+
+
+##### warning
+
+This index will be automatically applied to the main (non-partitioned) table, the partitioning function, and all _new_ partitions created after this update. Existing partition tables created prior to this change will _not_ be affected and will require manual indexing if needed.

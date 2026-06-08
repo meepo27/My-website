@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/editing-properties-on-demand
+Title: Editing properties on demand | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Tuning Job executions with Job Profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/)
+  * Editing properties on demand
+
+
+
+On this page
+
+# Editing properties on demand
+
+Was this page helpful?Â 
+
+Pulse allows you to configure Spark properties on demand, while setting up a Data Science resource (e.g. Model Execution, Hyperparameter Tuning) that is executed in a distributed way. This gives you full control over the configuration of the [Spark job](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/jobs-and-job-profiles) that performs the calculations for that specific resource.
+
+Valid only for a single Job Execution
+
+The properties that you define on demand are valid only for this single Job Execution. In other words, Pulse does not save the changed values to any Job Profile.
+
+To configure properties on demand, perform the following actions:
+
+  1. While setting up a Data Science resource, in the **Advanced Options** select the **Job Profile** that you want to start with. Check [Selecting a profile on demand](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles#selecting-or-editing-a-profile-on-demand) to learn more about this action.
+
+  2. Use the  button to load the properties of the selected profile for editing. As an example, the image below shows the editing menu for the task [Data Source Analysis](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-source-analysis):
+
+  3. To add new Spark properties:
+
+     1. Insert the name of the Spark property in the column Key.
+     2. Insert the value or encrypted value of the Spark property.
+     3. Select the button .
+  4. To edit the value of a property:
+
+     1. Locate the Spark property that you want to change.
+     2. Select the current value of the property.
+     3. Type a new value or encrypted value and  **Save the Changes**.
+  5. Finish creating the resource that you are configuring. In the previous example, select the **Analyse** button to save the Data Source Analysis. It starts the Spark job that executes the necessary computational tasks using the settings you selected in the previous steps.
+
+
+
+
+## Next stepsâ
+
+Now that you have configured all aspects related to Job Profiles, you can start [processing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/processing-your-data) efficiently by taking advantage of the optimized profiles that you have created.

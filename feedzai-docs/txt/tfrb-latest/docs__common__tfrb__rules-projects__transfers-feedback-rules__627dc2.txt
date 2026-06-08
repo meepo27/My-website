@@ -1,0 +1,114 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-feedback-rules
+Title: Transfers - Feedback Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - Feedback Rules
+
+
+
+On this page
+
+# Transfers - Feedback Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Feedback Rules_ evaluate events that contain information on whether the transaction is fraudulent or legitimate. This feedback comes from:
+
+  * The issuer via the Feedback endpoint (i.e. `feedback_type` field equal to `out_of_band`).
+  * The analyst decision in Case Manager (i.e. `feedback_type` field equal to `cm_feedback`).
+
+
+
+It is common to have rules with actions that are preconfigured in the list management service leveraging automatic list transitions. For example, this rules project contains a rule that triggers the Auto Decline Account action. It work as follows:
+
+The rule is triggered when the event is confirmed as fraud (i.e. the `feedback_value` field is equal to `true`). As a result, the action Auto Decline Account is applied. This action is configured in the [List Management Service](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service) and it adds the account associated with the event to a list of Accounts. Events with accounts within this list are automatically declined in future transactions by _PosNeg Rules_.
+
+Having this example as a reference, you can add rules that leverage different actions preconfigured in the List Management Service, or even write rule conditions that trigger for other feedback values.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Transfers-FB1
+
+### Comment
+
+> Flag account to be auto declined if customer does not acknowledge transaction or analyst marks as 'Fraud' . Depends on 'List Management Service' to put the account in the configured list.
+
+### Actions
+
+  * [Transfers-FB1]
+  * Auto Decline Account
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    (event.feedback_type == "out_of_band" or event.feedback_type == "cm_feedback")
+    and
+    // Fraud
+    event.feedback_label == "fraud" and event.feedback_value == true
+    and
+    // Filters
+    (event.sender_transaction_bank_accoun ?? '' != '')
+
+### Explanation
+
+> [Transfers-FB1] - Customer did not acknowledge the transaction or analyst marked as 'Fraud'. '{eventname.sender_transaction_bank_accoun}' {event.sender_transaction_bank_accoun} flagged for auto decline. 
+
+### Mark As
+
+N/A
+
+## Transfers-FB2
+
+### Comment
+
+> Flag account to be auto approved if customer acknowledges transaction or analyst marks as 'Not Fraud' . Depends on 'List Management Service' to put the account in the configured list.
+
+### Actions
+
+  * Auto Approve Account
+  * [Transfers-FB2]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Endpoints
+    (event.feedback_type == "out_of_band" or event.feedback_type == "cm_feedback")
+    and
+    // Fraud
+    event.feedback_label == "fraud" and event.feedback_value == false
+    and
+    // Filters
+    (event.sender_transaction_bank_accoun ?? '' != '')
+
+### Explanation
+
+> [Transfers-FB2] - Customer acknowledged the transaction or analyst marked as 'Not Fraud'. '{eventname.sender_transaction_bank_accoun}' {event.sender_transaction_bank_accoun} flagged for auto approve.
+
+### Mark As
+
+N/A

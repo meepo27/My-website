@@ -1,0 +1,87 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/
+Title: Index - DS API
+============================================================
+
+#  `` models Â¶  
+  
+Module that includes all available model training configurations.
+
+##  `` MODELS_CLASSPATH `module-attribute` Â¶
+    
+    
+    MODELS_CLASSPATH: str = [DS_API_CLASSPATH](../#ds_api.DS_API_CLASSPATH "            DS_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.DS_API_CLASSPATH\)") + 'models.'
+    
+
+##  `` TrainingConfig Â¶
+    
+    
+    TrainingConfig(builder, undersampling: float | None = None, oversampling: float | None = None, seed: int | None = None, ignored_fields: set[str] | None = None, schema: [Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+The base class for a model training configuration. It takes care of the initialization of common parameters across all algorithms.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `builder` Â¶
+
+|  |  Builder that comes from the specific algorithm. |  _required_  
+  
+###  `undersampling` Â¶
+
+|  `float` |  The value for undersampling. Only this or oversampling can be used. |  `None`  
+  
+###  `oversampling` Â¶
+
+|  `float` |  The value for oversampling. Only this or undersampling can be used. |  `None`  
+  
+###  `seed` Â¶
+
+|  `int` |  The seed value. |  `None`  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when training a model. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    

@@ -1,0 +1,284 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/installation-guide/trying-out-case-manager
+Title: Trying out Case Manager | Case Manager
+============================================================
+
+On this page
+
+# Trying out Case Manager
+
+In order to quickly get started with Case Manager, you can make a virtual installation and try out its functionalities and options.
+
+Follow the instructions and, after the installation process has finished, you will be able to run a demo version of Case Manager. To access Case Manager's user interface, browse to **http:// <host>:<port>** (e.g. [https://localhost:8081/](https://localhost:8443)) to display the following login window:
+
+## Software Requirementsâ
+
+As a standard Java web application, Case Manager must meet some pre-requirements. Here, you can see the required software and the versions that need to be installed in order to run Case Manager:
+
+  * Oracle JDK 8
+  * Eclipse Jetty 9
+  * Feedzai Pulse
+    * Pulse 16.1.3 (or above)
+  * A [PulseDB](https://github.com/feedzai/pdb) supported Database
+  * A modern web browser (1280x800 or above)
+
+
+
+In order to execute the example scripts, you will need the following:
+
+  * make
+  * docker
+  * [docker-compose](https://docs.docker.com/compose/)
+  * [jq](https://stedolan.github.io/jq/)
+
+
+
+## Required Filesâ
+
+You can download the necessary files to run Case Manager, by downloading the bundle from the internal releases page:
+
+info
+
+File name: `case-manager-<version>.tar.bz2`
+
+<https://intra.feedzai.com/releases/cm/>
+
+As a result, you must have these files in your local directory:
+    
+    
+    case-manager-<version>/  
+    âââ bin  
+    â   âââ alert-manager-admin-<version>.jar  
+    â   âââ alert-manager-pulse-15-socket-<version>.jar  
+    â   âââ alert-manager-pulse-15-storage-<version>.jar  
+    â   âââ alert-manager-pulse-16-socket-<version>.jar  
+    â   âââ alert-manager-pulse-16-storage-<version>.jar  
+    â   âââ alert-manager-web-<version>.war  
+    â   âââ alert-manager-web-api-<version>.war  
+    âââ ext  
+    â   âââ h2-1.4.192.jar  
+    â   âââ postgresql-9.4-1206-jdbc4.jar  
+    âââ scripts  
+    â   âââ config  
+    â   â   âââ 00_configuration.sql  
+    â   â   âââ 01_configuration_alerts.sql  
+    â   â   âââ 02_configuration_details.sql  
+    â   â   âââ 03_configuration_search.sql  
+    |   |   âââ 70_AM_AUTOMATION.sql  
+    â   âââ data  
+    â   â   âââ 50_status.sql  
+    â   âââ i18n  
+    â       âââ 80_messages.sql  
+    âââ config.json  
+    âââ security.json  
+    âââ docker-compose.yml  
+    âââ Dockerfile  
+    âââ Makefile  
+    
+
+## Deploying Case Managerâ
+
+This guide uses **docker** and **docker compose** as an example, however, similar setups with physical machines can be applied in order to deploy Case Manager. Inside the bundle you have downloaded, you will find the following files:
+
+  * **`config.json`** \- Case Manager's main configuration.
+  * **`Dockerfile`** \- A sample Case Manager deployment using Jetty.
+  * **`docker-compose.yml`** \- A sample Case Manager setup with PostgreSQL, Pulse and RabbitMQ.
+  * Makefile - Shortcuts to populate the database schema and configuration. This will also populate Pulse with Case Manager's security roles and permissions.
+
+
+
+In this section, you can find relevant information about the files you have downloaded in the bundle:
+
+  1. Case Manager's main configuration **`config.json`** allows you to configure the following:
+
+     * Database (not Pulse's database, but could be shared with it)
+     * Pulse
+     * Messaging
+     * Schema
+
+You can see an example here:
+
+config.json
+    
+    {  
+      "pdb": {  
+        "engine": "com.feedzai.commons.sql.abstraction.engine.impl.PostgreSqlEngine",  
+        "jdbc": "jdbc:postgresql://postgres:5432/cm",  
+        "username": "cm",  
+        "password": "cm",  
+        "schema_policy": "none",  
+        "pool_size": 16,  
+        "pool_lazy": true  
+      },  
+      "messaging": {  
+        "brokers": "rabbit",  
+        "broker_impl": "com.feedzai.messaging.rabbitmq.RabbitMQMessagingManager",  
+        "subscriber_id": "6b122c62-701c-4728-9207-381f4edb3016",  
+        "username": null,  
+        "password": null,  
+        "vhost": "/"  
+      },  
+      "pulse": {  
+        "url": "http://pulse:8080",  
+        "version": "16.1",  
+        "username": "pulse",  
+        "password": "pulse",  
+        "app_id": "",  
+        "workflow_id": "",  
+        "outcome_id": "",  
+        "pos_neg_lists": { }  
+      },  
+      "event": {  
+        "id": "uuid",  
+        "schema": [  
+          { "field": "fields.amount",  "type": "double", "size": null, "not_null": false, "unique": false, "indexed": true },  
+          { "field": "fields.channel", "type": "string", "size": 16,   "not_null": false, "unique": false, "indexed": true },  
+          { "field": "fields.country", "type": "string", "size": 2,    "not_null": false, "unique": false, "indexed": true }  
+        ]  
+      }  
+    }  
+    
+
+  2. The deployment of Case Manager within Jetty is exemplified by the following **`Dockerfile`** :
+
+Dockerfile
+         
+         FROM jetty  
+           
+         ENV JAVA_OPTIONS="-Dam.config=/var/lib/jetty/config.json"  
+           
+         # configuration file  
+         COPY config.json /var/lib/jetty/config.json  
+           
+         # case manager  
+         COPY bin/alert-manager-web-[0-9]*.war     /var/lib/jetty/webapps/root.war  
+         COPY bin/alert-manager-web-api-[0-9]*.war /var/lib/jetty/webapps/api.war  
+           
+         # external libs (e.g. database drivers)  
+         COPY ext/* /var/lib/jetty/lib/ext/  
+         
+
+  3. **`docker-compose.yml`** is used to integrate Case Manager with PostgreSQL, Pulse and RabbitMQ:
+
+docker-compose.yml
+         
+         version: "2"  
+           
+         services:  
+           cm:  
+             build: .  
+             ports:  
+              - "8081:8080"  
+             links:  
+              - postgres  
+              - pulse  
+              - rabbit  
+           
+           postgres:  
+             image: "postgres"  
+             ports:  
+              - "5432:5432"  
+             environment:  
+              - "POSTGRES_USER=cm"  
+              - "POSTGRES_PASSWORD=cm"  
+           
+           pulse:  
+             image: "docker.feedzai.com/pulse/pulse-snapshot:16.1.3-SNAPSHOT"  
+             ports:  
+              - "8080:8080"  
+             entrypoint: /opt/pulse/bin/startup.sh  
+           
+           rabbit:  
+             image: "rabbitmq:3-management"  
+             ports:  
+              - "15672:15672"  
+             environment:  
+              - "RABBITMQ_ERLANG_COOKIE=123456"  
+           
+           adminer:  
+             image: clue/adminer  
+             ports:  
+              - "8082:80"  
+             links:  
+              - postgres  
+         
+
+
+
+
+## Setup and Runâ
+
+Before initializing the setup and running Case Manager, take the following information into account:
+
+info
+
+To follow this guide, make sure that the host machine is not running any services in ports 8080, 8081 and 5432.
+
+In order to start the setup and run Case Manager, you will have to follow these steps:
+
+### Starting the databaseâ
+
+  1. Login to Feedzai's docker repository with your credentials:
+         
+         $ docker login docker.feedzai.com  
+         
+
+  2. Pull all docker images:
+         
+         $ docker-compose pull  
+         $ docker-compose build  
+         
+
+  3. Start the database:
+         
+         $ docker-compose up postgres  
+         
+
+
+
+
+### Creating and configuring tablesâ
+
+**Open another terminal** and execute the following command in order to create Case Manager tables and populate their configuration:
+    
+    
+    $ make  
+    
+
+### Starting the systemâ
+
+To start the system, use **Ctrl+C** to stop Postgres and execute the following line:
+    
+    
+    $ docker-compose up  
+    
+
+After completing these steps, the following services will be available:
+
+  * Pulse - <http://localhost:8080/>
+  * Case Manager - <http://localhost:8081/>
+  * Database - [http://localhost:8082/?pgsql=postgres&username=cm&db=cm&ns=public](http://localhost:8082/?pgsql=postgres&username=cm&db=cm&ns=public)
+
+
+
+There is a default user whose credentials you can use to log in without the need of entering any terminal commands. While these credentials can be used, it is recommended that you change them after the first login.
+
+Default User credentials
+
+The default credentails are the following:
+
+  * User: **pulse**
+  * Password: **pulse**
+
+
+
+After entering your credentials, you will access Case Manager's interface main screen. Refer to the [User Guide](/case-manager/13.17/docs/common/case-manager/user-guide/user-guide-overview) in order to understand the use and navigation of Case Manager's interface.
+
+## Learn moreâ
+
+Now that you have seen how Case Manager works, start working with the application. Learn how to do that in the following sections:
+
+  * [Installation Guide](/case-manager/13.17/docs/common/case-manager/installation-guide)
+  * [Configuration Guide](/case-manager/13.17/docs/internal/case-manager/configuration-guide/configuration-guide-overview)
+  * [User Guide](/case-manager/13.17/docs/common/case-manager/user-guide/user-guide-overview)
+
+

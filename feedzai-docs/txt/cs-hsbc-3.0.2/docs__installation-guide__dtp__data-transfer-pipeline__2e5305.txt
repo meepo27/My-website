@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/dtp/data-transfer-pipeline
+Title: Data Transfer Pipeline | Feedzai Documentation
+============================================================
+
+# Data Transfer Pipeline  
+  
+Welcome to the Data Transfer Pipeline (DTP) Guide.
+
+In this section you will find a set of pages with information about the DTP service:
+
+  * [DTP service](/cs-hsbc/3.0.2/docs/installation-guide/dtp/service-dtp)
+  * [DTP configuration](/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp)
+  * [GCP setup](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup)
+  * [DTP extractions schema](/cs-hsbc/3.0.2/docs/installation-guide/dtp/extractions-dtp)
+  * [Migrating from ETL to DTP](/cs-hsbc/3.0.2/docs/installation-guide/dtp/from-etl-to-dtp)
+
+

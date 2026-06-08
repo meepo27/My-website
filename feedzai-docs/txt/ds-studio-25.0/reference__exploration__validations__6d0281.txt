@@ -1,0 +1,233 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/validations/
+Title: validations - DS API
+============================================================
+
+#  `` validations Â¶
+
+##  `` DEFAULT_VALIDATIONS `module-attribute` Â¶
+    
+    
+    DEFAULT_VALIDATIONS = [VAL_NEGATIVE_AMOUNT, VAL_ZERO_AMOUNT, VAL_HIGH_AMOUNT, VAL_FUTURE_DATETIME, VAL_PREHISTORIC_DATETIME]
+    
+
+##  `` VAL_FUTURE_DATETIME `module-attribute` Â¶
+    
+    
+    VAL_FUTURE_DATETIME = Validation(desc='datetime in future', semantic=TIMESTAMP, sql_builder=lambda c: count(when(c > current_timestamp(), lit(True))))
+    
+
+##  `` VAL_HIGH_AMOUNT `module-attribute` Â¶
+    
+    
+    VAL_HIGH_AMOUNT = Validation(desc='amount > 1e8', semantic=AMOUNT, sql_builder=lambda c: count(when(isNotNull() & ~isnan(c) & (c > 100000000.0), lit(True))))
+    
+
+##  `` VAL_NEGATIVE_AMOUNT `module-attribute` Â¶
+    
+    
+    VAL_NEGATIVE_AMOUNT = Validation(desc='amount < 0', semantic=AMOUNT, sql_builder=lambda c: count(when(isNotNull() & (c < 0), lit(True))))
+    
+
+##  `` VAL_PREHISTORIC_DATETIME `module-attribute` Â¶
+    
+    
+    VAL_PREHISTORIC_DATETIME = Validation(desc='ancient transaction (<1950)', semantic=TIMESTAMP, sql_builder=lambda c: count(when(isNotNull() & (c < lit(datetime(1950, 1, 1))), lit(True))))
+    
+
+##  `` VAL_ZERO_AMOUNT `module-attribute` Â¶
+    
+    
+    VAL_ZERO_AMOUNT = Validation(desc='amount == 0', semantic=AMOUNT, sql_builder=lambda c: count(when(isNotNull() & (c == 0), lit(True))))
+    
+
+##  `` Semantics Â¶
+
+Bases: `object`
+
+Set of pre-defined semantics.
+
+###  `` AMOUNT `class-attribute` `instance-attribute` Â¶
+    
+    
+    AMOUNT = Tag('AMOUNT', [NUMERICAL](../field_types/#ds_api.exploration.field_types.FieldType.NUMERICAL "            NUMERICAL
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.exploration.field_types.FieldType.NUMERICAL\)"))
+    
+
+###  `` TARGET `class-attribute` `instance-attribute` Â¶
+    
+    
+    TARGET = Tag('TARGET', [CATEGORICAL](../field_types/#ds_api.exploration.field_types.FieldType.CATEGORICAL "            CATEGORICAL
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.exploration.field_types.FieldType.CATEGORICAL\)"))
+    
+
+###  `` TIMESTAMP `class-attribute` `instance-attribute` Â¶
+    
+    
+    TIMESTAMP = Tag('TIMESTAMP', [DATETIME](../field_types/#ds_api.exploration.field_types.FieldType.DATETIME "            DATETIME
+    
+    
+      
+          class-attribute
+          instance-attribute
+       \(ds_api.exploration.field_types.FieldType.DATETIME\)"))
+    
+
+##  `` Tag Â¶
+    
+    
+    Tag(desc, ftype)
+    
+
+Bases: `object`
+
+A Tag or semantic consist of a descriptive tag (desc) and a field type (ftype) associated to it.
+
+###  `` desc `instance-attribute` Â¶
+    
+    
+    desc = desc
+    
+
+###  `` ftype `instance-attribute` Â¶
+    
+    
+    ftype = ftype
+    
+
+##  `` Validation Â¶
+    
+    
+    Validation(desc: str, semantic: Tag, sql_builder: Callable[[Column], Column], warning_fn: Callable[[int], bool] = lambda x: x > 0)
+    
+
+Bases: `object`
+
+Class that represents a descriptive validation to be computed. These validations will be computed in a map and reduce approach.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `desc` Â¶
+
+|  `str` |  the description/name of the validation. |  _required_  
+  
+###  `semantic` Â¶
+
+|  `Tag` |  the semantic type to be applied to, e.g. Tag("AMOUNT", FieldType.NUMERICAL). |  _required_  
+  
+###  `sql_builder` Â¶
+
+|  `Callable[[Column], Column]` |  Factory that receives a Spark `Column` and returns the Spark SQL validation expression |  _required_  
+  
+###  `warning_fn` Â¶
+
+|  `Callable[[int], bool]` |  the function to be used to asses when a validation should be alerted. |  `lambda x: x > 0`  
+  
+###  `` desc `instance-attribute` Â¶
+    
+    
+    desc = desc
+    
+
+###  `` semantic `instance-attribute` Â¶
+    
+    
+    semantic = semantic
+    
+
+###  `` sql_builder `instance-attribute` Â¶
+    
+    
+    sql_builder = sql_builder
+    
+
+###  `` warning_fn `instance-attribute` Â¶
+    
+    
+    warning_fn = warning_fn
+    
+
+##  `` build_validations_dict Â¶
+    
+    
+    build_validations_dict(semantics_map: dict[str, Tag], validations: Any | None = None) -> dict[str, list[Validation]]
+    
+
+Helper function that builds a dict with the validations to be performed per field.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `semantics_map` Â¶
+
+|  `dict[str, Tag]` |  dictionary matching fields (keys) to semantic tags (values). |  _required_  
+  
+###  `validations` Â¶
+
+|  `Any | None` |  set/list/tuple containing list of Validation. |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`unknown` |  dictionary with list of validations (values) associated to each field (keys).  
+  
+##  `` check_validations_type Â¶
+    
+    
+    check_validations_type(validations, ftype, fname='')
+    
+
+Helper function to check if the list of validations matches the expected field type, otherwise it raises an exception.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `validations` Â¶
+
+|  |  list of Validation. |  _required_  
+  
+###  `ftype` Â¶
+
+|  |  FieldType. |  _required_  
+  
+###  `fname` Â¶
+
+|  |  (optional) field name. |  `''`  
+  
+##  `` show_validations_by_field Â¶
+    
+    
+    show_validations_by_field(semantics_map, validations=None)
+    
+
+Helper function that prints the validations to be performed per field given a semantics map and a list of validations.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `semantics_map` Â¶
+
+|  |  dictionary matching fields (keys) to semantic tags (values). |  _required_  
+  
+###  `validations` Â¶
+
+|  |  set/list/tuple containing list of Validation. |  `None`

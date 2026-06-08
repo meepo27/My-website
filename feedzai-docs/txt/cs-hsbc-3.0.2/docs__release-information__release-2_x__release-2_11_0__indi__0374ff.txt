@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3476
+Title: HSBC-3476 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3476
+
+### Fix Transaction History header scroll behaviorâ
+
+Bug FixFTMT-30567HSBC-3476
+
+Weâve fixed a bug that made the Transaction History header disappear while scrolling. It now stays visible at the top of the list.

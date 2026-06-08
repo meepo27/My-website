@@ -1,0 +1,43 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/feature-engineering/selecting-important-data-for-your-model
+Title: Selecting Important Data for Your Model | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Feature Engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/)
+  * Selecting Important Data for Your Model
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Selecting Important Data for Your Model
+
+If you want to use models to score events, as part of your feature engineering work you need to find out which fields in your clean data source relate directly with fraud (or any other target variable). This will help you decide which fields to use in your models.
+
+To examine your data source and discover which fields you can directly use as model features, execute the following actions:
+
+  1. In the **Data Science** tab, select your data source from the **Data Sources** list.
+  2. Use the  option to generate statistics for the data source. Select which are the breakdown fields and values to slice the results into. For example, the _Fraud_ field.
+  3. Use the **View Statistics** option for the field you want to inspect, to go in depth into the generated insight. For example, you can select the _TransactionAmount_ field. When looking into the analysis details to understand the data, you can do the following:
+     1. Use the **Breakdown Fields** dropbox to break down the statistics by _Fraud_.
+     2. Examine results for both **Breakdown Values**. Usually, fraud is correlated with higher transaction amounts. Thus, if when you look at statistics for fraudulent transactions you find that the _TransactionAmount_ is generally higher than for non-fraudulent ones, then it is likely that the _TransactionAmount_ field will make sense as a feature.
+
+
+
+The following screenshot shows an analysis for events where Fraud=true:
+
+The following screenshot shows an analysis for events where Fraud=false:
+
+## Generated statisticsâ
+
+Depending on the data types you defined for each field when [importing your data](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/cleaning-and-loading-your-data/importing-your-dataset-into-pulse), Pulse generates different metrics.
+
+For numerical fields Pulse generates arithmetic metrics such as mean, minimum and maximum, while for categorical data Pulse only generates the total count and distinct values.
+
+Breakdowns
+
+When you run an analysis on a data source, you must always select for which breakdown fields and values you want Pulse to calculate statistics.
+
+Skipping this action and simply calculating broken-down metrics for all possible combination of fields and values could rapidly cause Pulse to crash due to lack of computational resources.

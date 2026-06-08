@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/etl/historical-etl
+Title: Historical Data Loading with ETL | Feedzai Documentation
+============================================================
+
+On this page
+
+# Historical Data Loading with ETL
+
+Historical ETL is installed as any other tool installed with the ansible toolkit, using the playbook `historical-data-loading.yml`.
+
+For more information, see [ETL Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).
+
+## Recommended Setupâ
+
+In our tests, we achieved better performance - nearly 5000/tps - with the pre-bundled configurations when running on GCE, with an instance type `e2âhighcpuâ16`.
+
+## Rollback inserted transactionsâ
+
+There may be some scenarios where ETL could fail during execution, due to for example having invalid rows in **CSV** files.
+
+**In case of failures where rows were already inserted, to re run the ETL process do as following:**
+
+  1. Fix the root issue that caused the failure
+  2. [Delete the records](/cs-hsbc/3.0.2/docs/installation-guide/etl/delete-event-storage-records) inserted by the previous execution
+  3. Run the **Historical ETL** again
+
+

@@ -1,0 +1,355 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/operators/operator/
+Title: operator - DS API
+============================================================
+
+#  `` operator Â¶
+
+Base class for all Plan Operators.
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` BaseFeaturesOperator Â¶
+    
+    
+    BaseFeaturesOperator(pyjnius_java)
+    
+
+Bases: `BaseOperator`, `ABC`
+
+Abstract base class to provide additional Python functionality to Plan Operators containing features.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` add_feature Â¶
+    
+    
+    add_feature(feature: [BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)"), logger: bool = True) -> [BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")
+    
+
+Adds a new Feature to this Operator.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `feature` Â¶
+
+|  `[BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")` |  New Feature. |  _required_  
+  
+####  `logger` Â¶
+
+|  `bool` |  Whether to log info message or not. |  `True`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[BaseFeature](../../features/feature/#ds_api.plans.features.feature.BaseFeature "            BaseFeature \(ds_api.plans.features.feature.BaseFeature\)")` |  New Feature.  
+  
+###  `` diff Â¶
+    
+    
+    diff(other: BaseFeaturesOperator, only_diff: bool = True)
+    
+
+Display the differences between the features from this Operator and another Operator.
+
+Features are compared based on their feature name. The order of the features in the Operator is not taken into account.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `other` Â¶
+
+|  `BaseFeaturesOperator` |  BaseFeaturesOperator to compare against. |  _required_  
+  
+####  `only_diff` Â¶
+
+|  `bool` |  Show features with differences only. Defaults to 'true'. |  `True`  
+  
+Raises:
+
+Type | Description  
+---|---  
+`NotImplementedError` |  When not called from a Jupyter notebook.  
+  
+###  `` get_dependencies Â¶
+    
+    
+    get_dependencies() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Set[str]]
+    
+
+###  `` get_dependencies_by_type Â¶
+    
+    
+    get_dependencies_by_type() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Dict[str, list[str]]]
+    
+
+###  `` get_feature `abstractmethod` Â¶
+    
+    
+    get_feature(name: str)
+    
+
+###  `` get_features `abstractmethod` Â¶
+    
+    
+    get_features()
+    
+
+###  `` get_type `abstractmethod` `staticmethod` Â¶
+    
+    
+    get_type() -> str
+    
+
+Gets the operator type.
+
+Returns:
+
+Type | Description  
+---|---  
+`str` |  Operator type.  
+  
+###  `` remove_feature Â¶
+    
+    
+    remove_feature(name: str) -> bool
+    
+
+Removes the features that match the name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `name` Â¶
+
+|  `str` |  Name of the feature to remove. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`bool` |  If the feature is removed.  
+  
+###  `` rename_feature Â¶
+    
+    
+    rename_feature(old_name: str, new_name: str)
+    
+
+###  `` to_csv Â¶
+    
+    
+    to_csv(path: Union[Path, str])
+    
+
+Exports all the features in the operator as a csv file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `path` Â¶
+
+|  `Path or str` |  Path to where the csv will be written. |  _required_  
+  
+###  `` to_dict Â¶
+    
+    
+    to_dict() -> List[Dict]
+    
+
+###  `` to_pandas Â¶
+    
+    
+    to_pandas() -> DataFrame
+    
+
+Exports all the features in the operator as a pandas dataframe.
+
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  Pandas dataframe containing features and all their editable attributes.  
+  
+###  `` update_from_csv Â¶
+    
+    
+    update_from_csv(path: Union[Path, str])
+    
+
+Updates this Operator with the configuration from the csv file.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `path` Â¶
+
+|  `Path or str` |  Path from where the csv will be read. |  _required_  
+See Also
+
+Plan.from_csv : For guidelines to input csv data in the right format.
+
+###  `` update_from_dict Â¶
+    
+    
+    update_from_dict(dict_feats: List[Dict])
+    
+
+###  `` update_from_pandas Â¶
+    
+    
+    update_from_pandas(pd_df: DataFrame)
+    
+
+Updates this Operator with the configuration from the pandas dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `pd_df` Â¶
+
+|  `DataFrame` |  Pandas dataframe with the operator features. |  _required_  
+See Also
+
+Plan.from_csv : For guidelines to input csv data in the right format.
+
+##  `` BaseOperator Â¶
+    
+    
+    BaseOperator(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`, `ABC`
+
+Abstract class to provide additional Python functionality to all Plan Operators.
+
+Notes
+
+When comparing operators we consider two operators to be the same if they are of the same type and have the same name. This allows a more intuitive comparison between plans where we want to analyze differences of "the same" operator. In such cases we need to first identify the "same" operator between plans so that then we can check how their contents are different.
+
+For reference, `BaseOperator.getName` returns the name of the operator as it appears in the UI.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` get_dependencies `abstractmethod` Â¶
+    
+    
+    get_dependencies() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Set[str]]
+    
+
+Gets the features and their direct dependencies within the operator.
+
+Dependencies are not recursive.
+
+Returns:
+
+Type | Description  
+---|---  
+`dict` |  Dictionary of FeatureUID and the name of their direct dependencies.  
+  
+###  `` get_dependencies_by_type `abstractmethod` Â¶
+    
+    
+    get_dependencies_by_type() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Dict[str, List[str]]]
+    
+
+Gets the features and their direct dependencies (by type) within the operator.
+
+Dependencies are not recursive.
+
+Returns:
+
+Type | Description  
+---|---  
+`dict` |  Dictionary of FeatureUID and the dict mapping the types and names of their direct dependencies.  
+  
+###  `` get_type `abstractmethod` `staticmethod` Â¶
+    
+    
+    get_type() -> str
+    
+
+Gets the operator type.
+
+Returns:
+
+Type | Description  
+---|---  
+`str` |  Operator type.  
+  
+###  `` rename_feature `abstractmethod` Â¶
+    
+    
+    rename_feature(old_name: str, new_name: str)
+    
+
+Renames the dependencies or features matching the old name.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `old_name` Â¶
+
+|  `str` |  Old name to change from. |  _required_  
+  
+####  `new_name` Â¶
+
+|  `str` |  New name to change to. |  _required_  
+  
+###  `` to_dict `abstractmethod` Â¶
+    
+    
+    to_dict() -> List[Dict]
+    
+
+Exports all the features in the operator as a list of dictionaries.
+
+Returns:
+
+Type | Description  
+---|---  
+`list of dict` |  List containing features and all their editable attributes.  
+  
+###  `` update_from_dict `abstractmethod` Â¶
+    
+    
+    update_from_dict(dict_feats: List[Dict])
+    
+
+Replaces the operator features with the ones on the list.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `dict_feats` Â¶
+
+|  `list of dict` |  List containing the features in a dict format. |  _required_

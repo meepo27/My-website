@@ -1,0 +1,104 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/
+Title: Exporting Resources | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * Exporting resources
+
+
+
+On this page
+
+# Exporting Resources
+
+Was this page helpful?Â 
+
+## Whyâ
+
+Exporting resources allows you to build a bundle with resources developed in a Pulse application (**Pulse App**). You can use the option [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to easily import the resources bundle in another **Pulse App** in the same environment or between different environments. You can export the following resources:
+
+  * [Lists](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/lists)' metadata without List items.
+  * [Models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models) with or without the binary.
+  * [Plans](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/plans) with or without executions.
+  * [Rules Projects](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules#rules-projects) with or without snapshots.
+
+
+
+By default, the **Export Resource** option also adds automatically to the resource bundle the metadata related to all the **Tenants** and **Tenant Groups** of the Pulse instance in which your **Pulse App** is running. See the page [Bundle structure](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/bundle-structure) to learn how the files are organized.
+
+## How toâ
+
+### Exporting Pulse Resourcesâ
+
+To **Export Resources** execute the following steps:
+
+  1. Select the Options  button to open the application options menu:  
+
+  2. Select the option â  â to open the export wizard. The image below shows the **Export Resources** wizard:
+  3. Check the subsections below for more details about each resource type that you want to export.
+  4. Once you have chosen all the resources that you want to export, select the button â 
+
+
+
+#### Listsâ
+
+List export
+
+List metadata is automatically exported because **Rules** can have a dependency on any **List**. When importing the bundle, all the **Lists** are imported to the **Pulse app** , either by replacing or creating new ones.
+
+To exclude the **List** metadata you have to edit the export bundle manually.
+
+#### Models Projectsâ
+
+While you are in the export wizard, to add **Model Projects** to your bundle execute the following steps:
+
+  1. Select the tab â  **Model Projects** to access the exporting options of this resource.
+  2. To add a **Model** to the list of exported resources:
+     1. Search by the Name of your **Model Project** using the drop-down menu.
+     2. Search by the Name of your **Model** using the drop-down menu.
+     3. (Optional) Choose to â  Include the binary of the **Model**.
+     4. Select the â  Add Resource button to add this resource to the exporting list.
+  3. Repeat Step 2 to complete the list of **Model Projects** that you want to export.
+  4. Check how to add another resource or return to the subsection Exporting Pulse Resources to save your bundle.
+
+
+
+#### Plansâ
+
+While you are in the export wizard, to add **Plans** to your bundle execute the following steps:
+
+  1. Select the tab â  **Plans** to access the exporting options of this resource.
+  2. To add a **Plan** to the list of exported resources:
+     1. Search by the Name of your **Plan** using the drop-down menu.
+     2. (Optional) Choose the Plan Execution that you want to add to this Plan using the Drop-down menu under Execution List.
+     3. Select the â  Add Resource button to add this resource to the exporting list.
+  3. Repeat Step 2 to complete the list of **Plans** that you want to export.
+  4. Check how to add another resource or return to the subsection Exporting Pulse Resources to save your bundle.
+
+
+
+#### Rules Projectsâ
+
+While you are in the export wizard, to add **Rules Projects** to your bundle execute the following steps:
+
+  1. Select the tab â  **Rules Projects** to access the exporting options of this resource.
+  2. To add a **Rules Project** to the list of exported resources:
+     1. Search by the **Name** of your **Rules Project** using the drop-down menu.
+     2. (Optional) Choose the Snapshots that you want to add to this **Rules Project** using the Drop-down menu under **Snapshot List**.
+     3. Select the â  **Add Resource** button to add this resource to the exporting list.
+  3. Repeat Step 2 to complete the list of **Rules Projects** that you want to export.
+  4. Check how to add another resource or return to the subsection Exporting Pulse Resources to save your bundle.
+
+
+
+## Learn moreâ
+
+To learn more about the resource bundle check the following pages:
+
+  * [Bundle structure](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/bundle-structure)
+  * [Comparing resource versions](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-resources/comparing-resource-versions)
+
+
+
+Check the page [Importing Resources](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/importing-resources) to learn how to import your resources.

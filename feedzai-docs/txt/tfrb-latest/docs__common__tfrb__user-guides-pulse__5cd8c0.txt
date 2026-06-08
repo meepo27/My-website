@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/user-guides-pulse
+Title: Data Scientist & Fraud Strategist | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * Data Scientist & Fraud Strategist
+
+
+
+# Data Scientist & Fraud Strategist
+
+Was this page helpful?Â 
+
+### [Understand the Data Science Framework (DSF)](/tfrb/latest/docs/common/tfrb/understand-the-dsf)
+
+### [Work with rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+
+### [Use models](/tfrb/latest/docs/common/tfrb/models/use-models)
+
+### [Migrate resources between environments](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview)

@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3210-Add-new-fields-to-the-Mobile-Outbound-extensions
+Title: HSBC-3210-Add-new-fields-to-the-Mobile-Outbound-extensions | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3210-Add-new-fields-to-the-Mobile-Outbound-extensions
+
+### Add new fields to the Mobile Outbound extensionsâ
+
+FeatureFTMT-27710HSBC-3210
+
+Also In:2.9.0
+
+The following fields were added to Case Manager `2 Way/1 Way SMS` and `Mobile Payment Push` extensions for Inbound and Outbound Payments channels:
+
+Field Name| Datatype| Description  
+---|---|---  
+receiver_account_bank_id| String| Receiver Account Bank ID  
+receiver_bank_bic| String| Beneficiary Bank Identification Code  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.

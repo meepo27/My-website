@@ -1,0 +1,86 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/creating-a-schema
+Title: Creating a schema | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/)
+  * Creating a schema
+
+
+
+On this page
+
+# Creating a schema
+
+Was this page helpful?Â 
+
+## Whyâ
+
+The first stage involved in taking your Data Science project into Production, and designing a runtime [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows), is configuring how Pulse should expect to consume real data from an external source.
+
+A **Schema** defines exactly how the real input data looks like. It defines the types of each field for transactions being processed in a runtime workflow.
+
+## How toâ
+
+To start configuring your data and add a schema to Pulse, execute the following steps:
+
+  1. When you have completed your Data Science tasks and the project is ready to move to Production, in the **Data Science** tab, select a Data Source.
+
+  2. the Data Source to a Schema. Pulse automatically generates a Schema with the same name as the Data Source. For example, Card Transactions.
+
+  3. Navigate to the **Data Configuration** tab and select the newly created Schema.
+
+Changing a Schema exported from a Data Source
+
+You must take into account that adding or reordering fields in a **Schema** is not allowed since it is [immutable](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources#schema-immutability).
+
+  4. Examine the Schema fields and types to make sure it matches the incoming data to your fraud detection workflow.
+
+Configuring the Workflow Schema
+
+In alternative, Pulse allows you to automatically generate a Schema from a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) when you configure the **Origin Schema** field of a [Workflow](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows).
+
+
+
+
+### Manually creating a schemaâ
+
+In alternative cases when you don't have a dataset available, and thus go straight to deployment, you can manually specify a Schema. To do so, execute the following steps:
+
+  1. In the **Data Configuration** tab, **Add** a new Schema.
+  2. For each Field that your Schema should have, you must:
+     1. Name the Field.
+     2. Select the Field type.
+  3. Optionally, select **Advanced options** to set the field as a [Dimension](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#dimension).
+  4. if your Schema is still not complete. Repeat step 2.
+  5. When you have added all Fields, save your work as a new Schema.
+
+
+
+### Configuring Dimension Mappingsâ
+
+**Dimension Mappings** allow you to define how dimension codes can be translated to human-readable descriptions.
+
+After defining dimension mappings, their human-readable descriptions will be available throughout the whole product: dashboards, tooltips, labels, live-drill and so on.
+
+Learn more about how dimension mappings help you [manage Dimensions](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#dimension) in real-time applications.
+
+When you create a [Data Source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) and export it, Pulse also accelerates your work by automatically generating a dimension mapping for each observed values in categorical fields.
+
+To complete a configuration for a dimension mapping:
+
+  1. In the **Data Configuration** tab, select a **Dimension Mapping** , or **Add** a new one.
+  2. Finalize your configuration with any of the following operations.
+     1. Adding  a new Item that maps a specific code to a description.
+     2. Editing an existing Item to update the code-description mapping.
+     3. Deleting an existing Item.
+
+
+
+Dimension Mappings applicability
+
+**Dimension Mappings** are only available for fields that have been defined as [Dimensions](/pulse/latest/docs/common/pulse/understanding-pulse/concepts-glossary#dimension).
+
+## Next Stepsâ
+
+Now Pulse knows how input data is formatted and what your fraud prevention workflow will consume. Proceed by configuring how you must [configure custom elements](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-custom-services) your workflow will use; for example, input adapters to consume data.

@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/DA-Transfer
+Title: Lifecycle and Session IDs | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * Lifecycle and Session IDs
+
+
+
+On this page
+
+# Lifecycle and Session IDs
+
+Was this page helpful?Â 
+
+A Digital Activity (DA) banking session may include events other than DA-related, such as Transfers, for instance.
+
+This page provides you with an example of a banking session that includes both DA and Transfers events, while also showing you how monitoring the digital footprint of a session can further benefit the analyst's fraud detection capabilities.
+
+## Digital Activity and Transfers session use caseâ
+
+A customer may start an online session, perform digital actions, make an online transfer and then log out. Although within the same session, we are looking at different events that are being monitored, with different APIs being invoked.
+
+The image above illustrates the following flow:
+
+  1. The customer makes an online login attempt in the banking system.
+     1. The issuer bank invokes Feedzai's [Authentication endpoint](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-authentication) for the login attempt.
+     2. The issuer bank invokes Feedzai's [Info Authentication endpoint](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/info-authentication) to update Feedzai with the MFA result, using the same `lifecycle_id` as the previous event.
+  2. The customer makes a profile update attempt.
+     1. The issuer bank invokes Feedzai's [Profile Update endpoint](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-profile-update).
+  3. The customer attempts to initiate a transfer.
+     1. The issuer bank invokes Feedzai's [Transfer Initiation endpoint](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-transfer-initiation).
+
+
+
+Note that this single session sees endpoints from different APIs being invoked - for the customer login and profile update attempts, the DA API is invoked, while for the transfer initiation attempt, the Transfer API is invoked.
+
+### Lifecycles and sessionsâ
+
+As the diagram illustrates, the session starts when the user attempts to log in and ends at session logout. The same session consists of different lifecycle events - a session is, therefore, the ensemble of operations performed from login to logout. Each session is given an ID, i.e., an identifier string.
+
+Each of the operations performed - in this case, authentication, profile update, and transfer initiation - are independent events, identifiable by an ID. Note that a unique event can have more than one stage, as you can see in `Lifecycle_id_1`, which includes the login and MFA (Multiple Factor Authentication) actions.
+
+### Digital footprint collectionâ
+
+Having a session ID enables Feedzai to collect the customerâs digital footprint, namely, to map and analyze the events that are part of the same banking session.
+
+By leveraging data about all the session events, fraud analysts can have a better understanding of the risk level associated with that customer. Imagine the scenario of a customer changing their email address right before attempting to make a transfer transaction - this scenario could be an indicator of an account takeover.
+
+Collecting the userâs digital footprint improves Feedzai's fraud detection capabilities. Analysts can use the collected information to refine their decision when manually reviewing an alert, and this information can also be used to further develop metrics, rules, etc.

@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/about/how-it-works
+Title: How it Works | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [About Risk Management for PSPs](/rmpsp/2.8/docs/common/rmpsp/about/overview)
+  * How it Works
+
+
+
+# How it Works
+
+This is how RMPSP works:
+
+  1. A Payment Service Provider (PSP) calls Feedzai's Payments API, which consumes real-time transactions and subsequent updates to transactions, such as chargebacks. Refer to the [Transaction Life Cycle](/rmpsp/2.8/docs/common/rmpsp/tfp/about/transaction-life-cycle) to learn more about each transaction's stage.
+  2. Once a transaction is sent to Feedzai, it enters Feedzai's Transaction Fraud engine where itâs processed via workflow. As it passes through this workflow, the transaction will go through a series of rule sets and models to receive an Approve, Decline, or Challenge response. Once transactions have received a response for their status, they are sent into Feedzai's alert management tool - Case Manager - for further review.
+  3. Case Manager provides all the relevant data that analysts need to make effective decisions. Information related to the transaction - clear explanations as to why models or rules have applied the relevant recommendation, and visual link analysis - allow fraud, risk, and financial crime analysts to quickly analyze patterns and trends at a transactional, merchant, or portfolio level.
+  4. Case Manager contains a set of dashboards to obtain visibility into areas such as payment scheme compliance, geographical trends per merchant category code (MCC) / merchant, and unusual merchant behavior such as increased refunds / chargebacks / volumes to help manage potential credit risk issues.
+  5. Feedzai enables acquirers and PSPs to send additional Merchant's reference data to help manage and monitor merchantsâ regulatory and payment scheme compliance. Once the additional data is received, a batch processor component continuously sends this data to the Merchant Monitoring workflow. This component runs the merchant's reference data on a daily basis to evaluate both current and new merchant data. In the second case, the new merchant data is updated when PSPs call the _Merchant Provisioning_ endpoint.
+  6. Once the merchant's reference data is sent to the Merchant Monitoring workflow, Pulse calculates metrics on specific entities over a time period (i.e. profiles). The reference data is then combined with the Transaction Fraud Engine workflow data for greater insight into the merchantâs transaction behavior.
+  7. If suspicious behavior or compliance risks are flagged by Pulse, the events are sent to Case Manager so that all the events classified as alerts can be reviewed by the acquirer or payment service provider. This allows for settlements to be stopped, and for further investigation as required. Case Manager allows alerts to be escalated to senior team members for review.
+  8. The decisions made within Case Manager automatically feedback into both Transaction Fraud and Merchant Monitoring workflows, allowing rules, models, and negative or positive lists to be updated automatically. This helps the Pulse application identify future fraudulent/risky merchants with higher precision.
+
+

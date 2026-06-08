@@ -1,0 +1,137 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/user-guide/
+Title: Rule Monitoring | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * Rule Monitoring
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Rule Monitoring
+
+The **Rule Monitoring** user guide provides you with the necessary information for you to monitor your risk strategy using the Rule Monitoring tool.
+
+Monitoring your rules allows you to identify potential issues before they escalate, as well as opportunities to optimize the performance and effectiveness of your risk strategy.
+
+By regularly following the steps described next, you can detect anomalies early, identify unusual patterns, ensure your risk strategy is functioning optimally, and take preventive measures before they impact your operations.
+
+## Step 1: Assess the overall performance of your rulesâ
+
+The first step is to review the overall performance of your rules. This can be done by checking the [rule list](/rules/latest/docs/common/rules/overview#main-list-page), where you can get an overview of the data.
+
+rules displayed
+
+In the Rule Monitoring dashboard you can view all existing rules, triggered and non-triggered. Bear in mind that the non-triggered rules include both the rules that are published in a production environment as well as the rules that are not published.
+
+Take this information into account when interpreting the metrics displayed, namely the [Trigger Rate](/rules/latest/docs/common/rules/overview/glossary#trigger-rate) metric.
+
+For each of the focus areas of monitoring described below, make sure to review the data corresponding to different time periods, by modifying the parameters of the time period selector.
+
+### Examine global metricsâ
+
+In the **General Data** area, look for unexpected increases or decreases in the following metrics:
+
+  * **[Trigger Rate](/rules/latest/docs/common/rules/overview/glossary#trigger-rate)** : The percentage of events that have triggered at least one rule within a specific time period.
+  * **[Rules](/rules/latest/docs/common/rules/overview/glossary#rules) triggered**: The number of times rules have been triggered in the selected time period.
+  * **[Total Amount](/rules/latest/docs/common/rules/overview/glossary#total-amount) affected**: The accumulated value of the transactions affected by the rules.
+
+
+
+Besides looking for unusual changes in the increase/decrease markers, also check the absolute and relative numbers for each metric, and consider whether these are aligned with the expected behavior of your business's financial activity and the risk strategy you have put in place.
+
+### Analyze the rules tableâ
+
+The **Rules** table provides detailed information about each rule. You can use this table to identify potential behavior outliers.
+
+The table can be scrolled horizontally to reveal additional columns, and the columns can be individually added, removed, or reordered to customize the view. The table is also paginated with a default of 10 rows per page, but you can adjust the number of rows per page to access more information at once.
+
+Typical actions that you can take to locate possible deviations from the expected behavior are:
+
+  * **Sort columns** (e.g.,[Trigger Rate](/rules/latest/docs/common/rules/overview/glossary#trigger-rate)) by ascending or descending order and look for rules with metrics that deviate significantly from the norm of the other rules.
+  * **Apply filters** to narrow down the table to specific subsets of rules that you want to focus your investigation on.
+
+
+
+The available filters include:
+
+  * _Rule Type_ : Filter by the type of rule (e.g., SSR or advanced rule).
+  * _Rule Project*_ : Filter by the project to which the rule belongs.
+  * _Outcome_ : Filter by the outcome of the rule (e.g., approve or decline).
+  * _Trigger Rate_ : Filter by rules with zero or nonzero trigger rates.
+  * _Time Period_ : Customize the window of time over which the statistics are calculated.
+  * _Search_ : Filter by arbitrary keywords present in the rule's name.
+
+
+
+Rule Project*
+
+Note that Watch List Management Payment Screening (WLM PS) rules are listed within Transaction Fraud for Banking (TFB) use case. You can view WLM PS specific rules by using the _Rule Project_ filter. To do that, make sure of the following:
+
+  * Have the TFB use case [selected](/rules/latest/docs/common/rules/overview/user-interface#navigation-menus);
+  * Select the **Sanctions Rule Project** filter.
+
+
+
+time period
+
+Take note of the following:
+
+  * The _Time Period_ filter is always active; it is not possible to remove it to show all rules triggered over time.
+  * You can only select date ranges up to 7 days in length.
+  * Rule Monitoring operates in the GMT+1 timezone. This may lead to slight discrepancies in the number of events displayed in Rule Monitoring for a given period, compared e.g. to Case Manager, whose time filters are timezone-aware.
+
+
+
+## Step 2: Investigate specific rulesâ
+
+Once you have identified individual rules with potential issues in the rule list page, the next step is to dive deeper into these rules' details to narrow down the possible causes.
+
+This analysis can be done in the [rule details page](/rules/latest/docs/common/rules/overview#rule-details-page), which can be accessed by selecting the rule name in the table of rules.
+
+The rule details page provides in-depth information about a rule's performance, as well as its historical evolution over a given time period. Drilling down into this information can help you determine the nature of the problem, and when it started to occur.
+
+### Review rule detailsâ
+
+The **General Data** section serves a similar purpose as the one in the rule list page, but focused on a specific rule.
+
+Review the data about the **total events** processed by the rule in the selected time period, and the **total amount** impacted by the rule's operation. Significant variations in these numbers are likely to indicate a change in the rule's effectiveness.
+
+### Evaluate key metricsâ
+
+In the KPIs panel, review the values of the various metrics for the selected time period. Use these metrics to gain insights into rule effectiveness during the chosen timeframe. Look also for unexpectedly high or low values, by comparing current performance against historical baselines in other time periods.
+
+tip
+
+Comparison of KPI values between the currently selected time period and the previous period of the same length is available directly in the interface, via the amount variation badges next to each KPI.
+
+Proceed to the performance evolution graph to identify more precisely when these changes might have occurred and whether they coincide with risk strategy changes.
+
+### Analyze performance trendsâ
+
+The performance graph provides a visual representation of the rule's performance over time. This interactive timeline supports various modes of exploring the available data:
+
+  * **Adjust the time granularity** : Toggle the graph's temporal sampling frequency (daily vs. hourly) to reveal spikes that may be obscured by periodic fluctuations.
+  * **Change time span** : Modify the time period displayed to focus on different intervals and compare trends between them.
+  * **Cross-reference strategy changes** : Look for correlations between risk strategy changes (which are shown as vertical lines) with inflections in the graphed performance metrics. Follow the "See Strategy Changes History" link to access the full log of risk strategy changes.
+
+
+
+## Step 3: Make adjustments to the risk strategyâ
+
+If a rule is identified as problematic or having potential for improvement, you can modify the risk strategy accordingly.
+
+This can be done in Case Manager for the [SSRs](/rules/latest/docs/common/rules/overview/glossary#self-service-rules-ssr), or in Pulse for [advanced rules](/rules/latest/docs/common/rules/overview/glossary#advanced-rules).
+
+For SSRs, select the "See SSR list" button, available in either the Rules list and the Rule details page, to navigate to the Case Manager interface where SSRs can be configured. For advanced rules, select the "Edit" button to go directly to the rule page in Pulse for modification.
+
+For more details, refer to the documentation for [editing SSRs in Case Manager](https://documentation.feedzai.com/case-manager/latest/docs/common/case-manager/user-guide/analyst-guide/managing-self-service-rules/#editing-ssrs), and for [editing advanced rules in Pulse](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/), respectively.
+
+## Step 4: Conduct periodic reviewsâ
+
+Establish a regular practice of conducting this systematic review of your rules.
+
+By regularly following these steps, you'll maintain an optimized risk strategy that adapts to emerging threats while minimizing false positives and operational disruptions.

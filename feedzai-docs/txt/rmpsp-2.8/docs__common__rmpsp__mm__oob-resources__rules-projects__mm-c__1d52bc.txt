@@ -1,0 +1,322 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-chargeback-rules
+Title: Chargeback Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Rules Projects
+  * Chargeback Rules
+
+
+
+On this page
+
+# Chargeback Rules
+
+### Descriptionâ
+
+Chargeback rules account for merchants with abnormal customer transaction activity, which may lead to higher volume and risk of reported transaction chargebacks.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risky
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## Visa-VDMP-Early-Warning-CB1
+
+### Comment
+
+> Visa Dispute Monitoring Program - Early Warning (VDMP) - Chargeback to sales ratio, in one month.
+
+### Actions
+
+  * [Visa-VDMP-Early-Warning-CB1]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_vdmp_early_rat_threshold = default_threshold_list["min_vdmp_early_threshold"].threshold; // 0.65%
+    max_vdmp_early_rat_threshold = default_threshold_list["max_vdmp_early_threshold"].threshold; // 0.9%
+    min_vdmp_early_cnt_threshold = default_threshold_list["min_vdmp_early_cnt_threshold"].threshold; // 75
+    max_vdmp_early_cnt_threshold = default_threshold_list["max_vdmp_early_cnt_threshold"].threshold; // 100 
+    //For Rule Explanation
+    visa_cbk_to_sales_ratio = event.rt_visa_cbk_cnt_cur_m*100;   
+
+### Condition
+    
+    
+    //Visa ratio of disputed payments to all payments 
+    // (Filter: feedback_type == "chargeback")
+    // (Filter: event_type == "info" and payment_auth_status == 'accepted') 
+    (event.rt_visa_cbk_cnt_cur_m >= min_vdmp_early_rat_threshold
+     and event.rt_visa_cbk_cnt_cur_m < max_vdmp_early_rat_threshold) 
+    and 
+    // The total number of Visa payments that have been disputed
+    (event.visa_cnt_cur_m >= min_vdmp_early_cnt_threshold 
+     and event.visa_cnt_cur_m < max_vdmp_early_rat_threshold) 
+
+### Explanation
+
+> Visa Dispute Monitoring Program - Early Warning (VDMP) - The chargeback to sales ratio, in one month, is {localvar.visa_cbk_to_sales_ratio} and the number of CBKs is {event.visa_cbk_cnt_cur_m} 
+
+### Mark As
+
+N/A
+
+## Visa-VDMP-Standard-CB2
+
+### Comment
+
+> Visa Dispute Monitoring Program - Standard (VDMP) - Chargeback to sales ratio, in one month.
+
+### Actions
+
+  * [Visa-VDMP-Standard-CB2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_vdmp_standard_rat_threshold = default_threshold_list["min_vdmp_standard_rat_threshold"].threshold; // 0.9%
+    max_vdmp_standard_rat_threshold = default_threshold_list["max_vdmp_standard_rat_threshold"].threshold; // 1.8%
+    min_vdmp_standard_cnt_threshold = default_threshold_list["min_vdmp_standard_cnt_threshold"].threshold; // 100
+    max_vdmp_standard_cnt_threshold = default_threshold_list["max_vdmp_standard_cnt_threshold"].threshold; // 1000 
+    //For Rule Explanation
+    visa_cbk_to_sales_ratio = event.rt_visa_cbk_cnt_cur_m*100; 
+
+### Condition
+    
+    
+    //Visa ratio of disputed payments to all payments 
+    // (Filter: feedback_type == "chargeback")
+    // (Filter: event_type == "info" and payment_auth_status == 'accepted')  
+    (event.rt_visa_cbk_cnt_cur_m >= min_vdmp_standard_rat_threshold 
+     and event.rt_visa_cbk_cnt_cur_m < max_vdmp_standard_rat_threshold) 
+    and 
+    // The total number of Visa payments that have been disputed
+    (event.visa_cnt_cur_m >= min_vdmp_standard_cnt_threshold
+     and event.visa_cnt_cur_m < max_vdmp_standard_cnt_threshold)  
+    
+
+### Explanation
+
+> Visa Dispute Monitoring Program - Standard (VDMP) - The chargeback to sales ratio, in one month, is {localvar.visa_cbk_to_sales_ratio} and the number of CBKs is {event.visa_cnt_cur_m} 
+
+### Mark As
+
+N/A
+
+## Visa-VDMP-Excessive-CB3
+
+### Comment
+
+> Visa Dispute Monitoring Program - Excessive (VDMP) - Chargeback to sales ratio, in one month.
+
+### Actions
+
+  * [Visa-VDMP-Excessive-CB3]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_vdmp_excessive_threshold = default_threshold_list["min_vdmp_excessive_threshold"].threshold; // 1.8%
+    min_vdmp_excessive_cnt_threshold = default_threshold_list["min_vdmp_excessive_cnt_threshold"].threshold; // 1000
+    //For Rule Explanation
+    visa_cbk_to_sales_ratio = event.rt_visa_cbk_cnt_cur_m*100; 
+
+### Condition
+    
+    
+    //Visa ratio of disputed payments to all payments
+    // (Filter: feedback_type == "chargeback")
+    // (Filter: event_type == "info" and payment_auth_status == 'accepted')  
+    event.rt_visa_cbk_cnt_cur_m >= min_vdmp_excessive_threshold  
+    and 
+    // The total number of Visa payments that have been disputed
+    event.visa_cbk_cnt_cur_m >= min_vdmp_excessive_cnt_threshold 
+    
+
+### Explanation
+
+> Visa Dispute Monitoring Program - Excessive (VDMP) - The chargeback to sales ratio, in one month, is {localvar.visa_cbk_to_sales_ratio} and the number of CBKs is {event.visa_cnt_cur_m}
+
+### Mark As
+
+N/A
+
+## Mastercard-ECM-CB4
+
+### Comment
+
+> Mastercard Excessive Chargeback Program (ECM) - Chargeback to sales ratio, in one month.
+
+### Actions
+
+  * [Mastercard-ECM-CB4]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_mc_ecm_rat_threshold = default_threshold_list["min_mc_ecm_rat_threshold"].threshold; // 1.5%
+    max_mc_ecm_rat_threshold = default_threshold_list["max_mc_ecm_rat_threshold"].threshold; // 2.99%
+    min_mc_ecm_cnt_threshold = default_threshold_list["min_mc_ecm_cnt_threshold"].threshold; // 100
+    max_mc_ecm_cnt_threshold = default_threshold_list["max_mc_ecm_cnt_threshold"].threshold; // 299 
+    //For Rule Explanation
+    mc_cbk_to_sales_ratio = event.rt_mc_cbk_cnt_1m*100;   
+
+### Condition
+    
+    
+    //Mastercard ratio of disputed payments of the current month to all payments processed in the previous month 
+    // (Filter: feedback_type == "chargeback")
+    // (Filter: event_type == "info" and payment_auth_status == 'accepted') 
+    (event.rt_mc_cbk_cnt_1m >= min_mc_ecm_rat_threshold
+     and event.rt_mc_cbk_cnt_1m < max_mc_ecm_rat_threshold) 
+    and 
+    // The total number of Mastercard payments that have been disputed in the current month
+    (event.mc_cbk_cnt_cur_m >= min_mc_ecm_cnt_threshold 
+     and event.mc_cbk_cnt_cur_m < max_mc_ecm_cnt_threshold) 
+
+### Explanation
+
+> Mastercard Excessive Chargeback Program (ECM) - The chargeback to sales ratio, in one month, is {localvar.mc_cbk_to_sales_ratio} and the number of CBKs is {event.mc_cbk_cnt_cur_m}
+
+### Mark As
+
+N/A
+
+## Mastercard-HECM-CB5
+
+### Comment
+
+> Mastercard High Excessive Chargeback Program (HECM) - Chargeback to sales ratio, in one month.
+
+### Actions
+
+  * [Mastercard-HECM-CB5]
+  * Alert
+
+
+
+### Variables
+    
+    
+    min_mc_hecm_rat_threshold = default_threshold_list["min_mc_hecm_rat_threshold"].threshold; // 3%
+    min_mc_hecm_cnt_threshold = default_threshold_list["min_mc_hecm_cnt_threshold"].threshold; // 300
+    //For Rule Explanation
+    mc_cbk_to_sales_ratio = event.rt_mc_cbk_cnt_1m*100;   
+
+### Condition
+    
+    
+    //Mastercard ratio of disputed payments of the current month to all payments processed in the previous month 
+    // (Filter: feedback_type == "chargeback")
+    // (Filter: event_type == "info" and payment_auth_status == 'accepted') 
+    event.rt_mc_cbk_cnt_1m >= min_mc_hecm_rat_threshold  
+    and 
+    // The total number of Mastercard payments that have been disputed in the current month
+    event.mc_cbk_cnt_cur_m >= min_mc_hecm_cnt_threshold 
+
+### Explanation
+
+> Mastercard High Excessive Chargeback Program (HECM) - The chargeback to sales ratio, in one month, is {localvar.mc_cbk_to_sales_ratio} and the number of CBKs is {event.mc_cbk_cnt_cur_m}
+
+### Mark As
+
+N/A
+
+## Chargeback-Count-Increase-CB6
+
+### Comment
+
+> Chargeback count rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * [Chargeback-Cnt-Increase-CB6]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["chargeback_count_1m_3m_list"].threshold ?? default_threshold_list["chargeback_count_1m_3m_list"].threshold;
+    threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+    threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+
+### Condition
+    
+    
+    // Refund count rate of one month (delayed over 4w) over the refund rate of three months (delayed over 8w) 
+    // (Filter: feedback_type == "chargeback")
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted"))
+    event.rtcomp_cbk_cnt_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount  
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) Chargeback count rate of one month is event.rtcomp_cbk_cnt_1m_to_3m x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A
+
+## Chargeback-Amount-Increase-CB7
+
+### Comment
+
+> Chargeback amount rate of 1 month over 3 months is equal to or above a set threshold
+
+### Actions
+
+  * [Chargeback-Amt-Increase-CB7]
+  * Alert
+
+
+
+### Variables
+    
+    
+    threshold = multi_tenanted_threshold_list["chargeback_amount_1m_3m_list"].threshold ?? default_threshold_list["chargeback_amount_1m_3m_list"].threshold;
+     threshold_amount = multi_tenanted_threshold_list["min_avg_amount"].threshold ?? default_threshold_list["min_avg_amount"].threshold;
+     threshold_count = multi_tenanted_threshold_list["min_trx_count"].threshold ?? default_threshold_list["min_trx_count"].threshold;
+    
+    // Rule Explanation
+    formated_threshold = threshold * 100;
+    formated_cgbck_ratio = event.rtcomp_cbk_amt_1m_to_3m * 100;  
+
+### Condition
+    
+    
+    // Refund amount rate of one month (delayed over 4w) over the refund rate of three months (delayed over 8w) 
+    // (Filter: feedback_type == "chargeback")
+    // (Filters: (event_type == "info") and (payment_auth_status == "accepted"))
+    event.rtcomp_cbk_amt_1m_to_3m >= threshold 
+    and (event.sum_amt_1w/7.0) >= threshold_amount 
+    and event.cnt_1w >= threshold_count
+
+### Explanation
+
+> Merchant ({event.merchant_id}) Chargeback amount rate of one month is event.rtcomp_cbk_amt_1m_to_3m x higher than three months and is equal/above the limit of {localvar.threshold}.
+
+### Mark As
+
+N/A

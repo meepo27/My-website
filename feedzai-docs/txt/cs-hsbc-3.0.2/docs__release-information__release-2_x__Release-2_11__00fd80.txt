@@ -1,0 +1,222 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.11
+Title: Release 2.11 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.11.0`â
+
+### Upgrade Pulse to version 25.1.2â
+
+Bug FixFTMT-30238HSBC-3849
+
+We've upgraded Pulse to version 25.1.2.
+
+This change includes an upgrade of Apache Commons BeanUtils to address the CVE-2025-48734 vulnerability.
+
+### Upgrade Pulse to version 25.1.1â
+
+Bug FixHSBC-3790
+
+Also In:2.10.2
+
+We've upgraded Pulse to version 25.1.1.
+
+This upgrade fixes an issue where both the live and upgrade clusters would consume feedback messages, resulting in inconsistent data.
+
+### Fix issue with Pulse's Alert Storage Service not forwarding messages to Case Managerâ
+
+Bug FixHSBC-3754
+
+We've fixed an issue that could occur with Pulse not forwarding messages to Case Manager when there was both a RabbitMQ connection loss forcing Pulse's Alert Storage Service to reconnect to RabbitMQ, and a manual Pulse UI configuration reload.
+
+### Add ETL and DTP extractions comparison documentationâ
+
+DocsHSBC-3738
+
+We have created a guide which explains the key data format differences between ETL and DTP extractions to help with the tool migration process. The guide focus on the additional fields each tool retrieves beyond the standard schema fields.
+
+The guide is available in [Migrating from ETL to DTP](/cs-hsbc/3.0.2/docs/installation-guide/dtp/from-etl-to-dtp).
+
+### Fix API specification examplesâ
+
+Bug FixHSBC-3722
+
+We have fixed an issue in the API specification where field types and examples differed in datatype. For example, `customer_annual_turnover` showed as `number` but the example would should as a `string` (`"15000000.00"`).
+
+Please refer to the [API specification page](/cs-hsbc/3.0.2/api) for more information.
+
+### Add Digital Activity channel to Mobile Outbound extensionsâ
+
+Bug FixFTMT-32724HSBC-3709
+
+Also In:2.10.12.9.3
+
+We have added the Digital Activity channel to the Mobile Outbound extensions. The base schema of the notifications is the same as for Outbound Payments. Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-24023FTMT-30076FTMT-32738FTMT-33019HSBC-3666HSBC-3755HSBC-3749
+
+We have added the below fields to the Cards schema and workflow:
+
+New Fields
+
+Field Name| Datatype  
+---|---  
+address_match_ind_3ds| STRING  
+buyer_daily_provisn_attempt_3ds| STRING  
+buyer_purchase_velocity_3ds| STRING  
+challenge_method_final_3ds| STRING  
+date_received_3ds| STRING  
+device_channel_3ds| STRING  
+digital_id_trust_score_3ds| DOUBLE  
+purchase_amount_3ds| DOUBLE  
+purchase_exponent_3ds| STRING  
+shipping_indicator_3ds| STRING  
+shipping_post_region_3ds| STRING  
+svc_acs_transaction_id_3ds| STRING  
+card_action_on_data_indicator| STRING  
+card_active_flg_last_change_date| STRING  
+card_change_data_new| STRING  
+card_change_data_old| STRING  
+card_cpp_exp_date_proxy| LONG  
+card_cpp_list_date| LONG  
+card_details_availability_ind| STRING  
+card_entity_id| STRING  
+card_entity_type| STRING  
+card_expiration_date_3ds| LONG  
+card_involving_entity| STRING  
+card_new_city_name| STRING  
+card_new_country_code| STRING  
+card_new_phn_country_code| STRING  
+card_new_phone_number| STRING  
+card_new_post_code| STRING  
+card_new_state_name| STRING  
+card_nm_effective_timestamp| LONG  
+card_old_city_name| STRING  
+card_old_country_code| STRING  
+card_old_phn_country_code| STRING  
+card_old_phone_number| STRING  
+card_old_post_code| STRING  
+card_old_state_name| STRING  
+card_onlinebanking_user_id| STRING  
+card_reissue_type_flag| STRING  
+card_temp_limit_chnage_indicator| STRING  
+card_temporary_lmt_exp_date| LONG  
+card_transfer_entity_from_key| STRING  
+card_transfer_entity_to_key| STRING  
+card_transfer_reason| STRING  
+card_txn_sub_type| STRING  
+card_transaction_ref_number_alt| STRING  
+card_website_name| STRING  
+customer_level_limit_type| STRING  
+digital_wallet_token_txn_new| STRING  
+new_card_activation_flag| STRING  
+old_card_activation_flag| STRING  
+transaction_status_3ds| STRING  
+user_amount| DOUBLE  
+user_indicator| STRING  
+user_string| STRING  
+observed_ip_address_3ds| STRING  
+network_risk_score_3ds| STRING  
+device_browser_language_3ds| STRING  
+device_region_3ds| STRING  
+issuer_name_3ds| STRING  
+arcot_merch_alert_score_3ds| STRING  
+arcot_tpd_provider_id_3ds| STRING  
+matched_policy_3ds| STRING  
+matched_regulatory_rule_3ds| STRING  
+policy_advice_id_3ds| STRING  
+policy_results_3ds| STRING  
+policy_advice_score_3ds| STRING  
+regulatory_advice_id_3ds| STRING  
+regulatory_rule_results_3ds| STRING  
+rule_score_source_3ds| STRING  
+rule_set_advice_id_3ds| STRING  
+rule_set_matched_rule_3ds| STRING  
+rule_set_result_3ds| STRING  
+rule_set_score_3ds| DOUBLE  
+sr_rules_advice_id_3ds| STRING  
+sr_rules_set_version_3ds| STRING  
+transaction_failure_reason_3ds| STRING  
+tran_origination_cntry_3ds| STRING  
+card_saf_ind| STRING  
+tran_id_3ds| STRING  
+ucaf_value_3ds| STRING  
+customer_id_personal| STRING  
+customer_id_business| STRING  
+tmx.digital_id_trust_score| DOUBLE  
+tmx.chall_reason_code| STRING  
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.
+
+### Update API documentationâ
+
+DocsFTMT-30058HSBC-3661
+
+We've update the API resources documentation to include:
+
+  * Missing Cards and Inbound Payments endpoint information
+  * Non Mon endpoint documentation, including how the `event_type` field is generated
+  * Missing tag descriptions in the API specification page
+
+
+
+For more information please refer to [API Additional Resources](/cs-hsbc/3.0.2/docs/api-reference/authentication).
+
+### Add Non-Mon Endpointâ
+
+FeatureFTMT-30076HSBC-3637
+
+We've created a new endpoint to allow the receiving and registering of non monetary events.
+
+For a more in-depth explanation of this new endpoint please refer to the [Non-Mon Documentation page](/cs-hsbc/3.0.2/docs/api-reference/cards/additional-resources/non-mon-endpoint).
+
+### Add new fields to Outbound Payments and Digital Activityâ
+
+FeatureFTMT-28937HSBC-3591
+
+We have added the below elements to the `bioc` tuple in Outbound Payments and Digital Activity API schemas:
+
+**Field Name**| **Datatype**  
+---|---  
+pinpoint_risk_score| Integer  
+chall_policy_score| Integer  
+  
+The `Payments` and `Payments + Outcomes` schemas were updated with all the above fields.
+
+### Fix Transaction History header scroll behaviorâ
+
+Bug FixFTMT-30567HSBC-3476
+
+Weâve fixed a bug that made the Transaction History header disappear while scrolling. It now stays visible at the top of the list.
+
+### Create RabbitMQ segregation guide for Pulse and Case Managerâ
+
+DocsFTMT-476HSBC-3431
+
+We have created a guide on how to segregate a RabbitMQ cluster by component, focused on Pulse and Case Manager. The guide focus on a migration with no message loss and minimal downtime.
+
+For more information please refer to the [RabbitMQ Segregation for Pulse and Case Manager page](/cs-hsbc/3.0.2/docs/operations-guide/how-to/rabbitmq-segregation).
+
+### Add new fields to Cardsâ
+
+FeatureFTMT-30565HSBC-3627
+
+We have added the below fields to the Cards API schema:
+
+**Field Name**| **Datatype**  
+---|---  
+card_deposit_type| String  
+card_minimum_amount_due| Double  
+card_purchase_timestamp| Timestamp  
+credit_card_post_ref_number| String  
+debit_card_auth_ref_number| String  
+card_client_amount| Double  
+cardholder_zip| String  
+cards_purchase_utc_indicator| String  
+  
+The `Cards` and `Cards + Outcomes` schemas were updated with all the above fields.

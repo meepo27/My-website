@@ -1,0 +1,49 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/logstash-recovery-tool/logstash-audit-pipeline-recovery-tool
+Title: Pulse Workflow Audit Pipeline Recovery Tool | Feedzai Documentation
+============================================================
+
+On this page
+
+# Logstash Pulse Workflow Audit Pipeline Recovery Tool
+
+Playbook to run the _pulse-workflow-audit_ Logstash pipeline in recovery mode.
+
+This playbook can be executed for a specific interval when there is any problem with the pipeline and the data is not exported as it should.
+
+By running this playbook, the _pulse-workflow-audit_ pipeline will execute once for the defined interval and export the results to the configured GCP bucket.
+
+This pipeline also supports a cron entry that restarts the _pulse-workflow-audit_ pipeline on a schedule, and exposes variables to control whether to install base dependencies needed to have the cron daemon `crond` installed for the scheduling, as well as a variable to control the location of the temporary trimmed pipeline config that it needs as part of its restart operation.
+
+### Configurationâ
+
+All the following variables are **mandatory**.
+
+Variable| Type| Default Value| Description  
+---|---|---|---  
+logstash_pipeline_recovery_mode| boolean| true| Defines if we are running the pipeline in recovery mode. Needs to be **true**  
+logstash_pipeline_recovery_name| string| pulse-workflow-audit| Name of the pipeline that we are running in recovery mode  
+logstash_audit_pipeline_since| number| | The start date of the interval to run the pipeline in **Unix time** format  
+logstash_audit_pipeline_until| number| | The end date of the interval to run the pipeline in **Unix time** format  
+pulse.host| string| | Pulse host name - in the format `http(s)://<host>:<port>`  
+pulse.user| string| | Pulse user name  
+pulse.password| string| | Pulse password  
+gcs_bucket_name| string| | Bucket to where the pipeline will export the data  
+gcs_tmp_directory| string| /tmp/logstash/| Directory where temporary files are stored  
+max_file_size_kbytes| number| 1024| Sets max file size in kbytes. 0 disable max file check  
+uploader_interval_secs| number| 60| Uploader interval when uploading new files to GCS.  
+restart_pipeline_base_dependencies| list| []| Dependencies to ensure the cron daemon is started for pipeline restarts  
+start_crond_service| boolean| false| Controls whether to install dependencies (restart_pipeline_base_dependencies)  
+temp_trimmed_pipeline_config_name| string| /tmp/trimmed_pipeline.conf| The location of the temporary trimmed pipeline needed by the pipeline restarter  
+  
+## Running the Playbookâ
+    
+    
+    python3.6 ansible-playbook \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        -i project-<env> \  
+        execute-logstash-audit-pipeline.yml  
+    
+
+Copy

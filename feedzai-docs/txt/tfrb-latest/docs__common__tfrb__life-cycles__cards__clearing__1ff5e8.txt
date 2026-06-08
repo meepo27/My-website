@@ -1,0 +1,79 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/cards/clearing
+Title: Clearing Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Cards](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle)
+  * Clearing Endpoint
+
+
+
+On this page
+
+# Clearing Endpoint
+
+Was this page helpful?Â 
+
+The Clearing endpoint allows you to inform Feedzai when a transaction is settled, corresponding to x1xx or x2xx ISO 8583 messages. Note that this endpoint is non-scorable, i.e. it does not flow through rules in order to generate a decision. However, the information is used by the Feedzai's risk engine platform to calculate metrics and profiles, and thus, impacts subsequent transfers associated with the same customer. It is also shown in the fraud analyst interface (Case Manager) as a new event to support the alert investigation. Check the [Transaction Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/cards/transaction-life-cycle) initial page to understand where this endpoint fits within the transaction life cycle.
+
+A clearing might result from a dispute initiated by the cardholder. In this case, the information is sent to Feedzai via the Info endpoint as described in the [Dispute](/tfrb/latest/docs/common/tfrb/life-cycles/cards/info#dispute) use case.
+
+If the process of dispute leads to a chargeback, the information is communicated to Feedzai as described in the [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback) use case.
+
+The numbers in the figure are described below:
+
+  1. Cardholder makes a purchase or withdrawal.
+  2. Merchant or ATM receives cardholder information.
+  3. Authorization message (ISO 8583 or network proprietary message).
+  4. ISO 8583 authorization (1xx) or presentment (2xx) message request.
+  5. Internal validations (client, account, card, etc).
+  6. Authorization request - ISO 8583 authorization (1xx) or presentment (2xx) message.
+  7. Pulse scores and sets a decision recommendation: **decline** or **approve** transaction.
+  8. Case Manager is provided with the field values that are sent via the Authorization endpoint.
+  9. Authorization response: score, decision (**decline** or **approve**), actions and alert.
+  10. The issuer **accepts** the transaction (with a reason code).
+  11. ISO 8583 authorization (1xx) or presentment (2xx) message response.
+  12. Authorization message response (ISO 8583 or network proprietary message).
+  13. Payment is **accepted**.
+  14. Reconciliation of the day amounts.
+  15. ISO 8583 reconciliation request (5xx).
+  16. Internal validations (client, account, card, etc). Uncleared funds are changed to cleared.
+  17. Settlement of the cardholder funds.
+  18. ISO 8583 reconciliation response (5xx).
+  19. Settlement of the merchant/ATM account.
+  20. Clearing request.
+
+
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities (e.g. Card, Customer, or Account) have a match in the Reference Data Storage.
+
+info
+
+Note that any new data from card clearing events (e.g. new `card_category`) will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  21. Pulse receives the Clearing request, and updates the transaction information in Case Manager.
+
+
+  * Key: Life cycle ID.
+  * Adds the clearing information.
+
+
+  22. Case Manager is updated with the field values that are sent via the Clearing endpoint.
+  23. Clearing response.
+  24. Message acknowledged.
+
+
+
+## Learn moreâ
+
+Learn more about the detailed life cycle of other endpoints:
+
+  * [Authorization](/tfrb/latest/docs/common/tfrb/life-cycles/cards/authorization)
+  * [Info](/tfrb/latest/docs/common/tfrb/life-cycles/cards/info)
+  * [Feedback](/tfrb/latest/docs/common/tfrb/life-cycles/cards/feedback)
+
+

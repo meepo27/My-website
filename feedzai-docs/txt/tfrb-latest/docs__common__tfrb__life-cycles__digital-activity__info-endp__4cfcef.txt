@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/info-endpoints
+Title: Info Endpoints | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * Info Endpoints
+
+
+
+On this page
+
+# Info Endpoints
+
+Was this page helpful?Â 
+
+This page explains how Info endpoints play a role in any digital activity event life cycle.
+
+The Digital Activity API includes Info endpoints to send additional information for the last sent `POST` or `PUT` request. Consider the following diagram, which shows an Info endpoint's end-to-end process in a Profile Update event.
+
+  
+
+
+  1. The user attempts to change their profile, e.g. their address.
+
+  2. The issuer bank invokes Feedzai's Profile Update endpoint.
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities have a match in the Reference Data Storage.
+
+data precedence in reference data storage
+
+Note that any new data from profile update events will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  3. Feedzai conducts real-time data analysis and makes a decision on whether to approve, decline or challenge the account change event.
+
+  4. The bank makes an automated decision based on Feedzai's recommendation.
+
+  5.      * 5a. The customer is or isn't allowed to update their profile.
+     * 5b. The bank invokes the Profile Update Info endpoint with additional information to the previously sent event, using the same `lifecycle_id`.
+
+info
+
+By default, Feedzai does not store additional information sent through Info Endpoints in the Reference Data Storage.
+
+
+
+
+## Learn moreâ
+
+Read the [Feedback Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/feedback) page to continue learning about the endpoints' life cycles.

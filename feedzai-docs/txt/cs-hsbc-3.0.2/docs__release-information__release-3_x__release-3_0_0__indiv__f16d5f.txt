@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3777
+Title: HSBC-3777 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3777
+
+### Update Case Manager to version 13.28.0â
+
+FeatureFTMT-29151HSBC-3777
+
+We've upgraded Case Manager to version 13.28.0.
+
+This release introduces the Manage Messages feature, giving HSBC direct control over message translations in Case Manager.
+
+This change also introduces a new set of permissions to control which users can access and manage Case Manager messages:
+
+**Messages Permission**| **Description**  
+---|---  
+`cm:section:settings-message:read:*`| Lets the user see the Manager Messages page in the Settings section.  
+`cm:resource:message:read:*`| Lets the user read messages.  
+`cm:action:settings-message:create:*`| Lets the user create messages in the Settings section.  
+`cm:resource:message:create:*`| Lets the user create messages.  
+`cm:action:settings-message:update:*`| Lets the user update messages in the Settings section.  
+`cm:resource:message:update:*`| Lets the user update messages.  
+`cm:action:settings-message:delete:*`| Lets the user delete messages in the Settings section.  
+`cm:resource:message:delete:*`| Lets the user delete messages.  
+  
+Please refer to [Case Manager Documentation](https://cam.feedzai.com/case-manager/latest/docs/common/case-manager/user-guide/manager-guide/manage-message-translations) for more information and to the [Permissions Guide](/cs-hsbc/3.0.2/docs/operations-guide/permissions) for the full permissions list.

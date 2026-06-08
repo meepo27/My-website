@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/Release-0.11
+Title: Release 0.11 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `0.11.2`â
+
+### Add `project-<env>` inventory to commands in Blue/Green documentationâ
+
+Docs
+
+See up-to-date information at [Blue-Green Deployments](/cs-hsbc/3.0.2/docs/installation-guide/pulse/blue-green-deployments)
+
+### Fix missing `/` on ETL cron job arguments (defaults and documentation example)â
+
+Bug Fix
+
+Docs
+
+See up-to-date information at [ETL Configuration](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl)
+
+### Replace previous `check-only` strategy by Feedzai Encryption Tool lookup pluginâ
+
+Internal
+
+This ensures no sensitive data like usernames and passwords are leaked in logs and doesn't rely in an additional task and double lockups with changed facts in between.
+
+### Add Artifacts list to installation pageâ
+
+Docs
+
+See [Artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) to get the list of artifacts, the expected version and the respective download links.
+
+### Update documentation with load balancing informationâ
+
+Docs
+
+See up-to-date information at [Load Balancers](/cs-hsbc/3.0.2/docs/installation-guide/pulse/network-pulse).

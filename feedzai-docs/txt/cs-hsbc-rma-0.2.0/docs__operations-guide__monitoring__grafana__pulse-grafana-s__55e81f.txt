@@ -1,0 +1,573 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/grafana/pulse-grafana-suggestions
+Title: Pulse Setup | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Pulse Setup
+
+In this page you can find a set of suggestions for Pulse monitoring using Grafana.
+
+## Suggestionsâ
+
+##### info
+
+These suggestions are based on the shared resources.
+
+##### info
+
+There are VM resource related metrics (CPU, Memory, IO, etc) that can also be added to Grafana. These were left out on purpose Google already has out of the box monitoring support for these resources.
+
+These suggestions can be either new dashboards, changes to existing dashboards or completely new dashboard pages. Please find the metric description in [Pulse Top Metrics](/cs-hsbc-rma/0.2.0/docs/operations-guide/monitoring/top-metrics-pulse).
+
+### Cluster pageâ
+
+Currently there is only one page where we can filter metrics by each of the instances. Although useful, having a cluster view monitoring page gives a view of how the overall cluster health. Given this, our suggestion is to add a new page with the following metrics:
+
+Row Title| Title| Description| Query Details  
+---|---|---|---  
+Healthchecks - Pulse| Login| Displays the login healthcheck. This healthcheck is carried out by pulse in order to validate  
+the login operation. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'login' , "source" = 'pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Pulse| Messaging| Displays the messaging healthcheck. This healthcheck is carried out by pulse in order to validate  
+the communication with messaging server. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'messaging' , "source" = 'pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Pulse| Metadata DB| Displays the metadata db healthcheck. This healthcheck is carried out by pulse in order to validate  
+the communication with metadata db. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'metadata' , "source" = 'pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Pulse| Zookeeper| Displays the zookeeper healthcheck. This healthcheck is carried out by pulse in order to validate  
+the communication with zookeeper. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'zookeeper' , "source" = 'pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Pulse| Leadership| This healthcheck indicates the leadership status of each Pulse instance, represented by 1  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='leadership' , "source"='pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+**Query B**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='leadership' , "source"='pulse' , $timeFilter  
+**Group By:** time($__interval), "host"  
+Healthchecks - Pulse| Jobs Status| This healthcheck verifies that jobs can be submitted and ran in the Dataproc cluster. This healthcheck is based on a  
+dummy job that is submitted every X configured time and reported in its metrics consumed by Telegraf. The outcome  
+is a boolean, meaning that it was successfully executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'job-processing-cluster' , $timeFilter  
+**Group By:** time($__interval), "host", "source"  
+  
+**Query B**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck" = 'job-processing-cluster' , $timeFilter  
+**Group By:** time($__interval), "host", "source"  
+Healthchecks - Apps| Login| Displays the appSlug login healthcheck. This healthcheck is carried out by the appSlug in order to validate  
+the login operation. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='login' , source != 'pulse' , $timeFilter  
+**Group By:** time($__interval), "host", "source"  
+Healthchecks - Apps| Leadership| This healthcheck indicates the app's leadership status, represented by 1 and 0 respectively.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='leadership' , "source"!='pulse' , $timeFilter  
+**Group By:** time($__interval), "source", "host"  
+  
+**Query B**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='leadership' , "source"!='pulse' , $timeFilter  
+**Group By:** time($__interval), "host", "source"  
+States| Pulse Instances State| Displays the pulse instances states:  
+\- 1: INITIAL  
+\- 2: BOOTSTRAPPING  
+\- 3: RUNNING  
+\- 4: STOPPING  
+  
+| **Query A**  
+**Field:** "value"  
+**From:** "pulse.server.state"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host"  
+States| Pulse Apps State| Displays the pulse appSlug states:  
+\- 1: INITIAL  
+\- 3: BOOTSTRAPPING  
+\- 4: BOOTSTRAPPED  
+\- 5: STARTING  
+\- 6: STARTED  
+\- 8: APPLYING_CHANGES  
+\- 10: SELF_HEALING  
+  
+| **Query A**  
+**Field:** "value"  
+**From:** "pulse.app.state"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "pulse.app.state"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+Leadership Changes| Pulse Leadership Changes| Measures the number of pulse leadership changes.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.server.leadership.count"  
+**Where:** $timeFilter  
+**Group By:** "host"  
+Leadership Changes| Pulse Apps Leadership Changes| Measures the number of appSlug leadership changes.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.app.leadership.count"  
+**Where:** $timeFilter  
+**Group By:** "host", "appSlug"  
+Watchdog Activations| Watchdog Activations| Measures the number watchdog activation per appSlug. Watchdog activation is triggered when there is a problem with  
+an appSlug and subsequently, needs to be recovered.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.server.watchdog.trigger"  
+**Where:** $timeFilter  
+**Group By:** "host", "appSlug", "operation"  
+Connection Pools| Metadata DB Connection Pools Usage| Measures the metadata db connection pool usage. High values implies waiting time to access to metadata db which may  
+degrade the component performance.| **Query A**  
+**Field:** "value"  
+**From:** "pulse.dbPool.usage"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "pulse.dbPool.usage"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+  
+**Query C**  
+**Field:** "value"  
+**From:** "pulse.dbPool.maxPoolSize"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+Connection Pools| Connection Pools per App Usage| Measures the metadata connection pools usage per appSlug.  
+| **Query A**  
+**Field:** "value"  
+**From:** "pulse.dbPool.usage"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "poolName"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "pulse.dbPool.maxPoolSize"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "poolName"  
+Connection Pools| Metadata DB Connection Errors and Timeouts| Measures the number of errors and timeouts occurred when trying to get a metadata db connection.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionErrors"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+  
+**Query B**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionObtainTimeout"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+  
+**Query C**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionErrors"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+  
+**Query D**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionObtainTimeout"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+Connection Pools| DB Connection Errors and Timeouts per App| Measures the number of errors and timeouts occurred when the appSlug tries to get a connection .  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionErrors"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName", "appSlug"  
+  
+**Query B**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionObtainTimeout"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName", "appSlug"  
+  
+**Query C**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionErrors"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+  
+**Query D**  
+**Field:** "count"  
+**From:** "pulse.dbPool.connectionObtainTimeout"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "poolName"  
+Jobs| Jobs Scheduled| Measures the number of jobs scheduled for execution broken-down by job type; i.e., with state SCHEDULED (1).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.scheduled"  
+**Where:** jobType = 'Workflow' , $timeFilter  
+**Group By:** time($__interval), *  
+Jobs| Jobs Waiting| Measures the number of jobs that are waiting for an agent to be free broken-down by job type; i.e., with state  
+WAITING_AGENT (8).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.waiting"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), *  
+Jobs| Jobs Executing| Measures the number of jobs that are currently in state EXECUTING (2) broken-down by job type.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.running"  
+**Where:** jobType = 'Workflow' , $timeFilter  
+**Group By:** time($__interval), *  
+Jobs| Jobs Failed| Measures the number of jobs that failed broken-down by both job type and state: ERROR (5), CRASHED (6),  
+ABORTED (7).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.failed"  
+**Where:** jobType = 'Workflow' , $timeFilter  
+**Group By:** time($__interval), _  
+  
+**Query B**  
+**Field:** "count"  
+**From:** "pulse.job.executions.failed"  
+**Where:** jobType = 'Workflow' , $timeFilter  
+**Group By:** time($__interval), _  
+Jobs| Jobs Finished| Measures the number of jobs that completed successfully broken-down by job type; i.e., with state FINIDHED (3).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.success"  
+**Where:** jobType = 'Workflow' , $timeFilter  
+**Group By:** time($__interval), *  
+  
+ **Query B**  
+**Field:** "count"  
+**From:** "pulse.job.executions.success"  
+**Where:** jobType = 'Workflow' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+Workflow| Global Workflow Throughput per Message Type| Measures the overall appSlug workflow throughput per message type(normal, recovery, replica).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.workflow.global.event.stats"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc", "messageType"  
+Workflow| Global Workflow Errors| Measures the overall appSlug workflow errors, considering all message types(normal, recovery and replica).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.workflow.eventErrors.count"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+Workflow| Global Workflow latency per Message Type at Percentile 99| Measures the overall workflow latency at percentile 99 per pulse instance, appSlug, workflow and message  
+type.  
+| **Query A**  
+**Field:** "p99"  
+**From:** "pulse.workflow.global.event.stats"  
+**Where:** "messageType" != 'RECOVERY' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc", "messageType"  
+  
+**Query B**  
+**Field:** "p99"  
+**From:** "pulse.workflow.global.event.stats"  
+**Where:** "messageType" = 'RECOVERY' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+  
+**Query C**  
+**Field:** "p99"  
+**From:** "pulse.workflow.global.event.stats"  
+**Where:** "messageType" = 'NORMAL' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+Workflow| Events Spilled to Disk| Measures the overall appSlug events spilled to disk. An event is spilled to disk when pulse cannot  
+write it on the event storage. This scenario must be avoided, otherwise require human action to move the events  
+from the disk to the event storage.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.eventStorage.spillToDisk.count"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+Workflow| Global Workflow Throughput by API endpoint| Measures the overral appSlug workflow throughput of normal messages by Endpoint (initiation, info, etc).| **Query B**  
+**Field:** "count"  
+**From:** "workflow.events"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "workflowDesc", "elementDesc", "host", "appSlug", "event_type"  
+Event Storage Dumps| Events Storage Dump Failed and Retry Events| Measures the overall number of events that were dumped to disk and are either pending to be retried or reached to the max amount of retries and need to be re-injected manually.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.dump.storage.dump.entries.retry.counter"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+  
+**Query B**  
+**Field:** "count"  
+**From:** "pulse.dump.storage.dump.entries.failed.counter"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+Event Storage Dumps| Events Storage Dump Failed and Retry Queue Size| Measures the overall number of events that are present in the in-memory queue to be written to the dump file in the failed folder, appSlug and workflow.  
+| **Query A**  
+**Field:** "value"  
+**From:** "pulse.dump.storage.failed.queue.size"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "pulse.dump.storage.retry.queue.size"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+Event Pending Dumps| Event Pending Persistence to Event Storage| Measures the overall number of events that are pending to be persisted to the databased.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.workflow.eventstorage.eventsQueuedSize"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc"  
+  
+Profile Fetches| Profile Fetches Latency at Percentile 99 (Excluding Timeouts)| Measures the overall max latency to fetch the profiles at percentile 99, per appSlug, workflow and plan.  
+| **Query A**  
+**Field:** "p99"  
+**From:** "pulse.workflow.profileFetches.statistics"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc", "elementDesc"  
+Profile Fetches| Profile Fetches Timeouts| Measures the number of profile fetches that were timed out, per appSlug, workflow and plan.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.workflow.profileFetches.timeouts"  
+**Where:** $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "workflowDesc", "elementDesc"  
+JVM| JVM Heap Usage (Pulse Server)| Measures the jvm heap usage per pulse instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Usage (per App)| Measures the jvm heap usage per application and host.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+  
+**Query C**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.usage"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+JVM| JVM Heap Usage After GC (Pulse Server)| Measures the jvm heap usage after gc per pulse instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.after-gc.usage"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Heap Usage After GC (per App)| Measures the jvm heap usage after gc per application and host.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.heap.after-gc.usage"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+JVM| JVM Code Cache Usage (Pulse Server)| Measures the jvm code cache usage per pulse instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.pools.CodeCache.usage"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Code Cache Usage (per App)| Measures the jvm code cache usage per application and host.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.memory.pools.CodeCache.usage"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+JVM| JVM Garbage Collector Time (Pulse Server)| Measures maximum JVM GC duration. Long garbage collection pause durations indicate that the heap size is not  
+adjusted for the actual usage.| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Old-Generation.time"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** "host"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Young-Generation.time"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** "host"  
+JVM| JVM Garbage Collector Time (per App)| Measures maximum JVM GC duration for young and old gen, per application and host. Long garbage collection  
+pause durations indicate that the heap size is not adjusted for the actual usage.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Old-Generation.time"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** "host", "appSlug"  
+  
+**Query B**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.gc.G1-Young-Generation.time"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** "host", "appSlug"  
+JVM| JVM Active Threads Count (Pulse Server)| Measures the current number of active threads in the JVM per pulse instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.threads.count"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM Active Threads Count (per App)| Measures the current number of active threads in the JVM per application and host.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.threads.count"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+JVM| JVM File Descriptors Ratio (Pulse Server)| Measures the jvm file descriptors usage ratio per instance.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.filedescriptor"  
+**Where:** appSlug = '' , $timeFilter  
+**Group By:** time($__interval), "host"  
+JVM| JVM File Descriptors Ratio (per App)| Measures the jvm file descriptors usage ratio per application and host.  
+| **Query A**  
+**Field:** "value"  
+**From:** "letmeknow.jvm.filedescriptor"  
+**Where:** appSlug != '' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug"  
+  
+Note that in the cluster page some dashboards are separated. For instance, instead of having the `Jobs` dashboards separated by job state, we can have a dashboard that gathers all states. Given that in cluster view we are not filtering by any node, it is recommend to have disassociated dashboards so they do not get cluttered with information.
+
+Also note the `Row Title` column which refers to a Grafana feature to group dashboards by type. This is only a suggestion and thus not mandatory.
+
+### Node pageâ
+
+These suggestions relate to the existing Pulse dashboard page. You may find some new dashboards or changes to existing ones.
+
+Our suggestions are to add the dashboards in the following table with a filter by each of the available nodes and applications:
+
+Row Title| Title| Description| Query Details  
+---|---|---|---  
+Healthchecks - Pulse| Login| Displays the login healthcheck on the selected instance. This healthcheck is carried out by pulse in order to  
+validate the login operation. The outcome is a bool, meaning that it was successfully executed when 1,  
+otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "source" = 'pulse' , "healthcheck" = 'login' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Healthchecks - Pulse| Messaging| Displays the messaging healthcheck on the selected instance. This healthcheck is carried out by pulse in order to  
+validate the communication with rabbitmq. The outcome is a bool, meaning that it was successfully executed  
+when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "source" = 'pulse' , "healthcheck" = 'messaging' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Healthchecks - Pulse| Metadata DB| Displays the metadata db healthcheck on the selected instance. This healthcheck is carried out by pulse in  
+order to validate the communication with metadata db. The outcome is a bool, meaning that it was successfully  
+executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "source" = 'pulse' , "healthcheck" = 'metadata' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Healthchecks - Pulse| Zookeeper| Displays the zookeeper healthcheck on the selected instance. This healthcheck is carried out by pulse in order  
+to validate the communication with zookeeper. The outcome is a bool, meaning that it was  
+successfully executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "source" = 'pulse' , "healthcheck" = 'zookeeper' , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Pulse State and Leadership Changes| Pulse Leadership Changes| Displays pulse leadership changes, for the selected pulse instance.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.server.leadership.count"  
+**Where:** "host" = '$host' , $timeFilter  
+**Group By:** N/A  
+Healthchecks - Apps| Login| Displays the login healthcheck for the specified app on the selected instance. This healthcheck is carried out  
+by the appSlug in order to validate the login operation. The outcome is a bool, meaning that it was successfully  
+executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='login' , source =~ /^app.$appSlug.*/ , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Healthchecks - Apps| Leadership| Displays the leadership healthcheck for the specified app on the selected instance. This healthcheck is carried out  
+by the appSlug in order to validate the login operation. The outcome is a bool, meaning that it was successfully  
+executed when 1, otherwise is 0.  
+| **Query A**  
+**Field:** "result"  
+**From:** "healthchecks"  
+**Where:** "healthcheck"='leadership' , source =~ /^app.$appSlug.*/ , "host" = '$host' , $timeFilter  
+**Group By:** time($__interval)  
+Watchdog Activations| Watchdog Activations| Measures the number of watchdog activations triggered for the selected appSlug and the specified pulse instance.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.server.watchdog.trigger"  
+**Where:** "host" = '$host' , "appSlug" = '$appSlug' , $timeFilter  
+**Group By:** "operation"  
+Jobs| Jobs Scheduled| Measures the number of jobs scheduled for execution broken-down by job type; i.e., with state SCHEDULED (1).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.scheduled"  
+**Where:** jobType = 'Workflow' , "host" = '$host' , "appSlug" = '$appSlug' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "jobType"  
+Jobs| Jobs Waiting| Measures the number of jobs that are waiting for an agent to be free broken-down by job type; i.e., with state  
+WAITING_AGENT (8).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.waiting"  
+**Where:** jobType = 'Workflow' , "host" = '$host' , "appSlug" = '$appSlug' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "jobType"  
+Jobs| Jobs Executing| Measures the number of jobs that are currently in state EXECUTING (2) broken-down by job type.  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.running"  
+**Where:** jobType = 'Workflow' , "host" = '$host' , "appSlug" = '$appSlug' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "jobType"  
+Jobs| Jobs Failed| Measures the number of jobs that failed broken-down by both job type and state: ERROR (5), CRASHED (6),  
+ABORTED (7).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.failed"  
+**Where:** jobType = 'Workflow' , "host" = '$host' , "appSlug" = '$appSlug' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "jobType"  
+Jobs| Jobs Finished| Measures the number of jobs that completed successfully broken-down by job type; i.e., with state FINIDHED (3).  
+| **Query A**  
+**Field:** "count"  
+**From:** "pulse.job.executions.success"  
+**Where:** jobType = 'Workflow' , "host" = '$host' , "appSlug" = '$appSlug' , $timeFilter  
+**Group By:** time($__interval), "host", "appSlug", "jobType"

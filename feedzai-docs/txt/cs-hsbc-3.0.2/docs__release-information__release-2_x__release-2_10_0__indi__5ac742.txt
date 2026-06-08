@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3152-Make-RDS-not-copy-logs-to-system-log
+Title: HSBC-3152-Make-RDS-not-copy-logs-to-system-log | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3152-Make-RDS-not-copy-logs-to-system-log
+
+### Make RDS not copy logs to system logâ
+
+FeatureHSBC-3152
+
+Also In:2.8.32.9.2
+
+The Reference Data service was copying its request logs into the system logs (`/var/log/messages`) by default. This was controlled by the undocumented `reference_data_log_console` variable, which was set to `true` by default. We've set this to `false` in the `project-default` Ansible configuration.
+
+The request log will instead go to the `request.log` file in the normal reference data log folder, and will be rotated and compressed daily, with 5 compressed files. We do not expect that this file will need to be exported to stackdriver.

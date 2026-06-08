@@ -1,0 +1,382 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-entity-limit-rules
+Title: Transfers - Entity Limit Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - Entity Limit Rules
+
+
+
+On this page
+
+# Transfers - Entity Limit Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Entity Limit_ rules have the purpose of limiting the financial amount and number of transactions. The majority of these rules compare the recent user account behavior with past, long-term behaviors and define trigger conditions based on thresholds. These thresholds compare how much the transaction amount or number of transactions has increased compared to the past.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Transfers-EL1
+
+### Comment
+
+> Daily amount per sender exceeds threshold
+
+### Actions
+
+  * [Transfers-EL1]
+
+
+
+### Variables
+    
+    
+    min_sum_amount_sender_24h_th =transfers__rules_thresholds["min_sum_amount_sender_24h_th"].threshold; 
+    
+    formatted_sum = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sum_amount_per_sender_24h);
+    
+    formatted_th = ValueFormatTools.formatMoney(event.sender_transaction_currency, min_sum_amount_sender_24h_th);
+
+### Condition
+    
+    
+    event.sum_amount_per_sender_24h >= min_sum_amount_sender_24h_th 
+
+### Explanation
+
+> [Transfers-EL1] - Medium Risk - Sum amount ({localvar.formatted_sum}) by this Sender in last 24h is above {localvar.formatted_th}.
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Transfers-EL2
+
+### Comment
+
+> Sender's amount is significantly higher than daily average amount (considering last week's behavior)
+
+### Actions
+
+  * [Transfers-EL2]
+
+
+
+### Variables
+    
+    
+    min_ratio_sender_trx_amount_sender_daily_avg_th =transfers__rules_thresholds["min_ratio_sender_trx_amount_sender_daily_avg_th"].threshold;
+    
+    ratio=Maths.safeDivision((event.sender_transaction_amount ?? 0)*1.0, event.avg_daily_amount_per_sender_1w);
+    
+    formatted_amount = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sender_transaction_amount);
+    
+
+### Condition
+    
+    
+    ratio >= min_ratio_sender_trx_amount_sender_daily_avg_th
+
+### Explanation
+
+> [Transfers-EL2] - High Risk - Transaction amount ({localvar.formatted_amount}) is significantively higher ({localvar.min_ratio_sender_trx_amount_sender_daily_avg_th} x) than Sender's daily average amount (considering last week's behavior). 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL3
+
+### Comment
+
+> Sender's monthly number of transactions is extremely higher than average number of transaction (considering behavior from previous 3 months)
+
+### Actions
+
+  * [Transfers-EL3]
+
+
+
+### Variables
+    
+    
+    min_ratio = transfers__rules_thresholds["min_ratio_sender_trx_count_sender_monthly_avg_th"].threshold;
+    min_count = transfers__rules_thresholds["min_count_trx_sender_1m_th"].threshold;
+    
+    ratio = match 
+    	if (event.avg_monthly_count_sender_3m_de == 0.0) then
+    		return event.count_sender_1m; 
+    	else
+    		return Maths.safeDivision(event.count_sender_1m*1.0,event.avg_monthly_count_sender_3m_de); 
+    	end 
+    end
+
+### Condition
+    
+    
+    event.count_sender_1m >= min_count
+    and
+    ratio >= min_ratio
+    
+
+### Explanation
+
+> [Transfers-EL3] - High Risk - Transaction count ({event.count_sender_1m}) for this Sender in the last month is significantively higher ({localvar.min_ratio} x) than Sender's monthly average count, considering behavior in the last 3 months 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL4
+
+### Comment
+
+> Mismatch between sender's and receiver's BICs for transfers with amount higher than a established threshold
+
+### Actions
+
+  * [Transfers-EL4]
+
+
+
+### Variables
+    
+    
+    min_amount_th =transfers__rules_thresholds["min_amount_th"].threshold;  
+    
+    formatted_amount = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sender_transaction_amount);
+    formatted_th = ValueFormatTools.formatMoney(event.sender_transaction_currency, min_amount_th);
+
+### Condition
+    
+    
+    (event.sender_transaction_amount ?? 0 != 0) and (event.sender_bank_bic ?? '' != '') and (event.receiver_bank_bic ?? '' != '')
+    and
+    event.sender_transaction_amount>=min_amount_th
+    and 
+    event.sender_bank_bic != event.receiver_bank_bic   
+
+### Explanation
+
+> [Transfers-EL4] - High Risk - Transaction amount ({localvar.formatted_amount}) exceeds the established limit ({localvar.formatted_th}) and sender's and receiver's BICs mismatch.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL6
+
+### Comment
+
+> Sender's monthly total amount is extremely higher than average total amount (considering behavior from previous 3 months)
+
+### Actions
+
+  * [Transfers-EL6]
+
+
+
+### Variables
+    
+    
+    min_ratio = transfers__rules_thresholds["min_ratio_sender_trx_amount_sender_monthly_avg_th"].threshold; 
+    min_avg_amount = transfers__rules_thresholds["min_avg_monthly_amount_sender_th"].threshold; 
+    min_count = transfers__rules_thresholds["min_count_sender_1m_th"].threshold;
+    
+    ratio = match 
+      if (event.avg_monthly_amount_per_sender_ < min_avg_amount) then 
+      	return -1;
+      else 
+        return Maths.safeDivision((event.sum_amount_per_sender_1m ?? 0)*1.0, event.avg_monthly_amount_per_sender_);
+      end 
+    end 
+    
+    formatted_sum = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sum_amount_per_sender_1m);
+
+### Condition
+    
+    
+    event.count_sender_1m >= min_count
+      and 
+    ratio >= min_ratio
+
+### Explanation
+
+> [Transfers-EL6] - High Risk - Sum amount ({localvar.formatted_sum}) for this sender in the last month is significantively higher ({localvar.min_ratio} x) than Sender's monthly average amount (considering past 3 months) 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL9
+
+### Comment
+
+> Mismatch between sender's and receiver's Sort Code for transfers with amount higher than a established threshold
+
+### Actions
+
+  * [Transfers-EL9]
+
+
+
+### Variables
+    
+    
+    min_amount_sort_code_th=transfers__rules_thresholds['min_amount_sort_code_th'].threshold;
+    
+    formatted_amount = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sender_transaction_amount);
+
+### Condition
+    
+    
+    (event.sender_bank_country_code ?? '' != '') and (event.receiver_bank_country_code ?? '' != '') 
+    and 
+    (event.sender_bank_sort_code ?? '' != '') and (event.receiver_bank_sort_code ?? '' != '')
+    and
+    (event.sender_transaction_amount ?? 0 != 0)
+    and
+    ((event.sender_bank_country_code == 'GB' or event.sender_bank_country_code == 'IE')
+    and 
+    (event.receiver_bank_country_code == 'GB' or event.receiver_bank_country_code == 'IE'))
+    and 
+    event.sender_transaction_amount >= min_amount_sort_code_th
+    and 
+    event.sender_bank_sort_code != event.receiver_bank_sort_code  
+
+### Explanation
+
+> [Transfers-EL9] - High Risk - Transaction amount ({localvar.formatted_amount}) exceeds the established limit ({localvar.min_amount_sort_code_th}) and sender's and receiver's Sort Codes mismatch.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL10
+
+### Comment
+
+> Daily amount of transactions made by telephone per Sender exceeds threshold 
+
+### Actions
+
+  * [Transfers-EL10]
+
+
+
+### Variables
+    
+    
+    min_sum_amount_per_sender_telephone_24h_th=transfers__rules_thresholds['min_sum_amount_per_sender_telephone_24h_th'].threshold;
+    
+    formatted_sum = ValueFormatTools.formatMoney(event.sender_transaction_currency, event.sum_amount_per_sender_telephon);
+    
+    formatted_th = ValueFormatTools.formatMoney(event.sender_transaction_currency, min_sum_amount_per_sender_telephone_24h_th);
+
+### Condition
+    
+    
+    event.sum_amount_per_sender_telephon>= min_sum_amount_per_sender_telephone_24h_th
+
+### Explanation
+
+> [Transfers-EL10] - High Risk - Transaction daily amount for this Sender ({localvar.formatted_sum}) when channel type is telephone exceeds the established limit of {localvar.formatted_th}.
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL11
+
+### Comment
+
+> Daily transactions per sender made by telephone is extremely higher than monthly average transaction number (considering behavior from previous 3 months)
+
+### Actions
+
+  * [Transfers-EL11]
+
+
+
+### Variables
+    
+    
+    min_ratio = transfers__rules_thresholds['min_ratio_sender_trx_count_channel_telephone_sender_monthly_avg_th'].threshold; 
+    
+    min_count_trx_sender_telephone_24h_th = transfers__rules_thresholds['min_count_trx_sender_telephone_24h_th'].threshold;
+    
+    ratio = match 
+        if event.avg_monthly_count_sender_telep == 0.0 then
+           return event.count_sender_telephone_24h;
+       else 
+           return ( event.count_sender_telephone_24h/event.avg_monthly_count_sender_telep);
+       end 
+    end 
+
+### Condition
+    
+    
+    ratio >= min_ratio
+    and 
+    event.count_sender_telephone_24h >= min_count_trx_sender_telephone_24h_th 
+
+### Explanation
+
+> [Transfers-EL11] - High Risk - Transaction count ({event.count_sender_telephone_24h}) for this Sender when channel is telephone in last 24h is significantively higher ({localvar.min_ratio} x) than Sender's monthly average count
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Transfers-EL12
+
+### Comment
+
+> Daily transactions per sender made online is extremely higher than monthly average transaction number (considering behavior from previous 3 months)
+
+### Actions
+
+  * [Transfers-EL12]
+
+
+
+### Variables
+    
+    
+    min_ratio = transfers__rules_thresholds['min_ratio_sender_trx_count_channel_online_sender_monthly_avg_3m_th'].threshold; 
+    min_count_trx_sender_online_24h_th = transfers__rules_thresholds['min_count_trx_sender_online_24h_th'].threshold;
+    
+    ratio = match 
+        if event.avg_monthly_count_sender_onlin == 0.0 then
+           return event.count_sender_online_24h;
+       else 
+           return ( event.count_sender_online_24h/event.avg_monthly_count_sender_onlin);
+       end 
+    end 
+
+### Condition
+    
+    
+    ratio >= min_ratio
+    and 
+    event.count_sender_online_24h >= min_count_trx_sender_online_24h_th 
+
+### Explanation
+
+> [Transfers-EL12] - High Risk - Transaction count ({event.count_sender_online_24h}) for this Sender when channel is online in last 24h is significantively higher ({localvar.min_ratio} x) than Sender's monthly average count
+
+### Mark As
+
+The outcome of this rule is: **high**

@@ -1,0 +1,90 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/ansible/feedzai-ansible
+Title: Installing Feedzai with Ansible | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Installing Feedzai with Ansible
+
+The Feedzai Ansible Toolkit refers to a series of Ansible Playbooks created by Feedzai to automate the services installation, and **manage configurations** across multiple environments.
+
+In the HSBC RMA GCP deployment, the dedicated **control-node VM** serves as the primary [Ansible control node](https://docs.ansible.com/ansible/latest/user_guide/basic_concepts.html#control-node). It contains all the necessary binaries and dependencies for installing each component. For application-level Ansible tasks, the **pulse-helper** and **case-manager-helper** VMs can also be utilised as execution nodes where appropriate. Ansible connects to each target VM via SSH over GCP's internal network. For more information about the connectivity requirements check the [Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/connection_details.html).
+
+##### warning
+
+The Ansible Playbooks provided by Feedzai can be used solely for the purpose of **configuration management** , and are not a solution for deploying Feedzai's products.
+
+## Requirementsâ
+
+  * Hostname resolution is provided by **GCP internal DNS**
+    * Use `ping` to confirm that each server is able to reach other servers by hostname.
+  * The **control-node VM** is the primary Ansible executor. For application-specific tasks, the **pulse-helper** and **case-manager-helper** VMs can also act as execution nodes.
+  * SSH key authentication between the control-node (or helper VMs) and all target VMs is configured.
+  * The deployment user is `control-node`, which has `sudo` permissions. `feedzai` is the local service user (`ansible_local_user`) on each target VM.
+
+
+
+## Services Installationâ
+
+To install a `<service>` (i.e.: `pulse`, `case-manager`, `reference-data`) run the following command from the **control-node VM** :
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      --limit=<service> \  
+      <playbook>.yml \  
+    
+
+Copy
+
+Where `<playbook>` depends on the component being installed:
+
+Component| Playbook  
+---|---  
+Cassandra, RabbitMQ, Zookeeper| `thirdparty.yml`  
+Pulse, Case Manager, Reference Data| `<service>.yml`  
+  
+##### note
+
+Replace the `<env>` with the appropriate environment path for each environment. Example: for the `dev` environment, use `locations/rma/dev`
+
+## Services Configurationâ
+
+To configure a `<service>` for a given environment, run the same command with the environment-specific inventory applied last. Later inventories take precedence over earlier ones, allowing environment-specific variables to override defaults.
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      --limit=<service> \  
+      <playbook>.yml \  
+    
+
+Copy
+
+##### note
+
+The inventory paths shown above (e.g. `locations/rma/dev`) are sample reference paths used to validate deployability. HSBC production deployments may use their own environment and location naming conventions.
+
+### Notesâ
+
+The `ansible_user` must exist on the target machine prior to execution. In the HSBC RMA GCP deployment, `ansible_user` is `control-node` and `ansible_local_user` is `feedzai`. This applies to all playbook executions.
+
+In the above command-line invocation of `ansible-playbook`, each corresponding inventory must exist and contain a `variables.yml` file. If the same variable is defined in multiple inventories, the later ones appearing in the command-line invocation take precedence over the earlier ones. In this way, by adding the most specific variables at the end (for example, environment-specific variables), they can overwrite any values inherited from earlier inventories such as the defaults (e.g. `solution-default`, `project-default`).
+
+Inventory| Purpose| Directory  
+---|---|---  
+`solution-default`| Cross-project Feedzai defaults| `solution-default/group_vars/<service>/variables.yml`  
+`project-default`| Project-level defaults| `project-default/group_vars/<service>/variables.yml`  
+`project-ds`| Project-level Pulse Data Science environment specifics| `project-ds/group_vars/<service>/variables.yml`  
+`gcp`| GCP platform-specific overrides| `gcp/group_vars/<service>/variables.yml`  
+`locations/rma/<env>`| RMA environment-specific variables| `locations/rma/ansible/<env>/group_vars/<service>/variables.yml`  
+  
+More inventories may be added as needed, in the same manner.

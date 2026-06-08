@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/transfers-self-service-rules
+Title: Transfers - Self Service Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Transfers - Self Service Rules
+
+
+
+On this page
+
+# Transfers - Self Service Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+Standard rules written in Pulse are normally developed and tested in staging environments to ensure that the work in development does not affect the work in production. This type of rules is developed by teams that have deep knowledge in this area and often have taken special training. Therefore, there is an inevitable gap between the time that these rules start to be written and the time that they are deployed in production. At the same time, fraudsters are constantly coming up with new workarounds to trick the system. Counteracting new waves of fraud might require tweaking a rule or creating a new one.
+
+Self-service rules (SSR) allow you to fill this gap, and have an active rule in production in a few minutes. With this capability, you can write a rule in **Case Manager** , test and publish it directly to production. As an example, you can use SSRs to create a rule with a different threshold than the one already defined in a standard rule and publish it in production to have it quickly live.
+
+Therefore, this rules project is empty, and is used in the Pulse workflow to receive the SSRs written in Case Manager.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+

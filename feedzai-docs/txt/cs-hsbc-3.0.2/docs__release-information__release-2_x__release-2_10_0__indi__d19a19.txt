@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3066-Add-tenancy-information-to-rules-extracted-by-the--Pulse-Workflow-Audit--pipeline
+Title: HSBC-3066-Add-tenancy-information-to-rules-extracted-by-the--Pulse-Workflow-Audit--pipeline | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3066-Add-tenancy-information-to-rules-extracted-by-the--Pulse-Workflow-Audit--pipeline
+
+### Add tenancy information to rules extracted by the `Pulse Workflow Audit` pipelineâ
+
+FeatureFTMT-26643HSBC-3066
+
+Also In:2.9.0
+
+We've added three new fields to the `Pulse Workflow Audit` pipeline:
+
+  * `workflow.rules[].isMultiTenant`: indicates whether a rule snapshot belongs to a multi tenanted rules projects
+  * `workflow.rules[].tenantId`: indicates the tenant key of the rules snapshot if it belongs to a multi tenanted rules projects and `null` otherwise
+  * `workflow.elements[type = rules].isMultiTenant`: indicates if the workflow element belongs to a multi tenanted rules projects
+
+
+
+Please note that `Duplicated for Tenant` rules projects will have `tenantId=null` but still show `isMultiTenant=true`.
+
+Please refer to the [Data Schema page](/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/data-schema#pulse-workflow-audit-schema) for more details.

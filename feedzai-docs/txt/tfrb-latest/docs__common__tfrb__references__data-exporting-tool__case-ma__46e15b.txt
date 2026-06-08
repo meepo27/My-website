@@ -1,0 +1,57 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event
+Title: Case Manager Event - Base Schema | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Case Manager
+  * Case Manager Event - Base Schema
+
+
+
+# Case Manager Event - Base Schema
+
+Was this page helpful?Â 
+
+The **Case Manager Event - Base Schema** stores the basic information of Case Manager events.
+
+All Case Manager Event schemas add to this base schema and will be available when extracting information for each specific channel (i.e. Cards, Transfers, Digital Activity or Payments).
+
+Name| Type| Description| Example  
+---|---|---|---  
+`timestamp`| timestamp with time zone| The original timestamp of the object| 2025-09-30 10:25:59.100 +0100  
+`identifier`| string| The original ID of the object| 605e7f99-820b-45b2-ab5e-a4420dae675a  
+`notification_timestamp`| timestamp with time zone| The timestamp of when this notification took place| 2025-09-30 10:25:59.100 +0100  
+`notification_type`| string| The notification type. Is one of the following: 
+
+  * EVENT_ARRIVAL: Indicates this is an event arrival
+  * EVENT_STATUS: Indicates this is a status change on the event
+  * EVENT_USER: Indicates a user was assigned/unassigned to/from the event 
+  * EVENT_QUEUE: Indicates the event was added/removed to/from a queue
+  * EVENT_NOTE: Indicates a note was added/removed to/from an event
+  * EVENT_RELATED_TRANSACTIONS: Indicates that related transactions were added/removed to/from the event
+
+|   
+`event_version_id`| string| The unique ID for a specific version of an event, used to track updates or state changes.| 4c168e62-48af-4cf3-8948-7e93b32a3f9c  
+`event_version_timestamp`| bigint| The timestamp of the specific event version.| 1588700503112  
+`event_tenant`| string| The tenant of the event.| feedzai  
+`is_alert`| boolean| Indicates whether this event is an alert or not|   
+`access_group_id`| string| The ID for the group of users that can view the event, used to control data visibility.| europe_analysts  
+`user_id`| string| The Id of the user that made the change. This is only available for event arrival, event queue, event status and event user notification types.|   
+`user_name`| string| The Id of the user that made the change. This is only available for event note, event status and event user.|   
+`queue_id`| double| The id of the queue the event is in This is only available for event arrival, event queue, event status and event user.|   
+`queue_name`| string| The name of the queue the event was added to. This only exists for event queue.|   
+`state`| string| The event status. This only exists for event status.|   
+`state_machine_id`| string| The id of the state machine that changed. This only exists on event status.|   
+`note`| string| The note added to this event. This only exists on event note and event status.|   
+`reasons`| array<row>| The list of the status and their corresponding value. This only exists on event status.|   
+âââ`id`| string| The ID of the status reason provided for the status change| 975c5ab6-bd2f-4567-8ae3-6026742f4036  
+âââ`status_id`| string| The status of this status change| fraud  
+âââ`name`| string| The human-readable name of the status reason provided for the status change| Confirmed Fraud  
+`state_machines`| map<string, string>| The map of state machines and their corresponding value. This only exists on event arrival, queue, status and user.|   
+`related_transactions`| json| The list of related transactions for the event. This only exists on EVENT_RELATED_TRANSACTIONS type.| {"rule_001":["{"identifier":"txn_003", "channel":"payments", "timestamp":"2025-10-29 17:12:07.844000 UTC"}"],"rule_002":["{"identifier":"txn_004", "channel":"payments", "timestamp":"2025-10-29 15:27:07.844000 UTC"}"]}  
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

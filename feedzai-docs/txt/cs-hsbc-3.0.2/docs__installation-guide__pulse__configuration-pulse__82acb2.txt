@@ -1,0 +1,337 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse
+Title: Configuration Recommendations | Feedzai Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+##### tip
+
+For the full Pulse configuration refer to the official [Configuration Reference](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=1272) and the recommended [Production Setup](https://cam.feedzai.com/legacy-versions/archive/pulse_23.0.pdf#page=926).
+
+### Setting up the JVM DNS cache TTLâ
+
+A couple of security properties should be set up. This can be achieved by:
+
+  1. Making sure that the `security.overridePropertiesFile` property is set to true in the `$JAVA_HOME/jre/lib/security/java.security` file.
+  2. Creating a new file (e.g. `/opt/feedzai/pulse/conf/java.security.properties) with the following content`:
+
+
+    
+    
+    # conf/java.security.properties  
+    networkaddress.cache.ttl=1  
+    networkaddress.cache.negative.ttl=3  
+    
+
+Copy
+
+  3. Using the previously created file to set up the security properties on Pulse by adding `-Djava.security.properties=conf/java.security.properties` to the `JVM_OPTS` variable on `/opt/feedzai/pulse/bin/startup.sh`:
+
+
+    
+    
+    # /opt/feedzai/pulse/bin/startup.sh snippet  
+    JVM_OPTS="(...) -Djava.security.properties=conf/java.security.properties"  
+    
+
+Copy
+
+  4. Using the previously created file to set up the security properties on App engines by adding `-Djava.security.properties=conf/java.security.properties` to the `pulse.global.appengine.jvmopts` property on Pulse properties.
+
+
+    
+    
+    # /opt/feedzai/pulse/conf/pulse.properties snippet  
+    pulse.global.appengine.jvmopts=(...) -Djava.security.properties=conf/java.security.properties  
+    
+
+Copy
+
+##### warning
+
+Setting up these properties affects the cache behavior of all network address name resolutions for both Pulse server and App engine processes.
+
+From the `java.security` file, next to the `networkaddress.cache.ttl` property on, for example, Zulu JDK:
+
+> "NOTE: setting this to anything other than the default value can have serious security implications. Do not set it unless you are sure you are not exposed to DNS spoofing attack."
+
+### Ansibleâ
+
+##### note
+
+Available ansible variables for running the ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+ansible_user| feedzai| User for ansible execution  
+ansible_local_user| {{ ansible_user }}| User that will be the owner of the unpacked Pulse assembly, should be the same as `ansible_user`  
+pulse_install_path| "/opt/feedzai"| Pulse install path  
+pulse_home_path| "{{ pulse_install_path }}/product-pulse-{{ pulse_version }}"| Pulse home path  
+pulse_license_src_path| {{ basesoftware_path }}/pulse-licenses| Source path to Pulse licenses  
+pulse_sso_idp_cert| N/A| Pulse SSO IdP certificate  
+pulse_sso_private_key| N/A| Pulse SSO private key  
+pulse_sso_public_key| N/A| Pulse SSO public key  
+pulse_sso_force_https| false| Force Pulse to use HTTPS when it is behind a proxy. Only required when SSO is enabled.  
+pulse_api_url| "{{ jwk_service_host }}"| URL for the Pulse API, in the format `<scheme>://<hostname>:<port>` (explicit port is mandatory). When multiple nodes are available, this should point to the Load Balancer.  
+cm_sso_private_key| N/A| Case Manager SSO private key  
+cm_sso_public_key| N/A| Case Manager SSO public key  
+reference_data_servers| reference-data| Reference data server  
+zookeeper_nodes| zookeeper| Zookeeper Nodes  
+cassandra_nodes| cassandra| Cassandra Nodes  
+messaging_brokers| "rabbitmq:5672"| Messaging brokers  
+keycloak_url| "http://{{ keycloak_hostname }}:{{ keycloak_port }}"| Keycloak URL  
+keycloak_hostname| keycloak| Keycloak hostname  
+keycloak_port| 8080| Keycloak port  
+cassandra_pulse_keyspace_replication| "'class':'NetworkTopologyStrategy', 'dc1': 1"| Cassandra replication strategy  
+cassandra_cluster_name| "{{ inventory }} cluster"| Cassandra cluster name  
+cassandra_pulse_keyspace| "profiles"| Cassandra profiles store keyspace name  
+cassandra_table_name| "profiles"| Cassandra profiles store table name  
+database_pulse_eventstorage_hostname| "postgres"| Default Postgres Pulse Event Storage host name  
+database_pulse_eventstorage_port| "5432"| Default Postgres Pulse Event Storage port  
+database_pulse_eventstorage_database_name| "feedzai"| Default Postgres Pulse Event Storage Database name  
+database_pulse_metadata_hostname| "postgres"| Postgres Pulse Metadata host name  
+database_pulse_metadata_port| "5432"| Postgres Pulse Metadata port  
+database_pulse_metadata_database_name| "feedzai"| Postgres Pulse Metadata Database name  
+database_pulse_eventstorage_read_only_hostname| "{{ database_pulse_eventstorage_hostname }}"| Default Postgres Pulse Event Storage Read Only host name  
+database_pulse_eventstorage_read_only_port| "{{ database_pulse_eventstorage_port }}"| Postgres Pulse Event Storage Read Only port  
+database_pulse_eventstorage_read_only_database_name| "{{ database_pulse_eventstorage_port }}"| Postgres Pulse Event Storage Read Only Database name  
+database_pulse_metadata_jdbc| "jdbc:postgresql://{{ database_pulse_metadata_hostname }}:{{ database_pulse_metadata_port }}/{{ database_pulse_metadata_database_name }}?currentSchema=pulse&cancelSignalTimeout=2&connectTimeout=2&loadBalanceHosts=true&loginTimeout=10&socketTimeout=60&tcpKeepAlive=true&targetServerType=master&reWriteBatchedInserts=true"| Pulse JDBC for metadata  
+database_pulse_eventstorage_jdbc| "jdbc:postgresql://{{ database_pulse_eventstorage_hostname }}:{{ database_pulse_eventstorage_port }}/{{ database_pulse_eventstorage_database_name }}?currentSchema=eventstorage&cancelSignalTimeout=2&connectTimeout=2&loadBalanceHosts=true&loginTimeout=10&socketTimeout=60&tcpKeepAlive=true&targetServerType=master&reWriteBatchedInserts=true"| Default Pulse JDBC for event storage  
+database_pulse_eventstorage_jdbc_read_only| "jdbc:postgresql://{{ database_pulse_eventstorage_read_only_hostname }}:{{ database_pulse_eventstorage_read_only_port }}/{{ database_pulse_eventstorage_read_only_database_name }}?currentSchema=eventstorage&cancelSignalTimeout=2&connectTimeout=2&loadBalanceHosts=true&loginTimeout=10&socketTimeout=60&tcpKeepAlive=true&targetServerType=master"| Default Pulse JDBC for event storage (read-only replica for SMJs)  
+database_pulse_outbound_payments_eventstorage_hostname| "{{ database_pulse_eventstorage_hostname }}"| Hostname for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_port| "{{ database_pulse_eventstorage_port }}"| Port for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_database_name| "{{ database_pulse_eventstorage_database_name }}"| Database name for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_read_only_hostname| "{{ database_pulse_eventstorage_read_only_hostname }}"| Hostname for the read-only Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_read_only_port| "{{ database_pulse_eventstorage_read_only_port }}"| Port for the read-only Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_read_only_database_name| "{{ database_pulse_eventstorage_read_only_database_name }}"| Database name for read-only the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_username| "{{ database_pulse_eventstorage_username }}"| Username for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_password| "{{ database_pulse_eventstorage_password }}"| Password for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_schema| "{{ database_pulse_eventstorage_schema }}"| Schema for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_jdbc| "jdbc:postgresql://{{ database_pulse_outbound_payments_eventstorage_hostname }}:{{ database_pulse_outbound_payments_eventstorage_port }}/{{database_pulse_outbound_payments_eventstorage_database_name }}?{{ database_pulse_outbound_payments_eventstorage_jdbc_opts | join('&') }}"| JDBC connection URL for the Outbound Payments event storage database  
+database_pulse_outbound_payments_eventstorage_jdbc_read_only| "jdbc:postgresql://{{ database_pulse_outbound_payments_eventstorage_read_only_hostname }}:{{ database_pulse_outbound_payments_eventstorage_read_only_port }}/{{database_pulse_outbound_payments_eventstorage_read_only_database_name }}?{{ database_pulse_outbound_payments_eventstorage_jdbc_opts_read_only | join('&') }}"| JDBC connection URL for the read-only Outbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_hostname| "{{ database_pulse_eventstorage_hostname }}"| Hostname for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_port| "{{ database_pulse_eventstorage_port }}"| Port for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_database_name| "{{ database_pulse_eventstorage_database_name }}"| Database name for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_read_only_hostname| "{{ database_pulse_eventstorage_read_only_hostname }}"| Hostname for the read-only Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_read_only_port| "{{ database_pulse_eventstorage_read_only_port }}"| Port for the read-only Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_read_only_database_name| "{{ database_pulse_eventstorage_read_only_database_name }}"| Database name for read-only the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_username| "{{ database_pulse_eventstorage_username }}"| Username for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_password| "{{ database_pulse_eventstorage_password }}"| Password for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_schema| "{{ database_pulse_eventstorage_schema }}"| Schema for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_jdbc| "jdbc:postgresql://{{ database_pulse_inbound_payments_eventstorage_hostname }}:{{ database_pulse_inbound_payments_eventstorage_port }}/{{database_pulse_inbound_payments_eventstorage_database_name }}?{{ database_pulse_inbound_payments_eventstorage_jdbc_opts | join('&') }}"| JDBC connection URL for the Inbound Payments event storage database  
+database_pulse_inbound_payments_eventstorage_jdbc_read_only| "jdbc:postgresql://{{ database_pulse_inbound_payments_eventstorage_read_only_hostname }}:{{ database_pulse_inbound_payments_eventstorage_read_only_port }}/{{database_pulse_inbound_payments_eventstorage_read_only_database_name }}?{{ database_pulse_inbound_payments_eventstorage_jdbc_opts_read_only | join('&') }}"| JDBC connection URL for the read-only Inbound Payments event storage database  
+database_pulse_cards_eventstorage_hostname| "{{ database_pulse_eventstorage_hostname }}"| Hostname for the Cards event storage database  
+database_pulse_cards_eventstorage_port| "{{ database_pulse_eventstorage_port }}"| Port for the Cards event storage database  
+database_pulse_cards_eventstorage_database_name| "{{ database_pulse_eventstorage_database_name }}"| Database name for the Cards event storage database  
+database_pulse_cards_eventstorage_read_only_hostname| "{{ database_pulse_eventstorage_read_only_hostname }}"| Hostname for the read-only Cards event storage database  
+database_pulse_cards_eventstorage_read_only_port| "{{ database_pulse_eventstorage_read_only_port }}"| Port for the read-only Cards event storage database  
+database_pulse_cards_eventstorage_read_only_database_name| "{{ database_pulse_eventstorage_read_only_database_name }}"| Database name for read-only the Cards event storage database  
+database_pulse_cards_eventstorage_username| "{{ database_pulse_eventstorage_username }}"| Username for the Cards event storage database  
+database_pulse_cards_eventstorage_password| "{{ database_pulse_eventstorage_password }}"| Password for the Cards event storage database  
+database_pulse_cards_eventstorage_schema| "{{ database_pulse_eventstorage_schema }}"| Schema for the Cards event storage database  
+database_pulse_cards_eventstorage_jdbc| "jdbc:postgresql://{{ database_pulse_cards_eventstorage_hostname }}:{{ database_pulse_cards_eventstorage_port }}/{{database_pulse_cards_eventstorage_database_name }}?{{ database_pulse_cards_eventstorage_jdbc_opts | join('&') }}"| JDBC connection URL for the Cards event storage database  
+database_pulse_cards_eventstorage_jdbc_read_only| "jdbc:postgresql://{{ database_pulse_cards_eventstorage_read_only_hostname }}:{{ database_pulse_cards_eventstorage_read_only_port }}/{{database_pulse_cards_eventstorage_read_only_database_name }}?{{ database_pulse_cards_eventstorage_jdbc_opts_read_only | join('&') }}"| JDBC connection URL for the read-only Cards event storage database  
+database_pulse_reference_data_eventstorage_hostname| "{{ database_pulse_outbound_payments_eventstorage_hostname }}"| Hostname for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_port| "{{ database_pulse_outbound_payments_eventstorage_port }}"| Port for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_database_name| "{{ database_pulse_outbound_payments_eventstorage_database_name }}"| Database name for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_read_only_hostname| "{{ database_pulse_outbound_payments_eventstorage_read_only_hostname }}"| Hostname for the read-only Reference Data event storage database  
+database_pulse_reference_data_eventstorage_read_only_port| "{{ database_pulse_outbound_payments_eventstorage_read_only_port }}"| Port for the read-only Reference Data event storage database  
+database_pulse_reference_data_eventstorage_read_only_database_name| "{{ database_pulse_outbound_payments_eventstorage_read_only_database_name }}"| Database name for read-only the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_username| "{{ database_pulse_outbound_payments_eventstorage_username }}"| Username for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_password| "{{ database_pulse_outbound_payments_eventstorage_password }}"| Password for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_schema| "{{ database_pulse_outbound_payments_eventstorage_schema }}"| Schema for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_jdbc| "jdbc:postgresql://{{ database_pulse_reference_data_eventstorage_hostname }}:{{ database_pulse_reference_data_eventstorage_port }}/{{database_pulse_reference_data_eventstorage_database_name }}?{{ database_pulse_reference_data_eventstorage_jdbc_opts | join('&') }}"| JDBC connection URL for the Reference Data event storage database  
+database_pulse_reference_data_eventstorage_jdbc_read_only| "jdbc:postgresql://{{ database_pulse_reference_data_eventstorage_read_only_hostname }}:{{ database_pulse_reference_data_eventstorage_read_only_port }}/{{database_pulse_reference_data_eventstorage_read_only_database_name }}?{{ database_pulse_reference_data_eventstorage_jdbc_opts_read_only | join('&') }}"| JDBC connection URL for the read-only Reference Data event storage database  
+jwk_service_db_jdbc| jdbc:postgresql://postgres:5432/feedzai?currentSchema=jwkservice| JDBC for JWK service  
+jwk_service_db_schema| jwkservice| Schema for JWK service  
+jwk_service_db_username| jwkservice| Username for JWK service  
+jwk_service_db_password| secret| Password for JWK service  
+jwk_service_host| "http://localhost:8080"| JWK API base url. When Pulse has more than one node this variable should point to the leader node or UI load balancer hostname  
+rabbitmq_brokers| "{{ messaging_brokers }}"| RabbitMQ messaging brokers  
+rabbitmq_pulse_username| "guest"| RabbitMQ Pulse username  
+rabbitmq_pulse_password| "guest"| RabbitMQ Pulse password  
+rabbitmq_pulse_vhost| "/"| RabbitMQ Pulse vhost  
+rabbitmq_feedback_storage_service_vhost| "feedback-storage"| RabbitMQ Feedback Storage vhost  
+rabbitmq_casemanager_brokers| "{{ rabbitmq_brokers }}"| RabbitMQ messaging brokers for the cluster used by the Alert Storage Service to send events to Case Manager  
+rabbitmq_casemanager_username| "guest"| RabbitMQ Pulse username for the cluster used by the Alert Storage Service to send events to Case Manager  
+rabbitmq_casemanager_password| "guest"| RabbitMQ Pulse password for the cluster used by the Alert Storage Service to send events to Case Manager  
+rabbitmq_casemanager_vhost| "/"| RabbitMQ Pulse vhost for the cluster used by the Alert Storage Service to send events to Case Manager  
+database_pulse_metadata_username| "pulse"| Pulse Metadata username  
+database_pulse_metadata_password| "secret"| Pulse Metadata password  
+database_pulse_metadata_schema| "pulse"| Pulse Metadata schema  
+database_pulse_eventstorage_username| "eventstorage"| Pulse Event Storage username  
+database_pulse_eventstorage_password| "secret"| Pulse Event Storage password  
+database_pulse_eventstorage_schema| "eventstorage"| Pulse Event Storage schema  
+database_pulse_app_metadata_username| "{{ database_pulse_metadata_username }}"| Pulse Application username  
+database_pulse_app_metadata_password| "{{ database_pulse_metadata_password }}"| Pulse Application password  
+database_pulse_app_metadata_schema| "{{ database_pulse_metadata_schema }}"| Pulse Application schema  
+pull_hadoop_files_from_bucket| false| Pull dataproc configuration from GCS bucket (*)  
+hadoop_files_download_dir| "/tmp"| Temporary destination location for the downloaded file  
+gcp_bucket_name| "pulse-dataproc-config"| The name of the bucket.  
+gcp_hadoop_conf_file| "hadoop-files.tar.gz"| Hadoop configuration archive name.  
+model_training_directory| "hdfs:///user/pulse/models"| The directory location where trained models should be saved. This directory can be a local or distributed (HDFS) filesystem.  
+model_storage_directory| "hdfs:///user/pulse/models"| The directory location where imported models through App Collaboration should be saved. This directory can be a local or distributed (HDFS) filesystem  
+model_hpt_directory| "hdfs:///user/pulse/hpt-models"| The directory location where the hyperparameter tuning models should be saved between model training and evaluation. This directory can be a local or distributed (HDFS) filesystem.  
+pulse_liquibase_environment| | Liquibase options for database changes (e.g. `-Xms4g -Xmx4g`)  
+pulse_commands_environment| | Liquibase options for application changes (e.g. `-Xms4g -Xmx4g`)  
+pulse_setup_thread_dumps_cron| false| Enable periodic thread dumps. This requires `logrotate` to be installed in the host machine.  
+pulse_thread_dumps_cron_jobs| []| A list of CRON job configurations [CRON]  
+number_threads_workflow_recovery| 1| Number of threads used for workflow recovery  
+import_tmx_udf| true| Import TMX UDF  
+import_fiv_markers_udf| true| Import FivMarkers UDF  
+cross_channel_metrics_enabled| false| Enable cross channel metrics  
+cross_channel_metrics_rmi_based_lookup| true| Enable RMI cross channel metrics or use the messaging implementation when set to false  
+cross_channel_metrics_fetch_timeout_ms| 200| The timeout when fetching cross-channel metrics, in milliseconds  
+cross_channel_metrics_num_threads| 1| The number of threads to use when fetching cross channel metrics  
+cross_channel_metrics_client_consumer_threads| 8| The number of threads to use by the buffered message consumer on the messaging client  
+cross_channel_metrics_server_consumer_threads| 8| The number of threads to use by the buffered message consumer on the messaging server  
+cross_channel_metrics_require_workflow_ready| true| When enabled, cross metrics requests will only be sent if the request contains any workflow that has been marked as ready. This prevents requests from being sent to the messaging infrastructure if it is not expected that any messaging server would be able to serve them  
+cross_channel_metrics_publisher_pool_size| 32| Size of the dedicated thread pool for cross metrics publishing operations  
+cross_channel_metrics_publisher_queue_size| 1000| Maximum size of the publisher pool task queue  
+cross_channel_metrics_timed_futures_pool_size| 100| Core pool size for the TimedFutures scheduler thread pool. Controls the maximum number of concurrent timeout tasks that can be scheduled. Each inflight cross metrics request requires a timeout task, so this should be sized to accommodate the expected number of concurrent requests plus publish timeouts  
+cross_channel_metrics_message_ttl_ms| 1000| The TTL for cross metrics messaging requests, in milliseconds. Messages older than this will be discarded by the messaging system  
+cross_channel_metrics_publish_timeout_ms| 1000| The timeout for publishing cross metrics messages, in milliseconds. This is the maximum time to wait for a message to be published  
+cross_channel_metrics_batched_requests_enabled| false| Enable batched requests when using the messaging implementation. When disabled, single-request messages are used  
+cross_channel_metrics_batch_max_size| 10| Maximum number of individual cross metrics requests per batch publish  
+cross_channel_metrics_batch_max_time_ms| 10| Maximum time in milliseconds to wait before flushing a batch publish  
+cross_channel_metrics_max_inflight_size| 500| Maximum number of inflight requests allowed before rejecting new requests (backpressure)  
+reference_data_tenant_strategy| STATIC| Configures the tenant strategy for Reference Data. Possible values are `STATIC` or `REQUEST`.  
+inbound_payments_tenant_strategy| STATIC| Configures the tenant strategy for Inbound Payments. Possible values are `STATIC` or `REQUEST`.  
+transfers_tenant_strategy| STATIC| Configures the tenant strategy for Transfers. Possible values are `STATIC` or `REQUEST`.  
+digital_activity_data_tenant_strategy| STATIC| Configures the tenant strategy for Digital Activity. Possible values are `STATIC` or `REQUEST`.  
+cards_tenant_strategy| STATIC| Configures the tenant strategy for Cards. Possible values are `STATIC` or `REQUEST`.  
+inbound_payments_tenant_api_payload_field| customer_portfolio_country| Configures the API field from where the Inbound Payments endpoints will load the tenant value.  
+outbound_payments_tenant_api_payload_field| customer_portfolio_country| Configures the API field from where the Outbound Payments endpoints will load the tenant value.  
+digital_activity_tenant_api_payload_field| customer_portfolio_country| Configures the API field from where the Digital Activity endpoints will load the tenant value.  
+cards_tenant_api_payload_field| customer_portfolio_country| Configures the API field from where the Cards Payments endpoints will load the tenant value.  
+reference_data_tenant_api_payload_field| customer_country_code| Configures the API field from where the Reference Data endpoints will load the tenant value.  
+reference_data_tenant_provider_parameter_key| tenant| Configures the parameter key for the query parameter strategy.  
+reference_data_tenant_provider_fallback| feedzai| Configures the tenant value if no tenant in the request is found.  
+pulse_spark_eventlog_enabled| false| Enables or disables logging for Spark applications.  
+pulse_spark_eventlog_dir| "hdfs:///var/log/spark/apps"| Specifies the directory where Spark event logs will be stored.  
+tars_enabled| false| Whether Pulse should be deployed with Topology-Aware Resource Scheduling (TARS).  
+node_app_pool| "{{ lookup('ansible.builtin.env', 'NODE_APP_POOL') }}"| The node pool to where a specific Pulse node belongs to, read from an environment variable. Only required if TARS is enabled.  
+pulse_app_topology| | The TARS application topology as defined in [TARS application topology]  
+feature_plan_log_level| Info| Set logging-level for Feature Plan metrics. Possible values are trace, debug, info, warn, error and fatal. For display more verbose output, it needs to be set to 'trace' in DSE.  
+watchdog_check_period_millis| 10000| Set interval, in milliseconds, between consecutive heartbeat checks performed by watchdog to monitor system's health.  
+watchdog_latency_actuation_cycles| 5| Set number of consecutive heartbeat checks watchdog performs before marking the application as degraded and initiating the recovery process.  
+cards_customer_enrichment_key| customer_id| Configures the key for Customer Reference Data enrichment.  
+cards_account_enrichment_key| account_id| Configures the key for Account Reference Data enrichment.  
+cards_card_enrichment_key| card_pan| Configures the key for Card Reference Data enrichment.  
+cards_token_enrichment_key| ref_digital_wallet_token| Configures the key for Token Reference Data enrichment.  
+numberOfPartitions| 1| The number of partitions to use for pkernel (realtime metrics) partitioning when the feature is enabled. Must be a non-negative integer power of 2.  
+cm_list_enrichment_enabled| true| Enables Case Manager event enrichment enrichment via Pulse Lists.  
+cm_list_enrichment_prefix| "cmd_"| Indicates which prefix the fields generated by the enrichment plan should have.  
+additional_fields_enricher_active| true| Enables Case Manager event enrichment based on exact name matching.  
+additional_fields_enricher_fields| "pib_suspended, internal_payment_type, internal_event_source, isJade"| The fields to match and add to the event.  
+outbound_payments_feedback_strategy| SINGLE| The feedback strategy for outbound payments. Possible values: `SINGLE`, `ALL`  
+inbound_payments_feedback_strategy| SINGLE| The feedback strategy for inbound payments. Possible values: `SINGLE`, `ALL`  
+cards_feedback_strategy| SINGLE| The feedback strategy for cards events. Possible values: `SINGLE`, `ALL`  
+partitioned_realtime_metrics_enabled| false| Controls whether real-time PKernel partitioning is enabled. If set to true multiple PKernel Engines (one per workflow partition) will generate instances, while if set to false only one PKernel Engine will be used. Note: enabling this feature might have a considerable impact on the publish and recovery times. Also consider that this feature should only be enabled if the partition key is set in the workflow.  
+rds_max_parallel_calls| 4| Controls the maximum number of parallel calls made by the RDS client used by Pulse to connect to RDS.  
+workflow_validation_log_level| DEBUG| Controls the minimum logging level of workflow validation messages. Setting it to `DEBUG` or lower allows tracing of how long workflow validation is taking when loading the workflow in the Pulse UI. Possible value: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`  
+pulse_loggers| {}| Controls extra loggers to be enabled in Pulse. Keys in this dictionary are the loggers and the values the log level for that logger.  
+lists_use_legacy_csv_format| false| Enables selection between the legacy and new CSV list formats for importing and exporting lists in Pulse, allowing multi-tenant markets to use headers and reference tenants by key or tenant group name.  
+spark_datascience_jdk_home| | Sets the `JAVA_HOME` for Data Science jobs executed in Dataproc, e.g. datasource analysis. If omitted the default Java version will be used.  
+spark_distributed_jdk_home| | Sets the `JAVA_HOME` for other jobs executed in Dataproc, e.g. scheduled Metrics Jobs. If omitted the default Java version will be used.  
+use_rsync| true| Configures the deployment pipeline to use `rsync` instead of `copy`. Note that this variable should be set to `false` in RHEL8+ installations.  
+minimize_shuffles_enabled| true| Controls whether group by fields can be re-sorted in order to minimize shuffles or not. This is done for both Data Science Plans as well as Scheduled Metrics Jobs.  
+api_port| Outbound Payments: 8081  
+Inbound Payments:8084  
+Cards:8085| Configures the API port for the various applications. Consider using application overrides so prevent port clashes.  
+rds_api_port| 8083| Configures the API port for RDS.  
+inbound_slack_future| 1800000| Time tolerance in milliseconds for accepting inbound payments events with future timestamps. Events with a timestamp over the current clock plus the configured slack will be rejected.  
+inbound_slack_past| 1800000| Time tolerance in milliseconds for accepting inbound payments events with past timestamps. Events with a timestamp below the current clock minus the configured slack will be rejected.  
+cards_slack_future| 1800000| Time tolerance in milliseconds for accepting cards events with future timestamps. Events with a timestamp over the current clock plus the configured slack will be rejected.  
+cards_slack_past| 1800000| Time tolerance in milliseconds for accepting cards events with past timestamps. Events with a timestamp below the current clock minus the configured slack will be rejected.  
+transfers_slack_future| 1800000| Time tolerance in milliseconds for outbound payments events with future timestamps. Events with a timestamp over the current clock plus the configured slack will be rejected.  
+transfers_slack_past| 1800000| Time tolerance in milliseconds for outbound payments events with past timestamps. Events with a timestamp below the current clock minus the configured slack will be rejected.  
+digital_activity_slack_future| 1800000| Time tolerance in milliseconds for accepting digital events with future timestamps. Events with a timestamp over the current clock plus the configured slack will be rejected.  
+digital_activity_slack_past| 1800000| Time tolerance in milliseconds for accepting digital events with past timestamps. Events with a timestamp below the current clock minus the configured slack will be rejected.  
+cards_offset_days| {debit: 4  
+credit: 5}| Controls the amount of days added to the transaction timestamp based on the card's type. The computed value is then sent in the `transaction_block_computed_date` field as part of the Pulse response.  
+rabbitmq_queue_type| CLASSIC| Sets the RabbitMQ queue type (possible values are CLASSIC and QUORUM)  
+  
+(*) The configuration files should stored on a bucket in tar.gz format. The list of files inside the tar.gz should be:
+
+  * core-site.xml
+  * hdfs-site.xml
+  * mapred-site.xml
+  * yarn-site.xml
+
+
+
+The service account used to fetch the configuration files from the bucket should have read permissions for that bucket (`storage.buckets.get` and `storage.buckets.list`).
+
+* * *
+
+### Cron typeâ
+
+Variable| type| Mandatory| Default Value| Description  
+---|---|---|---|---  
+name| STRING| X| | Name of the cron job  
+hour| STRING| | *| The cron expression for `hour`  
+minute| STRING| | *| The cron expression for `minute`  
+day| STRING| | *| The cron expression for `day`  
+weekday| STRING| | *| The cron expression for `weekday`  
+month| STRING| | *| The cron expression for `month`  
+  
+* * *
+
+### TARS application topologyâ
+    
+    
+    pulse_app_topology:  
+      <app_1_id_as_defined_in_apps_enabled>:  
+        # should be the amount of instances across all pools (for apps without partitioned workflows)  
+        replication_factor: <app_1_replication_factor>  
+        app_pools:  
+          # dictionary of pools with the number of instances per pool  
+          <app_1_pool_name>:  
+            number_of_instances: <app_1_number_of_instances_in_pool>  
+      <app_2_id_as_defined_in_apps_enabled>:  
+        # should be the amount of instances across all pools (for apps without partitioned workflows)  
+        replication_factor: <app_2_replication_factor>  
+        app_pools:  
+          # dictionary of pools with the number of instances per pool  
+          <app_2_pool_1_name>:  
+            number_of_instances: <app_2_number_of_instances_in_pool_1>  
+          <app_2_pool_2_name>:  
+            number_of_instances: <app_2_number_of_instances_in_pool_2>  
+    
+
+Copy
+
+Where:
+
+  * `pulse_app_topology` is a dictionary:
+    * each key is the application key as defined in `apps_enabled` and contains:
+    * `replication_factor`: the total number of application instances (the sum of `app_pools[*].number_of_instances`)
+    * a dictionary (`app_pools`) to define in which pools an application is deployed:
+      * the key is the pool name
+      * `number_of_instances`: the number of applications to deploy in the `pool`
+
+
+
+By default this variable is not configured. An example configuration would be:
+    
+    
+    # Define topology structure for deployment with:  
+    # -> One Pulse node running in the outbound pool  
+    # -> Outbound and Reference Data applications running in the outbound node  
+    pulse_app_topology:  
+      uk_outbound_payments:  
+        replication_factor: 1  
+        app_pools:  
+          outbound:  
+            number_of_instances: 1  
+      uk_reference_data:  
+        replication_factor: 1  
+        app_pools:  
+          outbound:  
+            number_of_instances: 1  
+    
+
+Copy

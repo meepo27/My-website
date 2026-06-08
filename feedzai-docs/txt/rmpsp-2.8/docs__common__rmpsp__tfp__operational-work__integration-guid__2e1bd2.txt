@@ -1,0 +1,64 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/integration-guide/uat/overview
+Title: User Acceptance Testing | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/integration-guide/overview)
+  * User Acceptance Testing
+
+
+
+On this page
+
+# User Acceptance Testing
+
+The User Acceptance Testing (UAT) guide ensures that the Transaction Fraud for PSPs solution is properly tested. The following sections guide you through the necessary steps to test rules, cases, and automation rules.
+
+## Requirementsâ
+
+To execute all the tests, make sure you have the customer's QA or Pre-Production environment, as well as the [UAT Postman Collection](/rmpsp/2.8/postman-psp-collection.tar.gz).
+
+The Postman collection includes a set of requests and environment variables. Make sure you import both and change the environment variables into the desired enrivonment.
+
+## Test rulesâ
+
+  1. Run the `Payment-FR20` folder. Do not run each request individually.
+
+  2. Confirm that 4 events show in Case Manager's **Search By Event** page. Note that one payment to merchant `P1 Name (P1 ID)` and three payments to merchant `P2 Name (P2 ID)` occurred.
+
+  3. Select the **Payments** channel and confirm if:
+
+     * 1 payment was automatically declined.
+     * 3 payments were automatically approved.
+  
+
+
+
+
+## Test automation rulesâ
+
+Perform the following steps for the first approved event (i.e. `P1 Name (P1 ID)`):
+
+  1. Mark `P1 Name (P1 ID)` event as `Fraud` with the Authorization Dispute reason, and select **Submit and Continue**. In the **Update Lists** , mark the **Terminal ID** as `Decline` and select **Submit**. Confirm if the automation rule has activated and that **Status** has changed to `Closed`.
+  2. Execute the Postman Collection's last request (`03 - Payment 3`) from the Payment-FR20 folder. Execute it individually and confirm if the response includes the `Terminal-ID-Decline-PN7`.
+  3. Go to the latest event in Case Manager to confirm if the new event has been declined and triggered the `Terminal-ID-Decline-PN7` rule.
+
+
+
+## Test queues and casesâ
+
+Perform the following steps for the last declined event (i.e. `P2 Name (P2 ID)`):
+
+  1. Go to the **Event Details** page and confirm if the `Cards-Behavior-FR20` has triggered.
+  2. Select **Assign to me**.
+  3. Confirm if the automation rule has activated, and if the **Status** changed to **In Progress**.
+  4. Create a [new queue](https://cam.feedzai.com/case-manager/13.3.0/docs/common/user-guide/manager-guide/managing-queues/) and link `P2 Name (P2 ID)` to a new case.
+  5. Confirm if `P2 Name (P2 ID)`:
+     * Is assigned to the current Case Manager user.
+     * Is **In Progress**.
+     * Has moved to the new queue.
+     * Is linked to the new case.
+
+  
+

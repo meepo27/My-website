@@ -1,0 +1,438 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/feedzai/
+Title: feedzai - DS API
+============================================================
+
+#  `` feedzai Â¶  
+  
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` Feedzai Â¶
+    
+    
+    Feedzai(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)") | None = None)
+    
+
+Bases: `object`
+
+Entry point to ds_api functionalities.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `pulse` Â¶
+
+|  `[Server](../server/#ds_api.server.Server "            Server \(ds_api.Server\)")` |  Server used to communicate with Pulse. If not specified default ds_api.Server will be used. |  `None`  
+  
+###  `_remote_session` Â¶
+
+|  |  Most recent SparkSession created (used as local cache of the SparkSession object) |  _required_  
+  
+###  `_remote_session_params` Â¶
+
+|  |  Parameters of the most recent SparkSession created |  _required_  
+  
+###  `` pulse `instance-attribute` Â¶
+    
+    
+    pulse = [connect](../server/#ds_api.server.Server.connect "            connect
+    
+    
+      
+          classmethod
+       \(ds_api.server.Server.connect\)")()
+    
+
+###  `` app Â¶
+    
+    
+    app(**kwargs)
+    
+
+Wrapper around ds_api.App constructor to use Pulse Server configured in this instance.
+
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`address` |  `str` |  The hostname.  
+`port` |  `int` |  The RMI port.  
+`timeout` |  `int` |  Maximum time to wait until timeout.  
+`user_id` |  `str` |  The user id used during RMI connections.  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  New App instance.  
+  
+###  `` get_spark_local_session `staticmethod` Â¶
+    
+    
+    get_spark_local_session(spark_params: Optional[Mapping[str, str]] = None, spark_app_name: Optional[str] = None, log_level: SparkLogLevel = ERROR)
+    
+
+Get SparkSession configured in local mode. It will use all available CPUs and each executor has 1G RAM and 1 vcore.
+
+Note that Spark maintains a single activate session, thus unless it was crashed, you would always get the same one, but configured in local mode. Even if you stop SparkSession or SparkContext, in pySpark, it will remember previous configurations.
+
+This means the following:
+
+  1. Previously spark had properties A, B, and C defined
+  2. You call this function and you will get a SparkSession with A, B, and C defined as well as the local mode
+
+
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `spark_params` Â¶
+
+|  `dict` |  Dictionary with Spark parameters to be overridden or added. Full list of parameters can be found at [https://spark.apache.org/docs/2.3.0/configuration.html](). |  `None`  
+  
+####  `spark_app_name` Â¶
+
+|  `str` |  The name for the spark application. If 'None' then one is automatically assigned. |  `None`  
+  
+####  `log_level` Â¶
+
+|  `SparkLogLevel` |  Log Level of the spark session, defaults to `SparkLogLevel.ERROR`. |  `ERROR`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`SparkSession` |  A Spark Session in local mode, None if spark_params is not a dictionary.  
+  
+###  `` get_spark_session Â¶
+    
+    
+    get_spark_session(spark_params: Dict[str, str] | None = None, exclude_spark_params: List[str] | None = None, app_name: str | None = None, spark_app_name: str | None = None, job_profile_name: str | None = None, group_name: str | None = None, clean_spark_properties: bool = True, log_level: SparkLogLevel = ERROR, session_type: SparkSessionType = CLASSIC, spark_remote: str | None = None)
+    
+
+Get SparkSession with default Pulse's configuration.
+
+Note that Spark maintains a single activate session, thus unless it was crashed, you would always get the same one, but with last Pulse's configuration (and possible old configurations). Even if you stop SparkSession or SparkContext, in pySpark, it will remember previous configurations.
+
+This means the following:
+
+  1. Pulse has properties A, B, and C defined
+  2. You call this function and you will get a SparkSession with A, B, and C properties
+  3. You remove property A and add property D
+  4. You call this function and you will get a SparkSession with **A** , B, C, and D
+
+
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `spark_params` Â¶
+
+|  `dict` |  Dictionary with Spark parameters to be overridden or added. Full list of parameters can be find in https://spark.apache.org/docs/latest/configuration.html |  `None`  
+  
+####  `exclude_spark_params` Â¶
+
+|  `list` |  List with Spark properties to be removed. Full list of Spark properties can be find in https://spark.apache.org/docs/latest/configuration.html |  `None`  
+  
+####  `app_name` Â¶
+
+|  `str` |  An optional name of a pulse application. This parameter should be used when we want to have access to application specific properties. This allows to use the same properties being usd by Spark jobs executed in Pulse. |  `None`  
+  
+####  `spark_app_name` Â¶
+
+|  `str` |  The name for the spark application. If 'None' then one is automatically assigned. |  `None`  
+  
+####  `job_profile_name` Â¶
+
+|  `str` |  The name of the job profile to reuse the Spark properties defined there. If 'None' then it will retrieve the properties associated to default job profile for jobs of type 'EXTERNAL_DS_JOB'. |  `None`  
+  
+####  `group_name` Â¶
+
+|  `str` |  The name of the group model used to retrieve the configurations defined in its properties. |  `None`  
+  
+####  `clean_spark_properties` Â¶
+
+|  `bool` |  True if it should clean the Spark properties specific to Pulse use case, false otherwise. |  `True`  
+  
+####  `log_level` Â¶
+
+|  `SparkLogLevel` |  Log Level of the spark session, defaults to SparkLogLevel.ERROR. |  `ERROR`  
+  
+####  `session_type` Â¶
+
+|  `SparkSessionType` |  The type of Spark Session to be created, defaults to `SparkSessionType.CLASSIC` |  `CLASSIC`  
+  
+####  `spark_remote` Â¶
+
+|  `str` |  The URL of the remote Spark Connect server |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`_TSparkSession` |  A SparkSession with Pulse's configuration, None if spark_params is not a dictionary  
+  
+###  `` pandas_to_pulse `staticmethod` Â¶
+    
+    
+    pandas_to_pulse(dataframe: DataFrame, app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, path: str, file_format: str = 'csv', schema: Optional[[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")] = None, **kwargs: Union[bool, str, int, Dict[str, Any], Set[str]])
+    
+
+Converts a given pandas DataFrame to Pulse datasource using SparkSession#createDataFrame method of pySpark dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `dataframe` Â¶
+
+|  `DataFrame` |  DataFrame which will be used to create a Pulse datasource. |  _required_  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The app in which the datasource will be created. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the new datasource. |  _required_  
+  
+####  `path` Â¶
+
+|  `str` |  The path of the new datasource. |  _required_  
+  
+####  `file_format` Â¶
+
+|  `str` |  The input file format. Options are `csv` and `parquet`. Defaults to `csv`. |  `'csv'`  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  The pulse schema used to create the datasource. If not specified, the schema will be inferred. |  `None`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`has_header` |  `bool` |  Flags whether the dataset is to be read with header. Defaults to True.  
+`sep` |  `str` |  Delimiter to use. Should contain exactly one character. Defaults to ','.  
+`missing_values` |  `set of str` |  Set of strings with values for empty value. Defaults to {"", "NA", "NULL"}.  
+`quote` |  `str` |  The character used to denote the start and end of a quoted item. Defaults to "'".  
+`line_separator` |  `str` |  The string used mark the end of line. Defaults to "\n".  
+`encoding` |  `str` |  Encoding to use for UTF when reading/writing. Defaults to 'UTF-8'.  
+`cat_threshold` |  `int` |  A value that represents the maximum number of distinct values on a given field for it to be inferred as categorical. Defaults to 15. Will only be used if no Schema is specified.  
+`job_properties` |  `Dict` |  The dictionary with the specific properties for the schema inference job. Will only be used if no Schema is specified. Defaults to Pulse Properties Profile.  
+`n_records` |  `int` |  The number of records that will be read per partition when performing datasource schema inference. Defaults to 15000. Will only be used if no Schema is specified.  
+`dtypes` |  ` Dict` |  The dictionary with the field overriding information when inferring the datasource schema. Will only be used if no Schema is specified. Default to None.  
+`merge_schemas` |  `bool` |  Specify if schema merging should be allowed. Defaults to False. See: [https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#schema-merging]()  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")` |  The new ds_api.DataSource instance.  
+  
+###  `` pulse_to_pandas `staticmethod` Â¶
+    
+    
+    pulse_to_pandas(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, spark_properties: dict | None = None)
+    
+
+Converts a given datasource (by app and name) to a pandas DataFrame using toPandas method of pySpark dataframe.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application name, where the datasource is persisted. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The DataSource name. |  _required_  
+  
+####  `spark_properties` Â¶
+
+|  `Dict` |  Dictionary with Spark parameters to be overriden or added. Full list of parameters can be found in [https://spark.apache.org/docs/2.3.0/configuration.html](). |  `None`  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  A pandas DataFrame correspondent to given pulse-based DataSource.  
+  
+###  `` pulse_to_pyspark `staticmethod` Â¶
+    
+    
+    pulse_to_pyspark(spark_session, app, name)
+    
+
+Uses ds_api.SparkDataSourceAdapter to convert a given data source (by app and name), to a pyspark DataFrame.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `spark_session` Â¶
+
+|  `pyspark.sql.SparkSession.` |  |  _required_  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  Application name, where the Data Source is persisted. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The Data Source name as it appears in the UI. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`DataFrame` |  A pyspark DataFrame correspondent to given pulse-based Data Source.  
+  
+###  `` pyspark_to_pulse `staticmethod` Â¶
+    
+    
+    pyspark_to_pulse(spark_session: _TSparkSession, dataframe: _TDataFrame, app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), name: str, path: str, file_format: str = 'csv', schema: Optional[[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")] = None, **kwargs: Union[bool, str, int, Dict[str, Any], Set[str]])
+    
+
+Uses ds_api.SparkDataSourceAdapter to convert a given pySpark dataframe to a Pulse datasource.
+
+The dataframe will be written in the path specified before being added to Pulse. DateType and TimestampType fields are written as unix time (in seconds). The schema will be automatically inferred using AbstractDataSource#inferSchema approach if the Schema is not specified.
+
+All pySpark types but DecimalType and MLlib types are supported.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `spark_session` Â¶
+
+|  `pyspark.sql.SparkSession.` |  The Spark session. |  _required_  
+  
+####  `dataframe` Â¶
+
+|  `DataFrame` |  DataFrame which will be used to create a Pulse datasource. |  _required_  
+  
+####  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.app.App\)")` |  The app in which the datasource will be created. |  _required_  
+  
+####  `name` Â¶
+
+|  `str` |  The name of the new datasource. |  _required_  
+  
+####  `path` Â¶
+
+|  `str` |  The path of the new datasource. |  _required_  
+  
+####  `file_format` Â¶
+
+|  `str` |  The input file format. Options are `csv` and `parquet`. Defaults to `csv`. |  `'csv'`  
+  
+####  `schema` Â¶
+
+|  `[Schema](../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  The pulse schema used to create the datasource. If not specified, the schema will be inferred. |  `None`  
+  
+Other Parameters:
+
+Name | Type | Description  
+---|---|---  
+`has_header` |  `bool` |  Flags whether the dataset is to be read with header. Defaults to True.  
+`sep` |  `str` |  Delimiter to use. Should contain exactly one character. Defaults to ','.  
+`missing_values` |  `set of str` |  Set of strings with values for empty value. Defaults to {"", "NA", "NULL"}.  
+`quote` |  `str` |  The character used to denote the start and end of a quoted item. Defaults to "'".  
+`line_separator` |  `str` |  The string used mark the end of line. Defaults to "\n".  
+`encoding` |  `str` |  Encoding to use for UTF when reading/writing. Defaults to 'UTF-8'.  
+`cat_threshold` |  `int` |  A value that represents the maximum number of distinct values on a given field for it to be inferred as categorical. Defaults to 15. Will only be used if no Schema is specified.  
+`job_properties` |  `Dict` |  The dictionary with the specific properties for the schema inference job. Will only be used if no Schema is specified. Defaults to Pulse Properties Profile. Deprecated in version 25.0.41 and will be removed.  
+`n_records` |  `int` |  The number of records that will be read per partition when performing datasource schema inference. Defaults to 15000. Will only be used if no Schema is specified.  
+`dtypes` |  ` Dict` |  The dictionary with the field overriding information when inferring the datasource schema. Will only be used if no Schema is specified. Default to None.  
+`merge_schemas` |  `bool` |  Specify if schema merging should be allowed. Defaults to False. See: https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#schema-merging  
+  
+Returns:
+
+Type | Description  
+---|---  
+`[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.datasource.DataSource\)")` |  New DataSource instance.  
+  
+##  `` SparkLogLevel Â¶
+
+Bases: `Enum`
+
+###  `` ALL `class-attribute` `instance-attribute` Â¶
+    
+    
+    ALL = 'ALL'
+    
+
+###  `` DEBUG `class-attribute` `instance-attribute` Â¶
+    
+    
+    DEBUG = 'DEBUG'
+    
+
+###  `` ERROR `class-attribute` `instance-attribute` Â¶
+    
+    
+    ERROR = 'ERROR'
+    
+
+###  `` FATAL `class-attribute` `instance-attribute` Â¶
+    
+    
+    FATAL = 'FATAL'
+    
+
+###  `` INFO `class-attribute` `instance-attribute` Â¶
+    
+    
+    INFO = 'INFO'
+    
+
+###  `` OFF `class-attribute` `instance-attribute` Â¶
+    
+    
+    OFF = 'OFF'
+    
+
+###  `` TRACE `class-attribute` `instance-attribute` Â¶
+    
+    
+    TRACE = 'TRACE'
+    
+
+###  `` WARN `class-attribute` `instance-attribute` Â¶
+    
+    
+    WARN = 'WARN'
+    
+
+##  `` SparkSessionType Â¶
+
+Bases: `Enum`
+
+###  `` CLASSIC `class-attribute` `instance-attribute` Â¶
+    
+    
+    CLASSIC = 'CLASSIC'
+    
+
+###  `` CONNECT `class-attribute` `instance-attribute` Â¶
+    
+    
+    CONNECT = 'CONNECT'
+    

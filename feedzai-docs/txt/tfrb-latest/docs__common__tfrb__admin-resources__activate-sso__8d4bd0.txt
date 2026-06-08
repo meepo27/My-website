@@ -1,0 +1,236 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/admin-resources/activate-sso
+Title: Activate SSO Authentication | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Admin Resources](/tfrb/latest/docs/common/tfrb/admin-resources/overview)
+  * Activate SSO Authentication
+
+
+
+On this page
+
+# Activate SSO Authentication
+
+Was this page helpful?Â 
+
+Single Sign-On (SSO) is an authentication process that allows you to manage users' access on the Feedzai platform's applications with a single set of login credentials, through an Identity Provider (IdP), such as [OKTA](https://help.okta.com/oie/en-us/content/topics/security/idp-inbound-saml-workflow.htm), [Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-fed-saml-idp), [OneLogin](https://developers.onelogin.com/saml), among many others.
+
+Get to know your IdP's documentation
+
+As there are countless IdPs in the market, this page provides mostly generic examples. **Always check your IdP's official documentation** or reach out to their own support team for more accurate information about what your IdP may require for the SSO integration to be successful.
+
+## Why configure an SSO integrationâ
+
+There are many advantages to integrating SSO authentication with the Feedzai platform, such as:
+
+  * Managing users autonomously. For example, upon offboarding, users disabled through the IdP will automatically lose access to the Feedzai applications.
+  * Allowing your users to enter the corporate credentials they are accustomed to, rather than requiring them to remember an additional username and password.
+  * Letting you implement multi-factor authentication as already defined by your company's Identity and User Management process, through the IdP.
+  * Keeping a record of changes done to users stored in your IdP.
+
+
+
+caution
+
+Once the SSO integration is set up, **Feedzai will no longer be able to manage your users**. You will manage them **exclusively** through your IdP.
+
+## Requirementsâ
+
+To activate SSO authentication for the Feedzai platform, you must have an Identity and User Management process with an IdP compatible with SAML 2.0 protocol.
+
+The SAML attributes you need to configure in your IdP are:
+
+  * **firstname** : First name of the user.
+  * **lastname** : Last name of the user.
+  * **email** : Email of the user (even if the NameID property is filled in with the email as username).
+  * **roles** : List of valid roles.
+  * **tenants** : List of valid tenants (only when applicable).
+  * **groups** : List of valid groups (only when applicable).
+
+
+
+## Overview of the SSO integration processâ
+
+Reach out to your Feedzai contact point to request that they start the process and gather the information required for your configuration.
+
+info
+
+The following steps will need to be made **for each environment that needs to be configured**.
+
+### 1\. Obtain environments' dataâ
+
+Upon your request to start the process, Feedzai will share your environments' information with you, including:
+
+  * **Identifier (Entity ID)**
+  * **Reply URL (Assertion Consumer Service URL)**
+  * **Sign on URL**
+  * **iss** (= feedzai)
+
+
+
+You will use this information to complete the next step.
+
+### 2\. Share your IdP metadata fileâ
+
+Using the information provided by Feedzai as described above, you must retrieve the SAML XML metadata file from your IdP and share it with your Feedzai contact point.
+
+caution
+
+The way to retrieve your metadata file and what its content looks like will be specific to your IdP. However, you should **make sure the attributes configured as part of theRequirements are available in the metadata file**.
+
+Refer to your IdP's official documentation if you have any questions.
+
+Feedzai will use this metadata file to configure the SSO integration on the Feedzai side.
+
+### 3\. Obtain environment URLsâ
+
+Once the configuration is done on the Feedzai side, your contact point will share with you the URL(s) of your environment(s).
+
+Reminder
+
+The SSO integration must be configured for each one of your environments. Therefore, the URL of each environment is only useful to you if steps #1 and #2 have been completed for that environment.
+
+### 4\. Configure SSO on your IdP's sideâ
+
+Once you have the environments' URLs, you can start configuring the SSO integration for each environment on your IdP's side.
+
+You will need to assign the correct roles for each user in the IdP's user profiles.
+
+The role format must always follow the standard:
+    
+    
+    <environment>-<component>-<role_name>  
+    
+
+You must define a separate role for every combination of environment and component you plan to use. For example, if a user needs access to both the Pulse and Case Manager applications in the `preprod` and `prod` environments, you must create the roles: `preprod-pulse-<role_name>`, `preprod-case-manager-<role_name>`, `prod-pulse-<role_name>`, and `prod-case-manager-<role_name>`.
+
+The available **environments** with SSO are:
+
+  * `preprod` \- for the testing and validation environment.
+  * `prod` \- for the production environment.
+  * `perf` \- for the performance environment.
+  * `qa` \- for the quality assurance environment.
+
+
+
+note
+
+The available environments depend on contracted service, and nomenclature may vary.
+
+The **component** is the element that specifies which application you are configuring the role for. The possible components are:
+
+  * `pulse`: For the Pulse application.
+  * `case-manager`: For the Case Manager application.
+  * `dsf`: For the Pulse application dedicated to Data Science tests.
+
+
+
+info
+
+You do not need to set separate roles for the Genome  component, as these are derived from the roles set for Pulse.
+
+The **role** element is specific to each use case. You will find a list of the relevant Pulse and Case Manager roles and permissions applicable to this solution in the [Roles and Permissions](/tfrb/latest/docs/common/tfrb/roles-and-permissions) page. Roles for the DSF environment are provided to you by your Feedzai contact point.
+
+caution
+
+You must ensure that there are **no misspellings** and that you type the roles exactly as presented in the documentation.
+
+Role names are **case-sensitive**. For example, `preprod-pulse-integrator` will be rejected by Pulse. The correct form is `preprod-pulse-Integrator`.
+
+Below are a few examples of the composition of roles to be configured in a generic IdP:
+
+Environment | Component | Role| Role to be configured (for a generic IdP)| preprod| pulse| Fraud Prevention Manager| preprod-pulse-Fraud Prevention Manager  
+---|---|---|---  
+prod| case-manager| Fraud Prevention Agents - L1| prod-case-manager-Fraud Prevention Agents - L1  
+  
+Varying IdP requirements
+
+Your IdP may only accept a format different from the "generic IdP" example above. As the IdP is managed on your side, you must also make sure to **consult your IdP's official documentation**. Different IdPs often have different requirements.
+
+For example, some IdPs are whitespace-sensitive, so you would have to type `preprod-pulse-Fraud_Prevention_Manager` instead of `preprod-pulse-Fraud Prevention Manager`.
+
+### 5\. Test the configurationâ
+
+After the configuration is finished both on Feedzai's side and your IdP's side, we recommend that you try granting access to a user and ask them to test the access to each environment you configured.
+
+**If the configuration is correct** , the user will be redirected to the usual IdP login page. Upon logging in, they will be redirected again to the Feedzai platform. Upon accessing the Feedzai application for the first time, the user will be created with the role provided by the IdP.
+
+**If the configuration was not done correctly** , the user may:
+
+  * Not see the IdP's login page, but instead see a Feedzai page asking them to enter their name and email.
+
+
+  * See the IdP's login page and be redirected successfully, but get a "401 - Forbidden" error message when accessing the component. This indicates that something went wrong at the role attribute configuration level.
+
+
+
+In these cases, to understand what went wrong with the configuration, Feedzai will ask you to check the SAML response. You must make sure that this SAML response also includes the role attribute for thorough troubleshooting.
+
+#### Inspecting the SAML responseâ
+
+Inspecting the SAML response allows you to review the interactions between Feedzai and the IdP to find the issue. There are two SAML responses to take into account:
+
+  1. From your IdP into Feedzai's IdP.
+
+
+  2. From Feedzai's IdP into the component.
+
+
+
+The **first one is more important to check for troubleshooting purposes** , as it is the one that brings the roles from your IdP's side to Feedzai's side.
+
+How to distinguish them
+
+In the first one (from your IdP into Feedzai's IdP), the role attributes include the prefix with the environment  and component  (e.g. `prod-pulse-`), followed by the role name. The role names contain underscores (not whitespaces).
+
+In the second one, the roles have no prefix, just a `User.role` format, and they can contain whitespaces.
+
+To obtain the SAML response, you can, for example, use a SAML inspector plug-in on your browser or other internal process you may have for this purpose.
+
+The response includes all the claims and roles Feedzai shared with the IdP, which you can review.
+
+Below is an example of what part of a SAML response may look like:
+    
+    
+    <saml2:Assertion>  
+        <saml2:AttributeStatement xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">  
+            <saml2:Attribute Name="roles"  
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"  
+                             >  
+                <saml2:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+                                      xsi:type="xs:string"  
+                                      >preprod-pulse-Fraud_Strategist</saml2:AttributeValue>  
+                <saml2:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+                                      xsi:type="xs:string"  
+                                      >preprod-pulse-Fraud_Prevention_Manager</saml2:AttributeValue>  
+            </saml2:Attribute>  
+            <saml2:Attribute Name="email"  
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"  
+                             >  
+                <saml2:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+                                      xsi:type="xs:string"  
+                                      >john.doe@feedzai.com</saml2:AttributeValue>  
+            </saml2:Attribute>  
+            <saml2:Attribute Name="firstname"  
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"  
+                             >  
+                <saml2:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+                                      xsi:type="xs:string"  
+                                      >John</saml2:AttributeValue>  
+            </saml2:Attribute>  
+            <saml2:Attribute Name="lastname"  
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"  
+                             >  
+                <saml2:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+                                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+                                      xsi:type="xs:string"  
+                                      >Doe</saml2:AttributeValue>  
+            </saml2:Attribute>  
+        </saml2:AttributeStatement>  
+    </saml2:Assertion>  
+    

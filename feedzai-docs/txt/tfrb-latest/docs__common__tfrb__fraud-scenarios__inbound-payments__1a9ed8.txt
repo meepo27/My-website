@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/fraud-scenarios/inbound-payments
+Title: Inbound Payments | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Fraud Scenarios](/tfrb/latest/docs/common/tfrb/fraud-scenarios/overview)
+  * Inbound Payments
+
+
+
+On this page
+
+# Inbound Payments
+
+Was this page helpful?Â 
+
+This page covers the fraud scenarios and the detection strategy for inbound payment events.
+
+## Money mulesâ
+
+Money mule is a term for persons or accounts used by criminals to perform money laundering activities such as receiving and transferring funds illegally. These intermediaries are in most cases unemployed people (e.g. students) who accept easy jobs promoted online (e.g. fake job adverts, social media, etc.). The only requirement they get from their 'job agents' is a bank account which is later used for money laundering. They may not know that the money usually comes from fraudulent activities such as phishing, botnet attacks, skimming, etc. They receive the stolen money in their bank accounts and are requested to transfer or wire that money to another account (usually located overseas), thus laundering money knowingly or unknowingly.
+
+Money mules are divided into the following typologies:
+
+  * Dedicated mule - an account that was opened purely with intention of becoming a mule.
+  * Unwitting mule - a genuine customer who was tricked into becoming a mule.
+  * Account takeover mule - an account that was taken over by fraudsters and used as a mule.
+
+
+
+**How Feedzai prevents money mules**
+
+Transaction Fraud for Banking provides a set of default [rules](/tfrb/latest/docs/common/tfrb/rules-projects/inbound-payments-rules) that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule triggers an alert if the daily funds received in a dormant account exceed the defined threshold and transaction amount exceeds the percentage threshold of the account balance.
+  * A rule triggers an alert if the ratio of funds sent to received funds is outside a certain range and the amounts transferred exceed the defined threshold.
+
+
+
+## Scams: authorized push payment fraudâ
+
+Authorized push payment (APP) fraud is a scam that consists of criminals tricking their victims into transferring money to their accounts. They can resort to different scams such as love scam, investment scam, impersonation scam, etc. For instance, these individuals may act as if they are from a legitimate company or entity, such as the victim's bank. To sound convincing, fraudsters mention personal details about the victim, which they have collected from the victim's social media and/or other public spaces that show their profiles. Fraudsters then advise the victims to transfer their money to another account (e.g. a safe one), as their current account has been compromised.
+
+After realizing they transferred money to a scammer, the victims may never recover their stolen money; therefore, it is recommended that they contact their banks as soon as possible.
+
+**How Feedzai prevents scams**
+
+Transaction Fraud for Banking provides a set of default [rules](/tfrb/latest/docs/common/tfrb/rules-projects/inbound-payments-rules) that capture user patterns associated with this fraud scenario. Here are some key examples:
+
+  * A rule triggers an alert if funds and number of transactions received from international sources over the last 24 hours exceed the defined thresholds.
+  * A rule triggers an alert if funds received over the last 24 hours differ significantly from the expected amount considering the previous 6 months.
+
+

@@ -1,0 +1,77 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/exploring-hyperparameter-tuning-results
+Title: Exploring hyperparameter tuning results | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * [Tuning Model Parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/)
+  * Exploring hyperparameter tuning results
+
+
+
+On this page
+
+# Exploring hyperparameter tuning results
+
+Was this page helpful?Â 
+
+## Whyâ
+
+After performing a hyperparameter tuning, you want to analyze and explore the evaluations that were generated to learn and choose which parameter combination you will want to use to train your model.
+
+Since the dimension of all the variables to consider can be significantly long, the exploration mode view within hyperparameter tuning is available to help you perform this task. The exploration mode view displays the information in a way that makes it easier for you to compare the performance of the different evaluations and, thus, make a more informed decision on what set of parameters to choose.
+
+## How toâ
+
+To start exploring the results of the hyperparameter tuning, go through the following steps:
+
+  1. Open the hyperparameter tuning from the corresponding list box in your **Model Project**.
+
+  2. Switch to the **Exploration Mode** tab.
+
+  3. Select  and [Configure Targets for evaluation](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#exploring-evaluation-results). As an example, consider you want to have a _Recall_ at approximately 1%. Configure the target as follows:
+
+     1. Name the metric that the target will reflect, is this case _Recall_ @ 1%.
+
+     2. Configure the new target by selecting the target metric, _#Recall_ , and the preferred strategy to reach the target, Approximation 1 %.
+
+     3. Choose which are the **Metrics** to Show. Besides _#Recall_ you may want to add more metrics to be able to compare more information.
+
+Adding targets
+
+You can add more targets with other metrics to the exploration mode view.
+
+  4. [Analyze the results for each target](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#analyzing-the-model-evaluation) and compare them among all selected **Model Evaluations**.
+
+Changing values
+
+By hovering over a result and selecting the available button, you are able to change that value back and forth. This enables you to experiment if another value changes that metric or any other metric, making it easier to compare of how values do or do not interfere with each other.
+
+As you proceed with your analysis, you may want to mark an evaluation in the **Evaluations** list as reference , making it easier to make comparisons between that specific evaluation and any other.
+
+  5. Filter the results by algorithm and data source in **Evaluations**.
+
+  6. Open one specific evaluation to view it in more detail, namely the **ROC Curve**. You can add another evaluation in this area and, thus, have a detailed view of two evaluations at the same time.
+
+
+
+
+Global Exploration Mode
+
+Consult the [global Exploration Mode view](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#exploring-evaluation-results) to learn about how it can also help you decide on the best evaluation for your model.
+
+## Exporting to a modelâ
+
+Once you have decided on the parameters set that has performed the best, you may want to export it to a model. For that proceed as follows:
+
+  1. Open the **Hyperparameter Tuning** from the corresponding list box in your **Model Project**.
+  2. Open the **Evaluations** tab.
+  3. Select the [Export to model](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters#exporting-to-a-model) button of the corresponding hyperparameter tuning.
+
+
+
+Notice that the new model will display all fields already filled in with the parameters used in the evaluation you chose.
+
+## Next Stepsâ
+
+Once you have learned how to use the exploration mode, learn about the Export to Model process in the [Tuning model parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters) page and train your new model.

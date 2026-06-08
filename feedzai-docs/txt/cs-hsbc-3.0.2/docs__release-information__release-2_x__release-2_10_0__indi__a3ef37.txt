@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3050-Add-filtered-index-on--customer-citizen-id-number--to-optimize-Case-Manager-searches
+Title: HSBC-3050-Add-filtered-index-on--customer-citizen-id-number--to-optimize-Case-Manager-searches | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3050-Add-filtered-index-on--customer-citizen-id-number--to-optimize-Case-Manager-searches
+
+### Add filtered index on `customer_citizen_id_number` to optimize Case Manager searchesâ
+
+FeatureHSBC-3050
+
+Also In:2.8.12.9.0
+
+We've recreated the `customer_citizen_id_number` indexes to improve performance by removing non-null values from the index. This change is specially helpful during Case Manager searches in deployments where `customer_id` is used instead of `customer_citizen_id_number`.

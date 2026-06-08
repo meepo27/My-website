@@ -1,0 +1,234 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/data-types
+Title: Data Types | Case Manager
+============================================================
+
+On this page  
+  
+# Data Types
+
+This section lists all the available data types to format data in the Case Manager.
+
+## Common Propertiesâ
+
+Properties| Type| Description  
+---|---|---  
+reveal| string| Creates a wrapper around the element that will make it toggle the [Tokenizable](/docs/common/case-manager/understanding-case-manager/core-concepts/tokenization) value.  
+  
+Each type might require some extra properties to work.
+
+Types| Description| Extra properties  
+---|---|---  
+currency| Formats the data as currency. It adds the corresponding currency symbol next to the value. That symbol depends on the currency code used in the data.| 
+
+  * **currencyKey** (string) - Path in the data object to look for the currency code. It is required for the data object to have a property with a currency code value.
+  * **multiplier** (number) - (Optional) parameter to format the displayed currency amount by multiplying it. For example, if the currency value is 1000 but you want it to be shown as 10.00, you should set "0.01" as the multiplier.
+
+  
+gradient| Applies the same CSS class to values in the same range.| 
+
+  * **steps** (array) - List of steps where the data value can fall into. Each item is an object with the following properties:
+    * **from** (number) - lower step bound (inclusive)
+    * **to** (number) - upper step bound (inclusive)
+    * **cssClass** (string) - (Optional) Custom CSS class to be applied to all data values that falls into this interval
+  * **truncateAt** (number) - Defines if numbers should be truncated to a specific number of decimals. Only accepts values bigger or equal to 0. 
+
+  
+i18n| Formats the data to show the corresponding i18n message.| 
+
+  * **prefixStrKey** (string) - (optional) Holds an i18n (internationalization) string key that will be appended to the key value as a prefix. This creates a translation key such as "event-details.merchant-code.8244" where the "event-details.merchant-code" portion is the value of the `prefixStrKey` argument.
+
+  
+number| Formats the data as a number.| N/A  
+rating| Consists of a number of buckets which are filled from left to right. The number of filled buckets depends on the rating of the value in the specified range.| 
+
+  * **minRating** (number) - lower range bound
+  * **maxRating** (number) - upper range bound
+  * **numBuckets** (number) - number of buckets to show
+  * **filledIconCssClass** (string) - (Optional) custom icon CSS class to be used as the filled bucket icon
+  * **emptyIconCssClass** (string) - (Optional) custom icon CSS class to be used as the empty bucket icon
+
+  
+text| Formats the data as text.| N/A  
+timestamp| Formats the data as a timestamp.| 
+
+  * **format** (string) - (Optional) timestamp format. For more info about the list of available formats, see [supported formats by Moment.js](http://momentjs.com/docs/#/displaying/format/). When not present, the following format will be used: "YYYY-MM-DD HH:mm:ss".
+  * **locale** (string) - (Optional) timestamp locale.
+  * **timezone** (string) - (Optional) timezone that should be used to present the timestamp. When present, this property will override the global timestamp property that can be defined in the global configuration. The list of compatible timezone string are available [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+  
+template| Builds a dynamic string where:
+
+  * Values inside {{ }} will be replaced by the object data value that corresponds to the path passed inside those curly braces
+  * Values inside {{{{ }}}} will be replaced by the URL encoded object data value that corresponds to the path passed inside those curly braces
+
+| 
+
+  * **templateString** (string) - Template string.
+  * **isDecoded** (bool) - (Optional) Whether the template string is decoded or not. Default: false.
+  * **templateConfig** (object) - The configuration object. It has the following properties (since v4.3.0):
+    * **keyTypes** (object) - (Optional) an object that for every key present in template string, specifies it's data type (before v4.3.0, this object is the templateConfig itself)
+    * **allRequired** (boolean) - (Optional) Indicates if all the keys are required. If true and at least one of the keys is not found, the template will be replaced by a not found placeholder ("N/A")
+
+  
+tooltip| Used to format arrays of objects inside tables or widgets.| 
+
+  * **results** (string) - i18n key to display next to the # of elements. (eg: 10 Reasons)
+  * **noResults** (string) - i18n key to display when there is 0 elements
+  * **listItem** (object) - What gets displayed inside the tooltip. It has the following properties:
+    * **key** (string): The i18n key of each object of the array to be displayed
+    * **id** (string): a key that represents an identifier for each of the array's elements
+
+  
+dropdown| Used to format arrays of objects inside widgets.| 
+
+  * **title** (string) - i18n key to display the title on top of the dropDown element
+  * **key** (string) - values property where the dropdown list is stored
+  * **results** (string) - i18n key to display next to the # of elements. (eg: Reasons)
+  * **noResults** (string) - i18n key to display when there is 0 elements
+  * **dropDown** (object) - Check the properties within the **dropDown** property.
+
+
+* **subType** (string) - (Optional) Allows to configure a specific dropdown. The available values for this property are:  
+
+
+  * **event-reasons:** : Sets a specific dropdown to show the event status reasons. With this subtype, the following dropdown properties are already with default value that can be overridden, if needed:
+    * **noResults:** "event.reasons.none"
+    * **allowDynamicCssClass:** true
+    * **dynamicCssClassKey:** "stateId"
+    * **results:** "event.reasons"
+    * **key:** "statusReasons"
+  * **event-cases** : Sets a specific dropdown to show the cases linked to the event with information namely about the channel, its state, and a link to easily navigate to the case page. Check the `eventCases` data type for quicker setup. This subtype requires adding the following:
+    * **noResults:** "event.linked-cases.none"
+    * **results:** "event.linked-cases"
+    * **key:** "cases"
+
+  
+list| Used to format arrays of objects inside tables and widgets.| 
+
+  * **limit** (number) - (optional) limit the number of elements to show outside the tooltip**  
+**
+  * **noResults** (string) - i18n key to display when there is 0 elements  
+
+  * **listConfig**(object) - Holds a set of properties required to configure each element from the list. The supported properties are:
+    * **type** (string) - Type of data being showed for each element in the list. The type can be one of the ones described in this table. _Note: Additional properties might be required depending on type value._
+  * **listItem** (object) - What gets displayed inside the tooltip. This property is **only required** when showing a list of objects. In case you want to display a list of string, you can skip this property.  
+This property has the following properties:
+    * **key** (string): The i18n key of each object of the array to be displayed
+    * **id** (string): a key that represents an identifier for each of the array's elements
+  * **subType** (string) - (Optional) Allows to configure a specific list. The available values for this property are:  
+
+    * **listReasons:** : Sets a specific list to show event status reasons. With this subtype, the following list properties already have a default value, which can be overridden if needed:
+      * **listItem:** { key: "name", id: "id"}
+      * **allowDynamicCssClass:** true
+      * **dynamicCssClassKey:** "statusId"
+      * **limit:** 1
+      * **noResults:** "reasons.none"
+
+  
+relativeTimestamp| This type of formatter intends to provide a way to describe how much time has passed from a given timestamp in a textual way.For example, lets assume that one event occurred 10 days ago (timestamp = current timestamp - 10 days). A delivery persona might have a requirement to not show the actual timestamp, but instead show something like: "More than 20 days ago". With this type of formatting, this requirement is possible, by configuring a custom time interval (and its corresponding prefix and suffix messages) or relying on the default time intervals. Whenever the given timestamp doesn't fit into the time intervals, then it will be formatted as a regular timestamp.  
+The final string is built according to the following format: <prefixStrKey> <timeUnitValue> <sufixStrKey>  
+The order of the time intervals are important. If you define a big interval in the first position, then the other intervals defined in the subsequent positions might not be evaluated.| 
+
+  * **timeIntervals** (object[]) - (optional) Holds a list of time intervals, where each is described using an object with the following properties:
+    * **timeUnit** (string) - Holds the time unit being displayed in the relative timestamp. The possible values are:
+      * days
+      * hours
+      * milliseconds
+      * minutes
+      * months
+      * seconds
+      * years
+    * **rightBound** (number) - Holds the interval right bound. The bound is defined in milliseconds (ms) and is exclusive.
+    * **prefixStrKey** (string) - (optional) Holds the i18n key that points to the left part (relative to the time unit) of the final string.
+    * **sufixStrKey** (string) - (optional) Holds the i18n key that points to the right part (relative to the time unit) of the final string.
+
+  
+pill| Used to format the value with a "pill" shame around.E.g.| 
+
+  * **pillConfig** (object) - Holds a set of properties required to configure the pill element. The supported properties are:
+    * **type** (string) - Type of data being showed inside the "pill" element. The type can be one of the ones described in this table.
+
+  
+eventStatus| Used to show event status in widget. This type of field only works with event resources.| 
+
+  * **title** (string) - Holds the i18n key to the field title.
+  * **numStatus** (number) - (optional) Sets the number of event status visible. It respects the order of the state machines that comes in the event data object, in case the number of configured visible status is less than the number of current event status. By default it lists all the event status.
+
+  
+eventCases| Used to show the event cases on the event details page. This formatter returns a dropdown of the cases linked to the event with information namely about the channel, its state, and a link to easily navigate to the case page.| 
+
+  * **type** (string) - Should be `eventCases`
+  * **title** (string) - The title of the field.
+
+  
+eventAccessGroup | Used to show the eventAccessGroup on the details page. This formatter gets the group id and displays the group name| 
+
+  * **key** (string) - The path to the group id.
+  * **type** (string) - Should be `eventAccessGroup`
+  * **title** (string) - The title of the field.
+
+  
+caseDescription| Type that is used to format a case description. This Datatype has in consideration the keyfields if they exist in the payload of the Case.| 
+
+  * **truncate** (object) - Holds the i18n key to the field title.
+    * **at** (number) - property that is used to limit the number of characters that are displayed;
+
+  
+assigneeActions| Used to display the current assigned user on the detail page. It has a set of fixed actions as a dropdown. Learn more about the **assigneeActions** component with a practical example [here](/docs/internal/case-manager/configuration-guide/assign-and-lock-configuration).| 
+
+  * **sortKey** (string) - Key used to identify the assigned user. Normally the user id.
+  * **cssClass** (string) - CSS classes to add to the component.
+  * **title** (string) - Component title.
+  * **type** (string) - `assigneeActions`
+  * **key** (string) - Key used to display the information. Normally the user name.
+
+  
+assignee| Used to display the assigned user to an entity. Learn more about the **assignee** component with a practical example assignee [here](/docs/internal/case-manager/configuration-guide/assign-and-lock-configuration).| 
+
+  * **sortKey** (string) - Key used to identify the assigned user. Normally the user id.
+  * **cssClass** (string) - CSS classes to add to the component.
+  * **title** (string) - Component title.
+  * **type** (string) - `assignee`
+  * **key** (string) - Key used to display the information. Normally the user name.
+
+  
+secret| Used to display Secret values. This formatter lets you specify a configuration to display the Secret value and fallback configuration when the user is unauthorized to see that value. In this case the value of the field is set as `#UNAUTHORIZED#`. If no fallback is specified the message Unauthorized is displayed.| 
+
+  * **key** (string) - Key used to identify the path to the Secret.
+  * **secretConfig** (object) - The configuration used to format the Secret value.
+  * **fallback** (string|object) - The fallback can be a configuration object (that allow us to show any other field for instance) or a String that in this case is a translation key.
+  * **type** (string) - `secret`
+
+  
+linkToSearch| Used to show the link to search button in the triggered rules table of the event details page. This formatter returns a search button with an icon and a tooltip. On click, it opens a new tab and navigates to a search page.| 
+
+  * **searchConfig** (object) - Holds a set of properties required to configure the search element. The supported properties are:
+    * **resource** (string) - The resource where this element is being showed.
+    * **params** (object) - The parameters to create the search URL.
+    * **text** (string|object) - The text that will be inside the button element.
+    * **tooltip** (string) - The text that will be showed in the tooltip.
+
+  
+eventRulesTriggered| Shows the event rules triggered in the Rules Triggered column of results table, in the search page. This formatter returns a "pill" element with the number of rules that were triggered in the event. On mouse over, it shows a tooltip with the name of all those rules.| This datatype only requires the property **type** with value `eventRulesTriggered`.  
+progressBar| Shows the progress/percentage of a value present in the entity related with the configured `maxValue`.| 
+
+  * **key (string) -** The key that specifies the path in the entity payload where the value is present.
+  * **maxValue (string|number) -** This property can be a string that represents the path in the entity payload (where the maxValue will exist) or a number that will be used as a maximum value.
+
+  
+divider| Used to create a divider to help to organize and group content into logical sections.| 
+
+  * **type** (string) - `divider`
+  * **key** (string) - Key used to display the information. Normally a unique identifier.
+
+  
+  
+## dropDownâ
+
+Property| Value Type| Optional| Description  
+---|---|---|---  
+key| String| No| The i18n key of each object of the array to be displayed on the dropdown  
+position| String| Yes| (Optional) Defines the Dropdown content position when opened. It accepts both vertical (top, bottom) and horizontal (left, right) alignments and they must be separated by a space.E.g: "top left", "top", "left", ...  
+cssClass| String| Yes| (Optional) Custom class names, separated by spaces  
+kind| String| Yes| Dropdown kind [ default , primary, danger, warning, success, info ]  
+button| Object| No| Defines the dropdown trigger button appearance. Check [the properties within **button**](/docs/common/case-manager/reference/user-interface/widgets/action-button-list#button).

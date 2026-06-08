@@ -1,0 +1,61 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/digital-activity/additional-resources/bacen-fraud-specific-fields
+Title: BACEN Fraud Specific Fields | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Digital Activity
+  * BACEN Fraud Specific Fields
+
+
+
+# BACEN Fraud Specific Fields
+
+Was this page helpful?Â 
+
+The Brazilian Central Bank (BACEN) allows banks to consult fraud records from their customers through DiretÃ³rio de Identificadores de Contas Transacionais (DICT), which provides them with the fraudster history.
+
+DICT is a database that stores the information of recipient users and their transactional accounts. It is the component that enables payment initiation in a practical and fraud risk mitigating manner.
+
+Digital Activity includes the following DICT fields so that events can be enriched by customers and help prevent fraud. These fields are available in all Digital Activity endpoints (all `optional`).
+
+Field| Description  
+---|---  
+customer_alias_settle_3d| Number of aliases' settlements over the last 3 days  
+customer_alias_settle_30d| Number of aliases' settlements over the last 30 days  
+customer_alias_settle_6m| Number of aliases' settlements over the last 6 months  
+customer_settle_3d| Number of customers' settlements over the last 3 days  
+customer_settle_30d| Number of customers' settlements over the last 30 days  
+customer_settle_6m| Number of customers' settlements over the last 6 months  
+customer_account_settle_3d| Number of accounts' settlements over the last 3 days  
+customer_account_settle_30d| Number of accounts' settlements over the last 30 days  
+customer_account_settle_6m| Number of accounts' settlements over the last 6 months  
+customer_alias_rep_fraud_3d| Number of aliases' reported frauds over the last 3 days  
+customer_alias_rep_fraud_30d| Number of aliases' reported frauds over the last 30 days  
+customer_alias_rep_fraud_6m| Number of aliases' reported frauds over the last 6 months  
+customer_rep_fraud_3d| Number of customers' reported frauds over the last 3 days  
+customer_rep_fraud_30d| Number of customers' reported frauds over the last 30 days  
+customer_rep_fraud_6m| Number of customers' reported frauds over the last 6 months  
+customer_account_rep_fraud_3d| Number of accounts' reported frauds over the last 3 days  
+customer_account_rep_fraud_30d| Number of accounts' reported frauds over the last 30 days  
+customer_account_rep_fraud_6m| Number of accounts' reported frauds over the last 6 months  
+customer_alias_fraud_3d| Number of aliases' confirmed frauds over the last 3 days  
+customer_alias_fraud_30d| Number of aliases' confirmed frauds over the last 30 days  
+customer_alias_fraud_6m| Number of aliases' confirmed frauds over the last 6 months  
+customer_fraud_3d| Number of customers' confirmed frauds over the last 3 days  
+customer_fraud_30d| Number of customers' confirmed frauds over the last 30 days  
+customer_fraud_6m| Number of customers' confirmed frauds over the last 6 months  
+customer_account_fraud_3d| Number of accounts' confirmed frauds over the last 3 days  
+customer_account_fraud_30d| Number of accounts' confirmed frauds over the last 30 days  
+customer_account_fraud_6m| Number of accounts' confirmed frauds over the last 6 months  
+customer_alias_rejected_3d| Number of aliases' rejected transactions over the last 3 days  
+customer_alias_rejected_30d| Number of aliases' rejected transactions over the last 30 days  
+customer_alias_rejected_6m| Number of aliases' rejected transactions over the last 6 months  
+customer_rejected_3d| Number of customers' rejected transactions over the last 3 days  
+customer_rejected_30d| Number of customers' rejected transactions over the last 30 days  
+customer_rejected_6m| Number of customers' rejected transactions over the last 6 months  
+customer_account_rejected_3d| Number of accounts' rejected transactions over the last 3 days  
+customer_account_rejected_30d| Number of accounts' rejected transactions over the last 30 days  
+customer_account_rejected_6m| Number of accounts' rejected transactions over the last 6 months  
+customer_alias_dict_reg_date| Date of registry on DICT

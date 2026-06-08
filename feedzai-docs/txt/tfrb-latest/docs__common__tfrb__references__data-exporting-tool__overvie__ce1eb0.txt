@@ -1,0 +1,202 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview
+Title: Data Exporting Tool | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)  
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Data Exporting Tool
+
+
+
+On this page
+
+# Data Exporting Tool
+
+Was this page helpful?Â 
+
+The **Data Exporting Tool** is a data delivery system that provides a reliable and consistent stream of data. It allows you to ingest data into your internal systems and analytics tools without requiring it to be manipulated/transformed in advance.
+
+The exported data is presented in pre-defined, stable schemas, ensuring consistency and simplifying it for downstream integrations to consume.
+
+## How It Worksâ
+
+Relevant data from Pulse and Case Manager is automatically exported and made available in a secure, data-extraction S3 bucket managed by Feedzai. The exported data is stored as CSV files according to a time-partitioned export structure.
+
+For more information about the available data, check the entities model.
+
+The data flow is completely automated and scheduled to **generate exports every hour with a two-hour delay**.
+
+note
+
+Other timeframes may be configured depending on business needs upon activation. Reach out to your Feedzai team for support.
+
+## Export Structureâ
+
+Data exported and made available as CSV files in the data-extraction S3 bucket is **organized by entity in time-partitioned folders** under the `data-platform/` folder.
+
+### Entity Foldersâ
+
+Each entity has a dedicated folder under `data-platform/data-exports/[domain]/`. This ensures datasets are isolated and easy to navigate.
+
+The domain is the name of the domain that the data is exported for. It can be tfb, rmpsp or other.
+    
+    
+    data-platform/  
+        data-exports/  
+            [domain]/  
+                [entity]/...  
+    
+
+For more information about the available entities, check the entities model.
+
+### Time-Partitioned Foldersâ
+
+Within each entity folder, data is partitioned hierarchically by year, month, day and hour. This allows you to quickly find and retrieve data exported for specific time ranges.
+    
+    
+    data-platform/  
+        data-exports/  
+            [domain]/  
+                [entity]/  
+                    _year=[yyyy]/  
+                        _month=[mm]/  
+                            _day=[dd]/  
+                                _hour=[hh]/  
+    
+
+### CSV Filesâ
+
+At the lowest level of each time-partitioned folder (i.e., `_hour/`), you'll find one or more `.gz` files containing the exported records for that time window in CSV format.
+
+info
+
+The **complete dataset** for a given entity at a specific date and time is the **combination of all CSV files within that partition**.
+
+This structure is optimized for parallel processing, ensuring faster data ingestion and analysis. It also keeps the files lightweight and easier to transfer.
+    
+    
+    data-platform/  
+        data-exports/  
+            [domain]/  
+                [entity]/  
+                    _year=[yyyy]/  
+                        _month=[mm]/  
+                            _day=[dd]/  
+                                _hour=[hh]/  
+                                    *.gz    # One or more zipped CSV files  
+    
+
+#### File Structureâ
+
+Each CSV file is structured according to the following properties:
+
+  * **Header** : `name` for each field.
+  * **Complex fields** : Stored as JSON blobs with type `array`, `map` or `row`.  
+The types for each field inside the JSON blob can be found in the data entity models and need to be accounted for during deserialization.
+  * **Delimiter** : `,`
+  * **Escape character** : `"`
+
+
+
+### Practical Exampleâ
+
+Here's the folder structure for the `eventstorage_cards_feedback` entity on 2025/08/22 at 13:00.
+    
+    
+    data-platform/  
+        data-exports/  
+            tfb/  
+                eventstorage_cards_feedback/  
+                    _year=2025/  
+                        _month=08/  
+                            _day=22/  
+                                _hour=13/  
+                                    2b16d9fd57144b50a061425f776764c2.gz  
+                                    faff739cc02d476e82dc9463d4a20610.gz  
+    
+
+After unzipping each of the following files:
+
+  * `2b16d9fd57144b50a061425f776764c2.gz`:  
+
+
+
+    
+    
+    eventid,timestamp,feedbacklabel  
+    af872fe8-2fdf-43a1-97b2-8b74f8867b13,1757477792,fraud  
+    
+
+  * `faff739cc02d476e82dc9463d4a20610.gz`:  
+
+
+
+    
+    
+    eventid,timestamp,feedbacklabel  
+    826636c0-556f-4dc5-bcfd-f4cf959864bc,1757471765,fraud  
+    0e58187c-735b-436b-a143-d2beea33b05a,1757436330,genuine  
+    
+
+Both files form the complete dataset for that time window:
+
+eventid| timestamp| feedbacklabel  
+---|---|---  
+af872fe8-2fdf-43a1-97b2-8b74f8867b13| 1757477792| fraud  
+826636c0-556f-4dc5-bcfd-f4cf959864bc| 1757471765| fraud  
+0e58187c-735b-436b-a143-d2beea33b05a| 1757436330| genuine  
+  
+## Integration Considerationsâ
+
+When integrating with the exported data, keep the following in mind:
+
+Consideration| Details  
+---|---  
+**Data guarantees**|  Data is delivered at least once. Duplicates may occur in the exported data.  
+**Null handling**|  Null values are represented as empty fields in CSV files. In JSON outputs (complex fields), they may appear explicitly as `null`.  
+**Encoding**|  All CSV files are encoded in UTF-8.  
+**Missing partitions**|  A missing file for a given partition means either an export failure or that there was no data for that entity during that hour. If thereâs data in the downstream partitions, it indicates the system is working as expected and there was simply no data available to export for the missing partition.  
+**Data retention**|  Data is available for 60 days after it was exported.  
+**Schema evolution**|  Schemas are additive only: new columns may be added but never removed. CSV headers indicate the available columns.  
+**Timezone**|  All time partitions (`_year`, `_month`, `_day`, `_hour`) are in UTC.  
+  
+## Entities Modelâ
+
+### Event Storageâ
+
+The following are the different entities exported for event storage:
+
+  * [Event Storage - Cards](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-cards)
+  * [Event Storage - Cards Feedback](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-cards-feedback)
+  * [Event Storage - Transfers](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-transfers)
+  * [Event Storage - Transfers Feedback](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-transfers-feedback)
+  * [Event Storage - Digital Activity](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-digital-activity)
+  * [Event Storage - Digital Activity Feedback](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-digital-activity-feedback)
+  * [Event Storage - Ad-hoc Customer Investigations](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-adhoc-customer-investigations)
+  * [Event Storage - Ad-hoc Customer Investigations Feedback](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/eventstorage/eventstorage-adhoc-customer-investigations-feedback)
+
+
+
+### Case Managerâ
+
+The following are the different entities exported for Case Manager:
+
+  * [Case Manager Case](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-case)
+  * [Case Manager Event - Cards ](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-cards)
+  * [Case Manager Event - Digital Activity](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-digital-activity)
+  * [Case Manager Event - Transfers](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-transfers)
+  * [Case Manager Event - Ad-hoc Customer Investigations](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/case-manager/cm-event-adhoc-customer-investigations)
+
+
+
+### Pulse Audit Eventsâ
+
+The following are the different entities exported for Pulse Audit Events:
+
+  * [Pulse Audit - Users](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-users)
+  * [Pulse Audit - Self Service Rules](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-ssr)
+  * [Pulse Audit - Rules](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-rules)
+  * [Pulse Audit - Lists](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-lists)
+  * [Pulse Audit - List Items](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-listitems)
+
+

@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/overview
+Title: PSP | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide)
+  * PSP
+
+
+
+# PSP
+
+Case Manager is an alert management tool that enables fraud prevention agents to review transactions that fall within a risk threshold and raise alerts. Case Manager includes out-of-the-box resources tailored to the Transaction Fraud for PSPs use case, which automate event processing and organize teams' workload efficiently.
+
+This guide helps you to:
+
+  * Understand the [event flow](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/event-flow).
+  * [Investigate alerts](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/psp/investigate-alerts), which involves accessing, filtering, and reviewing events, alerts and cases.
+
+

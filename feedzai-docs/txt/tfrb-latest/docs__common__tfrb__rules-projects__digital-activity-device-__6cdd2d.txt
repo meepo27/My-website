@@ -1,0 +1,329 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-device-and-network-intelligence-rules
+Title: Digital Activity - Device and Network Intelligence Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [ References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Digital Activity - Device and Network Intelligence Rules
+
+
+
+On this page
+
+# Digital Activity - Device and Network Intelligence Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Device and Network Intelligence Rules_ monitor the relevant information about the device and/or network (IP address), as well as user session and biometrics profile that are being used to perform a digital event. Transaction Fraud for Banking collects this information through Feedzai's Revelock enricher (i.e. Digital Trust enricher) by leveraging its indicators out of the box. However, the logic of these rules can be adapted to other providers, if needed.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ risk_level
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Digital Activity - DNI1
+
+### Comment
+
+> Suspicious indicators are pointing to a Phishing scenario
+
+### Actions
+
+  * [DA-DNI1]
+
+
+
+### Variables
+    
+    
+    is_phishing =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'Fraudster Behavior') ?? false 
+      or Revelock.existsAlertOfType(event.revelock_alerts ,'Suspicious Behavior') ?? false; 
+
+### Condition
+    
+    
+    is_phishing 
+
+### Explanation
+
+> [DA-DNI1] - High Risk - Suspicious activity is pointing to a Phishing scenario during this session ({event.session_id}) 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Digital Activity - DNI2
+
+### Comment
+
+> Suspicious indicators are pointing to a Malware scenario
+
+### Actions
+
+  * [DA-DNI2]
+
+
+
+### Variables
+    
+    
+    is_malware =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'Malware') ?? false
+      or Revelock.existsAlertOfType(event.revelock_alerts ,'Suspicious APP') ?? false; 
+
+### Condition
+    
+    
+    is_malware 
+
+### Explanation
+
+> [DA-DNI2] - High Risk - Device ({event.device_id}) is suspected to be infected with Malware
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Digital Activity - DNI3
+
+### Comment
+
+> Suspicious indicators are pointing to an ATO scenario
+
+### Actions
+
+  * [DA-DNI3]
+
+
+
+### Variables
+    
+    
+    is_ATO =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'ATO') ?? false
+      and Revelock.getAlertOfTypeDoublePropertyMin(event.revelock_alerts ,'ATO' ,'similarity') ?? 1 < 0.10
+      and Revelock.getAlertOfTypeDoublePropertyMax(event.revelock_alerts ,'ATO' ,'profile_quality') ?? 0 > 0.85;  
+
+### Condition
+    
+    
+    is_ATO 
+
+### Explanation
+
+> [DA-DNI3] - High Risk - Suspicious activity pointing to an ATO scenario during this session ({event.session_id}) 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Digital Activity - DNI4
+
+### Comment
+
+> Suspicious indicators are pointing to an Emulator scenario
+
+### Actions
+
+  * [DA-DNI4]
+
+
+
+### Variables
+    
+    
+    is_emulator =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'Emulator device') ?? false; 
+
+### Condition
+    
+    
+    is_emulator
+
+### Explanation
+
+> [DA-DNI4] - High Risk - Device ({event.device_id}) is suspected to be running an Emulator 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Digital Activity - DNI5
+
+### Comment
+
+> Suspicious indicators are pointing to a BOT scenario
+
+### Actions
+
+  * [DA-DNI5]
+
+
+
+### Variables
+    
+    
+    is_BOT =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'BOT Detected') ?? false; 
+
+### Condition
+    
+    
+    is_BOT 
+
+### Explanation
+
+> [DA-DNI5] - High Risk - Device ({event.device_id}) is suspected to be running a BOT software application 
+
+### Mark As
+
+The outcome of this rule is: **high**
+
+## Digital Activity - DNI6
+
+### Comment
+
+> Suspicious indicators are pointing to a Rooted Device scenario
+
+### Actions
+
+  * [DA-DNI6]
+
+
+
+### Variables
+    
+    
+    is_rooted =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'Rooted device') ?? false;  
+
+### Condition
+    
+    
+    is_rooted 
+
+### Explanation
+
+> [DA-DNI6] - Medium Risk - Device ({event.device_id}) is suspected to be Rooted
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - DNI7
+
+### Comment
+
+> Login attempt from a Dormant Account with activity pointing to a\ \ Suspicious Network scenario (use of VPN, TOR or Proxy)
+
+### Actions
+
+  * [DA-DNI7]
+
+
+
+### Variables
+    
+    
+    is_dormant_account = event.count_account_activity_3m == 0; 
+    
+    is_suspicious_network = 
+      Revelock.existsAlertOfType(event.revelock_alerts ,'Tor connection') ?? false 
+      or Revelock.existsAlertOfType(event.revelock_alerts ,'VPN connection') ?? false 
+      or Revelock.existsAlertOfType(event.revelock_alerts ,'Suspicious network') ?? false;    
+
+### Condition
+    
+    
+    (event.event_type == 'authentication' and event.challenge_requested != true) 
+      and is_dormant_account and event.account_age >= 90 
+      and is_suspicious_network 
+    
+
+### Explanation
+
+> [DA-DNI7] - Medium Risk - Login from a dormant account ({event.account_id}) with VPN, TOR or Proxy detected 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - DNI8
+
+### Comment
+
+> Login attempt from an unknown IP country and device
+
+### Actions
+
+  * [DA-DNI8]
+
+
+
+### Variables
+    
+    
+    is_unknown_country =
+      Revelock.existsAlertOfType(event.revelock_alerts ,'Network Anomalies 37') ?? false; 
+    
+    is_unknown_device =
+      (Revelock.existsAlertOfType(event.revelock_alerts ,'Device Anomalies 20') ?? false) or (Revelock.existsAlertOfType(event.revelock_alerts, 'Device Anomalies 21') ?? false);
+
+### Condition
+    
+    
+    (event.event_type == 'authentication' and event.challenge_requested != true)
+      and is_unknown_country
+      and is_unknown_device 
+
+### Explanation
+
+> [DA-DNI8] - Medium Risk - Login attempt from an unknown IP country ({event.device_ip_country_code}) and unknown device ({event.device_id}) 
+
+### Mark As
+
+The outcome of this rule is: **medium**
+
+## Digital Activity - DNI9
+
+### Comment
+
+> Suspicious indicators are pointing to a RAT scenario
+
+### Actions
+
+  * [DA-DNI9]
+
+
+
+### Variables
+    
+    
+    is_RAT =
+      (
+        Revelock.existsAlertOfType(event.revelock_alerts ,'RAT') ?? false
+        or Revelock.existsAlertOfType(event.revelock_alerts ,'RAT TeamViewer') ?? false
+      )
+      and (event.revelock_score ?? 0 >= 90 and event.revelock_score ?? 0 <= 99)
+      ; 
+
+### Condition
+    
+    
+    is_RAT 
+
+### Explanation
+
+> [DA-DNI9] - Medium Risk - Device ({event.device_id}) is suspected to be running a RAT
+
+### Mark As
+
+The outcome of this rule is: **medium**

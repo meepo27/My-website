@@ -1,0 +1,90 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/ad-hoc-investigations/overview
+Title: Ad-hoc Customer Investigations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Ad-hoc Investigations
+  * Ad-hoc Customer Investigations
+
+
+
+On this page
+
+# Ad-hoc Customer Investigations
+
+Was this page helpful?Â 
+
+This page provides you with the necessary fields to include in the payload when sending an ad-hoc investigation's `investigation` or `info` request.
+
+## Send `investigation POST` requestâ
+
+To generate an ad-hoc investigation event in Case Manager, send an `investigation` (`POST`) request to Feedzai.  The request must contain the `customer_id` to fetch the customer data from the Reference Data Service and populate the customer event in Case Manager. Consider the following payload when sending the request:
+    
+    
+    {  
+        "lifecycle_id":"<lifecycle_id>",  
+        "event_external_id":"<event_external_id>",  
+        "event_occurred_at": <event_occurred_at>, // event timestamp  
+        "customer_id":"<customer_id>", // customer_id  
+        "reason_code": "reason_code",  
+        "origin": "media",  
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum tristique turpis cursus venenatis.",  
+        "customer_name": "John Doe",  
+    ... // Rest of the Customer payload  
+    }  
+    
+
+## Send `info PUT` requestâ
+
+To update the previously generated ad-hoc investigation event, e.g. to signal that the investigation can be closed, send an `info PUT` request to Feedzai. Consider the following payload:
+    
+    
+    {  
+        "lifecycle_id": "<lifecycle_id>",  
+        "event_external_id": "<event_external_id>",  
+        "event_occurred_at": <event_occurred_at>, // event timestamp  
+        "customer_id": "<customer_id>", // customer_id  
+        "info_type": additional_information",  
+        "reason_code": "reason_code",  
+        "origin": "media",  
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum tristique turpis cursus venenatis.",  
+        "customer_name": "John Doe",  
+    ... // Rest of the customer payload  
+    }  
+    
+
+## Send `feedback PUT` requestâ
+
+To update a previously decided outcome, e.g. change from `feedback_value` as `false` (i.e. "dropped") to `feedback_value` as `true` ("action taken"), send the following `feedback PUT` request:
+    
+    
+    {  
+        "event_external_id": "event_external_id_{{ID}}",  
+        "event_occurred_at": {{nowTimestamp}},  
+        "feedback_type": "feedback",  
+        "feedback_value": true  
+    }  
+    
+
+## Responseâ
+
+In both scenarios, i.e. `investigation POST` and `info PUT`, a successful response should be as follows:
+    
+    
+    {  
+        "status": "ok",  
+        "lifecycle_id": "<lifecycle_id>",  
+        "event_external_id": "<event_external_id>"  
+    }  
+    
+
+Find more information in [Responses and Errors](/tfrb/latest/docs/common/tfrb/api-reference/responses-errors).
+
+## Nextâ
+
+  * [Ad-hoc Investigations API](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/ad-hoc-customer-investigations)'s endpoints.
+  * [Ad-hoc Investigations](/tfrb/latest/docs/common/tfrb/life-cycles/ad-hoc-investigations/overview)' life cycles.
+
+

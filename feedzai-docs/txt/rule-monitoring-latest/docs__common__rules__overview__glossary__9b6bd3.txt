@@ -1,0 +1,100 @@
+Source: https://cam.feedzai.com/rules/latest/docs/common/rules/overview/glossary
+Title: Concepts glossary | Rule Monitoring
+============================================================
+
+  * [](/rules/latest/)
+  * Concepts glossary
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Concepts glossary
+
+This glossary provides definitions for the key concepts and terms used in the context of Rule Monitoring.
+
+## Eventsâ
+
+In Feedzai's real-time data processing flow, an event is any packet of information within a given data stream. Usually these events correspond to financial transactions, but they may also represent changes in customer data, authentication actions, attempted transactions, or other kinds of data that is captured and processed by the systems where the data streams originate.
+
+## KPIsâ
+
+A Key Performance Indicator (KPI) is a measurable value that can be used to assess the performance and effectiveness of a rule. Some KPIs are directly related to the nature of rules, such as their trigger rate or total amount affected, whereas others correspond to standard statistical metrics, such as false positive rate or precision.
+
+### Business-specific KPIsâ
+
+#### Total Eventsâ
+
+The Total Events KPI indicates the number of events that trigger a given rule's conditions within a specific time period. This reflects the volume of instances where a rule is put into action, and affects the potential rate of alert generation.
+
+Although this metric is independent of the KPIs that assess a rule's effectiveness and accuracy, it must be considered alongside them to determine whether adjustments in the rule's sensitivity are needed, or to identify emerging trends in the data stream that may require further investigation.
+
+#### Trigger Rateâ
+
+The Trigger Rate KPI represents the percentage of events that trigger a given rule within a specific time period, out of all the events processed by the workflow that contains that rule.
+
+This is a relative version of the total events KPI, providing a metric of the rule's activity that is normalized to the total volume of events processed by the system.
+
+#### Total Amountâ
+
+The Total Amount KPI is the accumulated sum of the amounts of each event that trigger a given rule.
+
+This metric is useful in determining the financial impact of the rule's decisions, and when combined with the effectiveness-focused statistical KPIs, it can help sorting out the potential financial impact of a rule versus the real savings it provides.
+
+### Standard statistical KPIsâ
+
+The descriptions of the statistical metrics in the sections below are based on the following diagram of a binary classifier, where the light red and light green areas represent the rule's decision field between fraud and non-fraud cases, respectively and the shape and color of individual elements represent the actual classification of each case:
+
+Diagram of a binary classifier. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:False_positives_and_false_negatives.svg), CC-BY-SA 4.0.
+
+#### False Positives (FP)â
+
+The False Positives (FP) KPI is the total number of cases where a rule is incorrectly triggered, determining a condition to be true when it is actually false.
+
+Visually, these correspond to red crosses () in the green area () of the diagram above.
+
+#### False Negatives (FN)â
+
+The False Negatives (FN) KPI is the total number of cases where a rule fails to be triggered, incorrectly determining a condition to be false when it is actually true.
+
+Visually, these correspond to green circles () in the red area () of the diagram above.
+
+#### Precisionâ
+
+The Precision KPI represents the percentage of cases where a rule _correctly_ determines a condition to be true, out of all cases where the rule determined the condition to be true (correctly or not).
+
+Visually, these correspond to the fraction of green circles () out of all values ( \+ ) in the light green () area of the diagram.
+
+Mathematically, the formula is:
+
+Precision=TPTP+FPPrecision = \frac{TP}{TP + FP}Precision=TP+FPTPâ
+
+#### Recallâ
+
+The Recall KPI (also called Sensitivity) represents the percentage of cases where a rule correctly determines a condition to be true, out of all cases where the condition was actually true.
+
+Visually, this corresponds to the fraction of green circles () in the light green () area of the diagram, out of all green circles anywhere in the diagram.
+
+Mathematically, the formula is:
+
+Recall=TPTP+FNRecall = \frac{TP}{TP + FN}Recall=TP+FNTPâ
+
+## Rulesâ
+
+A rule is a set of conditions and actions that automate the processing of events from a data stream, allowing the system to identify and act upon anomalous or suspicious behavior.
+
+Specifically, a rule defines conditions based on the fields of the data source to which the event belongs, and returns a binary result for each record that matches the condition.
+
+### Advanced Rulesâ
+
+Advanced rules can be defined in the Pulse interface. They can be more complex and expressive than self-service rules, allowing for more sophisticated logic and data transformations. This provides a more versatile and powerful tool to combat fraud, but it also requires data science expertise to use effectively.
+
+To learn more about advanced rules, refer to the [Pulse documentation](https://documentation.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/rules).
+
+### Self-Service Rules (SSR)â
+
+Self-Service Rules (SSR) are rules that can be created and managed by analysts directly in Case Manager. These are less expressive than the advanced rules that can be created by data scientists in Pulse, but in contrast they provide a more intuitive interface to compose, evaluate, and deploy rules to production.
+
+To learn more about self-service rules, refer to the [Case Manager documentation](https://documentation.feedzai.com/case-manager/latest/docs/common/case-manager/understanding-case-manager/core-concepts/self-service-rules).

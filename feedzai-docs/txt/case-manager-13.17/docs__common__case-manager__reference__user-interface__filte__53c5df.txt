@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/filters
+Title: Filters | Case Manager
+============================================================
+
+On this page
+
+# Filters
+
+## Operatorsâ
+
+Filter| Description  
+---|---  
+eq| Equal operator.  
+neq| Not equal operator.  
+eqb| Equal operator for booleans.  
+neqb| Not equal operator for booleans.  
+lt| Less than operator.  
+lte| Less than or equal operator.  
+gt| Greater than operator.  
+gte| Greater than or equal operator.  
+like| Search for a specified pattern in a column.  
+in| Checks whether a property matches a value in a list of values.  
+  
+## Logic operatorsâ
+
+Filter| Description  
+---|---  
+AND| Conjunction operator.  
+OR| Disjunction operator.

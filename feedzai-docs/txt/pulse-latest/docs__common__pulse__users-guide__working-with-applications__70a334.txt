@@ -1,0 +1,100 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/tcp-ports-used-by-pulse
+Title: TCP ports used by Pulse | Feedzai Pulse
+============================================================
+
+On this page
+
+Was this page helpful?Â 
+
+# TCP ports used by Pulse
+
+This page provides a list of TCP ports opened by the components of Pulse, when running it locally with default setup (embedded Zookeeper, ActiveMQ and H2 database).
+
+## Pulse Serverâ
+
+### Fixed portsâ
+
+  * 2181: Zookeeper
+  * 61615: ActiveMQ
+  * 1099: Rmi Registry
+  * 1100: Remote Pulse Server object
+  * 9010: Jmx
+  * 8080: http
+  * 8443: https
+
+
+
+### Random portsâ
+
+  * H2 Database (Not used in production environment)
+
+  * ActiveMQ Jmx (Not used in production environment)
+
+  * JMX: (only when started with _startup-debug.sh_ because _-Dcom.sun.management.jmxremote_ is being used to launch the JVM)
+
+  * EhCache RMI port: can be configured on _conf/engine/shiro/ehcache.xml_ by editing the cacheManagerPeerListenerFactory element and adding _properties="port=40001"_ , for using port 40001.
+
+
+
+    
+    
+    <cacheManagerPeerListenerFactory>  
+      class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"  
+      properties="port=40001"/>  
+    
+
+## App Engineâ
+
+### Fixed portsâ
+
+  * 6990: App remote object and RMI registry
+
+
+
+### Random portsâ
+
+  * Jmx: configurable with:
+        
+        # Global setting for all applications  
+        pulse.global.appengine.jmxport=9011  
+          
+        # Configuration for a specific application  
+        pulse.app.<app_slug>.appengine.jmxport=9013  
+        
+
+
+
+  * Other Jmx (because app engine is being started with* -Dcom.sun.management.jmxremote* a second random port is being open. This can probably be removed)
+
+  * On AppEngineProcess start, when getting the Pulse Server cluster leader remote reference, a RemoteExporter is being created and this opens a random RMI port as well. (This can potentially be fixed to use the configured RMI Object port. Not sure about the amount of effort because this code path is being used by other components)
+
+
+
+
+## Running processes on Spark (e.g. Data Source Analysis, Rules Snapshot Evaluation)â
+
+  * A random port is opened (didn't have the chance to check where it comes from)
+
+
+
+## Conclusionsâ
+
+The table below summarizes the possible causes for TCP connections to random ports that are showing up on customer's logs and what could be a possible fix for each one:
+
+Random port origin| Possible fix  
+---|---  
+EhCache RMI port| Configure as described above  
+App Engine Jmx| Configure as described above  
+App Engine Other Jmx| Remove `-Dcom.sun.management.jmxremote` from JVM args when launching application engine (if really not needed).  
+  
+## Typical customizationâ
+
+Typically, the following configurations are added/edited in `pulse.properties` to match the customer's environment.
+    
+    
+    pulse.manager.rmi.localregistryport=1099  
+    pulse.global.services.modules.datascience.spark.forward.spark.driver.port=36560  
+    pulse.global.services.modules.datascience.spark.forward.spark.blockManager.port=20800  
+    pulse.global.services.modules.datascience.spark.forward.spark.port.maxRetries=20  
+    pulse.manager.rmi.objectport=1100  
+    

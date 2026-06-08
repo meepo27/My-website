@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/configuring-outcomes
+Title: Configuring outcomes | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Deploying a project into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/)
+  * [Designing a workflow](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/)
+  * Configuring outcomes
+
+
+
+On this page
+
+# Configuring outcomes
+
+Was this page helpful?Â 
+
+## Whyâ
+
+Before modeling your **Workflow** you must define what decisions it will produce as output. Outcomes represent those decisions, for example fraud/not fraud.
+
+Pulse adds each outcome decision field (e.g _fraud_) and outcome score field (e.g. _fraud_score)_ to the schema of events moving along the workflow. As you add elements such as [Scoring Services](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models) and [Rules Services](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules), you must also configure how they affect these fields, i.e. how they contribute to each of the final decisions and scores of the **Workflow**.
+
+## How toâ
+
+To define the outcomes of your workflow execute the following actions:
+
+  1. In the  **Workflows** tab, select an existing **Workflow**.
+
+  2. the workflow's outcomes. Add a new outcome, and select if it is the outcome of a multi-classification problem or a binary classification.
+
+Multiple outcomes
+
+In the same **Workflow** you can have multiple outcomes to fine-grain the decision and perform classification in complex cases. Adding a second outcome, for example _fraud_type,_ would allow you to harvest more information in case the transaction is fraudulent.
+
+  3. In case of a multi-classification problem, type the possible values separated by a comma.
+
+  4. Select the default value for the outcome.
+
+  5. Add another outcome, or **Save** the workflow outcome definition.
+
+
+
+
+## Next Stepsâ
+
+You have now finished performing the initial configurations required for your workflow. Proceed by adding elements to design the workflow. Check the following pages:
+
+  * [Adding input adapters](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-input-adapters)
+  * [Adding plans](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-plans)
+  * [Adding models](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-models)
+  * [Adding rules](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-rules)
+  * [Adding custom services](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production/designing-a-workflow/adding-custom-services)
+
+

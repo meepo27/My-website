@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3620
+Title: HSBC-3620 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3620
+
+### Improve the Case Manager `External Status Reason Updater` extensionâ
+
+FeatureFTMT-27146FTMT-27219HSBC-3396HSBC-3620
+
+We've improved the Case Manager `External Status Reason Updater` extension by eliminating the need for a database call to load the event's context. This improvement ensures that the extension runs with the exact event context that triggered it.

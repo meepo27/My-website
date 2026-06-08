@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/models/use-models
+Title: Use Models | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * Use Models
+
+
+
+# Use Models
+
+Was this page helpful?Â 
+
+This section explains how you can use models with or without historical data, and highlights what you need to consider when handling behavioral data in Machine Learning (ML) models.
+
+  * [Automated Machine Learning](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/journey-overview)
+  * [Day-0 Models](/tfrb/latest/docs/common/tfrb/models/day-0-models)
+  * [Behavioral Data in ML Models](/tfrb/latest/docs/common/tfrb/models/behavioral-data-in-ml-models)
+
+

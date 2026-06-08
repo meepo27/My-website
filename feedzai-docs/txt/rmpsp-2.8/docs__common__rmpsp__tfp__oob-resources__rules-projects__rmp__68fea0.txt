@@ -1,0 +1,1132 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-fraud-rules
+Title: Fraud Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * Fraud Rules
+
+
+
+On this page
+
+# Fraud Rules
+
+### Descriptionâ
+
+Contains rules that look for standard fraud patterns. These rules are used to approve/decline a payment and optionally mark the event as an alert which can then be further investigated by fraud prevention agents in Case Manager.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ MULTI_TENANT_SHARED
+
+
+
+### Rules in this rules project:
+
+## All-Payments-Velocity-FR1
+
+### Comment
+
+> Decline payment if the number of transactions per Customer ID and MID, in the last day, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR1]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr1_max_customer_id_merchant_id_count_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr1_max_customer_id_merchant_id_count_1d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr1_max_customer_id_merchant_id_count_1d"].threshold
+      ?? 0; 
+
+### Condition
+    
+    
+    // Limits 
+      COUNT_LIMIT > 0 
+      and
+    (event.cust_merch_cnt_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of transactions for the same Customer ID ({event.customer_id}) and MID ({event.merchant_id}) in the last day ({event.cust_merch_cnt_1d}) is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR2
+
+### Comment
+
+> Decline payment if the number of transactions per Customer ID and MID, in the past week, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR2]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_2_max_customer_id_merchant_id_count_7d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr2_max_customer_id_merchant_id_count_7d"].threshold
+      ?? global_default__rules_thresholds["all_payments_velocity_fr2_max_customer_id_merchant_id_count_7d"].threshold
+      ?? 0;  
+
+### Condition
+    
+    
+    COUNT_LIMIT > 0
+      and
+    (event.cust_merch_cnt_7d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of transactions for the same Customer ID ({event.customer_id}) and MID ({event.merchant_id}) in the last week ({event.cust_merch_cnt_7d}) is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR3
+
+### Comment
+
+> Decline payment if the number of transactions per Customer Email and MID, in the past day, is above a set threshold
+
+### Actions
+
+  * [All-Payments-Velocity-FR3]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr3_max_customer_email_merchant_id_count_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr3_max_customer_email_merchant_id_count_1d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr3_max_customer_email_merchant_id_count_1d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    COUNT_LIMIT > 0
+     and 
+    (event.email_merch_cnt_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of transactions for the same Customer Email ({event.customer_email}) and MID ({event.merchant_id}) in the last day ({event.email_merch_cnt_1d}) is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR4
+
+### Comment
+
+> Decline payment if the number of transactions per Customer Email and MID, in the past week, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR4]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr4_max_customer_email_merchant_id_count_7d"].threshold
+      ?? merchant_risk_levels__rules_thresholds ["all_payments_velocity_fr4_max_customer_email_merchant_id_count_7d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr4_max_customer_email_merchant_id_count_7d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    COUNT_LIMIT > 0
+      and
+    (event.email_merch_cnt_7d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of transactions for the same Customer Email ({event.customer_email}) and MID ({event.merchant_id}) in the last week ({event.email_merch_cnt_7d}) is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR5
+
+### Comment
+
+> Decline payment if the number of transactions per Device IP and MID, in the past day, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR5]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr5_max_ip_merchant_id_count_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr5_max_ip_merchant_id_count_1d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr5_max_ip_merchant_id_count_1d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+      COUNT_LIMIT > 0
+      and 
+      (event.devip_merch_cnt_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of transactions for the same device ip ({event.device_ip}) and MID ({event.merchant_id}), in the last day ({event.devip_merch_cnt_1d}), is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR7
+
+### Comment
+
+> Decline payments if the number of transactions per Shipping Address and MID, in the past day, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR7]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr7_max_full_shipping_address_merchant_id_count_1d"].threshold 
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr7_max_full_shipping_address_merchant_id_count_1d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr7_max_full_shipping_address_merchant_id_count_1d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    COUNT_LIMIT > 0
+      and 
+    (event.shipaddr_merch_cnt_1d ?? 0) >= COUNT_LIMIT 
+    // Full Shipping Address - Normalized and concatenated fields: shipping_addr_line1, shipping_addr_line2, shipping_zip, shipping_city, shipping_region, shipping_country_code
+
+### Explanation
+
+> Number of transactions per Shipping Address ({event.full_shipping_address}) and MID ({event.merchant_id}) in the last day ({event.shipaddr_merch_cnt_1d}) is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR8
+
+### Comment
+
+> Decline payments if the number of transactions per Shipping Address and MID, in the past week, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR8]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT =
+      tenanted_rules_thresholds["all_payments_velocity_fr8_max_full_shipping_address_merchant_id_count_7d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr8_max_full_shipping_address_merchant_id_count_7d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr8_max_full_shipping_address_merchant_id_count_7d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    COUNT_LIMIT > 0 
+      and 
+    (event.shipaddr_merch_cnt_7d ?? 0) >= COUNT_LIMIT
+    // Full Shipping Address - Normalized and concatenated fields: shipping_addr_line1, shipping_addr_line2, shipping_zip, shipping_city, shipping_region, shipping_country_code
+
+### Explanation
+
+> Number of transactions for the same Shipping Address ({event.full_shipping_address}) and MID ({event.merchant_id}) in the last week ({event.shipaddr_merch_cnt_7d}) is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR9
+
+### Comment
+
+> Decline payment if the amount of transactions for the same Customer ID and MID, in the past day, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR9]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr9_max_customer_id_merchant_id_sum_amount_unified_currency_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr9_max_customer_id_merchant_id_sum_amount_unified_currency_1d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr9_max_customer_id_merchant_id_sum_amount_unified_currency_1d"].threshold 
+      ?? 0;
+    
+    //for explanations
+    AMOUNT_CONVERTED = ((event.cust_merch_sum_amt_1d ?? 0) * 1.0) /100;
+    AMOUNT_LIMIT_CONVERTED = ((AMOUNT_LIMIT) * 1.0)/ 100; 
+
+### Condition
+    
+    
+    AMOUNT_LIMIT > 0
+      and
+    (event.cust_merch_sum_amt_1d ?? 0) >= AMOUNT_LIMIT
+
+### Explanation
+
+> Amount of transactions for the same Customer ID ({event.customer_id}) and MID ({event.merchant_id}), in the last day ({localvar.AMOUNT_CONVERTED} {event.currency_code}), is equal or above limit ( {localvar.AMOUNT_LIMIT_CONVERTED} {event.currency_code}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR10
+
+### Comment
+
+> Decline payment if the amount of transactions for the same Customer ID and MID, in the past week, is above a set threshold
+
+### Actions
+
+  * [All-Payments-Velocity-FR10]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr10_max_customer_id_merchant_id_sum_amount_unified_currency_7d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_fr10_max_customer_id_merchant_id_sum_amount_unified_currency_7d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr10_max_customer_id_merchant_id_sum_amount_unified_currency_7d"].threshold 
+      ?? 0;
+    //for explanation
+    AMOUNT_CONVERTED = ((event.cust_merch_sum_amt_7d ?? 0) * 1.0) /100;
+    AMOUNT_LIMIT_CONVERTED = ((AMOUNT_LIMIT) * 1.0) /100; 
+
+### Condition
+    
+    
+    AMOUNT_LIMIT > 0
+    and 
+    event.cust_merch_sum_amt_7d ?? 0 >= AMOUNT_LIMIT
+
+### Explanation
+
+> Amount of transactions for the same Customer ID and MID ({event.merchant_id}) in the last week ({localvar.AMOUNT_CONVERTED}) is equal or above limit ({localvar.AMOUNT_LIMIT_CONVERTED}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR11
+
+### Comment
+
+> Decline payment if the amount of transactions for the same Customer Email and MID, in the past day, is above a set threshold.
+
+### Actions
+
+  * [All-Payments-Velocity-FR11]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_FR11_max_customer_email_merchant_id_sum_amount_unified_currency_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["all_payments_velocity_FR11_max_customer_email_merchant_id_sum_amount_unified_currency_1d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_FR11_max_customer_email_merchant_id_sum_amount_unified_currency_1d"].threshold 
+      ?? 0;
+    
+    //for explanations
+    AMOUNT_CONVERTED = ((event.email_merch_sum_amt_1d ?? 0) * 1.0) /100;
+    AMOUNT_LIMIT_CONVERTED = ((AMOUNT_LIMIT) * 1.0)/ 100; 
+
+### Condition
+    
+    
+    AMOUNT_LIMIT > 0
+    and 
+    (event.email_merch_sum_amt_1d ?? 0) >= AMOUNT_LIMIT
+
+### Explanation
+
+> Amount of transactions for the same Customer Email and MID ({event.merchant_id}) in the last day ({localvar.AMOUNT_CONVERTED} {event.currency_code}) is equal or above limit ({localvar.AMOUNT_LIMIT} {event.currency_code}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## All-Payments-Velocity-FR12
+
+### Comment
+
+> Decline payment if the amount of transactions for the same Customer Email and MID, in the past week, is above a set threshold. 
+
+### Actions
+
+  * [All-Payments-Velocity-FR12]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = 
+      tenanted_rules_thresholds["all_payments_velocity_fr12_max_customer_email_merchant_id_sum_amount_unified_currency_7d"].threshold
+      ??merchant_risk_levels__rules_thresholds["all_payments_velocity_fr12_max_customer_email_merchant_id_sum_amount_unified_currency_7d"].threshold 
+      ?? global_default__rules_thresholds["all_payments_velocity_fr12_max_customer_email_merchant_id_sum_amount_unified_currency_7d"].threshold 
+      ?? 0;
+    
+    //for explanations
+    AMOUNT_CONVERTED = ((event.email_merch_sum_amt_7d ?? 0) * 1.0) /100;
+    AMOUNT_LIMIT_CONVERTED = ((AMOUNT_LIMIT) * 1.0)/ 100;
+
+### Condition
+    
+    
+    AMOUNT_LIMIT > 0
+      and
+    (event.email_merch_sum_amt_7d ?? 0) >= AMOUNT_LIMIT
+
+### Explanation
+
+> Amount of transactions for the same Customer Email and MID ({event.merchant_id}) in the last week ({localvar.AMOUNT_CONVERTED} {event.currency_code}) is equal or above limit ({localvar.AMOUNT_LIMIT} {event.currency_code}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-FR13
+
+### Comment
+
+> Decline payment if the card has a number of failed transactions, in the last 24 hours, above a set threshold.
+
+### Actions
+
+  * [Cards-Velocity-FR13]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_velocity_fr13_max_failed_payment_card_id_count_1d"].threshold 
+      ?? merchant_risk_levels__rules_thresholds ["cards_velocity_fr13_max_failed_payment_card_id_count_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_velocity_fr13_max_failed_payment_card_id_count_1d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.fail_card_cnt_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Card ({event.payment_card_id}) failed transactions ({event.fail_card_cnt_1d}), in the last day, are equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-FR14
+
+### Comment
+
+> Decline payment if the number of distinct cards with failed payments per MID, in the last minute, is above a set threshold
+
+### Actions
+
+  * [Cards-Velocity-FR14]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT =
+      tenanted_rules_thresholds["cards_velocity_fr14_max_fail_dist_card_merch_1min"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_velocity_fr14_max_fail_dist_card_merch_1min"].threshold 
+      ?? global_default__rules_thresholds["cards_velocity_fr14_max_fail_dist_card_merch_1min"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.fail_dist_card_merch_1min?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Distinct failed Card transactions per MID ({event.fail_dist_card_merch_1min}), in the last minute, is equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-FR15
+
+### Comment
+
+> Decline payment if the card has a number of transactions, in the last day, above a set threshold.
+
+### Actions
+
+  * [Cards-Velocity-FR15]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_velocity_fr15_max_payment_card_id_merchant_id_count_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_velocity_fr15_max_payment_card_id_merchant_id_count_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_velocity_fr15_max_payment_card_id_merchant_id_count_1d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.card_merch_cnt_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of transactions ({event.card_merch_cnt_1d}) for the same Card ID ({event.payment_card_id}) and MID ({event.merchant_id}), in the last day, is equal or above limit ({localvar.COUNT_LIMIT}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-FR16
+
+### Comment
+
+> Decline payment if the amount of transactions per Card ID and MID, in the past day, is above a set threshold.
+
+### Actions
+
+  * [Cards-Velocity-FR16]
+
+
+
+### Variables
+    
+    
+    AMOUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_velocity_fr16_card_merch_sum_amt_1d"].threshold 
+      ?? merchant_risk_levels__rules_thresholds["cards_velocity_fr16_card_merch_sum_amt_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_velocity_fr16_card_merch_sum_amt_1d"].threshold 
+      ?? 0;
+    
+    //for explanation
+    AMOUNT_CONVERTED = ((event.card_merch_sum_amt_1d ?? 0) * 1.0) /100;
+    AMOUNT_LIMIT_CONVERTED = ((AMOUNT_LIMIT) * 1.0) /100;   
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '') and (event.merchant_id ?? '' != '') 
+    and
+    // Limits
+    AMOUNT_LIMIT > 0
+    and
+    (event.card_merch_sum_amt_1d?? 0) >= AMOUNT_LIMIT 
+
+### Explanation
+
+> Total amount transactions ({event.card_merch_cnt_1d}) for the same Card ID ({event.payment_card_id}) and MID ({event.merchant_id}), in the last day, is equal or above limit ({localvar.AMOUNT_LIMIT_CONVERTED}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-FR17
+
+### Comment
+
+> Alert payment and flag card to be limited if multiple approved transactions with the same amount, in the same MID, in the last day. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Behavior-FR17]
+  * [Limit/Review_Card]
+  * Alert
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_behavior_fr17_max_appr_auth_payment_card_id_merchant_id_amount_as_str_count_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_behavior_fr17_max_appr_auth_payment_card_id_merchant_id_amount_as_str_count_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_behavior_1_max_appr_auth_payment_card_id_merchant_id_amount_as_str_count_1d"].threshold 
+      ?? 0;
+    AMOUNT_LIMIT = 
+      global_default__rules_thresholds["cards_behavior_fr17_max_amount_unified_currency"].threshold ?? 0;
+    //for explanation
+    AMOUNT_CONVERTED = ((event.amount_unified_currency ?? 0) * 1.0) /100;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and (event.payment_card_id ?? '' != '') 
+    and COUNT_LIMIT > 0
+    and AMOUNT_LIMIT > 0
+    // Limits
+    and (event.appr_card_merch_amtstr_cnt_1d ?? 0) >= COUNT_LIMIT 
+    and (event.amount_unified_currency ?? 0) >= AMOUNT_LIMIT // current transaction amount >= 20
+
+### Explanation
+
+> Card transactions with the same amount of {localvar.AMOUNT_CONVERTED} {event.currency_code}, in the same merchant ({event.appr_card_merch_amtstr_cnt_1d}), in the last 24h, are equal or above limit ({localvar.COUNT_LIMIT}). Card ID flagged to be limited. 
+
+### Mark As
+
+N/A
+
+## Cards-Behavior-FR18
+
+### Comment
+
+> Decline payment and block Customer Email if the number of distinct rejected cards per Customer Email, in the last 7 days, is above a set threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Behavior-FR18]
+  * [Auto_Decline_Email]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = global_default__rules_thresholds["cards_behavior_fr18_max_failed_customer_email_countdist_payment_card_id_7d"].threshold ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.fail_email_dist_card_7d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of distinct cards ({event.fail_email_dist_card_7d}) with failed transaction per Customer Email, in the last week, is equal or above limit ({localvar.COUNT_LIMIT}). Customer Email ({event.customer_email}) is flagged to be auto declined 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-FR19
+
+### Comment
+
+> Decline and block Device IP if the number of distinct rejected cards per Device IP, in the last day, is above a set threshold. Depends on 'List Management Service' to put the IP in the configured list.
+
+### Actions
+
+  * [Auto_Decline_IP]
+  * [Cards-Behavior-FR19]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = global_default__rules_thresholds["cards_behavior_fr19_max_failed_ip_countdist_payment_card_id_1d"].threshold ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.fail_ip_dist_card_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Cards with failed transactions per Device IP ({event.device_ip}), in the last day ({event.fail_ip_dist_card_1d}), are equal or above limit {localvar.COUNT_LIMIT}. Device IP ({event.device_ip}) is flagged to be auto declined.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-FR20
+
+### Comment
+
+> Decline payment if the number of distinct emails for the same card and MID, in the last day, is above a set threshold.
+
+### Actions
+
+  * [Cards-Behavior-FR20]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT =
+      tenanted_rules_thresholds["cards_behavior_fr20_max_payment_card_id_merchant_id_countdist_customer_email_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_behavior_fr20_max_payment_card_id_merchant_id_countdist_customer_email_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_behavior_fr20_max_payment_card_id_merchant_id_countdist_customer_email_1d"].threshold 
+      ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.card_merch_dist_email_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of distinct Customer Email per card ({event.payment_card_id}) and MID ({event.merchant_id}), in the last day ({event.card_merch_dist_email_1d}), is equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-FR21
+
+### Comment
+
+> Decline payment if the number of distinct failed card transactions per Customer Email and MID, in the last week, is above a set threshold
+
+### Actions
+
+  * [Cards-Behavior-FR21]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_behavior_fr21_max_failed_customer_email_merchant_id_countdist_payment_card_id_7d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_behavior_fr21_max_failed_customer_email_merchant_id_countdist_payment_card_id_7d"].threshold 
+      ?? global_default__rules_thresholds["cards_behavior_fr21_max_failed_customer_email_merchant_id_countdist_payment_card_id_7d"].threshold 
+      ?? 0;
+    
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.fail_email_merch_dist_card_7d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of cards with failed transactions per Email ({event.customer_email}) and MID ({event.merchant_id}), in the last 24h ({event.fail_email_merch_dist_card_7d}), is equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-FR22
+
+### Comment
+
+> Alert payment if the number of distinct cards for the same Device ID and MID, in the last day, is above a set threshold.
+
+### Actions
+
+  * [Limit/Review_Device]
+  * Alert
+  * [Cards-Behavior-FR22]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_behavior_fr22_merch_device_dist_card_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_behavior_fr22_merch_device_dist_card_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_behavior_fr22_merch_device_dist_card_1d"].threshold 
+      ?? 0; 
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.device_id ?? '' != '') and (event.merchant_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.merch_device_dist_card_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of distinct Cards per Device ID ({event.device_id}) and MID ({event.merchant_id}), in the last day ({event.merch_device_dist_card_1d}), is equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+N/A
+
+## Cards-Behavior-FR23
+
+### Comment
+
+> Alert payment if the number of distinct cards for the same Billing Email and MID, in the last day, is above a set threshold.
+
+### Actions
+
+  * Alert
+  * [Cards-Behavior-FR23]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = 
+      tenanted_rules_thresholds["cards_behavior_fr23_merch_bill_email_dist_card_1d"].threshold
+      ?? merchant_risk_levels__rules_thresholds["cards_behavior_fr23_merch_bill_email_dist_card_1d"].threshold 
+      ?? global_default__rules_thresholds["cards_behavior_fr23_merch_bill_email_dist_card_1d"].threshold 
+      ?? 0; 
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.billing_email ?? '' != '') and (event.merchant_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    (event.merch_bill_email_dist_card_1d ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Number of distinct Cards per Billing Email ({event.billing_email}) and MID ({event.merchant_id}), in the last day ({event.merch_bill_email_dist_card_1d}), is equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+N/A
+
+## Cards-MCC-FR24
+
+### Comment
+
+> Decline payment if the number of small amount card transactions per MID with listed MCCs, in the last 15min, is above a set threshold.
+
+### Actions
+
+  * [Cards-MCC-FR24]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT =global_default__rules_thresholds["cards_behavior_fr24_merch_small_amt_cnt_15min"].threshold ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.merchant_id ?? '' != '') and (event.merchant_mcc ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and (event.merch_small_amt_cnt_15min ?? 0) >= COUNT_LIMIT // trx amount <= 10
+    and card_testing_mcc.contains(event.merchant_mcc) // e.g Digital Goods, TaxiCabs, Streaming Services
+
+### Explanation
+
+> MCC is listed ({event.merchant_mcc}) and multiple small amount ({event.amount_unified_currency}) card payments per MID ({event.merchant_id}), in the last 15m ({event.merch_small_amt_cnt_15min}), are equal or above limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-MCC-FR25
+
+### Comment
+
+> Decline payment if MCC is restricted for this BIN
+
+### Actions
+
+  * [Cards-MCC-FR25]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_bin ?? '' != '') and (event.merchant_mcc ?? '' != '')
+    and
+    // Limits
+    restricted_mcc_per_bin.contains(event.merchant_mcc) 
+
+### Explanation
+
+> Card payment with MCC ({event.merchant_mcc}) that is restricted for this BIN ({event.payment_card_bin})
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-MCC-FR26
+
+### Comment
+
+> Decline payment if the transaction amount is above MCC limit.
+
+### Actions
+
+  * [Cards-MCC-FR26]
+
+
+
+### Variables
+    
+    
+    MCC_AMOUNT_LIMIT = mcc_limits[event.merchant_mcc].amt_limit ?? 0; 
+    
+    //for explanations
+    AMOUNT_CONVERTED = ((event.amount_unified_currency ?? 0) * 1.0) /100;
+    MCC_AMOUNT_LIMIT_CONVERTED = ((MCC_AMOUNT_LIMIT) * 1.0) / 100; 
+
+### Condition
+    
+    
+    MCC_AMOUNT_LIMIT > 0
+      and
+    (event.amount_unified_currency ?? 0) >= MCC_AMOUNT_LIMIT 
+
+### Explanation
+
+> Transaction amount ({localvar.AMOUNT_CONVERTED}) is equal or above this MCC limit ({localvar.MCC_AMOUNT_LIMIT_CONVERTED}) (MCC {event.merchant_mcc}). 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-CNP-FR27
+
+### Comment
+
+> Alert payment and flag a card to be limited if it has made multiple CNP transactions in a high number of unique merchants, in the last 5 minutes. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Limit/Review_Card]
+  * Alert
+  * [Cards-CNP-FR27]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = global_default__rules_thresholds["cards_cnp_fr28_max_auth_cnp_payment_card_id_countdist_merchant_id_5m"].threshold ?? 0;
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and
+    (event.payment_card_id ?? '' != '')
+    and
+    // Limits
+    COUNT_LIMIT > 0
+    and
+    // Limits  
+    (event.cnp_card_dist_merch_5min ?? 0) >= COUNT_LIMIT
+
+### Explanation
+
+> Card CNP transactions in unique merchants, in the last 5 minutes ({event.cnp_card_dist_merch_5min}), are equal or over the limit ({localvar.COUNT_LIMIT}). Card ({event.payment_card_id}) flagged to be limited.
+
+### Mark As
+
+N/A
+
+## Cards-Mismatch-FR28
+
+### Comment
+
+> Alert a card payment for listed MIDs if card country mismatch merchant country 
+
+### Actions
+
+  * [Cards-Mismatch-FR28]
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Filters
+    event.payment_method_type == 'card'
+    and (event.payment_card_country_code ?? '' != '') and (event.merchant_country_code ?? '' != '') and (event.merchant_id ?? '' != '')
+    //Limits
+    and listed_merchants__international_payments.contains(event.merchant_id)
+    and event.payment_card_country_code != event.merchant_country_code 
+
+### Explanation
+
+> Mismatch between Card Country ({event.payment_card_country_code}) and Merchant Country ({event.merchant_country_code}) and MID ({event.merchant_id}) is limited to international card payments 
+
+### Mark As
+
+N/A
+
+## Cards-BinAttack-FR29
+
+### Comment
+
+> Ratio of distinct card_id and distinct expiry dates per BIN and Merchant in the last 10m is below threshold, indicating a possible BIN attack.
+
+### Actions
+
+  * [Cards-BinAttack-FR29]
+
+
+
+### Variables
+    
+    
+    // curve7 (th7) is expected to have better results then the others (good compromise between number of alerts and detection rate)
+    binAttackThreshold = 7; 
+    
+    // merch_cardbin_cur = binary fields to split transactions above and below threshold curve 
+    thresholdDecision = match 
+      if binAttackThreshold == 7 then return event.merch_cardbin_cur7;
+      end 
+    end     
+      
+
+### Condition
+    
+    
+    thresholdDecision
+    and !merchant_id_bin_attacks.contains(event.merchant_id ?? '') // Whitelisted Merchants to be excluded from this rule
+
+### Explanation
+
+> The ratio between distinct card_id ({event.merch_cardbin_cntdist_card_10m}) and distinct exp_date ({event.merch_cardbin_cntdist_cardexpd}), per BIN/Merchant on the last 10m, is below limit { {localvar.binAttackThreshold} }
+
+### Mark As
+
+The outcome of this rule is: **decline**

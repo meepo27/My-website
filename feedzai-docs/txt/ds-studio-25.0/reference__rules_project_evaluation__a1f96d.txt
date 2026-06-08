@@ -1,0 +1,73 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/rules_project_evaluation/
+Title: rules_project_evaluation - DS API
+============================================================
+
+#  `` rules_project_evaluation Â¶
+
+##  `` RulesProjectEvaluation Â¶
+    
+    
+    RulesProjectEvaluation(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.JavaWrapper\)")`
+
+Represents a Rules Project Snapshot Evaluation in Pulse.
+
+###  `` created_at `property` Â¶
+    
+    
+    created_at: datetime
+    
+
+Get the datetime from when the evaluation was created.
+
+###  `` desc `property` Â¶
+    
+    
+    desc: str
+    
+
+Get the user-facing name for the evaluation
+
+###  `` exported_datasource `property` Â¶
+    
+    
+    exported_datasource: Optional[[DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.DataSource\)")]
+    
+
+Get the DataSource exported with the evaluation results, if applicable.
+
+###  `` input_datasource `property` Â¶
+    
+    
+    input_datasource: [DataSource](../datasource/#ds_api.datasource.DataSource "            DataSource \(ds_api.DataSource\)")
+    
+
+Get the DataSource that was used to run the evaluation.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` has_finished_successfully Â¶
+    
+    
+    has_finished_successfully() -> bool
+    
+
+###  `` wait_until_finished Â¶
+    
+    
+    wait_until_finished() -> bool
+    
+
+Waits for the snapshot evaluation to finish and then reloads it.
+
+Returns:
+
+Type | Description  
+---|---  
+`bool` |  True if the evaluation finished successfully.

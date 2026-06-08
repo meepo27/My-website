@@ -1,0 +1,235 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/digital-activity-decision-rules
+Title: Digital Activity - Decision Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Digital Activity - Decision Rules
+
+
+
+On this page
+
+# Digital Activity - Decision Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+_Decision Rules_ provide the final recommendation to whether a financial institution should accept, challenge, or decline a given event. This recommendation is sent via the API response of a request evoked by the relevant endpoint (Authentication, Credential Update, Device, New Payee, Profile Update, Alias). Decision Rules take into consideration the following:
+
+  * The risk level from previous rules projects.
+  * The score set by the model. By default, the solution does not provide a standard model in the workflow, and thus, the default score is 0.
+
+
+
+The _Decision Rules_ apply the following logic:
+
+  * If fraud rules classified an event as:
+    * low risk, the decision is to accept the digital event
+    * high risk, the decision is to decline the digital event
+    * medium risk, the decision is to challenge the digital event
+  * If a model score is:
+    * below a certain threshold, the decision is to accept the digital event
+    * above a certain threshold, the decision is to decline the digital event
+    * between medium and high risk thresholds, the decision is to challenge the digital event
+
+
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Digital Activity - DR1
+
+### Comment
+
+> Decline a digital event if classified as high risk by previous rules
+
+### Actions
+
+  * [DA-DR1]
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.enforced_risk_level ?? event.risk_level)  == 'high'
+
+### Explanation
+
+> [DA-DR1] - Decline - Classified as having a high risk of fraud by previous rules.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - DR2
+
+### Comment
+
+> Decline a digital event if model score is above the threshold
+
+### Actions
+
+  * [DA-DR2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    HIGH_SCORE_THRESHOLD = digital_activity__rules_thresholds["model_high_score"].threshold; 
+    
+    score = event.fraud_score * 1000;
+
+### Condition
+    
+    
+    (score ?? 0) > HIGH_SCORE_THRESHOLD
+
+### Explanation
+
+> [DA-DR2] - Decline - Model score ({localvar.score}) is above the threshold: {localvar.HIGH_SCORE_THRESHOLD}
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Digital Activity - DR3
+
+### Comment
+
+> Mark a digital event to Challenge if classified as medium risk by previous rules
+
+### Actions
+
+  * [DA-DR3]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.enforced_risk_level ?? event.risk_level) == 'medium' 
+
+### Explanation
+
+> [DA-DR3] - Challenge - Classified as having a medium risk of fraud by previous rules.
+
+### Mark As
+
+The outcome of this rule is: **challenge**
+
+## Digital Activity - DR4
+
+### Comment
+
+> Mark a digital event to Challenge if model score is between medium and high risky thresholds
+
+### Actions
+
+  * [DA-DR4]
+
+
+
+### Variables
+    
+    
+    HIGH_SCORE_THRESHOLD = digital_activity__rules_thresholds ["model_high_score"].threshold; 
+    LOW_SCORE_THRESHOLD = digital_activity__rules_thresholds ["model_low_score"].threshold;
+    
+    score = event.fraud_score * 1000; 
+
+### Condition
+    
+    
+    (score ?? 0) >= LOW_SCORE_THRESHOLD
+    and 
+    (score ?? 0) <= HIGH_SCORE_THRESHOLD  
+
+### Explanation
+
+> [DA-DR4] - Challenge - Model score ({localvar.score}) is between the low and high model thresholds ({localvar.LOW_SCORE_THRESHOLD} - {localvar.HIGH_SCORE_THRESHOLD})
+
+### Mark As
+
+The outcome of this rule is: **challenge**
+
+## Digital Activity - DR5
+
+### Comment
+
+> Approve a digital event if classified as low risk by previous rules
+
+### Actions
+
+  * [DA-DR5]
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    (event.enforced_risk_level ?? 'none') == 'low' 
+
+### Explanation
+
+> [DA-DR5] - Approve - Classified as having a low risk of fraud by previous rules. 
+
+### Mark As
+
+The outcome of this rule is: **approve**
+
+## Digital Activity - DR6
+
+### Comment
+
+> Approve a digital event if the model score is below the threshold
+
+### Actions
+
+  * [DA-DR6]
+
+
+
+### Variables
+    
+    
+    LOW_SCORE_THRESHOLD = digital_activity__rules_thresholds["model_low_score"].threshold;
+    
+    score = event.fraud_score * 1000;
+
+### Condition
+    
+    
+    (score ?? 0) < LOW_SCORE_THRESHOLD
+
+### Explanation
+
+> [DA-DR6] - Approve - Model score ({localvar.score}) is below the threshold: {localvar.LOW_SCORE_THRESHOLD}
+
+### Mark As
+
+The outcome of this rule is: **approve**

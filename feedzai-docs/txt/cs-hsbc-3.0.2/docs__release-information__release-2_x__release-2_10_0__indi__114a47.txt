@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3196-Add-bulk-actions--new-columns--search-event-fields--and-permissions
+Title: HSBC-3196-Add-bulk-actions--new-columns--search-event-fields--and-permissions | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-3196-Add-bulk-actions--new-columns--search-event-fields--and-permissions
+
+### Add bulk actions, new columns, search event fields, and permissionsâ
+
+FeatureFTMT-10124HSBC-3196
+
+We've added customizations to Case Manager. These updates include:
+
+  * New Bulk Actions with new permissions: The following actions are available on bulk under the identified permissions:
+
+**Page/Widget**| **Description**| **Permission**  
+---|---|---  
+Transaction history| Add or update reasons| cm:resource:history:reason-bulk:*  
+Transaction history| Change status (Move to Hold, In-progress, Close, or Queue)| cm:resource:history:status-bulk:*  
+Transaction history| Update lists| cm:resource:history:update-list-bulk:*  
+Alert page| Add or update reasons| cm:resource:alert:reason-bulk:*  
+Alert page| Change status (Move to Hold, In-progress, Close, or Queue)| cm:resource:alert:status-bulk:*  
+Alert page| Update lists| cm:resource:alert:update-list-bulk:*  
+  
+  * Search Capability: Users can now search for events based on their Operational Status.
+
+  * Linked Alerts: The 'Linked Alerts' widget has been updated to include the Beneficiary Name and Beneficiary Account Number.
+
+
+

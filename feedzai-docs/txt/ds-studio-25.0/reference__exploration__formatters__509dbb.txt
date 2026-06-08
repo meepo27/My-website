@@ -1,0 +1,105 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/exploration/formatters/
+Title: formatters - DS API
+============================================================
+
+#  `` formatters Â¶
+
+Formatters are utilities for formatting numbers/tables appropriately in HTML code or CSS classes.
+
+##  `` CARDINALITY_SEVERITY_THRESHOLD `module-attribute` Â¶
+    
+    
+    CARDINALITY_SEVERITY_THRESHOLD = 0.9
+    
+
+##  `` FRACTION_SEVERITY_THRESHOLD `module-attribute` Â¶
+    
+    
+    FRACTION_SEVERITY_THRESHOLD = 0.1
+    
+
+##  `` fmt Â¶
+    
+    
+    fmt(name, value, exact=False)
+    
+
+Format for a (name, value).
+
+If name starts with `'f_'` it'll be considered as a fraction to be shown as a percent.
+
+##  `` fmt_amount Â¶
+    
+    
+    fmt_amount(number, significant_digits=3, currency='$')
+    
+
+Format for amount values. Prefixed by (kMBTQ).
+
+##  `` fmt_cardinality_severity Â¶
+    
+    
+    fmt_cardinality_severity(v)
+    
+
+Return the severity of a cardinality.
+
+More than 90% is considered an alert, and a 0 is considered to be ignored.
+
+##  `` fmt_class Â¶
+    
+    
+    fmt_class(text, cls)
+    
+
+Format a text with a given class.
+
+##  `` fmt_color Â¶
+    
+    
+    fmt_color(text, color)
+    
+
+Format a text with a given color.
+
+##  `` fmt_float Â¶
+    
+    
+    fmt_float(v)
+    
+
+Format for float values
+
+##  `` fmt_fraction_severity Â¶
+    
+    
+    fmt_fraction_severity(v)
+    
+
+Return the severity of a fraction.
+
+More than 10% is considered an alert, and a 0 is considered to be ignored.
+
+##  `` fmt_integer Â¶
+    
+    
+    fmt_integer(v, exact=False)
+    
+
+Format for integer values
+
+##  `` fmt_percent Â¶
+    
+    
+    fmt_percent(v)
+    
+
+Format for fractions values to be formatted as a percent.
+
+##  `` formatted Â¶
+    
+    
+    formatted(values)
+    
+
+Return a dictionary similar to the input dictionary but appropriately formatted.

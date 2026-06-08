@@ -1,0 +1,178 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/lists/
+Title: lists - DS API
+============================================================
+
+#  `` lists Â¶  
+  
+DS-API module to manage lists and list items in Pulse.
+
+A List in Pulse is either Simple (`SimpleManagedListModel`) or Complex (`ComplexManagedListModel`). A Pulse List can contain items of the respective type: `SimpleManagedListItemModel` or `ComplexManagedListItemModel`.
+
+Additionally, lists can have tags (`ManagedListTagModel`).
+
+This module also provides a wrapper for `ManagedList`, to simplify list operations like `delete()`, and to provide an API that is more consistent with the rest of the DS-API.
+
+##  `` ComplexManagedListItemModel `module-attribute` Â¶
+    
+    
+    ComplexManagedListItemModel = autoclass([MANAGED_LISTS_CLASSPATH](../#ds_api.MANAGED_LISTS_CLASSPATH "            MANAGED_LISTS_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MANAGED_LISTS_CLASSPATH\)") + 'ComplexManagedListItemModel')
+    
+
+##  `` ComplexManagedListModel `module-attribute` Â¶
+    
+    
+    ComplexManagedListModel = autoclass([MODEL_CLASSPATH](../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'ComplexManagedListModel')
+    
+
+##  `` FieldType `module-attribute` Â¶
+    
+    
+    FieldType = autoclass('com.feedzai.pulse.esp.FieldType')
+    
+
+##  `` Include `module-attribute` Â¶
+    
+    
+    Include = autoclass([PULSE_API_CLASSPATH](../#ds_api.PULSE_API_CLASSPATH "            PULSE_API_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.PULSE_API_CLASSPATH\)") + 'apps.enums.Include')
+    
+
+##  `` ManagedListTagModel `module-attribute` Â¶
+    
+    
+    ManagedListTagModel = autoclass([MANAGED_LISTS_CLASSPATH](../#ds_api.MANAGED_LISTS_CLASSPATH "            MANAGED_LISTS_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MANAGED_LISTS_CLASSPATH\)") + 'ManagedListTagModel')
+    
+
+##  `` SimpleManagedListItemModel `module-attribute` Â¶
+    
+    
+    SimpleManagedListItemModel = autoclass([MANAGED_LISTS_CLASSPATH](../#ds_api.MANAGED_LISTS_CLASSPATH "            MANAGED_LISTS_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MANAGED_LISTS_CLASSPATH\)") + 'SimpleManagedListItemModel')
+    
+
+##  `` SimpleManagedListModel `module-attribute` Â¶
+    
+    
+    SimpleManagedListModel = autoclass([MODEL_CLASSPATH](../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'SimpleManagedListModel')
+    
+
+##  `` ManagedList Â¶
+    
+    
+    ManagedList(pyjnius_java)
+    
+
+Bases: `[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")`
+
+Wrapper for Pulse's Lists. Can handle all list types.
+
+Although one can use the Pulse API directly by accessing the methods of the managed list wrapped by this class with `getManagedList()`, this Python wrapper pulls all those methods to the main class.
+
+Any method implemented by `ManagedList` takes precedence over exposed `self.getManagedList()._java_attributes()` members, to allow ManagedList to implement custom behaviour that overrides the wrapped class's members.
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+##  `` create_tag Â¶
+    
+    
+    create_tag(app: [App](../app/#ds_api.app.App "            App \(ds_api.app.App\)"), tag_name: str)
+    
+
+Creates a new tag (ManagedListTagModel) to use in a Pulse List.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `app` Â¶
+
+|  `[App](../app/#ds_api.app.App "            App \(ds_api.App\)")` |  Pulse Application. |  _required_  
+  
+###  `tag_name` Â¶
+
+|  `str` |  Name of the tag that will be used in the Pulse List. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ManagedListTagModel` |  Pulse List Tag.  
+  
+##  `` get_list_items_manager Â¶
+    
+    
+    get_list_items_manager(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)")) -> JavaClass
+    
+
+Returns Pulse's list item manager.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `pulse` Â¶
+
+|  `[Server](../server/#ds_api.server.Server "            Server \(ds_api.Server\)")` |  The ds_api.Server used to communicate with Pulse. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`AppManagedListItemManager` |  List item manager to manage Pulse list items.  
+  
+##  `` get_list_manager Â¶
+    
+    
+    get_list_manager(pulse: [Server](../server/#ds_api.server.Server "            Server \(ds_api.server.Server\)")) -> JavaClass
+    
+
+Returns Pulse's list model manager.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `pulse` Â¶
+
+|  `[Server](../server/#ds_api.server.Server "            Server \(ds_api.Server\)")` |  The ds_api.Server used to communicate with Pulse. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`ModelManager<ManagedListModel>` |  List manager to manage Pulse lists.

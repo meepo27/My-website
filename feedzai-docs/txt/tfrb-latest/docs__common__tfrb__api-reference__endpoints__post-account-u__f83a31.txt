@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-account-update
+Title: Account Update | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Digital ActivityÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/digital-activity)
+  * Account Update
+
+
+
+Was this page helpful?Â 
+
+# Account Update
+    
+    
+    POST 
+    
+    ## /api/activity/account_update
+
+The customer attempts to change their account, e.g. their account limits.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

@@ -1,0 +1,67 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/creating-a-job-profile
+Title: Creating a Job Profile | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Creating a Data Science project](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/)
+  * [Tuning Job executions with Job Profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/)
+  * Creating a Job Profile
+
+
+
+On this page
+
+# Creating a Job Profile
+
+Was this page helpful?Â 
+
+Pulse allows you to create [job profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles) that can be used to apply a set of property configurations when running jobs. This page describes how to create a job profile.
+
+## How toâ
+
+To create a new job profile, access your application and execute the following actions:
+
+  1. Select the Jobs  tab to have access to the **Job Configuration Profiles** list.
+
+tip
+
+By default, the **Jobs** tab is collapsed under the **Advanced Tabs**. Use the  button to extend this section.
+
+  2. Select the  button to configure a new job profile.
+
+New Job Configuration Profile wizard
+
+When you create a new job profile, the Spark properties that are displayed in the default profile (Pulse Properties Profile or PPP) are automatically copied to this new profile as a base configuration. You can edit these properties and add new ones. However, you cannot delete base properties using the Pulse UI. I f you want to eliminate base properties, you must delete them directly from the pre-configured source (_e.g._ the _pulse.properties_ file). By doing so, the changes are propagated to all the job profiles.
+
+  3. Add a **Name** for the new job profile.
+
+  4. To add new Spark properties:
+
+     1. Insert the name of the Spark property in the **Key** column.
+
+     2. Insert the **value** or encrypted value of the Spark property.
+
+     3. Select the  button.
+
+  5. To edit the value of a property:
+
+     1. Locate the Spark property that you want to change.
+
+     2. Press the current value of the property.
+
+     3. Add a new value or encrypted value and select the  button to save the changes.
+
+Editing spark properties
+
+The values of the base properties are shown in light grey text. The value of new properties and the ones that were edited are shown in black text. You can revert  the edited value of a base property to the one that is defined in the PPP. You can delete  a non-base property from the list.
+
+caution
+
+The gray properties displayed in the job profile table are default properties used for data science jobs. Therefore do not use these properties as a reference for Scheduled Metric Jobs.
+
+
+
+
+## Next stepsâ
+
+Now that you know how to create job profiles, learn how to [select profiles](/pulse/latest/docs/common/pulse/users-guide/creating-a-data-science-project/tuning-job-executions-with-job-profiles/selecting-profiles) to be used in the data science tasks that are executed by Spark jobs.

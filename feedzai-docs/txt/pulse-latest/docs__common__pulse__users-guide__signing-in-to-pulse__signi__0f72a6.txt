@@ -1,0 +1,55 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-as-pulse-administrator
+Title: Signing in as Pulse Administrator | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Signing in to Pulse
+  * [Signing in with Single Sign-On](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/)
+  * Signing in as Pulse Administrator
+
+
+
+On this page
+
+# Signing in as Pulse Administrator
+
+Was this page helpful?Â 
+
+## Whyâ
+
+With Single Sign on (SSO) enabled on Pulse, regular users can only sign in via  SP-initiated. However, Pulse Administrators can still sign in using a static URL:
+    
+    
+    http://<BASE_PULSE_ADDRESS>/pulseviews/login/  
+    
+
+The main driver for this option is to allow Pulse Administrators to create new users using this URL, which otherwise would only be possible with user provisioning. Note that this option should be only used in special situations since the suggested method to create a user is through user provisioning.
+
+## How Toâ
+
+To sign in as Pulse administrator and create a new user execute the following actions:
+
+  1. Access the static URL provided for Pulse Administrators: `http://<BASE_PULSE_ADDRESS>/pulseviews/login/`
+
+  2. Enter your Administrator's credentials.
+
+  3. Select **Administration** in the toolbar.
+
+  4. Open the **Security** tab and add  a new user.
+
+  5. Fill in the user information and select **Save**. On most SSO setups, user authorization is performed on the IDP. In this case the user creation form is the following:
+
+Note that in the case of SSO, the fields are **read-only**. If SSO is configured with authorization in Pulse,
+
+you have to specify if the user is an SSO user or not, and set its authorization properties.
+
+
+
+
+## Next Stepsâ
+
+Learn more about sign in scenarios with SSO:
+
+  * [Signing in via SP-initiated](/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/signing-in-with-single-sign-on/signing-in-via-sp-initiated)
+
+

@@ -1,0 +1,74 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/scenario-testing-for-mm-rules
+Title: Scenario Testing for Merchant Monitoring Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Integration Engineer](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/overview)
+  * [Integration Guide](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/overview)
+  * [Rule Testing](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/overview)
+  * Scenario Testing for Merchant Monitoring Rules
+
+
+
+On this page
+
+# Scenario Testing for Merchant Monitoring Rules
+
+In rule testing, the goal is to ensure that merchant monitoring rules are implemented correctly and that trigger alerts as expected. Along with that, this testing activity also ensures that the different data propagates through the different components of the system as expected.
+
+In order to achieve proper testing, the following validations should be met:
+
+  * Historical / look-back periods, by ensuring that the metrics are correctly calculated.
+  * Alerting frequency, by ensuring the events only trigger according to the defined frequency.
+  * Rule conditions, by ensuring that alerts are triggered correctly.
+
+
+
+This set of validations verifies that the rule is well implemented to fulfill its purpose of detecting risky behavior.
+
+Typically, there are two different categories of data processing:
+
+  * **Real-time:** Data processed in payment instruments and entity updates used for either real-time checks or profile enrichment.
+  * **Batch:** Entity-centric checks (e.g. merchant monitoring) driven by an entity activity under the real-time streams that usually requires heavier computations that are not compliant with strict SLAs or that by nature would imply more volumes for agents if built from a transactional perspective.
+
+
+
+In the Merchant Monitoring use case, those different data domains are processed by the merchant monitoring workflow.
+
+In the real-time workflows, Payments data is processed. That data is then used to calculate the metrics based on the defined historical and look-back periods.
+
+The metrics aggregations (Historical Profiles) used in the MM rules need to be calculated periodically and that calculation is performed using the real-time data that is processed in the Payments workflow. Those metrics allow you to calculate the historical / look-back periods.
+
+## Generic test stepsâ
+
+Each test case consists of the following steps:
+
+  1. Inject a set of transactions in the Payments workflow - This feeds the system with transactions for the historical and look-back periods of the rule under test.
+  2. Trigger a Scheduled Metrics Job (SMJ) - SMJs are responsible for calculating long period profiles based on the corresponding historical/look-back period. , the calculated metrics are stored in the Profile Storage. This is the set of metrics and aggregations that the rules rely on.
+  3. Perform merchant monitoring requests.
+  4. Confirm the expected results in Case Manager.
+
+
+
+To execute the aforementioned steps, some considerations and configurations should be applied to the system. Check the Considerations / Remarks section.
+
+## Considerations / remarksâ
+
+While testing the system, it is important to take some considerations regarding how the system works in production. Some test modeling techniques are applied to enable the testing of complex scenarios in a matter of minutes, thus keeping the functionalities from the system under test unchanged.
+
+### Disabling system automatic triggersâ
+
+#### Scheduled Metrics Jobsâ
+
+In a production environment, the calculation of SMJs is triggered automatically by the system, based on the workflow's internal clock. The workflow clock advances when new events are injected in the system, and holds the highest timestamp from the set of events injected until then.
+
+In the RMPSP Solution, the SMJs are configured to trigger every day by default, meaning that every event injected in a new day would lead to SMJs being triggered.
+
+In a system where automated or manual tests are executed, this mechanism should be controlled while executing the tests, because the historical and loop-back periods should be filled with events first, and the SMJs should be triggered to run afterwards.
+
+### Other useful configurationsâ
+
+#### Current workflow status resetâ
+
+If the environment must restart to its initial state (i.e. a state in which no events are injected in the platform, and the workflow clock is reset to 0), check the [Restart Application with Skip Recovery](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/integration-engineer/integration-guide/rule-testing/testing-endpoints#restart-application-with-skip-recovery) section.

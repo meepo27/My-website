@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-queues
+Title: Configure Queues | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * [Operationalize Fraud Teams](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview)
+  * Configure Queues
+
+
+
+On this page
+
+# Configure Queues
+
+Was this page helpful?Â 
+
+Start configuring your standard setup with queues that reflect different priorities to organize events/alerts, cases, and to assign team members. Check the [Access Workload](/tfrb/latest/docs/common/tfrb/investigate-alerts/access-workload) page to see how fraud analysts use queues to quickly access their work.
+
+tip
+
+**Out-of-the-box settings:** Note that Case Manager offers default configurations for queues. Check them [here](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/out-of-the-box-settings#queues).
+
+## Create queues in Case Managerâ
+
+To create queues in Case Manager, execute the following steps:
+
+  1. In the general menu, hover over the **Settings** icon.
+  2. Select the **Queues** option.
+  3. Use the  button to create a queue.
+
+
+
+### Queue examplesâ
+
+The following table provides you with examples of queues that you can use in Case Manager.
+
+Queue Name| Description| Type  
+---|---|---  
+Event - High Priority| Event without analysis for more than 2 hours| Event  
+Automatically Opened Case| Automatically opened cases with alerted transactions| Case  
+Manual Case - Approved| Manual case for suspicious approved transactions| Case  
+Manual Case - Declined| Manual case for suspicious declined transactions| Case  
+  
+tip
+
+**Manual cases** can be used to [manually organize cases in queues](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/organize-workload-manually#cases).
+
+The field options available in Case Manager to configure queues are:
+
+  * **Name:** Queue name.
+  * **Description:** Brief description of a queue's purpose (e.g. "All alerts in this queue failed to be reviewed in the 24-hour window and their SLA status is 'Breached'").
+  * **Type:** Lets you make the queue specific for either **Events** or **Cases**.
+  * **Users:** Lets you make the queue visible only for certain users. For the standard setup, keep the default option.
+
+
+
+## Next stepsâ
+
+Now that you know how to configure queues, learn how to use them with [automation rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-automation-rules).

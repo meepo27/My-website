@@ -1,0 +1,166 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/error-codes
+Title: Error Codes | Case Manager
+============================================================
+
+On this page  
+  
+# Error Codes
+
+## Comprehensive Listâ
+
+Every error that may occur within the Case Manager context is tagged with a proper error code, in order to allow to identify the source of the problem. Find next all the available codes:
+
+Code| Error| i8n  
+---|---|---  
+AM-0ab06| UNAUTHORIZED| unauthorized.error  
+AM-4a76a| FORBIDDEN| forbidden.error  
+AM-d25da| UNRECOGNIZED| unrecognized.error  
+AM-98023| BAD_CONFIGURATION| configuration.error  
+AM-542bc| BAD_ENTITY| entity.error  
+AM-b09ee| BAD_DATASOURCE| datasource.error  
+AM-17dd7| BAD_LANGUAGE| language.error  
+AM-c2e68| BAD_LANGUAGE_MESSAGE| language.message.error  
+AM-6d55a| BAD_EVENT| event.error  
+AM-a19df| BAD_EVENT_STATUS| event.status.error  
+AM-844da| BAD_EVENT_NOTE| event.note.error  
+AM-bb704| BAD_LIST_OPERATION| list.error  
+AM-e75ad| BAD_LIST_ITEM_OPERATION| list.item.error  
+AM-308c9| BAD_EVENT_REPORT| report.error  
+AM-dc768| BAD_CHANGE_PASSWORD_OPERATION| change.password.error  
+AM-df0b3| BAD_PASSWORD_CREDENTIALS| change.password.wrong.credentials.error  
+AM-f6ad6| EXPIRED_PASSWORD| expired.password.error  
+AM-869cc| BLOCKED_USER| blocked.user  
+AM-71dea| RECENT_PASSWORD| recent.password.not.allowed  
+AM-9f48b| UNKNOWN_PASSWORD_ERROR| unknown.password.not.allowed  
+AM-33a22| EMPTY_PASSWORD| empty.password.not.allowed  
+AM-15f5a| INVALID_PASSWORD| invalid.password  
+AM-637e1| BAD_QUEUE| queue.error  
+AM-b50e1| BAD_EVENT_QUEUE| event.queue.error  
+AM-53c7a| BAD_EVENT_USER| event.user.assignment  
+AM-c812d| BAD_SELECT_USER| select.user  
+AM-7d460| BAD_EVENT_STREAM| event.stream  
+AM-35249| BAD_AUTOMATION| automation.error  
+AM-c4436| BAD_PULSE_EVENT_STATUS| pulse.event.status.error  
+AM-53cee| BAD_AUTOMATION_TRIGGER| automation.trigger.error  
+AM-c44c1| BAD_AUTOMATION_CONDITION| automation.condition.error  
+AM-1ca38| BAD_AUTOMATION_ACTION| automation.action.error  
+AM-2b61a| NON_EMPTY_QUEUE| non.empty.queue  
+AM-1de06| BAD_EVENT_STORAGE| bad.event.storage  
+AM-19fb2| BAD_STATUS_REASON| bad.status.reason  
+AM-bf99e| BAD_FILE| bad.file  
+AM-0c396| BAD_REPORT_TEMPLATE| bad.report.template  
+AM-b1e50| BAD_TIME_ZONE| bad.time.zone  
+AM-0e994| BAD_LOCALE| bad.locale  
+AM-51592| BAD_REPORT| bad.report  
+AM-55d8c| BAD_SLA| sla.error  
+AM-50dd7| SLA_IN_USE| sla.in.use  
+AM-b6f0e| BAD_EVENT_SLA| event.sla.error  
+AM-57a8f| BAD_STATUS| bad.status  
+AM-4e0c1| BAD_WEBHOOK| bad.webhook  
+AM-1afe5| BAD_AUDIT| bad.audit  
+AM-55f18| BAD_MULTITENANCY| bad.multitenancy  
+AM-b03ce| BAD_TOKENIZATION| bad.tokenization  
+AM-eaec2| BAD_EXTENSION| bad.extension  
+AM-672f8| CLASS_NOT_FOUND| class.not.found.error  
+AM-1f019| BAD_IMPLEMENTATION| bad.implementation  
+AM-95a82| BAD_EXTENSION_LOG| extension.log.error  
+AM-2e7dd| BAD_QUEUE_USER| bad.queue.user  
+AM-1249c| QUEUE_WITH_ASSIGNED_USERS| queue.with.assigned.users  
+AM-5e47a| BAD_REVIEW_EVENT| bad.review.event  
+AM-3f659| REVIEW_EVENT_NO_EVENTS| review.event.no.events  
+AM-b01b4| REVIEW_EVENT_NO_CURRENT| review.event.no.current  
+AM-014a0| BAD_SSO_SAML| bad.sso.saml  
+AM-449a0| UNAUTHENTICATED_USER| unauthenticated.user  
+AM-719d9| BAD_PULSE_AUTH_BY| bad.pulse.auth.by  
+AM-b18f5| BAD_SESSION| bad.session  
+AM-8d03c| NO_AUTH_CONFIG| no.auth.config  
+AM-02f6f| BAD_DASHBOARD_TICKET| bad.dashboard.ticket  
+AM-2b893| EMPTY_FIELD| empty.field  
+AM-84eda| BAD_CASE| case.error  
+AM-1b5c3| BAD_CASE_EVENT| case.event.error  
+AM-90356| BAD_CASE_NOTE| case.note.error  
+AM-cba78| SSR_SOMETHING_WRONG| ssr.something.wrong  
+AM-e0ef4| BAD_TENANT_GROUP| bad.tenant.group  
+AM-caa04| PULSE_APP_SOMETHING_WRONG| pulse.app.something.wrong  
+AM-0af6b| BAD_EVENT_FILE| event.file.error  
+AM-76c36| BAD_RULES_BLOCK| bad.rules.block  
+AM-91991| BAD_RULES_TEST_TARGET| bad.rules.test.target  
+AM-61e10| BAD_QUERY_FILTER| bad.query.filter  
+AM-c39e4| UNKNOWN_EVENT_FIELD| unknown.event.field  
+AM-0e20d| BAD_CASE_QUEUE| case.queue.error  
+AM-1db7f| BAD_CASE_USER| case.user.error  
+AM-feaf1| BAD_REVIEW_CASE| bad.review.case  
+AM-309e1| BAD_CASE_STATE| case.state.error  
+AM-72fe7| BAD_REPORT_TEMPLATE_TENANT| bad.report.template.tenant  
+AM-a394e| BAD_REPORT_TENANT| bad.report.tenant  
+AM-76b14| BAD_REVIEW| bad.review.review  
+AM-8eead| REVIEW_NO_CURRENT| bad.review.current  
+AM-f5da3| REVIEW_CASE_NO_CASES| review.case.no.cases  
+AM-8b305| ALREADY_EXISTING_CONFIG| already.existing.config  
+AM-876e8| NO_CANDIDATE_KEY| no.candidate.key  
+AM-f6dc5| BAD_RESET_REQUEST_INTERVAL| bad.reset.request.interval  
+AM-0c6f9| BAD_PASSWORD_RESET| bad.password.reset  
+AM-642ad| BAD_CASE_FILE| bad.case.file  
+AM-68a00| BAD_FILE_ASSOCIATION| file.already.associated  
+AM-c7ac4| BAD_FILE_DELETE_AND_UPDATE| config.files.delete_update  
+AM-42073| ERROR_CREATING_ZIP| file.zip.creation.error  
+AM-54052| UNKNOWN_TARGET_DB_POOL| unknown.target.db.pool  
+AM-c5def| BAD_CASE_AGGREGATOR| bad.case.aggregator  
+AM-66ad9| BAD_SSR_AUDIT| bad.ssr.audit  
+AM-ce11d| BAD_STATE_MACHINE| bad.state.machine.identifier  
+AM-1f42e| INCOMPLETE_IDENTIFIER| incomplete.identifier  
+AM-a8fc9| BAD_CASE_ENRICHER| bad.case.enricher  
+AM-cb8af| BAD_NOTE_TYPE| bad.note.type  
+AM-3fa3c| BAD_CHANNEL| bad.channel.identifier  
+AM-a8281| DUPLICATED_DATABASE_ENTITY| duplicated.database.entity  
+AM-22c08| BAD_QUERY_CHANNEL| bad.query.channel  
+AM-91ea8| UNSUPPORTED_OMNICHANNEL_SEARCH_REQUEST| unsupported.multiple.query.channels  
+AM-e5e32| BAD_CHANNEL_FIELD| bad.channel.field  
+AM-4626d| BAD_CHANNEL_COMMON_FIELD| bad.channel.common.field  
+AM-67604| BAD_EVENT_COMMON| bad.event.common  
+AM-2e2d4| REPORT_FILE_TYPE_NOT_ALLOWED| illegal.report.file.type  
+AM-2377d| BAD_EVENT_CHANNEL_ID| bad.event.channel.id  
+AM-a67be| BAD_EXPORT_EVENT| bad.export.event  
+AM-0e37b| QUERY_TIMEOUT| query.timeout  
+AM-9679c| BAD_SELECT_GROUP| select.group  
+AM-53dcc| BAD_EVENT_VISIBILITY| event.visibility  
+AM-cc43a| BAD_USER_GROUP_CACHE| bad.user.group.cache  
+AM-09bda| FORBIDDEN_EVENT_VISIBILITY| forbidden.event.visibility  
+AM-79a8c| FORBIDDEN_ENTITY_TENANCY| forbidden.entity.tenancy  
+AM-5583e| BAD_CASE_SOURCE_TYPE| bad.case.source.type  
+AM-12a23| AUTO_REVEAL_DISABLED| auto.reveal.disabled  
+AM-357b8| FORBIDDEN_TOKENIZATION| forbidden.tokenization  
+AM-1fe8e| TOKENIZATION_SECRET_NOT_FOUND| tokenization.secret.not.found  
+AM-9c793| BAD_GENERIC_REPORT| bad.generic.report  
+AM-6ca52| BAD_EXPORT| bad.export.generic  
+AM-d009e| BAD_CONDITION| bad.condition  
+AM-df550| BAD_ASSIGN_LOCK_ASSIGNING| bad.assignlock.assigning  
+AM-e5151| BAD_LINKING_CRITERION| bad.linking.criterion  
+AM-ecff2| BAD_LINKING_CRITERION_MD5| bad.linking.criterion.md5  
+AM-e9735| NOT_FOUND_LINKING_CRITERION| notfound.linking.criterion  
+AM-3a828| BAD_OPERATOR| bad.operator  
+AM-15330| FORBIDDEN_ASSIGN_LOCK_ACTION| forbidden.assignlock.action  
+AM-e2edb| BAD_ASYNC_ACTION| bad.async.action  
+AM-aede6| NOT_FOUND_ASYNC_ACTION| notfound.async.action  
+AM-8b7dc| FORBIDDEN_SECURE_METADATA_ACTION| forbidden.secure.metadata  
+AM-ae823| NOT_FOUND_CASE_TYPE| notfound.case.type  
+AM-f2c52| BAD_CASE_TYPE| bad.case.type  
+AM-773c9| FORBIDDEN_CASE_TYPE| forbidden.case.type  
+AM-560c1| FORBIDDEN_ASSIGNEE_CASE_TYPE| forbidden.assignee.case.type  
+AM-b658e| NULL_ROOT_ELEMENT_NAME| null.root.element.name  
+AM-46557| BAD_GUI_CONFIG_LIST_ACTIVE| bad.gui.config.list.active  
+AM-0107e| BAD_GUI_CONFIG_CREATE| bad.gui.config.create  
+  
+## Per action Error Codesâ
+
+Action| Error Code  
+---|---  
+Error while processing an Event coming from Pulse| Error.BAD_EVENT_STREAM  
+Error while handling _Automation Rule_|  While Evaluation Rule's _Trigger_|  Error.BAD_AUTOMATION_TRIGGER  
+While Evaluation Rule's _Condition_|  Error.BAD_AUTOMATION_CONDITION  
+While Executing Rule's _Action_|  Action on _Event Status Change_|  Error.BAD_EVENT_STATUS  
+Action on _Assigning an Event to an Analyst_|  Error.BAD_EVENT_USER  
+Action on _Sending an Event to a Queue_|  Error.BAD_EVENT_QUEUE  
+Action on _Adding an Event's Field to a Block/Allow List_|  Error.BAD_LIST_OPERATION  
+Action on _Assigning an SLA to an Event_|  Error.BAD_SLA  
+Unrecognized Action| Error.BAD_AUTOMATION_ACTION

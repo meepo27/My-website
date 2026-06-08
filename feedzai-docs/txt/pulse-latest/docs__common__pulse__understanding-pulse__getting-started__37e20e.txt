@@ -1,0 +1,51 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/
+Title: Getting Started | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)  
+  * Getting Started
+
+
+
+On this page
+
+# Getting Started
+
+Was this page helpful?Â 
+
+The following pages are a step-by-step tutorial on how to develop a simple application using Pulse. They will guide you through Pulse concepts and tasks described in the User Guide by presenting concrete examples.
+
+These examples focus on detecting fraud in payments, in a transaction monitoring scenario. However, Pulse can tackle other use cases such as anti-money laundering.
+
+This tutorial is just an overview of Pulse's fraud prevention applications to help you get started. You should explore each feature with greater attention to get a better understanding of all the concepts, resorting to the more detailed documentation whenever necessary.
+
+## Objectivesâ
+
+With this tutorial, you will learn how to execute a typical iteration of the [data science loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop), which includes the following stages:
+
+  1. Loading data.
+  2. Processing data.
+  3. Building and evaluating models.
+  4. Building and evaluating rules.
+  5. Creating a workflow that can be deployed in the production environment to process events.
+
+
+
+## Materialsâ
+
+During the course of the tutorial, you will need to use two sample data files:
+
+  * [transactions.csv](/pulse/latest/transactions.csv)
+  * [input.csv](/pulse/latest/input.csv)
+
+
+
+Download them to the `PULSE_SERVER_HOME/var/datasources/` path on the Pulse server where you will be working.
+
+In addition, for the last steps you will need to have an input adapter set up on your server where you will be working.
+
+To get help with the data files or with the input adapter, get in touch with your contact person at Feedzai.
+
+## Next stepsâ
+
+Now that you have everything set up, go ahead and read the following pages to create your first data science resources and compose an event-processing workflow with them.

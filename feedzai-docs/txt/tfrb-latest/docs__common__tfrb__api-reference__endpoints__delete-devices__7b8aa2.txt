@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/delete-devices-reference-data
+Title: Delete Reference Data: devices | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Delete Reference Data: devices
+
+
+
+Was this page helpful?Â 
+
+# Delete Reference Data: devices
+    
+    
+    DELETE 
+    
+    ## /api/referenceData/devices/:key
+
+The Reference Data Delete endpoint allows you to delete 'devices' data from Feedzai.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+
+
+
+OK
+
+Unauthorized

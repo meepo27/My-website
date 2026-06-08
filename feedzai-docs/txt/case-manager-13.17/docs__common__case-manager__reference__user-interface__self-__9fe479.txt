@@ -1,0 +1,154 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/self-service-rules-config
+Title: Self-Service Rules Config | Case Manager
+============================================================
+
+On this page
+
+# Self-Service Rules Config
+
+Starting from Case Manager 6.0, some of the features available for the Self-Service Rules can be configured.
+
+## Root Configurationâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+ruleDetails| object| no| Holds the set of properties to configure some of the sections in the rule details page. For more info, please check the Rule Details section.  
+pollingInterval| number| yes| Holds the polling interval (in milliseconds) used to update the SSR listing and details page. **Default value: 2000**  
+  
+From 10.2.0 Case Manager will wait until the last request is resolved before sending another one:  
+
+
+  * **Case 1:** Client sends a request to Backend. The Backend takes more than 2 seconds to resolve the request. Client tries to send another request after 2 seconds but since the Backend hasn't resolved the last request yet it will wait until the request is resolved.
+
+  
+
+
+  * **Case 2:** Client sends a request to Backend. The Backend takes less than 2 seconds to resolve the request. After 2 seconds, since the last request already was resolved it will send another request.
+
+  
+  
+### Rule Detailsâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+latestTest| object| no| Holds the set of properties to configure the latest test section, in the rule details page. For more info, please check the Latest Test section.  
+  
+#### Latest Testâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+metrics| object[]| no| Holds the set of metrics that should appear in the Latest Test section. Each metric can have the properties defined in the Metric section.  
+  
+##### Metricâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| string| no| Holds the i18n key that points to the metric title.  
+metric| string| no| Holds the metric type. The available metrics are:
+
+  * "hit-rate" - Percentage of events processed that triggered the rule tested.
+  * "hit-rate-count" - Absolute number of events processed that triggered the rule tested.
+  * "amount-hit" - Sum of the amount captured by the rule in the events processed.
+  * "hit-breakdown"* -
+  * "fpr" - Percentage of the false positives compared with the real true negatives.
+  * "precision" - Percentage of the true positives compared with what we believe to be true positives.  
+  
+
+
+***Please check theHit-Breakdown section.**  
+type| string| no*  
+ ***It's only optional when the metric type is "hit-breakdown". Please check theHit-Breakdown section.**| Holds the metric value type. Please check the [Data Types](/docs/common/case-manager/reference/user-interface/data-types) section to see the supported value types.  
+_Ps: When choosing the template data type, the only property available in the templateString is the**value** property._  
+roundPrecision| number| yes| Holds the round precision for metrics that show percentages (e.g. "hit-rate" metric).  
+  
+info
+
+Note that depending on the value for the property **type** , more properties might be required to be added to the metric object. If it is the case, then the required properties are listed in the [Data Types](/case-manager/13.17/docs/common/case-manager/reference/user-interface/data-types) section.
+
+###### Hit-Breakdownâ
+
+When configuring a "hit-breakdown" metric, you don't need to configure the property **type** in the metric object. Instead, you need to configure the **outcomes** property. This property holds the set of outcomes to be presented in the UI, in the context of this metric. It can have the following properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+label| string| no| Holds the label that represents the outcome value. Note that this label doesn't need to be translated.  
+outcome| string| no| Holds the outcome value.  
+color| string| yes| Holds the color that the hit value for this outcome should have in the UI. [Here](https://www.w3schools.com/colors/colors_names.asp) you can find the supported colors.You can either use the color name* or its hexadecimal code.  
+**The color name must be in lowercase (e.g. Blue â blue).**  
+  
+## Suggestionsâ
+
+### Metrics configurationâ
+
+In this section, we share with you the configuration required to configure the Latest Test section as it appears in the following screenshot.
+
+#### Latest Test section configurationâ
+    
+    
+    {  
+     ...,  
+     "ruleDetails": {  
+         "latestTest": {  
+             "metrics": [  
+                {  
+                    "title": "ssr.test-results.hit-rate",  
+                    "metric": "hit-rate",  
+                    "type": "template",  
+                    "templateString": "{{value}}%"  
+                },  
+                {  
+                    "title": "ssr.test-results.hit-rate-count",  
+                    "metric": "hit-rate-count",  
+                    "type": "text"  
+                },  
+                {  
+                    "title": "ssr.test-results.hit-rate-amount",  
+                    "metric": "amount-hit",  
+                    "type": "currency",  
+                    "currencyCode": "USD"  
+                },  
+                {  
+                    "title": "ssr.test-results.hit-rate-count-outcome",  
+                    "metric": "hit-breakdown",  
+                    "outcomes": [  
+                        {  
+                            "label": "false",  
+                            "outcome": "false",  
+                            "color": "red"  
+                        },  
+                        {  
+                            "label": "true",  
+                            "outcome": "true",  
+                            "color": "green"  
+                        }  
+                    ]  
+                },  
+                {  
+                    "title": "ssr.test-results.fpr",  
+                    "metric": "fpr",  
+                    "type": "template",  
+                    "templateString": "{{value}}%",  
+                    "templateConfig": {  
+                        "keyTypes": {  
+                            "value": "text"  
+                        },  
+                        "allRequired": true  
+                    }  
+                },  
+                {  
+                    "title": "ssr.test-results.precision",  
+                    "metric": "precision",  
+                    "type": "template",  
+                    "templateString": "{{value}}%",  
+                    "templateConfig": {  
+                        "keyTypes": {  
+                            "value": "text"  
+                        },  
+                        "allRequired": true  
+                    }  
+                }  
+            ],  
+        }  
+      }  
+    }  
+    

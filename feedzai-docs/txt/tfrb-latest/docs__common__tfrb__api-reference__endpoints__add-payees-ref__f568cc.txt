@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/add-payees-reference-data
+Title: Reference Data: payees | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Reference Data](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/reference-data)
+  * Reference Data: payees
+
+
+
+Was this page helpful?Â 
+
+# Reference Data: payees
+    
+    
+    PUT 
+    
+    ## /api/referenceData/payees/:key
+
+The Reference Data Provisioning endpoint allows you to send 'payees' data to Feedzai that will enrich the real time scoring events.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+
+
+
+OK
+
+Unauthorized

@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/pulse/pulse-audit-base
+Title: Pulse Audit - Base Schema | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Data Exporting Tool](/tfrb/latest/docs/common/tfrb/references/data-exporting-tool/overview)
+  * Pulse Audit
+  * Pulse Audit - Base Schema
+
+
+
+# Pulse Audit - Base Schema
+
+Was this page helpful?Â 
+
+The **Pulse Audit - Base Schema** stores the basic information of Pulse Audit events.
+
+All Pulse Audit schemas add to this base schema and will be available when extracting information for each specific audit type (i.e. Users, SSRs, Rules, Lists or List Items).
+
+Name| Type| Description| Example  
+---|---|---|---  
+`entity_type`| string| The type of entity that was audited.| rules, lists, users, etc.  
+`action_timestamp`| timestamp with time zone| The timestamp at which the action took place.| 2025-09-30 10:25:59.100 +0100  
+`action_type`| string| The type of action that was performed.| login, logout, create, update, delete, etc.  
+`action_user`| string| The user that performed the action.| john.doe  
+`_year`| integer| Year of the export| 2011  
+`_month`| integer| Month of the export| 10  
+`_day`| integer| Day of the export| 15  
+`_hour`| integer| Hour of the export| 13

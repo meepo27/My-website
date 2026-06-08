@@ -1,0 +1,84 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/analyst-performance
+Title: Analyst Performance Dashboard | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Monitor Performance
+  * [Analyze Metrics](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics)
+  * Analyst Performance Dashboard
+
+
+
+On this page
+
+# Analyst Performance Dashboard
+
+The Analyst Performance dashboard allows to analyze and evaluate the performance and efficiency of reviewers and processes. It analyzes the last 24 hours, in order to understand:
+
+  1. How long the decision making process is taking;
+  2. How resources are being used;
+  3. How workload is affected by spikes informing for a better resource allocation.
+
+
+
+The following sections explain the different dashboard metrics in more detail.
+
+## Performance Overviewâ
+
+This section provides a fast overview of the overall average resolution time broken down by individual analyst.
+
+  
+
+
+  * **Average Resolution Time** : Average resolution time over the last 24 hours.
+  * **State Count** : Overall count of all the different status over the different 24-hours periods.
+  * **Average Time by Analyst** : Average resolution time by analyst in minutes.
+  * **Analyst Accuracy** : Matrix of the accuracy of decisions made by analysts. For example, False Negatives and False Positives could indicate that the analysts might need additional training to successfully manage incoming alerts.
+    * **Fraud + True (True Positive)** : An alert that was classified as fraud by an analyst and that was indeed fraud (no further complaints).
+    * **Fraud + False (False Positives)** : An alert that was classified as fraud by an analyst and that was later claimed as not fraud.
+    * **Genuine + True (False Negatives)** : An alert that was classified as genuine by an analyst and that was later claimed as fraud.
+    * **Genuine + False (True Negatives) Accuracy** : An alert that was classified as genuine by an analyst and that was indeed genuine (no further complaints).
+
+
+
+## Resolution Timeâ
+
+The **Resolution Time Over Time** shows the evolution of the resolution time by analyst when compared to the defined SLA. By selecting a specific analyst, individual timelines can be highlighted by analyst for further analysis.
+
+  
+
+
+The Average Resolution by 2-hour intervals helps to identify the busiest shifts so that managers can adjust the staffing needs.
+
+## Team Workloadâ
+
+This section displays the number of alerts assigned by analyst and time period. The darker the blue, the more alerts were assigned during that timeframe.
+
+## Average Resolution Time by Regionâ
+
+This section is especially helpful for globally active customers as it allows to see the transactions of a specific region or country on the map. This way, it's possible to evaluate differences in the decision-making per region, and consequently adjust processes based on locational data.
+
+## Status Distributionâ
+
+This section helps to better understand how many alerts are blocked by or waiting for third parties. In addition, it indicates for how long these alerts have been blocked or on hold.
+
+## Chargebackâ
+
+This section provides an overview of chargebacks (by reason) per analyst over a specified period. The darker the blue, the more chargebacks occurred. This helps to see if specific chargeback codes are trending, and can also help to identify if specific shifts caused more chargeback than others, which could then be further investigated.
+
+  
+
+
+When looking at the rows, darker patterns correspond to chargeback patterns that are most commonly claimed by analysts. On the other hand, when looking at the columns, darker patterns mean that the respective analyst is the one with the most transactions resulting in chargeback, regardless of the chargeback code.
+
+## Tuning Dashboard Resultsâ
+
+This dashboard is dynamic and highly configurable. You can refine metrics by analyst, alert status, or region.
+
+## Learn Moreâ
+
+  * Learn more about the other available dashboards: [Business Overview](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/business-overview) and [Rules Monitoring](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/dashboards/rules-monitoring).
+  * Learn more about [Managing Reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports) and how you can use them to capture and download a snapshot of how your system performed during a given timeframe.
+
+

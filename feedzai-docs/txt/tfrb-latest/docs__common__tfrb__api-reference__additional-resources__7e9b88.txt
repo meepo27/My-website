@@ -1,0 +1,29 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/additional-resources
+Title: Additional Resources | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * Additional Resources
+
+
+
+# Additional Resources
+
+Was this page helpful?Â 
+
+### [AuthenticationAuthenticate through JWTs](/tfrb/latest/docs/common/tfrb/api-reference/authentication)
+
+### [Responses and errorsLearn the successful and error responses, as well as responses for timestamps out of range](/tfrb/latest/docs/common/tfrb/api-reference/responses-errors)
+
+### [IdempotencyIdempotency is a tool designed to ensure the safety and reliability of your API requests](/tfrb/latest/docs/common/tfrb/api-reference/idempotency)
+
+### [CardsIncludes response scenarios, asynchronous operation, and generated fields](/tfrb/latest/docs/common/tfrb/api-reference/digital-activity/additional-resources/authentication-response-scenarios)
+
+### [Digital ActivityIncludes response scenarios, asynchronous operation, generated fields, and BACEN fraud-specific fields](/tfrb/latest/docs/common/tfrb/api-reference/digital-activity/additional-resources/authentication-response-scenarios)
+
+### [Outbound TransfersIncludes response scenarios, asynchronous operation, and generated fields](/tfrb/latest/docs/common/tfrb/api-reference/transfers/additional-resources/transfer-initiation-response-scenarios)
+
+### [Ad-hoc InvestigationsExplains how to send Investigation events to Case Manager's Ad-hoc Customer Investigations channel](/tfrb/latest/docs/common/tfrb/api-reference/ad-hoc-investigations/overview)
+
+### [List ManagementExplains how to use the available API to manage list items](/tfrb/latest/docs/common/tfrb/api-reference/list-management/overview)

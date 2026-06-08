@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview
+Title: Manager Guide | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * Manager Guide
+
+
+
+On this page
+
+# Manager Guide
+
+This guide helps you understand how you can use Case Manager to manage your team and detect suspicious activity more efficiently. As a manager, your main responsibilities can be divided into the tasks described in this page.
+
+## Monitor performanceâ
+
+Leverage dashboards and reports to efficiently monitor the performance of your team as well as the system.
+
+### [Analyze MetricsUse the different dashboards and metrics to monitor how your team and the system are performing.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/analyzing-metrics)
+
+### [Manage ReportsCapture a snapshot of the performance during a given timeframe based on the information from the available dashboards.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports)
+
+## Manage workloadâ
+
+Manage your team's workload according to your business needs.
+
+### Automate processesâ
+
+The high flux of events constantly reaching Case Manager makes it difficult to manually distribute the workload in a timely manner. Case Manager includes various tools that allow you to automate how events and cases are organized and distributed.
+
+### [Manage Automation RulesAutomatically process events and cases according to the specified attributes.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules)
+
+### [Manage SLAsAutomatically process events and cases according to a time-period, ensuring that financial institutions comply with time-sensitive review policies.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas)
+
+### Organize workload manuallyâ
+
+Even with automated processes in place, some situations may require you to manually adjust how the workload is distributed. For example, you may want to manually add an alert to a queue that represents a new pattern, or assign an alert that requires a specific skill set to a given analyst.
+
+### [Assign WorkManually assign alerts and cases to analysts.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/assigning-alerts-and-cases)
+
+### [Manage Access GroupsEnsure that alerts are only visible to the analysts who should have access to them.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-access-groups)
+
+### [Manage CasesGroup related events that require further investigation.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-cases)
+
+### [Manage QueuesSegregate alerts and cases according to the criteria that better fits your needs (e.g. priority, region, business line, etc).](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-queues)
+
+## Manage system configurationsâ
+
+Improve the configurations available to analysts when investigating suspicious behavior.
+
+### [Manage ReasonsSet up the reasons used by analysts when classifying alerts.](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reasons)
+
+For any questions regarding broader concepts in Case Manager's functioning, check the introductory section of [Case Manager's documentation](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/what-is-case-manager).

@@ -1,0 +1,21 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3290-Add-new-fields-to-Outbound-Payments
+Title: HSBC-3290-Add-new-fields-to-Outbound-Payments | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-3290-Add-new-fields-to-Outbound-Payments
+
+### Add new fields to Outbound Paymentsâ
+
+FeatureFTMT-27741HSBC-3290
+
+We've added the following fields to the Outbound Payments schema and the Mobile Outbound extensions:
+
+Field Name| Datatype| Description  
+---|---|---  
+tmx.true_isp| String| The legitimate Internet Service Provider that assigned the original IP address used by an end-user to access the internet. This ISP is tied directly to the user's physical location or device - without any intermediate.  
+tmx.proxy_isp| String| It is the service provider offering proxy IP addresses that mask the user's actual IP address. These includes VPNs, residential proxies, datacenter proxies, and anonymizers. In essence, the ISP visible to the internet is that of the proxy provider, not the user's real ISP.  
+tmx.dns_isp| String| It refers to the ISP seen during Domain Name System (DNS) resolution - the process of converting human-readable domain names into IP addresses. This is typically the ISP of the DSN resolver the user is.  
+  
+Please refer to the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference for more details.

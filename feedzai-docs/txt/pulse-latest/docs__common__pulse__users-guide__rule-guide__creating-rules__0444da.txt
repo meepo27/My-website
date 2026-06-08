@@ -1,0 +1,635 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/built-in-udfs
+Title: Default UDFs | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * [Creating Rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide/creating-rules/)
+  * Default UDFs
+
+
+
+On this page
+
+# Default UDFs
+
+Was this page helpful?Â 
+
+Pulse comes with a set of User-Defined Functions (UDFs) that can be used in PQL expressions to implement richer logic than what's available from the basic built-in functions. This page provides an overview of the available UDFs.
+
+To learn about how to use UDFs, see [Function Calls in PQL](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/using-pql-in-features/function-calls-in-pql#udf-calls).
+
+## Working with stringsâ
+
+### `DataConversionTools` classâ
+
+Package: `com.feedzai.commons.udfs`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| stringToInt(String s)| Converts a String into an Integer. If the given s is null or the value exceeds Integer.MAX_VALUE or Integer.MIN_VALUE , then null is returned.  
+static Long| stringToLong(String s)| Converts a String into a Long. If the given s is null or the value exceeds Long.MAX_VALUE or Long.MIN_VALUE , the nnull is returned.  
+static Double| stringToDouble(String s)| Converts a String into a Double. If the given s is null or the value exceeds Double.MAX_VALUE or Double.MIN_VALUE , then null is returned.  
+static Float| stringToFloat(String s)| Converts a String into a Float. If the given s is null or the value exceeds Float.MAX_VALUE or Float.MIN_VALUE , then null is returned.  
+static String| integerToString(Integer i)| Converts an Integer into a String. If the given Integer is null, null is returned.  
+static String| longToString(Long l)| Converts a Long into a String. If the given Long is null, null is returned.  
+static String| doubleToString(Double d)| Converts a Double into a String. If the given Double is null, null is returned.  
+static String| floatToString(Float f)| Converts a Float into a String. If the given Float is null, null is returned.  
+  
+### `Strings` class (fraud)â
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| levenshteinDistance(String str1, String str2)| Computes the Levenshtein distance (edit distance) of two strings.  
+static Boolean| matches(String input, String like)| Returns true if the input matches the 'like' pattern, using case-sensitive matching.  
+static Boolean| matchesIgnoreCase(String input, String like)| Returns true if the input matches the 'like' pattern, using case-insensitive matching.  
+static String| strcat(Object obj1, Object obj2)| Concatenates two strings.  
+  
+### `Strings` class (cloud)â
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Integer| tokenCount(str: String, delimiter: String)| Returns the number of tokens in a given string, separated by the defined delimiter. For example, `tokenCount("Number of substrings", " ") = 3`.  
+Double| twoGramSimilarity(str1: String, str2: String)| Computes the 2-gram similarity between two strings. The returned value is a double in a range from 0.0 to 1.0, where 0.0 represents the minimum similarity and 1.0 represents maximum similarity. The 2-gram similarity between strings is computed after white space removal. If the given strings are `null` they will be considered empty strings. For more details see the [documentation of NGramDistance](http://lucene.apache.org/core/5_0_0/suggest/org/apache/lucene/search/spell/NGramDistance.html).  
+String| normalize(str: String)| Removes accents and converts the string to lower case. If the input string is null, an empty string is returned.  
+String| normalizeDelWhitespace(str: String)| Removes the accents, deletes white spaces and converts the string to lower case. If the input string is null, an empty string is returned.  
+String| normalizeToAlphanumeric(str: String)| Normalizes the string to contain only ascii alphanumeric symbols. Note that this will strip accents, so "Ã£" will become "a".  
+Boolean| isSubstring(str: String, sub: String)| Returns true if a string contains a given substring in a case insensitive manner.  
+Boolean| isAllCaps(str: String)| Returns true if the input string is all upper case.  
+Boolean| isAllNonWhitespaceCaps(str: String)| Returns true if the input string is all upper case. Ignores white spaces.  
+Integer| strDistance(str1: String, str2: String)| Returns the Levenshtein-distance between two strings.  
+String| extractDigits(str: String)| Returns the digits from a string.  
+String| dropDigits(str: String)| Returns the string after dropping the digits from it.  
+Boolean| isDigits(str: String)| Returns true if the string consists only of digits.  
+Integer| length(str: String)| Returns the length of the string, or 0 if the string is null.  
+Integer| countChars(str: String, chars: String)| Counts the number of characters of "chars" in "str", or 0 if any of the input strings is null.  
+Integer| longestSameLetterSubstringLength(str: String)| Returns the length of the longest substring that is a repetition of the same letter.  
+Integer| longestIncreasingSubstringLength(str: String)| The length of the longest substring that is strictly increasing by one unit, e.g. "defgh".  
+Boolean| containsCyrillic(str: String)| Returns true if a string contains Cyrillic characters. If the string is empty, returns false.  
+Boolean| regexFind(regex: String, str: String)| Returns true if a string matches a given regex pattern. If any of the parameters is empty, the function returns false.  
+Double| keyboardDistance(str: String, step: Int)| Returns the average keyboard distance between every character in a string and the character that precedes it by a given step.  
+Double| numRatio(str: String)| Returns the ratio of digits in the input string.  
+Double| vowelRatio(str: String)| Returns the ratio of vowels (a, e, i, o, u, Ð°, Ð¾, Ñ, Ñ, Ñ) in the input string.  
+Double| distinctCharsRatio(str: String)| Returns the ratio of distinct characters in the input string.  
+  
+### `StringTools` classâ
+
+Package: `com.feedzai.commons.udfs`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| compareTo(String f, String s)| Lexicographically compares string f with string s.  
+static String| concat(String...s)| Joins the elements of the provided array s into a single string object.  
+static Boolean| contains(String f, String s)| Checks if string f contains string s.  
+static String| deleteWhitespace(String s)| Deletes all whitespaces from a string as defined by Character.isWhitespace(char).  
+static Double| getDiceIndex(String f, String s)| Returns the SÃ¸rensenâDice index for a given pair of strings.  
+static Integer| getLevenshteinDistance(String s, String t)| Returns the Levenshtein distance between two strings.  
+static Double| getNormalizedLevenshteinDistance(String s, String t)| Returns the Levenshtein distance between two strings, divided by the length of the longest string.  
+static Integer| length(String text)| Returns the length of a string.  
+static String| lowerCase(String s)| Converts string s to lower case as per String.toLowerCase() .  
+static Boolean| regexMatches(String regex, String text)| Checks if a string matches a given regular expression.  
+static String| regexReplaceAll(String regex, String text, String replacement)| In the text, this function replaces every subsequence that matches the regular expression with the defined replacement.  
+static String| regexReplaceFirst(String regex, String text, String replacement)| In the text, this function replaces the first subsequence that matches the regular expression with the defined replacement.  
+static java.util.List<String>| regexSplit(String regex, String text)| Splits a given text according to a given regex.  
+static String| replace(String text, String find, String replace)| Replaces all occurrences of a string (find) within a text.  
+static java.util.List<String>| split(String s)| Splits the provided text into an array, using whitespace as the separator.  
+static java.util.List<String>| split(String s, String sep)| Splits the provided text into an array, using whitespace as the separator.  
+static String| stripAccents(String s)| Removes accents from a given string.  
+static String| substring(String text, Integer begin)| Gets a substring from the specified string, avoiding exceptions.  
+static String| substring(String text, Integer begin, Integer end)| Gets a substring from the specified string, avoiding exceptions.  
+static String| trim(String s)| Deletes all start and end whitespaces from a string as String.trim().  
+static String| trimToNull(String s)| Deletes all start and end whitespaces from a string as String.trim().  
+static String| upperCase(String s)| Converts a string to upper case as per String.toUpperCase().  
+  
+### `Parse` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Integer| asInt(str: String)| Convert the given string to an integer.  
+Long| asLong(str: String)| Convert the given string to a Long.  
+Double| asDouble(str: String)| Convert the given string to a Double.  
+Boolean| asBoolean(str: String)| Convert the given string to a Boolean.  
+  
+### `MoreStrings` classâ
+
+Package: `com.feedzai.ds.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| countDigits(String s)| Counts the number of digits in a string.  
+static Integer| countLetters(String s)| Counts the number of letters in a string.  
+static Integer| countLowerCase(String s)| Counts the number of lower case letters in a string.  
+static Integer| countUpperCase(String s)| Counts the number of upper case letters in a string.  
+static String| replaceAll(String text, String regex, String replacement)| Replaces the regex occurrence in the text with the replacement.  
+  
+## Working with location and addressesâ
+
+### `Address` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+String| joinAddressFields(name: String, line1: String, line2: String, zip: String, city: String, region: String, country: String)| Joins all the address fields into a single string, including the person's name. Null fields are treated as empty strings.  
+String| joinAddressFields(line1: String, line2: String, zip: String, city: String, region: String, country: String)| Joins all the address fields into a single string, excluding the person's name. Null fields are treated as empty strings.  
+String| extractNumericFields(str: String)| Returns the space separated numeric fields from the address, or an empty string if no numeric fields exist.  
+String| extractNumericFields(line1: String, line2: String, zip: String)| Returns the numeric fields from an address broken down into two lines and zip code. Returns an empty string if no numeric fields exist.  
+Boolean| isMismatch(fields1: String, fields2: String)| Returns true if the fields are not empty and different.  
+String| basicNormalization(address: String)| Normalizes the address to alphanumeric characters.  
+String| basicNormalization(name: String, line1: String, line2: String, zip: String, city: String, region: String, country: String)| Concatenates the parameters and normalizes the string to alphanumeric characters.  
+String| addressNormalizationReplacement(address: String, AddressNormalizationReplacements: Seq[(String, String)])| Applies replacement rules to a basic-normalized address, replacing each source token by its configured abbreviation/value.  
+String| advancedNormalization(address: String)| Replaces address suffixes with their abbreviation (e. g.: street to str), and normalizes the string to alphanumeric characters.  
+String| aggressiveNormalization(address: String)| Executes the advancedNormalization() function, then moves the numbers in the address to the front, and removes arithmetic progression substrings.  
+String| concatNormalizedFields(fields: String*)| Normalizes and concatenates the input strings into a single string. Removes all whitespaces and non-word characters, including applying Strings.normalizeToAlphanumeric().  
+String| concatNormalizedFieldsList(fields: JList[String])| Normalizes and concatenates the input strings into a single string. Removes all whitespaces and non-word characters, including applying Strings.normalizeToAlphanumeric().  
+String| normalizeUsaAddress(zip: String, line1: String)| Normalizes a US address to the most essential information of the address: the first digits of the zip code up to 4 digits, and the first characters of the normalized address line (10-14 characters, depending on the length of the zip), concatenated in <zip>_<normalizedaddress> format, and cut to 15 characters.  
+String| aggressiveNormalizations(input: String*)| Applies aggressive normalization after concatenating the nullable sequence of strings given as input.  
+  
+### `AddressUtils` classâ
+
+Package: `com.feedzai.ds.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| countAddressSuffixes(String input)| Counts the suffixes in an address. Examples for suffixes: _av, ave, avenue, st, str, street_.  
+static Boolean| isEqualsNormalized(String a, String b)| Returns true if the two input strings are equal after making both lower case, removing the address suffixes, ordinals, special characters and spaces.  
+static String| normalizeZipUK(String input)| Normalizes a UK zip code by removing non-alphanumeric characters and, when possible, keeping only the outward-code portion.  
+  
+### `Country` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+staticString| alpha2ToAlpha3(String country)| Converts an [alpha2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code to [alpha3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3).  
+staticInteger| alpha2ToIso(String country)| Converts an alpha2 country code to numeric.  
+staticString| alpha3ToAlpha2(String country)| Converts an alpha3 country code to alpha 2.  
+staticInteger| alpha3ToIso(String country)| Converts an alpha3 country code to numeric.  
+staticString| getContinentFromAlpha2(String country)| Gets the continent from a country by its alpha2 code.  
+staticString| getContinentFromAlpha3(String country)| Gets the continent from a country by its alpha3 code.  
+staticString| getContinentFromIso(Integer country)| Gets the continent from a country by its iso numeric code.  
+staticString| isoToAlpha2(Integer country)| Converts a numeric iso country code to alpha 2.  
+staticString| isoToAlpha3(Integer country)| Converts a numeric iso country code to alpha 3.  
+  
+### `DistanceUtils` classâ
+
+Package: `com.feedzai.commons.udfs.distance`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Double| distance(String curZipCode, String prevZipCode, String curCityName, String prevCityName, String curStateCode, String prevStateCode)| Calculates the approximate distance between two transactions.  
+static Double| gaussianProbability(Double value, Double avg, Double std)| Calculates the gaussian probability (from avg, std) of the given value.  
+static Double| getMostAccurateLatitude(String zipCode, String cityName, String stateCode)| Calculates the most accurate latitude by zip code, city name and state code.  
+static Double| getMostAccurateLongitude(String zipCode, String cityName, String stateCode)| Calculates the most accurate longitude by zip code, city name and state code.  
+static Double| haversine(Double lat1, Double lon1, Double lat2, Double lon2)| Calculates the approximate distance between two locations.  
+  
+### `Geo` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Double| easting(lat: Double, lon: Double, granularity: Double = 1.0)| Returns the X ordinate (easting) in kilometers from a latitude and longitude coordinate pair, apart from a granularity scaling factor. The granularity scale factor defaults to 1.0. Scales the result to 1:granularity km.  
+Double| northing(lat: Double, granularity: Double = 1.0)| Returns the Y ordinate (northing) in kilometers from a latitude coordinate pair, apart from a granularity scaling factor. The granularity scale factor defaults to 1.0. Scales the result to 1:granularity km.  
+String| extractContinentFromCountry(country: String)| Returns the continent code correspondent to the input country code.  
+Double| countryDistInKm(country1: String, country2: String)| Returns the distance of two countries in kilometers.  
+String| extractCountryCodeFromTopLevelDomain(topLevelDomain: String)| Returns an ISO 3166-1 alpha-2 country code from a top-level domain. Returns "AA" if there is no associated country, and null for invalid top-level domains. Example: `Geo.extractCountryCodeFromTopLevelDomain(".pt")` returns `PT`.  
+  
+### `Location` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+staticDouble| calculateTravelVelocity(Double distance, Long timestampStart, Long timestampEnd)| Returns travel velocity in kilometers per hour.  
+staticDouble| distFrom(Double latitude1, Double longitude1, Double latitude2, Double longitude2)| Distance in meters between two points on Earth's surface.  
+staticDouble| distFromInKm(Double atitude1, Double longitude1, Double latitude2, Double longitude2)| Distance in kilometers between two points on Earth's surface.  
+static Double| getCartesianX(Double lat, Double lon)| Converts polar coordinates into absolute coordinates.  
+static Double| getCartesianY(Double lat, Double lon)| Converts polar coordinates into absolute coordinates.  
+static Double| getCartesianZ(Double lat)| Converts polar coordinates into absolute coordinates.  
+staticDouble| getHaversineDistance(Double latitude1, Double longitude1, Double latitude2, Double longitude2)| The Haversine distance (distance on a spherical surface) between two points on Earth's surface.  
+static Double| getLatitudeFromCartesian(Double x, Double y, Double z)| Converts absolute coordinates into polar coordinates.  
+static Double| getLongitudeFromCartesian(Double x, Double y, Double z)| Converts absolute coordinates into polar coordinates.  
+  
+### `LocationBean` classâ
+
+Package: `com.feedzai.commons.udfs.distance`
+
+Functions using a JavaBean that stores the location information from the location CSV file in the ProfileUtils class. See the source of the location data in <http://download.geonames.org/export/zip/>.
+
+Modifier and Type| Function| Description  
+---|---|---  
+String| getCityName()| Gets the city name of the location record.  
+Double| getLatitude()| Gets the latitude of the location record.  
+Double| getLongitude()| Gets the longitude of the location record.  
+String| getStateCode()| Gets the state code of the location record  
+String| getZipCode()| Gets the zip code of the location record.  
+void| setCityName(String cityName)| Sets the city name of the location record.  
+void| setLatitude(Double latitude)| Sets the latitude of the location record.  
+void| setLongitude(Double longitude)| Sets the longitude of the location record.  
+void| setStateCode(String stateCode)| Sets the state code of the location record.  
+void| setZipCode(String zipCode)| Sets the zip code of the location record.  
+String| toString()| Gets the string representation of the location record.  
+  
+### `TaxHeaven` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Boolean| isTaxHaven(countryCode: String)| Returns true if the country is on thetaxHavensISO2CountryCodes list of tax haven country codes. Based on Hines' list from 2010. The country code must be an ISO 3166-1 alpha-2 country code.  
+  
+### `Zip` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Functions for working with postal codes. Country strings must be in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format, e.g. US, RU, PT.
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Double| distFrom(String country1, String zipCode1, String country2, String zipCode2)| Gets the distance in meters between two zip codes  
+static Double| getLatitude(String country, String zipCode)| Returns the latitude from a country and zip code pair  
+static Double| getLongitude(String country, String zipCode)| Returns the longitude from a country and zip code pair  
+static com.feedzai.pulse.fraud.udf.Zip.ZipData| getZipData(String country, String zipCode)| Returns the `{ZipData}` object with the specified country and zipCode  
+  
+## Working with business-related dataâ
+
+### `Card` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Boolean| isValidCardExp(cardExp: String)| Checks if a string is a valid card expiration date using cardExp.matches( regex = "(?:0[1-9]|1[0-2])/[0-9]{2}")  
+Boolean| isDebit(cardCategory: String)| Check whether the card category is "debit". Case insensitive.  
+Boolean| isCredit(cardCategory: String)| Check whether the card category is "credit". Case insensitive.  
+Boolean| isPremium(cardCategory: String)| Check whether the card category is "premium". Case insensitive.  
+Long| daysUntilExpiration(cardExp: String, timestamp: Long)| Returns the number of days until the card expires, counting from the value received in the timestamp parameter.  
+Integer| compareNameToCardname(uname: String, cname: String)| Normalizes the two received parameters, and returns the distance between the two strings using Strings.strDistance(). Case insensitive.  
+  
+### `Business` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Integer| extractMCGFromMCC(mcc: String)| Returns the merchant category group (MCG) code of a given merchant category code (MCC).  
+  
+### `Email` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Boolean| isValid(email: String)| Checks if an email is valid.  
+String| normalizeEmail(email: String)| Normalizes the given email string by converting to lower case and removing whitespace characters.  
+String| extractEmailDomain(email: String)| Extracts the domain of a nullable email address.  
+String| extractEmailTopLevelDomain(email: String)| Extracts the top-level domain of an email address (for example, `.pt`). Returns null if the email is null or invalid. Example: `Email.extractEmailTopLevelDomain("[[email protected]](/cdn-cgi/l/email-protection)")` returns `.pt`.  
+  
+### `EmailUtils` classâ
+
+Package: `com.feedzai.ds.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static String| normalizeEmailAddress(String str)| Normalizes an email address:
+
+  * Removes dots, whitespaces, plus signs, and any tag added after the plus sign.
+  * Converts the email address to lower case.
+  * Converts the _googlemail.com_ domain to _gmail.com._
+
+  
+  
+### `Items` classâ
+
+Package: com.feedzai.ds.udf
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Boolean| keyContains(Object obj, String key, String value)| Returns true if, for the given key, there is at least one value equal to the provided string value.  
+static Boolean| keyContains(Object obj, String key, Boolean value)| Returns true if, for the given key, there is at least one value equal to the provided boolean value.  
+static Boolean| customFieldsContains(Object obj, String key, String value)| Returns true if, for the given key, there is at least one value in `custom_fields` equal to the provided value.  
+static Boolean| containsProduct(Object obj, String productName, String productStyle, String productColor)| Returns true if there is at least one product matching the given name, style, and color combination.  
+static Integer| getDistinctSizes(Object obj)| Returns the number of distinct product sizes in the provided items set, or `-1` if the input is invalid.  
+static Integer| getDistinctPrices(Object obj)| Returns the number of distinct prices in the provided items set, or `-1` if the input is invalid.  
+static Integer| sumQuantity(Object obj)| Returns the sum of item `quantity` values, or `-1` if the input is invalid.  
+static Long| sumPrice(Object obj)| Returns the sum of item `price` values, or `-1` if the input is invalid.  
+static Long| sumPriceUSD(Object obj)| Returns the sum of item `price_usd` values, or `-1` if the input is invalid.  
+  
+### `Phone` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Country codes use ISO 3166-1 two-letter country-code format.
+
+Modifier and Type| Function| Description  
+---|---|---  
+String| countryCode(number: String)| Returns the country code in ISO 3166-1 two-letter country-code format.  
+Boolean| isValidForCountry(number: String, country: String)| Returns true if the phone number is valid for a given country. If no country is provided, the function returns false.  
+String| numberType(number: String, country: String)| Gets the phone number type: Fixed-line, Mobile, Toll-free, Premium Rate, Shared Cost, VoIP and Personal Numbers.  
+Boolean| isMobile(number: String, country: String)| Returns true if the phone number type is mobile.  
+Boolean| isTollFree(number: String, country: String)| Returns true if the phone number type is toll-free.  
+Boolean| isVoIP(number: String, country: String)| Returns true if the phone number type is "VoIP".  
+Boolean| isPremiumRate(number: String, country: String)| Returns true if the phone number type is Premium Rate ("uan").  
+Boolean| isSharedCost(number: String, country: String)| Returns true if the phone number type is Shared Cost.  
+Boolean| isFixedLine(number: String, country: String)| Returns true if the phone number type is Fixed Line.  
+Boolean| isPersonalNumber(number: String, country: String)| Returns true if the phone number type is Personal Number.  
+String| normalizePhoneNumber(number: String)| Normalizes a phone number by removing spaces, replacing '+' by '00', and removing all other characters that are not numbers.  
+  
+## Working with timestampsâ
+
+### `Time` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Long| getDays2Expire(Long timestamp, String expiredate)| Gets the time delta (in days) to expiration.  
+static Long| getDays2Expire(Long timestamp, String expiredate, String format)| Gets the time delta (in days) to expiration.  
+static Integer| getHourOfDay(Long timestamp, String timezone)| Gets the hour of the day for a specific timestamp.  
+static Integer| getLocalHourOfDay(Long timestamp)| Gets the hour of the day for a specific timestamp assuming the local timezone.  
+static Integer| getLocalMonth(Long timestamp)| Gets the month for a specific timestamp assuming the local timezone.  
+static Integer| getLocalMonthDay(Long timestamp)| Gets the day of the month for a specific timestamp assuming the local timezone.  
+static Integer| getLocalWeekDay(Long timestamp)| Gets the day of the week for a specific timestamp assuming the local timezone. 1 - Monday; 7 - Sunday.  
+static Integer| getLocalYear(Long timestamp)| Gets the year for a specific timestamp assuming the local timezone.  
+static Integer| getLocalYearDay(Long timestamp)| Gets the day of the year for a specific timestamp assuming the local timezone.  
+static Long| getMillis2Expire(Long timestamp, String expiredDate)| Gets the time delta (in milliseconds) to expiration.  
+static Long| getMillisAtStartOfDay(Integer year, Integer month, Integer dayOfMonth)| Obtains a UTC timestamp (in milliseconds) from the provided calendar year/month/dayOfMonth.  
+static Integer| getMonth(Long timestamp, String timezone)| Gets the month for a specific timestamp.  
+static Integer| getMonthDay(Long timestamp,String timezone)| Gets the day of the month for a specific timestamp.  
+static Integer| getUTCHourOfDay(Long timestamp)| Gets the hour of the day for a specific timestamp assuming the UTC timezone.  
+static Integer| getUTCMonth(Long timestamp)| Gets the month for a specific timestamp assuming the UTC timezone.  
+static Integer| getUTCMonthDay(Long timestamp)| Gets the day of the month for a specific timestamp assuming the UTC timezone.  
+static Integer| getUTCWeekDay(Long timestamp)| Gets the day of the week for a specific timestamp assuming the UTC timezone. 1 - Monday; 7 - Sunday.  
+static Integer| getUTCYear(Long timestamp)| Gets the year for a specific timestamp assuming the UTC timezone.  
+static Integer| getUTCYearDay(Long timestamp)| Gets the day of the year for a specific timestamp assuming the UTC timezone.  
+static Integer| getWeekDay(Long timestamp, String timezone)| Gets the day of the week for a specific timestamp. 1 - Monday; 7 - Sunday.  
+static Integer| getYear(Long timestamp, String timezone)| Gets the year for a specific timestamp.  
+static Integer| getYearDay(Long timestamp, String timezone)| Gets the day of the year for a specific timestamp.  
+static Long| parseDate(String strDate, String format)| Obtains a UTC timestamp (in milliseconds) from a string representation of a date.  
+static Long| parseExpirationDate(String strDate, String format)| Obtains a UTC timestamp (in milliseconds) from an expiration date string. If the format has no day component, returns the first timestamp of the subsequent month. Example: `Time.parseExpirationDate("202003", "yyyyMM")` returns the timestamp for `2020-04-01 00:00:00.000` (UTC).  
+static Long| parseDateOrNullOnError(String strDate, String format)| Checks if the given parameters can be parsed into a Date in milliseconds.  
+  
+### `TimeTools` classâ
+
+Package: `com.feedzai.commons.udfs`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| dayOfMonth(Long timestamp)| Returns the "day of month" portion of the given timestamp at the default system timezone.  
+static Integer| dayOfMonth(Long timestamp, String timezone)| Returns the "day of month" portion of the given timestamp at the given timezone.  
+static Integer| dayOfWeek(Long timestamp)| Returns the "day of week" portion of the given timestamp at the default system timezone.  
+static Integer| dayOfWeek(Long timestamp, String timezone)| Returns the "day of week" portion of the given timestamp at the given timezone.  
+static Integer| dayOfYear(Long timestamp)| Returns the "day of year" portion of the given timestamp at the default system timezone.  
+static Integer| dayOfYear(Long timestamp, String timezone)| Returns the "day of year" portion of the given timestamp at the given timezone.  
+static Integer| hour(Long timestamp)| Returns the "hour" portion of the given timestamp at the default system timezone.  
+static Integer| hour(Long timestamp, String timezone)| Returns the "hour" portion of the given timestamp at the given timezone.  
+static Integer| minute(Long timestamp)| Returns the "minute" portion of the given timestamp at the default system timezone.  
+static Integer| minute(Long timestamp, String timezone)| Returns the "minute" portion of the given timestamp at the given timezone.  
+static Integer| month(Long timestamp)| Returns the "month" portion of the given timestamp at the default system  
+static Integer| month(Long timestamp, String timezone)| Returns the "month" portion of the given timestamp at the given timezone.  
+static Integer| second(Long timestamp)| Returns the "second" portion of the given timestamp at the default system timezone.  
+static Integer| second(Long timestamp, String timezone)| Returns the "second" portion of the given timestamp at the given timezone.  
+static Integer| weekOfYear(Long timestamp)| Returns the "weekOfYear" portion of the given timestamp at the default system timezone.  
+static Integer| weekOfYear(Long timestamp, String timezone)| Returns the "weekOfYear" portion of the given timestamp at the given timezone.  
+static Integer| year(Long timestamp)| Returns the "year" portion of the given timestamp at the default system timezone.  
+static Integer| year(Long timestamp, String timezone)| Returns the "year" portion of the given timestamp at the given timezone.  
+  
+### `MoreTime` classâ
+
+Package: `com.feedzai.ds.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| getMonthLength(Long timestamp, String timezone)| Calculates the number of days of the month for a given timestamp and timezone.  
+static Integer| getUTCMonthLength(Long timestamp)| Calculates the number of days of the month for a given timestamp in UTC timezone.  
+  
+## Working with JSONâ
+
+### `Json` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+For big JSON documents, consider using the functions described in the AbstractCachedJson class.
+
+Modifier and Type| Function| Description  
+---|---|---  
+String| getString(id: String, json: String, path: String, forceCoersion: Boolean)| Gets a String field from a JSON document, according to a given JSON path expression. If the field is not a String, it can be coerced to one, if the corresponding parameter is set. Otherwise the function logs an error and returns null.  
+String| getString(id: String, json: String, path: String)| Gets a String field from a JSON document, according to a given JSON path expression. If the field is not a String, the function logs an error and returns null.  
+String| getAsString(id: String, json: String, path: String)| Gets a field from a JSON document, as a String, according to a given JSON path expression. If the field is not a string, it will be coerced to one.  
+Boolean| getBoolean(id: String, json: String, path: String)| Gets a Boolean field from a JSON document, according to a given JSON path expression.  
+Integer| getInteger(id: String, json: String, path: String)| Gets an Integer field from a JSON document, according to a given JSON path expression.  
+Long| getLong(id: String, json: String, path: String)| Gets a Long field from a JSON document, according to a given JSON path expression.  
+Float| getFloat(id: String, json: String, path: String)| Gets a Float field from a JSON document, according to a given JSON path expression.  
+Double| getDouble(id: String, json: String, path: String)| Gets a Double field from a JSON document, according to a given JSON path expression.  
+String| getAndConcatStrings(id: String, json: String, paths: JList[String], delim: String)| Gets multiple fields, converted to String, from a JSON document as a concatenated string with their values, according to a given JSON path expression.  
+Boolean| contains(id: String, json: String, path: String)| Checks if a field exists in a JSON document, according to a given JSON path expression.  
+  
+### `AbstractCachedJson` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+This class includes functions for handling big JSON strings. The functions in this class cache the result of the parsing to avoid reparsing on every call. For smaller files, consider using the functions described under the Json class.
+
+Modifier and Type| Function| Description  
+---|---|---  
+String| getString(id: String, json: String, path: String, forceCoersion: Boolean)| Gets a String field from a JSON document, according to a given JSON path expression. If the field is not a String, it can be coerced to one, if the corresponding parameter is set. Otherwise the function logs an error and returns null.  
+String| getString(id: String, json: String, path: String)| Gets a String field from a JSON document, according to a given JSON path expression.If the field is not a String, the function logs an error and returns null.  
+String| getAsString(id: String, json: String, path: String)| Gets a field from a JSON document, as a String, according to a given SON path expression. If the field is not a string, it will be coerced to one.  
+Boolean| getBoolean(id: String, json: String, path: String)| Gets a Boolean field from a JSON document, according to a given JSON path expression.  
+Integer| getInteger(id: String, json: String, path: String)| Gets an Integer field from a JSON document, according to a given JSON path expression.  
+Long| getLong(id: String, json: String, path: String)| Gets a Long field from a JSON document, according to a given JSON path expression.  
+Float| getFloat(id: String, json: String, path: String)| Gets aFloat field from a JSON document, according to a given JSON path expression.  
+Double| getDouble(id: String, json: String, path: String)| Gets aDouble field from a JSON document, according to a given JSON path expression.  
+String| getAndConcatStrings(id: String, json: String, paths: JList[String], delim: String)| Gets multiple fields, converted to String, from a JSON document as a concatenated string with their values, according to a given JSON path expression.  
+Boolean| contains(id: String, json: String, path: String)| Checks if a field exists in a JSON document, according to a given JSON path expression.  
+  
+## Working with collections and complex fieldsâ
+
+### `Collections` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static String| getFieldByKey(Object complexField, String key, String keyValue, String fieldToRetrieve)| Retrieves a field from a complex field by matching tuples with the provided key and key value. Returns an empty string on any validation or lookup error. Example: given `sender_account_limits` with `{"event_type":"ACC_LIMIT","daily_amount":500000}`, calling `com.feedzai.pulse.fraud.udf.Collections.getFieldByKey(sender_account_limits, "event_type", "ACC_LIMIT", "daily_amount")` returns `500000`.  
+static Boolean| contains(java.util.Collection<java.lang.Object> collection, java.lang.Object valueToFind)| Checks if a collection contains a specific value.  
+static Boolean| containsCaseInsensitive(java.util.Collection<java.lang.Object> collection, java.lang.String valueToFind)| Checks if a collection contains a specific value. Ignores casing when testing for equality.  
+  
+### `Collections` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+Tuple| getSampleTuple(set: JSet[Tuple])| Retrieves the next tuple from a JSet of Tuples.  
+  
+### `CollectionUDFs` classâ
+
+Package: `com.feedzai.pulse.pkernel.runtime`
+
+As the CollectionUDFs class is included in the runtime package of Pulse, you don't need to define an alias to use the functions of this class.
+
+Lists vs Maps
+
+The collection called Map of Pulse Query Language (PQL) and Rule Definition Language (RDL) is the equivalent of a Pulse list created under **Lists** . The following table refers to them as **Maps**.
+
+Modifier and Type| Function| Description  
+---|---|---  
+Integer| count(Object collection)| Returns the number of entries in aÂ collectionFails with _UnsupportedOperationException_ Â if _collection_ is neither a Map nor a Collection.
+    
+    
+    // Returns 2
+    CollectionUDF.count(map("a": 1, "b": 2))  
+  
+Boolean| contains(ObjectÂ collection, Object element)| Checks if _element_ is present in _collection._ Fails with _UnsupportedOperationException_ if _collection_ is neither a Map nor a Collection**.**
+    
+    
+     // Returns true
+    CollectionUDF.contains(map("a": 1), 1)  
+  
+Integer| getInt(Object collection, Object? key)| Returns the integer valueÂ associated to _key._ If _collection_ is a List**,** negative keys start at the end of the list (0 is the first and -1 is the last element).Fails with _UnsupportedOperationException_ if _collection_ is neither a Map nor a List or if the value matching key is not null and not a number.Fails with _IllegalArgumentException_ if _collection_ is a List but _key_ is not a non-null Integer.
+    
+    
+    // Returns 5
+    CollectionUDF.getInt(list(1, 3, 5), -1)  
+  
+Long| getLong(Object collection, Object key)|  Returns the long valueÂ associated to _key._ If _collection_ is a List**,** negative keys start at the end of the list (0 is the first and -1 is the last element).Fails with _UnsupportedOperationException_ if _collection_ is neither a Map nor a List or if the value matching key is not null and not a number. Fails with _IllegalArgumentException_ if _collection_ is a List but _key_ is not a non-null Integer.
+    
+    
+    // Returns 3
+    CollectionUDF.getLong(map("a": 3), "a")  
+  
+Float| getFloat(Object collection, Object key)| Returns the float valueÂ associated to _key._ If _collection_ is a List**,** negative keys start at the end of the list (0 is the first and -1 is the last element).Fails with _UnsupportedOperationException_ if _collection_ is neither a Map nor a List or if the value matching key is not null and not a number.Fails with _IllegalArgumentException_ if _collection_ is a List but _key_ is not a non-null Integer.
+    
+    
+    // Returns null
+    CollectionUDF.getFloat(list(null), 0)  
+  
+Double| getDouble(Object collection, Object key)| Returns the double valueÂ associated to _key._ If _collection_ is a List**,** negative keys start at the end of the list (0 is the first and -1 is the last element).Fails with _UnsupportedOperationException_ if _collection_ is neither a Map nor a List or if the value matching key is not null and not a number.Fails with _IllegalArgumentException_ if _collection_ is a List but _key_ is not a non-null Integer.
+    
+    
+    // Returns 2.5
+    CollectionUDF.getDouble(list(3.14, 2.5), 1)  
+  
+string| getString(Object collection, Object key)| Returns the string valueÂ associated to _key._ If _collection_ is a List, negative keys start at the end of the list (0 is the first and -1 is the last element).Fails with _UnsupportedOperationException_ if _collection_ is neither a Map nor a List or if the value matching key is not null and not a string. Fails with _IllegalArgumentException_ if _collection_ is a List but _key_ is not a non-null Integer.
+    
+    
+    // Returns "value"
+    CollectionUDF.getString(map("key": "value"), "key")  
+  
+### `Tuples` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+AnyRef| getField(tuple: Tuple, field: String)| Returns the field value, or null if the tuple doesn't contain the field or if the tuple is null.  
+  
+### `ComplexFields` classâ
+
+Package: `com.feedzai.cloud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+String| getString(map: JMap[String, String], key: String)| Get a string field from a string JMap, according to a given key. If the field is not a string or doesn't exist, the function returns null. This function can't be used in Plans, because PQL does not support calls to UDFs with non-primitive parameters. As an alternative use the getStringObj UDF instead.**This function can't be used in Plans** , because PQL does not support calls to UDFs with non-primitive parameters. As an alternative use the **getStringObj** UDF instead.  
+String| getStringObj(map: AnyRef, key: String)| Get a string field from a string JMap, according to a given key. If the field is not a string or doesn't exist, the function returns null.   
+  
+This function is analogous to getString() but receives the map as an AnyRef. This function is useful when using complex fields in PQL, because PQL does not support calls to UDFs with non-primitive parameters.  
+  
+## Mathematical calculationsâ
+
+### `Maths` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Integer| binNumber(Double value, Double binSize)| Gets the bin number of a value  
+static Double| coalescedSafeDivision(Double numerator, Double denominator)| Divides numerator by denominator with safeguards for bad divisions  
+static Double| diffNormalizeAndCap(Double value, Double expected, Double cap)| Computes the difference between a value and the expected, normalized by the expected value, capped to a maximum  
+static Double| logOfNormalPDF(Double mean, Double std, Double x)| Natural logarithmofnormalPDF(Double, Double, Double)  
+static Double| normalCDF(Double mean, Double std, Double x)| Cumulative distribution function (CDF) for a normal distribution with parameters `mean` and `std` at value `x`.  
+static Double| minimum(Double a, Double b, Double c)| Three-way minimum  
+static Integer| minimum(Integer a, Integer b, Integer c)| Three-way minimum  
+static Double| maximum(Double a, Double b, Double c)| Three-way maximum  
+static Integer| maximum(Integer a, Integer b, Integer c)| Three-way maximum  
+static Double| normalPDF(Double mean, Double std, Double x)| Density of the normal distribution with parameters `mean` and `std` at the value `x`  
+static Double| safeDivision(Double numerator, Double denominator)| Executes a safe division that returns the division value or zero if the operation is not a number or division by zero  
+static Double| safeDivision(Long numerator, Long denominator)| Executes a safe division that returns the division value or zero if the operation is not a number or division by zero  
+static Double| toDeg(Double angle)| Converts radians to degrees  
+static Double| toRad(Double angle)| Converts degrees to radians  
+  
+PDF
+
+The normalPDF function has a corner case defined for when the standard deviation (std) is zero. In that case, it will return either 1 if the value x equals the mean parameter or 0 otherwise. This might affect your feature distribution because the outcome of normalPDF is the likelihood, which is not bound.
+
+## Working with model scoresâ
+
+### `ScoreTransformationUdfs` classâ
+
+Package: `com.feedzai.ds.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Double| amountDependentScoreTransformation(Double rawScore, Double amount, Double intensity, Double cap)| Transforms the model score using the transaction amount parameterized by an intensity factor and an amount cap.  
+static Double| thresholdAndAmountDependentScoreTransformation(double rawScore, long amount, double anchor, Object amountBinAndThresholdObject, double defaultThreshold)| Transforms the model using amount-dependent thresholds and an anchor value.  
+  
+Usage examples:
+
+Transforming scores with the amount-dependent score transformation:
+    
+    
+    com.feedzai.ds.udf.ScoreTransformationUdfs.amountDependentScoreTransformation(  
+        fraud_true_scored  // original score to be transformed  
+        amount   // amount field  
+        0.3      // lower intensity means lower amounts are greatly affected  
+        5000000  // when 'amount > cap', the score remains unchanged. In this case scores for amounts over $50k are unchanged  
+    )  
+    
+
+Transforming scores with piecewise linear transformations dependent on the amount:
+    
+    
+    com.feedzai.ds.udf.ScoreTransformationUdfs.thresholdAndAmountDependentScoreTransformation(  
+        fraud_true_scored,  // original score to be transformed  
+        amount,  // amount field  
+        0.850,   // lower anchor means the raw score is more affected by the transformations  
+        {1000: 0.800, 6750: 0.750, 20420: 0.654},  // mapping amounts to thresholds {amount1: threshold1, amount2: threshold2, ...}  
+        0.500    // default threshold, ie for amounts greater than the max amount above  
+    )  
+    
+
+## Cryptographyâ
+
+### `Crypto` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static String| cryptoHash(String algo, Object obj)| Hashes an object using a hashing algorithm.  
+static String| cryptoHash(String algo, Object obj, String salt)| Hashes an object using a hashing algorithm.  
+static String| md5(Object obj)| Computes the md5 hash of the object.  
+static String| sha512(Object obj)| Computes the sha-512 hash of the object.  
+  
+## Debuggingâ
+
+### `Debug` classâ
+
+Package: `com.feedzai.pulse.fraud.udf`
+
+Modifier and Type| Function| Description  
+---|---|---  
+static Double| debug(Double value, String comment)| Debug function to log a message and a value and return the original object.  
+static Float| debug(Float value, String comment)| Debug function to log a message and a value and return the original object.  
+static Integer| debug(Integer value, String comment)| Debug function to log a message and a value and return the original object.  
+static Long| debug(Long value, String comment)| Debug function to log a message and a value and return the original object.  
+static Short| debug(Short value, String comment)| Debug function to log a message and a value and return the original object.  
+static Integer| debugObject(Object value, String comment)| Debug function to log a message and a value.

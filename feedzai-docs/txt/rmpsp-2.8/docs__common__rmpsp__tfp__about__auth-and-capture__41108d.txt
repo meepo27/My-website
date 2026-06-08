@@ -1,0 +1,30 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/about/auth-and-capture
+Title: Auth and Capture Scenarios | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [About Transaction Fraud for PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/about/overview)
+  * Auth and Capture Scenarios
+
+
+
+# Auth and Capture Scenarios
+
+Typically, authorization and capture requests take place simultaneously via the `authorization_type` field. The authorization allows merchants to ensure customers have sufficient funds for the product / service they're purchasing. The capture allows merchants to collect those funds.
+
+In some cases, however, the capture may take place some time after the authorization has occurred. For example, let's consider a customer who subscribes to a streaming platform using a credit card. After the customer submits the card information, the merchant verifies if the card is valid and then authorizes the purchase, thus allowing the customer to use the service. A few days / weeks later, the merchant moves the funds (i.e. capture occurs at a later time).
+
+Now that you have a high-level understanding of how auth and capture requests work, take a look at the following scenarios to understand how they impact metrics when calculating total amounts in profiles:
+
+Info endpoint scenario| Event flow  
+---|---  
+Payment with authorization and capture taking place simultaneously in a single event| 1\. PSP sends payment event to Feedzai with `authorization_type` = "auth-capture".  
+2\. No further capture event is expected in this case, the final transaction amount considered will be the payment event amount.  
+3\. If the `authorization_type` field is null, Feedzai assumes its value to be "auth-capture", and therefore, the amount to be considered is the payment event amount.  
+Payment with capture taking place after authorization, i.e. two separate events| 1\. PSP sends payment event to Feedzai with `authorization_type` = "auth".  
+2\. At a later stage, when capturing the amount, the PSP sends a specific info event to Feedzai with `info_type` = "capture".  
+3\. The amount to be considered for metrics will be the info event amount where `info_type` = "capture".  
+Payment whose card is verified or tokenized before any capture of funds takes place| 1\. PSP sends the first payment event to Feedzai with:  
+Â Â Â Â a. `authorization_type` = "verify".  
+Â Â Â Â b. Amount expected to be 0 (or, e.g. 0.1â¬ if 0 is not allowed).  
+2\. Subsequent payments from the registered card are expected to take place.

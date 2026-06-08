@@ -1,0 +1,100 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/dtp/configuration-dtp
+Title: DTP Configurations | Feedzai Documentation
+============================================================
+
+On this page
+
+# DTP Configurations
+
+In this page you can find the configuration reference for the Data Transfer Pipeline (DTP).
+
+##### info
+
+The Ansible variables described in this page are used to configure DTP for all applications. If different configurations for an application are needed use the `<app_slug>_<property_name>` definition.
+
+## Service propertiesâ
+
+Property| Ansible Variable| Type| Mandatory| Default Value| Description  
+---|---|---|---|---|---  
+enabled| dtp_enabled| BOOLEAN| | false| Boolean flag to enable/disable the DTP service.  
+deployment.color| deployment_color| STRING| | N/A| The current Pulse cluster color. Maps to the Ansible variable `deployment_color`.  
+enableFeatures| dtp_enable_features| BOOLEAN| | true| If the features should be stored or not.  
+gcp.projectId| dtp_gcp_project_id| STRING| X| | The GCP project ID.  
+pubsub.topic.enableCreation| dtp_pubsub_topic_enable_creation| BOOLEAN| | false| Enables the DTP to create the Pub/Sub topic when starting.  
+pubsub.topic.id| dtp_pubsub_topic_id| STRING| When `pubsub.topic.enableCreation` is `false`| | The GCP Pub/Sub topic id, used when topic creation is disabled.  
+pubsub.topic.namePrefix| dtp_pubsub_topic_name_prefix| STRING| When `pubsub.topic.enableCreation` is `true`| | The GCP Pub/Sub topic id prefix used to generate the topic id when topic creation is enabled.  
+pubsub.schema.idPrefix| dtp_pubsub_schema_id_prefix| STRING| X| | The GCP Pub/Sub schema ID prefix.  
+pubsub.subscription.id| dtp_pubsub_subscription_id| STRING| When `pubsub.subscription.enableCreation` is `false`| | The GCP Pub/Sub subscription id, used when subscription creation is disabled.  
+pubsub.subscription.enableCreation| dtp_pubsub_subscription_enable_creation| BOOLEAN| | false| Enables the DTP to create the Pub/Sub subscription when starting.  
+publisher.enableCompression| dtp_pub_enable_compression| BOOLEAN| | true| Enables Pub/Sub publisher message compression.  
+publisher.compressionBytesThreshold| dtp_pub_compression_threshold| NUMBER| | 10| Pub/Sub publisher message compression threshold in bytes.  
+publisher.batch.elementCountThreshold| dtp_pub_batch_element_threshold| NUMBER| | 10| Pub/Sub publisher batch request trigger: messages count.  
+publisher.batch.requestBytesThreshold| dtp_pub_batch_request_threshold| NUMBER| | 1000000| Pub/Sub publisher batch request trigger: request size.  
+publisher.batch.delayThreshold| dtp_pub_batch_delay_threshold| NUMBER| | 100| Pub/Sub publisher batch request trigger: time since last publish in milliseconds.  
+publisher.flow.maxOutstandingElements| dtp_pub_flow_max_outstanding_elements| NUMBER| | 10000| Max messages count the Pub/Sub publisher client can hold in memory.  
+publisher.flow.maxOutstandingRequestBytes| dtp_pub_flow_max_outstanding_request_bytes| NUMBER| | 1500000| Max request size in bytes the Pub/Sub publisher client can hold in memory.  
+batchexecutorservice.batcherImpl| N/A| STRING| | com.*.SimpleBatcher| Implementation of the Batcher that the service should use.  
+batchexecutorservice.batchSize| dtp_bes_batch_size| NUMBER| | 500| Maximum number of operations that will be batched and flushed together.  
+batchexecutorservice.batchTimeout| dtp_bes_batch_timeout| NUMBER| | 1000| How often batches should be executed automatically.  
+batchexecutorservice.consumerWaitingTime| dtp_bes_consumer_waiting_time| NUMBER| | 10| Time in milliseconds that the consumer threads are willing to wait before taking an element of the queue.  
+batchexecutorservice.flushTimeout| dtp_bes_flush_timeout| NUMBER| | 86400000| Maximum time one is willing to wait for the flush operations to take.  
+batchexecutorservice.monitoring.timeUnit| dtp_bes_monitoring_time_unit| STRING| | MINUTES| The time unit used for the metrics reservoir.  
+batchexecutorservice.monitoring.ttl| dtp_bes_monitoring_ttl| NUMBER| | 1| The window size used for the metrics reservoir.  
+batchexecutorservice.pendingQueueSize| dtp_bes_pending_queue_size| NUMBER| | 10000| Capacity of the service's pending queue size.  
+batchexecutorservice.pool.consumerThreads| dtp_bes_consumer_threads| NUMBER| | 1| Number of threads consuming tasks from the pending tasks queue.  
+batchexecutorservice.pool.processingThreads| dtp_bes_pool_processing_threads| NUMBER| | 1| Number of threads processing tasks taken from the pending tasks queue.  
+batchexecutorservice.pool.queueSize| dtp_bes_pool_queue_size| NUMBER| | 1000| Size of the processing pool-backing queue. Expected to be the same as the number of threads, since only one task is submitted for each available thread.  
+batchexecutorservice.pool.threadFactoryName| dtp_bes_pool_thread_factory_name| STRING| | batch-executor-service| The name used on the thread factories of the pools created by the service.  
+batchexecutorservice.shutdowntimeout| dtp_bes_shutdown_time| NUMBER| | 5000| Maximum time one is willing to wait for the service to shutdown.  
+dumpstorageconfig.enabled| dtp_dump_enabled| BOOLEAN| | false| Boolean flag to enable/disable the dump storage system.  
+dumpstorageconfig.dumpDirectory| dtp_dump_directory| STRING| | var/data-transfer-pipeline| The location where to dump the events.  
+dumpstorageconfig.flushingInterval| dtp_dump_flush_interval| NUMBER| | 1000| The flush interval in milliseconds used to flush the writers to disk.  
+dumpstorageconfig.recoveryCronExpression| dtp_dump_recovery_expression| STRING| | 0 0 0/2 ? * * *| The recovery cron expression that defines when the auto-recovery will run. By default, every 2 hours.  
+security.kmsKeyName| dtp_security_kms_key_name| STRING| | | Specifies the customer-managed encryption key (CMEK) used to encrypt data handled by Pub/Sub topics and Dataflow pipeline resources. Should follow the format described in [Configured a topic with CMEK](https://cloud.google.com/pubsub/docs/encryption#configure_a_topic_with_cmek).  
+security.allowedRegions| dtp_security_allowed_regions| STRING| | | A comma-separated list of allowed regions where data may be stored in Pub/Sub. Example: "europe-west1,asia-east2"  
+security.enforceInTransit| dtp_security_enforce_in_transit| BOOLEAN| | false| A boolean flag that enforces in-transit restrictions in Pub/Sub to the same regions defined for storage.  
+security.regionalEndpoint| dtp_security_regional_endpoint| STRING| | | The regional Pub/Sub gRPC service endpoint to use. Mandatory if `enforceInTransit` is enabled. Complete list of endpoints [here](https://cloud.google.com/pubsub/docs/reference/service_apis_overview#list_of_locational_endpoints).  
+  
+### Dataflow job propertiesâ
+
+##### info
+
+If a Dataflow job is already running, changes to these properties will not be applied when republishing the Pulse app if there are no changes in the schema.
+
+Property| Ansible Variable| Type| Mandatory| Default Value| Description  
+---|---|---|---|---|---  
+dataflow.region| dtp_dataflow_region| STRING| X| | GCP Dataflow job region, e.g., 'europe-west1'.  
+dataflow.jobNamePrefix| dtp_dataflow_job_name_prefix| STRING| X| | GCP Dataflow job name prefix.  
+dataflow.tempLocation| dtp_dataflow_temp_location| STRING| X| | GCP Dataflow GCS temp bucket path, e.g., 'gs://dtp/temp'.  
+dataflow.stagingLocation| dtp_dataflow_staging_location| STRING| X| | GCP Dataflow GCS staging bucket path, e.g., 'gs://dtp/staging'.  
+dataflow.outputLocation| dtp_dataflow_output_location| STRING| X| | GCP Dataflow GCS output bucket path, e.g., 'gs://dtp/output'.  
+dataflow.fileToStage| N/A| STRING| | var/data-transfer-pipeline-service/data-transfer-pipeline-service-pipeline-dependencies.jar| GCP Dataflow job dependencies file to stage.  
+dataflow.batchWindow| dtp_dataflow_batch_window| NUMBER| | 1| GCP Dataflow job batch writes window in minutes.  
+dataflow.numShards| dtp_dataflow_number_of_shards| NUMBER| | 0| GCP Dataflow job maximum number of output file shards per batch window (0=auto).  
+dataflow.streamingEnabled| N/A| BOOLEAN| | true| Boolean flag to enable streaming mode for the GCP Dataflow job.  
+dataflow.skipPipelineCreation| dtp_dataflow_skip_pipeline_creation| BOOLEAN| | false| Boolean flag to skip the GCP Dataflow job creation.  
+dataflow.enableAutoscaling| dtp_dataflow_enable_autoscaling| BOOLEAN| | true| Boolean flag to enable/disable the dataflow job autoscaling.  
+dataflow.minimumNumberOfWorkers| dtp_dataflow_minimum_number_of_workers| NUMBER| | 1| Defines the minimum number of workers the Dataflow job needs to keep.  
+dataflow.maximumNumberOfWorkers| dtp_dataflow_maximum_number_of_workers| NUMBER| | 10| Defines the maximum number of workers the Dataflow job can use.  
+dataflow.numberOfWorkers| dtp_dataflow_number_of_workers| NUMBER| | 0| Set the number of workers the Dataflow job uses when the autoscaling is disabled (0=auto).  
+dataflow.workerServiceAccount| dtp_dataflow_worker_service_account| STRING| | | Set the service account that the worker instances use. By default, workers use the Compute Engine default service account of your project.  
+dataflow.network| dtp_dataflow_network| STRING| | | GCP Dataflow job network. If omitted along with `dataflow.subNetwork` the jobs will run on the `default` network.  
+dataflow.subNetwork| dtp_dataflow_subnetwork| STRING| | | GCP Dataflow job subnetwork. If specified, GCP will determine the network and `dataflow.network` can be omitted. This configuration has to be set in the format `regions/REGION_NAME/subnetworks/SUBNETWORK_NAME`.  
+dataflow.usePublicIps| dtp_dataflow_use_public_ips| BOOLEAN| | false| Boolean flag to indicate if the worker pools should be created with public IP addresses.  
+  
+### Inactivity service propertiesâ
+
+##### info
+
+If a Dataflow job is already running, changes to these properties will not be applied when republishing the Pulse app if there are no changes in the schema.
+
+Property| Ansible Variable| Type| Default Value| Description  
+---|---|---|---|---  
+inactivity.topic.enableCreation| dtp_inactivity_topic_enable_creation| BOOLEAN| false| Enables the DTP to create the Pub/Sub inactivity topic when starting.  
+inactivity.topic.id| dtp_inactivity_topic_id| STRING| dtp-inactivity| GCP Pub/Sub inactivity topic ID.  
+inactivity.subscription.id| dtp_inactivity_sub_id| STRING| dtp-inactivity-sub| GCP Pub/Sub inactivity topic subscription ID.  
+inactivity.subscription.ackDeadlineSeconds| dtp_inactivity_sub_ack_deadline| NUMBER| 60| GCP Pub/Sub inactivity topic subscription message ack deadline in seconds.  
+inactivity.delayMinutes| dtp_inactivity_delay| NUMBER| 30| Delay in minutes for the service to start monitoring inactivity.  
+inactivity.thresholdMinutes| dtp_inactivity_threshold| NUMBER| 60| Threshold in minutes for a GCP Dataflow job to be considered inactive.  
+inactivity.enabled| dtp_inactivity_enabled| BOOLEAN| true| Boolean flag to enable/disable the inactivity service.  
+inactivity.subscription.enableCreation| dtp_inactivity_subscription_enable_creation| BOOLEAN| false| Enables the DTP to create the Pub/Sub inactivity subscription when starting.

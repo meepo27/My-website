@@ -1,0 +1,42 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/about/refund-oct-life-cycle
+Title: Refund / OCT Life Cycle | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [About Transaction Fraud for PSPs](/rmpsp/2.8/docs/common/rmpsp/tfp/about/overview)
+  * Refund / OCT Life Cycle
+
+
+
+# Refund / OCT Life Cycle
+
+Learn about Transaction Fraud for PSPs' refund / original credit transaction (OCT) life cycle and understand what happens in each refund's stage.
+
+For the sake of the refund / OCT use case, the life cycle begins after the customer paid for the goods.
+
+  1. The merchant delivers goods to the customer.
+  2. The customer receives the goods.
+  3. Funds are settled.
+  4. The customer requests a refund (e.g. the good hasn't been delivered to their address) or an OCT (e.g. the merchant passes gambling winnings back to the card used to place the bet).
+  5. The Payment Service Provider (PSP) calls Feedzai's Payments API to score the refund / OCT.
+
+info
+
+**Endpoint:** The PSP makes this by invoking the _Info_ POST endpoint. This request is registered in the `info_type` with the `refund` or `oct` value.
+
+caution
+
+**PUT vs POST:** Note that the Info endpoint accepts two methods: POST and PUT. Any INFO event with `info_type=refund/oct` sent as a POST will return a decision outcome and alert flag, whereas an INFO event sent as a PUT will merely ingest the event into Feedzai's system for displaying purposes and metric calculations.
+
+  6. Feedzai's risk engine processes and scores the refund / OCT in real time, and sends the recommendation (Approve/Decline) to the PSP. Note that the event can be alerted regardless of the system decision's recommendation (see step 10).
+  7. The PSP makes an automated decision based on the risk engine recommendation (auto-approve or auto-decline).
+  8. The merchant receives the `approve` or `decline` message.
+  9. If the request is approved, the customer receives the refund / OCT.
+  10. Fraud prevention agents review alerted refunds / OCTs at any time as a post-mortem analysis to provide feedback on fraud/not fraud decisions and improve scoring of subsequent refunds / OCTs.
+
+info
+
+**Endpoint:** This decision is registered in the `feedback_value` field as true or false for `fraud` and `not_fraud`, respectively.
+
+
+

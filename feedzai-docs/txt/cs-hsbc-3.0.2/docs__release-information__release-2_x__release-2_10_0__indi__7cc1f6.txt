@@ -1,0 +1,45 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-2696-Add-new-Case-Manager-enrichment-fields-for-Inbound-Payments
+Title: HSBC-2696-Add-new-Case-Manager-enrichment-fields-for-Inbound-Payments | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-2696-Add-new-Case-Manager-enrichment-fields-for-Inbound-Payments
+
+### Add new Case Manager enrichment fields for Inbound Paymentsâ
+
+FeatureFTMT-24520HSBC-2696
+
+Also In:2.9.0
+
+The following fields can now be enriched when displayed in Case Manager for Inbound Payments events:
+
+  * sender_transaction_code (senderTransactionCodeEnrich)
+  * sender_bank_country_code (countryEnrich)
+  * receiver_bank_country_code (countryEnrich)
+  * is_batch (isBatchEnrich)
+  * payment_type (inboundPaymentTypeEnrich)
+  * payment_status (paymentStatusEnrich)
+  * sender_transaction_original_currency (currencyEnrich)
+
+
+
+With these changes, the field sent in the payload can now be transformed, as long as it is correctly mapped and matches a valid value.
+
+Assuming this, if in an event payload `sender_transaction_code` is `510`, what will be displayed in Case Manager is `Mastercard Other Credit`
+
+These new enriched fields can be added to Case Manager directly via the self-serviceable edit feature. This can be achieved by using the advanced configuration and a template similar to the following:
+    
+    
+    {  
+        "key": "event.fields.sender_transaction_original_currency",  
+        "type": "currencyEnrich",  
+        "title": "Sender Transaction Original Currency"  
+    }  
+    
+
+Copy
+
+##### note
+
+The `type` value should correspond to what is inside the parentheses in the list of new fields above. If the type is not changed, what will be displayed is exactly the same value that is in the payload.

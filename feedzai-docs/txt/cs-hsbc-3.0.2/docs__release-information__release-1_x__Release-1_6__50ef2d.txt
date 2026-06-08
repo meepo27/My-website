@@ -1,0 +1,378 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.6
+Title: Release 1.6 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# What's Changed
+
+## Release `1.6.3`â
+
+### Change Pulse publish task to wait via RMIâ
+
+Bug Fix
+
+We identified issues running the application via REST API when the publish takes more than 10 minutes (in a Cloud environment).
+
+We are changing ths approach by issuing the publish asynchronously via REST (so it can be auditable) and waiting for it to be published via RMI.
+
+## Release `1.6.2`â
+
+### Add `Tmx.request_id` to ETL extractionsâ
+
+Bug Fix
+
+We've fixed an issue where ETL extractions were not including the `Tmx.request_id` field, added in release `1.6.0`.
+
+This is now fixed and the extractions will include the new field.
+
+## Release `1.6.1`â
+
+### Add sender_transaction_original_currency to Pulse APIâ
+
+Feature
+
+One new field was added to the Transfers API:
+
+  * `sender_transaction_original_currency`: The currency in which `sender_transaction_original_amount` was sent, as a `string`.
+
+
+
+This field already existed in the Pulse workflow schema and was already available in Case Manager (although it was not being populated). As of this release, this field is now also available to the Pulse API.
+
+## Release `1.6.0`â
+
+### Enable/disable toggle for AFIS Case Manager extensionsâ
+
+Feature
+
+We have implemented the ability to enable or disable the calling of the AFIS Case Manager extensions via the following two ansible variables (which both default to true to preserve backward compatibility):
+
+  * `afis_payment_fulfillment_cm_extension_enabled`
+  * `afis_mobile_outbound_cm_extension_enabled`
+
+
+
+This will help disable extensions that are not fully configured, to prevent log spam with large stack traces and make it easier to provide meaningful logs during Feedzai support issues.
+
+### Case Manager Enrichment via Pulse Listsâ
+
+Rework
+
+We've added a new feature where Case Manager enrichment can be achieved by using Pulse lists.
+
+To support this feature we've also introduced the following changes:
+
+  * Added the `Case Manager Enrichment Plan` to Pulse with a predefined set of fields to enrich
+  * Added the following Pulse lists for enrichment:
+    * Authentication method
+    * Channel Type
+    * Transaction Type
+    * Transaction Status
+    * Account Type
+    * Sender Transaction Cop Result
+    * CAM Level
+    * Event Type
+    * Event Description
+    * Beneficiary Bank Details
+  * Added Case Mappings for the newly generated fields
+
+
+
+Please check the [Case Manager Event Enrichment Guide](/cs-hsbc/3.0.2/docs/guides/casemanager/event-enrichment) and [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more information.
+
+### Delete Reference Data Endpointâ
+
+Feature
+
+We have implemented endpoints to delete Reference Data. This endpoint allows deleting any of the Reference Data entities sent to Feedzai and performs a hard delete of the entity (i.e. it is not recoverable once deleted). The [API documentation](/cs-hsbc/3.0.2/api#tag/referencedata) has been updated with the new endpoints.
+
+### API additionsâ
+
+Feature
+
+One new field was added to the Transfers API:
+
+  * `sender_transaction_original_amount`: The original amount of the transaction by the sender, in the sender's local currency. This value is a `double` (floating-point). Example: `4.23`
+
+
+
+This field already existed in the Pulse workflow schema and was already available in Case Manager (although it was not being populated). As of this release, this field is now also available to the Pulse API.
+
+### Case Manager Version Upgraded to 13.10.5â
+
+Feature
+
+We've upgraded the Case Manager Version to 13.10.5.
+
+This upgrade will allow to benefit some improvements in performance, mainly regarding inserts into the database.
+
+It also fixes a bug where the use of reasons in Automation Rule conditions was being ignored and not providing the desired outcomes.
+
+### Optimize Transaction History widgetâ
+
+Rework
+
+Transaction history widget in Event details page was taking several seconds to load due to slow event enrichment.
+
+While this may have to be changed in the future, for now, we've moved that enrichment to the client side which should result in that widget loading significantly faster without changing functionality.
+
+### Case Manager Search Page Guardrailsâ
+
+Feature
+
+We've implement a set of guardrails in Case Manager's Search Page to enhance search performance and limit long running queries.
+
+Please find below the changes:
+
+  * Date filter (From/To) is now mandatory and by default is limited to one week
+    * `From` will default to last week
+    * `To` will default to the beginning of the next day
+    * **Note:** these defaults will only be applied when the user does not have any previous search stored in cache
+  * `Get Next` will now search unreviewed events only up to one week, instead of searching without boundary. This value is configurable during installation (check [Case Manager Configuration](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager) for more information)
+  * The maximum number of filters in the search page is now 4 instead of 6
+
+
+
+Find below an example of the search page when a new user logs in:
+
+### Fix ETL extracting duplicate events on time boundariesâ
+
+Bug Fix
+
+We've fixed an issue where events would be extracted twice if their timestamp was precisely on the cron boundaries.
+
+For example, if the ETL is configured to run every hour, prior to this fix an event with timestamp _11:00:00.000_ would be extracted by:
+
+  1. the execution extracting events from _10:00:00.000_ to _11:00:00.000_
+  2. the execution extracting events from _11:00:00.000_ to _12:00:00.000_
+
+
+
+After this fix, the upper bound timestamp is now exclusive and the event would only be extracted by the second execution.
+
+### Refactor quick filtersâ
+
+Feature
+
+We've refactored quick filters in searches to be aligned with the 6 months data retention period.
+
+The refactoring includes the removal of the `All time`, `Last 5 years` and `Last year` options and the inclusion of `Last 6 months` option.
+
+This change applies to the following pages:
+
+  * Alerts page
+  * Customer page (transaction history widget)
+  * Event details page (transaction history widget)
+
+
+
+Please see below an example of the Alerts Page after the change.
+
+### Fix Originator Transaction Amount fieldâ
+
+Bug FixFTMT-13383
+
+We've fixed a misconfiguration in CM that prevented the `Originator Transaction Amount` field from working as expected for the transfers' automation rules.
+
+This field will now show as `Amount` in the Automation Rules conditions configuration.
+
+### Enable Case Manager Garbage Collection logsâ
+
+Feature
+
+We've detected that Case Manager garbage collection logs were not enabled.
+
+These are now enabled by default and are generated in Case Manager `logs` folder with the format `cm_GC_%p_%t.log`.
+
+### Add support for runtime mode in ETLâ
+
+Feature
+
+In previous releases ETL required an updated version of Pulse application to be able to export events. This would mean that when a new project version with schema changes was released a new ETL release was also needed.
+
+In order to configure this mode check our [runtime mode documentation reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl#runtime-mode-notes).
+
+### Add request_id to TMXâ
+
+Feature
+
+We have made changes on the input schema (for the input APIs) and in the workflow schema. Find the changes introduced in the release below.
+
+Field| Datatype| Description  
+---|---|---  
+tmx.request_id| string| Unique identifier for TMX calls  
+  
+### Case Manager Version upgraded to 13.10.4â
+
+Feature
+
+In order to benefit from some improvements in performance, mainly regarding inserts into the database, we've upgrade Case Manager Version to 13.10.4.
+
+### ETL Single Run fixes and improvementsâ
+
+Bug Fix
+
+Depending on the installation structure, some log configurations (e.g.: persist to file in `log` folder) were not applied. This has been fixed and it should now work independently of the installation structure.
+
+Similarly it was reported that `papp_file_path` had to be configured as an absolute path for ETL single run to work. This is no longer necessary. Nonetheless, we recommend leaving it with the default (absolute) path.
+
+Additionally, we've fixed a few inconsistencies on our documentation, namely:
+
+  * ETL Configuration reference now reports the actual default `papp_file_path` \- which is the absolute path
+  * References to `min` / `max` ... `_event_timestamp` where updated to the actual variables `start` / `end` `_event_timestamp`
+
+
+
+### Add missing indices for search fields in Case Manager tablesâ
+
+Bug Fix
+
+Some fields used in Case Manager searches were missing database indices. This release adds indices for the following fields:
+
+  * `sender_phone`, in the Transfers events table
+  * `sender_email`, in the Transfers events table
+  * `lifecycle_id`, in the Digital Activity events table
+  * `amount`, in the Digital Activity events table
+  * `STATUS_ID`, in the Common events table
+  * `amount`, in the Common events table
+  * `score`, in the Common events table
+
+
+
+### Fixed empty JSONs being produced by workflow audit extractionsâ
+
+Bug Fix
+
+Fixed an issue where the Workflow Audit Pipeline would write an empty JSON object to the GCP bucket if there was an error with the HTTP requests to Pulse.
+
+### Fixed missing workflow information extractionsâ
+
+Bug Fix
+
+Fixed an issue that caused application publishes done via Pulse Commands (for example, at the end of a Blue/Green deployment) to be missing from the `pulse-workflow-audit` pipeline extractions.
+
+This was fixed by changing the publish action from an RMI call to Pulse to a REST API call. As a result, a new property `pulse_api_url` is required for the Pulse Ansible role. More information can be found in the [configuration page](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible).
+
+### Change Data Type to prevent Events not being persistedâ
+
+Bug Fix
+
+Some Events were failing to be inserted in the database due to three fields having more than the configured length in the database.
+
+To prevent that these values are no longer an issue and to fix the events not being persisted to the database, we've changed the Data Type of the following fields to `TEXT`:
+
+  * device_user_agent
+  * website_refferer_url
+  * device_language
+
+
+
+### Feedzai Platform Upgradesâ
+
+Feature
+
+We've upgraded to Pulse 25.0.26.
+
+This upgrade introduces a performance increase in the Auto Recovery Job, used to recover events that are spilled to disk.
+
+We've also added a new section in Pulse metrics page with metrics that can be used to monitor the [Auto Recovery Job](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#auto-recovery-job).
+
+### Customer phone number and Email not populating correct values in Search screenâ
+
+Bug Fix
+
+We've fixed a bug where Customer Phone Number and Customer Email were being incorrectly mapped, in the Transfers and Digital Activity tab, on the Search and Alert page.
+
+They are now being mapped for the same fields as in the `All Channels` tab.
+
+### Allow setting environment variables for Liquibaseâ
+
+Bug Fix
+
+Previously Liquibase execution environment was not configurable, which would be useful for setting JVM options for instance.
+
+We now allow this configuration via the following variables:
+
+  * `cm_liquibase_environment`: used in Case Manager pipeline
+  * `pulse_liquibase_environment`: used in Pulse pipeline for database changes
+  * `pulse_commands_environment`: used in Pulse pipeline for application changes
+
+
+
+For more information regarding Pulse configuration options see [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse).
+
+For more information regarding Case Manager configuration options see [Case Manager Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager).
+
+### Allow setting environment variables for ETL scheduled runâ
+
+Bug Fix
+
+Previously we only allowed setting environment variables for ETL in the single run setup.
+
+We now allow this also in the scheduled run by setting the `etl_java_opts` variable as required. For more information see [ETL Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/etl/configuration-etl).
+
+### Add a new page in Pulse that reports the versions being usedâ
+
+Feature
+
+A new page was added to Pulse which reports Pulse, Solution and project versions running on that environment.
+
+The page can be accessed via a web browser, by navigating to `admin/api/version/pulse-details` in Pulse.
+
+### Make PaymentFulfillment extension more resilient to missing valuesâ
+
+Bug Fix
+
+Previously multiple attributes were accessed directly without checking if they were present or not, which potentially could result in a failure that wasn't clear in the logs.
+
+### Input and Workflow Schema Updateâ
+
+Feature
+
+We made changes on the input schema (for the input APIs) and in the workflow schema. Find the changes introduced in the release below.
+
+**Updated fields**
+
+**Old:**
+
+Field| Datatype| Description  
+---|---|---  
+bioc.custom_risk_aliases| double| Additional Biocatch Risk Factors  
+  
+**New:**
+
+Field| Datatype| Description  
+---|---|---  
+bioc.custom_risk_aliases| string| Additional Biocatch Risk Factors  
+  
+### Add Customer Reference Data API fields to Workflow schemaâ
+
+Rework
+
+We've added the following fields from Customer Reference Data API to the schema and data extractions:
+
+  * customer_pb_marker
+  * customer_portfolio_segment
+  * customer_voice_id
+  * customer_voice_id_last_change_date
+
+
+
+The available fields can be consulted in the API documentation: [Reference Data](/cs-hsbc/3.0.2/api#tag/referencedata/operation/addCustomersReferenceData).
+
+##### warning
+
+For the new fields to be available in the ETL extractions, the new ETL version must be installed.
+
+### Edit the Customer FIV Marker field in Customer detailsâ
+
+Rework
+
+We've edited the `Customer FIV Marker` mapping in the Customer Details page from `customer_fiv_marker` to `customer_fiv_markers`.
+
+### Fix Logstash extractions for CM events notesâ
+
+Bug Fix
+
+We've fixed an issue where the Logstash extractions had the wrong schema for the `case-manager-events-notes` pipeline.

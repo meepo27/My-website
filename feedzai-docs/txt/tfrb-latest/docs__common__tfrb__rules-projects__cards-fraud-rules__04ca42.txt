@@ -1,0 +1,818 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/rules-projects/cards-fraud-rules
+Title: Cards - Fraud Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * [Rules Projects](/tfrb/latest/docs/common/tfrb/rules-projects/overview)
+  * Cards - Fraud Rules
+
+
+
+On this page
+
+# Cards - Fraud Rules
+
+Was this page helpful?Â 
+
+### Descriptionâ
+
+Contains rules that look for standard fraud patterns. If triggered, most rules included in this rules project do not auto decline a card. Instead, they mark the event as an alert which can then be further investigated by fraud analysts in Case Manager. Examples of typical patterns covered by these rules include:
+
+  * High-amount spending and increased number of transactions in a short period of time.
+  * High-amount spending in the same merchant in a given time frame by card not present.
+  * Repeated transactions with the same amount.
+  * Number of transactions above a certain threshold.
+  * Unexpected spending behavior.
+  * High cumulative spending amounts.
+  * Transactions in unusual cities and/or currencies.
+  * Multiple CVV attempts in a short period of time.
+
+
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Cards-Velocity-1
+
+### Comment
+
+> Decline transaction and flag card to be limited if travel velocity between the last transaction within the past 1 hour and the current transaction is unreasonably high. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Velocity-1]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    // maximum velocity in km/h
+    VELOCITY_LIMIT = cards__rules_thresholds["max_cp_card_term_vel_1h"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    event.card_presence_flag ?? false
+    and 
+    // Limits
+    event.cp_card_term_vel_1h >= VELOCITY_LIMIT
+
+### Explanation
+
+> [Cards-Velocity-1] - Decline - Card travel velocity ({event.cp_card_term_vel_1h} km/h) between last and current CP transactions in last 1h is higher than limit ({localvar.VELOCITY_LIMIT} km/h). '{eventname.card_id}' {event.card_id} flagged to be limited.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-2
+
+### Comment
+
+> Decline transaction and flag card to be limited if number of transactions made by card within the past 24 hours is above a set threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Velocity-2]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_count_24h"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.auth_cardid_count_1d >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-Velocity-2] - Decline - Card transactions ({event.auth_cardid_count_1d}) in the last 24 hours are above the limit ({localvar.COUNT_LIMIT}). '{eventname.card_id}' {event.card_id} flagged to be limited.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-3
+
+### Comment
+
+> Decline transaction and flag card to be limited if the number of transactions and total amount spent by card within the past 1 hour is above a set threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Velocity-3]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    CNT_LMT = cards__rules_thresholds["max_card_appr_count_1h"].threshold;
+    
+    SUM_AMT_LMT = cards__rules_thresholds["max_card_sum_appr_amount_1h"].threshold;
+    SUM_AMT_LMT_CONV = (SUM_AMT_LMT * 1.0) / 100;
+    
+    SUM_AMT_CONV = (event.appr_auth_cardid_sum_billamosr * 1.0) / 100;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and 
+    // Limits
+    event.appr_auth_cardid_count_1h >= CNT_LMT 
+    and  
+    event.appr_auth_cardid_sum_billamosr >= SUM_AMT_LMT
+
+### Explanation
+
+> [Cards-Velocity-3] - Decline - Card transactions ({event.appr_auth_cardid_count_1h}) and spending ({localvar.SUM_AMT_CONV} {event.currency_code}) in the last 1h are over the limits ({localvar.CNT_LMT} and {localvar.SUM_AMT_LMT_CONV} {event.currency_code}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-4
+
+### Comment
+
+> Decline transaction if the number of transactions made by card within the last 3 minutes is above defined threshold.
+
+### Actions
+
+  * [Cards-Velocity-4]
+  * Alert
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_appr_count_3min"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.appr_auth_cardid_count_3m >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-Velocity-4] - Decline - Card transactions ({event.appr_auth_cardid_count_3m}) in the last 3 minutes is over the limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-5
+
+### Comment
+
+> Distance between current and previous ip location in the last hour exceeds 1000 km (1 hour)
+
+### Actions
+
+  * [Cards-Velocity-5]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    distance = Location.distFromInKm(event.device_ip_latitude,event.device_ip_longitude,event.auth_cnp_cardid_prev_device_ip,event.auth_cnp_cardid_prev_device_sr) ?? 0.0;
+    
+    DISTANCE_LIMIT = cards__rules_thresholds["max_distance_ip_location_km_1h"].threshold;
+    
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and 
+    (event.auth_cnp_cardid_prev_device_ip ?? 0.0 != 0.0) and (event.auth_cnp_cardid_prev_device_sr ?? 0.0 != 0.0)
+    and
+    distance >= DISTANCE_LIMIT
+
+### Explanation
+
+> [Cards-Velocity-5] - Decline - Distance between previous and current IP location in the last hour is higher than {localvar.DISTANCE_LIMIT} km.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-6
+
+### Comment
+
+> Ratio of distinct card_id and distinct expiry dates per BIN and Merchant in the last 10m is below threshold, indicating a possible BIN attack.
+
+### Actions
+
+  * [Cards-Velocity-6]
+  * Alert
+
+
+
+### Variables
+    
+    
+    // curve3 (th3) is expected to have better results then the others (good compromise between number of alerts and detection rate)
+    // other curves are still provided in case there is the need to adjust
+    binAttackThreshold = cards__rules_thresholds["acceptor_cardbin_curve_th"].threshold;  
+    
+    // acceptor_cardbin_cur = binary fields to split transactions above and below threshold curve 
+    thresholdDecision = match 
+      if binAttackThreshold == 0 then return event.acceptorid_cardbin_cur0; 
+      else if binAttackThreshold == 1 then return event.acceptorid_cardbin_cur1; 
+      else if binAttackThreshold == 3 then return event.acceptorid_cardbin_cur3; 
+      else if binAttackThreshold == 5 then return event.acceptorid_cardbin_cur5; 
+      end 
+    end     
+      
+
+### Condition
+    
+    
+    thresholdDecision 
+
+### Explanation
+
+> [Cards-Velocity-6] - Decline - The ratio between distinct card_id ({event.acceptorid_cardbin_cntdist_csr}) and distinct exp_date ({event.acceptorid_cardbin_cntdist_car}) per BIN/Merchant 10m is below {localvar.binAttackThreshold}
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Velocity-7
+
+### Comment
+
+> Ratio of distinct card_id and distinct expiry dates per BIN and MCC in the last 10m is below threshold, indicating a possible BIN attack.
+
+### Actions
+
+  * [Cards-Velocity-7]
+  * Alert
+
+
+
+### Variables
+    
+    
+    // curve3 (th3) is expected to have better results then the others (good compromise between number of alerts and detection rate)
+    // other curves are still provided in case there is the need to adjust
+    binAttackThreshold = cards__rules_thresholds["mcc_cardbin_curve_th"].threshold;  
+    
+    // acceptor_cardbin_cur = binary fields to split transactions above and below threshold curve 
+    thresholdDecision = match 
+      if binAttackThreshold == 0 then return event.mcc_cardbin_cur0; 
+      else if binAttackThreshold == 1 then return event.mcc_cardbin_cur1; 
+      else if binAttackThreshold == 3 then return event.mcc_cardbin_cur3; 
+      else if binAttackThreshold == 5 then return event.mcc_cardbin_cur5; 
+      end 
+    end     
+      
+
+### Condition
+    
+    
+    thresholdDecision 
+
+### Explanation
+
+> [Cards-Velocity-7] - Decline - The ratio between distinct card_id ({event.mcc_cardbin_cntdist_cardid_10m}) and distinct exp_date ({event.mcc_cardbin_cntdist_cardexpdat}) per BIN/MCC 10m is below {localvar.binAttackThreshold}
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-CNP-1
+
+### Comment
+
+> Flag card to be limited if it has made multiple CNP transactions in a high number of unique merchants (acceptor_id) in the last 5 minutes. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-CNP-1]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_cnp_card_distinct_acceptor_5min"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits  
+    event.auth_cnp_cardid_countdist_acce >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-CNP-1] - Card CNP transactions in unique merchants ({event.auth_cnp_cardid_countdist_acce}) in the last 5 minutes are over the limit ({localvar.COUNT_LIMIT}). '{eventname.card_id}' {event.card_id} flagged to be limited.
+
+### Mark As
+
+N/A
+
+## Cards-CNP-2
+
+### Comment
+
+> Decline and flag card to be limited if transaction is CNP and has high amount with an unusual currency. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-CNP-2]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '') and (event.card_presence_flag ?? false == false) and (event.currency_code ?? '' != '')
+    and
+    // Limits
+    event.is_high_amount and
+    !common_currencies.contains(event.currency_code)
+
+### Explanation
+
+> [Cards-CNP-2] - Decline - Card CNP transaction with an high amount in an unusual currency.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Threshold-1
+
+### Comment
+
+> Decline transaction and flag card to be limited if total amount spent by card within the past 24 hours at single Merchant (acceptor_id) is above a defined threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Threshold-1]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["max_card_acceptor_sum_appr_amount_24h"].threshold;
+    SUM_AMOUNT_LIMIT_CONV = (SUM_AMOUNT_LIMIT * 1.0) / 100;
+    
+    SUM_AMOUNT_CONVERTED = (event.appr_auth_cardid_acceptor_sum_ * 1.0) / 100;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.appr_auth_cardid_acceptor_sum_ >= SUM_AMOUNT_LIMIT
+
+### Explanation
+
+> [Cards-Threshold-1] - Decline - Card spending ({localvar.SUM_AMOUNT_CONVERTED} {event.currency_code}) in the last 24 hours is above the limit ({localvar.SUM_AMOUNT_LIMIT_CONVERTED} {event.currency_code}). Card {event.card_id} flagged to be limited.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Threshold-2
+
+### Comment
+
+> Decline transaction if number of transactions made by card within the past 4 weeks is above a set threshold.
+
+### Actions
+
+  * [Cards-Threshold-2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_count_4w"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.auth_cardid_count_4w >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-Threshold-2] - Decline - Card transactions ({event.auth_cardid_count_4w}) in the last 4 weeks are above the limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Threshold-3
+
+### Comment
+
+> Decline transaction and flag card to be limited if amount spent by card within the past 4 weeks is above a set threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Threshold-3]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    SUM_AMOUNT_LIMIT = cards__rules_thresholds["max_card_sum_appr_amount_4w"].threshold;
+    SUM_AMOUNT_LIMIT_CONVERTED = (SUM_AMOUNT_LIMIT * 1.0) / 100;
+    
+    SUM_AMOUNT_CONVERTED = (event.appr_auth_cardid_sum_billamoun * 1.0) / 100;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.appr_auth_cardid_sum_billamoun >= SUM_AMOUNT_LIMIT
+
+### Explanation
+
+> [Cards-Threshold-3] - Decline - Card spending ({localvar.SUM_AMOUNT_CONVERTED} {event.currency_code}) in the last 4 weeks is above the limit ({localvar.SUM_AMOUNT_LIMIT_CONVERTED} {event.currency_code}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Threshold-4
+
+### Comment
+
+> Decline and flag card to be limited if number of high amount transactions made by the same card within the past day is above a set threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * [Cards-Threshold-4]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_appr_count_high_amount_24h"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits (v1: high amount = 1000 USD, check is_high_amount)
+    event.high_amount_appr_auth_cardid_c >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-Threshold-4] - Decline - Card high amount transactions ({event.high_amount_appr_auth_cardid_c} above 1000.00 {event.currency_code}) in the last 24h are over the limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Threshold-5
+
+### Comment
+
+> Decline transaction and flag card to be limited if multiple transactions with a high cumulative amount made by the same card in the same merchant (acceptor_id) in the last 24h. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Limit/Review Card
+  * Alert
+  * [Cards-Threshold-5]
+
+
+
+### Variables
+    
+    
+    CNT_LMT = cards__rules_thresholds["max_card_acceptor_appr_count_24h"].threshold;
+    
+    SUM_AMNT_LMT = cards__rules_thresholds["max_card_acceptor_sum_appr_billamount_24h"].threshold;
+    SUM_A_LMT_CONV = (SUM_AMNT_LMT * 1.0) / 100;
+    
+    SUM_A_CONV = (event.appr_auth_cardid_acceptor_sum_ * 1.0) / 100;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '') 
+    and
+    // Limits
+    event.appr_auth_cardid_acceptor_coun >= CNT_LMT and
+    event.appr_auth_cardid_acceptor_sum_ >= SUM_AMNT_LMT
+
+### Explanation
+
+> [Cards-Threshold-5] - Decline - Card transactions ({event.appr_auth_cardid_acceptor_coun}) and total amount ({localvar.SUM_A_CONV} {event.currency_code}) in the same merchant in the last 24h are over the limits ({localvar.CNT_LMT} and {localvar.SUM_A_LMT_CONV}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Threshold-6
+
+### Comment
+
+> Decline transaction and flag card to be limited if the number of distinct devices per card is higher than threshold. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Limit/Review Card
+  * Alert
+  * [Cards-Threshold-6]
+
+
+
+### Variables
+    
+    
+    DISTINCT_LIMIT = cards__rules_thresholds["max_cnp_card_distinct_device_24h"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and 
+    event.auth_cnp_distinct_device_id_pe >= DISTINCT_LIMIT
+
+### Explanation
+
+> [Cards-Threshold-6] - Decline - Distinct devices per card in the last 24 hours are above limit ({localvar.DISTINCT_LIMIT}). '{eventname.card_id}' {event.card_id} flagged to be limited. 
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-1
+
+### Comment
+
+> Decline and flag card to be limited if the card has a high number of failed transactions in the last 24 hours. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Limit/Review Card
+  * Alert
+  * [Cards-Behavior-1]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_declined_count_24h"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and
+    // Limits
+    event.decline_cardid_count_1d >= COUNT_LIMIT
+
+### Explanation
+
+> [Cards-Behavior-1] - Decline - Card failed transactions ({event.decline_cardid_count_1d}) in the last 24h are over the limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-2
+
+### Comment
+
+> Flag card to be limited if the card had a same amount transaction in the same merchant (acceptor_id) in the last day.
+
+### Actions
+
+  * Limit/Review Card
+  * Alert
+  * [Cards-Behavior-2]
+
+
+
+### Variables
+    
+    
+    COUNT_LIMIT = cards__rules_thresholds["max_card_acceptor_amount_count_appr_24h"].threshold;
+    AMOUNT_LIMIT = cards__rules_thresholds["max_bill_amount"].threshold;
+    
+    AMOUNT_CONVERTED = ((event.cardholder_bill_amount ?? 0)* 1.0) / 100;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '') and (event.cardholder_bill_amount ?? 0 != 0)
+    and
+    // Limits
+    event.appr_auth_cardid_acceptor_bill >= COUNT_LIMIT and 
+    event.cardholder_bill_amount >= AMOUNT_LIMIT
+     
+
+### Explanation
+
+> [Cards-Behavior-2] - Card transactions with the same amount in the same merchant ({event.appr_auth_cardid_acceptor_bill} of {localvar.AMOUNT_CONVERTED} {event.currency_code}) in the last 24h are over the limit ({localvar.COUNT_LIMIT}).
+
+### Mark As
+
+N/A
+
+## Cards-Behavior-3
+
+### Comment
+
+> Decline transaction and flag card to be limited if this transaction is made on very high fraud rate acceptor, previously not used by a card within 6 months. Depends on 'List Management Service' to put the card in the configured list.
+
+### Actions
+
+  * Limit/Review Card
+  * Alert
+  * [Cards-Behavior-3]
+
+
+
+### Variables
+    
+    
+    FRAUD_RATE_LIMIT = cards__rules_thresholds["max_acceptor_fraud_rate_6M"].threshold;
+    COUNT_LIMIT = cards__rules_thresholds["max_acceptor_count_appr_6M"].threshold;
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    // Limits
+    and
+    event.appr_auth_acceptorid_count_6m >= COUNT_LIMIT and 
+    event.fraud_ratio_acceptorid_6m > FRAUD_RATE_LIMIT and
+    event.auth_cardid_acceptorid_count_6 == 0
+
+### Explanation
+
+> [Cards-Behavior-3] - Decline - Card transaction in an acceptor with fraud rate over the limit ({localvar.FRAUD_RATE_LIMIT}) and where the card had no history in the last 6 months.
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Cards-Behavior-4
+
+### Comment
+
+> Decline transaction if the device is infected with malware.
+
+### Actions
+
+  * [Cards-Behavior-4]
+  * Limit/Review Card
+  * Alert
+
+
+
+### Variables
+
+N/A
+
+### Condition
+    
+    
+    // Lists
+    event.card_id_not_blacklisted_nor_wh
+    and
+    // Filters
+    (event.card_id ?? '' != '')
+    and 
+    event.malware_indicator ?? false
+
+### Explanation
+
+> [Cards-Behavior-4] - Decline - Malware has been detected
+
+### Mark As
+
+The outcome of this rule is: **decline**

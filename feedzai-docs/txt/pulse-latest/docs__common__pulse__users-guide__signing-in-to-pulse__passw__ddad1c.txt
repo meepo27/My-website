@@ -1,0 +1,49 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/signing-in-to-pulse/password-recovery
+Title: Password recovery | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Signing in to Pulse
+  * Password recovery
+
+
+
+On this page
+
+# Password recovery
+
+Was this page helpful?Â 
+
+If a user needs a new password, there are two options to reset it:
+
+  * By the administrator, on the user profile, under **Administration** \- **Security** \- **Users**.
+  * By the user.
+
+
+
+The following chapter describes how users reset their password without involving an administrator.
+
+## Password reset by the userâ
+
+To reset your own password, perform the following steps:
+
+  1. Open Pulse.
+
+  2. On the login window, select **Forgot password?**
+
+  3. Provide your username. If the user profile has an email address configured, Pulse sends an email to that address with a token, which is a number. It is possible to request a new token, 30 seconds after the last one. Only the last token is valid, and it has a configurable validity time. By default, tokens are valid during 1 hour after they are generated.
+
+  4. In the **Token** field, enter the token you received via email.
+
+  5. Type the new password in the **New password** field, and repeat the same password in the **Confirm password** field.
+
+
+
+
+Limited number of tries
+
+The number of tries to save a new password with a certain token is limited. Consider the password policy before continuing to change the password. If you exceed the configured limit to change the password with a certain token, you can request a new token and try again.
+
+  6. Save the change using the **Change password** button. Pulse saves the change and logs you in.
+
+

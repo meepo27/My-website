@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/merchant/event-flow
+Title: Event Flow | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide)
+  * [Merchant](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/merchant/overview)
+  * Event Flow
+
+
+
+On this page
+
+# Event Flow
+
+As a fraud prevention agent, understanding the event flow is a key step to managing the alert investigation efficiently. This page helps fraud prevention agents understand the operational flow when investigating alerts.
+
+## Event statusesâ
+
+Case Manager displays the event's statuses in the **Event** 's page as follows:
+
+  * **System Decision** : Indicates the outcome processed by the Feedzai's risk engine. The possible values are:
+    * Accept
+    * Decline
+  * **Alert** : Indicates whether the event was alerted (i.e. by one or more self-service rules) or not. This means that you can create your own self-service rules and decide to alert certain payments.
+  * **Merchant Fraud Label** : Indicates the fraud prevention agent's final decision. The `Fraud` or `Not Fraud` values become available after selecting the **Fraud** or **Not Fraud** button, respectively.
+  * **Listed Entities** : Indicates if there are entities (e.g. customer, card, or account) associated with a known fraud source.
+  * **Cases** : Indicates the number of cases linked to the event.
+
+

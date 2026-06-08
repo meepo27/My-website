@@ -1,0 +1,25 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/release-information/upgrading-guides/upgrading-from-quarter-release
+Title: Upgrading from 13.16.X to 13.17.0 | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Upgrading Guide](/case-manager/13.17/docs/common/case-manager/release-information/upgrading-guides/upgrading-guide-overview)
+  * Upgrading from 13.16.X to 13.17.0
+
+
+
+On this page
+
+# Upgrading from 13.16.X to 13.17.0
+
+This page helps you to upgrade Case Manager from 13.16.X to 13.17.0.
+
+Don't forget to also check the [What's new](/docs/common/case-manager/release-information/whats-new) and the [What's changed](/docs/common/case-manager/release-information/whats-changed) pages to help you get started with Case Manager 13.17.
+
+info
+
+Before upgrading to Case Manager 13.17.0, make sure that you update to [ Case Manager 13.16 latest hotfix.](https://cam.feedzai.com/cm-hotfixes/internal/latest/docs/internal/cm-hotfixes/release-notes#1316)
+
+## Breaking changesâ
+
+This version does not include breaking changes.

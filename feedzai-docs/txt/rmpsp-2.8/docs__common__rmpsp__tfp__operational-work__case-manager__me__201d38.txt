@@ -1,0 +1,195 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/merchant/investigate-alerts
+Title: Investigate Alerts | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/overview)
+  * [Case Manager Guide](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/case-manager-guide)
+  * [Merchant](/rmpsp/2.8/docs/common/rmpsp/tfp/operational-work/case-manager/merchant/overview)
+  * Investigate Alerts
+
+
+
+On this page
+
+# Investigate Alerts
+
+As a fraud prevention agent, the first step you should take is to access the workload. Depending on the risk engine's decision, you may find a set of events for review.
+
+This page helps you understand how to access the events and cases that are up for review.
+
+## User journeyâ
+
+The event analysis process involves a number of actions each fraud prevention agent (i.e. L1, L2, and L3) can perform, as follows:
+
+## Access events and casesâ
+
+When events arrive at Case Manager, they can be displayed on more than one page, depending on the fraud risk and the complexity. On Case Manager's sidebar you can access:
+
+  * **Search By Event** : Displays all the events (alerted and non-alerted).
+  * **Cases** : Events and alerts can be grouped into cases for a more organized action-taking process. This allows you to access events that may be correlated and that require a thorough investigation. Cases offer extra functionalities, such as note attachment.
+
+
+
+The following figure gives you an idea of how events, alerts, and cases relate to each other:
+
+tip
+
+**Events versus Alerts** : The **Search By Event** page includes an **Alert** filter to display only the alerted events.
+
+## Filter events and casesâ
+
+The Search by Event and Cases pages allow you to narrow down the workload for your analysis through filters.
+
+## Select and analyze eventsâ
+
+As previously mentioned, the key pages to access your workload are Search By Event and Cases pages.
+
+Whether you open an alerted or non-alerted event, you will land on the Event page, which contains information that helps you make your decision.
+
+Note that you won't be able to make a decision based on a single event, or on a specific widget alone. An investigation is a comprehensive approach, in which you open several events, e.g. from the same customer ID, and search for fraud evidence by looking at multiple widgets.
+
+The Event page displays the following information:
+
+  * **Rules triggered** : Shows all the rules triggered by the event.
+  * **Transaction** : Shows the transaction details, such as date, amount, and payment method. The **Card ID** field allows you to quickly update lists.
+  * **Customer** : Includes information about the customer, such as the customer's ID, city, and address. To help your investigation, you can check this widget both against the billing and shipping widgets. The **Customer Email** field allows you to quickly update lists.
+  * **Terminal** : In a card present transaction, it shows information about where the transaction took place. The **Terminal ID** field allows you to quickly update lists.
+  * **Device** : In a card not present transaction, it shows information about the device used to purchase goods/services. The **Device ID** and **Device IP** fields allow you to quickly update lists.
+  * **Dispute** : In the event of chargeback, the dispute widget shows information on the reason why the payment is being disputed.
+  * **Billing** : Includes details about the invoice, such as the billing name, address, and ZIP code.
+  * **Shipping** : Includes details about the shipping, such as the shipping name, address, and ZIP code.
+  * **Items** : Shows information such as the name and ID of the purchased goods/services.
+  * **Payment Method** : Includes information about the payment method used, e.g. card or alternative payment method details. The **Card Country** field allows you to quickly update lists.
+  * **Transaction History** : Displays all the transactions associated with the event under investigation.
+  * **Shipping Distance** : Displays the distance between the shipping and device locations.
+  * **Attached Files** : This widget allows you to add files that are useful for subsequent investigation steps.
+  * **Notes** : This widget shows any notes made under a given event.
+  * **Activity Log** : This widget displays the different actions performed in each event, namely regarding linked events, attached files, and notes.
+  * **Location** : Displays the distance between the shipping and device locations.
+  * **Refunds and Chargebacks** : Shows the refunds / chargebacks for the payment under investigation.
+
+
+
+## Add entities to listsâ
+
+Transaction Fraud includes out-of-the-box lists that automatically classify incoming events. Case Manager looks at specific entities in each event (such as card, customer, terminal or device) and validates, through the out-of-the-box lists, if those entities are associated with a known fraud source or if they belong to a secure source.
+
+As a fraud prevention agent L2 or L3, you can manage lists to temporarily or permanently `approve`, `decline`, or `limit/review` certain entities.
+
+To add entities to lists, follow the procedure that applies best to your case:
+
+### Add an entity to a list via Settings tabâ
+
+To add an entity to a list, hover over the **Settings** tab and select **Lists Management** :
+
+  1. On the far right column, hover over the list you want to update and select the **Update Lists** button.
+
+  2. Fill out the mandatory fields. The **Add Note** and **Validity** are optional fields.
+
+_Validity_ field
+
+Note that, by not filling the start and end dates in the _Validity_ field, you are not setting an expiration date.
+
+
+
+
+### Add or update all entities from an eventâ
+
+To add or update all entities in an event, open the event's page as your starting point:
+
+  1. Select the **More Actions** button and choose the **Update Lists** option.
+
+Tick each box according to your needs (i.e. approve, decline, or limit/review entity).
+
+_Validity_ field
+
+Note that, by not filling the start and end dates in the _Validity_ field, you are not setting an expiration date.
+
+
+
+
+### Add an entity from an event to a listâ
+
+To add an entity from an event, open the event's page as your starting point:
+
+  1. Select the **Update Lists** icon present in the following widgets:
+
+     * **Transaction** , located next to the _Card ID_ field.
+     * **Customer** , located next to the _Customer Email_ field.
+     * **Terminal** , located next to the _Terminal ID_ field.
+     * **Device** , located next to the _Device ID_ and _Device IP_ fields.
+     * **Payment Method** , located next to the _Card Country_ field.
+  2. Select **Add to New** and fill out the mandatory fields. The **Add Note** and **Validity** are optional fields.
+
+  3. After updating the necessary entities, the event header updates the **Listed Entities** status accordingly.
+
+_Validity_ field
+
+Note that, by not filling the start and end dates in the _Validity_ field, you are not setting an expiration date.
+
+
+
+
+## Create Self-Service Rulesâ
+
+Self-Service Rules (SSRs) allow fraud prevention agents L3 to quickly create and publish a rule directly in production.
+
+SSRs are useful to, for instance, restrict the traffic on a specific combination of channels, BIN, Regions, etc. in order to block fraudulent activity.
+
+Well-defined SSRs provide fraud prevention agents with a clear starting point for their analysis. Instead of manually reviewing every payment, they can focus on payments that trigger specific rule-based alerts. This type of approach saves time and allows them to concentrate their efforts on high-risk payments, leading to more efficient and effective investigations.
+
+To create SSRs, open the **Self Service Rules** tab and follow the instructions. The following image, provides you with an example of an SSR that bypasses the **Auto-Decline-Card-FB1** feedback rule to be auto-approved, even if the transaction is marked as `fraud`.
+
+## Review casesâ
+
+The main purpose of cases is to link events when there is a common element that suggests a connection. By aggregating events into a case, you save time in your investigation.
+
+To create a case, follow the procedure that applies best to your case:
+
+### Create a case via Cases tabâ
+
+To create a new case, hover over the **Cases** tab and select **New Case** :
+
+The case becomes visible in the **Cases / Case Details** page.
+
+### Link event to case or create case from the Event pageâ
+
+The **Event** page allows you to take the following actions:
+
+  * Link event to an existing case.
+  * Create a case from the event.
+
+
+
+To create a new case from an event or link the event to an existing case, open the event under analysis and select the **More Actions** button:
+
+Fill out the requested fields according to the procedure that applies best to your case (i.e. link the event to an existing case or to create a case from that event).
+
+### Access created casesâ
+
+To access created cases, hover over the **Cases** tab and select the **Cases** option. This option takes you to the **Search By Case** page, which lists all created cases.
+
+By selecting a case from the list of created cases, you're taken to the **Case Details** page.
+
+The header provides you with the following useful information:
+
+  * **Name** : Displays the case's name.
+  * **ID** : Provides the case's alphanumerical ID.
+  * **Status** : Displays the case's state: **To be reviewed** , **In analysis** , **Waiting for info** , and **Closed**.
+  * **Source Type** : Provides the case's use case, e.g. Suspected Fraud or Suspected AML.
+  * **Assignee** : Identifies the user assigned to the case, and, if not assigned to anyone, allows you to assign the case to yourself.
+
+
+
+There are a number of actions you can take in a case, namely:
+
+  * Assign the case to yourself.
+  * Update the case's status (i.e. **To be reviewed** / **In analysis** / **Waiting for info** / **Closed**).
+  * Edit the case.
+  * See the events linked to the case.
+  * Attach new files or download existing files attached to the case.
+  * Add or see notes.
+  * See the activity log, i.e. confirm the different actions performed, namely regarding linked events, attached files, and notes.
+
+

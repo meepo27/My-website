@@ -1,0 +1,54 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transaction-history-digital-activity
+Title: Transaction History - Digital Activity | Feedzai Documentation
+============================================================
+
+# Transaction History - Digital Activity
+
+Widget after modifications:
+
+**Field Modifications**
+
+ _Notes_ : We have identified an issue on our side that is currently blocking the transformation of values in 3 fields within this widget. The affected fields are: `Event Type`, `Login Last Authentication`, and `Device Type`. We are currently conducting an investigation to address this issue and plan to include a fix in a later release.
+
+As a result, these fields will be displayed without any transformation in the current version
+
+Change| Field  
+---|---  
+Added| Data source  
+Added| CAM Level  
+Added| Login Last Authentication  
+Added| Fuzzy Device ID  
+Added| True IP City  
+Added| True IP Geo  
+Added| TDL  
+Added| Device Language  
+Added| Server Date time  
+Added| TMX score  
+Added| Voice Scam score  
+Added| Biocatch ATO score  
+Added| Is Rat  
+Added| Is Recent Rat  
+Added| Is Bot  
+Added| Is Emulator  
+Added| Is Malware  
+Added| Change Data Reason  
+Added| Change Data Previous  
+Added| Change Data Delivery  
+Added| Change Data New  
+Added| Voice Score Type New  
+Added| Receiver Name  
+Added| Payment COP Result  
+Added| Receiver created date  
+Fixed| Date  
+Fixed| Event Type  
+Fixed| Event Sub type  
+Fixed| Device ID  
+Fixed| Device Type  
+Removed| Account ID  
+Removed| Customer Email  
+Removed| Customer Phone Number  
+Removed| Customer Address  
+Removed| Device Email  
+Removed| Device Phone Number  
+Removed| Jailbroken Check  
+Removed| Most Restrictive Rule ID

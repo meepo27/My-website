@@ -1,0 +1,169 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/change-plan
+Title: Change the Plan | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * Change the Plan
+
+
+
+On this page
+
+# Change the Plan
+
+Was this page helpful?Â 
+
+The plan is where you apply transactions and all the data enrichment. You have two types of plans:
+
+  * **Deployable plans** : can be used in production.
+  * **Non-deployable plans** : allow for more flexibility on data exploration, but are not deployable in production.
+
+
+
+info
+
+If you need to change the out-of-the-box metrics / fields, create a copy of the original plan first, and make your changes there.
+
+There are five blocks in the out-of-the-box Cards plan, and they are processed sequentially.
+
+  * **List Enrichment** : picks up values in the list, if the entity exists in that list.
+    * For example, if `card_id` exists in PosNeg Listed Cards and has a `decline` value, then `posneg_card_value` is `decline`.
+  * **Derived Fields / Metrics Based Fields** : enriches the data using fields/metrics created previously.
+    * This is where you can use user-defined functions (UDFs), implement conditional logic with if/else statements, update fields, and delete fields as needed.
+  * **Metrics** : creates metrics based on a window.
+
+
+
+## Create a new metricâ
+
+In the side panel, go to **Data Science**.
+
+  1. In the **Plans** widget, open the plan where you want to create a new metric.
+
+danger
+
+Never change out-of-the-box metrics.
+
+  2. Select the **Pencil** icon from the **Metrics** operator.
+
+  3. Select **Add new Metric** and fill in the information as explained in the following sections.
+
+
+
+
+### Group Byâ
+
+  * **Field(s)** : this is where you select the fields by which you want to group events for your metric.
+
+
+
+For example, if you want each card to have a different value, you can group by `card_id`.
+
+### Windowâ
+
+  * **Expression** : determines how long the window is (e.g. 1 minute, 1 hour, 1 day, 1 week). Note that a metric with a window of less than or equal to 24 hours can be set as real-time metric (i.e. "Update on every event" in the **Edit Update Period** section). A metric with a window greater than 24 hours must be set as scheduled metrics (i.e. "Start of day").
+
+  * **Delay** : allows you to delay the metric for a certain time to exclude recent transactions to be included in the metric.
+
+  * **Is tumbling** : if enabled, refreshes metrics when they hit the window duration.
+
+  * **Filter** : ensures that only Authorization or pre-decided Info will enter this metric, as mentioned in [Understand the Workflow](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/understand-workflow). If you need additional filters, feel free to add them here.
+
+    * **Cards**
+    
+    ( event_type == 'authorization' or (event_type == 'info' and info_type == 'pre_decided') ) and (card_id ?? '' != '')  
+    
+
+If you group by any entity other than `card_id`, replace `(card_id ?? '' != '')` with `(YOUR_ENTITY ?? '' != '')`.
+
+    * **Transfers**
+    
+    (event_type == 'transfer_initiation' or (event_type == 'info' and info_type == 'pre_decided'))  
+    
+
+
+
+
+### Edit Update Periodâ
+
+  * **Update Period** : if it's a metric with a window of less than or equal to 24 hours, select **Update on every event** , otherwise select **Start of day**.
+
+
+
+### Aggregationâ
+
+  * **Aggregation type** : select how you would like to aggregate the metric.
+
+
+
+For example, if you want to use `amount`, use `cardholder_bill_amount` for Cards.
+
+## Create snapshotsâ
+
+After creating new metrics, you need to create a new snapshot to [deploy this plan](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/publish-rules/overview) to production.
+
+Tick the Schema's **Export** box and name it.
+
+This schema will contain the newly-created metrics, and will be used in your rules project.
+
+## New metric - practical exampleâ
+
+Consider the scenario where you need to create a rule that declines transactions from any card that has spent over $1,000.00 on casino transactions over the last 3 hours. You can also assume casino transactions are identified as MCC = 7800. Note that, if you need to use a field that is not in Feedzai's schema, e.g. you have a boolean flag that already identifies gambling transactions in your system, then you need to contact Feedzai to add this custom field into Feedzai's schema.
+
+This scenario involves creating a metric that will aggregate the amount for gambling transactions. This means you'll have to create a metric in "Cards Plan v4", the plan used in the out-of-the-box workflow:
+
+  1. In the side panel, go to **Data Science** and then, in the **Plans** widget, open "Cards Plan v4".
+  2. Using the **Pencil** open the **Metrics** operator.
+  3. Select **Add new Metric**.
+
+
+
+### Group Byâ
+
+  * **Field(s)** : `card_id`
+
+
+
+### Windowâ
+
+  1. **Expression** : 3 hours
+  2. **Filter** : (event_type == 'authorization' or (event_type == 'info' and info_type == 'pre_decided') ) and (card_id ?? '' != '') and (mcc ?? '' == '7800')
+
+What does ?? mean?
+
+     * ?? means coalesce. If card_id is null, it will fill with empty string.
+     * card_id ?? '' != '' simply means it must not be null or empty string.
+
+
+
+
+### Edit Update Periodâ
+
+  1. Since the window is less than or equal to 24 hours, it will be a real-time metric.
+
+
+
+### Aggregationâ
+
+  1. **Function** : sum
+  2. **Field** : cardholder_bill_amount
+
+
+
+### Name & Descriptionâ
+
+info
+
+If you don't fill in the name, Pulse will automatically generate a metric name for you. Note that metric names should clearly indicate the grouping entities, aggregation, window, and possibly filter. It is also recommended that you define a prefix to indicate they are custom metrics (e.g. `c_`). Also, as a rule of thumb, name your metrics in lower case, and separate each word using underscores.
+
+  1. **Name** : `c_cardid_sum_amt_3h_mcc7800`
+
+
+
+In this scenario, the name generated by Pulse is `cardid_sum_cardholderbillamount_3h`, but you can easily edit it directly in the **Name** field.
+
+Go to the next building block, [Change Rules Projects](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules-projects), to learn how your rules project picks up these metrics.

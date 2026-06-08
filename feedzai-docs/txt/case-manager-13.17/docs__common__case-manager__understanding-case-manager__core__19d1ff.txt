@@ -1,0 +1,46 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/multi-tenancy
+Title: Multi-Tenancy | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Multi-Tenancy
+
+
+
+On this page
+
+# Multi-Tenancy
+
+Multi-Tenancy allows Feedzai clients to host and support multiple tenants in a single environment. This allows them to provide at-scale solutions to their own clients, who can use the product on their own.
+
+## Landlordâ
+
+A **landlord** is a client who has a Fraud Prevention installation that they can offer to other clients, also known **tenants**. Landlords can carry out the following actions:
+
+  * Create, deploy and customize tenant instances, along with all the configuration/data integration and mapping required.
+  * Write simple and advanced rules.
+  * Create Lists.
+  * Edit lists: Add/Remove items to/from lists.
+  * Create applications.
+  * Create models, workflows, dashboards and engineer features that can be deployed to one or more tenants.
+  * Create case management queues, administer tenant users.
+
+
+
+## Tenantâ
+
+A **tenant** uses a Fraud Prevention application provided by a **landlord**. Tenants have the possibility to create, manage and deploy their own rules and lists depending on the permissions the landlord has given to them.
+
+## Rules and Listsâ
+
+Landlords can create rules and lists that can be applied to all tenants. In addition, landlords can create customized rules and lists for each tenant, and allow tenants to access and modify these resources.
+
+From a multi-tenancy perspective, rules and lists can be of different natures:
+
+  * Rules can be **Global** (applying to all tenants and state shared by all tenants), **Common to all tenants** (applying to all tenants, and state specific for each tenant), or **Custom per tenant** (rules customized individually).
+  * Lists can also be **Global** (Used by all tenants, for instance, a blacklist shared by all tenants), **Common to all tenants** (a list with the same motivation but with different items for different tenants) and **Custom per tenant** (a list that is specifically created for a tenant).
+
+
+
+There are also other resources (namely **Plans** and **Models**) that can be defined and/or customized for tenants, with a similar procedure to that of rules and lists.

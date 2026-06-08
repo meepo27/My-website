@@ -1,0 +1,263 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-automation-rules
+Title: Configure Automation Rules | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Manage Workload and Rules](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/overview)
+  * [Operationalize Fraud Teams](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/overview)
+  * Configure Automation Rules
+
+
+
+On this page
+
+# Configure Automation Rules
+
+Was this page helpful?Â 
+
+Automation rules are used to automatically handle the distribution of workload in Case Manager. This page provides you with examples of automation rules that you can use in Case Manager.
+
+tip
+
+**Out-of-the-box settings:** Note that Case Manager offers default configurations for automation rules. Check them [here](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/out-of-the-box-settings#automation-rules).
+
+## Create automation rules in Case Managerâ
+
+To create automation rules in Case Manager, execute the following steps:
+
+  1. In the general menu, hover over the **Settings** icon.
+  2. Select the **Automation Rules** option.
+  3. Use the  button to open the rule creation panel.
+  4. Start by adding the rules's basic information:
+     * **Name** : Rule's name. For example, "Set new alerts as unreviewed".
+     * **Description** : Explanation of the rule's purpose. For example, "Set all incoming alerts as unreviewed".
+     * **Channel** : Defines that only events from the selected channel are considered in the rule's conditions.
+     * **Type** : Defines if the rule should be triggered based on **Events** or **Cases**.
+  5. Specify the rule's conditions and outputs according to your needs. In this example, the conditions would be the following:   
+
+  6. Select **Enabled** to immediately activate the rule after it's created.
+  7. **Create** the rule.
+
+
+
+## Enable webhooksâ
+
+Webhooks can be enabled using Automation Rules via the **Call Webhook** action as the automation's output. With this capability, Case Manager is able to send HTTP requests to external endpoints.
+
+Consider the following example for a card webhook automation rule:
+
+  1. **Input** : Set up an automation rule to trigger when an event arrives.
+  2. **Conditions** : When a payment is scored by Feedzai, each rule triggered by Pulse returns an action, which is a string specified in the rule definition within Pulse (e.g. **[Velocity-Cards-1]**). You can use the **Triggered Actions** condition to verify which rules have triggered for this event. Additionally, you can include another condition to check that the System Decision for this event is "decline." You can add as many conditions as necessary.
+  3. **Outputs** : The **Call Webhook** automation action allows you to configure the URL where the webhook will be sent. In the dropdown menu, select the option corresponding to the channel you're creating the automation for. For this example, the **Cards Webhook Transformation** would be selected to ensure the Cards template is used in the payload of the webhook.
+
+
+
+Check some example payloads from each available channel for more information on the possible fields and their corresponding values.
+
+Webhook retry policy and authentication mechanism
+
+The following default values are applied to new webhook connections:
+
+  * **Retry policy** :
+    * `max_attempts`: `8`. This refers to the maximum number of attempts that failed requests will be retried.
+    * `max_delay_millis`: `45000` (45 seconds). This refers to the maximum delay between retries.
+    * `request_timeout_seconds`: `10`. This refers to the maximum time for a webhook request attempt. When the attempt takes longer than the time defined on this property, there is a timeout.
+  * **Authentication mechanism** : Via Bearer authentication token.
+
+
+
+These defaults and other configurations can be adjusted on a need basis. Contact Feedzai for further configurations.
+
+### HTTP requestsâ
+
+The webhook request has the following attributes:
+
+  * **Method** : POST
+  * **Headers** :
+    * Send an Authorization header if authentication is configured.
+    * Send an X-Request-Id header to uniquely identify the requests.
+
+
+
+### Payloadâ
+
+The payload of the HTTP request includes the details of the event in JSON format.
+
+Consider the following payload examples for each available channel:
+
+  * Cards
+  * Outbound Transfers
+  * Ad-hoc Customer Investigations
+  * Default
+
+
+    
+    
+    {  
+        "lifecycle_id": "0d1c1529-a34e-3542-917a-07ca56815037",  
+        "event_external_id": "event_external_id",  
+        "event_timestamp": 1705498953008,  
+        "action_timestamp": 1705502592467,  
+        "risk_assessment": {  
+            "alert": true,  
+            "score": 0,  
+            "decision": "approve",  
+            "sca_required": true  
+        },  
+        "operational_process": {  
+            "operational_status": "closed",  
+            "status": "genuine",  
+            "reasons": {  
+                "operational_status": [],  
+                "status": []  
+                }  
+            },  
+        "analyst_assessment": {  
+            "status_cards": "fraud_cards",  
+            "reasons": {  
+                "status_cards": [  
+                    "Confirmed Fraud",  
+                    "Authorization Dispute"  
+                ]  
+            }  
+        }  
+    }  
+    
+
+info
+
+The payload includes the `lifecycle_id`, a unique identifier for the payment, which you can use to retrieve the remaining fields from your database. You can also call the GET endpoint from Feedzai, but notice that this action may increase the volume of events and impact performance.
+
+For details on the different field types, refer to the [Cards API documentation](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/cards).
+    
+    
+    {  
+        "lifecycle_id": "31735b15-f755-4097-ae06-36ad530b062a",  
+        "event_external_id": "31735b15-f755-4097-ae06-36ad530b062a",  
+        "event_timestamp": 1705502723355,  
+        "action_timestamp": 1705502759512,  
+        "risk_assessment": {  
+            "alert": false,  
+            "score": 0,  
+            "decision": "approve",  
+            "sca_required": false  
+        },  
+        "operational_process": {  
+            "operational_status": "closed",  
+            "status": "fraud",  
+            "breach_status": "not_breached",  
+            "reasons": {  
+                "operational_status": [],  
+                "status": [],  
+                "breach_status": []  
+            }  
+        },  
+        "analyst_assessment": {  
+            "status_transfers": "fraud_transfers",  
+            "reasons": {  
+                "status_transfers": [  
+                    "Account Compromised",  
+                    "Account Compromised suspected"  
+                ]  
+            }  
+        }  
+    }  
+    
+
+info
+
+The payload includes the `lifecycle_id`, a unique identifier for the payment, which you can use to retrieve the remaining fields from your database. You can also call the GET endpoint from Feedzai, but notice that this action may increase the volume of events and impact performance.
+
+For details on the different field types, refer to the [Outbound Transfers API documentation](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/outbound-transfers).
+    
+    
+    {  
+        "lifecycle_id": "0d1c1529-a34e-3542-917a-07ca56815037",  
+        "event_external_id": "event_external_id",  
+        "event_timestamp": 1732731662730,  
+        "action_timestamp": 1732731746657,  
+        "risk_assessment": {  
+            "alert": false,  
+            "score": 0,  
+            "decision": "approve"  
+        },  
+        "operational_process": {  
+            "operational_status": "closed",  
+            "reasons": {  
+                "operational_status": [  
+                    "Alert not relevant",  
+                    "Alert not investigated"  
+                ]  
+            }  
+        },  
+        "analyst_assessment": {  
+            "analyst_decision": "drop_ahi_customer",  
+            "reasons": {  
+                "analyst_decision": [  
+                    "Account Takeover",  
+                    "Fraud Victim"  
+                ]  
+            }  
+        }  
+    }  
+    
+
+info
+
+The payload includes the `lifecycle_id`, a unique identifier for the payment, which you can use to retrieve the remaining fields from your database. You can also call the GET endpoint from Feedzai, but notice that this action may increase the volume of events and impact performance.
+
+For details on the different field types, refer to the [Ad-Hoc Customer Investigations API documentation](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/ad-hoc-customer-investigations).
+
+danger
+
+The **Default** option is **not recommended** for the Transaction Fraud for Banking's use case.
+
+The **Default** option sends the relevant API's entire payload, which includes data originating from Case Manager.
+
+Relying on the **Default** 's payload may introduce breaking changes because the set of fields included can vary between different versions of Case Manager.
+
+## Create automatic casesâ
+
+This section explains how to configure cases using an example that implements the following logic:
+
+  * Creates a case automatically when an alert arrives to Case Manager.
+  * Adds to the case all the subsequent events/alerts that have the same card PAN as the one that opened the case.
+  * Associates the case to a queue.
+
+
+
+To achieve this, you need to create two automation rules:
+
+### Case automatic openedâ
+
+This rule creates a case when a new alert arrives at the workflow. If there is already a case with an alert from the same card PAN, then this rule adds the alert to the existing case.
+
+  * **Rule name:** Case Automatic Opened
+  * **Description field:** Open case automatically when an alert arrives at Case Manager and associate the case to a queue.
+
+
+
+The following image show you how to configure the remaining fields:
+
+### Link non-alerted transactionsâ
+
+The automation rule described in the Case Automatic Opened section creates cases when new alerts arrive at Case Manager, and links alerts with the same card PAN to existing cases. However, if you want to link events to an existing case based on a different rule condition, you need to:
+
+  1. Create a new automation rule.
+  2. Define the new condition.
+  3. Select the 'Link to existing Case' output.
+
+
+
+For example, imagine that you also want to link future events (that are not alerts) with the same card PAN to existing cases. To achieve this, you can create a new automation rule as described below:
+
+  * **Rule name:** Link non-alerted transactions
+  * **Description field:** Link non-alerted transactions to an existing automatic case that contains at least one alert.
+
+
+
+## Next stepsâ
+
+In the next step of this user journey you will learn how to [configure SLAs](/tfrb/latest/docs/common/tfrb/manage-workload-and-rules/operationalize-fraud-teams/configure-slas) to automate the organization of events into queues based on a time period.

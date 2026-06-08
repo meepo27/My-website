@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3232-Add-ETL-playbook-for-Pulse-ES-to-Case-Manager-recovery
+Title: HSBC-3232-Add-ETL-playbook-for-Pulse-ES-to-Case-Manager-recovery | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3232-Add-ETL-playbook-for-Pulse-ES-to-Case-Manager-recovery
+
+### Add ETL playbook for Pulse ES to Case Manager recoveryâ
+
+FeatureFTMT-27051FTMT-27144HSBC-3232
+
+Also In:2.8.12.9.0
+
+We've added a new ETL playbook to enable event recovery from Pulse event storage to Case Manager. It supports two routing strategies to send events to Case Manager, configured via the `etl_cm_route_strategy` variable.
+
+Please refer to [Recover events from Pulse to Case Manager](/cs-hsbc/3.0.2/docs/installation-guide/etl/etl-pulse-to-cm) for more details.

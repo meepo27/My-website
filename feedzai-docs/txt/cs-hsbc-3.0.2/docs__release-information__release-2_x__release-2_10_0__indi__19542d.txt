@@ -1,0 +1,19 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3136-Add-GCP-permissions-documentation-for-the-DTP-Service
+Title: HSBC-3136-Add-GCP-permissions-documentation-for-the-DTP-Service | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3136-Add-GCP-permissions-documentation-for-the-DTP-Service
+
+### Add GCP permissions documentation for the DTP Serviceâ
+
+DocsFTMT-27152HSBC-3136
+
+Also In:2.8.12.9.0
+
+We've added a new page with the minimal set of GCP permissions needed for the DTP service.
+
+Please refer to the [DTP permissions page](/cs-hsbc/3.0.2/docs/installation-guide/dtp/gcp-setup#gcp-permissions) for more details.
+
+Also, the subscription created by the DTP service for the Inactivity topic is now configured to never expire.

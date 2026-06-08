@@ -1,0 +1,28 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-originator-account-details
+Title: Transfers - Originator Account Details | Feedzai Documentation
+============================================================
+
+# Transfers - Originator Account Details  
+  
+Before:
+
+After:
+
+**Field Modifications**
+
+Change| Field  
+---|---  
+Added| Segment  
+Enriched| Currency  
+Fixed| Balance  
+Renamed| Originator Bank Account Number -> Customer Bank Account Number  
+Renamed| Type -> Account type  
+Removed| ID  
+Removed| IBAN  
+Removed| BIC  
+Removed| Open Date  
+Removed| Credit Limit  
+Removed| Debt Balance  
+Removed| Status  
+Removed| Last Activity  
+Removed| Number of Cards

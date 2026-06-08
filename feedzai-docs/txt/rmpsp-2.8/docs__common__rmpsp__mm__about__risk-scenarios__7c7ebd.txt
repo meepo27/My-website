@@ -1,0 +1,85 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/about/risk-scenarios
+Title: Risk Scenarios | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [About Merchant Monitoring](/rmpsp/2.8/docs/common/rmpsp/mm/about/overview)
+  * Risk Scenarios
+
+
+
+On this page
+
+# Risk Scenarios
+
+This page covers the risk scenarios and the detection strategy for merchant monitoring. The standard package delivers out-of-the-box rules that capture user patterns associated with each risk scenario.
+
+## Collusive / fraudulent / bust-out merchantâ
+
+In a collusive, fraudulent, bust-out merchant scenario, fraudsters create a fake company that looks legitimate in the eyes of the acquirer. Once the acquirer makes an agreement with the company, fraudsters generate high amount transactions in a short time before disappearing completely. Usually, these criminals use stolen credit cards to process these transactions.
+
+### How Merchant Monitoring prevents collusive / fraudulent / bust-out merchantsâ
+
+Here are some examples of rules that help detect a collusive / fraudulent / bust-out merchant:
+
+  * **Visa-VFMP-Early-Warning-FR5:** An alert is generated if, over the last month, the fraud to sales ratio of the Visa Fraud Monitoring Program is above a set threshold.
+  * **Fraud-Amount-Rate-FR11:** An alert is generated if, over the last month, the fraud amount rate is equal to or above a set threshold.
+  * **Rejected-Count-Rate-FR13:** An alert is generated if, over the last month, the rejected count rate is equal to or above a set threshold.
+
+
+
+## Bankruptcyâ
+
+Merchant bankruptcy occurs when the merchant is unable to pay its debts. In this scenario, most commonly, merchants conceal assets so that creditors can only liquidate the assets listed by the merchant.
+
+### How Merchant Monitoring prevents bankruptcyâ
+
+Here are some examples of rules that help detect bankruptcy:
+
+  * **Monthly-Amount-Decrease-BR1:** An alert is generated if the decrease in monthly total transaction amount is equal to or below a set threshold.
+  * **Monthly-Refund-Amount-BR5:** An alert is generated if, over the last month, the refund amount rate is equal to or above a set threshold.
+  * **Refund-Count-Increase-BR8:** An alert is generated if the refund count rate of 1 month compared to the previous 3 months is equal to or above a set threshold.
+
+
+
+## Money launderingâ
+
+Money laundering perpetrated by merchants is a process in which legitimate goods and services are being processed on behalf of illicit ones.
+
+### How Merchant Monitoring prevents money launderingâ
+
+Here are some examples of rules that help detect money laundering:
+
+  * **High-Amount-Count-ML1:** An alert is generated if the number of high amount transactions, over the last 24 hours, is equal to or above a set threshold.
+  * **High-Risk-Countries-ML3:** An alert is generated if the number of transactions from high-risk-country cards is equal to or above a set threshold.
+  * **Inactivity_Period_ML4:** An alert is generated if the merchant has been inactive for at least 60 days.
+
+
+
+## Chargeback riskâ
+
+The risk of excessive chargebacks is especially concerning for merchants that base their business on e-commerce, where only card not present transactions happen. Card not present transactions increase the likelihood of transaction disputes while keeping the goods for free.
+
+### How Merchant Monitoring prevents chargeback riskâ
+
+Here are some examples of rules that help detect chargeback risk:
+
+  * **Visa-VDMP-Early-Warning-CB1:** An alert is generated if, over the last month, the chargeback to sales ratio of the Visa Dispute Monitoring Program is equal to or above a set threshold.
+  * **Mastercard-ECM-CB4:** An alert is generated if, over the last month, the chargeback to sales ratio of the Mastercard Excessive Chargeback Program is equal to or above a set threshold.
+  * **Chargeback-Cnt-Increase-CB6:** An alert is generated if the chargeback count rate of 1 month, over the last 3 months, is equal to or above a set threshold.
+
+
+
+## Unusual order activityâ
+
+This type of scenario occurs when a merchant shows unusual behavior, such as the increase of gift or prepaid card transactions, or manual card transactions. This unusual behavior may be related to fraudulent activities.
+
+### How Merchant Monitoring prevents unusual order activityâ
+
+Here are some examples of rules that help detect unusual order activity:
+
+  * **Card-Manual-Increase-UAR8:** An alert is generated if the manually entered card payments' rate of 1 month, over the last 3 months, is equal to or above a set threshold.
+  * **Merch-Avg-Ticket-Size-UAR13:** An alert is generated if the merchant's daily average transaction value is unusually higher when compared to the daily average of the last 3 months.
+  * **Gift-Prepaid-Card-Rate-UAR14:** An alert is generated if the daily gift or prepaid card payments rate is equal to or above a set threshold.
+
+

@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/casemanager/network-casemanager
+Title: Network and Connectivity | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Network and Connectivity
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+## Firewall Rulesâ
+
+##### tip
+
+For a complete list of the the Firewall Configurations required for Case Manager, please refer to the [product documentation](https://cam.feedzai.com/case-manager/latest/docs/common/case-manager/installation-guide/configuring-firewalls).
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+HTTP| TCP 8080| Case Manager UI HTTP  
+HTTPS| TCP 8443| Case Manager UI HTTPS  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+RBDMS (PostgreSQL)| TCP 5432|   
+RabbitMQ| TCP 5761-5762|   
+Elasticsearch| TCP 9200|   
+Pulse| 8080| Communication with Pulse (via HTTP)  
+Pulse| 8443| Communication with Pulse (via HTTPS)  
+Reference Data Service| 8080-8081| Communication with Reference Data Service  
+  
+## Load Balancersâ
+
+For high available environments Load Balancers must be set as follow:
+
+Service| Description| Algorithm| Healthcheck URL| Response Codes| Policy Example  
+---|---|---|---|---|---  
+Case Manager| Entry to access the web UI.| Least connections (or round robin)| `HTTPS:8443/api/configuration/latest`   
+`HTTP:8080/api/configuration/latest`| 200 - Node is available| Checks should be performed every 30 seconds with a timeout of 5 seconds. Nodes should be removed after the second failure.

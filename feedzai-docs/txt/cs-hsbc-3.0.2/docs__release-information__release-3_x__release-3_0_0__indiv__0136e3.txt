@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-3920
+Title: HSBC-3920 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3920
+
+### Document slack Ansible variablesâ
+
+DocsFTMT-34140HSBC-3920
+
+We have documented all the past and future slack Ansible variables.
+
+Please refer to [Pulse Configuration Recommendations](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more details.

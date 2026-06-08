@@ -1,0 +1,150 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/list-management-service
+Title: Configure List Management Service | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Work with Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/overview)
+  * [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview)
+  * Configure List Management Service
+
+
+
+On this page
+
+# Configure List Management Service
+
+Was this page helpful?Â 
+
+The list management service allows you to configure the automatic list transitions that an entity (e.g. card ID) undergoes when triggered by different rule actions.
+
+As described in the [Create and Manage Rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/overview) page, rule actions have standard values to identify decline, approve and review lists in a PosNeg List. The list management service is responsible for:
+
+  1. Checking when a rule triggers one of the above actions.
+  2. Adding the entity to the PosNeg List and tagging it accordingly as **decline** , **approve** or **review**.
+
+
+
+You can extend and adapt the list management service to fulfill your use cases.
+
+For your convenience, the following user journey focuses on the Cards use case.
+
+tip
+
+**Advanced functionality** : Configurations in the list management service should be performed by advanced users to ensure that the transitions between lists work as expected. Note that, if the transitions are not well configured, the rules that depend on these transitions will not yield the targeted results.
+
+## List management serviceâ
+
+The list management service allows you to configure the automatic list transitions that an entity (e.g. card ID) undergoes when triggered by different rule actions.
+
+Rule actions have standard values to identify decline and approve lists in a PosNeg List. The list management service is responsible for:
+
+  1. Checking when a rule triggers one of those actions.
+  2. Adding the entity to the PosNeg List and tagging it as decline or approve.
+
+
+
+You can extend and adapt the list management service to fulfill your use cases.
+
+To open the list management service:
+
+  1. Select the **Workflows** tab.
+  2. Open the desired workflow.
+  3. In the Diagram area, select the pencil to edit the _List Management Service_.
+
+
+
+tip
+
+**Advanced functionality:** Configurations in the list management service should be performed by advanced users to ensure that the transitions between lists work as expected. Note that, if the transitions are not well configured, the rules that depend on these transitions will not yield the targeted results.
+
+## How the list management service worksâ
+
+The list management service is configured out of the box to classify card IDs as:
+
+  * Listed to be declined
+  * Listed to be approved
+  * Listed to be reviewed
+
+
+
+## Configure a list to work with List Management Serviceâ
+
+List Management Service requires the following structure for lists:
+
+  1. The type of each value must be set to "complex".
+
+  2. The list of complex fields must include a field named "value" and of type string.
+
+info
+
+If the `rules.X.listFieldName` config is overridden, the list must contain a complex field with the same name instead of the default one ("value").
+
+
+
+
+### Decline listâ
+
+The entries in the **Configuration** table with the _rules.0_ prefix are associated with the same action (i.e. to list a card ID as declined). In this case, this configuration is set up to tag a card as **decline** :
+
+Key| Value| Mandatory| Explanation  
+---|---|---|---  
+rules.0.actions| Auto Decline Card| Yes| The rule action that triggers this service to list a card ID to be declined.  
+rules.0.entity| card_id| Yes| The entity that is added to the list (i.e. the key of the key-value pair in the list configuration options).  
+rules.0.listid| ffce7e5ce8f4013a| Yes| The list ID that is used to store the card ID (i.e. PosNeg Listed Cards).  
+rules.0.appid| c145d72d00d46bab| No| The app ID where the list exists. If not defined, the default is the app ID where the service exists.  
+rules.0.listFieldName| value| No| The name of the list's field that is used in the list ID to store the card ID.  
+rules.0.entries.0.value| decline| Yes| The value used to list a card ID to be declined (i.e. the value of the key-value pair in the list configuration options).  
+  
+Check the [Card listed to be declined](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists#decline-list) section to learn how PosNeg Listed Cards stores items tagged as **decline** in Pulse.
+
+### Approve listâ
+
+The **Configuration** table entries with the prefix _rules.1_ are used to list card IDs to be approved:
+
+Key| Value| Mandatory| Explanation  
+---|---|---|---  
+rules.1.actions| Auto Approve Card| Yes| The rule action that triggers this service to list a Card ID to be approved.  
+rules.1.entity| card_id| Yes| The entity that is added to the list (i.e. the key of the key-value pair in the list configuration options).  
+rules.1.listid| ffce7e5ce8f4013a| Yes| The list ID that is used to store the card ID (i.e. PosNeg Listed Cards).  
+rules.1.appid| c145d72d00d46bab| No| The app ID where the list exists. If not defined, the default is the app ID where the service exists.  
+rules.1.listFieldName| value| No| The name of the list's field that is used in the list ID to store the card ID.  
+rules.1.entries.0.value| approve| Yes| The value used to list a card ID to be approved (i.e. the value of the key-value pair in the list configuration options).  
+rules.1.entries.0.ttl| 7200000| No| The duration that a card remains in the PosNeg Listed Cards list as approved in miliseconds.  
+  
+Check the [Card listed to be approved](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists#approve-list) section to learn how PosNeg Listed Cards stores items tagged as **approve** for two hours in Pulse.
+
+### Review listâ
+
+The **Configuration** table entries with the prefix _rules.2_ are used to tag cards listed to be reviewed:
+
+Key| Value| Mandatory| Explanation  
+---|---|---|---  
+rules.2.actions| Limit/Review Card| Yes| The rule action that triggers this service to list a card ID to be reviewed.  
+rules.2.entity| card_id| Yes| The entity that is added to the list (i.e. the key of the key-value pair in the list configuration options).  
+rules.2.listid| ffce7e5ce8f4013a| Yes| The list ID that is used to store the card ID (i.e. PosNeg Listed Cards).  
+rules.2.appid| c145d72d00d46bab| No| The app ID where the list exists. If not defined, the default is the app ID where the service exists.  
+rules.2.listFieldName| value| No| The name of the list's field that is used in the list ID to store the card ID.  
+rules.2.unless| review, decline, approve| No| The validation to add a card ID to the configured list only if the item is not already listed with the value `review`, `decline` or `approve`.  
+rules.2.entries.0.value| review| Yes| The value used to list a card ID to be reviewed (i.e. the value of the key-value pair in the list configuration options).  
+rules.2.entries.0.ttl| 432000000| No| The duration that a card remains in the PosNeg Listed Cards list as listed to be reviewed in miliseconds.  
+rules.2.entries.1.value| decline| Yes| The value used to list a card ID to be declined after expiring the duration in which the card remained as listed to be reviewed (i.e. 432000000 miliseconds).  
+  
+Check the [Review list](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/lists#review-list) section to learn how PosNeg Listed Cards stores items tagged as **review** for five hours, and after that, how the card ID is tagged as **decline** until the end of time.
+
+info
+
+**Behind the scenes** : When the `<prefix>.unless` property is not associated to an action in the configuration table, the list management service replaces a list item as follows:
+
+  1. Checks if an item exists in the list.
+  2. If the item exists, it deletes the item.
+  3. Adds the item to the list with the correct status value.
+
+
+
+For example, if a rule triggers the action Auto Approve Card multiple times, the **from** \- **to** time that the card remains on the list will keep updating, and thus the card may effectively remain on a list for more than two hours.
+
+## Next stepsâ
+
+Now that you have defined all the aspects related to your rule system, read on to learn about [Publish Rules to Workflow](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/publish-rules/overview).

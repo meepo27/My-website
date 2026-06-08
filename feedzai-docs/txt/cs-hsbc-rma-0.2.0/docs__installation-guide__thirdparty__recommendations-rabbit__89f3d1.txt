@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/thirdparty/recommendations-rabbitmq
+Title: Recommendations for RabbitMQ | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Recommendations for RabbitMQ
+
+##### info
+
+The configurations listed below result from the experience Feedzai has running this system. Nonetheless, it is important to review the configurations in light of the workload requirements, and adjusted accordingly.
+
+## RabbitMQ Configurationâ
+
+### Highly Available Queuesâ
+
+RabbitMQ clustering capabilities do not offer replicated message queues by default, so a message queue only resides in the node which created them. As such, Feedzai recommends configuring [Highly Available Queues](https://www.rabbitmq.com/ha.html).
+
+In contrast to exchanges and bindings, which can always be considered to be on all nodes, queues can optionally run mirrors (additional replicas) on other cluster nodes.
+
+Each mirrored queue consists of one **leader replica** and one or more **mirrors** (replicas). The leader is hosted on one node commonly referred to as the leader node for that queue. Each queue has its own leader node. All operations for a given queue are first applied on the queue's leader node and then propagated to mirrors.
+
+##### warning
+
+Consumers are connected to the leader regardless of which node they connect to, with mirrors dropping messages that have been acknowledged at the leader. Queue mirroring therefore enhances availability, but does not distribute load across nodes (all participating nodes each do all the work).
+
+To create policy that defines the mirroring conditions, use the command below.
+    
+    
+    rabbitmqctl set_policy replicate-queues "^(fdz-sq-)" '{"ha-mode":"all", "expires":7200000, "ha-sync-batch-size":1000, "ha-promote-on-shutdown":"always"}' --apply-to queues  
+    
+
+Copy
+
+##### tip
+
+All queues created by Feedzai services have the prefix `fdz-sq`, and are suffixed with a UUID to ensure that new processes will always get new queues - for example, `fdz-sq-fdz-workflow-publish-responsec6e7cef5-3239-4a9f-963b-98ef108eb4c5`.
+
+#### Queue TTLâ
+
+Defining a TTL for Pulse queues ensures that queues **without subscribers or without consuming the messages** will be deleted after a certain time. Feedzai recommends it to be at least two times the configured client session timeout in ZooKeeper. The TTL must also be confortably higher than the Workflow Recovery time, as during recovery Pulse nodes already subscribed to replicas, but haven't started to consume them. This also means that, in case of an incident, there is a limited period to recover the system without losing any messages.
+
+The queue TTL is set using the `expires` configuration, as shown in the example above.
+
+##### info
+
+To ensure data is not lost in case of an incident with Case Manager, Feedzai usually recommends against setting the TTL for the Case Manager vhost.

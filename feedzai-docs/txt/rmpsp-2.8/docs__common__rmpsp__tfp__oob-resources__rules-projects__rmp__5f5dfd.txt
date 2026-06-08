@@ -1,0 +1,94 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/rules-projects/rmpsp-decision-rules
+Title: Decision Rules | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [ Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/tfp/oob-resources/overview)
+  * Rules Projects
+  * Decision Rules
+
+
+
+On this page
+
+# Decision Rules
+
+### Descriptionâ
+
+Decision Rules are triggered based on the score value produced by a machine learning model. If your application workflow does not have a model, the `fraud_score` field remains empty, and thus the rules inside the Decision Rules project are not triggered.
+
+### Rules Project Metadata
+
+  *  _Target Variable:_ decision
+  *  _Tenancy Type:_ SINGLE_TENANT
+
+
+
+### Rules in this rules project:
+
+## Score-Decline-DR1
+
+### Comment
+
+> Decline a payment if it scored above a set threshold.
+
+### Actions
+
+  * [Score-Decline-DR1]
+
+
+
+### Variables
+    
+    
+    HIGH_SCORE_THRESHOLD = global_default__rules_thresholds["model_high_score"].threshold;
+    
+    score = event.fraud_score * 1000;
+
+### Condition
+    
+    
+    (score ?? 0) >= HIGH_SCORE_THRESHOLD
+
+### Explanation
+
+> Model score ( {localvar.score} ) was equal or above the threshold ( {localvar.HIGH_SCORE_THRESHOLD} ).
+
+### Mark As
+
+The outcome of this rule is: **decline**
+
+## Score-Review-DR2
+
+### Comment
+
+> Alert a payment if it scored between a set threshold.
+
+### Actions
+
+  * [Score-Review-DR2]
+  * Alert
+
+
+
+### Variables
+    
+    
+    LOW_SCORE_THRESHOLD = global_default__rules_thresholds["model_low_score"].threshold;
+    HIGH_SCORE_THRESHOLD = global_default__rules_thresholds["model_high_score"].threshold; 
+    
+    score = event.fraud_score * 1000;
+
+### Condition
+    
+    
+    (score ?? 0) > LOW_SCORE_THRESHOLD
+      and (score ?? 0) < HIGH_SCORE_THRESHOLD
+
+### Explanation
+
+> Model score ( {localvar.score} ) was between the low score threshold ({localvar.LOW_SCORE_THRESHOLD}) and the high score threshold ({localvar.HIGH_SCORE_THRESHOLD}).
+
+### Mark As
+
+N/A

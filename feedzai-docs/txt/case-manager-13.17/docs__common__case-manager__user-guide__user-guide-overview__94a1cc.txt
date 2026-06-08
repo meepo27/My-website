@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/user-guide-overview
+Title: User Guide | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * User Guide
+
+
+
+# User Guide
+
+| Analyst Guide  
+---|---  
+As an analyst, you will be working with alerts and/or cases. In this guide, you will learn how you can use Case Manager to perform your daily tasks.Â Among other things, you will learn how to:  
+[Access Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts) or [Access Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases)   
+[Review Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts) or [Investigate Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases)   
+[Act on Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts) or [Act on Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/acting-on-cases)  
+| Manager Guide  
+In this guide, you will learn how you can distributeÂ your team's workload, automate processes, and retrieve statistics of how your Case Manager application is fighting fraud. Among other things, you will be able to have a better grasp of how to:  
+[Manage Queues](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-queues)   
+[Manage Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules) and [SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas)  
+[Track Team System Performance with Reports](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-reports)

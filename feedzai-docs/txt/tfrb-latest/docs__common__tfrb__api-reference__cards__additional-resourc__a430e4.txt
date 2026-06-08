@@ -1,0 +1,135 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/cards/additional-resources/authorization-response-scenarios
+Title: Authorization Response Scenarios | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Additional Resources](/tfrb/latest/docs/common/tfrb/api-reference/additional-resources)
+  * Cards
+  * Authorization Response Scenarios
+
+
+
+On this page
+
+# Authorization Response Scenarios
+
+Was this page helpful?Â 
+
+This subsection presents several scenarios that might occur in the Authorization response, depending on the rules that are triggered in the Pulse Workflow. Check the Authorization Endpoint for more information about detailed request and response examples.
+
+The following fields are always present in the Authorization response with their respective default values for the case that they are not triggered:
+
+  * `"alert": false` This field is changed to "true" when any rule with the action "alert" is triggered. See examples of possible scenarios below.
+  * `"action_codes": []` This field is populated with the actions of the first triggered rule, other than the alert action. Note that the alert action is represented by the `alert` field.
+  * `"secondary_action_codes":[]` This field is populated with actions of every other triggered rule (i.e. excluding the first triggered rule), other than the alert action.
+
+
+
+When rules are triggered, they match the following scenarios:
+
+## Scenario 1â
+
+  * **The first triggered rule:**
+    * Action field - Alert
+  * **Excerpt from the Authorization response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = [],  
+    "secondary_action_codes" = []  
+    }  
+    
+
+## Scenario 2â
+
+  * **The first triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Authorization response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = ["Action 1", "Action 2", "Action 3"],  
+    "secondary_action_codes" = []  
+    }  
+    
+
+## Scenario 3â
+
+  * **The first triggered rule:**
+    * Action field - Alert
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Authorization response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = [],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3"]  
+    }  
+    
+
+## Scenario 4â
+
+  * **The first triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Authorization response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = ["Action 1", "Action 2", "Action 3"],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3"]  
+    }  
+    
+
+## Scenario 5â
+
+  * **The first triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **The third triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 4
+  * **Excerpt from the Authorization response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = ["Action 1", "Action 2", "Action 3"],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3", "Action 4"]  
+    }  
+    
+
+## Scenario 6â
+
+  * **The first triggered rule:**
+    * This rule doesn't have actions.
+  * **The second triggered rule:**
+    * Action field - Alert + Action 1 + Action 2 + Action 3
+  * **Excerpt from the Authorization response:**
+
+
+    
+    
+    {  
+    "alert": true,  
+    "action_codes" = [],  
+    "secondary_action_codes" = ["Action 1", "Action 2", "Action 3"]  
+    }  
+    

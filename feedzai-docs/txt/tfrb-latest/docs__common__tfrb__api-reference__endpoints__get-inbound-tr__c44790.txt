@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/get-inbound-transfers
+Title: InboundTransfer | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Inbound PaymentsÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/inbound-payments)
+  * InboundTransfer
+
+
+
+Was this page helpful?Â 
+
+# InboundTransfer
+    
+    
+    GET 
+    
+    ## /api/inbound-transfers/:lifecycle_id
+
+The Inbound Transfer Endpoint allows you to retrieve a transfer previously sent to Feedzai.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 401
+  * 404
+  * 500
+
+
+
+OK
+
+Unauthorized
+
+Transaction was not found
+
+The system encountered an unexpected internal error.

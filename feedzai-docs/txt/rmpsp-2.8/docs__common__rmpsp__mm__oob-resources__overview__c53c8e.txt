@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview
+Title: Out-of-the-box resources | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * Out-of-the-Box Resources
+
+
+
+# Out-of-the-box resources
+
+Merchant Monitoring offers out-of-the-box resources, such as lists, schemas, and rules projects. These resources are included in the solution standard package to help Payment Service Providers monitor risky merchants.
+
+This section contains the following reference documentation on those resources:
+
+  * [Lists](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/mm-lists)
+  * [Schemas](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/mm-schemas)
+  * Rules Projects
+    * [Bankruptcy Risk Rules](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-bankrupcy-risk-rules)
+    * [Chargeback Rules](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-chargeback-rules)
+    * [Fraud Rules](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-fraud-rules)
+    * [Money Laundering Rules](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-money-laundering-rules)
+    * [Unusual Activity Rules](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/mm-unusual-activity-rules)
+    * [Refund and OCT Rules](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/rules-projects/rmpsp-oct-rules)
+  * [Analytics Dashboards' Fields](/rmpsp/2.8/docs/common/rmpsp/analytics-fields)
+
+

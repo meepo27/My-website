@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/rule-guide/deploying-rules-to-the-production-environment
+Title: Deploying Rules to the Production Environment | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Rule Guide](/pulse/latest/docs/common/pulse/users-guide/rule-guide/)
+  * Deploying Rules to the Production Environment
+
+
+
+On this page
+
+Was this page helpful?Â 
+
+# Deploying Rules to the Production Environment
+
+This topic gives a summary of how the rules are deployed to the development environment. Since the deployment is not performed by data scientists, the steps are not covered in detail in this document. The description gives only an overview of what happens next, as the planning process needs input from data scientists as well.
+
+The deployment process of rules is different depending on whether this is the first deployment, or an iteration over an existing deployment. The following sections give a summary of both processes.
+
+## First-time deploymentâ
+
+The following sections describe the steps of deploying a project to production for the first time.
+
+### Planning the workflow and the outcome combinatorsâ
+
+A workflow defines the journey of the transaction through Pulse.
+
+A typical workflow contains a combination of the following steps:
+
+  1. Data input from the main data stream.
+  2. Data input from enrichers (e. g. card-related information).
+  3. Calculating new features based on the existing data fields.
+  4. Applying blocks of rules.
+  5. Running the scoring service with a model, i.e. applying a model on the data, thus contributing to the final score.
+  6. Running custom services. A custom workflow service is custom Java code that performs a specific task.
+  7. At the end of the workflow Pulse runs an outcome combinator that is configured for calculating the final outcome and score.
+
+
+
+#### Outcome combinatorsâ
+
+Outcome combinators define how to calculate the partial and final decisions and scores for an outcome in a workflow or sandbox evaluation. Outcome combinators take into account the triggered rules and applied models to provide a combination of all partial scores.
+
+Pulse has a built-in outcome combinator, which calculates a weighted average of all the scores that the transaction got while traveling through the workflow. However, you can develop your own Java code to use it as a custom outcome combinator. This way, when a transaction travels through the workflow, the final outcome will be calculated by the custom outcome combinator according to your definition. Each of the triggered rules and applied models can be taken into consideration in a different way, and with a different weight.
+
+### Transferring resources and creating the workflowâ
+
+In the previous step, engineers planned the journey of an event through Pulse. In this step, this journey is implemented in the form of a workflow of Pulse.
+
+To create the workflow, engineers first export the resources (schemas, plans, rules, models) from the data science environment, and import them to the production environment. Then they create the necessary services (input adapters, enrichment services, outcome combinators, etc.) and use them in the workflow, implementing the journey planned in the previous step.
+
+## Updating an existing deploymentâ
+
+To deploy the rule changes from the data science environment to production, engineers first have to export the resources that changed (schemas, plans, rules projects, etc.). Then they import these resources in the production environment.
+
+In some cases, while data scientists are working in the data science environment on the rules, in the production environment changes may have occurred. For instance, adding a new self-service rule, or adding a new feature to a plan in production. In this case, before transferring the changes from the data science environment to production, the data science environment needs to be brought to the same state as the production environment. The best approach to perform this is to have a freeze period on the production environment, while no new changes are introduced until the resource transfer is done.
+
+After the resource transfer, engineers update the production workflow to use the new version of the plans and rules you created, and they publish the new version of the application.

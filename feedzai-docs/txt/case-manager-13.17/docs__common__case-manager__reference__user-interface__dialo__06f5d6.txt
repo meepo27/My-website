@@ -1,0 +1,255 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/dialogs
+Title: Dialogs | Case Manager
+============================================================
+
+On this page  
+  
+# Dialogs
+
+Starting from CM v3.0.0, some of the dialogs in CM can be configured. At the root of the configuration, each property corresponds to one of the dialogs available to configure, which are:
+
+  * Decision score card dialog
+  * Self Service Rules testing dialog
+
+
+
+Starting from CM-7.0.12, more dialogs can be configured:
+
+  * Move To Queue
+  * Assign To User
+  * Set State
+  * Change Reasons
+  * Upload Docs
+  * Update Docs
+  * Link Event Case
+  * Unlink Event Case
+  * Case State
+
+
+
+## Root configurationâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+decisionScoreCard| Object| no* **_*It is only optional if there isn't an action of type decision-score-card._**|  Holds the configuration object for the decision score card dialog. For more info about the available properties for this object, please check the DecisionScoreCard section below.  
+testRule| Object| yes*_ ***If you don't configure this dialog, no predefined test options will appear when choosing the time interval in which the rule will be tested.**_|  Holds the configuration object for the Self Service Rules dialog. For more info about the available properties for this object, please check the TestRule section below.  
+updateLists| Object| yes*_ ***If you don't configure this dialog, the note field will not be required.**_|  Holds the configuration object for the Update List dialog. It currently allows to configure the note field as mandatory or not. The notes fields maximum number of character is 255.  
+moveToQueue _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Move To Queue dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+assignToUser _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Assign To User dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+setState _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Set State dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+changeReasons _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Change Reasons dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+uploadDocs _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Upload Docs dialog (both Event and Cases upload docs dialogs).It currently allows to configure the note field as mandatory or not.Please check how to add this config here.  
+updateDocs _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Update Docs dialog (both Event and Cases update docs dialogs).It currently allows to configure the note field as mandatory or not.Please check how to add this config here.  
+linkEventCase _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Link Event To Case dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+unlinkEventCase _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Unlink Event From Case dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+caseStates _(since 7.0.12)_|  Object| yes*_*If you don't configure this dialog, the note field will not be required._|  Holds the configuration object for the Case State dialog. It currently allows to configure the note field as mandatory or not. Please check how to add this config here.  
+  
+### DecisionScoreCardâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+steps| Array<Object>| yes* **_*Only the Change state step is required_**|  Holds the list of steps that should be in the decision score card.Currently there is only 3 steps available:
+
+  * Change state
+  * Update lists
+  * Review related
+
+The only required step is the first one, while the others might be optional. The first step should always be the **Change state** while the other two can be in any arbitrary order.To configure each step, please follow the Common step properties section and, if applicable, also follow the specific sections for each step.For the Update lists setps the List Management permissions (`cm:resource:event-posneg:read:*` AND `cm:action:event-list:create:*`) are required. Learn more about [Permissions](/docs/common/case-manager/reference/permissions).  
+  
+#### Common step propertiesâ
+
+Each step must have the following properties:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+title| Â String| no| Holds the i18n key to the step title.Â   
+type| String| no| Holds the step type. The available types are:
+
+  * state (Change state)
+  * update-lists (Update lists)
+  * review-related (Review related)
+
+  
+  
+#### Review related step specific propertiesâ
+
+For the Review related step, there are some specific properties that should be provided:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+config| Object| no| Holds the step specific configuration properties. It should contain the following properties:
+
+  * **table** \- (Object) Holds the table configuration. Please find [here](/docs/common/case-manager/reference/user-interface/widgets/table) the available properties.
+  * **filter** \- (Object) Holds the filter configuration. The available properties are:
+    * options - (Array<Object>) Holds the list of filter options. Each item must be an object with a **label** and **value** properties. The first one should contain a i18n key to the option label, while the last one should contain the option value.
+  * **checkbox** \- (Object) Holds the checkbox configuration. The available properties are:
+    * label - (String) (Optional) Holds the i18n key to the checkbox label.
+
+  
+  
+#### Change state step specific propertiesâ
+
+For the Review related step, there are some specific properties that should be provided:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+config| Object| no| Holds the step specific configuration properties. It can contain the following properties:
+
+  * **mandatory** \- (Array<String>) Holds the mandatory fields. Mandatory fields can be:
+    * reasons
+    * note
+  * **maxReasons** \- (Positive Integers) Holds the number of maximum reasons a user can select. This key can be paired with the mandatory fields to make it both required and limited on its amount.Â 
+    * Default: undefined
+  * **maxNoteLength** \- (Positive Integers) Holds the number of maximum character of notes fieldsÂ 
+    * Default: 255
+
+  
+  
+#### Update list state step specific propertiesâ
+
+For the Update list related step, there are some specific properties that can be provided:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+config| Object| no| Holds the step specific configuration properties. It can contain the following properties:
+
+  * **mandatory** \- (Array<String>) Holds the mandatory fields. Mandatory fields can be:
+    * note
+  * **maxNoteLength** \- (Positive Integers) Holds the number of maximum character of notes fieldsÂ 
+    * Default: 255
+
+  
+  
+### TestRuleâ
+
+Property| Type| Optional| Description  
+---|---|---|---  
+predefinedTestOptions| object[]| yes| Holds a list of objects where each represents a time interval to be used when testing a rule. Each option can have the following properties:
+
+  * **label** \- (string) i18n key that points to the friendly message in the AM_MESSAGE table. We will use the translated message as the option label, in the dialog select.
+  * **unit** \- (string) Holds the time unit. Possible values: ["day", "hours", "minutes"]
+  * **value** \- (number) Holds the amount of "time" that will be subtracted from the current time. The number must be a positive integer.
+
+Example:
+    
+    
+    [
+    	// configures an option to test a rule against the last month
+    	{
+    		label: "last.month",
+    		unit: "month",
+    		value: 30
+    	},
+    	// configures an option to test a rule agains the last 10 hours
+    	{
+    		label: "last.ten.hours",
+    		unit: "hours"
+    		value: 10
+    	}
+    ]
+
+infoThe user will also have a "custom" option in the user interface that will let him to define it's own time interval (both begin and end time).  
+  
+### Update list (and other dialogs)â
+
+For the Update list related step, there are some specific properties that can be provided:
+
+Property| Type| Optional| Description  
+---|---|---|---  
+config| Object| no| Holds the step specific configuration properties. It can contain the following properties:
+
+  * **mandatory** \- (Array<String>) Holds the mandatory fields. Mandatory fields can be:
+    * note
+  * **maxReasons** \- (Positive Integers) Holds the number of maximum reasons a user can select. This key can be paired with the mandatory fields to make it both required and limited on its amount.Â 
+    * Default: undefined
+  * **maxNoteLength** Â - (Positive Integers) Holds the number of maximum character of notes fieldsÂ 
+    * Default: 255
+
+  
+  
+### Examplesâ
+
+#### Configuring Reasons as Mandatoryâ
+
+  * in **Decision Scorecard**
+
+
+    
+    
+    "decisionScoreCard": {  
+        "steps": [  
+            {  
+                "title": "dialog.decision-score-card.add-reasons.title",  
+                "type": "state",  
+                "config": {  
+                    "mandatory": [  
+                        "reasons",  
+                        "note"  
+                    ]  
+                }  
+        },  
+    ...  
+    
+
+  * in **SetState Dialog**
+
+
+    
+    
+    "linkEventCase": {  
+        "config": {  
+            "maxNoteLength": 1024,  
+            "mandatory": [  
+                "reasons",  
+                "note"  
+            ]  
+        }  
+    }  
+    
+
+#### Configuring a maximum amount of Reasonsâ
+
+  * in **Decision Scorecard**
+
+
+    
+    
+    "decisionScoreCard": {  
+        "steps": [  
+            {  
+                "title": "dialog.decision-score-card.add-reasons.title",  
+                "type": "state",  
+                "config": {  
+                    ...  
+                    "maxReasons": 3,  
+                }  
+        },  
+    ...  
+    
+
+  * in **SetState Dialog**
+
+
+    
+    
+    "setState": {  
+        "config": {  
+            ...  
+            "maxReasons": 1,  
+        }  
+    }  
+      
+    
+
+  * in **Change Reasons Dialog**
+
+
+    
+    
+    "changeReasons": {  
+        "config": {  
+            ...  
+            "maxReasons": 2,  
+        }  
+    }  
+    

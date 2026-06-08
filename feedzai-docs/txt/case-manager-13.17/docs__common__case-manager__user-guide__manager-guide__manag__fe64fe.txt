@@ -1,0 +1,56 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-case-sources
+Title: Manage Case Sources | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage System Configurations
+  * Manage Case Sources
+
+
+
+On this page
+
+# Manage Case Sources
+
+You can manage the case sources used by analysts when creating cases. Case sources help to better categorize and manage the cases under investigation. This page details how to view, filter, create, edit, and enable/disable case sources.
+
+Access the **Case Sources** page using the **Settings** option in the main menu.
+
+## Filter case sourcesâ
+
+Use the filters to refine the case sources displayed on the list. This could be helpful, for example, to view all case sources from a specific type.
+
+## Create case sourcesâ
+
+Create case sources for analysts to use when creating cases.
+
+  1. Select the **New Case Source** button.
+  2. Complete the fields with the information that best describes the new case source.
+     * **Name** : Case source's name (e.g. "Legal request").
+     * **Case Type** : When using multiple business cases (i.e. fraud and aml), this classification simplifies case distribution between the different teams.
+  3. Select the **Enable** option to indicate if the case source can be displayed when creating cases.
+  4. **Create** the case source.
+
+
+
+## Edit case sourcesâ
+
+Edit case sources and adjust their parameters to better suit your needs. Note that you can only edit case sources that are not being used in cases.
+
+  1. In the case sources' list, hover over the case source that you want to edit and select **Edit** .
+
+  2. Edit the **Name** and **Type**. You can also use the edit form to enable or disable the case source.
+
+  3. **Save** the changes.
+
+
+
+
+## Enable and disable case sourcesâ
+
+When you create a case source, you can enable it so that it can be selected when creating cases. On the other hand, you can disable the case sources that are no longer relevant to your needs. To perform these actions, hover over the case source and select  to enable it and  to disable it.
+
+Disable case sources already in use
+
+When you disable a case source, the cases that already have that source are not affected. Disabling case sources only prevents analysts from using them in future actions.

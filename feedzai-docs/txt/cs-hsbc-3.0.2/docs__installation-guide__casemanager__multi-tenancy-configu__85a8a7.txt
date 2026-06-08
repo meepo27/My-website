@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/casemanager/multi-tenancy-configuration
+Title: Multi-tenancy Configuration | Feedzai Documentation
+============================================================
+
+On this page
+
+# Multi-tenancy Configuration
+
+This page describes the configuration required in order to enable Multi-tenancy in Case Manager.
+
+## Enabling Multi-tenancyâ
+
+Multi-tenancy can be enabled during deployment by setting `cm_multi_tenancy_enabled` to `true`. This will enable tenancy for the following features:
+
+  * Event segregation
+  * List management
+  * Queues management
+
+
+
+## Tenant fieldâ
+
+The tenant field to which Case Manager looks to define the tenant will always be the same `schema.tenant` in Case Manager since its value is based on a field configured in Pulse.
+
+Check [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) for more details.
+
+## Permissionsâ
+
+For users to be able to use multi-tenancy features in Case Manager, their role should have the `cm:resource:landlord:*` permission.
+
+This permission reduces tenancy configuration, thus not requiring system administrators to manually add each tenant to a landlord user.
+
+##### info
+
+Refer below for more
+
+  * [Multi tenancy configuration](https://cam.feedzai.com/case-manager/latest/docs/common/case-manager/configuration-guide/multi-tenancy-configuration#enabling-multi-tenancy)
+
+

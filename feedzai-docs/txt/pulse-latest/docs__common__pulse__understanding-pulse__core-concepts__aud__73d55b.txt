@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/audit
+Title: Audit | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Core Concepts](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts)
+  * Audit
+
+
+
+On this page
+
+# Audit
+
+Was this page helpful?Â 
+
+Pulse keeps an audit log of changes made to the Pulse applications and resources, as well as user actions (e. g. login). Pulse logs these actions when they are initiated via user interface or via Pulse REST API endpoints.
+
+## What is loggedâ
+
+The audit log consists of the following:
+
+  * **Audit entries** : the logs that capture a user action or a change. It contains data that was included in the request that initiated the action. Example: if you create a list item, Pulse includes in the audit entry the list name, the user session identifier, the values added, whether the list item is enabled, etc.
+  * **Audit entry labels** : labels that are added to the data fields of the audit entries, to make them easy to browse in the Pulse UI. If a data field of the audit logs has a label, you can filter the audit entries by the value of that data field simply by clicking on the value.
+  * **Audit entry search terms** : terms that you can search for in the audit entries, using the Pulse UI. Search terms don't appear on the UI, and they are not configurable. They can be used to search resources by identifier on advanced investigations.
+
+
+
+Pulse creates an audit entry for the following:
+
+  * Deletion, creation and update of data science entities (rules, models, lists, etc.)
+  * Deletion, creation and update of security entities (users, tenants, permissions, groups etc.)
+  * User actions (login, logout, change password, viewing or exporting list items, etc.)
+  * Application import, export, publish, start, stop, etc.
+  * Certain configuration changes (job profiles, autohealing, self service, etc.)
+
+
+
+For a full list of logged actions, check the Action  drop-down on the Audit  screen in the Pulse UI. See the [Investigating changes and user actions](/pulse/latest/docs/common/pulse/users-guide/investigating-changes-and-user) topic.
+
+Pulse keeps all audit logs, but the Pulse UI shows only the last two months' audit data.
+
+## Who can see the audit logsâ
+
+Users with the `security:audit:read` permission have access to all audit entries.
+
+Audit is enabled by default.
+
+## Where are the logs storedâ
+
+The audit log is stored in the Pulse database, in the following tables:
+
+  * AuditEntry
+  * AuditEntrySearchTerm
+
+
+
+It's not recommended to access these tables directly. The recommended way to access audit logs is via the Pulse UI.
+
+## Learn moreâ
+
+Read how to [investigate changes and user actions](/pulse/latest/docs/common/pulse/users-guide/investigating-changes-and-user) in the Pulse application.

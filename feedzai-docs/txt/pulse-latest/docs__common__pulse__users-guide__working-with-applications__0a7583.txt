@@ -1,0 +1,86 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/the-application-life-cycle
+Title: The Application Life Cycle | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * The Application Life Cycle
+
+
+
+# The Application Life Cycle
+
+Was this page helpful?Â 
+
+An application can be in one of the following states:
+
+  * **`STOPPED`**  
+
+
+  
+
+
+In the `STOPPED` state, the application is completely shut down, without any alive App Engine.
+
+  * **`BOOTSTRAPPED`**  
+
+
+  
+
+
+The `BOOTSTRAPPED` state means that the application is in _standby_ state. All its services are started but they only validate the changes being done.
+
+  * **`STARTED`**  
+
+
+  
+
+
+An application that is `STARTED` is assumed to have all of its application replicas alive.
+
+  * **`DEGRADED`**  
+
+
+  
+
+
+The `DEGRADED` state indicates that an application may have an issue and may not fully provide all the processing guarantees. For example, there might not be any replica handling the events of a given partition. The application transitions to this state when one of the following conditions are met:
+
+    * There are application replicas running distinct versions.
+    * Not all of the replicas are started.
+    * Some replicas are down.
+  * **`CRASHED`**  
+
+
+  
+
+
+An application becomes `CRASHED` if there are no application replicas alive that can be considered healthy.
+
+  * **`SELF-HEALING`**  
+
+
+  
+
+
+An application starts a self-healing process if it has reached an unhealthy state and Pulse began performing recovery actions in an attempt to restore the application to a healthy state. To learn more about how and when these recovery actions are performed, see [Automatic Application Repair.](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/automatic-application-repair)
+
+
+
+
+Furthermore, there are also four _maintenance_ states, meaning that some state transition is taking place:
+
+  * **`APPLYING CHANGES`**  
+When updating the application.
+  * **`BOOTSTRAPPING`**  
+When the application crashed and is being restarted, or after stopping an application.
+  * **`STARTING`**  
+When the application changes from `BOOTSTRAPPED` to `STARTED.`
+  * **`STOPPING`**  
+When the application is being stopped.
+
+
+
+An application in a maintenance state should be displayed as follows. Note that the wheel on the top right corner of the image should be spinning.
+
+When the application is in a maintenance state, crashed application replicas will not be recovered. Moreover, no other Application Lifecycle operations (publish, stop, etc.) can be performed in parallel. They will, however, be queued if Pulse is configured to do so.

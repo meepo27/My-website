@@ -1,0 +1,38 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/widgets/activity-log
+Title: Activity Log | Case Manager
+============================================================
+
+# Activity Log  
+  
+Activity log visibility
+
+The actions visible on the Activity log can be configured according to the [`tenanted_activity_log`](/case-manager/13.17/docs/internal/case-manager/reference/core-config-json#cm) property.
+
+Property | Type | Optional | Description  
+---|---|---|---  
+`selectConfiguration` | `Object` | Yes | Select box to filter the table rows by its action type. Each item must be an object with the following properties: 
+
+  * **options** (Array) - List of select options, where each item must have a **label** and a **value** property.
+
+  
+`fieldsCssClass` | `Object` | Yes |  Custom CSS classes that can be passed to certain fields in the description cell. This object can have dynamic properties, i.e., the properties are constructed using the action field and the correspondent value.  E.g.:
+    
+    
+    fieldsCssClass: {  
+      "status|fraud": "fdz-css-class1",  
+      "status|genuine": "fdz-css-class2"  
+    }  
+      
+  
+`descriptionFields` | `Object` | Yes |  Maps for each action, the list of fields that should appear in the description. If not provided, then all the fields will be listed. This object can have dynamic properties, i.e., the properties are constructed using the action field value (e.g. "UPDATE"). Then, each dynamic property might have a list of items with the field and/or type properties.  
+`selectValues` | `Array<Object>` | Yes | List of initial select box values. Each item must be an object with the following properties: 
+
+  * **value** (string) - Value of one of the select options
+
+  
+`scrollable` | `Object` | Yes | Scrollable configuration. Accepts the following properties: 
+
+  * **enabled** \- Indicates if the widget is scrollable or not. Defaults to true
+  * **maxHeight** \- Sets the max height of the widget. If its content exceeds this value, then a scrollbar will appear. The default maxHeight is 400px
+
+

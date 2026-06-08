@@ -1,0 +1,62 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/user-interface/routes
+Title: Routes | Case Manager
+============================================================
+
+On this page
+
+# Routes
+
+## Default Routesâ
+
+The case manager has a set of default-core-routes, that can be accessed on the application and most can be toggled via configuration:
+
+Route| Description  
+---|---  
+`/login`| Login form. Usually the page that is displayed when the user does not have a valid session.  
+`/cm-login`| Same as login. A way to bypass SAML, if it's active.  
+`/settings/queues`| Shows a list of all the queues.  
+`/settings/queues/new`| Shows the page to create a new queue.  
+`/settings/queues/:id/edit`| Shows the page to edit a specific queue.  
+`/settings/slas`| Shows a list of all the SLAs.  
+`/settings/slas/new`| Shows the page to create a new SLA.  
+`/settings/slas/:id/edit`| Shows the page to edit a specific SLA.  
+`/settings/automation`| Shows a list of all the automation rules.  
+`/settings/automation/new`| Shows the page to create a new automation rule.  
+`/settings/automation/:id/edit`| Shows the page to edit a specific automation rule.  
+`/reports`| Shows a list of all the generated reports.  
+`/settings/report`| Shows a list of all the report template.  
+`/settings/report/new`| Shows the page to create a new report template.  
+`/settings/report/:id/edit`| Shows the page to edit a specific report template.  
+  
+## Custom Routesâ
+
+To associate routes to pages, you need to configure it under the **routes** property, which is an object where you can add entries whose name is the route and the value is the page name. Currently, you can define two types of routes: those that do not need parameters, such as /alerts, /search, /customer, etc, and those that can point to a specific entity item. For the first type, it is straightforward the way how to add them, you just need to choose a name for the route and associated it with an existing page. For the second type, you need to provide two levels in the route, where the first level is the entity and the second level is the entity id (the entity id can be a specific id or it can be a general id and it is represented by :id keyword.
+
+Imagine you want to create two different routes where one points to the customer listing page (whose page name is customer) and the second points to the customer details page (whose page name is _customer-details)_. In this case, we should add the following properties to the routes property:
+
+#### Routes Configuration Exampleâ
+    
+    
+    {  
+        ...,  
+        "routes": {  
+            "customer": "customer",  
+            "customer/:id": "customer-details"  
+        },  
+        "pages": {  
+            "customer": {...},  
+            "customer-details": {...}  
+        },  
+        ...  
+    }  
+    
+
+The main thing to look at is the "customer/:id" route, which accepts any id and will be used by the page associated with the route.
+
+Attention
+
+  * Routes names should not contain "." characters in its name.
+  * Routes that point to non existing pages will throw an error. Always check the browser console if the Case Manger page does not initialises.
+  * When defining routes that point to any specific entity item, please make sure to use **:id** , otherwise it won't work.
+
+

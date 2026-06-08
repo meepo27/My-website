@@ -1,0 +1,22 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.0/individual-release-notes/HSBC-4146
+Title: HSBC-4146 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-4146
+
+### Add previous transactions to Cards `Send 2-WAY SMS` extensionâ
+
+FeatureFTMT-34477HSBC-4146
+
+We've added the `previous_transactions` field to the Cards `Send 2-WAY SMS` extension. This field will be populated by listing the last transaction that fall under the following criteria:
+
+  * Same `card_pan` value
+  * Same `customer_id` value
+  * Happened in the last 24 hours (calculated from the time the extension was triggered)
+  * Is not the event that triggered the extension
+
+
+
+For more details please refer to [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions).

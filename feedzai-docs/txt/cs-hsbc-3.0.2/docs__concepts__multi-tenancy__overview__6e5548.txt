@@ -1,0 +1,53 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/concepts/multi-tenancy/overview
+Title: Overview | Feedzai Documentation
+============================================================
+
+On this page
+
+# Overview
+
+## Multi-Tenancyâ
+
+Multi-Tenancy allows Feedzai clients to host and support multiple tenants in a single environment. This allows them to provide at-scale solutions to their own clients, who can use the product on their own.
+
+For **HSBC** , tenants will correspond to **markets**. For example, within the APAC region, there might be a `singapore` and `australia` tenants, which can be used to segregate access to these specific regions, even if they're serviced by the same application/channel in Pulse and Case Manager (outbound payments, for instance).
+
+You can refer this link for more on [Rules and Lists](/cs-hsbc/3.0.2/docs/concepts/multi-tenancy/rules-lists).
+
+## Landlordâ
+
+A **landlord** is a client who has a Fraud Prevention installation that they can offer to other clients, also known **tenants**. Landlords can carry out the following actions:
+
+  * Create, deploy and customize tenant instances, along with all the configuration/data integration and mapping required.
+  * Write simple and advanced rules.
+  * Create Lists.
+  * Edit lists: Add/Remove items to/from lists.
+  * Create applications.
+  * Create models, workflows, dashboards and engineer features that can be deployed to one or more tenants.
+  * Create case management queues, administer tenant users.
+
+
+
+For example, **HSBC Hong Kong** will have the main installation so it can be considered as landlord.
+
+## Rules and Listsâ
+
+Landlords can create rules and lists that can be applied to all tenants. In addition, landlords can create customized rules and lists for each tenant, and allow tenants to access and modify these resources.
+
+From a multi-tenancy perspective, rules and lists can be of different natures:
+
+  * Rules can be **Global** (applying to all tenants and state shared by all tenants), **Common to all tenants** (applying to all tenants, and state specific for each tenant), or **Custom per tenant** (rules customized individually).
+  * Lists can also be **Global** (Used by all tenants, for instance, a blacklist shared by all tenants), **Common to all tenants** (a list with the same motivation but with different items for different tenants) and **Custom per tenant** (a list that is specifically created for a tenant).
+
+
+
+There are also other resources (namely **Plans** and **Models**) that can be defined and/or customized for tenants, with a similar procedure to that of rules and lists.
+
+##### info
+
+Refer the below links for more on Multi-Tenancy.
+
+  * [Multi-Tenancy Concepts](https://cam.feedzai.com/case-manager/latest/docs/common/case-manager/understanding-case-manager/core-concepts/multi-tenancy)
+  * [Tenant Management](/cs-hsbc/3.0.2/docs/concepts/multi-tenancy/tenant-management)
+
+

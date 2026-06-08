@@ -1,0 +1,16 @@
+Source: https://cam.feedzai.com/pulse/latest/
+Title: Feedzai Pulse
+============================================================
+
+Skip to main content
+
+[**Pulse**](/pulse/latest/)[Understanding Pulse](/pulse/latest/docs/common/pulse/about-pulse)[Getting Started](/pulse/latest/docs/common/pulse/understanding-pulse/getting-started)[User Guide](/pulse/latest/docs/common/pulse/users-guide)[Security Guide](/pulse/latest/docs/common/pulse/security-guide)
+
+# Feedzai Pulse
+
+Feedzai Pulse is a cutting-edge enterprise data science platform that integrates big data analytics and machine learning techniques with a native runtime production environment to fight financial crime in real time. Feedzai combines in a single enterprise platform all the critical tools needed to manage data science projects across their entire life cycle. Pulse is designed with an open and flexible data architecture. This makes it a powerful platform to solve any number of different business use cases across financial institutions and merchants.
+
+[Get started](/pulse/latest/docs/common/pulse/about-pulse)
+
+Feedzai uses Google Analytics to collect metrics on how our documentation is used. For any questions, please reach out to [[email protected]](/cdn-cgi/l/email-protection#85e1eae6f0e8e0ebf1e4f1eceaebc5e3e0e0e1ffe4ecabe6eae8).   
+Copyright Â© 2026 Feedzai.

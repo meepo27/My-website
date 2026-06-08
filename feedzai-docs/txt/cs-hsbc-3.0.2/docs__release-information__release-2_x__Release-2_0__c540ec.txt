@@ -1,0 +1,249 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/Release-2.0
+Title: Release 2.0 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `2.0.0`â
+
+### New fields added for AMHâ
+
+Feature
+
+The following fields were added to Pulse Schemas and APIs:
+
+Reference Data:
+
+  * `customer_annual_turnover`
+  * `customer_business_type`
+  * `customer_chinese_comm_code`
+  * `customer_rm_info`
+  * `customer_marital_status`
+  * `customer_rel_status`
+  * `customer_type`
+
+
+
+Transfers:
+
+  * `invalid_email_indicator`
+  * `sub_channel_name`
+  * `customer_id_number`
+  * `sender_account_channel_limit_double`
+
+
+
+Digital Activity:
+
+  * `customer_id_number`
+  * `gift_indicator_code`
+  * `customer_status`
+  * `sender_billing_amount`
+
+
+
+### Add new fields to the Payments workflow schemaâ
+
+Feature
+
+The following fields were added to the Payments workflow schema:
+
+  * `customer_total_balance`
+  * `customer_reported_income`
+  * `customer_citizen_id_number`
+  * `customer_preferred_language`
+
+
+
+These fields were already part of the Customer Reference Data API and will now be forwarded to the Payments workflow when available.
+
+### Add new Customer reference data fields to Case Manager schemaâ
+
+Feature
+
+The following fields were added to the Case Manager schema and are now shown in the Customer Details page:
+
+  * `customer_business_phone`
+  * `customer_businessphone_last_update_at`
+  * `customer_citizen_id_number`
+  * `customer_citizenship`
+  * `customer_corresp_city`
+  * `customer_corresp_country_code`
+  * `customer_corresp_region`
+  * `customer_corresp_street_addr`
+  * `customer_corresp_zip`
+  * `customer_corresp_zip_area_code`
+  * `customer_email_last_update_at`
+  * `customer_fiv_marker_last_updated_at`
+  * `customer_forname`
+  * `customer_gender_code`
+  * `customer_hmphone_last_update_at`
+  * `customer_home_address_last_update_at`
+  * `customer_home_city`
+  * `customer_home_country_code`
+  * `customer_home_phone`
+  * `customer_home_region`
+  * `customer_home_street_addr`
+  * `customer_home_zip`
+  * `customer_home_zip_area_code`
+  * `customer_mbphone_last_update_at`
+  * `customer_mobile_phone`
+  * `customer_pb_marker`
+  * `customer_preferred_language`
+  * `customer_registration_date`
+  * `customer_reported_income`
+  * `customer_segment`
+  * `customer_surname`
+  * `customer_total_balance`
+
+
+
+### Fix Customer Search link in Case Managerâ
+
+Bug Fix
+
+Fixed an issue where clicking on the ID of a Customer when search in the Customer Search page would redirect to the incorrect page.
+
+### Customer Reference Data field `customer_total_balance` now accepts decimalsâ
+
+Rework
+
+The `customer_total_balance` field of the Customer Reference Data API now accepts decimal numbers. Previously it was limited to integer numbers.
+
+The updated type and examples can be found in the [API Reference](/cs-hsbc/3.0.2/api#tag/referencedata/operation/addCustomersReferenceData).
+
+### Fix hardcoded hostnames in Pulse and Case Manager database connection stringsâ
+
+Bug Fix
+
+We have added the following database-related variables to the ansible variables for both Pulse and Case Manager deployment configuration, to allow for simpler and more fine-grained tuning of the JDBC connection strings in both components.
+
+For Case Manager, the following properties are now available:
+
+  * `database_casemanager_hostname`
+  * `database_casemanager_port`
+  * `database_casemanager_database_name`
+  * `database_casemanager_ro_hostname`
+  * `database_casemanager_ro_port`
+  * `database_casemanager_ro_database_name`
+
+
+
+For Pulse, the following properties are now available:
+
+  * `database_pulse_eventstorage_hostname`
+  * `database_pulse_eventstorage_port`
+  * `database_pulse_eventstorage_database_name`
+  * `database_pulse_metadata_hostname`
+  * `database_pulse_metadata_port`
+  * `database_pulse_metadata_database_name`
+  * `database_pulse_eventstorage_read_only_hostname`
+  * `database_pulse_eventstorage_read_only_port`
+  * `database_pulse_eventstorage_read_only_database_name`
+
+
+
+Check [Pulse Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/pulse/configuration-pulse#ansible) and [Case Manager Configuration Reference](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/configuration-casemanager#ansible) for more information.
+
+### Add periodic restart of pulse-workflow-audit logstash pipelineâ
+
+Feature
+
+Configurable periodic restart functionality has been added to the _pulse-workflow-audit_ logstash pipeline, based on a Linux `cron` entry that runs a script to do so. Further details on this feature may be found in [Logstash Pulse Workflow Audit Pipeline Recovery Tool](/cs-hsbc/3.0.2/docs/installation-guide/logstash-recovery-tool/logstash-audit-pipeline-recovery-tool).
+
+### Update currency field descriptionsâ
+
+Bug Fix
+
+We have fixed the Payments schema currency fields descriptions from `Alpha-3` to `3-Digit Numeric Code` to match the value definition sent to Pulse API.
+
+### Case Manager Version Upgraded to 13.12.3â
+
+Feature
+
+We've upgraded the Case Manager Version to 13.12.3. This upgrade will fix conditions for reasons in SLA not working.
+
+### Fix the transaction history decision option not filtered based on permission.â
+
+Bug Fix
+
+We have fixed an issue in Case Manager where the decision options in the transaction history widget were not being filtered by permissions.
+
+### Set Case Manager default states without Automation Rulesâ
+
+Feature
+
+`Breach Status` and `Operational Status` will now be automatically set to `Not Breached` and `Unreviewed`, respectively, without the need of Automation Rules.
+
+By having these default states we greatly improve the processing time of new events.
+
+**Notes:**
+
+The following Automation Rules can be disabled:
+
+  * `Set Operational Status to Unreviewed and Breach Status`
+  * `Set Operational Status to Unreviewed`
+
+
+
+Also any `Event Arrival` Automation Rule output that sets either of these states to their default value can be removed.
+
+### Add missing Case Manager enrichmentâ
+
+Bug Fix
+
+We have fixed the issue where CAM Level mapping not displaying correctly in the Digital Activity event Details Page.
+
+### Add missing Case Manager translationsâ
+
+Bug Fix
+
+We have fixed the issue where some fields in case manager were not having any translations.
+
+### Add missing fields to Payments + Outcomes schemaâ
+
+Bug Fix
+
+We fixed an issue in which following fields had not been properly added to the `Payments + Outcomes` schema:
+
+  * `customer_fiv_marker`
+  * `customer_mbphone_last_update_at`
+  * `customer_fiv_marker_last_updated_at`
+  * `customer_gender_code`
+  * `customer_earnings_amt_snapshot_dt`
+  * `current_account_monthly_debit_amount`
+  * `phone_bank_use_code`
+  * `customer_current_account_balance`
+  * `customer_salary_amount`
+  * `customer_forname`
+  * `customer_surname`
+  * `customer_home_street_addr`
+  * `customer_home_city`
+  * `customer_home_zip`
+  * `customer_home_zip_area_code`
+  * `customer_home_region`
+  * `customer_home_country_code`
+  * `customer_home_address_last_update_at`
+  * `customer_corresp_street_addr`
+  * `customer_corresp_city`
+  * `customer_corresp_zip`
+  * `customer_corresp_zip_area_code`
+  * `customer_corresp_region`
+  * `customer_corresp_country_code`
+  * `customer_corresp_address_last_update_at`
+  * `customer_email_last_update_at`
+  * `customer_home_phone`
+  * `customer_mobile_phone`
+  * `customer_daytime_work_phone`
+  * `customer_business_phone`
+  * `customer_hmphone_last_update_at`
+  * `customer_wrkphone_last_update_at`
+  * `customer_businessphone_last_update_at`
+  * `customer_registration_date`
+  * `customer_citizenship`
+
+
+
+We've added an application patch in this release that will ensure the fields are there during the deployment (this is expected to be a no-op as the fields were added manually to the schema during the 1.6 deployment process).

@@ -1,0 +1,39 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/customer-details
+Title: Customer Details | Feedzai Documentation
+============================================================
+
+# Customer Details
+
+Before:
+
+After:
+
+**Field Modifications**
+
+ _Notes_ :
+
+Upon investigating the original request, we have concluded that allowing multiple phone numbers to be added to a customer under a single field could potentially pose a risk and cause issues with metrics. Therefore, we recommend a different approach to this field.
+
+One possible solution is to create separate fields for additional phone numbers, such as a "2nd Phone Number" field. This will allow for more flexibility while avoiding potential issues with metrics.
+
+Change| Field  
+---|---  
+Fixed| Date of Birth  
+Fixed| Customer Since  
+Fixed| Customer Segment  
+Fixed| Email  
+Fixed| Contact Number  
+Fixed| Region  
+Fixed| Country  
+Renamed| Zip Code -> Customer Postcode  
+Renamed| Originator ID -> Customer ID  
+Renamed| Customer Segment -> Account Type  
+Removed| Driver's License  
+Removed| Citizen ID Number  
+Removed| Occupation  
+Removed| Street address  
+Removed| Passport Number  
+Removed| City  
+Removed| Tax Number  
+Removed| Annual Income  
+Removed| Country

@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/info-account-update
+Title: Info Account Update | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Digital ActivityÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/digital-activity)
+  * Info Account Update
+
+
+
+Was this page helpful?Â 
+
+# Info Account Update
+    
+    
+    PUT 
+    
+    ## /api/activity/account_update/:lifecycle_id/info
+
+The Account Update Info endpoint enables you to update and add new information to an existing account update.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

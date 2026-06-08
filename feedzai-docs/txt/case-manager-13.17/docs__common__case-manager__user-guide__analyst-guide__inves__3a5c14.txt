@@ -1,0 +1,92 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases
+Title: Review Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/)
+  * Review Cases
+
+
+
+On this page
+
+# Review Cases
+
+Once you know the [cases that are up for review](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/accessing-cases), you can use a case's details page to start the investigation process. This page helps you to understand the different case details displayed and how they can help you to classify cases.
+
+## Assign cases to yourselfâ
+
+tip
+
+If you are already assigned to the cases that need review, you can start reviewing the case details.
+
+Before starting the investigation process, start by assigning a single or a set of cases to yourself. This prevents different analysts from reviewing the same case at the same time. To review the case, open the **Analyst** dropdown and select **Assign to me**.
+
+info
+
+The **Choose Assignee** option is only available to some users upon a specific permission.
+
+Alternatively, you can also assign cases by selecting the **Choose Assignee** button on the Cases page or in the case header of the Case Details page.
+
+Assigning multiple cases is helpful, for example, to assign all cases from a specific queue to yourself.
+
+Once the case is assigned to you, use the information displayed in the different widgets to help you act on the case.
+
+## Review case detailsâ
+
+Once the case is assigned to you, use the information displayed in the Case Details page to help youÂ act on the case.
+
+info
+
+The widgets on the Case Details page are [configurable according to your needs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manage-details-page). In addition, if you're using [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel), the Case Details page can have different configurations, depending if the case was created to receive events from one or multiple channels.
+
+The following widgets represent an example of a possible configuration.
+
+### Case Headerâ
+
+The case header displays global information regarding a case such as its ID, description, type, state, queues to which the case is linked, and possible actions to be made.
+
+While scrolling down the page, the header is always visible so that you can quickly access its information and actions.
+
+### Entity widgetsâ
+
+info
+
+Depending on your specific configuration, the available case fields may differ.
+
+These widgets display information regarding all the entities associated with the events linked to the case.
+
+You can use the navigation toolbar  on each entity information area to navigate through each entity list.
+
+### Linked Eventsâ
+
+This widget displays all the events included in the case. You can use the different channel tabs to narrow the list down according to a specific channel.
+
+You can perform actions on one or more linked events. The actions include, for example, assigning it to a specific analyst or queue, or remove from the current case. In addition, by selecting the top of each column, you can sort the events according to that value, in either ascending or descending order.
+
+If you are not using Omnichannel, the widget does not display the channel tabs.
+
+### Notesâ
+
+While investigating cases, you may need to add additional information, for example, to give other analysts more context on a specific customer's behavior. The **Notes** widget displays the different notes added to the case.
+
+Learn more about how to [manage notes in cases](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/managing-notes-in-cases).
+
+### Attached Filesâ
+
+During the investigation, analysts may need to add extra information to support it. This information may be useful for subsequent investigation steps, legal action, or auditing. This widget also provides a convenient storage for any information that is not currently represented or supported by the interface.
+
+Learn more on [how to manage files](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/managing-files-in-cases), namely upload, download, update, or delete.
+
+### Activity Logâ
+
+This widget displays the different actions performed in the page, namely regarding attached files, notes, and updates to lists.
+
+Currency
+
+Currency values are displayed throughout the product, both in events and cases. Keep in mind that the currency amount is a simple numeric value without any special validation, allowing the product to support any type of currency.
+
+## Learn moreâ
+
+Now that you understand how to review cases, continue by discovering the different [actions that you can take on a case](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/acting-on-cases).

@@ -1,0 +1,23 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-intro
+Title: Review Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/)
+  * Review Alerts
+
+
+
+# Review Alerts
+
+Once you understand [what alerts that are up for review](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts), you can use the details page of an event to start the investigation process This page helps you to understand the different alerts details displayed and how they can help you to classify alerts.
+
+Case Manager can be configured to present either the **Classic** view or the **Modern** view of this page.
+
+| [Classic View](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts)  
+---|---  
+Learn more about the standard CM Event Details page configuration.  
+| [Modern View](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/reviewing-alerts-modern)  
+---|---  
+Learn more about the modern CM Event Details page configuration.

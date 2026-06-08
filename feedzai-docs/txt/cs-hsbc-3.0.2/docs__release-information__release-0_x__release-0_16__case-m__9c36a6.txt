@@ -1,0 +1,36 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-0.x/release-0.16/case-manager-ui-mvp/transfers-device
+Title: Transfers - Device | Feedzai Documentation
+============================================================
+
+# Transfers - Device  
+  
+`Session Alerts` and `Session` widgets were removed, whose fields have been merged with the Device widget.
+
+Before:
+
+After:
+
+**Field Modifications**
+
+Change| Field  
+---|---  
+Fixed| Device ID  
+Fixed| Device Type  
+Fixed| Device OS  
+Fixed| Device Language  
+Fixed| Device User-Agent  
+Fixed| Associated Email  
+Fixed| Email Changed  
+Fixed| Associated Phone Number  
+Fixed| Phone Number Changed  
+Fixed| Type  
+Fixed| Session ID  
+Delayed| Malware Infected  
+Delayed| Device First Seen  
+Removed| BionicIDâ¢  
+Removed| Session First Seen  
+Removed| Latitude  
+Removed| Longitude  
+Removed| Device IMEI  
+Removed| Password Reset Requested  
+Removed| View

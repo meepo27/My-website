@@ -1,0 +1,20 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/mm-lists
+Title: Lists | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Out-of-the-Box Resources](/rmpsp/2.8/docs/common/rmpsp/mm/oob-resources/overview)
+  * Lists
+
+
+
+# Lists
+
+Name| Description  
+---|---  
+default_threshold_list|   
+multi_tenanted_threshold_list|   
+terrorist_sanctions_list| Terrorist & Sactions Names List  
+track_list|   
+regulated_countries_3ds| List of countries with legal or regulatory requirements for strong cardholder authentication  
+exclusion_mid_list| Merchants to be excluded from inactivity rules (seasonal merchants, new onboarded merchants, etc)

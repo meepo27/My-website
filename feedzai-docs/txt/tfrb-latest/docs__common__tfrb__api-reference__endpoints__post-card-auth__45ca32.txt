@@ -1,0 +1,47 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-card-authorization
+Title: Authorization | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [CardsÂ ](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/cards)
+  * Authorization
+
+
+
+Was this page helpful?Â 
+
+# Authorization
+    
+    
+    POST 
+    
+    ## /api/transactions/authorization
+
+An Authorization request allows you to leverage Feedzai's data science capabilities to score a transaction according to its fraud risk.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 202
+  * 400
+  * 401
+  * 403
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+The request has been accepted for processing. This response is sent for asynchronous requests.
+
+Bad Request
+
+Unauthorized
+
+Forbidden
+
+The system encountered an unexpected internal error.

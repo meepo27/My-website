@@ -1,0 +1,26 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-3.x/release-3.0.2/individual-release-notes/HSBC-4426
+Title: HSBC-4426 | Feedzai Documentation
+============================================================
+
+On this page  
+  
+# HSBC-4426
+
+### Add columns to Digital Activity Transaction Historyâ
+
+FeatureFTMT-36748HSBC-4426
+
+We've added the following columns to the Transaction History widget in the Event Details page, for the Digital Activity channel:
+
+Column Name| Field Name  
+---|---  
+IP Country| device_ip_country_code  
+IP/Device ISP| device_geo_ip_isp  
+  
+Additionally, the following columns specific to HSBCNet were added: 
+
+Column Name| Field Name  
+---|---  
+IP Address v6| device_ip_address_v6  
+Device User-Agent| device_user_agent  
+Malware Score| pinpoint_risk_score

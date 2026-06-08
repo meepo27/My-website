@@ -1,0 +1,27 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/investigate-alerts/select-and-analyze-events
+Title: Analyze Events | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Agent](/tfrb/latest/docs/common/tfrb/user-guides-cm)
+  * [Investigate Alerts](/tfrb/latest/docs/common/tfrb/investigate-alerts/overview)
+  * Analyze Events
+
+
+
+# Analyze Events
+
+Was this page helpful?Â 
+
+Learn how to analyze events based on the information details, and to decide whether the transaction is genuine or fraudulent through the available channels:
+
+### [Cards](/tfrb/latest/docs/common/tfrb/investigate-alerts/cards)
+
+### [Digital Activity](/tfrb/latest/docs/common/tfrb/investigate-alerts/digital-activity)
+
+### [Inbound Payments](/tfrb/latest/docs/common/tfrb/investigate-alerts/inbound-payments)
+
+### [Outbound Transfers](/tfrb/latest/docs/common/tfrb/investigate-alerts/transfers)
+
+### [Ad-hoc Customer Investigations](/tfrb/latest/docs/common/tfrb/investigate-alerts/ad-hoc-customer-investigations)

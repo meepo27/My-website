@@ -1,0 +1,31 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/about/overview
+Title: About Merchant Monitoring | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * About Merchant Monitoring
+
+
+
+On this page
+
+# About Merchant Monitoring
+
+Merchant Monitoring is an account monitoring solution for Payment Service Providers (PSPs) to prevent and detect risk at the merchant level. By implementing a scheduled behavioral analysis over their complete merchants' portfolio, PSPs can spot abnormal merchant behavior and act before more fraud and damages occur. As a result, PSPs are able to prevent losses in money chargebacks and in case of merchant bankruptcy, as well as reduce the risk of reputational damage caused by risky merchants. Merchant Monitoring offers out-of-the-box functionalities to:
+
+  * Proactively look for patterns of risky activities and take preemptive action to reduce losses.
+  * Track merchants' performance and alerts so that PSPs can decide which merchants are worth keeping and which jeopardize PSPs' reputation.
+  * Ensure that merchants are compliant with regulations and policies regarding risk exposure.
+  * Provide an alert management tool (Case Manager) to analyze merchants' information and alerts.
+
+
+
+## End-to-end packageâ
+
+These are the out-of-the-box capabilities that come with Merchant Monitoring:
+
+  * Standard configurations: Out-of-the-box set of standard configurations for Pulse, Case Manager, visual link analysis (Genome), and analytics dashboards.
+  * Reference data: List of merchants sent by the PSP, which is used as an input and enricher of the Merchant Monitoring workflow to detect risk and to provide analysts with additional information.
+  * Metrics and rules: Pre-packaged set of rules and metrics for different risky factors, and shared metrics with Transaction Fraud for PSPs for the same end.
+
+

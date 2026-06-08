@@ -1,0 +1,83 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/overview
+Title: Migrate Pulse Resources | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * Migrate Pulse Resources
+
+
+
+On this page
+
+# Migrate Pulse Resources
+
+Was this page helpful?Â 
+
+Rules and Data Science resources such as Plans and Models must be developed, tested, and deployed into Production to score transactions in real time. To keep fraud-fighting tools performant, you need to periodically implement changes that may include:
+
+  * Adjusting parameters.
+  * Incorporating new insights regarding a specific issue.
+  * Deleting resources because they are no longer relevant.
+
+
+
+To ensure that resources that are edited, validated and tested do not affect the runtime in production, the development and testing work are performed in staging environments. This raises the need to transfer your latest developments and combine them with other resources in a new environment. Some of this work is part of the standard product and is not subject to changes whereas, as shown in the following figure, other resources are transferred via a standard procedure named **resource transfer**. You can use resource transfer to autonomously transfer resources between environments.
+
+The Migrate Pulse Resources guide explains how to transfer the following resources:
+
+  * Models
+  * Plans
+  * Rules
+  * Lists metadata
+
+
+
+## Block ownershipâ
+
+While you develop new profiles with plans, re-train models with new data, and/or test new rules using offline environments, your Pulse application (Pulse app or papp) will keep evolving in production. Some resources, such as rules projects are often developed by various teams (i.e. owners). To evolve an application in a collaborative way, you can use the **block ownership**. Each Pulse resource is developed as a block by a single team, within one environment at a time. For example, each rules project should be owned by one team and should be only modified (e.g. adding/removing/editing rules) by the team that owns each rules project.
+
+The block ownership assumes that:
+
+  1. Between each deployment, each block evolves in a single environment.
+  2. For each environment, all the resources evolve using a single Pulse cluster.
+
+
+
+By structuring your work with the concept of block ownership, you allow:
+
+  1. Multiple teams to work in parallel using different environments.
+  2. Easy and quick migration of resources between environments.
+
+
+
+## Flow between environmentsâ
+
+The typical workflow between environments is as follows:
+
+  1. **QA** : Run functional tests to verify the effectiveness of the implemented changes. These may include sending transactions to API to validate rules logic or testing profiles with long windows.
+  2. **Pre-prod** : To ensure the new changes will be successful in Prod, migrate what's in Prod to Pre-prod to run tests with real data.
+
+info
+
+Depending on your service, this environment may not be available out of the box. This is an environment that is commonly used for performance tests.
+
+  3. **Prod** : Once tests have successfully run in Pre-prod, update the Prod environment.
+
+
+
+This process leverages two Pulse functionalities: exporting and importing resources. The process is completed after you configure the resources in your new environment.
+
+  * **Step 1** : Edit resources (e.g. [change the plan](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/change-plan), or [create rules](/tfrb/latest/docs/common/tfrb/work-with-rules-and-lists/create-rules/rules-projects))
+  * **Step 2** : [Export resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/export-resources).
+  * **Step 3** : [Import resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/import-resources).
+  * **Step 4** : [Configure resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/configure-resources).
+
+
+
+These steps must be followed each time resources are transferred between environments, for instance, between a Pre-prod and a Prod environment.
+
+## Next stepsâ
+
+Now that you understand the resource transfer's purpose, you can start [exporting resources](/tfrb/latest/docs/common/tfrb/migrate-pulse-resources/export-resources).

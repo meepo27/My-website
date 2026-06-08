@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/transfers/real-time-gross-transfers
+Title: Real-time Gross Transfers | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Outbound Transfers](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle)
+  * [Processing Model Details](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/processing-model-details)
+  * Real-time Gross Transfers
+
+
+
+On this page
+
+# Real-time Gross Transfers
+
+Was this page helpful?Â 
+
+Learn about the Real-time Gross Transfers end-to-end life cycle to smoothly integrate with the transfers API.
+
+## Transaction initiationâ
+
+The scenarios described in this section explain the transfer life cycle for the **single counterparty**. This page covers the end-to-end default scenario in which only the Transfer Initiation endpoint is called to process transfers.
+
+info
+
+**Endpoints Integration:** Check the [Transaction Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/transaction-life-cycle) page to learn more about the life cycles for transfer updates, settlements, and feedback actions, corresponding to requests to the Info, Settlement and Feedback endpoints, respectively.
+
+### Single counterpartyâ
+
+The life cycle involving a single counterparty applies to large financial institutions that communicate directly with a clearing/settlement mechanism. The following diagram depicts a typical flow:
+
+The steps depicted in the previous image are the following:
+
+  1. The sender, also referred to as originator, initiates the transfer using any available channel - for example, mobile, internet banking, phone, bank branch, contact center, email, file transfer system.
+  2. The sender bank or the payment service provider (PSP) - a direct participant in this scenario - receives the transfer instructions and debits the sender's account. The sender bank sends the transfer instruction to a settlement platform.
+  3. The settlement platform processes the transfer instruction and sends it to the receiver bank.
+  4. The receiver bank - a direct participant in this scenario - receives the instructions to credit the receiver's account.
+  5. The receiver's account is updated with the funds.
+
+
+
+info
+
+**Integration with the transfers API:** The transfers API was designed to allow banks that operate at different points of the transfers life cycle to integrate with Feedzai. This flexible integration capability is shown in the previous figure with the API  label.
+
+### Multiple counterpartiesâ
+
+The scenario of multiple counterparties occurs when the sender and the receiver's bank are small-sized institutions. In this case, a third-party is required to establish the main communication (e.g. overseas connection) between the indirect participants.
+
+info
+
+**Multiple counterparties:** See the [Multiple counterparties](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/ach#multiple-counterparties) section under the Automated Clearing House page to learn about the role of indirect participants in the transfers life cycle.
+
+## Learn moreâ
+
+Check the [Peer-to-Peer](/tfrb/latest/docs/common/tfrb/life-cycles/transfers/peer-to-peer) page to learn how to integrate with other transfer methods.

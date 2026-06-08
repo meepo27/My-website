@@ -1,0 +1,173 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/acting-on-alerts
+Title: Act on Alerts | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Analyst Guide](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/analyst-guide-overview)
+  * [Investigate Alerts](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/)
+  * Act on Alerts
+
+
+
+On this page
+
+# Act on Alerts
+
+After reviewing all the details related to an alert, analysts can take actions on it. This page shows how to perform some of those actions, namely classify with a status, escalate so that it can be reviewed, for example, by a senior analyst, link to a case that groups similar alerts, or move to a specific queue.
+
+There are several locations and ways to act on alerts:
+
+  * On a single alert in the respective details page.
+  * On one or multiple alerts, using the inline or bulk actions in the **Alerts** and **Search** pages, and in the **Transaction History** and **Linked events** widgets.
+
+
+
+info
+
+The actions available in this page depend on the product's configuration and the permissions defined for your user.
+
+In addition, depending on the product's configuration and your user permissions, you can only perform actions on alerts that are assigned to you. If you cannot act on an alert, see the information displayed on the interface and recheck your selection.
+
+The following sections detail how to perform some of the possible actions.
+
+## Classify alertsâ
+
+tip
+
+Before learning how to classify on alerts, make sure that you understand what are [states and outcomes](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/states-and-outcomes).
+
+Analysts classify alerts by selecting states from the available state machines. Depending on the use case, the interface can include multiple state machines, for example, one for classifying the alert and another for defining the review status.
+
+To classify alerts:
+
+  1. Enter an alert's details page. Alternatively, go to the **Alerts** or **Search** pages and select one or multiple alerts.
+
+  2. Select one or multiple states from the available state machines.
+
+
+
+
+  3. Select one or multiple reasons to explain your decision and provide extra information in the **Add Note** box. Note that each status has a different set of reasons.
+
+
+
+  4. Select the **Submit and Continue** button to continue to the next step. Alternatively, select the **Submit** button to close the window.
+
+  5. In the **Review Related Events** step, you can select events related to the alert being classified and take the same action on them. For example, if you set the alert as **Fraud** , you can set all events from the same Customer as fraud as well. However, the reasons or notes added in the previous step will not apply.
+
+
+
+
+  6. Select the **Submit and Continue** button to continue to the next step. Alternatively, select the **Submit** button to close the window.
+
+  7. In the **Update Lists** step, you can add the alert fields (for example, Customer ID) to lists. For example, you can send all fields to a _Block_ list, or do it field by field. Note that, when **Review Related Events** is configured as the second step, all those events will be taken into account when **Updating Lists**.
+
+
+
+
+The current state of the different entities is displayed in blue. To better support analysts, the interface may suggest how to place an entity. Suggestions are displayed as dots in the different columns.
+
+Multi-Tenancy
+
+As a landlord user in a Multi-Tenancy configuration, when an entity with the same value is included in different lists for different tenants (for example, _Review_ for one tenant and _Block_ for another), the corresponding columns display two blue dots.
+
+  8. Select the **Submit** button to close the window.
+
+
+
+## Escalate alertsâ
+
+info
+
+This option is only available to some users upon a specific permission.
+
+After reviewing an alert, analysts may need, for example, a senior analyst to review it in more detail. To reassign the alert:
+
+  1. Go to an alert's details page and, in the **Analyst** dropdown, select the **Reassign** option.
+
+
+
+  2. In the **Choose Assignee** window, select the new **Assignee** and provide extra information in the **Note** box. In addition, use the **Include all linked alerts** option to decide whether you also want to assign all linked alerts to that analyst. This enables them to easily act on, for example, all unreviewed alerts from the same customer at the same time.
+
+
+
+Alternatively, you can also assign alerts in the **Alerts** page or in the Event Details page by selecting the **More actions** drop-down menu and then selecting the **Choose Assignee** option.
+
+## Link alerts to casesâ
+
+Linking alerts to cases allows to group alerts that are related or, for example, require further investigation by a senior analyst. This helps analysts to have a more organized and better-structured action-taking process. Once alerts are linked to cases, analysts can perform different actions to see, work, and resolve cases in a more productive way.
+
+To link alerts to cases, perform the following steps:
+
+  1. Go to the alert that you want to link to a case. You can also go to the **Alerts** page and select multiple alerts, for example, to link all alerts with a suspicious score to a specific case.
+
+  2. In the **More options** dropdown menu, select the **Link to Case** option.
+
+  3. In the **Link to Case** window, select an **Existing Case** or create a **New Case** , depending on what you want to do.
+
+
+
+
+  * For existing cases, select a type and a case from the list. You can also add a note, if needed.
+
+
+
+Case list
+
+  * If the product is configured as Omnichannel, the case list shows cases with the same channel as the selected alert(s), and cases with multiple channels.
+  * In a multi-tenancy configuration, the case list shows cases with the same tenant as the selected alert(s), and global cases. If you select alerts from multiple tenants, the list only shows global cases.
+
+
+
+  * For new cases, populate the information for the creation of that case and any relevant notes.
+
+
+
+Multi-tenancy
+
+If you select alerts from multiple tenants, you can only create global cases.
+
+  4. **Submit** the changes.
+
+
+
+Learn more on how to [create](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-cases#create-cases) or [investigate](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases) cases.
+
+## Move alerts to queuesâ
+
+You can also send alerts to queues in order to organize them. Queues are extremely helpful to organise your alerts, as you can store all the alerts you want in them and therefore segregate alerts according to the criteria that better fits your needs.
+
+To move alerts to queues, perform the following steps:
+
+  1. Go to the alert that you want to move to a queue. You can also go to the **Alerts** page and select multiple alerts, for example, to move all the alerts happening in online marketplaces to the queue created for online purchases.
+
+  2. In the **More options** dropdown menu. select the **Move to Queue** option.
+
+  3. Select a **Queue** and provide extra information in the **Note** box.
+
+
+
+
+info
+
+If the product is configured as Omnichannel, the **Queue** field only shows the queues of the same channel as the alert.
+
+tip
+
+In the Event Details page, press `.` on your keyboard to display the shortcuts menu and select the **Move to Queue** option. Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).
+
+## Other actionsâ
+
+Besides the actions detailed in the previous sections, the product can also include custom actions according to your use case. For example, you may want to send an SMS to a customer after reviewing an event, if you think they should be notified of a particular topic.
+
+When performing these custom actions on multiple cases, the interface informs you of the status of those actions.
+
+## Get alerts automaticallyâ
+
+After acting on an alert, use the **Get Next** option to continue the investigation process more efficiently. Note that, if you are also reviewing linked alerts, you must act on all of them before using the **Get Next** option.
+
+Learn more about [getting alerts automatically](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-alerts/accessing-alerts#get-alerts-automatically).
+
+tip
+
+In the Event Details page, press `.` on your keyboard to display the shortcuts menu and select the action that corresponds to your alert status (For example, **Fraud, Not Fraud** , or **Suspicious**). Learn more about the [shortcuts menu](/case-manager/13.17/docs/common/case-manager/user-guide/navigating-case-manager/navigating-case-manager-overview#shortcuts-menu).

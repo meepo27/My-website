@@ -1,0 +1,18 @@
+Source: https://cam.feedzai.com/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/pulse/pulse-guide
+Title: Pulse Guide | Risk Management for PSPs
+============================================================
+
+  * [](/rmpsp/2.8/)
+  * [Operational Work](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/overview)
+  * Pulse Guide
+
+
+
+# Pulse Guide
+
+The Pulse guide leads you on the recommended tasks you must perform in Pulse throughout the complete life cycle of your project. It contains instructions on what you should do to perform each task and how you should keep moving forward, often complemented with examples, and always providing more context and conceptual details.
+
+Pulse focuses on a democratization of Data Science, which allows both data scientists and fraud prevention agents to use the platform. All of the the tasks in this journey will be about writing or improving the risk strategy for the merchant monitoring use case, heavily influenced by Data Science and Machine Learning models, providing an understanding on how to work with rules.
+
+This guide helps you [work with rules](/rmpsp/2.8/docs/common/rmpsp/mm/operational-work/data-scientist/pulse/work-with-rules).

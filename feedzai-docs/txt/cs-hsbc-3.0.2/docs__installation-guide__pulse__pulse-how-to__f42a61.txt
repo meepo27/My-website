@@ -1,0 +1,14 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/pulse/pulse-how-to
+Title: How To | Feedzai Documentation
+============================================================
+
+# How To  
+  
+Welcome to the Pulse How To.
+
+In this section you will find the following set of tutorials with information on how to configure Pulse to support global rollout:
+
+  * [Deploy new applications](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/deploy-new-applications)
+  * [Use application specific databases](/cs-hsbc/3.0.2/docs/installation-guide/pulse/how-to/use-application-specific-databases)
+
+

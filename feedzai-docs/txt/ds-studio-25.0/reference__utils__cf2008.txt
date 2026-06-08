@@ -1,0 +1,150 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/utils/
+Title: utils - DS API
+============================================================
+
+#  `` utils Â¶  
+  
+Helper utilities.
+
+##  `` DEFAULT_SPARK_APP_NAME `module-attribute` Â¶
+    
+    
+    DEFAULT_SPARK_APP_NAME = 'pySparkJob-created-by-ds_api'
+    
+
+##  `` logger `module-attribute` Â¶
+    
+    
+    logger = getLogger(__name__)
+    
+
+##  `` ResourceSearchTypeEnum Â¶
+
+Bases: `str`, `Enum`
+
+Procedures to search for given resource within a parent resource.
+
+###  `` DESC `class-attribute` `instance-attribute` Â¶
+    
+    
+    DESC = 'desc'
+    
+
+###  `` ID `class-attribute` `instance-attribute` Â¶
+    
+    
+    ID = 'id'
+    
+
+###  `` OBJECT `class-attribute` `instance-attribute` Â¶
+    
+    
+    OBJECT = 'object'
+    
+
+##  `` camel_to_snake Â¶
+    
+    
+    camel_to_snake(string: str) -> str
+    
+
+Convert camel case to snake case.
+
+Excludes strings starting with underscore, or in upper case eg: ["createObj", "create_obj", "**dict** ", "CONSTANT"] = ['create_obj', 'create_obj', '**dict** ', 'CONSTANT']
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `string` Â¶
+
+|  `str` |  input string |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`str` |  snake case string  
+  
+##  `` create_spark_app_name Â¶
+    
+    
+    create_spark_app_name() -> str
+    
+
+Creates an application name for spark.
+
+The created name will take in consideration the following aspects:
+
+  1. If the env variable ds_api.USER_NAME_ENV is defined, then it will be used as part of the created name. This environment variable is assumed to contain the name of the user that spawned the current process.
+  2. If the env variable in 1) is not defined, then the env variable ds_api.USER_ID_ENV will be used (if defined) as part of the created name. This environment variable is assumed to contain the identifier of the user that spawned the current process.
+  3. If the env variable in 2) is not defined, then this function calls os.getpid, and uses such pid in the created application name.
+
+
+
+Returns:
+
+Type | Description  
+---|---  
+`str` |  A spark application name.  
+  
+##  `` get_optional_or_fail Â¶
+    
+    
+    get_optional_or_fail(optional, fail_message, mapper=None)
+    
+
+##  `` get_optional_or_none Â¶
+    
+    
+    get_optional_or_none(java_optional, mapper=None)
+    
+
+##  `` optional_char_or_else Â¶
+    
+    
+    optional_char_or_else(value, or_else)
+    
+
+##  `` to_java_list Â¶
+    
+    
+    to_java_list(pylist)
+    
+
+##  `` to_java_map Â¶
+    
+    
+    to_java_map(pymap)
+    
+
+##  `` to_java_set Â¶
+    
+    
+    to_java_set(pylist)
+    
+
+##  `` to_python_list Â¶
+    
+    
+    to_python_list(java_list, mapper=None)
+    
+
+##  `` to_python_map Â¶
+    
+    
+    to_python_map(java_map, key_mapper=None, value_mapper=None)
+    
+
+##  `` to_python_set Â¶
+    
+    
+    to_python_set(java_set, mapper=None)
+    
+
+##  `` transform_java_object Â¶
+    
+    
+    transform_java_object(java_object)
+    

@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/release-1.3/case-manager-digital-activity-ui-changes/digital-activity-event-summary-rework
+Title: Digital Activity - Event Summary | Feedzai Documentation
+============================================================
+
+# Digital Activity - Event Summary  
+  
+**Event: Digital Activity**
+
+**Widget: Event Summary**
+
+Before:
+
+After:
+
+Action| Field| UI  
+---|---|---  
+Rename| Channel| Device Channel

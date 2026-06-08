@@ -1,0 +1,52 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/working-with-applications/exporting-and-importing-applications
+Title: Exporting and Importing Applications | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Working with Applications](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/)
+  * Exporting and Importing Applications
+
+
+
+On this page
+
+# Exporting and Importing Applications
+
+Was this page helpful?Â 
+
+Pulse supports application import and export not only to augment interoperability between different installations but also to give the ability to save an application in an exact state.
+
+Although that can be partially achieved using [versioning](/pulse/latest/docs/common/pulse/users-guide/working-with-applications/resource-versioning), exporting an application gives one the possibility to archive it.
+
+## Exporting an Applicationâ
+
+Applications are exported in a single `PAPP` file that contains all the application resources: KPIs, Baselines, Workflows and so on. In some situations there are security resources that are also exported with the applications; more on that later.
+
+Exporting an application is actually quite simple: the user can do it through the `Export` option present in the application configuration menu. This is illustrated in Figure 1 and will prompt the download of the application `PAPP` file.
+
+## Importing an Applicationâ
+
+Importing and application is usually as simple as exporting it. The user only has to click on the _Import Application_ button present in the **Applications** tab and an informative wizard will guide the entire process.
+
+The _Import Application_ wizard can have one to three steps depending on the complexity of the application being imported. If the application has neither security [Groups](/pulse/latest/docs/common/pulse/administrators-guide/securing-an-application#groups) nor Multi-Tenant resources, only one step will be needed which allows the user to upload the application `PAPP` file.
+
+### Applications With Groupsâ
+
+Whenever an application has resources that have security Groups configured the Import Application wizard will require one additional step. In this step the user will match the Groups used by the application being imported and the groups that exist in the Pulse installation.
+
+This matching operation is necessary to guarantee that security permissions remain unchanged.
+
+The UI will automatically do a best-effort match of the groups by name and will also allow the user to remove the groups permissions from the resources being imported.
+
+### Applications With Multi-Tenancy Enabledâ
+
+Importing and Exporting Applications that contain Multi-Tenancy resources do not have any additional configuration step. However, there are a few considerations worth mentioning regarding the Application import with Multi-Tenancy. Tenants stored in the PAPP file are merged automatically by Pulse using the following algorithm:
+
+  1. If the Tenant being imported has the same Unique Id (Key) of a Tenant in the current Pulse Installation, all resources of the Tenant being imported will be added/mapped to the Tenant in the current Pulse Installation.
+  2. If there is no Tenant with the the same Unique Id in the current Pulse Installation, a new Tenant will be created verifying before hand that there is no naming collision.
+     1. If there is a name collision, the Tenant Unique Id will be appended at the end of the name, _e.g._ "Tenant Name (Tenant Unique Id)".
+  3. All the tenants stored in the PAPP file will be imported to the current Pulse Installation. Even if they are not being explicitly used in the Application being imported. Additional details:
+     1. Even the Tenants without any explicit resource are used in runtime in case of a Rules of the type "Shared by All Tenants".
+     2. When Exporting an Application, all the Tenants in the Pulse installation are stored in the PAPP file.
+
+

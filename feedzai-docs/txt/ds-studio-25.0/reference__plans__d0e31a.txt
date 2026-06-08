@@ -1,0 +1,11 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/
+Title: Index - DS API
+============================================================
+
+#  `` plans Â¶  
+  
+Plans subpackage containing the implementation of features, operators and utilities to enable the programmatic manipulation of Plans.
+
+Omnichannel Plans
+
+At the moment Omnichannel integration is still in beta. Feature dependencies are unstable for Omnichannel plans.

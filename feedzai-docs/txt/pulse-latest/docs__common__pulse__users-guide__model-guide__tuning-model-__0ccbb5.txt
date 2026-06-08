@@ -1,0 +1,102 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/
+Title: Tuning model parameters | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * Tuning Model Parameters
+
+
+
+On this page
+
+# Tuning model parameters
+
+Was this page helpful?Â 
+
+## Whyâ
+
+To have the model with the best possible performance, you want to fine-tune parameters by doing multiple experimentations and combinations on them. The goal is to have a model that is better adjusted to a specific data pattern. To perform a hyperparameter Tuning is the fastest and easiest way to get to the model that yields the best results.
+
+Pulse uses the **Parameter Sweep** , or in Machine Learning terms the **Grid Search** , to perform a hyperparameter tuning. This method is one of the standard methods used to retrieve meaningful results from a given search universe.
+
+## How toâ
+
+To perform an hyperparameter tuning, proceed as follows:
+
+  1. In the **Data Science** tab, open a **Model Project** from the **Model Projects** list and start by adding  a **New Hyperparameter Tuning**.
+
+
+
+  1. Select the **Data Source** you will use to execute your parameter tuning. Typically one that has been the output of [running a features Plan](/pulse/latest/docs/common/pulse/users-guide/feature-engineering/generating-instance-features-dataset) or the result of splitting your dataset into training and testing subsets.
+
+  2. Set the **Target Variable** that you want to predict, like _Fraud,_ for instance.
+
+  3. Choose the **Fields** the model will use to predict the **Target Variable**. Note that only _Numeric_ and _Categorical_ fields are available.
+
+  4. Use the default **Random Seed** or set a new one in case you want to replicate past results.
+
+  5. Set the **Sampling Type**. Note that if you select other than the **None** option, the **Sample Percentage** field is displayed for you to define how to undersample or oversample your data.
+
+  6. Select the **Provider** for the machine learning algorithm and the **Algorithm** itself. Hyperparameter Tuning allows you to add more than one algorithm, which in practice means that various algorithms are trained and evaluated, each containing multiple parameters simultaneously.
+
+Adding algorithms
+
+You can add the same algorithm unlimited times. This can prove useful to evaluate different combinations of parameters.
+
+  7. Configure the values you want to train both for **Common** and **Advanced** parameters. Each parameter field allows you to add multiple values. For information on the parameters, select the Info button .
+
+  8. Configure how the evaluations will be performed by selecting the Validation Type from the available options:
+
+     * **Validation Data Source** : To select the data source that will be used for testing the model performance.
+     * **Cross Validation** : To configure the number of folds the dataset is split into.
+     * **Split Percentage** : To configure which percentage of the dataset will be used for training and which percentage will be used for testing the models.
+  9. Enable an [Additional Cost Field](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models/model-evaluation/cost-fields) to be available for the evaluations. Usually, you select a field that represents the transaction amount to have metrics such as the percentage of fraudulent amount caught (_money recall_).
+
+  10. Select which are the **Breakdown** fields and values to slice the results into. For example, _Card Present_ vs _Card Not-Present_ Pulse will automatically display the number of possible breakdown combinations.
+
+
+
+
+When the hyperparameter tuning is complete, Pulse will display the Finished status, meaning that you can open and start analyzing your hyperparameter tuning.
+
+## Evaluating the results of hyperparameter tuningâ
+
+After creating a hyperparameter tuning, you want to evaluate and explore its results to learn which are the evaluations that performed better in comparative terms. To evaluate the results:
+
+  1. Open the hyperparameter tuning.
+  2. Switch to the **Exploration mode** tab, which displays the results already filtered for that specific hyperparameter tuning.
+  3. Create **Targets** and configure them. Add a set of metrics that you find more accurate for your purpose, such as finding fraud, for instance.
+  4. Use the search box in Evaluations to filter the results, thus making it easier for you to visualize information.
+  5. Analyze the results.
+
+
+
+Learn more on the exploration mode and how to use it by reading the [Exploring hyperparameter tuning results](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/exploring-hyperparameter-tuning-results) page.
+
+Another way to evaluate and explore data is by opening the global exploration mode of models and hyperparameter tunings in the **Model Project**. Learn more about the global Exploration Mode by accessing the [Evaluating a model](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#exploring-evaluation-results) page. This exploration view enables you to compare single model evaluations with hyperparameter tuning evaluations.
+
+## Exporting to a modelâ
+
+Once you decide on the best set of parameters, the next step is to export the corresponding evaluation to a model. This is a necessary step to later be able to apply your model to a workflow.
+
+Since the main goal of hyperparameter tuning is to allow you to iterate on a significant amount of different parameter sets, Pulse doesn't generate model binaries for each combination of parameters. For this reason, it is necessary to train the model with the best parameter combination during the export phase. However, Pulse keeps the metadata with the results of your hyperparameter tuning. So, when you export to a model, all fields will be already filled in with the optimized set of parameters you have previously chosen and you only need to go through the steps by selecting **Next**.
+
+Exporting a hyperparameter tuning to a model
+
+Even though the model is pre-filled with the parameters, you can still make changes to any field of the model.
+
+Proceed as follows in order to train your model:
+
+  1. Open the hyperparameter tuning from the corresponding list box in your **Model Project**.
+  2. Open the **Evaluations** tab.
+  3. Select the **Export to model** button of the corresponding hyperparameter tuning.
+  4. Go through the different steps by selecting **Next**.
+  5. Perform any other adjustment to a parameter, if needed. You may want to detail more on the evaluation of the model by defining breakdowns, for example.
+  6. Finalize the creation of the **Model**.
+
+
+
+## Next stepsâ
+
+You may want to compare this model against other existing model evaluations, for that consult the [Comparing models](/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models) page.

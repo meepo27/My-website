@@ -1,0 +1,105 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/users-guide/model-guide/comparing-models
+Title: Comparing models | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * [Model Guide](/pulse/latest/docs/common/pulse/users-guide/model-guide/)
+  * Comparing models
+
+
+
+On this page
+
+# Comparing models
+
+Was this page helpful?Â 
+
+## Whyâ
+
+At each iteration of your model, you will need to evaluate it. In reality, not only evaluate it but also assess how it performs in comparison with the previous iteration.
+
+Pulse helps you in taking your conclusions on how your [feature engineering](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) work, [model training](/pulse/latest/docs/common/pulse/users-guide/model-guide/training-a-model), and [parameter tuning](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters) is evolving and progressing towards the goals of your Data Science project.
+
+It may make sense to, for example, try out your model not only with adjusted parameters but also for different test datasets, different transaction time periods, etc.
+
+## How toâ
+
+While you evaluate your [models](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/models), Pulse enables you to compare their performances:
+
+  1. Directly by overlaying model evaluations.
+  2. Using the exploration mode for business targets.
+
+
+
+### Model Evaluationsâ
+
+To compare two **Model Evaluations** , execute the following actions:
+
+  1. In the  **Data Science** tab, select a **Model Project** from the **Model Projects** list.
+  2. Select an existing **Model Evaluation**.
+  3. Select which is the evaluation you want the current one to be **Compared With**.
+
+
+
+The information in **Model Evaluation** is divided into different panels that can be accessed for: Comparing **Performance Metrics** or Comparing **Feature importance**.
+
+#### Comparing Performance Metricsâ
+
+  1. To visualize comparison results:
+
+     1. Analyze the **ROC Curve** and **X/Y Plot** , now with both the **Model Evaluation** and the **Comparison** evaluation visible.
+
+     2. Analyze the Comparison results displayed at the top row of the **Metrics** table.
+
+Comparison results
+
+When you select a **Model Evaluation** for comparison, the **ROC Curve** , **X/Y Plot** and **Metrics** table display the evaluation results only for the main combination of breakdowns (All x All). This occurs even if the model evaluation has configured breakdowns.
+
+  2. Select the  option to display evaluation parameters for both the selected and the comparison models. Differences are highlighted so that you can easily spot all [parameter adjustments](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters) you are testing.
+
+
+
+
+#### Comparing Feature Importanceâ
+
+This option is only available if the current Model Evaluation has Feature Importance computed (i.e. regardless of whether or not the model evaluation under comparison has it computed).
+
+  1. Select  to visualize comparison results:
+
+
+
+The following metrics are presented by default:
+
+  * **#FPR** : Values of the count FPR for each feature for the current **Model Evaluation** (A) and for the evaluation under comparison (B).
+  * **Absolute importance** : Bar chart comparing the **Absolute Importance** of both model evaluations.
+  * **Rank** : The rank of the importance of each feature for each model evaluation.
+  * **Delta** : The difference between Rank A and Rank B.
+
+
+
+Feature Importance view
+
+If you compare the current model evaluation with an evaluation that does not have feature importance computed, the **Feature Importance** view will only display data for the current model evaluation.
+
+### Exploration Modeâ
+
+To compare how different **Model Evaluations** perform for a Target, execute the following actions:
+
+  1. In the  **Data Science** tab, select a **Model Project** from the **Model Projects list**.
+  2. Select the  option to explore evaluation results in your **Model Project**.
+  3. [Configure Targets for evaluation](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model).
+  4. Analyze the results for each **Target** and compare them among all selected **Evaluations**.
+
+
+
+Comparing models
+
+You can compare models using the [exploration mode within a hyperparameter tuning](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters/exploring-hyperparameter-tuning-results) or using the [global exploration mode](/pulse/latest/docs/common/pulse/users-guide/model-guide/evaluating-a-model#exploring-evaluation-results) in your model project, where you can combine results from model evaluations and hyperparameter tuning.
+
+## Next Stepsâ
+
+If your model produces the desired results, then your project is ready for [deployment into Production](/pulse/latest/docs/common/pulse/users-guide/deploying-a-project-into-production). Check also [how Pulse projects work](/pulse/latest/docs/common/pulse/users-guide/how-pulse-projects-work) for some background to understand what is involved at this stage.
+
+If your model needs further tuning, then start a new iteration in your Data Science project. For example, by [improving your model's features](/pulse/latest/docs/common/pulse/users-guide/feature-engineering) and [adjusting parameters](/pulse/latest/docs/common/pulse/users-guide/model-guide/tuning-model-parameters).
+
+To add an extra layer of security on top of your Machine Learning model, you can also [build and evaluate rules](/pulse/latest/docs/common/pulse/users-guide/rule-guide).

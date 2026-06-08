@@ -1,0 +1,193 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.0
+Title: Release 1.0 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.0.0`â
+
+##### warning
+
+Previously we've released `0.17.0` so that documentation was publicly accessible (not possible with Release Candidates). Extraordinarily, release `1.0.0` doesn't include the changes present in `0.17.0`, meaning there's no changes to the APIs.
+
+### Feedzai Platform Upgradesâ
+
+Feature
+
+We've upgrade our base Solution and Platforms to TFB 5.0.3, Pulse 25.0.6 and Case Manager 13.8.0. Specific details on these product upgrades will be sent by email.
+
+We want to highlight a few points:
+
+  * Pulse Upgraded it's Spark / Hadoop versions, clearing out a big chunk of previously present CVE's.
+  * Case Manager
+    * Analyst Notes are now part of External Notifications (to be exported to FDR)
+    * SLAs can now be scheduled in 15 minutes intervals, for example, at 9.00 or 11.15 or 14.45 or 20.30.
+    * SLAs can now skip weekends
+
+
+
+[Artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) page has been updated accordingly.
+
+### Allow Declining of Genuine transactionsâ
+
+Feature
+
+Previously in Case Manager the fraud label was tightly coupled with the Case Manager decision - approve or decline. With this change, some of the genuine status reasons have the suffix `- Decline`, which allows us to set these individually in specific cases. e.g.: customer confirms non fraudulent transaction but wishes to cancel it anyway as it is no longer relevant.
+
+### Implement Outbound Notificationsâ
+
+Feature
+
+We've implemented 2 Outbound Notifications in Case Manager.
+
+  1. Payment fulfillment - Case Manager Core Extension that is called automatically when the transaction status changes in Case Manager.
+  2. Send Mobile Payment Push - Case Manager Extension that can be used in Automation Rules and SLAs.
+
+
+
+### Introduction of Logstash Pipelinesâ
+
+Feature
+
+Introduction of Pipelines to export Case Manager notifications and rules metadata to a Google Cloud Storage bucket to be consumed by HSBC systems, for example for reporting.
+
+### Inclusion of Flexible Treatment Strategyâ
+
+Rework
+
+Previously, the treatment strategy was implemented by creating a state machine in Case Manager that matches with the Pulse outcome. This was not flexible because every time a new outcome value is added to Pulse it needs to be added to case manager configuration - and this required a new release. From now on, it is possible to decouple the treatment strategy in pulse from the Case Manager state machine. This way HSBC can add all the treatment strategy values required without the need of a new case manager release.
+
+### Fix Bug on Hyperlinkâ
+
+Bug Fix
+
+Fixed a bug where clicking on the Customer ID hyperlink would redirect the user to the search page instead of the customer page.
+
+### Add new fields to Case Managerâ
+
+Bug Fix
+
+On a previous release some fields were missing from Case Manager, meaning it was not possible to use them in Automation Rules and SLAs.
+
+We have added them according to the following specification:
+
+Field| UI Name  
+---|---  
+customer_portfolio_product| Customer Portfolio Product  
+customer_portfolio_channel| Customer Portfolio Channel  
+customer_portfolio_type| Customer Portfolio Type  
+customer_portfolio_class| Customer Account Level Classification  
+customer_portfolio_country| Customer Portfolio Country  
+customer_portfolio_region| Customer Portfolio Region  
+payment_type| Transaction Type  
+payment_sub_type| Transaction Sub-Type  
+source| Source  
+payment_message_source| Payment Message Source*  
+channel_type| Channel  
+customer_type| Customer Type  
+office_id| RPS Queue Name  
+customer_account_type| Customer Account Type  
+sender_transaction_type| Sender Transaction Type  
+sender_transaction_cop_result| Sender Transaction COP Result  
+sender_transaction_auth_type| Sender Transaction Authentication Type  
+  
+##### note
+
+*Although in the Transfers Event Details page `payment_message_source` is translated to `Source`, when used in Automation Rules and/or SLAs it is translated to `Payment Message Source` so the user is able to differentiate between `source` and `payment_message_source`.
+
+### Add Alert ID to Transfers and Digital Activity Event Details Pageâ
+
+Feature
+
+This field was added to both Transfers and Digital Activity Details Page in the Transaction and Event Summary widget respectively.
+
+In Transfers Transaction widget it was added after the `Lifecycle ID`:
+
+In Digital Activity Event Summary widget it was added after the `Lifecycle ID`:
+
+For events that did not trigger an alert the `Alert ID` will show in the respective widget with a `N/A` value.
+
+### Add Joint Account CIN to Transfers Event Details Pageâ
+
+Feature
+
+This field was added to Transfers Event Details Page in the Originator Details widget.
+
+### Remove a hyperlink from event details pageâ
+
+Rework
+
+We have removed the phone number hyperlink from the Event Details Page while keeping the Customer ID hyperlink. As a result the phone numbers will no longer be clickable but the customer ID hyperlink will remain as a way to access the customer page.
+
+### Generate Alert ID and add it as a searchable field in Case Managerâ
+
+Feature
+
+This ID is generated for alerts only. Its goal is to serve as client friendly identifier to send via SMS / Mobile Push Notification instead of using the raw ID that uniquely identifies each transaction.
+
+This field can then be used to search for transactions in Case Manager.
+
+### Change on the limit of reasons per alertâ
+
+Rework
+
+We changed the configuration to limit the number of reasons that are able to be selected when confirming an event as Fraud or Not Fraud, now only one reason per alert is possible.
+
+### Fix deployment of Automation Rulesâ
+
+Bug Fix
+
+The previous deployment strategy was failing as we were trying to add new Automation Rules to a fixed position. Since the environment could've custom Automation Rules already, we can't use an hardcoded position.
+
+The new strategy will append Automation Rules to the list, meaning it will compute the automation position so that it is equal to the current max position + 1.
+
+The changelog was fixed so that this works in upper environments where 0.16.1 hasn't been deployed yet. At the same time, it disables the checksum validation so that it is also deployable on environments that were already deployed with the previous strategy.
+
+To test this, we can verify that, if the changelog already ran before (in the case the environment didn't contain any custom Automation Rule) it will simply be skipped OR if it hadn't run yet it will run for the first time and compute the automation_position correctly.
+
+### Fix on Transaction History Mapping Fieldsâ
+
+Bug Fix
+
+On a previous release, we mentioned there was a bug during the mapping of some fields and we were showing values sent without mapping, this release fixes this issue.
+
+The fields fixed are the following:
+
+  * `Transaction Type (payment_type)`
+  * `Currency (sender_transaction_currency)`
+  * `Event Type (txn_type)`
+  * `Login Last Authentication (auth_method)`
+  * `Device Type (device_banking_type)`
+
+
+
+### Allow setting status reasons via SLAs and Automation Rulesâ
+
+Feature
+
+Implemented the following custom extensions, which allow setting a specific status reason via SLAs and Automation Rules.
+
+The extensions added are the following:
+
+  * `Set Reason | Payment Reversal as Unable to contact - Decline`
+  * `Set Reason | Customer Confirmed Fraud via Mobile Messaging (2 WAY)`
+  * `Set Reason | Customer Confirmed Genuine via Mobile Messaging (2 WAY)`
+  * `Set Reason | Payment Reversal Crypto Limit Reached - Decline`
+
+
+
+In order to implement the previous extensions the following reasons had to be created additionally to the previously shared specification:
+
+  * `Payment Reversal Crypto Limit Reached - Decline`
+
+
+
+The following SLAs and ARs were updated to make use of the new custom extensions:
+
+  * SLA: `Wait for Customer Response` -> `Set Reason | Payment Reversal as Unable to contact`
+  * AR: `Customer Notification - Fraud` -> `Set Reason | Customer Confirmed Fraud via Mobile Messaging (2 WAY)`
+  * AR: `Customer Notification - Genuine` -> `Set Reason | Customer Confirmed Genuine via Mobile Messaging (2 WAY)`
+
+

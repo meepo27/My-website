@@ -1,0 +1,137 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/reference/automation-rule-properties
+Title: Workflow Automation Properties | Case Manager
+============================================================
+
+On this page
+
+# Workflow Automation Properties
+
+When creating workflow automations (Automation Rules and SLAs), users need to configure:
+
+  * **Input** (Automation Rules) or **Time and Schedule** (SLAs) to define if the automation will trigger based on a specific action or time, respectively.
+  * **Conditions** (Automation Rules) or **Breach Conditions** (SLAs) to define the event or case fields to be considered in the automation.
+  * **Outputs** (Automation Rules) or **Breach Actions** (SLAs) to define what should happen when the automation is triggered.
+
+
+
+This page details the available configuration options.
+
+## Inputs (Automation Rules)â
+
+This section lists the available automation rule inputs for events and cases.
+
+### Eventsâ
+
+Input| Description  
+---|---  
+Event Access Group Changes| When the access group ID of an event is changed.  
+Event Arrives| When a new event arrives from Pulse.  
+Event Assignee Changes| When an event is assigned to an analyst.  
+Event Note is Added| When a note is added to an event.  
+Event Queue Changes| When an event is moved into a queue.  
+Event Status changes| When the status of an event is changed.  
+Event Updated| When the fields of an event are updated.  
+Most Recent Event Version Received| When the received version of the event is a new event for the system or it is more recent than the existing on the system. This input works similar to "Event Updated" but it ignores the out-of-order event updates. Learn more on how [Case Manager's processes events](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/case-manager-event-ingestion).  
+  
+### Casesâ
+
+Input| Description  
+---|---  
+Case Assignee Changes| When a case is assigned to an analyst.  
+Case Created| When a case is created.  
+Case Note is Added| When a note is added to a case.  
+Case Queue Changes| When a case is moved into a queue.  
+Case Status Changes| When the status of a case is changed.  
+Case Updated| When the fields of a case are updated.  
+  
+## Time and Schedule (SLAs)â
+
+This section details when an SLA can be triggered. Note that, events are only processed by an SLA when the system includes an Automation Rule that is configured to start that SLA.
+
+Input| Description  
+---|---  
+Time Period| The SLA is triggered after a certain period since the corresponding automation rule was triggered: _Days_ , _Hours_ or _Minutes_.   
+Imagine that you want to send all incoming alerts that are not reviewed within 24 hours to a specific queue. To do this, configure an SLA with a 24 hours **Time Period** and then configure an automation rule to mark the alerts to be evaluated by the SLA, using the "Start SLA" output. This means that, when an alert arrives to Case Manager, the automation rule will trigger and start the 24 hour period. After that time, if the alert has not been reviewed, it will automatically be sent to the defined queue.  
+Time Schedule| The SLA is triggered recurrently, following the defined frequency since the corresponding automation rule was triggered: _Daily_ , _Daily except weekends_ or _Weekly_.  
+Imagine that you want to send all incoming alerts to a specific queue, every day at 8 am. To do this, configure an SLA with a daily **Time Schedule** and then configure an automation rule to mark the alerts to be evaluated by the SLA, using the "Start SLA" output. This means that, when an alert arrives to Case Manager, the automation rule will trigger and, if the alert has not been reviewed until the defined scheduled, it will automatically be sent to the defined queue.  
+  
+Exclude weekends
+
+When this option is selected, the SLA does not take weekends (Saturdays and Sundays) into consideration. For instance, a 24-hour SLA due on a Saturday at 2:00 PM will be triggered on the following Monday at 2:00 PM. Likewise, a 48-hour SLA due on a Sunday will be triggered on the following Tuesday.
+
+## Conditions (Automation Rules and SLAs)â
+
+The conditions assess the fields of the event or case to identify if the actions should be executed or not. Each condition includes the following components:
+
+  * **Event or Case field** to be used as target value to be compared with the _expected value_.
+  * **Operator** to assert the expected value against the target value. See _Available Operators_ in the [Manage Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules#available-operators) and [Manage SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas#available-operators) pages for more information.
+  * **Expected Value** to be compared with the event field's value.
+
+
+
+Hiding fields in automation rules conditions
+
+It's possible to control which event fields are visible in automation rules conditions. This is typically needed for fields with encrypted data but it may also be beneficial to hide fields unavailable to end users. Learn more on [how to hide fields in automation rules conditions](/case-manager/13.17/docs/internal/case-manager/configuration-guide/encryption-configuration).
+
+## Actions (Automation Rules and SLAs)â
+
+This section lists the available actions for events and cases.
+
+### Eventsâ
+
+Action| Description  
+---|---  
+Add to list| Add an event's field value to a [Block/Allow List](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/block-allow-lists). Items can have an `expiration period` to specify how many days an item should be held on the list. This is an optional configuration and, if no expiration period is provided, no expiration date will be set for the item.  
+Call Webhook| Calls an external system by making an HTTP POST request to the provided URI. Note that within the request's payload is the event that triggered the rule (JSON format).  
+Create Case or link to existing Case| Links the event to a new or existing case.  
+Execute Extension| Executes a custom extension according to Case Manager's configuration. For example, send an SMS to the client.  
+Link to Existing Case| Links the event to an existing case.  
+Send to Queue| Send the event into a given queue.  
+Set Access Group| Change the access group ID of an event.  
+Set Event Assignee| Assign the event to an analyst.  
+Set Initial Status| Set the initial status of an event and, optionally, a set of reasons associated to the status change. Additionally, it notifies Pulse about that status change. Note that, depending on your Case Manager configuration, this list may include other actions related to the event status. For example, _Set Initial Acceptance Status_ or _Set Initial Review Status_.  
+Set Status| Set the status of an event and, optionally, a set of reasons associated to the status change. Additionally, it notifies Pulse about that status change. Note that, depending on your Case Manager configuration, this list may include other actions related to the event status. For example, _Set Acceptance Status_ or _Set Review Status_.  
+Start SLA| Starts a new SLA automation.  
+  
+### Casesâ
+
+Action| Description  
+---|---  
+Call Webhook| Calls an external system by making a HTTP POST request to the provided URI. Note that within the request's payload is the event that triggered the rule (JSON format)  
+Execute Extension| Executes a custom extension according to Case Manager's configuration. For example, send an SMS to the client.  
+Send to Queue| Send the case into a given queue.  
+Set Case Assignee| Assign the case to an analyst.  
+Set Status| Set the status of a case. Additionally, it notifies Pulse about that status change.  
+Set Status of all linked events| Set the status of all events linked to a case and, optionally, a set of reasons associated to the status changes. Additionally, it notifies Pulse about those status changes.  
+Start SLA| Starts a new SLA automation.  
+  
+The automation rules' actions are executed over an event snapshot taken when the action was triggered. This means that the actions of multiple automation rules executed during a single trigger (e.g. event status changed) will not view the modifications performed by each other - only a subsequent trigger will have an updated view of the event.
+
+Imagine automation rules A and B that are both defined to trigger on event arrival. According to the configuration, Automation A should send the event to queue A while Automation B should send the event to queue B. According to the defined order, automation A should execute before automation B, assuming the execution of automation rules in parallel is disabled (see below).
+
+When an event arrives in CM, these automations will be triggered. Considering that both their conditions are satisfied, the event is sent to queue B (since automation B was the last to run).
+
+However, note that the activity log of that event will not display a queue transition from "none" to "queue A" and then to "queue B" because both actions will be executed over the snapshot of the event as it was when it triggered the automation rules. This means that, when the event arrived, its queue was "none", which is why this behavior occurs. The same will be observed in the database (AM_EVENT_QUEUE), which will show two separate queue changes (to queue A and to queue B) where the OLD_QUEUE column will be null.
+
+To summarize, different actions belonging to the same trigger don't depend on each other.
+
+Note that this behavior only happens PER trigger, but not across multiple automation rule triggers.
+
+Automation rules execution in parallel
+
+In order to increase automation rules processing throughput, it's possible to set up CM to execute multiple automation rules at a time (ie. to enable ARs to be processed in parallel). Allowing automation rules to be processed in parallel allows to increase the number of rules processed per second. However, such parallelism will compromise CM's ability to ensure the automation rules are always executed according their defined order. This means that, when parallel execution of automation rules is in place, rules triggered nearly the same time (within some seconds apart of each other) may or may not be executed at the pre-defined order (although all rules are always executed).
+
+This trade-off between increasing the automation rules throughput and ensuring a deterministic execution order of the rules is configured at config.json file, through the following parameters
+
+  * `performance.automation_worker_threads` (default value is 4)
+  * `performance.automation_actions_batches.batch_threads` (default value is 1)
+
+
+
+Setting both these parameters to `1` will ensure automation rules will be executed by the defined order. On the other hand, increasing these values allows to process more rules in parallel (foregoing the rules to be executed by a pre-defined order).
+
+Check [this page](/case-manager/13.17/docs/internal/case-manager/reference/core-config-json#performance) for more details on the above config.json parameters.
+
+## Learn Moreâ
+
+Learn more on how to configure [Automation Rules](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-automation-rules) and [SLAs](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-slas).

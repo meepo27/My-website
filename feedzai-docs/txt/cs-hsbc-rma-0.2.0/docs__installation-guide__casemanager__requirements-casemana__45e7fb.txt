@@ -1,0 +1,111 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/casemanager/requirements-casemanager
+Title: Requirements | Feedzai RMA Documentation
+============================================================
+
+On this page  
+  
+# Requirements
+
+##### tip
+
+For a complete list of the Case Manager requirements, please refer to the [official product documentation](https://cam.feedzai.com/case-manager/12.0.1/docs/common/installation-guide/requirements).
+
+## Service Requirementsâ
+
+This service requires the following software to run.
+
+### Java Environmentâ
+
+OpenJDK SE Development Kit version 1.8, with the following vendors (with their latest hotfix versions):
+
+  * Azul Zulu [rpm](https://maven.feedzai.com/repository/hsbc-releases/azul/zulu/8.68.0.21-ca-jdk8.0.362/zulu-8.68.0.21-ca-jdk8.0.362-linux.x86_64.rpm) [zip](https://maven.feedzai.com/repository/hsbc-releases/azul/zulu/8.68.0.21-ca-jdk8.0.362/zulu-8.68.0.21-ca-jdk8.0.362-linux.x86_64.zip) [tar.gz](https://maven.feedzai.com/repository/hsbc-releases/azul/zulu/8.68.0.21-ca-jdk8.0.362/zulu-8.68.0.21-ca-jdk8.0.362-linux.x86_64.tar.gz)
+  * Azul Platform Prime (formerly Zing)
+  * Amazon Corretto
+  * Oracle
+
+
+
+##### info
+
+Product tests are done with the **Azul Zulu JVM**.
+
+The following versions are not supported, and are known to have problems:
+
+  * 1.8.0u242
+  * 1.8.0u121
+  * 1.8.0u60
+  * 1.8.0u45 and earlier
+
+
+
+Non-listed releases are either not supported or haven't been put to extensive testing.
+
+## Setup Requirementsâ
+
+### RDBMSâ
+
+Case Manager uses [PulseDB](https://github.com/feedzai/pdb) for database access, meaning that Case Manager can be deployed on top of:
+
+  * Oracle 19.3 (or higher)
+  * PostgreSQL 14.20 (or higher) - driver version 42.7.10 should be used.
+  * SQL Server 2017 GA (or higher)
+  * H2 1.4.200 (or higher) - only for test/evaluation purposes.
+
+
+
+##### info
+
+Feedzai validates the product primarily against H2 and PostgresSQL.
+
+##### caution
+
+Before selecting a database engine, make sure you understand how different database systems are [supported by our PulseDB](https://github.com/feedzai/pdb/wiki/Quirks-specific-to-some-Database-systems).
+
+### RabbitMQâ
+
+RabbitMQ is the messaging platform Case Manager uses to ingest events from Pulse, and also to propagate events to other downstream services.
+
+The following RabbitMQ and Erlang versions are supported:
+
+  * RabbitMQ - 3.11.13 with Erlang - 25.3.2.21+
+  * RabbitMQ - 3.9.8 with Erlang - 24.0+
+
+
+
+Before starting Pulse you must configure the messaging cluster:
+
+  1. Provision a RabbitMQ cluster and ensure that Pulse is able to establish a connection to that any node of the cluster.
+  2. Create a new vhost for Case Manager.
+
+
+    
+    
+    rabbitmqctl rabbitmqctl add_vhost casemanager  
+    
+
+Copy
+
+  3. Create a new user for Case Manager.
+
+
+    
+    
+    rabbitmqctl add_user casemanager <password>  
+    
+
+Copy
+
+  4. Update the vhost policies to grant all permissions to the Case Manager user.
+
+
+    
+    
+    # sets write and read permissions on every resource  
+    rabbitmqctl set_permissions casemanager -p casemanager ".*" ".*" ".*"  
+    
+
+Copy
+
+### Pulseâ
+
+Case Manager retrieves data from Pulse, and therefore requires an accessible Pulse cluster to start. Read more about how to install and configure Pulse in the [installation guide](/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/requirements-pulse).

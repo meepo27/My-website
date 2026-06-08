@@ -1,0 +1,59 @@
+Source: https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/getting-started/loading-data
+Title: Loading Data | Feedzai Pulse
+============================================================
+
+  * [](/pulse/latest/)
+  * Loading Data
+
+
+
+# Loading Data
+
+Was this page helpful?Â 
+
+The first step in your data science project is to load data into Pulse and begin your [data science loop](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-science-loop).
+
+Before starting the steps, ensure that the sample data file is downloaded to the `PULSE_SERVER_HOME/var/datasources/` path on the Pulse server where you are working. To get help with this, get in touch with your contact person at Feedzai.
+
+To load a dataset into Pulse, execute the following actions:
+
+  1. In a browser, navigate to your data science environment. Log in by using the credentials provided, which by default are **pulse** /**pulse**.
+
+  2. Create a new application named _Fraud Training_.
+
+  3. In the **Data Science** tab, add  a new [data source](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources) named _RawTransactions_.
+
+The URL depends on the operating system of your Pulse server and the path to the Pulse server home. For example: `file:///PULSE_SERVER_HOME/var/datasources/transactions.csv`.
+
+  4. Examine the dataset by scrolling through the different columns and understanding what the dataset contains.
+
+     1. Note that there are different ways this dataset represents missing values, such as using `-` in _AVSAddressNumber_ or `\N` in _AuthSequenceNumber._
+
+     2. Add both `-` and `\N` to the **Missing Values** list.
+
+     3. Proceed to the **Next** step.
+
+  5. After Pulse has inferred the data type for each field, in the **Data Source Characterization** step, check if all the fields have suitable [data types](/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/data-sources/data-types) and correct those that don't.
+
+     1. Change the type of some of the amount fields from _Categorical_ to _Numeric_ , such as _AdditionalAmount1_ and several others, whenever you think it may make sense.
+
+Be careful not to change the data type of true categoricals such as _CashAdvanceAmount_ (does not contain numbers) or _AVSZipCode_ (even though it has numbers, it can be argued there is not an order in zip codes).
+
+     2. Change the type of _ID_ fields (such as _AccountID_ or _RouterID_) to have a _String_ type rather than _Numeric_ or _Categorical_ , since it was not correctly inferred.
+
+     3. Change the type of _RecurringBillingKey_ and _InternetAuthorizationIndicator_ to _Date Time_. Set the format of these fields to _Date Time,_ with _dd/MM/yyyy_ format.
+
+     4. Use the  button to change the data type configuration of the _AdditionalAmount1_ field that you set up earlier. It is currently an _Integer_ field. Set it to be _Float_. This makes sense because _AdditionalAmount1_ has decimal places and you don't want to lose information.
+
+  6. Scroll down to the bottom of the page and create your improved data source.
+
+  7. Select your data source from the **Data Sources** list.
+
+  8. Use the  button to analyze the data source. Select Fraud as a breakdown field. This way you can analyze correlations between fields of the data set, in particular, the _Fraud_ field, which is the domain goal in the scope of this application.
+
+     1. Use the **View Statistics** option to better understand fields in your dataset, including arithmetic statistics of the field and its value distribution. It is also possible to click over the histogram to access the statistics view.
+
+     2. View the statistics of the _TransactionAmount_ field by using the  button. Break the analysis down by _Fraud_ to observe that the mean value of _TransactionAmount_ is greater for fraudulent transactions.
+
+
+

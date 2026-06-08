@@ -1,0 +1,35 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/thirdparty/network-zookeeper
+Title: Firewall Rules for ZooKeeper | Feedzai Documentation
+============================================================
+
+On this page
+
+# Firewall Rules for ZooKeeper
+
+##### info
+
+This page is based on the architecture of Feedzai standard solutions. Specific clients or custom solutions may have additional requirements, so this is not a definitive guide.
+
+### Inboundâ
+
+##### note
+
+Inbound â other services connect to this service.
+
+Service| Port| Description  
+---|---|---  
+ZooKeeper| TCP 2888| Peer communication  
+ZooKeeper| TCP 3888| Peer communication  
+Pulse| TCP 2181| ZooKeeper Client communication  
+SSH| TCP 22| SSH access (if available)  
+  
+### Outboundâ
+
+##### note
+
+Outbound â this service connects to external services.
+
+Service| Port| Description  
+---|---|---  
+ZooKeeper| TCP 2888| Peer communication  
+ZooKeeper| TCP 3888| Peer communication

@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/api-reference/endpoints/post-untagging
+Title: Untagging | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [API Resources](/tfrb/latest/docs/common/tfrb/api-reference/overview)
+  * [Endpoints](/tfrb/latest/docs/common/tfrb/api-reference/endpoints)
+  * [Entity Tagging](/tfrb/latest/docs/common/tfrb/api-reference/endpoints/entity-tagging)
+  * Untagging
+
+
+
+Was this page helpful?Â 
+
+# Untagging
+    
+    
+    POST 
+    
+    ## /api/entitytagging/:entityOrfragmentType/untag
+
+The Untagging endpoint allows you to unflag a specific Entity / Fragment from a Whitelist / Blacklist / Risky List.
+
+## Requestâ
+
+## Responsesâ
+
+  * 200
+  * 400
+  * 401
+  * 500
+
+
+
+The request has been processed successfully. This response is sent for synchronous requests.
+
+Bad Request
+
+Unauthorized
+
+The system encountered an unexpected internal error.

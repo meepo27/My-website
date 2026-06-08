@@ -1,0 +1,41 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3281-Add-new-fields-to-Case-Manager
+Title: HSBC-3281-Add-new-fields-to-Case-Manager | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3281-Add-new-fields-to-Case-Manager
+
+### Add new fields to Case Managerâ
+
+FeatureFTMT-28352HSBC-3281
+
+We've added new search fields and transaction history filter fields in Case Manager.
+
+We've added the following fields to the Case Manager advanced search page:
+
+fields| Channel  
+---|---  
+session_id| Transfers  
+device_id| Transfers  
+device_ip_address| Transfers/Digital Activity  
+device_ip_address_v6| Transfers/Digital Activity  
+user_id| Transfers/Digital Activity  
+sender_transaction_ref_nr_alt| Transfers/Digital Activity  
+device_user_agent| Transfers/Digital Activity  
+  
+We've added the following fields to the Event Details `transaction history` dropdown filter:
+
+fields| label  
+---|---  
+device_ip_address| IP Address  
+device_ip_address_v6| IP Address v6  
+user_id| User ID  
+sender_transaction_bank_account_number| Debit Account Number  
+alert_id| Alert ID  
+sender_transaction_ref_nr_alt| Instruction Reference Number  
+receiver_transaction_bank_account_number| Beneficiary Account Number  
+receiver_bank_bic| Beneficiary Bank Sort Code  
+receiver_name| Beneficiary Name  
+device_user_agent| User Agent  
+payment_type| Payment type

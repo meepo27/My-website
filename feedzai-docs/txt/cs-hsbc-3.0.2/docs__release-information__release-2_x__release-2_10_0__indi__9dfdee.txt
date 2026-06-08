@@ -1,0 +1,15 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.10.0/individual-release-notes/HSBC-3409-Add-Payment-Fulfillment-Extension-for-Inbound-Payment
+Title: HSBC-3409-Add-Payment-Fulfillment-Extension-for-Inbound-Payment | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3409-Add-Payment-Fulfillment-Extension-for-Inbound-Payment
+
+### Add Payment Fulfillment Extension for Inbound Paymentâ
+
+FeatureFTMT-29917HSBC-3409
+
+We've updated the Payment Fulfillment extension to support Inbound Payments events in addition to Outbound.
+
+The schema is the same as for Outbound events, as described in the [AFIS Extensions](/cs-hsbc/3.0.2/docs/installation-guide/casemanager/afis-extensions) reference.

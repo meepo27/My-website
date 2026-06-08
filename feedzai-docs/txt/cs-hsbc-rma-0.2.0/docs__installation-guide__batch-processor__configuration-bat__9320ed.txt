@@ -1,0 +1,79 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/batch-processor/configuration-batch-processor
+Title: Configuration Recommendations | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Configuration Recommendations
+
+### Ansibleâ
+
+##### info
+
+Available ansible variables for running the ansible playbook.
+
+Variable| Default Value| Description  
+---|---|---  
+ansible_user| feedzai| User for ansible execution  
+ansible_local_user| {{ ansible_user }}| User that will be the owner of the unpacked Batch Processor assembly, should be the same as `ansible_user`  
+batch_processor_install_path| "/opt/feedzai"| Batch Processor install path  
+batch_processor_home_path| "{{ batch_processor_install_path }}/batch-processor-{{ batch_processor_version }}"| Batch Processor home path  
+batch_processor_port| 5567| Batch Processor service port  
+batch_processor_jvmopts| ""| Batch Processor Java process options  
+database_batch_processor_engine| "com.feedzai.commons.sql.abstraction.engine.impl.PostgreSqlEngine"| Batch Processor Database engine - Postgres  
+database_batch_processor_jdbc| "jdbc:postgresql://{{ database_batch_processor_hostname }}:{{ database_batch_processor_port }}/{{ database_batch_processor_database_name }}?{{ database_batch_processor_jdbc_opts| join('&') }}"  
+database_batch_processor_jdbc_opts| [cancelSignalTimeout=2, connectTimeout=2, loadBalanceHosts=true, loginTimeout=10, socketTimeout=60, tcpKeepAlive=true, targetServerType='master']| Postgres Batch Processor Database JDBC options  
+database_batch_processor_username| "batchprocessor"| Postgres Batch Processor Database username  
+database_batch_processor_password| "secret"| Postgres Batch Processor Database password  
+database_batch_processor_schema| "batchprocessor"| Postgres Batch Processor Database schema  
+database_batch_processor_hostname| "postgres"| Postgres Batch Processor Database host name  
+database_batch_processor_port| "5432"| Postgres Batch Processor Database port number  
+database_batch_processor_database_name| "feedzai"| Postgres Batch Processor Database name  
+database_batch_processor_schemapolicy| none| Postgres Batch Processor Database schema change policy  
+batch_processor_merc_static_tenants| ["feedzai"]| Reference Data server list of tenants for Batch Processor  
+batch_processor_merc_retry_cron| "0 0 _?_ *"| Quartz cron schedule for how often failed records should be retried by Batch Processor  
+batch_processor_merc_retry_max_tries| 3| Maximum number of times a failed record can be retried by Batch Processor  
+batch_processor_merc_cron| "0 30 2 * _?_ "| Quartz cron schedule for how often Batch Processor should search the RDS for existing entities  
+batch_processor_rds_config_host| reference-data| Reference Data server host  
+batch_processor_rds_config_port| 8080| Reference Data server port - must correspond to the port exposed on RDS using `reference_data_app_port`  
+batch_processor_rds_default_jwt| "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvYW8gU2FudG9zIiwiaWF0IjoxNTE2MjM5MDIyfQ.vmDm0hObIi9Mip_3SupHl78zHvcV12_7ThFF4jD6Pio"| Batch Processor Default JWT Token to use for Reference Data server  
+batch_processor_rds_tenant_keys| [{ key: feedzai, value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvYW8gU2FudG9zIiwiaWF0IjoxNTE2MjM5MDIyfQ.vmDm0hObIi9Mip_3SupHl78zHvcV12_7ThFF4jD6Pio }]| Batch Processor list of tenant name-JWT Token mapping to use for Reference Data server  
+batch_processor_pulse_jwt_private_key| Default value hidden due to length| Batch Processor Private Key (in PKCS #8 format) for generating JWT to use for Pulse Merchant Monitoring API endpoint  
+batch_processor_pulse_jwt_algorithm| "RS512"| Batch Processor algorithm for generating JWT to use for Pulse Merchant Monitoring API endpoint (*)  
+batch_processor_pulse_jwt_kid| "feedzai-internal"| Batch Processor key identifier for generating JWT to use for Pulse Merchant Monitoring API endpoint  
+batch_processor_pulse_jwt_issuer| "feedzai"| Batch Processor issuer for generating JWT to use for Pulse Merchant Monitoring API endpoint  
+pulse_batchprocessor_username| "batchprocessor"| Batch Processor username in Pulse  
+pulse_batchprocessor_password| "Secret1!"| Batch Processor password in Pulse  
+pulse_scheme| "http"| Pulse URL scheme  
+pulse_port| 8080| Pulse URL port  
+pulse_elb| "pulse"| Pulse ELB URL  
+pulse_host| "{{ pulse_elb }}"| Pulse internal URL  
+pulse_url| "{{ pulse_scheme }}://{{ pulse_elb }}:{{ pulse_port }}"| Pulse URL  
+  
+##### note
+
+(*) More details on the supported algorithms can be found at [JWSAlgorithm](https://www.javadoc.io/doc/com.nimbusds/nimbus-jose-jwt/2.21/com/nimbusds/jose/JWSAlgorithm.html). Only RS256, RS384 and RS512 are supported.
+
+* * *
+
+### Quartz Cron Schedulingâ
+
+##### tip
+
+For more details on Quartz Cron Scheduling expressions, refer to the [official Quartz CronTrigger Tutorial](https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html).
+
+Field| Mandatory| Allowed Values| Description  
+---|---|---|---  
+Seconds| X| 0-59| The cron expression for `second`  
+Minutes| X| 0-59| The cron expression for `minute`  
+Hours| X| 0-23| The cron expression for `hour`  
+Day of Month| X| 1-31| The cron expression for `day of month` (**)  
+Month| X| 1-12 or JAN-DEC| The cron expression for `month`  
+Day of Week| X| 1-7 (1=SUN, 7=SAT) or SUN-SAT| The cron expression for `day of week` (**)  
+Year| | blank, 1970-2099| The cron expression for `year`  
+  
+##### note
+
+(**) In Quartz, you must use the `?` character in either the Day of Month or Day of Week field to indicate "no specific value". You cannot specify both fields simultaneously, as they conflict!
+
+* * *

@@ -1,0 +1,88 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/plans/operators/filter_operator/
+Title: filter_operator - DS API
+============================================================
+
+#  `` filter_operator Â¶
+
+##  `` FilterOperatorConfigBuilder `module-attribute` Â¶
+    
+    
+    FilterOperatorConfigBuilder = autoclass([MODEL_CLASSPATH](../../../#ds_api.MODEL_CLASSPATH "            MODEL_CLASSPATH
+    
+    
+      
+          module-attribute
+       \(ds_api.MODEL_CLASSPATH\)") + 'datascience.plan.operator.FilterOperatorConfig$Builder')
+    
+
+##  `` LOGGER `module-attribute` Â¶
+    
+    
+    LOGGER = getLogger(__name__)
+    
+
+##  `` FilterOperator Â¶
+    
+    
+    FilterOperator(pyjnius_java)
+    
+
+Bases: `[BaseOperator](../operator/#ds_api.plans.operators.operator.BaseOperator "            BaseOperator \(ds_api.plans.operators.operator.BaseOperator\)")`
+
+Represents a Filter Operator in Pulse.
+
+Attributes:
+
+Name | Type | Description  
+---|---|---  
+`expression` |  `str` |  Represents the filter expression of the operator. Fields must be enclosed with the pattern `${field}`, eg. `"${TransactionAmount} > 100 and ${Fraud} != false"`.  
+  
+###  `` expression `property` `writable` Â¶
+    
+    
+    expression
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` get_dependencies Â¶
+    
+    
+    get_dependencies() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Set[str]]
+    
+
+###  `` get_dependencies_by_type Â¶
+    
+    
+    get_dependencies_by_type() -> Dict[[FeatureUID](../../utils/#ds_api.plans.utils.FeatureUID "            FeatureUID \(ds_api.plans.utils.FeatureUID\)"), Dict[str, List[str]]]
+    
+
+###  `` get_type `staticmethod` Â¶
+    
+    
+    get_type() -> str
+    
+
+###  `` rename_feature Â¶
+    
+    
+    rename_feature(old_name: str, new_name: str)
+    
+
+Rename a field used in the filter expression.
+
+###  `` to_dict Â¶
+    
+    
+    to_dict() -> List[Dict]
+    
+
+###  `` update_from_dict Â¶
+    
+    
+    update_from_dict(dict_feats: List[Dict])
+    

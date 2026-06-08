@@ -1,0 +1,24 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/api-reference/inbound-payments/additional-resources/generated-fields
+Title: Generated Fields | Feedzai Documentation
+============================================================
+
+On this page
+
+# Generated Fields
+
+The Inbound Payments API generates some fields which will be sent to the Pulse Workflow alongside the ones received in the API.
+
+## event_typeâ
+
+The `event_type` will be set according to the endpoint used to receive the request:
+
+Endpoint| event_type  
+---|---  
+Initiation| inbound_payment_initiation  
+Info| info  
+Settlement| settlement  
+Feedback| feedback  
+  
+## event_received_atâ
+
+The `event_received_at` represents the time the request reached the Inbound Payments API as a timestamp, in milliseconds.

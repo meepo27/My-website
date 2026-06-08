@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/references/pulse-rule-explanations
+Title: Rule Explanations | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [References](/tfrb/latest/docs/common/tfrb/references/overview)
+  * Rule Explanations
+
+
+
+# Rule Explanations
+
+Was this page helpful?Â 
+
+This page helps you understand:
+
+  * What rule explanations are.
+  * How enabling rule explanations affects responses.
+
+
+
+tip
+
+Note that Rule Explanations is an opt-in feature. Contact the Feedzai team to enable this feature.
+
+Each time a scoring event is sent to Feedzai, rule evaluations run for that same event. If the Rule Explanations feature is enabled, rule explanations will be computed in real time, like rule evaluations.
+
+Rule Explanations consists of returning the rule explanation configured in the Pulse UI when creating a new rule:
+
+Consider the scenario where you set the same rule configuration as the image above, and enable Rule Explanations. Whenever this rule is triggered by an event, a new output field (`rule_explanations`) is expected:
+    
+    
+    {  
+        "status": "ok",  
+        "lifecycle_id": "lifecycle_xyz",  
+        "event_external_id": "event_external_id_abc",  
+        "action_codes": [  
+            "[Cards-PN1]"  
+        ],  
+        "secondary_action_codes": [],  
+        "alert": false,  
+        "rule_explanations": [  
+            {  
+                "rulesProjectName": "Cards - PosNeg Rules",  
+                "ruleName": "Cards-PN1",  
+                "explanation": "[Cards-PN1] - Decline - 'card_id' card_123 is listed to be auto declined."  
+            }  
+        ],  
+        "score": 0,  
+        "decision": "decline",  
+        "sca_required": false  
+    }  
+    
+
+Field name| Description  
+---|---  
+`rulesProjectName`| The name of the rules project containing the rule triggered.  
+`ruleName`| The name of the rule triggered.  
+`explanation`| The explanation configured in the rule triggered.  
+  
+Learn more about:
+
+  * [Explanations](https://cam.feedzai.com/pulse/latest/docs/common/pulse/understanding-pulse/core-concepts/workflows/explanations)
+  * [Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules)
+
+

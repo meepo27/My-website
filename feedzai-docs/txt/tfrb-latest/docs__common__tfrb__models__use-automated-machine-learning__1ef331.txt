@@ -1,0 +1,72 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/journey-overview
+Title: AutoML | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Data Scientist & Fraud Strategist](/tfrb/latest/docs/common/tfrb/user-guides-pulse)
+  * [Use Models](/tfrb/latest/docs/common/tfrb/models/use-models)
+  * AutoML
+
+
+
+On this page
+
+# AutoML
+
+Was this page helpful?Â 
+
+The Automated Machine Learning (AutoML) guide helps data scientists use the risk engine platform's built-in AutoML tool. With this tool, you can automatically generate features for machine learning models and obtain a trained model with a set of optimal parameters.
+
+This guide covers the following end-to-end AutoML process:
+
+  * Prepare the data that is used to generate features and train models.
+  * Create an AutoML run.
+  * Analyze the results.
+  * Integrate the new features and trained model with the existing resources in the runtime workflow.
+
+
+
+## Why use AutoML?â
+
+Finding the right features and models for a dataset can take several weeks because it requires a number of repetitive and time-consuming tasks: creating features, training models, tuning parameters, and testing changes. AutoML is a functionality available in the risk engine platform that automates these tasks, thus helping data scientists to quickly bootstrap new projects. More specifically, AutoML runs the following tasks behind the scenes:
+
+  1. Generates hundreds of features.
+  2. Selects the features that contribute the most to the model performance.
+  3. Trains multiple models and optimizes model parameters (i.e. hyperparameter optimization).
+  4. Recommends the best model.
+
+
+
+As a result, after running AutoML, the risk engine platform generates the following output:
+
+  * A plan with meaningful features that are derived from a dataset (referred to as features plan in this guide).
+  * A model project with the trained model, which shows the best results among all the model tests performed by the AutoML run (referred to as recommended model in this guide).
+
+
+
+The features plan and the recommended model are readily available to be integrated into the Pulse workflow to process transactions in real time.
+
+## How does it map to each use case?â
+
+TFB packages several use cases, namely Transaction Fraud for Cards (issuing), Transaction Fraud for Transfers, and Transaction Fraud for Instant Transfers into a single risk management solution. Learn more about these use cases in the [About the Solution](/tfrb/latest/docs/common/tfrb/about/overview) page.
+
+The solution provides two semantic files, one for cards and another one for transfers (i.e. addresses both instant and non-instant transfers). You can [download](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/download-semantic-file) the files, and then run AutoML to generate the set of features and the model for each use case.
+
+## User journeyâ
+
+The following user journey describes the steps to prepare your data, run AutoML, analyze the results and integrate the AutoML output (i.e. features plan and recommended model) in the runtime workflow:
+
+****
+
+Check the[AutoML Stages](automl-stages) page to understand what are the operations executed by AutoML behind the scenes.
+
+To run AutoML end to end, perform the following steps:
+
+  1. [Load your historical data](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/load-prepare-data): Prepare your input data source, which will be used to derive features and train models. In this step, you will need to define the type of each field in your data source's schema. This is important because AutoML relies on a semantic file that maps the input data fields to semantic tags. Therefore, each field type in the input data source needs to match the type that is defined in the semantic file. Check the [AutoML Stages](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/automl-stages) page to learn more about the role of the semantic file in the AutoML process.
+  2. [Complete the schema](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/complete-schema): Before running AutoML, ensure that the data source's schema is identical to the one used by the standard rules. This is important when integrating the recommended model with the standard rules in the runtime workflow to avoid conflicts due to different schemas.
+  3. [Create an AutoML run](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/create-automl-run): Generate a features plan and a recommended model with AutoML.
+  4. [Analyze the AutoML output](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/analyze-automl-output): Analyze results to understand whether the output (i.e. features plan and recommended model) fits your business needs.
+  5. [Integrate resources in runtime](/tfrb/latest/docs/common/tfrb/models/use-automated-machine-learning/integrate-resources-runtime): Integrate the features plan and recommended model in runtime workflow and publish your work to start scoring events.
+
+

@@ -1,0 +1,17 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-2.x/release-2.11.0/individual-release-notes/HSBC-3790
+Title: HSBC-3790 | Feedzai Documentation
+============================================================
+
+On this page
+
+# HSBC-3790
+
+### Upgrade Pulse to version 25.1.1â
+
+Bug FixHSBC-3790
+
+Also In:2.10.2
+
+We've upgraded Pulse to version 25.1.1.
+
+This upgrade fixes an issue where both the live and upgrade clusters would consume feedback messages, resulting in inconsistent data.

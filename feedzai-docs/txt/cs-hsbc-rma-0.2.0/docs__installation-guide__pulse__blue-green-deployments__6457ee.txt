@@ -1,0 +1,206 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/blue-green-deployments
+Title: Blue-Green deployments | Feedzai RMA Documentation
+============================================================
+
+On this page
+
+# Blue-Green deployments
+
+The recommended approach for zero downtime deployments is a technique known as blue-green deployment. 
+
+Blue-green deployment uses two almost identical clusters in the following way:
+
+  * At the start, one of the clusters is in use. Let's call it the blue environment.
+  * The other one is on standby, created from a new release. Let's call this one the green environment.
+  * When the green cluster is deployed, traffic is redirect to this cluster and deployment becomes the stand-by environment. It is available in case of a necessary rollback. We recommended this step to be manual so that every validation is done prior to changing traffic to the new cluster.
+
+
+
+##### warning
+
+Prior to a Blue-Green deployment RabbitMQ should have colored vhosts set up (`pulseblue` and `pulsegreen`)
+
+* * *
+
+### Using a control-node as Blue-Green deployment orchestratorâ
+
+When SSH connection is available between the control-node and service machines (Pulse, RabbitMQ, etc) it can orchestrate the entire deployment, excluding only validation and switching load balanceres tasks. 
+
+The first step is to federate the necessary queues, which can be done as follows:
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      rabbitmq-setup-blue-green-federation.yml \  
+    
+
+Copy
+
+**Note:** the above playbook should only run on a single RabbitMQ node.
+
+Pulse machines are installed using the current production opposite color and by copying its metadata. This can be achieve by using Ansible variables `deployment_color=<opposite_color>` and `keep_metadata_between_deployments=true`:
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      pulse.yml \  
+      -e deployment_color=<opposite_color> \  
+      -e keep_metadata_between_deployments=true \  
+    
+
+Copy
+
+After Pulse installation ends and the new cluster is validated, load balancers can be changed to point to the new cluster.
+
+Federate queues can also be disabled by running the following playbook:
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      rabbitmq-disable-blue-green-federation.yml \  
+    
+
+Copy
+
+**Note:** the above playbook should only run on a single RabbitMQ node.
+
+* * *
+
+### Temporary solution for joint sessionâ
+
+##### warning
+
+This approach is currently under discussion and may not represent the final solution
+
+When SSH connection between the orchestrator (control-node) and Pulse images is not available, the deployment can be achieved by offloading the steps that are prone to race conditions to a different machine(s).
+
+The pipeline is defined as follows:
+
+  1. Deployment color is set to the current production environment opposite color 
+  2. Pulse images are created with the latest Feedzai release
+  3. RabbitMQ queues replication (federation) is set up to allow new cluster to receive updates from the production cluster. Refer to [RabbitMQ federation](/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/requirements-pulse#rabbitmq-federation) for details
+  4. A machine is created to clean up the existing metadata for colored cluster and to copy the metadata from the production cluster
+  5. Pulse machines are configured but ignore metadata and patches set up
+  6. A machine is create (can be the same as step 4) to apply patches and publish the application 
+  7. After validating the new cluster, load balancers are updated to redirect traffic to the new cluster
+  8. RabbitMQ replication queues are removed
+  9. Old cluster may be kept for a period of time to be later removed. This ensures production cluster can be swapped to the previous stable cluster in case anything is wrong 
+
+
+
+Comparing to [Using a control-node as a Blue-Green deployment orchestrator](/cs-hsbc-rma/0.2.0/docs/installation-guide/pulse/blue-green-deployments#using-a-control-node-as-blue-green-deployment-orchestrator), steps 4 to 6 split up existing Ansible roles while running from different machines.
+
+The machine used in _Steps 3 and 8_ to create and remove replication queues should have `rabbitmqctl` installed. This can be done by running the following playbook:
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      thirdparty.yml \  
+      --tags=rabbitmq.install,rabbitmq.440 \  
+    
+
+Copy
+
+**Note:** this machine should have TCP connection to RabbitMQ instances on ports `4369` and `25672`.
+
+After the machine is provisioned replication queues can be created/destroyed by running `rabbitmq-setup-blue-green-federation.yml` and `rabbitmq-disable-blue-green-federation.yml` respectively.
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      rabbitmq-setup-blue-green-federation.yml \ # or rabbitmq-disable-blue-green-federation.yml to destroy replication queues in Step 8  
+    
+
+Copy
+
+In _Step 4_ only tags responsible for extracting and setting up the required components to run metadata clean up and copy current application metadata should be included. It is also required to set `keep_metadata_between_deployments=true` to enable metadata copy from existing cluster to the new cluster.
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      pulse.yml \  
+      -e deployment_color=<opposite_color> \  
+      -e keep_metadata_between_deployments=true \  
+      --tags pulse.050,pulse.060,pulse.110,pulse.120,pulse.210,pulse.220,pulse.415,pulse.425,pulse.440,pulse.710,pulse.730,pulse.731,pulse.750 \  
+    
+
+Copy
+
+In _Step 5_ all tags should be included except tags that are responsible for metadata clean up, application patches and publishing. The first were already executed in the previous step and the latter will be executed afterwards. 
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      pulse.yml \  
+      -e deployment_color=<opposite_color> \  
+      --tags=pulse.configure \  
+      --skip-tags pulse.730,pulse.731,pulse.750,pulse.932,pulse.940,pulse.941 \  
+    
+
+Copy
+
+In _Step 6_ included tags depend whether it is running in the same machine as _Step 4_ or in a new machine. In case it is running in the same machine the playbook can run including only tags `pulse.940` and `pulse.941`.
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      pulse.yml \  
+      -e deployment_color=<opposite_color> \  
+      --tags pulse.940,pulse.941 \  
+    
+
+Copy
+
+When running in a new machine tags that set up the machine to run patches also need to be included. These are the same as in _Step 4_ excluding tags `pulse.730`, `pulse.731` and `pulse.750`.
+    
+    
+    python3 ansible-playbook \  
+      -i solution-default \  
+      -i project-default \  
+      -i gcp \  
+      -i project-hsbc \  
+      -i locations/rma/<env> \  
+      pulse.yml \  
+      -e deployment_color=<opposite_color> \  
+      --tags pulse.050,pulse.060,pulse.110,pulse.120,pulse.210,pulse.220,pulse.415,pulse.425,pulse.440,pulse.710,pulse.940,pulse.941 \  
+    
+
+Copy
+
+##### warning
+
+Pulse Data Science deployments **must** include the `project-ds` inventory after passing the `solution-default` and `project-default` inventories.
+
+Additionally, Pulse Data Science deployments **must** include `pulse.225` (to setup the JupyterLab directory) and exclude `pulse.940` and `pulse.941` tasks (as patches and publishing are not required).

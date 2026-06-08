@@ -1,0 +1,66 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/new-payee
+Title: New Payee Endpoint | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [About TFB](/tfrb/latest/docs/common/tfrb/overview)
+  * [Event Life Cycles](/tfrb/latest/docs/common/tfrb/life-cycles/overview)
+  * [Digital Activity](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/banking-session-life-cycle)
+  * New Payee Endpoint
+
+
+
+On this page
+
+# New Payee Endpoint
+
+Was this page helpful?Â 
+
+The Digital Activity's New Payee endpoint leverages the users' attempts to add a new payee to a payment app. Consider the scenario where a user tries to add random mobile phone numbers to a payment app (e.g. Zelle, PIX, NPP, etc) until they find an existing one. When they try to add that number to the payment app, the bank invokes Feedzai's New Payee endpoint. Note that this type of scams usually comes with social engineering techniques to lead the victim into actively sending money to the fraudster's account. In such a scenario, the payee becomes the payer.
+
+The following image shows the New Payee endpoint's end-to-end process. Note that it applies to a simplified processing model.
+
+  1. The user attempts to add a random mobile phone number to a payment app, such as Zelle.
+  2. The issuer bank invokes Feedzai's New Payee endpoint.
+
+
+
+reference data enrichment
+
+The event may become enriched with data fetched from the [Reference Data Storage](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) if any of the event's entities have a match in the Reference Data Storage.
+
+data precedence in reference data storage
+
+Note that any new data from new payee events will take precedence over what's in the Reference Data Storage. Read the [Reference Data Life Cycle](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle) page to understand the logic behind reference data's entity-based enrichment.
+
+  3. Feedzai conducts real-time data analysis and makes a decision on whether to approve, decline or challenge the adding a new payee event.
+  4. The customer's bank makes an automated decision based on Feedzai's recommendation.
+  5. The customer is or isn't allowed to add a new payee to the payment app.
+
+
+
+## Reference Data updatesâ
+
+You can trigger updates to the Reference Data Storage via the Digital Activity API. These updates apply exclusively to fields starting with the `new_*` prefix as described in the following examples:
+
+  * The customer wants to update the status of his card. He opens the app and momentarily disables the card. The bank calls the Update Card endpoint in Digital Activity and sets `new_card_status` = `blocked`. If approved, this will update the `card_status` for the Card entity in the Reference Data Storage.
+  * The customer changes his phone number on the bank's app. The bank sends a Profile Update request to Feedzai with `new_customer_phone_number` = `1-970-664-2654`. If approved, this will update the `customer_phone_number` = `1-970-664-2654` for the Customer entity in the Reference Data Storage.
+
+
+
+Notice that updates from the Digital Activity API occur under the following conditions:
+
+  * `POST` events whose system decision is `approve`.
+
+  * `PUT` events regardless of the system decision.
+
+caution
+
+To amend information, you need to resend the entire entity data (i.e. populate all the `new_*` fields). If you want to update pieces of information instead of updating the entire entity, use the Reference Data API with the PATCH method. Refer to the [Reference Data Operations](/tfrb/latest/docs/common/tfrb/life-cycles/reference-data/reference-data-life-cycle#reference-data-operations) section to understand the difference between these methods.
+
+
+
+
+## Learn moreâ
+
+Read the [Profile Update Endpoint](/tfrb/latest/docs/common/tfrb/life-cycles/digital-activity/profile-update) page to continue learning about the endpoints' life cycles.

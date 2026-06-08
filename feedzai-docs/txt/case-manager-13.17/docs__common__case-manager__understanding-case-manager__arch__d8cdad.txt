@@ -1,0 +1,58 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/pulse-gets-feedback-from
+Title: Pulse Gets Feedback from Case Manager | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Architecture](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/architecture/architecture-overview)
+  * Pulse Gets Feedback from Case Manager
+
+
+
+On this page
+
+# Pulse Gets Feedback from Case Manager
+
+Once an event is reviewed in Case Manager, the information you assign to it (the actions you take on it) is sent to Pulse as feedback. This closes the feedback loop and helps improving Pulse's machine-learning models, building a more effective fraud-prevention application.
+
+In order to be a completely functional system, the information in Case Manager is sent to Pulse via HTTP in order to improve its machine learning models. Every action taken in Case Manager is taken into account as feedback in Pulse. As fraud outcomes within Pulse and Case Manager coexist, the sending of manually set outcomes to Pulse allows the refinement of Pulse's performance. The feedback holds information regarding the type, timestamp and the outcome of a given status change. Additionally, it is possible to add other properties that might be useful for the enhancement of the machine learning models. Currently, the additional property supported is the **status reasons** of a given event status change. A payload snippet of how the feedback information is sent from Case Manager to Pulse can be seen below.
+
+caution
+
+The status reasons sent to Pulse are the ones whose status have the **same outcome** in Case Manager. If the status reasons of an event status change (feedback update) do not have the same outcome, the status reasons will be empty.
+    
+    
+    {  
+      ...  
+      
+        {  
+          "reportInstant": 1702658766927,  
+          "metadata": {  
+            "statusReasons": [  
+              "java.util.ArrayList",  
+              [  
+                {  
+                  "id": "B84D2F01-D61D-4033-B922-64AAFFCF4583",  
+                  "statusId": "accept",  
+                  "name": "Educated Guess"  
+                },  
+                {  
+                  "id": "0D3A5BA3-682B-42B8-B550-7E234D522983",  
+                  "statusId": "accept",  
+                  "name": "Ordered previously"  
+                }  
+              ]  
+            ]  
+          },  
+          "realOutcome": "true",  
+          "@type": "bincla"  
+        }  
+      
+      ...  
+    }  
+    
+
+In summary, every time an alert is marked as `fraud` or `not fraud`, Pulse will be notified through its REST API.
+
+## Learn Moreâ
+
+Now that you know everything about Case Manager'sÂ **Architecture** , continue by learning about itsÂ [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview).

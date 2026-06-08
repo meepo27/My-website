@@ -1,0 +1,40 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/lists
+Title: Lists | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Core Concepts](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/core-concepts-overview)
+  * Lists
+
+
+
+On this page
+
+# Lists
+
+Analyst can manage lists in a truly self-service way, being able to tune the system to their ongoing needs without needing specialised assistance from delivery. Thanks to **Lists Management** , users can make a better use of the lists created in Pulse, administering the entities added to them.
+
+Lists are useful containers that allow [Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules)Â to check the same pattern against a large number of values. They are also useful in order toÂ define which transactions have common parameters that should be up for review. By being able to manage lists in Case Manager, analysts can now improve their efficiency, as they can carry tasks such as:
+
+  * Temporarily whitelist a user to enable a transaction in Case Manager.
+  * Maintain multiple lists to automatically handle events in different ways.
+  * Add entities to any complex or simple list in with a validation period, and a note.
+  * Accurately register the user who performed any changes to the entities inside a list - adding or updating;
+
+
+
+Additionally, customers want to be able to track who created/updated the lists or the reason for entity to be whitelisted/blacklisted, so that each action in list management can be properly audited.
+
+By adding entities to lists, users have an easy-to-control feature that allows them to remove friction and expand the possibilities already existing in Pulse, making Case Manager a better fraud-fighting solution. List management provide a quicker way of making decisions, granting users more flexibility by working with lists without the need of support.Â Users can also use the decision scorecard with validity and notes, as well as search by entity. Also, users can add entities to any available list.
+
+All these actions are performed in the new lists page, a centralized place in which users can work with all list-related actions.Â 
+
+## Learn Moreâ
+
+To understandÂ ListsÂ better, check the following pages:
+
+  * [Pulse Rules](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/rules): Learn how Rules work in Pulse.
+  * [Lists](https://cam.feedzai.com/pulse/25.0/docs/common/pulse/understanding-pulse/core-concepts/lists): Learn how Lists work in Pulse.
+  * [Managing Lists](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/managing-lists): Learn how to add, edit and remove entities inÂ Block/Allow Lists.
+
+

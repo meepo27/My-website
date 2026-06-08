@@ -1,0 +1,51 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/installation-guide/data-extraction-pipelines/ansible-dep
+Title: Installing Data Extraction Pipelines with Ansible | Feedzai Documentation
+============================================================
+
+On this page
+
+# Installing Data Extraction Pipelines with Ansible
+
+## Data Extraction Pipelinesâ
+
+The Feedzai Ansible Toolkit refers to a series of Ansible Playbooks created by Feedzai to automate the data extraction pipelines installation and manage configurations across multiple environments.
+
+### Requirementsâ
+
+  * All servers hostnames must resolve their own IP's.
+  * The servers should be able to resolve each others hostnames, please update the /etc/hosts file if necessary, or use a DNS service.
+  * Use ping to ensure to confirm that each server is able to ping other servers.
+  * A Linux-based Node (preferably dedicated to this task), with a deployment user configured. The node must have Python3 for running Ansible.
+  * A deployment user on each server with superuser (sudo) permissions (some deployment steps include installing system services, and changing ownership of folders).
+
+
+
+### Data Extraction Pipelines Installationâ
+
+To install a the data extraction pipelines component, execute the following command:
+    
+    
+    python3 ansible-playbook \  
+        --connection=local \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i gcp \  
+        logstash.yml \  
+        --tags external-notification-exporter.install  
+    
+
+Copy
+
+To configure data extraction pipelines component for a given `<env>` (e.g.: `dev`, `qa`, `prod` ...):
+    
+    
+    python3 ansible-playbook \  
+        --connection=local \  
+        -i project-default \  
+        -i project-hsbc \  
+        -i project-<env> \  
+        logstash.yml \  
+        --tags external-notification-exporter.configure  
+    
+
+Copy

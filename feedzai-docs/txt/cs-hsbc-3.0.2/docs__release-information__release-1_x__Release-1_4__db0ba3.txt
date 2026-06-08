@@ -1,0 +1,252 @@
+Source: https://cam.feedzai.com/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.4
+Title: Release 1.4 | Feedzai Documentation
+============================================================
+
+On this page
+
+# What's Changed
+
+## Release `1.4.1`â
+
+### Fix Rules Triggered widget not showing in Case Manager for events with lifecycle_id length higher than 40 charactersâ
+
+Bug Fix
+
+Events sent with a `lifecycle_id` with more than 40 characters were showing an empty Rules Triggered widget in Case Manager due to a database limitation.
+
+This issue was addressed and events will now show all rules that were triggered.
+
+### Fix Feedback historic eventsâ
+
+Bug Fix
+
+Transfers feedback events were being marked as historical based on a wrong configuration (`*.transfers.event.timestamp.slack.past`).
+
+This is now fixed and feedback events will be marked as historical based on `*.transfers.event.timestamp.slack.historic`.
+
+## Release `1.4.0`â
+
+### ETL documentation improvementsâ
+
+Rework
+
+A few additional documents are now available in Feedzai documentation:
+
+  1. [ETL process from Pulse RealTime (RT) to DataScience Environment (DSE)](/cs-hsbc/3.0.2/docs/installation-guide/etl/etl-pulse-rt-to-dse)
+  2. [Top Metrics ETL](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-etl)
+  3. [ETL Recovery Procedure](/cs-hsbc/3.0.2/docs/operations-guide/recovery-procedures/etl-recovery-procedure)
+
+
+
+Additionally, we've updated [ETL Configurations](/cs-hsbc/3.0.2/docs/installation-guide/etl/etl-pulse-rt-to-dse) and [Collect Metrics](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/collect-metrics) now details how to collect the ETL metrics.
+
+### FIV Markersâ
+
+Feature
+
+Support for FIV Markers is now available.
+
+See full context in [Concepts | FIV Markers](/cs-hsbc/3.0.2/docs/concepts/fiv-markers) and [Custom UDFs | FIV Markers](/cs-hsbc/3.0.2/docs/pulse/custom-udfs#fivmarkers) to understand how they can be used in Pulse Rules.
+
+### Analyst lists configurationâ
+
+Feature
+
+We've added 8 new lists to Pulse, namely:
+
+  * UK Payments_Hot Beneficiary Sort Code and Account Numbers
+  * UK Payments_Vulnerable Customer List
+  * UK Payments_Hot Customer ID
+  * UK Payments_Crypto Beneficiary Name
+  * UK Payments_Crypto Payment Reference
+  * UK Payments_Low Risk Sort Code
+  * UK Payments_Low Risk Account
+  * UK Payments_Ex Jade Customers
+
+
+
+These lists were also added to Case Manager, and can be consulted in the Lists Management.
+
+Each one of them was mapped to a schema field, the mapping is as shown in the following table:
+
+List name| CM field| CM schema field  
+---|---|---  
+UK Payments_Hot Beneficiary Sort Code and Account Numbers| Bene Account Number| rcv_transact_bank_acc_number  
+UK Payments_Vulnerable Customer List| Customer ID| customer_id  
+UK Payments_Hot Customer ID| Customer ID| customer_id  
+UK Payments_Crypto Beneficiary Name| Beneficiary Details - Name| rcv_name  
+UK Payments_Crypto Payment Reference| Transaction Notes| text_for_receiver  
+UK Payments_Low Risk Sort Code| Bank Identifier Code| receiver_bank_bic  
+UK Payments_Low Risk Account| Bene Account Number| rcv_transact_bank_acc_number  
+UK Payments_Ex Jade Customers| Customer ID| customer_id  
+  
+All the OOB lists in Case Manager for **transfers** were removed.
+
+The Update Lists` screen for transfers in Case Manager was also edited. As of now, there are two entities available to be configured:
+
+  * `Customer ID`, mapped to `UK Payments_Hot Customer ID` (should be removed ahead, configured due to a CM limitation)
+  * `Beneficiary Account`, mapped to `UK Payments_Hot Beneficiary Sort Code and Account Numbers`
+
+
+
+As requested, we kept the OOB lists configured on CM for **Digital Activity**.
+
+### Field Mapping changes in Case Managerâ
+
+Rework
+
+We have implemented the requested field mapping changes in Case Manager. Please refer to the table below for a list of the applied changes.
+
+Field| Field| Old mapping| New Mapping| Required Transformation  
+---|---|---|---|---  
+Transfers- Originator Account Details| Account Type| sender_bank_type| sender_account_type| Yes  
+Transfers - Originator Details| Phone Number| sender_phone| customer_mobile_phone| No  
+Transaction History All Channels| Customer Phone Number| customer_phone| customer_mobile_phone| No  
+Alert Search Page| Customer Phone Number| customer_phone| customer_mobile_phone| No  
+Search Screen Results + Search Filters| Customer Phone Number| customer_phone| customer_mobile_phone| No  
+Transfers - Originator Details| Phone Number Last Changed| sender_phone_chg_date| customer_mbphone_last_update_at| No  
+Transfers - Originator Details| Email Address| sender_email| customer_email| No  
+Digital Activity - Event Summary| Adding Lifecycle ID| NA| lifecycle_id| No  
+Transfers - Transaction| Event Date| created_at| event_occurred_at| No  
+Transfers - Transaction| Payment Date| event_occurred_at| created_at| No  
+  
+### Feedzai Platform Upgradesâ
+
+Feature
+
+We've upgraded to Pulse 25.0.19.
+
+### Fix a Bug with SLAs not skipping weekendsâ
+
+Bug Fix
+
+With the Case Manager upgrade to version 13.10.2, we have successfully resolved an issue related to certain SLAs inappropriately triggering during weekends. This bug fix ensures that SLAs now accurately skip weekends as intended.
+
+### Fix Payment Fulfillment extensionâ
+
+Bug Fix
+
+We've identified issues when using the Payment fulfillment extension in the following scenarios:
+
+  1. When a user without admin permissions marks an event as Fraud/Not Fraud
+  2. When an event is marked as Fraud/Not Fraud via the Feedback API
+
+
+
+The first issue was due to the missing permission `cm:state-machine:event:read:decision`, which was added to Pulse and to the following roles:
+
+  * developer
+  * Fraud Prevention Agents - L1
+  * Fraud Prevention Agents - L2
+  * Fraud Prevention Manager
+  * Fraud Strategist
+  * Fraud Strategist Manager
+  * Monitoring and Auditing
+
+
+
+**Note:** any other role that was not created by the installation should be manually updated.
+
+The second issue was addressed in the extension implementation.
+
+### Optimize Alert and Search Pagesâ
+
+Rework
+
+Alert and Search pages were taking several seconds to load due to event enrichment.
+
+We've optimize enrichment and these pages should load significantly faster.
+
+### Deprecate custom extensions to set reason in Case Manager Automation Rules & SLAsâ
+
+Rework
+
+With the upgrade to Case Manager 13.10.0, Automation Rules & SLAs that set a specific status can now also set the respective reason.
+
+With this, the the following Custom Extensions have been deprecated:
+
+  * `Set Reason | Payment Reversal as Unable to contact - Decline`
+  * `Set Reason | Customer Confirmed Fraud via Mobile Messaging (2 WAY)`
+  * `Set Reason | Customer Confirmed Genuine via Mobile Messaging (2 WAY)`
+  * `Set Reason | Payment Reversal Crypto Limit Reached - Decline`
+
+
+
+##### warning
+
+Migration has to be done manually.
+
+As of now we've kept the functionality as is such that existing Automation Rules keep working as before.
+
+The custom extensions will be removed in the next release.
+
+### New Customers' Reference Data API fieldsâ
+
+Feature
+
+We've added the following fields to Customer Reference Data API :
+
+  * customer_pb_marker
+  * customer_portfolio_segment
+  * customer_voice_id
+  * customer_voice_id_last_change_date
+
+
+
+The available fields can be consulted in the API documentation: [Reference Data](/cs-hsbc/3.0.2/api#tag/referencedata/operation/addCustomersReferenceData).
+
+### Logstash pipelines recovery toolâ
+
+Feature
+
+We've created a recovery tool for the Logstash pipelines.
+
+This allows the re-execution of the `pulse-workflow-audit` pipeline when an error occurs and the data is not exported to the GCP bucket.
+
+Further documentation on this tool can be found here: [Logstash Recovery Tool](/cs-hsbc/3.0.2/docs/installation-guide/logstash-recovery-tool/logstash-audit-pipeline-recovery-tool).
+
+### Update Reference Data authentication tokenâ
+
+Bug Fix
+
+We have noticed a high number of log entries since the existing Reference Data token was missing the expiration date property.
+
+This property, set to expire in 2030, was added and a new token was generated. There's an ongoing effort to revamp authentication across all Feedzai components which is expected to be finished before this expiration date.
+
+### Update documentation so that Artifacts are displayed as a table instead of a list.â
+
+Rework
+
+This approach not only is more readable but also allows for potential future extensions (in new columns).
+
+### Include missing Digital Activity fields in CM Data Extractâ
+
+Bug Fix
+
+We have detected that `lifecycle_id` and `event_type` fields from Digital Activity events were not being sent in the notifications payload.
+
+The missing fields were added to Case Manager external notifications payload.
+
+### Labeling modifications for customer_portfolio_class in ARs and SLAsâ
+
+Rework
+
+We have made refinements to the labeling of customer_portfolio_class. From now, it will be identified as Customer Portfolio Class within Automation Rules and SLAs.
+
+However, we have retained the designation Segment for the Event Details page.
+
+### Empty Application for DSE Environmentsâ
+
+Feature
+
+We have added an artifact with an empty application for DSE. This application can be imported in DSE environments so that models exported from DSE can be imported via App Collaboration in Pulse Runtime without manually editing the exported files.
+
+The application can be found in the [Artifacts](/cs-hsbc/3.0.2/docs/installation-guide/overview) page.
+
+### Optimize Custom Alert Storage Serviceâ
+
+Rework
+
+We've changed the Custom Alert Storage Service developed in [Add PIB suspension indicator](/cs-hsbc/3.0.2/docs/release-information/release-1.x/Release-1.2#add-pib-suspension-indicator) to validate the additional fields that are present in the workflow schema during creation. With this change logs will have a single entry if any additional field is missing from the workflow schema instead of a log entry per event.
+
+We've also added a new metric with the count of missing fields. Metric definition can be viewed in [Custom Alert Storage Service Additional Fields](/cs-hsbc/3.0.2/docs/operations-guide/monitoring/top-metrics-pulse#custom-alert-storage-service-additional-fields).

@@ -1,0 +1,13 @@
+Source: https://cam.feedzai.com/cs-hsbc-rma/0.2.0/docs/installation-guide/database/database-setup
+Title: Database Setup | Feedzai RMA Documentation
+============================================================
+
+# Database Setup
+
+Welcome to the Database Setup Guide.
+
+In this section you will find information about the Retention scripts:
+
+  * [Retention scripts](/cs-hsbc-rma/0.2.0/docs/installation-guide/database/retention-scripts)
+
+

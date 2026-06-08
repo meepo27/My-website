@@ -1,0 +1,113 @@
+Source: https://cam.feedzai.com/tfrb/latest/docs/common/tfrb/analytics-dashboards/psd2
+Title: PSD2 | Transaction Fraud for Banking
+============================================================
+
+  * [](/tfrb/latest/)
+  * [Operational Work](/tfrb/latest/docs/common/tfrb/operational-work/overview)
+  * [Fraud Prevention Manager](/tfrb/latest/docs/common/tfrb/user-guides-manager)
+  * [Analytics Dashboards](/tfrb/latest/docs/common/tfrb/analytics-dashboards/overview)
+  * PSD2
+
+
+
+On this page
+
+# PSD2
+
+Was this page helpful?Â 
+
+The PSD2 dashboard allows business analysts to monitor data in real time, act upon alerts, and share the results with the competent authorities such as PSD2 regulators. This dashboard presents information that allows issuer banks to comply with the PSD2 mandate, Article 21 (download the [compliance matrix](/tfrb/latest/compliance-matrix.pdf) document to learn more about this article).
+
+This dashboard offers:
+
+  * Metrics associated with the total of unauthorized or fraudulent payments and the resulting fraud rate.
+  * Breakdown of transactions initiated through SCA and each of the PSD exemptions.
+  * Filters to select remote versus non-remote, and electronically versus non-electronically initiated payments.
+
+
+
+## Use filtersâ
+
+Use filters to focus on specific subsets of data, refine your analysis, and extract more meaningful insights. See the available filters below.
+
+### Search barâ
+
+The search bar allows you to filter by creating queries.
+
+Confirm which [fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) you can use to create queries for the outputs you need.
+
+### Add filtersâ
+
+The **Add filter** option allows you to filter your analysis using conditions.
+
+  1. By default, Kibana automatically selects the index pattern containing data relevant to the dashboard you are analyzing. An [index pattern](https://www.elastic.co/guide/en/kibana/7.17/index-patterns.html) selects the data to use and allows you to define properties of fields.
+  2. Add the [fields](/tfrb/latest/docs/common/tfrb/analytics-dashboards/analytics-fields) you want to use to refine your analysis.
+  3. Select the operator for the condition you're working on (e.g. `is`, `is not`, `is one of`).
+  4. A **Value** field appears after selecting the operator. Enter a value to finalize the creation of your condition.
+
+
+
+### Date rangesâ
+
+Use the **Calendar** icon to select the date range you are looking for.
+
+Select one of the following options:
+
+  * **Quick select** : Shows the "last" or "next" results, considering "now" as the default end or start date, respectively.
+  * **Commonly used** : Shows the most common used date ranges (e.g. today, this week).
+  * **Recently used date ranges** : Shows the most recently used date ranges.
+  * **Refresh every** : Lets you refresh dashboards dynamically. For instance, if you set your start or end date as "now", you can use this option to dynamically apply the changes to reflect the present moment every x number of seconds, minutes, or hours.
+
+
+
+caution
+
+Note that setting the date as "now" or configuring the dashboards to show the "next" results will not refresh the dashboards automatically. To enable this automation, use the **Refresh every** option.
+
+### Other filtersâ
+
+  * **Initiation**
+  * **Authentication**
+  * **Authorization**
+  * **Exemption**
+  * **Payment instrument**
+  * **Type**
+  * **Channel**
+
+
+
+## Data visualizationâ
+
+  * **Total Amount Processed:** The total financial amount (i.e. transaction amount) processed by the risk engine platform (Pulse).
+    * **Unauthorized/Fraudulent:** The financial amount of unauthorized transactions processed by the risk platform and transactions labeled as fraud by the Feedzai's client feedback.
+    * **Authorized:** The financial amount of authorized transactions.
+  * **Average Transaction Value:** The average transaction amount processed by the risk engine platform (Pulse).
+  * **Unauthorized/Fraudulent Avg:** The average amount for unauthorized transactions processed by the risk platform and transactions labeled as fraud by the Feedzai's client feedback.
+  * **Authorized Avg:** The average amount for authorized transactions.
+  * **Number of Transactions Processed:** The number of transactions processed by the risk engine platform (Pulse).
+  * **Unauthorized/Fraudulent:** The number of unauthorized transactions processed by the risk platform and transactions labeled as fraud by the Feedzai's client feedback.
+  * **Authorized:** The number of authorized transactions.
+
+
+
+* * *
+
+This chart shows data associated with authentication for both amounts and number of transactions:
+
+  * **Total amount(s) breakdown by authentication:**
+    * The graph bar represents the aggregated financial amount of non-authorized transactions and transactions that required SCA in a given period.
+    * The line graph represents the trend of the absolute financial amount of non-authorized transactions and transactions that required SCA.
+  * **Number of transactions breakdown by authentication:**
+    * The graph bar represents the aggregated number of non-authorized transactions and transactions that required SCA in a given period.
+    * The line graph represents the trend of the absolute number of non-authorized transactions and transactions that required SCA calculated.
+
+
+
+* * *
+
+These charts show data associated with the exemptions specified in the PSD mandate, Chapter 3 (download the [compliance matrix](/tfrb/latest/compliance-matrix.pdf) document to learn more about this chapter).
+
+  * **Total amount breakdown by exemption article:** The total financial amount of transactions that exempted SCA per article.
+  * **Number of transactions breakdown by exemption article:** The number of transactions that exempted SCA per article.
+
+

@@ -1,0 +1,173 @@
+Source: https://cam.feedzai.com/ds-studio-ds-api/25.0/reference/models/random_forest/
+Title: random_forest - DS API
+============================================================
+
+#  `` random_forest Â¶  
+  
+##  `` RandomForestConfig Â¶
+    
+    
+    RandomForestConfig(num_trees: int = 100, max_depth: int = 20, split_criteria: str = 'One vs others', min_instance_split: int = 2, in_bag: float = 0.65, features_per_split: int = 0, undersampling: float | None = None, oversampling: float | None = None, seed: int | None = None, ignored_fields: set[str] | None = None, schema: [Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)") | None = None)
+    
+
+Bases: `[TrainingConfig](../#ds_api.models.TrainingConfig "            TrainingConfig \(ds_api.models.TrainingConfig\)")`
+
+The Feedzai Random Forest configuration object used for model training.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+###  `num_trees` Â¶
+
+|  `int` |  The number of trees, defaults to 100. |  `100`  
+  
+###  `max_depth` Â¶
+
+|  `int` |  The depth of each tree, defaults to 20. |  `20`  
+  
+###  `split_criteria` Â¶
+
+|  `str` |  Split criteria for categorical values, can be "All vs all", or "One vs others". Defaults to "One vs others". |  `'One vs others'`  
+  
+###  `min_instance_split` Â¶
+
+|  `int` |  The minimum number of split instances, defaults to 2. |  `2`  
+  
+###  `in_bag` Â¶
+
+|  `float` |  The ratio used for sampling data into the training, defaults to 0.65. |  `0.65`  
+  
+###  `features_per_split` Â¶
+
+|  `int` |  The number of features per split, defaults to 0 which represents sqrt(N). |  `0`  
+  
+###  `undersampling` Â¶
+
+|  `float` |  The value for undersampling. Only this or oversampling can be used. |  `None`  
+  
+###  `oversampling` Â¶
+
+|  `float` |  The value for oversampling. Only this or undersampling can be used. |  `None`  
+  
+###  `seed` Â¶
+
+|  `int` |  The seed value. |  `None`  
+  
+###  `ignored_fields` Â¶
+
+|  `set of str` |  Set of names corresponding to the fields to be ignored when training a model. |  `None`  
+  
+###  `schema` Â¶
+
+|  `[Schema](../../schema/#ds_api.schema.Schema "            Schema \(ds_api.schema.Schema\)")` |  Pass a schema to enable conversion between descs and internal names. By not passing a schema, ds-api will assume field names are references to internal Pulse names, not the ones in the UI. |  `None`  
+  
+Examples:
+    
+    
+    >>> model_config = RandomForestConfig(
+    ...     num_trees=200,
+    ...     in_bag=0.5,
+    ...     undersampling=0.98
+    ... )
+    >>> model_config.num_trees # gets the num_trees: 200
+    >>> model_config.num_trees = 100 # sets the num_trees to 100
+    >>> model = model_project.train(
+    ...     "model_name",
+    ...     datasource,
+    ...     "target_field",
+    ...     model_config
+    ... )
+    >>> model.waitUntilModelTrained()
+    >>> config_from_model = model.get_config()
+    
+
+###  `` features_per_split `property` `writable` Â¶
+    
+    
+    features_per_split
+    
+
+###  `` ignored_fields `property` `writable` Â¶
+    
+    
+    ignored_fields
+    
+
+###  `` in_bag `property` `writable` Â¶
+    
+    
+    in_bag
+    
+
+###  `` max_depth `property` `writable` Â¶
+    
+    
+    max_depth
+    
+
+###  `` min_instance_split `property` `writable` Â¶
+    
+    
+    min_instance_split
+    
+
+###  `` num_trees `property` `writable` Â¶
+    
+    
+    num_trees
+    
+
+###  `` oversampling `property` `writable` Â¶
+    
+    
+    oversampling
+    
+
+###  `` seed `property` `writable` Â¶
+    
+    
+    seed
+    
+
+###  `` split_criteria `property` `writable` Â¶
+    
+    
+    split_criteria
+    
+
+###  `` subclasses `class-attribute` `instance-attribute` Â¶
+    
+    
+    subclasses: List[[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")] = []
+    
+
+###  `` undersampling `property` `writable` Â¶
+    
+    
+    undersampling
+    
+
+###  `` auto_cast `staticmethod` Â¶
+    
+    
+    auto_cast(config: [JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")) -> RandomForestConfig
+    
+
+Creates a RandomForestConfig from the java object.
+
+Parameters:
+
+Name | Type | Description | Default  
+---|---|---|---  
+  
+####  `config` Â¶
+
+|  `[JavaWrapper](../../java_wrapper/#ds_api.java_wrapper.JavaWrapper "            JavaWrapper \(ds_api.java_wrapper.JavaWrapper\)")` |  Java configuration object. |  _required_  
+  
+Returns:
+
+Type | Description  
+---|---  
+`RandomForestConfig` |  Configuration object according to its python representation.

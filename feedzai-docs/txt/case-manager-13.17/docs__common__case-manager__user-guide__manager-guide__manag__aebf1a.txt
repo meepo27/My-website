@@ -1,0 +1,93 @@
+Source: https://cam.feedzai.com/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/managing-cases
+Title: Manage Cases | Case Manager
+============================================================
+
+  * [](/case-manager/13.17/)
+  * [Manager Guide](/case-manager/13.17/docs/common/case-manager/user-guide/manager-guide/manager-guide-overview)
+  * Manage Workload
+  * Manage Cases
+
+
+
+On this page
+
+# Manage Cases
+
+Cases allow you to group events when there is a common element that suggests a connection between them. This allows you to save time in your investigation and have a more organized and better-structured action-taking process.
+
+info
+
+The **Channel** information explained on this page is only visible if the product is configured as [Omnichannel](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/omnichannel).
+
+## View Casesâ
+
+Access the **Cases** page using the main menu.
+
+Select a case from the list to access the respective [case details page](/case-manager/13.17/docs/common/case-manager/user-guide/analyst-guide/investigating-cases/reviewing-cases).
+
+## Filter Cases Listâ
+
+Use filters to refine the cases displayed on the list. This could be helpful, for example, to view all cases linked to a specific queue.
+
+  * **All Channels** : Lists cases from multiple channels or from a specific channel. _For example, Open Banking_.
+  * **Type** : Lists only cases from the selected type: _AML_ or _Fraud_.
+  * **Source** : Lists only cases from the selected source. For example, _Legal request_.
+  * **Tenants** : Lists only cases from the selected tenant. For example: McDonalds.
+  * **Queues** : Lists only cases from the selected queue. For example, _Urgent_.
+  * **No. of cases per page:** Lists only the selected number of cases per page.
+
+
+
+## Create Casesâ
+
+info
+
+When creating or editing cases, the available case fields may differ depending on your specific configuration.
+
+Create cases to group related events and structure the workload in a more comfortable and organized manner:
+
+  1. Select the **New Case** button.
+  2. Complete the fields with the information that best describes the new case.
+
+     * **Name** : Cases's name (e.g. "Suspicious Customer")
+     * **Description** : Brief description of the cases's purpose (e.g. "All alerts from a suspicious customer.").
+     * **Type** : When using a FRAML (Fraud and AML) configuration, this classification simplifies case distribution between _Fraud_ and _AML_ teams.
+     * **Source** : Specifying the source of the case helps to better categorize and manage the cases being investigated. For example, _Legal request_.
+     * **Tenants** : Ensures that only events from the selected tenant are added to the case. In addition, it ensures that the case details are only visible to users with permissions to view that specific tenant.
+     * **Link events from** : This option allows users to configure which events can be linked to the case, according to the event channel. This way, it's possible to segregate cases depending on the analyst's permissions. Imagine that you have events from three different channels: debit cards, online banking and mobile banking. In addition, you have four different teams: three teams to investigate events from specific channels, and one team to investigate money laundering events. With this option, you can:
+
+       * Create a multichannel case for events from **Multiple channels** so that analysts can gather evidence from all channels where a customer has operated.
+       * Create a single channel case for events from a **Single Channel** so that analysts can only work on events from one specific channel.
+     * **Queue** : Adding cases to queues allows to store and segregate cases according to the criteria that best fit your needs.
+     * **Custom Fields**
+  
+
+  3. **Create** the case.
+
+
+
+## Edit Casesâ
+
+info
+
+When creating or editing cases, the available case fields may differ depending on your specific configuration.
+
+Edit cases and adjust their parameters to better suit your needs:
+
+  1. In the case list, hover over the case that you want to edit and select to **Edit** .
+
+
+
+  2. Edit the **Name,** **Description** and **Source** fields. The **Type** , **Tenant** , **Channel,** and **Queue** fields are not editable. Besides the **Name** and **Description** fields, the **Edit Case** page only shows the fields that were selected when the case was created. For example, if the case was created without a queue, then the **Queue** field is not displayed on the **Edit Case** page.
+
+
+  3. Edit the **Custom Fields**.
+
+
+  4. **Save** the changes.
+
+
+
+## Learn Moreâ
+
+Learn more about [Cases](/case-manager/13.17/docs/common/case-manager/understanding-case-manager/core-concepts/cases) and how they work.
